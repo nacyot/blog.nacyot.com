@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-14T06:55:58+00:00</updated>
+    <updated>2014-01-14T09:15:50+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -154,7 +154,7 @@ To git@github.com:nacyot/pull-request.git
 
 &lt;p&gt;&lt;code&gt;git browse&lt;/code&gt; 명령어도 hub 확장으로 현재 디렉토리에 위치한 git 저장소의 원격 저장소를 근거로 Github 페이지를 찾아 바로 웹브라우져를 열어줍니다. 이 명령어를 통해서 따로 웹브라우져를 실행시키지 않더라도 저장소의 Github 페이지를 바로 확인할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="repository" src="images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="repository" src="../../images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 pull-request 브랜치를 만들고 실제로 풀리퀘스트를 보내보도록 하겠습니다.&lt;/p&gt;
 
@@ -189,7 +189,7 @@ $ git push origin pull-request
 
 &lt;p&gt;풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="pull-request" src="images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pull-request" src="../../images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git pull-request&lt;/code&gt; 명령어는 아래와 같이 좀 더 명시적으로 사용할 수도 있습니다.&lt;/p&gt;
 
@@ -209,7 +209,7 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-23T15:00:00Z</published>
-    <updated>2014-01-14T06:55:58+00:00</updated>
+    <updated>2014-01-14T09:15:50+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>

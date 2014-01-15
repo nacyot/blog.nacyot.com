@@ -5,16 +5,62 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2013-12-29T06:31:32Z</updated>
+  <updated>2014-01-04T15:00:00Z</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>정적 웹사이트 생성기의 유혹</title>
+    <link rel="alternate" href="http://blog.url.com/articles/2013-01-15-static-site-generator/"/>
+    <id>http://blog.url.com/articles/2013-01-15-static-site-generator/</id>
+    <published>2014-01-04T15:00:00Z</published>
+    <updated>2014-01-15T12:09:24+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;개인적으로 요새 화두인 주제가 바로 정적 웹사이트 생성기입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만 여기에 대해서는 약간 배경에 대해서 이해할 필요가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;분명히 &lt;strong&gt;정적&lt;/strong&gt;이라는 단어는 그 동안에 웹 어플리케이션이 발전해 온 데 있어서 정반대의 위치에 있는 단어입니다. &lt;strong&gt;정적&lt;/strong&gt;인 페이지란 말그대로 이미 완성된 HTML이고, 클라이언트의 요청을 받는 서버의 역할은 단순히 이렇게 완성되어 있는 HTML을 보내주는 역할을 할 뿐입니다. 이러한 모델은 우편부를 통해서 비유하기에 아주 적절합니다. 그렇다면 웹이 &lt;strong&gt;동적&lt;/strong&gt;으로 발전해왔다는 건 어떤 걸 의미할까요? 여기서 &lt;strong&gt;동적&lt;/strong&gt;이란 화려한 시각적 효과나 움직임을 지칭하는 단어가 아닙니다. 좀 더 정확히 말하자면 HTML 페이지를 클라이언트의 요청에 따라서 실시간으로 생성해서 보내준다는 의미를 가지고 있습니다. 그래서 이러한 웹 어플리케이션을 배울 때 가장 먼저 나오는 가장 간단한 예는 항상 이름을 받고서 이름을 출력해주는 예제입니다. 즉 서버는 완성된 HTML을 가지고 있지 않습니다. 거의 완성되어있거나, 심지어는 아무것도 없이도 요청에 따라 실시간으로 완성된 문서를 다시 보내줍니다. 즉, 여기서 서버란 웹서버 어플리케이션과 웹 어플리케이션을 함께 이야기합니다.&lt;/p&gt;
+
+&lt;p&gt;하지만 본질적인 부분을 다시 생각해볼 필요가 있습니다. 정말로 &lt;strong&gt;동적&lt;/strong&gt;인 웹페이지란 필요한 걸까요? 단언컨데, 네 필요합니다. 질문을 바꿀 필요가 있습니다. 모든 경우에 정말로 &lt;strong&gt;동적&lt;/strong&gt;인 웹페이지가 필요한 걸까요? 여기에 &lt;strong&gt;모든 경우에&lt;/strong&gt;라는 수사를 통해서 저는 이도 저도 아닌 회색 영역을 만들었습니다. 네, 물론 아닙니다. 웹페이지 상에 동적으로 변해야하는 부분이 단 하나도 없다면, 완성된 HTML 형식으로 사이트를 공개해도 아무런 문제가 없습니다. 단지 우리는 21.1세기에 더 이상 그런 원시적인 웹 사이트는 거의 없다고 믿고 있을 뿐이죠.&lt;/p&gt;
+
+&lt;p&gt;사실 &lt;strong&gt;정적&lt;/strong&gt;이라는 건 &lt;strong&gt;나쁜 것&lt;/strong&gt;이 아닙니다. 오히려 &lt;strong&gt;동적&lt;/strong&gt; 방식이야 말로 실시간으로 &lt;strong&gt;사이트를 생성&lt;/strong&gt;하는 데서 오는 굉장히 큰 비용을 감당해야합니다. 바로 이런 이유 때문에 &lt;strong&gt;어떤 프레임워크&lt;/strong&gt;를 사용할 것인가, &lt;strong&gt;어떤 언어&lt;/strong&gt;를 사용할 것인가 하는 게 굉장히 중요한 문제입니다. 제가 사랑해마지 않는 루비조차도 바로 이런 이유(즉 상대적으로 느리기 때문에!)로 언젠가 서비스가 커지면 갈아치워야할 프로토타입용이라고 생각되는 경우가 굉장히 많습니다. 물론 대부분의 서비스는 그 단계까지도 가지도 못 하고 프로토타입만 서비스하다  망합니다만....&lt;/p&gt;
+
+&lt;p&gt;뭐, 그렇습니다.&lt;/p&gt;
+
+&lt;p&gt;단순히 서버 수준의 스케일링까지 고려를 하지 않더라도 동적으로 웹페이지를 생성하는 일은 굉장히 느립니다. 이는 만들어져있는 즉석식품과와 주문 받으면 음식을 조리하는 방식의 차이입니다. 정적이 전자라면, 동적은 후자입니다. 당연히 느립니다. 그 차이가 비록 와닿지 않을 정도라고 하더라도 분명히 느리며, 또한 이러한 차이를 극복하기 위해 실제 웹서비스들에서는 캐시를 사용해 마치 자신이 정적 웹 페이지인 것 마냥 작동합니다. 캐시가 가능한 이유는 웹 어플리케이션의 많은 부분이 &lt;strong&gt;사실은&lt;/strong&gt; 정적이기 때문입니다. 즉, 요청마다 다르게 보여주는 부분은 실제로는 그렇게 많지 않다는 이야기입니다.&lt;/p&gt;
+
+&lt;p&gt;정적인 자원은 다른 처리 비용을 발생시키지 않기 때문에 동적인 자원에 비해서 훨씬 더 빠릅니다. 그저 이미 만들어져있는 것을 보내주면 그만입니다. 앞에서 이야기했듯이 서버는 그저 우편부 역할을 할 뿐입니다. 여기서 오는 또 하나의 장점은 이렇게 미리 HTML 문서를 만들 경우 배포가 매우 쉽다는 점입니다. 어느 웹서버든 HTML은 serve할 수 있습니다. 복잡하게 어떤 언어를 쓰면 이렇게 하고 어떤 프레임워크를 써면 저렇게 하고 프록시 서버 써서 도메인 돌리고 그런 걸 고민할 필요가 없습니다. 싸구려 호스팅에 올려도 되고, 남는 서버에 올려도 되고, 아마존 S3에 올려도 되고, Github Pages로 배포할 수도 있습니다. 어플리케이션이 아니니 SQL injection 같은 보안 이슈도 없고요. 오오... 은근히 좋아보이네요. &lt;/p&gt;
+
+&lt;p&gt;하지만!&lt;/p&gt;
+
+&lt;p&gt;네, 이제, 웹 프레임워크는 다 버리고 HTML 하드 코딩하시면 되겠습니다.&lt;/p&gt;
+
+&lt;p&gt;바로 여기입니다. 당연히 HTML을 직접 작성해야하는 &lt;strong&gt;정적&lt;/strong&gt; 방식이 좋다고는 결코 말할 수 없습니다. 즉 &lt;code&gt;2 * 10 + 1 * 1 + 1 * 0.1&lt;/code&gt; 세기에 다시 주목받는 정적 웹사이트란, 단순히 HTML을 Serve 해준다는 의미에서의 웹사이트를 말하는 것이 아니라 거기서 한 층 더 나아가 웹사이트를 동적으로 생성하되, 정적으로 Serve 한다는 의미에서 정적 웹사이트 생성기가 되는 것입니다. 이는 프로그래밍에 있어서 &lt;strong&gt;컴파일&lt;/strong&gt;의 사전적인 의미에 좀 더 가까운 작업입니다. 실제로 미리 모든 것을 만들어둔다는 점에서는 프로그래밍의 컴파일 개념과도 비슷합니다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어보죠. 이러한 방식을 적용할 수 있는 정말 좋은 플랫폼이 &lt;strong&gt;블로그&lt;/strong&gt;입니다. 블로그는 시작부터 HTML 문서들을 좀 더 쉽게 배포하기 위한 &lt;strong&gt;동적&lt;/strong&gt;인 플랫폼으로 출발했거나, 그런 목적으로 개발되었습니다. 하지만 문서 기반의 모든 플랫폼은 본질적으로 &lt;strong&gt;내가 가진 문서를 얼마나 잘 보여줄 것인가&lt;/strong&gt; 하는 문제가 가장 중요한 문제입니다. 그런데 여기서 &lt;strong&gt;문서&lt;/strong&gt;란 &lt;strong&gt;정적&lt;/strong&gt;입니다. 그러나 문서를 지원하는 다양한 페이지들은 동적입니다. 이런 페이지에는 페이징, 카테고리, 태그, 날짜 기반 페이지, Feed가 있습니다. 그런데 여기서 동적이라는 b말의 시점을 잘 따져볼 필요가 있습니다. 웹페이지가 동적으로 생성된다는 의미는 웹페이지가 &lt;code&gt;request&lt;/code&gt;되는 시점에서 동적으로 &lt;code&gt;response&lt;/code&gt;를 생성한다는 의미입니다. 그런데 페이징, 카테고리, 태그, 날짜 기반 페이지, Feed와 같은 블로그의 핵심 기능들은 request를 요청하는 시점이 아니라, 블로그 운영자가 포스트를 올리는 시점에 &lt;strong&gt;동적&lt;/strong&gt;입니다. 즉, 이 시점을 제외하고는 항상 아무것도 변하지 않습니다. 같은 &lt;strong&gt;동적&lt;/strong&gt;이라고 말해도 실제로는 시점이 페이지가 완결되는 시점이 다르다는 점입니다. 물론 글을 쓴 시점에 &lt;code&gt;response&lt;/code&gt;가 완성된다는 의미는 아닙니다. 대부분의 웹 어플리케이션은 lazy하기 때문에 처음 &lt;code&gt;request&lt;/code&gt;가 들어오는 시점에 해당 페이지를 적절히 생성하고 캐시합니다. 중요한 건 실제로는 포스트를 올린 시점에 블로그의 모든 페이지가 정적으로 완결될 수 있다는 점입니다. 즉 블로그의 모든 페이지를 미리 생성할 수 있습니다. 이미 이러한 방식을 지원하는 툴들이 이미 존재합니다. Jekyll을 기반으로하는 Octopress를 사용한다면 바로 글을 쓰는 시점에 블로그에 포함되는 모든 페이지를 &lt;strong&gt;정적 페이지&lt;/strong&gt;, 바꿔말해 HTML 파일로 만들어 줍니다.&lt;/p&gt;
+
+&lt;p&gt;단, 여기에는 약간의 함정이 있습니다. 블로그에도 정말 적은 부분이지만 사용자의 요청이 발생하는 시점에서 실시간으로 동적으로 생성하고 반응해야하는 부분이 있습니다. 바로 댓글입니다. 이 부분은 따로 고민하지 않습니다. 그냥 댓글이 들어갈 부분에 &lt;a href="http://disqus.com/"&gt;Disqus&lt;/a&gt;를 삽입합니다.&lt;/p&gt;
+
+&lt;p&gt;이렇듯 의외로 블로그는 정적인 웹 플랫폼입니다. 근데 더 큰 함정이 있군요. 이렇게 만들면 블로그에 글은 어떻게 쓸까요? 다르게 말하면 블로그에서 가장 동적인 부분은 글을 작성하는 부분입니다. 이런 부분은 정적 블로그 생성기에서는 존재하지 않습니다. 여기서 모든 포스트는 그저 마크다운 파일일 뿐입니다. 또한 글이 작성된 시점이나 사이트에 기능이나 페이지가 더해진 시점을 일반적으로 Git 저장소에 push가 일어난 시점으로 판단합니다. 이런 부분은 일반인들이 이런 툴을 사용하기에 매우 프로그래머스럽습니다. 하지만 프로그래머들에게 이런 점은 다른 방향에서 자유를 선사합니다. 바로 블로그 글을 자신이 원하는 에디터로 작성 할 수 있다는 점입니다. 저는 지금 이 글을 제가 애용하는 에디터인 Emacs 위에서 작성하고 있습니다. 예전부터 블로그나 위키를 운영하면서 에디터 통합을 꿈꾸던 입장에서는 지금은 너무 쉽게 이런 접근이 가능합니다. 물론 또다른 방향에서 웹 편집기들은 발전하고 있습니다. &lt;a href="https://github.com/HackerWins/summernote"&gt;Summernote&lt;/a&gt;와 같은 부트스트랩 기반의 에디터도 있고 &lt;a href="http://ghost.org"&gt;Ghost&lt;/a&gt;와 같은 마크다운 프리뷰를 바로 보여주는 훌륭한 플랫폼도 있습니다. Mediawiki에는 웹문서에서 바로 편집을 하는 것 같은 경험을 제공하는 &lt;a href="http://www.mediawiki.org/wiki/VisualEditor"&gt;Visual Editor&lt;/a&gt; 같은 확장도 있습니다.[^1] 많은 훌륭한 시도들이 있습니다만 여전히 웹에서 글을 작성한다는 것은 전용 에디터에 비해서 매우 불만족스러운 일입니다. 반면에 마크다운 파일을 기반으로 하고 있다면 그저 텍스트 문서를 원하는 에디터에서 작성하면 그만입니다.&lt;/p&gt;
+
+&lt;p&gt;[^1]: http://www.mediawiki.org/wiki/VisualEditor 에서 직접 edit를 해보시기 바랍니다.&lt;/p&gt;
+
+&lt;p&gt;아시는 분은 아시겠지만! 이미 &lt;a href="http://github.com"&gt;Github&lt;/a&gt;을 적극 활용하는 많은 분들은 Github Pages와 Github에서 지원하는 루비 기반의 정적 웹페이지 생성기(이자 Github CEO가 만든)인 &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;을 적극 활용해서 블로그나 사이트를 운영하고 있습니다. 단순히 블로그에서만 사용할 수 있는 건 아닙니다. 이미 괜찮은 블로그 솔루션들이 마련되어 있기에 편하게 사용할 수 있는 것 뿐이지, 결과적으로 정적인 사이트라면 얼마든지 생성할 수 있습니다. 루비 커뮤니티에서 두 번째로 유명한 &lt;a href="http://middlemanapp.com/community/built-using-middleman/"&gt;Middleman으로 생성한 사례들&lt;/a&gt;도 매우 많습니다. 이 사이트도 Middleman으로 만들어졌고, 글을 작성하면 &lt;a href="https://travis-ci.org/"&gt;Travis&lt;/a&gt;를 통해 빌드하고, 다시 변경된 내용을 Github Repository에 반영해 Github Pages로 배포되고 있습니다. 이러한 활용 방법에 대해서는 다른 포스트에서 좀 더 자세히 다루겠습니다. 이 외에도 &lt;a href="http://staticsitegenerators.net/"&gt;Static Site Generator&lt;/a&gt;와 &lt;a href="http://modernstatic.com/"&gt;Modern Static&lt;/a&gt;에서는 다양한 정적 웹페이지 생성기들을 소개하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;당연하게도 이런 정적 페이지 생성기들은 정적 페이지를 통한 배포의 이점을 전부 그대로 누립니다. 그냥 HTML 문서니까요. 동시에 빌드 시점에서는 프로그래밍 언어의 강력함도 누릴 수 있습니다. &lt;/p&gt;
+
+&lt;p&gt;결국에 중요한 문제는 어느 시점에서 &lt;strong&gt;동적&lt;/strong&gt;이면 되는가의 문제로 귀결됩니다. 블로그가 정적 웹페이지로도 만들어질 수도 있는 건 모든 시점에 동적일 필요가 없었기 때문입니다. 반면에 소셜 사이트를 정적 웹페이지로 만드는 건 거의 불가능하다고 봐도 되겠죠. 네, 케바케입니다. 하지만 분명한 건 정적 웹페이지로 만들 수 있는 페이지를 동적 어플리케이션으로 서버에 물려놓는 건 사이트 구축은 그렇다고 쳐도, 운영 면에서 불리합니다. 정적 웹페이지 생성기는 중간쯤 어딘가에서 어떤 공백을 메워줍니다.&lt;/p&gt;
+
+&lt;p&gt;네, 모든 종류의 웹사이트가 정적일 수는 없습니다. 거꾸로 모든 종류의 웹사이트가 동적일 필요도 없는 거고, 적절한 타협점이 필요한 거죠.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>hub로 명령행에서 Github 풀리퀘스트 보내기</title>
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-14T09:15:50+00:00</updated>
+    <updated>2014-01-15T12:09:24+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -34,79 +80,94 @@
 
 &lt;p&gt;먼저 Hub를 사용하기 위해서는 공식 홈페이지를 참조해 프로그램을 설치해줄 필요가 있습니다. 우선 hub는 git과 ruby에 의존적인 프로그램이므로 시스템에 이러한 프로그램들이 있는지 확인해야합니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class="sh"&gt;$ git -v
-git version 1.8.3.2
-# git 1.7.3 이상 필요!
+&lt;p&gt;```sh
+$ git -v
+git version 1.8.3.2&lt;/p&gt;
 
-$ ruby -v
-ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
-# ruby 1.8.6 이상 필요!
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;git 1.7.3 이상 필요!&lt;/h1&gt;
+
+&lt;p&gt;$ ruby -v
+ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]&lt;/p&gt;
+
+&lt;h1&gt;ruby 1.8.6 이상 필요!&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;위의 프로그램들이 설치돼있다면 이제 Hub를 설치할 차례입니다. 맥에서는  Homebrew[^brew]를 이용해 hub를 쉽게 설치할 수 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class="sh"&gt;brew install hub
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;sh
+brew install hub
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;리눅스 계열에서는 소스 코드를 다운로드 받아 직접 설치할 수 있습니다. 아래 과정을 따라 hub를 설치할 수 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class="sh"&gt;$ git clone git://github.com/github/hub.git
+&lt;p&gt;&lt;code&gt;sh
+$ git clone git://github.com/github/hub.git
 $ cd hub
 $ rake install
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;설치 시 ruby의 &lt;code&gt;rake&lt;/code&gt; 명령어가 지원되어야합니다. &lt;code&gt;rake&lt;/code&gt; 명령어가 없다면 &lt;code&gt;gem install rake&lt;/code&gt;로 먼저 rake를 설치해주시기 바랍니다. 또한 &lt;code&gt;rake install&lt;/code&gt; 명령어 실행시 기본적으로 메인 시스템 상에 프로그램을 설치하므로 &lt;code&gt;sudo&lt;/code&gt; 등을 붙여 관리자 권한으로 설치해야할 수도 있습니다.&lt;/p&gt;
 
 &lt;p&gt;설치가 정상적으로 끝났다면 아래와 같이 &lt;code&gt;hub&lt;/code&gt; 명령어를 사용할 수 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class="sh"&gt;$ hub --version
+&lt;p&gt;&lt;code&gt;sh
+$ hub --version
 git version 1.8.3.2
 hub version 1.11.1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;hub는 &lt;code&gt;hub&lt;/code&gt; 명령어를 통해서 독자적으로 사용할 수도 있지만 &lt;code&gt;git&lt;/code&gt; 명령어와 통합해서 사용할 수도 있습니다. &lt;code&gt;hub alias&lt;/code&gt; 명령어를 실행하면 &lt;code&gt;git&lt;/code&gt; 명령어와 통합하는 방법을 알려줍니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;# Wrap git automatically by adding the following to ~/.zshrc:
-eval &amp;quot;$(hub alias -s)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h1&gt;Wrap git automatically by adding the following to ~/.zshrc:&lt;/h1&gt;
+
+&lt;p&gt;eval &amp;quot;$(hub alias -s)&amp;quot;
+```&lt;/p&gt;
 
 &lt;p&gt;예를 들어 zsh 사용하고 있다면 &lt;code&gt;~/.zshrc&lt;/code&gt; 파일에, bash를 사용하고 있다면 &lt;code&gt;~/.bash_profile&lt;/code&gt; 파일에 &lt;code&gt;eval &amp;quot;$(hub alias -s)&amp;quot;&lt;/code&gt;을 추가해주면 쉘 초기화 시에 git와 hub 명령어를 통합시켜줍니다. git와 hub 명령어는 기능적으로는 겹치지 않으며, hub가 git를 보완하는 역할을 하고 있으므로 이렇게 사용하더라도 별다른 문제가 되지 않습니다.&lt;/p&gt;
 
 &lt;p&gt;이제 설치가 끝났으니 쉘을 재실행 시켜줍니다. git 명령어를 통해서 제대로 alias 되었는지 확인합니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git --version
+&lt;p&gt;&lt;code&gt;
+$ git --version
 git version 1.8.3.2
 hub version 1.11.1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;h1&gt;쉘에서 Hub 자동 완성 사용하기&lt;/h1&gt;
 
 &lt;p&gt;Hub에서는 쉘에서 명령어 및 옵션 자동 완성을 위한 completion 파일을 제공하고 있습니다. 여기서 zsh을 기준으로 git 명령어의 자동완성을 확장하는 법을 설명합니다. 먼저 hub 자동 완성 파일을 다운로드 받아 적절한 위치(우분투의 경우 기본적으로  &lt;code&gt;usr/local/share/zsh/site-functions&lt;/code&gt; 디렉토리. 정확한 위치는 각 운영체제 별 zsh 환경 설정 파일 위치에 따릅니다)에 복사해줍니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ mkdir ~/src
+&lt;p&gt;&lt;code&gt;
+$ mkdir ~/src
 $ cd ~/src
 $ wget https://raw.github.com/github/hub/master/etc/hub.zsh_completion
 $ sudo mv hub.zsh_completion /usr/share/zsh/site-functions/_hub
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;zsh을 다시 실행하면 아래와 같이 hub 명령어 사용시 자동완성이 적용되는 것을 알 수 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ hub pull&amp;lt;TAB&amp;gt;
+&lt;p&gt;&lt;code&gt;
+$ hub pull&amp;lt;TAB&amp;gt;
 pull          -- fetch from and merge with another rep....
 pull-request  -- open a pull request on GitHub
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git&lt;/code&gt; 명령어와 통합해서 사용중인 경우에는 .zshrc에 아래 라인을 추가해 git 명령어에서도 hub 명령어의 자동완성을 사용할 수 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;compdef git=hub
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;
+compdef git=hub
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;아래와 같이 자동 완성이 적용된 것을 확인할 수 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git pull&amp;lt;TAB&amp;gt;
+&lt;p&gt;&lt;code&gt;
+$ git pull&amp;lt;TAB&amp;gt;
 pull          -- fetch from and merge with another rep....
 pull-request  -- open a pull request on GitHub
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;h1&gt;Hub 사용하기&lt;/h1&gt;
 
@@ -114,7 +175,8 @@ pull-request  -- open a pull request on GitHub
 
 &lt;p&gt;먼저 Git 저장소를 가진 디렉토리를 하나 생성해줍니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ pwd
+&lt;p&gt;&lt;code&gt;
+$ pwd
 /home/nacyot/prog/github/nacyot/
 $ mkdir pull-request &amp;amp;&amp;amp; cd $_
 $ git init
@@ -122,35 +184,38 @@ Initialized empty Git repository in/home/nacyot/prog/github/nacyot/pull-request/
 $ git create
 Updating origin
 created repository: nacyot/pull-request
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;일반적으로 Git 저장소를 초기화할 때는 &lt;code&gt;git init&lt;/code&gt; 명령어를 사용합니다. 여기서는 추가적으로 &lt;code&gt;git create&lt;/code&gt; 명령어를 사용했습니다. 이 명령어는 hub를 통해 확장된 명령어로 현재 git 저장소로 Github에 저장소를 생성해줍니다. &lt;code&gt;git remote&lt;/code&gt; 원격 저장소 설정이 제대로 되었는지 확인해보겠습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git remote -v
+&lt;p&gt;&lt;code&gt;
+$ git remote -v
 origin  git@github.com:nacyot/pull-request.git (fetch)
 origin  git@github.com:nacyot/pull-request.git (push)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;이를 통해서 Github &lt;a href="http://github.com/nacyot"&gt;nacyot&lt;/a&gt; 계정에 &lt;a href="http://github.com/nacyot/pull-request"&gt;pull-request 저장소&lt;/a&gt;가 추가되었다는 것을 알 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;우선 master 브랜치를 활성화시키기 위해 커밋을 하나 해보겠습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class="sh"&gt;$ touch README.md
+&lt;p&gt;```sh
+$ touch README.md
 $ git add .
 $ git commit -m&amp;#39;Add README.md&amp;#39;
-$ git push origin master
+$ git push origin master&lt;/p&gt;
 
-Counting objects: 3, done.
+&lt;p&gt;Counting objects: 3, done.
 Writing objects: 100% (3/3), 221 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
 To git@github.com:nacyot/pull-request.git
 * [new branch]      master -&amp;gt; master
-&lt;/code&gt;&lt;/pre&gt;
+```&lt;/p&gt;
 
 &lt;p&gt;이 명령어들은 일반적으로 git에서 사용하는 명령어들입니다. 이제 파일들이 정상적으로 추가되었는지를 확인하기 위해 이 저장소의 웹페이지를 띄워보겠습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class="sh"&gt;$ git browse
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;sh
+$ git browse
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git browse&lt;/code&gt; 명령어도 hub 확장으로 현재 디렉토리에 위치한 git 저장소의 원격 저장소를 근거로 Github 페이지를 찾아 바로 웹브라우져를 열어줍니다. 이 명령어를 통해서 따로 웹브라우져를 실행시키지 않더라도 저장소의 Github 페이지를 바로 확인할 수 있습니다.&lt;/p&gt;
 
@@ -158,34 +223,40 @@ To git@github.com:nacyot/pull-request.git
 
 &lt;p&gt;이제 pull-request 브랜치를 만들고 실제로 풀리퀘스트를 보내보도록 하겠습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git checkout -b pull-request
+&lt;p&gt;&lt;code&gt;
+$ git checkout -b pull-request
 $ git touch hello.rb
 $ git add .
 $ git commit -m&amp;#39;Add hello.rb&amp;#39;
 $ git push origin pull-request
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;위의 명령어들 역시 git에서 일반적으로 사용하는 명령어들로 추가적인 설명은 생략하겠습니다. 간단히만 얘기하면 pull-request 브랜치를 만들고 &lt;code&gt;hello.rb&lt;/code&gt; 파일을 추가하고 Github 저장소에도 추가했습니다. 이제 nacyot/pull-request 에는 master 브랜치와 pull-request 두 브랜치가 존재합니다.&lt;/p&gt;
 
 &lt;p&gt;여기서는 pull-request 브랜치에서 master 브랜치로 풀리퀘스트를 보내겠습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git pull-request
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;
+$ git pull-request
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git pull-request&lt;/code&gt; 명령어를 실행시키면 현재 디렉토리의 github 저장소와 브랜치를 기준으로 풀리퀘스트를 보내기 위한 메시지를 입력할 수 있도록 기본 에디터를 실행해줍니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;First pull-request
+&lt;p&gt;```
+First pull-request&lt;/p&gt;
 
-# Requesting a pull to nacyot:master from nacyot:pull-request
-#
-# Write a message for this pull request. The first block
-# of text is the title and the rest is description.
-&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;Requesting a pull to nacyot:master from nacyot:pull-request&lt;/h1&gt;
+
+&lt;h1&gt;Write a message for this pull request. The first block&lt;/h1&gt;
+
+&lt;h1&gt;of text is the title and the rest is description.&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
 
 &lt;p&gt;주석을 통해서 풀리퀘스트가 어디로 보내지는지 확인할 수 있습니다. 풀리퀘스트 메시지를 완성하고 저장한 후 에디터를 종료하면 풀리퀘스트가 보내집니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;https://github.com/nacyot/pull-request/pull/1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;
+https://github.com/nacyot/pull-request/pull/1
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.&lt;/p&gt;
 
@@ -193,15 +264,16 @@ $ git push origin pull-request
 
 &lt;p&gt;&lt;code&gt;git pull-request&lt;/code&gt; 명령어는 아래와 같이 좀 더 명시적으로 사용할 수도 있습니다.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git pull-request -m &amp;#39;First pull-request&amp;#39; -b nacyot:master -h nacyot:pull-request
+&lt;p&gt;&lt;code&gt;
+$ git pull-request -m &amp;#39;First pull-request&amp;#39; -b nacyot:master -h nacyot:pull-request
 https://github.com/nacyot/pull-request/pull/1
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;여기서 &lt;code&gt;-m&lt;/code&gt; 플래그는 풀리퀘스트 메시지, &lt;code&gt;-b&lt;/code&gt; 플래그는 풀리퀘스트 목적지, &lt;code&gt;-h&lt;/code&gt; 플래그는 풀리퀘스트를 보내는 브랜치가 됩니다. &lt;code&gt;-b&lt;/code&gt;와 &lt;code&gt;-h&lt;/code&gt; 플래그는 &lt;code&gt;&amp;lt;계정명&amp;gt;:&amp;lt;브랜치명&amp;gt;&lt;/code&gt; 형식으로 기술하며, 저장소는 작업 디렉토리 저장소를 근거로 자동으로 유추됩니다. 마찬가지로 풀리퀘스트에 성공하면 풀리퀘스트의 url을 보여줍니다.&lt;/p&gt;
 
 &lt;h1&gt;결론&lt;/h1&gt;
 
-&lt;p&gt;여기까지 git 명령어를 hub로 확장해서 커맨드라인에서 Github 작업을 좀 더 편하게 하는 방법을 소개했습니다. hub는 웹에서 해야하는 귀찮은 일들을 많이 덜어주는 프로그램입니다. Github에서 저장소를 만들고 풀리퀘스트를 보내려고 웹상에서 브랜치 지정해주고 하는 일은 간단한 작업이지만 꽤나 번거롭습니다. 특히 해당 &amp;lsquo;저장소&amp;#39;를 찾아서 들어가는 일도 반복되면 귀찮기만 한 일입니다. hub와 함께 좀 더 즐거운 Github 라이프가 되길 바랍니다 &amp;gt;_&amp;lt;&lt;/p&gt;
+&lt;p&gt;여기까지 git 명령어를 hub로 확장해서 커맨드라인에서 Github 작업을 좀 더 편하게 하는 방법을 소개했습니다. hub는 웹에서 해야하는 귀찮은 일들을 많이 덜어주는 프로그램입니다. Github에서 저장소를 만들고 풀리퀘스트를 보내려고 웹상에서 브랜치 지정해주고 하는 일은 간단한 작업이지만 꽤나 번거롭습니다. 특히 해당 &amp;#39;저장소&amp;#39;를 찾아서 들어가는 일도 반복되면 귀찮기만 한 일입니다. hub와 함께 좀 더 즐거운 Github 라이프가 되길 바랍니다 &amp;gt;_&amp;lt;&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -209,13 +281,1937 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-23T15:00:00Z</published>
-    <updated>2014-01-14T09:15:50+00:00</updated>
+    <updated>2014-01-15T12:09:24+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
-    <content type="html">&lt;p&gt;이 글은 &lt;a href="http://melborne.github.io/"&gt;kyoendo&lt;/a&gt; 씨의 55 Trivia Notations you should know in Ruby 문서를 &lt;a href="http://nacyot.com"&gt;nacyot&lt;/a&gt;이 번역한 글입니다. 원본은 &lt;a href="http://melborne.github.io/2013/03/04/ruby-trivias-you-should-know-4/"&gt;여기&lt;/a&gt;에서 찾아볼 수 있으며 &lt;a href="http://creativecommons.org/licenses/by-nc/2.1/jp/"&gt;cc-by-nc&lt;/a&gt; 라이센스에 따라 공개되어있습니다. 번역본 또한 같은 라이센스를 따릅니다. &lt;a href="http://nacyot.com/guestbook"&gt;GuestBook&lt;/a&gt;이나 &lt;a href="mailto:propellerheaven@gmail.com"&gt;Email&lt;/a&gt;으로 해주시기합니다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;이 글은 &lt;a href="http://melborne.github.io/"&gt;kyoendo&lt;/a&gt; 씨의 55 Trivia Notations you should know in Ruby 문서를 &lt;a href="http://nacyot.com"&gt;nacyot&lt;/a&gt;이 번역한 글입니다. 번역된 문서는 &lt;a href="https://gist.github.com/nacyot/7624036"&gt;gist&lt;/a&gt;에서 관리되고 있습니다. 원본은 &lt;a href="http://melborne.github.io/2013/03/04/ruby-trivias-you-should-know-4/"&gt;여기&lt;/a&gt;에서 찾아볼 수 있으며 &lt;a href="http://creativecommons.org/licenses/by-nc/2.1/jp/"&gt;cc-by-nc&lt;/a&gt; 라이센스에 따라 공개되어있습니다. 번역본 또한 같은 라이센스를 따릅니다. 관련된 질문은 &lt;a href="http://nacyot.com/guestbook"&gt;GuestBook&lt;/a&gt;이나 &lt;a href="mailto:propellerheaven@gmail.com"&gt;Email&lt;/a&gt;으로 해주시기합니다.&lt;/p&gt;
 
 
+
+&lt;hr&gt;
+
+&lt;p&gt;Ruby는 즐거운 언어입니다. Ruby를 사용하다보면 매뉴얼에도 나와있지 않은
+&amp;#39;&lt;strong&gt;작은 발견&lt;/strong&gt;&amp;#39;을 만나게 됩니다. 이러한 &amp;#39;발견&amp;#39;은 프로그램의 질이나
+효율 개선에 직접적으로 연결되지 않을 지도 모릅니다. 좋기는 커녕 팀
+단위로 프로그래밍을 하는 동안에는 사용하지 않는 게 좋을 지도
+모릅니다. 하지만 다른 시각에서 생각해보면, 어떤 언어에 아직 모르는
+영역이 남아있다는 건 이 언어에 대한 흥미를 잃지 않게 만들어주는 중요한
+요인이라는 것도 의심의 여지가 없습니다. 즉 &amp;#39;발견&amp;#39;은 언어를 즐겁게 만들어줍니다 .&lt;/p&gt;
+
+&lt;p&gt;이 블로그에서는 &amp;#39;알아두면 도움이 되는 루비 기법&amp;#39;이라는 주제로 지금까지 3 편의 글을 써왔습니다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="http://melborne.github.com/2011/06/22/21-Ruby-21-Trivia-Notations-you-should-know-in-Ruby/"&gt;알아두면 도움이 되는 21가지 루비 기법&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://melborne.github.com/2012/02/08/2-12-Ruby-12-Trivia-Notations-you-should-know-in-Ruby/"&gt;제 2탄! 알아두면 도움이 되는 12가지 루비 기법&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://melborne.github.com/2012/04/26/ruby-trivias-you-should-know/"&gt;제 3탄! 알아두면 도움이 되는 12가지 루비 기법&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 기법들은 인터넷에서 발견한 것, 트위터에서 배운 것, 스스로 발견한 것들을 모은 것들입니다. 이런 기법들을 접할 때마다 제 입에서는 &amp;#39;아하&amp;#39;, &amp;#39;우와&amp;#39; 같은 감탄사가 절로 나왔습니다.&lt;/p&gt;
+
+&lt;p&gt;여기서는 위에서 다룬 45개의 기법과 추가적으로 새로운 10가지 기법을
+합쳐 55가지 기법을 소개합니다. 전체적인 내용을 재구성했으면 비교적
+이해하기 쉬운 내용을 앞에 배치하고 약간 어려운 부분을 뒤에
+배치했습니다. 몇몇 설명에 대해서는 좀 더 간결하게 수정했습니다. 여기서는 언어를
+어떻게 사용해야할 것인가, 혹은 어떻게 읽기 쉬운 코드를 작성할 수
+있을까 하는 어려운 문제는 제쳐두고 일단 재미나 보이는 기법들에 대해
+이렇게 작성할 수 있구나 하면서 즐기셨으면 합니다. Ruby 버전은 1.9나 2.0을 대상으로 합니다.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;그리고 이 글은 E-Books으로도 출간되었습니다. 이 글을 E-Books 형식으로 천천히
+음미하고 싶으신 분은 구입을 고려해주세요. epub 형식은 물론 Kindle에서
+사용 가능한 mobi 형식도 포함되어 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://melborne.github.io/books/"&gt;
+  &lt;img src="http://melborne.github.io/assets/images/2013/03/ruby_trivia_cover.png" alt="trivia" style="width:200px" /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a title="M'ELBORNE BOOKS" href="http://melborne.github.io/books/"&gt;M&amp;#39;ELBORNE BOOKS&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3&gt;1. Array 객체의 스택 메소드&lt;/h3&gt;
+
+&lt;p&gt;x
+&lt;code&gt;Array#&amp;lt;&amp;lt;&lt;/code&gt; 메소드는 인수를 하나만 받습니다만 &lt;code&gt;Array#push&lt;/code&gt;는 여러개의
+인수를 받을 수 있습니다. 또한 &lt;code&gt;Array#pop&lt;/code&gt;는 한 번에 여러개의 값을 pop 할 수 있습니다.&lt;code&gt;Array#unshift&lt;/code&gt; &lt;code&gt;Array#shift&lt;/code&gt;도 마찬가지입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ stack = []
+ stack.push 1, 2, 3 # =&amp;gt; [1, 2, 3]
+ stack.pop 2 # =&amp;gt; [2, 3]
+ stack # =&amp;gt; [1]
+ stack.unshift 4, 5, 6 # =&amp;gt; [4, 5, 6, 1]
+ stack.shift 3 # =&amp;gt; [4, 5, 6]
+ stack # =&amp;gt; [1]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 특정 위치에서 여러개의 값을 가져올 때는 &lt;code&gt;Array#values_at&lt;/code&gt;이 편리합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ lang = %w(ruby python perl haskell lisp scala)
+ lang.values_at 0, 2, 5 # =&amp;gt; [&amp;quot;ruby&amp;quot;, &amp;quot;perl&amp;quot;, &amp;quot;scala&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이 메소드는 Hash 객체에서도 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+lang = {ruby:&amp;#39;matz&amp;#39;, python:&amp;#39;guido&amp;#39;, perl:&amp;#39;larry&amp;#39;, lisp:&amp;#39;mccarthy&amp;#39;}&lt;/p&gt;
+
+&lt;p&gt;lang.values_at :ruby, :perl # =&amp;gt; [&amp;quot;matz&amp;quot;, &amp;quot;larry&amp;quot;]
+```&lt;/p&gt;
+
+&lt;h3&gt;2. Kernel#Array&lt;/h3&gt;
+
+&lt;p&gt;서로 다른 타입을 가진 인수를 일괄적으로 처리할 때는 &lt;code&gt;Kernel#Array&lt;/code&gt;가 편리합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ Array 1 # =&amp;gt; [1]
+ Array [1,2] # =&amp;gt; [1, 2]
+ Array 1..5 # =&amp;gt; [1, 2, 3, 4, 5]&lt;/p&gt;
+
+&lt;p&gt;require &amp;quot;date&amp;quot;
+ def int2month(nums)
+   Array(nums).map { |n| Date.new(2010,n).strftime &amp;quot;%B&amp;quot;  }
+ end&lt;/p&gt;
+
+&lt;p&gt;int2month(3) # =&amp;gt; [&amp;quot;March&amp;quot;]
+ int2month([2,6,9]) # =&amp;gt; [&amp;quot;February&amp;quot;, &amp;quot;June&amp;quot;, &amp;quot;September&amp;quot;]
+ int2month(4..8) # =&amp;gt; [&amp;quot;April&amp;quot;, &amp;quot;May&amp;quot;, &amp;quot;June&amp;quot;, &amp;quot;July&amp;quot;, &amp;quot;August&amp;quot;]
+```&lt;/p&gt;
+
+&lt;h3&gt;3. 요소 구분 콤마&lt;/h3&gt;
+
+&lt;p&gt;배열과 해시의 각 요소를 구분하는 기호로 콤마를 사용하는데 마지막 요소의 콤마는 무시됩니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ p designers = [
+                 &amp;quot;John McCarthy&amp;quot;,
+                 &amp;quot;Yukihiro Matsumoto&amp;quot;,
+                 &amp;quot;Larry Wall&amp;quot;,
+                 &amp;quot;Alan Kay&amp;quot;,
+                 &amp;quot;Martin Odersky&amp;quot;,
+               ]&lt;/p&gt;
+
+&lt;p&gt;# &amp;gt;&amp;gt; [&amp;quot;John McCarthy&amp;quot;, &amp;quot;Yukihiro Matsumoto&amp;quot;, &amp;quot;Larry Wall&amp;quot;, &amp;quot;Alan Kay&amp;quot;, &amp;quot;Martin Odersky&amp;quot;]&lt;/p&gt;
+
+&lt;p&gt;p designers = {
+                 :lisp =&amp;gt; &amp;quot;John McCarthy&amp;quot;,
+                 :ruby =&amp;gt; &amp;quot;Yukihiro Matsumoto&amp;quot;,
+                 :perl =&amp;gt; &amp;quot;Larry Wall&amp;quot;,
+                 :smalltalk =&amp;gt; &amp;quot;Alan Kay&amp;quot;,
+                 :scala =&amp;gt; &amp;quot;Martin Odersky&amp;quot;,
+               }&lt;/p&gt;
+
+&lt;p&gt;# &amp;gt;&amp;gt; {:lisp=&amp;gt;&amp;quot;John McCarthy&amp;quot;, :ruby=&amp;gt;&amp;quot;Yukihiro Matsumoto&amp;quot;, :perl=&amp;gt;&amp;quot;Larry Wall&amp;quot;, :smalltalk=&amp;gt;&amp;quot;Alan Kay&amp;quot;, :scala=&amp;gt;&amp;quot;Martin Odersky&amp;quot;}
+```&lt;/p&gt;
+
+&lt;p&gt;요소를 자주 추가/삭제하거나 파일에서 eval을 할 때 유용합니다.&lt;/p&gt;
+
+&lt;h3&gt;4. 해시 리터럴&lt;/h3&gt;
+
+&lt;p&gt;Ruby 1.9에는 새로운 해시 리터럴이 추가되었지만, 예전 방식과 혼용해서 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ designers1 = {
+               :lisp =&amp;gt; &amp;quot;John McCarthy&amp;quot;,
+               :ruby =&amp;gt; &amp;quot;Yukihiro Matsumoto&amp;quot;,
+               :perl =&amp;gt; &amp;quot;Larry Wall&amp;quot;,
+               :smalltalk =&amp;gt; &amp;quot;Alan Kay&amp;quot;,
+               :&amp;#39;C++&amp;#39; =&amp;gt;  &amp;quot;Bjarne Stroustrup&amp;quot;,
+             }&lt;/p&gt;
+
+&lt;p&gt;designers2 = {
+               java: &amp;quot;James Gosling&amp;quot;,
+               python: &amp;quot;Guido van Rossum&amp;quot;,
+               javascript: &amp;quot;Brendan Eich&amp;quot;,
+               scala: &amp;quot;Martin Odersky&amp;quot;,
+             }&lt;/p&gt;
+
+&lt;p&gt;designers = designers1.merge designers2
+  # =&amp;gt; {:lisp=&amp;gt;&amp;quot;John McCarthy&amp;quot;, :ruby=&amp;gt;&amp;quot;Yukihiro Matsumoto&amp;quot;, :perl=&amp;gt;&amp;quot;Larry Wall&amp;quot;, :smalltalk=&amp;gt;&amp;quot;Alan Kay&amp;quot;, :&amp;quot;C++&amp;quot;=&amp;gt;&amp;quot;Bjarne Stroustrup&amp;quot;, :java=&amp;gt;&amp;quot;James Gosling&amp;quot;, :python=&amp;gt;&amp;quot;Guido van Rossum&amp;quot;, :javascript=&amp;gt;&amp;quot;Brendan Eich&amp;quot;, :scala=&amp;gt;&amp;quot;Martin Odersky&amp;quot;}
+```&lt;/p&gt;
+
+&lt;h3&gt;5. Enumerable#each&lt;em&gt;with&lt;/em&gt;object&lt;/h3&gt;
+
+&lt;p&gt;Enumerable#inject는 편리한 메소드지만 블록에서 조건은 지정을 하는 경우에도 각 반복에서 결과값이 중첩될 객체가 리턴되는 것이 보장되어야만 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ designers.inject([]) { |mem, (lang, name)| mem &amp;lt;&amp;lt; [name,lang].join(&amp;#39;/&amp;#39;) if lang[/l/]; mem }
+  # =&amp;gt; [&amp;quot;John McCarthy/lisp&amp;quot;, &amp;quot;Larry Wall/perl&amp;quot;, &amp;quot;Alan Kay/smalltalk&amp;quot;, &amp;quot;Martin Odersky/scala&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;블록 마지막의 &amp;#39;; mem&amp;#39;부분입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Enumerable#each_with_object&lt;/code&gt;를 이러한 문제를 사용하면 간단히 해결할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ designers.each_with_object([]) { |(lang, name), mem| mem &amp;lt;&amp;lt; [name,lang].join(&amp;#39;/&amp;#39;) if lang[/l/] }
+  # =&amp;gt; [&amp;quot;John McCarthy/lisp&amp;quot;, &amp;quot;Larry Wall/perl&amp;quot;, &amp;quot;Alan Kay/smalltalk&amp;quot;, &amp;quot;Martin Odersky/scala&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이름이 길어서 가능하면 사용하고 싶지 않습니다만...&lt;/p&gt;
+
+&lt;h3&gt;6. splat 전개&lt;/h3&gt;
+
+&lt;p&gt;Ruby에서 알파벳 배열을 만들 때는 보통 아래와 같은 방법을 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ (1..20).to_a # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+ (&amp;#39;a&amp;#39;..&amp;#39;z&amp;#39;).to_a # =&amp;gt; [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;, &amp;quot;e&amp;quot;, &amp;quot;f&amp;quot;, &amp;quot;g&amp;quot;, &amp;quot;h&amp;quot;, &amp;quot;i&amp;quot;, &amp;quot;j&amp;quot;, &amp;quot;k&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;m&amp;quot;, &amp;quot;n&amp;quot;, &amp;quot;o&amp;quot;, &amp;quot;p&amp;quot;, &amp;quot;q&amp;quot;, &amp;quot;r&amp;quot;, &amp;quot;s&amp;quot;, &amp;quot;t&amp;quot;, &amp;quot;u&amp;quot;, &amp;quot;v&amp;quot;, &amp;quot;w&amp;quot;, &amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;, &amp;quot;z&amp;quot;]
+ (1..10).to_a + (20..30).to_a # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이러한 표현은 &lt;code&gt;*&lt;/code&gt;(splat) 전개를 사용해 아래와 같이 바꿔쓸 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ [*1..20] # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+ [*&amp;#39;a&amp;#39;..&amp;#39;m&amp;#39;] # =&amp;gt; [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;, &amp;quot;e&amp;quot;, &amp;quot;f&amp;quot;, &amp;quot;g&amp;quot;, &amp;quot;h&amp;quot;, &amp;quot;i&amp;quot;, &amp;quot;j&amp;quot;, &amp;quot;k&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;m&amp;quot;]
+ [*1..10, *20..30] # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;7. 전치 콜론&lt;/h3&gt;
+
+&lt;p&gt;문자열을 심볼로 변환할 때는 일반적으로, String#intern이나
+String#to_sym 메소드를 사용합니다만 문자열 리터럴에 앞에 콜론을 놓는
+방법도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ &amp;#39;goodbye&amp;#39;.intern # =&amp;gt; :goodbye
+ &amp;#39;goodbye&amp;#39;.to_sym # =&amp;gt; :goodbye&lt;/p&gt;
+
+&lt;p&gt;:&amp;#39;goodbye&amp;#39; # =&amp;gt; :goodbye&lt;/p&gt;
+
+&lt;p&gt;a = &amp;#39;goodbye&amp;#39;
+ :&amp;quot;#{a}&amp;quot; # =&amp;gt; :goodbye
+```&lt;/p&gt;
+
+&lt;h3&gt;8. Enumerator#with_index&lt;/h3&gt;
+
+&lt;p&gt;임의의 리스트를 표준 출력할 때 각 리스트의 순서를 나타내는 인덱스 숫자가 필요할 때 일반적으로 &lt;code&gt;Enumerator#with_index&lt;/code&gt;를 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+names = Module.constants.take(10)
+names.each&lt;em&gt;with&lt;/em&gt;index { |name, i| puts &amp;quot;%d: %s&amp;quot; % [i+1, name] }&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 1: Object&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 2: Module&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 3: Class&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 4: Kernel&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 5: NilClass&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 6: NIL&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 7: Data&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 8: TrueClass&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 9: TRUE&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 10: FalseClass&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;i+1&lt;/code&gt;를 사용하는 게 영 맘에 들지 않습니다. 여기에 공감하시는 분들을 위해 &lt;code&gt;Enumerator#with_index&lt;/code&gt; 메소드가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+names = Module.constants.take(10)
+names.each.with_index(1) { |name, i| puts &amp;quot;%d: %s&amp;quot; % [i, name] }&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 1: Object&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 2: Module&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 3: Class&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 4: Kernel&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 5: NilClass&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 6: NIL&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 7: Data&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 8: TrueClass&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 9: TRUE&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 10: FalseClass&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;with_index는 index의 offset을 인수로 받습니다. comparable한 객체를 받아주면 더욱 좋겠습니다만.&lt;/p&gt;
+
+&lt;h3&gt;9. Integer#times&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;times&lt;/code&gt;는 특정 횟수만큼 반복하고 싶을 때 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+you&lt;em&gt;said = &amp;#39;てぶくろ&amp;#39;
+6.times { puts you&lt;/em&gt;said.reverse!} # =&amp;gt; 6&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; ろくぶて&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; てぶくろ&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; ろくぶて&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; てぶくろ&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; ろくぶて&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; てぶくろ&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;times는 블록을 받지 않으면 Enumerator를 리턴합니다. 따라서 여러개의
+객체를 생성할 때 사용할 수 있습니다. 20개의 RGB 컬러 샘플을 만든다고 해보죠.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+20.times.map { [rand(256), rand(256), rand(256)] } # =&amp;gt; [[45, 190, 194], [94, 43, 125], [6, 104, 181], [144, 92, 114], [34, 161, 214], [96, 69, 241], [216, 246, 133], [6, 237, 131], [194, 95, 214], [177, 252, 202], [184, 149, 142], [184, 166, 45], [41, 108, 115], [176, 100, 138], [124, 213, 89], [173, 123, 34], [137, 31, 47], [54, 92, 186], [118, 239, 217], [150, 184, 240]]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;10. String#succ / Integer#succ&lt;/h3&gt;
+
+&lt;p&gt;Excel과 같이 A에서 부터 차례대로 문자로된 인덱스를 생성하려면 어떻게
+해야할까요?최근에 비슷한 문제를 접했습니다. Ruby에선 &lt;code&gt;String#succ&lt;/code&gt; 또는 &lt;code&gt;next&lt;/code&gt;가 있으니 간단히 해결 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+col = &amp;#39;@&amp;#39;
+60.times.map { col = col.succ } # =&amp;gt; [&amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;, &amp;quot;C&amp;quot;, &amp;quot;D&amp;quot;, &amp;quot;E&amp;quot;, &amp;quot;F&amp;quot;, &amp;quot;G&amp;quot;, &amp;quot;H&amp;quot;, &amp;quot;I&amp;quot;, &amp;quot;J&amp;quot;, &amp;quot;K&amp;quot;, &amp;quot;L&amp;quot;, &amp;quot;M&amp;quot;, &amp;quot;N&amp;quot;, &amp;quot;O&amp;quot;, &amp;quot;P&amp;quot;, &amp;quot;Q&amp;quot;, &amp;quot;R&amp;quot;, &amp;quot;S&amp;quot;, &amp;quot;T&amp;quot;, &amp;quot;U&amp;quot;, &amp;quot;V&amp;quot;, &amp;quot;W&amp;quot;, &amp;quot;X&amp;quot;, &amp;quot;Y&amp;quot;, &amp;quot;Z&amp;quot;, &amp;quot;AA&amp;quot;, &amp;quot;AB&amp;quot;, &amp;quot;AC&amp;quot;, &amp;quot;AD&amp;quot;, &amp;quot;AE&amp;quot;, &amp;quot;AF&amp;quot;, &amp;quot;AG&amp;quot;, &amp;quot;AH&amp;quot;, &amp;quot;AI&amp;quot;, &amp;quot;AJ&amp;quot;, &amp;quot;AK&amp;quot;, &amp;quot;AL&amp;quot;, &amp;quot;AM&amp;quot;, &amp;quot;AN&amp;quot;, &amp;quot;AO&amp;quot;, &amp;quot;AP&amp;quot;, &amp;quot;AQ&amp;quot;, &amp;quot;AR&amp;quot;, &amp;quot;AS&amp;quot;, &amp;quot;AT&amp;quot;, &amp;quot;AU&amp;quot;, &amp;quot;AV&amp;quot;, &amp;quot;AW&amp;quot;, &amp;quot;AX&amp;quot;, &amp;quot;AY&amp;quot;, &amp;quot;AZ&amp;quot;, &amp;quot;BA&amp;quot;, &amp;quot;BB&amp;quot;, &amp;quot;BC&amp;quot;, &amp;quot;BD&amp;quot;, &amp;quot;BE&amp;quot;, &amp;quot;BF&amp;quot;, &amp;quot;BG&amp;quot;, &amp;quot;BH&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;11. Comparable.between?&lt;/h3&gt;
+
+&lt;p&gt;값이 특정 범위 안에 있는 지 여부를 판단할 때 사용됩니다. 보통은 다음과 같이 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+pos = 48
+status =
+  if 0 &amp;lt;= pos &amp;amp;&amp;amp; pos &amp;lt;= 50
+    :you_are_in
+  else
+    :you_are_out
+  end
+status # =&amp;gt; :you_are_in
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 짜놓고 CoffeeScript를 보면 분한 마음이 듭니다. 하지만 안심해주세요. Ruby에는 &lt;code&gt;between?&lt;/code&gt; 메소드가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+pos = 48
+status =
+  if pos.between?(0, 50)
+    :you&lt;em&gt;are&lt;/em&gt;in
+  else
+    :you&lt;em&gt;are&lt;/em&gt;out
+  end
+status # =&amp;gt; :you&lt;em&gt;are&lt;/em&gt;in&lt;/p&gt;
+
+&lt;p&gt;pos = &amp;#39;D&amp;#39;
+grade =
+  if pos.between?(&amp;#39;A&amp;#39;, &amp;#39;C&amp;#39;)
+    :you&lt;em&gt;are&lt;/em&gt;good!  else
+    :try&lt;em&gt;again!  end
+grade # =&amp;gt; :try&lt;/em&gt;again!
+```&lt;/p&gt;
+
+&lt;p&gt;저는 case 파 입니다만...&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+pos = 48
+status =
+  case pos
+  when 0..50
+    :you_are_in
+  else
+    :you_are_out
+  end
+status # =&amp;gt; :you_are_in
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;12. Array#first/last&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Array#first/last&lt;/code&gt;는 가져올 요소의 수를 인수로 받습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+arr = [*1..100]
+arr.first(5) + arr.last(5) # =&amp;gt; [1, 2, 3, 4, 5, 96, 97, 98, 99, 100]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Range 객체에서도 같은 메소드를 지원하고 있으니, 위의 예제는 아래와 같이 작성할 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+range = (1..100)
+range.first(5) + range.last(5) # =&amp;gt; [1, 2, 3, 4, 5, 96, 97, 98, 99, 100]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;13. 변수 nil 초기화&lt;/h3&gt;
+
+&lt;p&gt;여러 변수를 &lt;code&gt;nil&lt;/code&gt;으로 초기화하려는 경우에 어떻게 하시나요?이렇게
+하시나요?&lt;/p&gt;
+
+&lt;p&gt;```ruby
+a, b, c, d, e, f, g, h, i, k = [nil] * 10&lt;/p&gt;
+
+&lt;p&gt;[a, b, c, d, e, f, g, h, i, k].all?(&amp;amp;:nil?) # =&amp;gt; true
+```&lt;/p&gt;
+
+&lt;p&gt;하지만 다중 대입을 할 때는 값이 없으면 nil이 지정되므로 아래 코드면 충분합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+a, b, c, d, e, f, g, h, i, k = nil&lt;/p&gt;
+
+&lt;p&gt;[a, b, c, d, e, f, g, h, i, k].all?(&amp;amp;:nil?) # =&amp;gt; true
+```&lt;/p&gt;
+
+&lt;h3&gt;14. 해시 키&lt;/h3&gt;
+
+&lt;p&gt;해시 리터럴은 다음과 같이 작성합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+{a: 1, b: 2, c: 3, a: 4, e: 5} # =&amp;gt; {:a=&amp;gt;4, :b=&amp;gt;2, :c=&amp;gt;3, :e=&amp;gt;5}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;눈치 채셨나요?실수로 키를 중복해서 사용해도 에러는 발생하지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;특히 배열을 해시로 변환할 때는 주의가 필요합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+arr = [a: 1, b: 2, c: 3, a: 4, e: 5]
+Hash[ *arr ] # =&amp;gt; {:a=&amp;gt;4, :b=&amp;gt;2, :c=&amp;gt;3, :e=&amp;gt;5}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;15. 메소드 인수의 인수&lt;/h3&gt;
+
+&lt;p&gt;Ruby에서 인수를 받는 메소드를 호출할 때는 괄호를 생략할 수 있습니다만, 인수가 심볼일 때는 메소드 이름과 인수 사이의 공백도 생략할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ def name(sym)
+   @name = sym
+ end&lt;/p&gt;
+
+&lt;p&gt;name:charlie # =&amp;gt; :charlie
+```&lt;/p&gt;
+
+&lt;p&gt;이렇게 작성하면 더욱 선언적으로 보입니다.&lt;/p&gt;
+
+&lt;p&gt;하지만 이걸 변수에 넣거나 puts로 출력하는 경우엔 제대로 읽어들이지 못 하기 때문에 한정적인 방법이라고 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;또한 * &amp;amp;의 뒤의 스페이스는 무시되므로 아래와 같이 작성할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ def teach_me(question, * args, &amp;amp; block)
+   google(question, * args, &amp;amp; block)
+ end&lt;/p&gt;
+
+&lt;p&gt;a, b, * c = 1,2,3,4
+ c # =&amp;gt; [3,4]
+```&lt;/p&gt;
+
+&lt;p&gt;그래서 어쨌다는 걸까요...&lt;/p&gt;
+
+&lt;h3&gt;16. 부정&lt;/h3&gt;
+
+&lt;p&gt;부정의 의미로 사용되는 &lt;code&gt;!&lt;/code&gt; 혹은 &lt;code&gt;not&lt;/code&gt;이 맘에 드시지 않는 분? &lt;/p&gt;
+
+&lt;p&gt;그렇다면 &lt;code&gt;BaiscObject#!&lt;/code&gt;가 있습니다!&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ true.!# =&amp;gt; false
+ false.!# =&amp;gt; true
+ 1.!# =&amp;gt; false
+ &amp;#39;hello&amp;#39;.!.!# =&amp;gt; true
+&lt;/code&gt;
+...&lt;/p&gt;
+
+&lt;p&gt;다음으로 넘어가죠...&lt;/p&gt;
+
+&lt;h3&gt;17. % 노테이션&lt;/h3&gt;
+
+&lt;p&gt;String#%을 사용하면 문자열을 &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ lang = [:ruby, :java]
+ &amp;quot;I love %s, not %s&amp;quot; % lang # =&amp;gt; &amp;quot;I love ruby, not java&amp;quot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;뿐만 아니라 해시도 받을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ lang = {a: :java, b: :ruby}
+ &amp;quot;I love %{b}, not %{a}&amp;quot; % lang # =&amp;gt; &amp;quot;I love ruby, not java&amp;quot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;18. 문자열 분리&lt;/h3&gt;
+
+&lt;p&gt;문자열을 각 문자 별로 분리할 때는 &lt;code&gt;String#split&lt;/code&gt;나 &lt;code&gt;String#chars&lt;/code&gt; 메소드를 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ alpha = &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot;
+ alpha.split(//) # =&amp;gt; [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;, &amp;quot;e&amp;quot;, &amp;quot;f&amp;quot;, &amp;quot;g&amp;quot;, &amp;quot;h&amp;quot;, &amp;quot;i&amp;quot;, &amp;quot;j&amp;quot;, &amp;quot;k&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;m&amp;quot;, &amp;quot;n&amp;quot;, &amp;quot;o&amp;quot;, &amp;quot;p&amp;quot;, &amp;quot;q&amp;quot;, &amp;quot;r&amp;quot;, &amp;quot;s&amp;quot;, &amp;quot;t&amp;quot;, &amp;quot;u&amp;quot;, &amp;quot;v&amp;quot;, &amp;quot;w&amp;quot;, &amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;, &amp;quot;z&amp;quot;]&lt;/p&gt;
+
+&lt;p&gt;alpha.chars.to_a # =&amp;gt; [&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;, &amp;quot;e&amp;quot;, &amp;quot;f&amp;quot;, &amp;quot;g&amp;quot;, &amp;quot;h&amp;quot;, &amp;quot;i&amp;quot;, &amp;quot;j&amp;quot;, &amp;quot;k&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;m&amp;quot;, &amp;quot;n&amp;quot;, &amp;quot;o&amp;quot;, &amp;quot;p&amp;quot;, &amp;quot;q&amp;quot;, &amp;quot;r&amp;quot;, &amp;quot;s&amp;quot;, &amp;quot;t&amp;quot;, &amp;quot;u&amp;quot;, &amp;quot;v&amp;quot;, &amp;quot;w&amp;quot;, &amp;quot;x&amp;quot;, &amp;quot;y&amp;quot;, &amp;quot;z&amp;quot;]
+```&lt;/p&gt;
+
+&lt;p&gt;또한 ruby 2.0에선 chars 메소드를 사용한 후에 별도로 to_a를 호출해주지 않아도 됩니다.&lt;/p&gt;
+
+&lt;p&gt;하지만 문자열을 여러개의 문자를 기준으로 분리할 때는 &lt;code&gt;String#scan&lt;/code&gt;이 편리합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ alpha.scan(/.../) # =&amp;gt; [&amp;quot;abc&amp;quot;, &amp;quot;def&amp;quot;, &amp;quot;ghi&amp;quot;, &amp;quot;jkl&amp;quot;, &amp;quot;mno&amp;quot;, &amp;quot;pqr&amp;quot;, &amp;quot;stu&amp;quot;, &amp;quot;vwx&amp;quot;]
+ alpha.scan(/.{1,3}/) # =&amp;gt; [&amp;quot;abc&amp;quot;, &amp;quot;def&amp;quot;, &amp;quot;ghi&amp;quot;, &amp;quot;jkl&amp;quot;, &amp;quot;mno&amp;quot;, &amp;quot;pqr&amp;quot;, &amp;quot;stu&amp;quot;, &amp;quot;vwx&amp;quot;, &amp;quot;yz&amp;quot;]&lt;/p&gt;
+
+&lt;p&gt;number = &amp;#39;12345678&amp;#39;
+ def number.comma&lt;em&gt;value
+   reverse.scan(/.{1,3}/).join(&amp;#39;,&amp;#39;).reverse
+ end
+ number.comma&lt;/em&gt;value # =&amp;gt; &amp;quot;12,345,678&amp;quot;
+```&lt;/p&gt;
+
+&lt;h3&gt;19. Array#*&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Array#*&lt;/code&gt;에 정수를 넘겨주면 배열을 해당하는 수만큼 반복한 배열을 리턴합니다만, 문자열을 넘겨주면 문자열을 조인하고 그 사이에 해당하는 문자열로 연결해줍니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ [1, 2, 3] * 3 # =&amp;gt; [1, 2, 3, 1, 2, 3, 1, 2, 3]&lt;/p&gt;
+
+&lt;p&gt;[2009, 1, 10] * &amp;#39;-&amp;#39; # =&amp;gt; &amp;quot;2009-1-10&amp;quot;
+```&lt;/p&gt;
+
+&lt;p&gt;그럼 이 지식을 활용해 다음 예제에서 x의 출력을 맞춰보세요!&lt;/p&gt;
+
+&lt;p&gt;```ruby
+*a, b, c = %w(1 2 3 4 5)&lt;/p&gt;
+
+&lt;p&gt;x = a * b + c&lt;/p&gt;
+
+&lt;p&gt;puts x
+```&lt;/p&gt;
+
+&lt;h3&gt;20. Array#uniq&lt;/h3&gt;
+
+&lt;p&gt;배열에서 중복된 값들을 제외할 때 &lt;code&gt;Array#uniq&lt;/code&gt; 메소드를 사용하곤합니다. 이 때 uniq 메소드에 블록을 넘겨 조건을 지정할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ Designer = Struct.new(:name, :lang)
+ data = {&amp;#39;matz&amp;#39; =&amp;gt; :ruby, &amp;#39;kay&amp;#39; =&amp;gt; :smalltalk, &amp;#39;gosling&amp;#39; =&amp;gt; :java, &amp;#39;dhh&amp;#39; =&amp;gt; :ruby}
+ designers = data.to_a.map { |name, lang| Designer[name, lang] }&lt;/p&gt;
+
+&lt;p&gt;designers # =&amp;gt; [#&lt;struct Designer name="matz", lang=:ruby&gt;, #&lt;struct Designer name="kay", lang=:smalltalk&gt;, #&lt;struct Designer name="gosling", lang=:java&gt;, #&lt;struct Designer name="dhh", lang=:ruby&gt;]&lt;/p&gt;
+
+&lt;p&gt;designers.uniq.map(&amp;amp;:name) # =&amp;gt; [&amp;quot;matz&amp;quot;, &amp;quot;kay&amp;quot;, &amp;quot;gosling&amp;quot;, &amp;quot;dhh&amp;quot;]
+ designers.uniq{ |d| d.lang }.map(&amp;amp;:name) # =&amp;gt; [&amp;quot;matz&amp;quot;, &amp;quot;kay&amp;quot;, &amp;quot;gosling&amp;quot;]
+```&lt;/p&gt;
+
+&lt;p&gt;아, 그렇죠. No 19의 정답은 &amp;quot;142435&amp;quot;입니다.&lt;/p&gt;
+
+&lt;h3&gt;21. 모든 배열 요소의 동일 여부 확인&lt;/h3&gt;
+
+&lt;p&gt;배열의 모든 요소가 같은지 확인할 때 Array#uniq 메소드를 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].uniq.size==1 # =&amp;gt; true
+[1, 1, 1, 1, 1, 1, 1, 2, 1, 1].uniq.size==1 # =&amp;gt; false
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;조건을 지정하고 싶을 땐 uniq에 블록을 넘겨주는 방법이 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+%w(street retest setter tester).uniq { |w| w.chars.sort }.size==1 # =&amp;gt; true
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;22. 문자열 리스트 %w&lt;/h3&gt;
+
+&lt;p&gt;문자열 리스트를 만들 때 %w를 사용하면 편리합니다. 이 때 공백 문자를 포함하고 싶으면 백슬래시로 이스케이프 해줄 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ designers = %w(John\ McCarthy Yukihiro\ Matsumoto Larry\ Wall Alan\ Kay Martin\ Odersky)
+ designers # =&amp;gt; [&amp;quot;John McCarthy&amp;quot;, &amp;quot;Yukihiro Matsumoto&amp;quot;, &amp;quot;Larry Wall&amp;quot;, &amp;quot;Alan Kay&amp;quot;, &amp;quot;Martin Odersky&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;23. 동적 상속&lt;/h3&gt;
+
+&lt;p&gt;Ruby 클래스의 상속은 &lt;code&gt;&amp;lt;&lt;/code&gt; 기호를 사용하는데 이때 우변에 클래스 상수나 클래스를 리턴하는 식을 지정할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ class Male
+  def laugh
+    &amp;#39;Ha ha ha!&amp;#39;
+  end
+ end&lt;/p&gt;
+
+&lt;p&gt;class Female
+  def laugh
+    &amp;#39;Fu fu fu..&amp;#39;
+  end
+ end&lt;/p&gt;
+
+&lt;p&gt;class Me &amp;lt; [Male, Female][rand 2]
+ end&lt;/p&gt;
+
+&lt;p&gt;Me.superclass # =&amp;gt; Female
+ Me.new.laugh # =&amp;gt; &amp;#39;Fu fu fu..&amp;#39;
+```&lt;/p&gt;
+
+&lt;p&gt;환경에 따라 IO를 바꾸는 예제입니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ def io(env=:development)
+   env==:test ?StringIO : IO
+ end&lt;/p&gt;
+
+&lt;p&gt;env = :test&lt;/p&gt;
+
+&lt;p&gt;class MyIO &amp;lt; io(env)
+ end&lt;/p&gt;
+
+&lt;p&gt;MyIO.superclass #=&amp;gt; StringIO
+```&lt;/p&gt;
+
+&lt;p&gt;즉 Ruby에서는 조건에 따라 상속하려는 클래스를 동적으로 바꿀 수 있습니다.&lt;/p&gt;
+
+&lt;h3&gt;24. 대문자 메소드&lt;/h3&gt;
+
+&lt;p&gt;Ruby는 메소드 이름으로 영어 소문자를 사용하는데 영어 대문자도 사용할
+수 있습니다. 대문자 메소드는 상수처럼 보이기도 합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ class Google
+   def URL
+     &amp;#39;www.google.com&amp;#39;
+   end
+   private :URL&lt;/p&gt;
+
+&lt;p&gt;def search(word)
+     get( URL(), word)
+   end
+ end
+```&lt;/p&gt;
+
+&lt;p&gt;상수는 속상된 서브 클래스에서도 참조 가능하지만 이를 비공개로 하고
+싶을 때는 어떨까요. 바로 이럴 때 대문자 메소드를 이용해보는 겁니다.&lt;/p&gt;
+
+&lt;p&gt;인수가 없을 때도 괄호가 생략 불가능한 단점은 있지만, 관련된 복잡한 상수를 정의할 때도 편리하게 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ class Google
+   def search(word, code=:us)
+     get( URL(code), word )
+   end&lt;/p&gt;
+
+&lt;p&gt;def URL(code)
+     { us: &amp;#39;www.google.com&amp;#39;,
+       ja: &amp;#39;www.google.co.jp&amp;#39; }[code]
+   end
+   private :URL
+```&lt;/p&gt;
+
+&lt;p&gt;「상수 메소드」라는 이름은 어떨까요.&lt;/p&gt;
+
+&lt;h3&gt;25. 함수 부분 적용&lt;/h3&gt;
+
+&lt;p&gt;비슷한 메소드를 여러번 만드는 건 DRY 원칙에 위배됩니다.&lt;code&gt;Proc#curry&lt;/code&gt;를
+사용하면 이러한 문제를 피할 수 있습니다. 계절 판정 예제입니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ require &amp;quot;date&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;season = -&amp;gt;range,date{ range.include?Date.parse(date).mon }.curry&lt;/p&gt;
+
+&lt;p&gt;is&lt;em&gt;spring = season[4..6]
+ is&lt;/em&gt;summer = season[7..9]
+ is&lt;em&gt;autumn = season[10..12]
+ is&lt;/em&gt;winter = season[1..3]&lt;/p&gt;
+
+&lt;p&gt;is&lt;em&gt;autumn[&amp;#39;11/23&amp;#39;] # =&amp;gt; true
+ is&lt;/em&gt;summer[&amp;#39;1/1&amp;#39;] # =&amp;gt; false
+```&lt;/p&gt;
+
+&lt;p&gt;이럴 때 변수명에 &lt;code&gt;?&lt;/code&gt;를 사용할 수 있으면 좋겠다는 생각을 해봅니다.&lt;/p&gt;
+
+&lt;h3&gt;26. Proc에 의한 case 조건&lt;/h3&gt;
+
+&lt;p&gt;Proc은 call 메소드를 사용해 실행할 수 있는데 이 메소드는
+&lt;code&gt;Proc#===&lt;/code&gt;라는 다른 이름을 가지고 있습니다. 앞선 계절 판정 함수를 case
+식으로 작성하면 아래와 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ for date in %w(2/4 11/23 6/14 8/3)
+   act = 
+     case date
+     when is_spring; &amp;#39;Wake up!&amp;#39;
+     when is_summer; &amp;#39;Cool down!&amp;#39;
+     when is_autumn; &amp;#39;Read!&amp;#39;
+     when is_winter; &amp;#39;Sleep!&amp;#39;
+     end
+   puts &amp;quot;#{date} =&amp;gt; #{act}&amp;quot;
+ end
+ # &amp;gt;&amp;gt; 2/4 =&amp;gt; Sleep! # &amp;gt;&amp;gt; 11/23 =&amp;gt; Read! # &amp;gt;&amp;gt; 6/14 =&amp;gt; Wake up! # &amp;gt;&amp;gt; 8/3 =&amp;gt; Cool down!
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;인수가 넘어가는 게 암묵적으로 이루어져서 case 식이 깔끔하게 느껴집니다.&lt;/p&gt;
+
+&lt;h3&gt;27. Struct 클래스&lt;/h3&gt;
+
+&lt;p&gt;속성만 있는 클래스를 생성할 때는 &lt;code&gt;Struct&lt;/code&gt;가 편리합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ module Fortune
+   class Teller
+     require &amp;quot;date&amp;quot;
+     def self.ask(name, age, occupation)
+       Date.today.next_day(rand 10)
+     end
+   end
+ end&lt;/p&gt;
+
+&lt;p&gt;class Person &amp;lt; Struct.new(:name, :age, :occupation)
+   def length&lt;em&gt;of&lt;/em&gt;life(date)
+     (Fortune::Teller.ask(name, age, occupation) - Date.parse(date)).to_i
+   end
+ end&lt;/p&gt;
+
+&lt;p&gt;charlie = Person.new(&amp;#39;charlie&amp;#39;, 13, :programmer)
+ charlie.length&lt;em&gt;of&lt;/em&gt;life(&amp;#39;2013/3/1&amp;#39;) # =&amp;gt; 6
+```&lt;/p&gt;
+
+&lt;p&gt;Struct.new는 블록을 받을 수 있어 아래와 같이 사용할 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ Person = Struct.new(:name, :age, :occupation) do
+   def length&lt;em&gt;of&lt;/em&gt;life(date)
+     (Fortune::Teller.ask(name, age, occupation) - Date.parse(date)).to_i
+   end
+ end&lt;/p&gt;
+
+&lt;p&gt;charlie = Person.new(&amp;#39;charlie&amp;#39;, 13, :programmer)
+ charlie.length&lt;em&gt;of&lt;/em&gt;life(&amp;#39;2013/3/1&amp;#39;) # =&amp;gt; 3
+```&lt;/p&gt;
+
+&lt;h3&gt;28. Struct의 기본 값&lt;/h3&gt;
+
+&lt;p&gt;한 번 더 Struct 이야기입니다. 이번엔 Beverage 객체를 만들어 보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class Beverage &amp;lt; Struct.new(:name, :cost)
+end&lt;/p&gt;
+
+&lt;h1&gt;혹은 Beverage = Struct.new(:name, :cost)&lt;/h1&gt;
+
+&lt;p&gt;starbucks = Beverage.new(:staba, 430) # =&amp;gt; #&lt;struct Beverage name=:staba, cost=430&gt;
+heineken = Beverage.new(:heineken, 580) # =&amp;gt; #&lt;struct Beverage name=:heineken, cost=580&gt;
+```&lt;/p&gt;
+
+&lt;p&gt;여기서 &lt;code&gt;new&lt;/code&gt;에 인수를 넘기지 않으면 속성값에는 nil이 지정됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+Beverage.new # =&amp;gt; #&amp;lt;struct Beverage name=nil, cost=nil&amp;gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;가능하면 클래스와 마찬가지로 기본 값을 설정하고 싶죠. 그럴 땐 이렇게 합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class Beverage &amp;lt; Struct.new(:name, :cost)
+  def initialize(name=:water, cost=0)
+    super(name, cost)
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;starbucks = Beverage.new(:staba, 430) # =&amp;gt; #&lt;struct Beverage name=:staba, cost=430&gt;
+heineken = Beverage.new(:heineken, 580) # =&amp;gt; #&lt;struct Beverage name=:heineken, cost=580&gt;&lt;/p&gt;
+
+&lt;p&gt;water = Beverage.new # =&amp;gt; #&lt;struct Beverage name=:water, cost=0&gt;
+```&lt;/p&gt;
+
+&lt;h3&gt;29. retry와 인수 기본값&lt;/h3&gt;
+
+&lt;p&gt;rescue를 사용할 때는 &lt;code&gt;retry&lt;/code&gt;를 사용해서 메소드를 재실행할 수 있습니다.
+이를 메소드 인수의 기본 값과 연관지어 편리하게 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ require &amp;quot;date&amp;quot;
+ def last_date(date, last=[28,29,30,31])
+   d = Date.parse date
+   Date.new(d.year, d.mon, last.pop).day rescue retry
+ end&lt;/p&gt;
+
+&lt;p&gt;last&lt;em&gt;date &amp;#39;2013/6/1&amp;#39; # =&amp;gt; 30
+ last&lt;/em&gt;date &amp;#39;2012/2/20&amp;#39; # =&amp;gt; 29
+ last_date &amp;#39;2013/2&amp;#39; # =&amp;gt; 28
+```&lt;/p&gt;
+
+&lt;p&gt;이 예제에서는 31일부터 Date 객체를 생성해 예외가 발생하면 retry를 통해 전 날의 Date객체 생성을 시도합니다.&lt;/p&gt;
+
+&lt;p&gt;사실 마지막 날이 알고 싶은 거면 아래 코드면 충분합니다만...&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ Date.new(2013,2,-1).day # =&amp;gt; 28
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;30. Array#zip&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Array#zip&lt;/code&gt;을 알고계시나요?여러개의 배열을 한 줄 한 줄 늘여놓고 열단위로 묶어주는 메소드입니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+[1, 2, 3].zip([4, 5, 6], [7, 8, 9]) # =&amp;gt; [[1, 4, 7], [2, 5, 8], [3, 6, 9]]&lt;/p&gt;
+
+&lt;p&gt;[:A, :B, :C].zip([:E, :F, :G], [:H, :I, :J]) # =&amp;gt; [[:A, :E, :H], [:B, :F, :I], [:C, :G, :J]]
+```&lt;/p&gt;
+
+&lt;p&gt;zip은 일반적으로 하나나 그보다 많은 배열들을 인수로 받는데 값이 연속되는 경우엔 Range를 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+[1, 2, 3].zip(4..6, 7..9) # =&amp;gt; [[1, 4, 7], [2, 5, 8], [3, 6, 9]]&lt;/p&gt;
+
+&lt;p&gt;[:A, :B, :C].zip(:E..:G, :H..:J) # =&amp;gt; [[:A, :E, :H], [:B, :F, :I], [:C, :G, :J]]
+```&lt;/p&gt;
+
+&lt;p&gt;또한 zip은 블록을 넘겨받을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+[1, 2, 3].zip(4..6, 7..9) { |xyz| puts xyz.inject(:+) } # =&amp;gt; nil&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 12&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 15&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 18&lt;/h1&gt;
+
+&lt;p&gt;[:A, :B, :C].zip(:E..:G, :H..:J) { |xyz| puts xyz.join } # =&amp;gt; nil&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; AEH&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; BFI&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; CGJ&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;단 리턴값은 nil이므로 블록에서 처리하는 방법으로밖에 사용할 수 없습니다.&lt;/p&gt;
+
+&lt;h3&gt;31. Enumerable#zip&lt;/h3&gt;
+
+&lt;p&gt;zip 메소드는 Enumerable 클래스에도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+(1..3).zip(4..6, 7..9) # =&amp;gt; [[1, 4, 7], [2, 5, 8], [3, 6, 9]]&lt;/p&gt;
+
+&lt;p&gt;(:A..:C).zip(:E..:G, :H..:J) # =&amp;gt; [[:A, :E, :H], [:B, :F, :I], [:C, :G, :J]]
+```&lt;/p&gt;
+
+&lt;p&gt;Struct도 Enumerable 객체이므로 아래와 같은 것도 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+water = Beverage.new  # =&amp;gt; #&lt;struct Beverage name=:water, cost=0&gt;
+starbucks = Beverage.new(:staba, 430) # =&amp;gt; #&lt;struct Beverage name=:staba, cost=430&gt;
+heineken = Beverage.new(:heineken, 580) # =&amp;gt; #&lt;struct Beverage name=:heineken, cost=580&gt;&lt;/p&gt;
+
+&lt;p&gt;water.zip(starbucks, heineken) # =&amp;gt; [[:water, :staba, :heineken], [0, 430, 580]]
+```&lt;/p&gt;
+
+&lt;h3&gt;32. ARGF&lt;/h3&gt;
+
+&lt;p&gt;ARFG는 훌륭합니다. 이는 커맨드 라인 인수를 파일명으로 받아들여 지정된
+파일 객체를 가져옵니다. 그런데 이 객체의 클래스가 뭔지 알고계시나요? 이를 확인하려면 class 메소드를 보내보면 되겠죠.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+ARGF.class # =&amp;gt; ARGF.class
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;네. 정답은 &lt;code&gt;ARFG.class&lt;/code&gt;입니다.&lt;/p&gt;
+
+&lt;p&gt;그럼 new 하면 ARGF가 만들어질까요.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ARGF.class # =&amp;gt; ARGF.class
+MYARGF = ARGF.class.new  # =&amp;gt; ARGF
+MYARGF.class # =&amp;gt; ARGF.class&lt;/p&gt;
+
+&lt;p&gt;puts MYARGF.filename
+```&lt;/p&gt;
+
+&lt;p&gt;만들어집니다! 하지만 제대로 작동하지 않습니다.&lt;/p&gt;
+
+&lt;p&gt;```sh&lt;/p&gt;
+
+&lt;h2&gt;% ruby argf_test.rb abc.txt&lt;/h2&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;칫!&lt;/p&gt;
+
+&lt;h3&gt;33. Object#tap&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;tap&lt;/code&gt;은 이 블록의 평가 결과를 버리는 희안한 메소드인데 그 결과가
+필요할 때가 있습니다. 그럴 땐 break를 사용하면 됩니다. (thanks to knu 님).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+average = [56, 87, 49, 75, 90, 63, 65].tap { |sco| break sco.inject(:+) / sco.size } # =&amp;gt; 69
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;컵라면을 좋아하는 당신께 아래의 코드를 헌정합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+puts &amp;quot;Eat!&amp;quot;.tap { sleep 180 } # 3분 후에 &amp;#39;Eat!&amp;#39;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;34. 사용하지 않는 변수&lt;/h3&gt;
+
+&lt;p&gt;배열 데이터를 그냥 버리고 싶을 때가 있죠.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+header, *data = DATA.each_line.map { |line| line.chomp.split }
+header # =&amp;gt; [&amp;quot;name&amp;quot;, &amp;quot;age&amp;quot;, &amp;quot;job&amp;quot;]
+data # =&amp;gt; [[&amp;quot;charlie&amp;quot;, &amp;quot;12&amp;quot;, &amp;quot;:programmer&amp;quot;], [&amp;quot;tommy&amp;quot;, &amp;quot;17&amp;quot;, &amp;quot;:student&amp;quot;], [&amp;quot;nick&amp;quot;, &amp;quot;27&amp;quot;, &amp;quot;:doctor&amp;quot;]]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;END&lt;/strong&gt;
+name age job
+charlie 12 :programmer
+tommy 17 :student
+nick 27 :doctor
+```&lt;/p&gt;
+
+&lt;p&gt;그런데 여기서 &lt;code&gt;header&lt;/code&gt; 변수를 사용하지 않으면 경고가 나옵니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+header, *data = DATA.each_line.map { |line| line.chomp.split } # !&amp;gt; assigned but unused variable - header
+data # =&amp;gt; [[&amp;quot;charlie&amp;quot;, &amp;quot;12&amp;quot;, &amp;quot;:programmer&amp;quot;], [&amp;quot;tommy&amp;quot;, &amp;quot;17&amp;quot;, &amp;quot;:student&amp;quot;], [&amp;quot;nick&amp;quot;, &amp;quot;27&amp;quot;, &amp;quot;:doctor&amp;quot;]]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이를 피하기 위해 변수명을 &lt;code&gt;_&lt;/code&gt;(밑줄)로 지정합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+_, *data = DATA.each_line.map { |line| line.chomp.split }
+data # =&amp;gt; [[&amp;quot;charlie&amp;quot;, &amp;quot;12&amp;quot;, &amp;quot;:programmer&amp;quot;], [&amp;quot;tommy&amp;quot;, &amp;quot;17&amp;quot;, &amp;quot;:student&amp;quot;], [&amp;quot;nick&amp;quot;, &amp;quot;27&amp;quot;, &amp;quot;:doctor&amp;quot;]]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 이미 2.0을 사용하고 계시다면 변수 이름 앞에 &lt;code&gt;_&lt;/code&gt;를 붙여주기만 하면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+_header, *data = DATA.each_line.map { |line| line.chomp.split }
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;35. 파일 뽑아내기&lt;/h3&gt;
+
+&lt;p&gt;여러 파일이 있을 때 특정한 조건에 맞는 딱 하나의 파일을 찾아내 다른
+변수에 저장하고 싶다고 해보죠. &lt;code&gt;Array#delete&lt;/code&gt; 메소드를 사용하면 될 것 같은데, 실제론 어떨까요.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+files = [&amp;#39;Gemfile&amp;#39;, &amp;#39;LICENSE.txt&amp;#39;, &amp;#39;README.md&amp;#39;, &amp;#39;Rakefile&amp;#39;, &amp;#39;bin&amp;#39;, &amp;#39;lib&amp;#39;, &amp;#39;maliq.gemspec&amp;#39;, &amp;#39;pkg&amp;#39;, &amp;#39;spec&amp;#39;]&lt;/p&gt;
+
+&lt;p&gt;gemspec = files.delete(/.gemspec$/)
+gemspec # =&amp;gt; nil
+files # =&amp;gt; [&amp;quot;Gemfile&amp;quot;, &amp;quot;LICENSE.txt&amp;quot;, &amp;quot;README.md&amp;quot;, &amp;quot;Rakefile&amp;quot;, &amp;quot;bin&amp;quot;, &amp;quot;lib&amp;quot;, &amp;quot;maliq.gemspec&amp;quot;, &amp;quot;pkg&amp;quot;, &amp;quot;spec&amp;quot;]
+```&lt;/p&gt;
+
+&lt;p&gt;안타깝지만 생각처럼 되지 않습니다. 이는 Array#delete가 &lt;code&gt;==&lt;/code&gt;으로 동일 여부를 판단하기 때문입니다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면 &lt;code&gt;Array#partition&lt;/code&gt;과 다중 대입을 사용해보죠.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+gemspec, files = files.partition { |f| f.match(/\.gemspec$/) }
+gemspec # =&amp;gt; [&amp;quot;maliq.gemspec&amp;quot;]
+files  # =&amp;gt; [&amp;quot;Gemfile&amp;quot;, &amp;quot;LICENSE.txt&amp;quot;, &amp;quot;README.md&amp;quot;, &amp;quot;Rakefile&amp;quot;, &amp;quot;bin&amp;quot;, &amp;quot;lib&amp;quot;, &amp;quot;pkg&amp;quot;, &amp;quot;spec&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;다 된 것 같긴 한데 gemspec 파일을 배열로 돌려주는 게 조금 아쉽네요. 하지만 다중 대입 + 괄호를 사용하면 해결할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+(gemspec, *_), files = files.partition { |f| f.match(/\.gemspec$/) }
+gemspec # =&amp;gt; &amp;quot;maliq.gemspec&amp;quot;
+files # =&amp;gt; [&amp;quot;Gemfile&amp;quot;, &amp;quot;LICENSE.txt&amp;quot;, &amp;quot;README.md&amp;quot;, &amp;quot;Rakefile&amp;quot;, &amp;quot;bin&amp;quot;, &amp;quot;lib&amp;quot;, &amp;quot;pkg&amp;quot;, &amp;quot;spec&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;36. Symbol에 주석 사용하기&lt;/h3&gt;
+
+&lt;p&gt;심볼에도 주석을 달고 싶다고 생각해보신 적은 없나요? 그렇다면 이렇게 해보세요.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+sym = :#this symbol is nice
+hello&lt;/p&gt;
+
+&lt;p&gt;sym # =&amp;gt; :hello
+```&lt;/p&gt;
+
+&lt;p&gt;대체 이걸 어디에 쓰시려고...&lt;/p&gt;
+
+&lt;h3&gt;37. Kernel#loop&lt;/h3&gt;
+
+&lt;p&gt;끝없이 반복하고 싶은 경우엔 &lt;code&gt;Kernel#loop&lt;/code&gt;에 블록을 넘겨주면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ require &amp;quot;prime&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;prime = Prime.each&lt;/p&gt;
+
+&lt;p&gt;n = 0
+ loop do
+   printf &amp;quot;%d &amp;quot; % prime.next
+   break if n &amp;gt; 10
+   n += 1
+ end
+ # &amp;gt;&amp;gt; 2 3 5 7 11 13 17 19 23 29 31 37 
+```&lt;/p&gt;
+
+&lt;p&gt;여기선 loop에 블록을 넘기지 않으면 Enumerator가 리턴됩니다. 이를
+이용하면 loop에 인덱스를 추가할 수 있습니다.( thanks to @no6v 님)&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ loop # =&amp;gt; #&lt;Enumerator: main:loop&gt;&lt;/p&gt;
+
+&lt;p&gt;loop.with&lt;em&gt;index do |&lt;/em&gt;,n|
+   printf &amp;quot;%d &amp;quot; % prime.next
+   break if n &amp;gt; 10
+ end
+ # &amp;gt;&amp;gt; 2 3 5 7 11 13 17 19 23 29 31 37 
+```&lt;/p&gt;
+
+&lt;p&gt;블록의 첫번째 인수가 nil이 되어버립니다만.&lt;/p&gt;
+
+&lt;h3&gt;38. BasicObject#instance_eval&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;instance_eval&lt;/code&gt;은 객체 생성을 DSL처럼 할 때 자주 사용됩니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class Person
+  def initialize(&amp;amp;blk)
+    instance_eval(&amp;amp;blk)
+  end
+  def name(name)
+    @name = name
+  end
+  def age(age)
+    @age = age
+  end
+  def job(job)
+    @job = job
+  end
+  def profile
+    [@name, @age, @job] * &amp;#39;-&amp;#39;
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;t = Person.new do
+  name &amp;#39;Charlie&amp;#39;
+  age  13
+  job  :programmer
+end&lt;/p&gt;
+
+&lt;p&gt;t.profile # =&amp;gt; &amp;quot;Charlie-13-programmer&amp;quot;
+```&lt;/p&gt;
+
+&lt;p&gt;하지만 이러한 콘텍스트를 일시적으로 바꾸는 방법은 DSL이 아니라도
+편리하게 사용할 수 있습니다. 테스트 결과의 평균값을 구해보죠. 우선은 일반적인 방법으로.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+scores = [56, 87, 49, 75, 90, 63, 65]
+scores.inject(:+) / scores.size # =&amp;gt; 69
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;짧은 코드인데 scores 변수가 3번이나 나옵니다.&lt;/p&gt;
+
+&lt;p&gt;instance_eval을 사용하면 score를 사용하지 않을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+[56, 87, 49, 75, 90, 63, 65].instance_eval { inject(:+) / size } # =&amp;gt; 69
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;다음으로 표준편차 sd를 구해보죠. 우선은 일반적인 방법으로&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+scores = [56, 87, 49, 75, 90, 63, 65]
+avg = scores.inject(:+) / scores.size
+sigmas = scores.map { |n| (avg - n)**2 }
+sd = Math.sqrt(sigmas.inject(:+) / scores.size) # =&amp;gt; 14.247806848775006
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;instance&lt;em&gt;eval로.
+```ruby
+scores = [56, 87, 49, 75, 90, 63, 65]
+sd = scores.instance&lt;/em&gt;eval do
+  avg = inject(:+) / size
+  sigmas = map { |n| (avg - n)**2 }
+  Math.sqrt(sigmas.inject(:+) / size)
+end
+sd # =&amp;gt; 14.247806848775006
+```&lt;/p&gt;
+
+&lt;p&gt;비슷한 변수를 블록 안에 집어넣는 것은 물론 블록에서 식이 정리되니 더 보기 좋지 않나요?&lt;/p&gt;
+
+&lt;h3&gt;39. 정규 표현식 : 이름 있는 참조&lt;/h3&gt;
+
+&lt;p&gt;정규 표현식 안에서 &lt;code&gt;()&lt;/code&gt;를 부분 매치에 사용할 수 있습니다. 더욱이 이 매치에 이름을 붙이고 싶으면 &lt;code&gt;?\&amp;lt;pattern\&amp;gt;&lt;/code&gt;을 사용하면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+langs = &amp;quot;python lisp ruby haskell erlang scala&amp;quot;
+m = langs.match(/(?&amp;lt;lang&amp;gt;\w+)/) # =&amp;gt; #&amp;lt;MatchData &amp;quot;python&amp;quot; lang:&amp;quot;python&amp;quot;&amp;gt;
+m[&amp;#39;lang&amp;#39;] # =&amp;gt; &amp;quot;python&amp;quot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 정규표현 리터럴을 좌변에 사용하면 이를 지역 변수처럼 사용할 수
+있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+langs = &amp;quot;python lisp ruby haskell erlang scala&amp;quot;
+if /(?&lt;most_fun_lang&gt;r\w+)/ =~ langs
+  printf &amp;quot;you should learn %s!&amp;quot;, most&lt;em&gt;fun&lt;/em&gt;lang
+end&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; you should learn ruby!&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;h3&gt;40. 정규표현:POSIX 문자 클래스&lt;/h3&gt;
+
+&lt;p&gt;Ruby 1.9에서 &lt;code&gt;\w&lt;/code&gt;는 일본어에 매치하지 않습니다.1.9에서 일본어에도 매치시키기 위해서는 POSIX 문자 클래스 &lt;code&gt;word&lt;/code&gt;를 사용하는 방법이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+need_japanese = &amp;quot;this-日本語*is*_really_/\\変わってる!&amp;quot;
+need_japanese.scan(/\w+/) # =&amp;gt; [&amp;quot;this&amp;quot;, &amp;quot;is&amp;quot;, &amp;quot;_really_&amp;quot;]
+need_japanese.scan(/[[:word:]]+/) # =&amp;gt; [&amp;quot;this&amp;quot;, &amp;quot;日本語&amp;quot;, &amp;quot;is&amp;quot;, &amp;quot;_really_&amp;quot;, &amp;quot;変わってる&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;41. String#match&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;String#match&lt;/code&gt;는 MatchData 객체를 리턴하므로 다음과 같이 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+date = &amp;quot;2012february14&amp;quot;
+m = date.match(/\D+/)
+mon, day, year = m.to_s.capitalize, m.post_match, m.pre_match
+&amp;quot;#{mon} #{day}, #{year}&amp;quot; # =&amp;gt; &amp;quot;February 14, 2012&amp;quot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;하지만 match는 블록을 받으므로 다음과 같이 사용해도 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+date = &amp;quot;2012february14&amp;quot;
+mon, day, year = date.match(/\D+/) { |m| [m.to_s.capitalize, m.post_match, m.pre_match] }
+&amp;quot;#{mon} #{day}, #{year}&amp;quot; # =&amp;gt; &amp;quot;February 14, 2012&amp;quot;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;42. String#unpack&lt;/h3&gt;
+
+&lt;p&gt;문자열을 정해진 길이를 기준으로 나누고 싶을 땐 어떻게 하는 게
+좋을까요? 먼저 정규표현식을 사용해보죠.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+a_day = &amp;#39;20120214&amp;#39;
+a_day.match(/(.{4})(.{2})(.{2})/).captures # =&amp;gt; [&amp;quot;2012&amp;quot;, &amp;quot;02&amp;quot;, &amp;quot;14&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;String#unpack&lt;/code&gt;를 사용하면 좀 더 간단히 해결할 수 있습니다. (thanks to @no6v 님)&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+a_day = &amp;#39;20120214&amp;#39;
+a_day.unpack(&amp;#39;A4A2A2&amp;#39;) # =&amp;gt; [&amp;quot;2012&amp;quot;, &amp;quot;02&amp;quot;, &amp;quot;14&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;43. Enumerable#each&lt;em&gt;with&lt;/em&gt;object&lt;/h3&gt;
+
+&lt;p&gt;Enumerable#map 메소드를 활용하는 방법으로 블록 대신에 &lt;code&gt;&amp;amp;&lt;/code&gt;에 심볼을 붙이는 기술이 알려져 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+langs = [&amp;quot;ruby&amp;quot;, &amp;quot;python&amp;quot;, &amp;quot;lisp&amp;quot;, &amp;quot;haskell&amp;quot;]
+langs.map(&amp;amp;:capitalize) # =&amp;gt; [&amp;quot;Ruby&amp;quot;, &amp;quot;Python&amp;quot;, &amp;quot;Lisp&amp;quot;, &amp;quot;Haskell&amp;quot;]
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;하지만 이 기술은 인수를 받는 메소드는 사용할 수 없다는 문제가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+langs = [&amp;quot;ruby&amp;quot;, &amp;quot;python&amp;quot;, &amp;quot;lisp&amp;quot;, &amp;quot;haskell&amp;quot;]
+langs.map(:+, &amp;#39;ist&amp;#39;) # =&amp;gt; &lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:2:in `map&amp;#39;: wrong number of arguments (2 for 0) (ArgumentError)&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt;    from -:2:in `&lt;main&gt;&amp;#39;&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;이럴 땐 &lt;code&gt;each_with_object&lt;/code&gt; 메소드를 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+langs = [&amp;quot;ruby&amp;quot;, &amp;quot;python&amp;quot;, &amp;quot;lisp&amp;quot;, &amp;quot;haskell&amp;quot;]&lt;/p&gt;
+
+&lt;p&gt;langs.each&lt;em&gt;with&lt;/em&gt;object(&amp;#39;ist&amp;#39;).map(&amp;amp;:+) # =&amp;gt; [&amp;quot;rubyist&amp;quot;, &amp;quot;pythonist&amp;quot;, &amp;quot;lispist&amp;quot;, &amp;quot;haskellist&amp;quot;]&lt;/p&gt;
+
+&lt;p&gt;[1, 2, 3].each&lt;em&gt;with&lt;/em&gt;object(10).map(&amp;amp;:+) # =&amp;gt; &lt;a href="1..5"&gt;11, 12, 13&lt;/a&gt;.each&lt;em&gt;with&lt;/em&gt;object(2).map(&amp;amp;:**) # =&amp;gt; [1, 4, 9, 16, 25]
+```&lt;/p&gt;
+
+&lt;p&gt;이름이 조금 길죠. 그것보다 네. 그냥 map에 블록을 넘기세요.&lt;/p&gt;
+
+&lt;p&gt;그리고 이런 방법도 있습니다. (thanks to @tmaeda 님)&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+[1, 2, 3].map(&amp;amp;10.method(:+)) # =&amp;gt; [11, 12, 13]
+&lt;/code&gt;
+리시버와 인수가 역전되므로 용도는 한정적입니다만.&lt;/p&gt;
+
+&lt;h3&gt;44. Float::INFINITY&lt;/h3&gt;
+
+&lt;p&gt;임의의 수열을 만들고자 할 때 하지만 크기가 미리 정해지지 않는 경우가
+있습니다. 일단은 &lt;code&gt;Enumerator&lt;/code&gt;로 시도해보죠.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+sequence = Enumerator.new { |y| i=1; loop { y &amp;lt;&amp;lt; i; i+=1 } }&lt;/p&gt;
+
+&lt;p&gt;sequence.take(10) # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+100.times.map { sequence.next } # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+```&lt;/p&gt;
+
+&lt;p&gt;단 &lt;code&gt;Enumerator&lt;/code&gt;를 사용하지 않아도 비슷한 작업을 할 수 있는데, 이 때 무한을 의미하는 상수 &lt;code&gt;Float::INFINITY&lt;/code&gt;를 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+sequence = 1..Float::INFINITY
+sequence.take(10) # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/p&gt;
+
+&lt;p&gt;seq = sequence.to_enum
+100.times.map { seq.next } # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]
+```&lt;/p&gt;
+
+&lt;p&gt;Infinity는 0으로 나눠서 얻을 수 있으니 아래와 같이 작성할 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+(1..1.0/0).take(10) # =&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/p&gt;
+
+&lt;p&gt;1.step(1.0/0, 1.5).take(20) # =&amp;gt; [1.0, 2.5, 4.0, 5.5, 7.0, 8.5, 10.0, 11.5, 13.0, 14.5, 16.0, 17.5, 19.0, 20.5, 22.0, 23.5, 25.0, 26.5, 28.0, 29.5]
+```&lt;/p&gt;
+
+&lt;h3&gt;45. Enumerable#grep&lt;/h3&gt;
+
+&lt;p&gt;case의 동일성 판단은 &lt;code&gt;===&lt;/code&gt; 메소드를 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+temp = 85
+status =
+  case temp
+  when 1..40;   :low
+  when 80..100; :Danger
+  else :ok
+  end
+status # =&amp;gt; :Danger&lt;/p&gt;
+
+&lt;p&gt;class Trivia
+end
+t = Trivia.new&lt;/p&gt;
+
+&lt;p&gt;klass =
+  case t
+  when String; &amp;#39;no good&amp;#39;
+  when Array;  &amp;#39;no no&amp;#39;
+  when Trivia; &amp;#39;Yes!Trivia!&amp;#39;
+  end
+klass # =&amp;gt; &amp;quot;Yes!Trivia!&amp;quot;
+```&lt;/p&gt;
+
+&lt;p&gt;예는 &lt;code&gt;Range#===&lt;/code&gt;와 &lt;code&gt;Module#===&lt;/code&gt;를 사용한 동일성 판정입니다.&lt;/p&gt;
+
+&lt;p&gt;사실 &lt;code&gt;Enumerable#grep&lt;/code&gt;에 의한 패턴 매치도 ===로 동일 여부를 판단합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+numbers = 5.step(80, 5).to_a # =&amp;gt; [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80]
+numbers.grep(20..50) # =&amp;gt; [20, 25, 30, 35, 40, 45, 50]&lt;/p&gt;
+
+&lt;p&gt;t1, t2, t3, t4, t5 = &amp;#39;trivia&amp;#39;, Trivia.new, [:trivia], {trivia:1}, Trivia.new&lt;/p&gt;
+
+&lt;p&gt;[t1, t2, t3, t4, t5].grep(Trivia) # =&amp;gt; [#&lt;a href="Trivia:0x000001008613b0"&gt;Trivia:0x000001008613b0&lt;/a&gt;, #&lt;a href="Trivia:0x000001008610e0"&gt;Trivia:0x000001008610e0&lt;/a&gt;]
+```&lt;/p&gt;
+
+&lt;h3&gt;46. String#gsub&lt;/h3&gt;
+
+&lt;p&gt;문자열에서 나타나는 부분 문자열이 나타나는 회수가 필요한 경우가
+있습니다. 보통은 &lt;code&gt;String#scan&lt;/code&gt;을 사용하면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+DATA.read.scan(/hello/i).count # =&amp;gt; 48&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;END&lt;/strong&gt;
+You say &amp;quot;Yes&amp;quot;, I say &amp;quot;No&amp;quot;.
+You say &amp;quot;Stop&amp;quot; and I say &amp;quot;Go, go, go&amp;quot;.
+Oh no.
+You say &amp;quot;Goodbye&amp;quot; and I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say goodbye, I say hello.
+I say &amp;quot;High&amp;quot;, you say &amp;quot;Low&amp;quot;.
+You say &amp;quot;Why?&amp;quot; And I say &amp;quot;I don&amp;#39;t know&amp;quot;.
+Oh no.
+You say &amp;quot;Goodbye&amp;quot; and I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello, hello, hello&amp;quot;.
+(Hello, goodbye, hello, goodbye. Hello, goodbye.)
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello&amp;quot;.
+(Hello, goodbye, hello, goodbye. Hello, goodbye. Hello, goodbye.)
+Why, why, why, why, why, why, do you
+Say &amp;quot;Goodbye, goodbye, bye, bye&amp;quot;.
+Oh no.
+You say &amp;quot;Goodbye&amp;quot; and I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello&amp;quot;.
+You say &amp;quot;Yes&amp;quot;, I say &amp;quot;No&amp;quot;.
+(I say &amp;quot;Yes&amp;quot;, but I may mean &amp;quot;No&amp;quot;).
+You say &amp;quot;Stop&amp;quot;, I say &amp;quot;Go, go, go&amp;quot;.
+(I can stay still it&amp;#39;s time to go).
+Oh, oh no.
+You say &amp;quot;Goodbye&amp;quot; and I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello, hello, hello&amp;quot;.
+I don&amp;#39;t know why you say &amp;quot;Goodbye&amp;quot;, I say &amp;quot;Hello-wow, oh. Hello&amp;quot;.
+Hela, heba, helloa. Hela, heba, helloa. Hela, heba, helloa.
+Hela, heba, helloa. (Hela.) Hela, heba, helloa. Hela, heba, helloa.
+Hela, heba, helloa. Hela, heba, helloa. Hela, heba, helloa.
+```
+훌륭한 가사네요.&lt;/p&gt;
+
+&lt;p&gt;하지만 &lt;code&gt;String#gsub&lt;/code&gt;는 블록을 넘기지 않으면 Enumerator 객체를 리턴하니 같은 일을 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+DATA.read.gsub(/hello/i).count # =&amp;gt; 48&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;END&lt;/strong&gt;
+You say &amp;quot;Yes&amp;quot;, I say &amp;quot;No&amp;quot;.
+You say &amp;quot;Stop&amp;quot; and I say &amp;quot;Go, go, go&amp;quot;.
+Oh no.
+You say &amp;quot;Goodbye&amp;quot; and I say &amp;quot;Hello, hello, hello&amp;quot;.
+....
+```&lt;/p&gt;
+
+&lt;h3&gt;47. 클래스 메소드 정의&lt;/h3&gt;
+
+&lt;p&gt;클래스나 모듈의 메소드를 정의할 때는 일반적으로 아래와 같이 합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class Calc
+  class &amp;lt;&amp;lt; self
+    def &amp;gt;&amp;gt;(exp)
+      eval exp
+    end
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;Calc &amp;gt;&amp;gt; &amp;#39;1 + 2&amp;#39; # =&amp;gt; 3
+Calc &amp;gt;&amp;gt; &amp;#39;10 ** 2&amp;#39; # =&amp;gt; 100
+```&lt;/p&gt;
+
+&lt;p&gt;바깥 쪽 클래스의 정의를 &lt;code&gt;Class.new&lt;/code&gt;나 &lt;code&gt;Module.new&lt;/code&gt;을 사용하면 다음과 같이 작성할 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class &amp;lt;&amp;lt; Calc = Class.new
+  def &amp;gt;&amp;gt;(exp)
+    eval exp
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;Calc &amp;gt;&amp;gt; &amp;#39;123 / 4.0&amp;#39; # =&amp;gt; 30.75
+Calc &amp;gt;&amp;gt; &amp;#39;2 * Math::PI&amp;#39; # =&amp;gt; 6.283185307179586
+```&lt;/p&gt;
+
+&lt;p&gt;이 자체는 별 게 없습니다반 &lt;code&gt;Calc.&amp;gt;&amp;gt;&lt;/code&gt;라는 메소드 이름이 irb 스러워서 좋지 않나요?&lt;/p&gt;
+
+&lt;h3&gt;48. true, false, nil&lt;/h3&gt;
+
+&lt;p&gt;Ruby에서 다루는 모든 데이터는 객체라 숫자도 클래스도
+그리고 &lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt;, &lt;code&gt;nil&lt;/code&gt;도 모두 객체라는 건 알고 계시겠죠. 따라서 당연하게도 이러한 객체들은 메소드를 가지고 있고 메소드를 추가할 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+def true.true?  &amp;#39;Beleive me. you are true.&amp;#39;
+end&lt;/p&gt;
+
+&lt;p&gt;def false.true?  &amp;#39;I said, you are false!&amp;#39;
+end&lt;/p&gt;
+
+&lt;p&gt;my&lt;em&gt;point, your&lt;/em&gt;point = 87, 35
+border = 60
+my&lt;em&gt;result = my&lt;/em&gt;point &amp;gt; border
+your&lt;em&gt;result = your&lt;/em&gt;point &amp;gt; border&lt;/p&gt;
+
+&lt;p&gt;my&lt;em&gt;result # =&amp;gt; true
+my&lt;/em&gt;result.true?# =&amp;gt; &amp;quot;Beleive me. you are true.&amp;quot;
+your&lt;em&gt;result # =&amp;gt; false
+your&lt;/em&gt;result.true?# =&amp;gt; &amp;quot;I said, you are false!&amp;quot;
+```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;nil&lt;/code&gt;에도 메소드를 정의해보죠.&lt;code&gt;===&lt;/code&gt; 메소드를 정의해서 case에서 사용해보죠.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+def nil.===(other)
+  other.nil?|| other.empty?end&lt;/p&gt;
+
+&lt;p&gt;def proceed(obj)
+  Array(obj).join.split(//).join(&amp;#39;*&amp;#39;)
+end&lt;/p&gt;
+
+&lt;p&gt;full = &amp;quot;I&amp;#39;m full.&amp;quot;
+empty = &amp;quot;&amp;quot;
+&lt;em&gt;nil&lt;/em&gt; = nil&lt;/p&gt;
+
+&lt;p&gt;objects = [full, empty, &lt;em&gt;nil&lt;/em&gt;, %w(I am full), [], {:hello =&amp;gt; &amp;#39;world&amp;#39;}, {}]&lt;/p&gt;
+
+&lt;p&gt;for obj in objects
+  case obj
+  when nil
+    puts &amp;quot;Stop it!&lt;code&gt;#{obj.inspect}&lt;/code&gt; is empty or nil.&amp;quot;
+  else
+    puts proceed obj
+  end
+end&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; I&lt;em&gt;&amp;#39;&lt;/em&gt;m* &lt;em&gt;f&lt;/em&gt;u&lt;em&gt;l&lt;/em&gt;l*.&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Stop it!&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt; is empty or nil.&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Stop it!&lt;code&gt;nil&lt;/code&gt; is empty or nil.&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; I&lt;em&gt;a&lt;/em&gt;m&lt;em&gt;f&lt;/em&gt;u&lt;em&gt;l&lt;/em&gt;l&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Stop it!&lt;code&gt;[]&lt;/code&gt; is empty or nil.&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; h&lt;em&gt;e&lt;/em&gt;l&lt;em&gt;l&lt;/em&gt;o&lt;em&gt;w&lt;/em&gt;o&lt;em&gt;r&lt;/em&gt;l*d&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Stop it!&lt;code&gt;{}&lt;/code&gt; is empty or nil.&lt;/h1&gt;
+
+&lt;p&gt;```
+너무 심취했나요.&lt;/p&gt;
+
+&lt;h3&gt;49. 강제 타입 변환 coerce&lt;/h3&gt;
+
+&lt;p&gt;숫자 리스트에 n배를 곱하면 각각의 요소가 n배가 되는 객체가 필요하다고
+해보죠. Array를 상속한 NumList로 이를 구현해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class NumList &amp;lt; Array
+  def *(n)
+    map { |e| e * n }
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;numlist = NumList[1, 2, 3]&lt;/p&gt;
+
+&lt;p&gt;numlist * 3 # =&amp;gt; [3, 6, 9]
+```&lt;/p&gt;
+
+&lt;p&gt;욕심을 내서 곱하는 수를 앞에 놓아도 작동하도록 만들어보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+3 * numlist # =&amp;gt; &lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:15:in `*&amp;#39;: NumList can&amp;#39;t be coerced into Fixnum (TypeError)&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt;    from -:15:in `&lt;main&gt;&amp;#39;&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;당연히 &lt;code&gt;Fixnum#*&lt;/code&gt; 메소드는 인수로 NumList 객체를 받을 수 없으므로
+에러가 납니다. 설마 Fixnum#* 수정하시진 않겠죠. 어떻게 해야할까요.&lt;/p&gt;
+
+&lt;p&gt;이를 때는 &lt;code&gt;coerce&lt;/code&gt;(강제 타입 변환)을 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class NumList &amp;lt; Array
+  def *(n)
+    map { |e| e * n }
+  end&lt;/p&gt;
+
+&lt;p&gt;def coerce(n)
+    [self, n]
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;numlist = NumList[1, 2, 3]&lt;/p&gt;
+
+&lt;p&gt;numlist * 3 # =&amp;gt; [3, 6, 9]
+3 * numlist # =&amp;gt; [3, 6, 9]
+```&lt;/p&gt;
+
+&lt;p&gt;Fixnum#* 메소드는 인수가 형변환이 불가능할 경우 객체의 coerce 메소드를 호출하는데 이를 이용하는 방법입니다.&lt;/p&gt;
+
+&lt;h3&gt;50. DATA.rewind&lt;/h3&gt;
+
+&lt;p&gt;DATA는 __END__ 이후의 부분을 File 객체로 불러들인 객체입니다.
+따라서 rewind 메소드를 사용할 수 있는다. 이는 __END__ 이후의 첫
+행으로 돌아가는 게 아니라 전체 파일의 첫 행으로 돌아갑니다. 따라서 이를 사용하면, 아차차.. Quine를 만들 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;!/usr/bin/env ruby&lt;/h1&gt;
+
+&lt;p&gt;require &amp;quot;g&amp;quot;
+def evaluate(str)
+  op = %w(+ * \/)
+  digit = /-*\d+/
+  if m = str.match(/(#{op})\s+(#{digit})\s+(#{digit})/)
+    op, a, b = m.captures
+    inner = a.to&lt;em&gt;i.send(op, b.to&lt;/em&gt;i)
+    str = m.pre&lt;em&gt;match + inner.to&lt;/em&gt;s + m.post&lt;em&gt;match
+    evaluate(str)
+  else
+    str
+  end
+end
+g evaluate(&amp;quot;+ * 3 4 5&amp;quot;)
+DATA.rewind
+puts DATA.to&lt;/em&gt;a
+&lt;strong&gt;END&lt;/strong&gt;
+```&lt;/p&gt;
+
+&lt;p&gt;이 코드를 실행하면 evaluate의 결과가 출력되는 것과 함께 코드 자체가 표준 출력으로 출력됩니다.&lt;/p&gt;
+
+&lt;h3&gt;51. Ruby 키워드&lt;/h3&gt;
+
+&lt;p&gt;Ruby 키워드는 언어의 예약어가 아니므로 명시적인 문맥에서 사용하기만 한다면
+메소드 이름으로 사용하는 것도 가능합니다. 여기에서는 &lt;code&gt;case&lt;/code&gt;, &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;for&lt;/code&gt;을 Trivia 클래스에서 정의해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class Trivia
+  def case(klass)
+    case self
+    when klass; &amp;#39;You are my sunshine.&amp;#39;
+    else &amp;#39;No, you are Alien for me&amp;#39;
+    end
+  end&lt;/p&gt;
+
+&lt;p&gt;def if(bool, arg)
+    if bool
+      yield arg
+    else
+      arg.reverse
+    end
+  end&lt;/p&gt;
+
+&lt;p&gt;def for(list)
+    list.map { |e| yield e }
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;t = Trivia.new&lt;/p&gt;
+
+&lt;p&gt;t.case(Trivia) # =&amp;gt; &amp;quot;You are my sunshine.&amp;quot;
+t.case(Array) # =&amp;gt; &amp;quot;No, you are Alien for me&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;t.if(true, &amp;#39;my name is charlie&amp;#39;) { |str| str.upcase } # =&amp;gt; &amp;quot;MY NAME IS CHARLIE&amp;quot;
+t.if(false, &amp;#39;my name is charlie&amp;#39;) { |str| str.upcase } # =&amp;gt; &amp;quot;eilrahc si eman ym&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;t.for([&lt;em&gt;1..10]) { |i| i&lt;/em&gt;*2 } # =&amp;gt; [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+```&lt;/p&gt;
+
+&lt;h3&gt;52. YAML 태그 지정&lt;/h3&gt;
+
+&lt;p&gt;사용자 데이터를 다루는 프로그램을 만들 때 프로그램과 데이터를 분리하기 위해 &lt;code&gt;yaml 라이브러리&lt;/code&gt;를 사용하면 편리합니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+require &amp;quot;yaml&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;langs&lt;em&gt;array = YAML.load(DATA)
+puts langs&lt;/em&gt;array.map { |lang| &amp;quot;My favorite language is &amp;quot; + lang }&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; My favorite language is Ruby&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; My favorite language is Lisp&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; My favorite language is C++&lt;/h1&gt;
+
+&lt;h2&gt;&lt;strong&gt;END&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ruby&lt;/li&gt;
+&lt;li&gt;Lisp&lt;/li&gt;
+&lt;li&gt;C++
+```&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;여기서 &lt;code&gt;!ruby/&lt;/code&gt;으로 시작하는 태그를 사용하면 문자열에 해당하는
+클래스를 지정할 수 있는데 &lt;code&gt;!ruby/object:&amp;lt;클래스 이름&amp;gt;&lt;/code&gt; 태그를 사용하면
+임의의 클래스를 지정할 수도 있습니다. Language 클래스 객체로 YAML 데이터를 읽어와보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+ require &amp;quot;yaml&amp;quot;
+ class Language
+   attr_accessor :name, :born, :designer
+   def profile
+     [name, born, designer] * &amp;#39;-&amp;#39;
+   end
+ end&lt;/p&gt;
+
+&lt;p&gt;members = YAML.load(DATA)&lt;/p&gt;
+
+&lt;p&gt;puts members.map { |member| member.profile }&lt;/p&gt;
+
+&lt;p&gt;# &amp;gt;&amp;gt; Ruby-1993-Yukihiro Matsumoto
+ # &amp;gt;&amp;gt; Lisp-1958-Joh McCarthy
+ # &amp;gt;&amp;gt; C++-1983-Bjarne Stroustrup&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;END&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;ul&gt;
+&lt;li&gt;!ruby/object:Language
+name: Ruby
+born: 1993
+designer: Yukihiro Matsumoto&lt;/li&gt;
+&lt;li&gt;!ruby/object:Language
+name: Lisp
+born: 1958
+designer: Joh McCarthy&lt;/li&gt;
+&lt;li&gt;!ruby/object:Language
+name: C++
+born: 1983
+designer: Bjarne Stroustrup
+```&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;53. 단항연산자 ~ (tilde)&lt;/h3&gt;
+
+&lt;p&gt;단항연산자 &lt;code&gt;~&lt;/code&gt;는 사실 메소드인데 이 메소드가 어디서 정의되어있는 지 
+아시나요? 맞습니다. &lt;code&gt;Fixnum&lt;/code&gt;과 &lt;code&gt;Bignum&lt;/code&gt;에서 NOT 연산을 하기 위해 만들어진 연산자입니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+~1 # =&amp;gt; -2
+~2 # =&amp;gt; -3
+~3 # =&amp;gt; -4
+~7 # =&amp;gt; -8&lt;/p&gt;
+
+&lt;p&gt;1.to&lt;em&gt;s(2) # =&amp;gt; &amp;quot;1&amp;quot;
+2.to&lt;/em&gt;s(2) # =&amp;gt; &amp;quot;10&amp;quot;
+3.to&lt;em&gt;s(2) # =&amp;gt; &amp;quot;11&amp;quot;
+7.to&lt;/em&gt;s(2) # =&amp;gt; &amp;quot;111&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;(~1).to&lt;em&gt;s(2) # =&amp;gt; &amp;quot;-10&amp;quot;
+(~2).to&lt;/em&gt;s(2) # =&amp;gt; &amp;quot;-11&amp;quot;
+(~3).to&lt;em&gt;s(2) # =&amp;gt; &amp;quot;-100&amp;quot;
+(~7).to&lt;/em&gt;s(2) # =&amp;gt; &amp;quot;-1000&amp;quot;
+```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Regexp&lt;/code&gt;에도 정의되어있습니다. 이 메소드는 gets에서 입력을 받아 &lt;code&gt;$_&lt;/code&gt;와 패턴 매치를 하기위해 사용됩니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+$_ = &amp;#39;Ruby is a dynamic, open source programming language with a focus on simplicity and productivity.&amp;#39;&lt;/p&gt;
+
+&lt;p&gt;pos = ~ /\w{8,}/
+puts &amp;quot;8+long-word &lt;code&gt;#{$&amp;amp;}&lt;/code&gt; appeared at #{pos}&amp;quot;&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; 8+long-word &lt;code&gt;programming&lt;/code&gt; appeared at 31&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;단항연산자의 특이한 점은 리시버가 메소드 뒤에 오는 점입니다. 이런
+특징을 활용해 편리한 메소드들을 잔뜩 정의해서 써야만 하겠죠. 연산 우선 순위도 높아 메소드 체인에서도 문제 없이 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class String
+  def ~
+    reverse
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;class Symbol
+  def ~
+    swapcase
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;class Array
+  def ~
+    reverse
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;class Hash
+  def ~
+    invert
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;~&amp;#39;よるなくたにし なんてしつけいい&amp;#39; # =&amp;gt; &amp;quot;いいけつしてんな しにたくなるよ&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;s = &amp;#39;godtoh&amp;#39;
+~s.swapcase # =&amp;gt; &amp;quot;HOTDOG&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;~:Hello # =&amp;gt; :hELLO&lt;/p&gt;
+
+&lt;p&gt;~[1,2,3,4] # =&amp;gt; [4, 3, 2, 1]&lt;/p&gt;
+
+&lt;p&gt;~{ruby: 1, lisp: 2} # =&amp;gt; {1=&amp;gt;:ruby, 2=&amp;gt;:lisp}
+```&lt;/p&gt;
+
+&lt;p&gt;뭐 확실히 &lt;code&gt;~&lt;/code&gt;만으론 메소드의 의도를 파악하기 힘듭니다만...&lt;/p&gt;
+
+&lt;h3&gt;54. 멀티 바이트 메소드&lt;/h3&gt;
+
+&lt;p&gt;1.9부터 메소드 이름에 멀티 바이트 문자를 사용할 수 있는데 실제 활용
+사례는 별로 없습니다. 이래서는 Ruby가 불쌍해지니 이러한 방법을 포교해보죠.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class String
+  def ©(name=&amp;#39;anonymous&amp;#39;)
+    self + &amp;quot; - Copyright © #{name} #{Time.now.year} All rights reserved. -&amp;quot;
+  end&lt;/p&gt;
+
+&lt;p&gt;def 
+    self + &amp;#39; - Designed by Apple in California -&amp;#39;
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;&amp;#39;this is my work&amp;#39;.©(:Charlie) # =&amp;gt; &amp;quot;this is my work - Copyright © Charlie 2012 All rights reserved. -&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;poetry = &amp;lt;&amp;lt;EOS
+Ruby is not a Gem
+Gem is not a Jam
+Jam is not a Jelly
+Jam is about Traffic
+Gem is about Library
+Ruby is about Language!EOS&lt;/p&gt;
+
+&lt;p&gt;puts poetry.©&lt;/p&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Ruby is not a Gem&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Gem is not a Jam&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Jam is not a Jelly&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Jam is about Traffic&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Gem is about Library&lt;/h1&gt;
+
+&lt;h1&gt;&amp;gt;&amp;gt; Ruby is about Language!# &amp;gt;&amp;gt;  - Copyright © anonymous 2012 All rights reserved. -&lt;/h1&gt;
+
+&lt;p&gt;&amp;#39;hello, apple&amp;#39;. # =&amp;gt; &amp;quot;hello, apple - Designed by Apple in California -&amp;quot;
+```&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&lt;/code&gt;는 Mac keyboard에서 &lt;code&gt;~$k&lt;/code&gt;(Option+Shift+k)를 누르면 나옵니다. (역주:
+이 기호는 애플 상표 기호로, Mac에서만 제대로 나옵니다.)&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Numeric&lt;/code&gt;에는 화폐 메소드를 추가해보죠. 여기서는 &lt;code&gt;def method&lt;/code&gt;를 사용해 일일히 클래스를 다시 여는 번거로움을 줄여보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+def def&lt;em&gt;method(name, klass=self.class, &amp;amp;body)
+  blk = block&lt;/em&gt;given??body : -&amp;gt;{ &amp;quot;#{name}: not implemented yet.&amp;quot; }
+  klass.class&lt;em&gt;eval { define&lt;/em&gt;method(&amp;quot;#{name}&amp;quot;, blk) }
+end&lt;/p&gt;
+
+&lt;p&gt;currencies = %w(¥ € £ $).zip [:JPY, :EUR, :GBP, :USD]
+currencies.each do |cur, sym|
+  def&lt;em&gt;method(cur, Numeric) do
+    int, dec = Exchange(self, sym).to&lt;/em&gt;s.split(&amp;#39;.&amp;#39;)
+    dec = dec ?&amp;quot;.#{dec[/.{1,2}/]}&amp;quot; : &amp;#39;&amp;#39;
+    cur + int.reverse.scan(/.{1,3}/).join(&amp;#39;,&amp;#39;).reverse + dec
+  end
+end&lt;/p&gt;
+
+&lt;p&gt;def Exchange(num, &lt;em&gt;for&lt;/em&gt;)
+  num * {USD:1.0, JPY:81.3, EUR:0.76, GBP:0.62}[&lt;em&gt;for&lt;/em&gt;]
+end&lt;/p&gt;
+
+&lt;p&gt;123.45.¥ # =&amp;gt; &amp;quot;¥10,036.48&amp;quot;
+1000000.¥ # =&amp;gt; &amp;quot;¥81,300,000.0&amp;quot;
+123.€ # =&amp;gt; &amp;quot;€93.48&amp;quot;
+1000000.€ # =&amp;gt; &amp;quot;€760,000.0&amp;quot;
+123.45.£ # =&amp;gt; &amp;quot;£76.53&amp;quot;
+1000000.£ # =&amp;gt; &amp;quot;£620,000.0&amp;quot;
+```&lt;/p&gt;
+
+&lt;p&gt;뭐 입력이 좀 힘들긴 합니다만..&lt;/p&gt;
+
+&lt;h3&gt;55. 비밀 메소드&lt;/h3&gt;
+
+&lt;p&gt;위의 예처럼 Ruby에서는 키워드나 기호를 메소드 이름에 사용할 수
+있습니다만 사용하지 못 하는 것도 있습니다. 예를 들어, &lt;code&gt;.&lt;/code&gt;, &lt;code&gt;,&lt;/code&gt;, &lt;code&gt;@&lt;/code&gt;, &lt;code&gt;=&lt;/code&gt;, &lt;code&gt;(&lt;/code&gt;, &lt;code&gt;#&lt;/code&gt;, &lt;code&gt;$&lt;/code&gt; 는 메소드 이름에서 사용할 수 없습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+def .
+end&lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:1: syntax error, unexpected &amp;#39;.&amp;#39;&lt;/h1&gt;
+
+&lt;p&gt;def ,
+end&lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:1: syntax error, unexpected &amp;#39;,&amp;#39;&lt;/h1&gt;
+
+&lt;p&gt;def @
+end&lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:1: syntax error, unexpected $undefined&lt;/h1&gt;
+
+&lt;p&gt;def =
+end&lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:1: syntax error, unexpected &amp;#39;=&amp;#39;&lt;/h1&gt;
+
+&lt;p&gt;def (
+end&lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:2: syntax error, unexpected keyword_end&lt;/h1&gt;
+
+&lt;p&gt;def #
+end&lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:4: syntax error, unexpected $end&lt;/h1&gt;
+
+&lt;p&gt;def $
+end&lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:1: syntax error, unexpected $undefined&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;보통은 여기서 납득하고 넘어가겠죠. 하지만 &lt;code&gt;define_method&lt;/code&gt;를 사용하면 이러한
+기호들도 메소드 이름으로 사용할 수 있습니다. 먼저 def_method를 사용해 이런 메소드를 정의해보죠.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+def def&lt;em&gt;method(name, klass=self.class, &amp;amp;body)
+  blk = block&lt;/em&gt;given??body : -&amp;gt;{ &amp;quot;#{name}: not implemented yet.&amp;quot; }
+  klass.class&lt;em&gt;eval { define&lt;/em&gt;method(&amp;quot;#{name}&amp;quot;, blk) }
+end&lt;/p&gt;
+
+&lt;p&gt;class Trivia&lt;/p&gt;
+
+&lt;p&gt;end&lt;/p&gt;
+
+&lt;p&gt;methods = [&amp;quot;.&amp;quot;, &amp;quot;,&amp;quot;, &amp;quot;@&amp;quot;, &amp;quot;=&amp;quot;, &amp;quot;(&amp;quot;, &amp;quot;#&amp;quot;, &amp;quot;$&amp;quot;]
+methods.each { |meth| def_method meth, Trivia }&lt;/p&gt;
+
+&lt;p&gt;Trivia.public&lt;em&gt;instance&lt;/em&gt;methods(false) # =&amp;gt; [:&amp;quot;.&amp;quot;, :&amp;quot;,&amp;quot;, :&amp;quot;@&amp;quot;, :&amp;quot;=&amp;quot;, :&amp;quot;(&amp;quot;, :&amp;quot;#&amp;quot;, :&amp;quot;$&amp;quot;]
+```&lt;/p&gt;
+
+&lt;p&gt;되죠?&lt;/p&gt;
+
+&lt;p&gt;하지만 이 메소드들에는 치명적인 단점이 하나 있습니다.&lt;/p&gt;
+
+&lt;p&gt;그건...&lt;/p&gt;
+
+&lt;p&gt;호출이 불가능하는 겁니다! ^^;&lt;/p&gt;
+
+&lt;p&gt;```ruby
+t = Trivia.new&lt;/p&gt;
+
+&lt;p&gt;t.. # =&amp;gt; 
+t., # =&amp;gt; 
+t.@ # =&amp;gt; 
+t.= # =&amp;gt; 
+t.( # =&amp;gt; 
+t.# # =&amp;gt; 
+t.$ # =&amp;gt; &lt;/p&gt;
+
+&lt;h1&gt;~&amp;gt; -:42: syntax error, unexpected &amp;#39;)&amp;#39;&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...1335430361&lt;em&gt;15646&lt;/em&gt;549583 = (t..);$stderr.puts(&amp;quot;!XMP1335430361...&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...                               ^&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; -:43: syntax error, unexpected &amp;#39;,&amp;#39;&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...&lt;em&gt;1335430361&lt;/em&gt;15646_549583 = (t.,);$stderr.puts(&amp;quot;!XMP133543036...&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...                               ^&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; -:44: syntax error, unexpected $undefined&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...&lt;em&gt;1335430361&lt;/em&gt;15646_549583 = (t.@);$stderr.puts(&amp;quot;!XMP133543036...&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...                               ^&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; -:45: syntax error, unexpected &amp;#39;=&amp;#39;&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...&lt;em&gt;1335430361&lt;/em&gt;15646_549583 = (t.=);$stderr.puts(&amp;quot;!XMP133543036...&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...                               ^&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; -:48: syntax error, unexpected $undefined&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...&lt;em&gt;1335430361&lt;/em&gt;15646_549583 = (t.$);$stderr.puts(&amp;quot;!XMP133543036...&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; ...                               ^&lt;/h1&gt;
+
+&lt;h1&gt;~&amp;gt; -:65: syntax error, unexpected $end, expecting &amp;#39;)&amp;#39;&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;단 &lt;code&gt;Object#send&lt;/code&gt;나 &lt;code&gt;Method#call&lt;/code&gt; 메소드를 사용해 호출하는 건 가능한데 귀찮습니다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+t = Trivia.new&lt;/p&gt;
+
+&lt;p&gt;t.send &amp;#39;.&amp;#39; # =&amp;gt; &amp;quot;.: not implemented yet.&amp;quot;
+t.method(&amp;#39;,&amp;#39;).call # =&amp;gt; &amp;quot;,: not implemented yet.&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;def_method(&amp;#39;@&amp;#39;, Trivia) do |num|
+  &amp;quot;#{self.class}&amp;quot;.center(num, &amp;#39;@&amp;#39;)
+end&lt;/p&gt;
+
+&lt;p&gt;def_method(&amp;#39;(&amp;#39;, Trivia) do |str|
+  &amp;quot;( #{str} )&amp;quot;
+end&lt;/p&gt;
+
+&lt;p&gt;t.send &amp;#39;@&amp;#39;, 12 # =&amp;gt; &amp;quot;@@@Trivia@@@&amp;quot;
+t.send &amp;#39;(&amp;#39;, &amp;#39;I love Ruby&amp;#39;  # =&amp;gt; &amp;quot;( I love Ruby )&amp;quot;
+``&lt;code&gt;
+즉 이러한 기호들을 사용한 메소드는 일반적인 방법으로는 정의하거나
+호출하는 게 불가능하지만, 일반적이지 않은 특별한 방법을 사용하면
+정의할 수도 있고 호출할 수도 있는 특수한 메소드들이라고 할 수
+있습니다. 저는 이러한 메소드들을 특수한 방법으로 숨겨진 메소드, 즉
+&lt;/code&gt;비밀(hidden)` 메소드라고 이름 붙였습니다. 어디에 사용할 지는... 저도 잘 모르겠습니다..&lt;/p&gt;
+
+&lt;p&gt;이상으로 Ruby 55가지 기법을 설명했습니다. 새로운 발견은 있으셨나요? &lt;/p&gt;
+
+&lt;p&gt;(추신：2013-03-31)@no6v 님 이름이 @no6v1 님으로 되어있었습니다. 수정했습니다. 죄송합니다.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;a href="/books/"&gt;
+  &lt;img src="http://melborne.github.io/assets/images/2013/03/ruby_trivia_cover.png" alt="trivia" style="width:200px" /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://gum.co/owIqH" class="gumroad-button"&gt;E-Book 알아두면 도움이 되는 55가지 루비 기법 EPUB/MOBI판&lt;/a&gt;&lt;script type="text/javascript" src="https://gumroad.com/js/gumroad-button.js"&gt;&lt;/script&gt;&lt;script type="text/javascript" src="https://gumroad.com/js/gumroad.js"&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;이 링크는 Gumroad의 상품 구매 페이지입니다. 클릭하면 오버레이 윈도우가
+뜨고 여기서 카드 정보를 입력하면 구입이 가능합니다. 구입을 하려면 카드
+정보와 이메일 주소를 입력해야합니다. 구입이 정상적으로 완료되면 입력한 이메일로 다운로드 가능한 링크가 보내집니다.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Github Pages로 미들맨(Middleman) 사이트 배포하기</title>
+    <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-deploying-middleman-site-on-github-pages/"/>
+    <id>http://blog.url.com/articles/2014-01-15-deploying-middleman-site-on-github-pages/</id>
+    <published>2013-11-23T15:00:00Z</published>
+    <updated>2014-01-15T12:09:24+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;지극히 개인적으로 요새 제 안에서 화두인 것 중 하나인 주제가 바로 정적 웹사이트 생성기입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만 여기에 대해서는 약간 배경에 대해서 이해할 필요가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;분명히 &amp;#39;정적&amp;#39;이라는 단어는 그 동안에 웹 어플리케이션이 발전해 온 데 있어서 정반대의 위치에 있는 단어입니다. &amp;#39;정적&amp;#39;인 페이지란 말그대로 이미 완성된 HTML이고, 클라이언트의 요청을 받는 서버의 역할은 단순히 이렇게 완성되어 있는 HTML을 보내주는 역할을 할 뿐입니다. 이러한 모델은 우편부를 통해서 비유하기에 아주 적절합니다. 그렇다면 웹이 &amp;#39;동적&amp;#39;으로 발전해왔다는 건 어떤 걸 의미할까요? 여기서 &amp;#39;동적&amp;#39;이란 화려한 시각적 효과나 움직임을 지칭하는 단어가 아닙니다. 좀 더 정확히 말하자면 HTML 페이지를 클라이언트의 요청에 따라서 실시간으로 생성해서 보내준다는 의미를 가지고 있습니다. 그래서 이러한 웹 어플리케이션을 배울 때 가장 먼저 나오는 가장 간단한 예는 항상 이름을 받고서 이름을 출력해주는 예제입니다. 즉 서버는 완성된 HTML을 가지고 있지 않습니다. 거의 완성되어있거나, 심지어는 아무것도 없이도 요청에 따라 실시간으로 완성된 문서를 다시 보내줍니다. 즉, 여기서 서버란 웹서버 어플리케이션과 웹 어플리케이션을 함께 이야기합니다.&lt;/p&gt;
+
+&lt;p&gt;하지만 본질적인 부분을 다시 생각해볼 필요가 있습니다. 정말로 &amp;#39;동적&amp;#39;인 웹페이지란 필요한 걸까요? 단언컨데, 네 필요합니다. 질문을 바꿀 필요가 있습니다. 모든 경우에 정말로 &amp;#39;동적&amp;#39;인 웹페이지가 필요한 걸까요? 여기에 &amp;#39;모든 경우에&amp;#39;라는 수사를 통해서 저는 이도 저도 아닌 회색 영역을 만들었습니다. 네, 물론 아닙니다. 웹페이지 상에 동적으로 변해야하는 부분이 단 하나도 없다면, 완성된 HTML 형식으로 사이트를 공개해도 아무런 문제가 없습니다. 단지 우리는 21.1세기에 더 이상 그런 원시적인 웹 사이트는 거의 없다고 믿고 있을 뿐이죠.&lt;/p&gt;
+
+&lt;p&gt;사실 &amp;#39;정적&amp;#39;이라는 건 &amp;#39;나쁜 것&amp;#39;이 아닙니다. 오히려 &amp;#39;동적&amp;#39; 방식이야 말로 실시간으로 &amp;#39;사이트를 생성&amp;#39;하는 데서 오는 굉장히 큰 비용을 감당해야합니다. 바로 이런 이유 때문에 &amp;#39;어떤 프레임워크&amp;#39;를 사용할 것인가, &amp;#39;어떤 언어&amp;#39;를 사용할 것인가 하는 게 굉장히 중요한 문제입니다. 제가 사랑해마지 않는 루비조차도 바로 이런 이유(즉 상대적으로 느리기 때문에!)로 언젠가 서비스가 커지면 갈아치워야할 프로토타입용이라고 생각되는 경우가 굉장히 많습니다. 물론 대부분의 서비스는 그 단계까지도 가지도 프로토타입만 서비스하다  망합니다만....&lt;/p&gt;
+
+&lt;p&gt;뭐, 그렇습니다.&lt;/p&gt;
+
+&lt;p&gt;단순히 서버 수준의 스케일링까지 고려를 하지 않더라도 동적으로 웹페이지를 생성하는 일은 굉장히 느립니다. 이는 만들어진 과자와 주문 받으면 음식을 조리하는 방식의 차이입니다. 정적이 전자라면, 동적은 후자입니다. 당연히 느립니다. 그 차이가 비록 와닿지 않을 정도라고 하더라도 분명히 느리며, 또한 이러한 차이를 극복하기 위해 실제 웹서비스들에서는 캐시를 사용해 마치 자신이 정적 웹 페이지인 것 마냥 작동합니다. 캐시가 가능한 이유는 웹 어플리케이션의 많은 부분이 &lt;strong&gt;사실은&lt;/strong&gt; 정적이기 때문입니다. 즉, 요청마다 다르게 보여주는 부분은 실제로는 그렇게 많지 않다는 이야기입니다.&lt;/p&gt;
+
+&lt;p&gt;정적인 자원은 다른 처리 비용을 발생시키지 않기 때문에 동적인 자원에 비해서 훨씬 더 빠릅니다. 그저 이미 만들어져있는 것을 보내주면 그만입니다. 앞에서 이야기했듯이 서버는 그저 우편부 역할을 할 뿐입니다. 여기서 오는 또 하나의 장점은 이렇게 미리 Html 문서를 만들 경우 배포가 매우 쉽다는 점입니다. 어느 웹서버든 html은 serve할 수 있습니다. 복잡하게 어떤 언어를 쓰면 이렇게 하고 어떤 프레임워크를 써면 저렇게 하고 프록시 서버 써서 도메인 돌리고 그런 걸 고민할 필요가 없습니다. 싸구려 호스팅에 올려도 되고, 남는 서버에 올려도 되고, 아마존 S3에 올려도 되고, Github Pages로 배포할 수도 있습니다. 어플리케이션이 아니니 SQL injection 같은 보안 이슈도 없고요. 오오... 은근히 좋아보이네요. &lt;/p&gt;
+
+&lt;p&gt;하지만!&lt;/p&gt;
+
+&lt;p&gt;네, 이제, 웹 프레임워크는 다 버리고 html 하드 코딩하시면 되겠습니다.&lt;/p&gt;
+
+&lt;p&gt;바로 여기입니다. 당연히 HTML을 직접 작성해야하는 &amp;#39;정적&amp;#39; 방식이 좋다고는 결코 말할 수 없습니다. 즉 &lt;code&gt;2 * 10 + 1 * 1 + 1 * 0.1&lt;/code&gt; 세기에 다시 주목받는 정적 웹사이트란, 단순히 HTML을 Serve 해준다는 의미에서의 웹사이트를 말하는 것이 아니라 거기서 한 층 더 나아가 웹사이트를 동적으로 생성하되, 정적으로 Serve 한다는 의미에서 정적 웹사이트 생성기가 되는 것입니다. 이는 프로그래밍에 있어서 &amp;#39;컴파일&amp;#39;의 사전적인 의미에 좀 더 가까운 작업입니다. 실제로 미리 모든 것을 만들어둔다는 점에서는 프로그래밍의 컴파일 개념과도 비슷합니다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어보죠. 이러한 방식을 적용할 수 있는 정말 좋은 플랫폼이 &amp;#39;블로그&amp;#39;입니다. 블로그는 시작부터 HTML 문서들을 좀 더 쉽게 배포하기 위한 &amp;#39;동적&amp;#39;인 플랫폼으로 출발했거나, 그런 목적으로 개발되었습니다. 하지만 문서 기반의 모든 플랫폼은 본질적으로 &lt;strong&gt;내가 가진 문서를 얼마나 잘 보여줄 것인가&lt;/strong&gt; 하는 문제가 가장 중요한 문제입니다. 그런데 여기서 &amp;#39;문서&amp;#39;란 &amp;#39;정적&amp;#39;입니다. 그러나 문서를 지원하는 다양한 페이지들은 동적입니다. 이런 페이지에는 페이징, 카테고리, 태그, 날짜 기반 페이지, Feed가 있습니다. 그런데 곰곰히 생각해보면 여기서 동적이라는 말의 시점을 잘 따져볼 필요가 있습니다. 웹페이지가 동적으로 생성된다는 의미는 웹페이지가 request되는 시점에서 동적으로 response를 생성한다는 의미입니다. 그런데 페이징, 카테고리, 태그, 날짜 기반 페이지, Feed와 같은 블로그의 핵심 기능들은 request를 요청하는 시점이 아니라, 블로그 운영자가 포스트를 올리는 시점에 &lt;strong&gt;동적&lt;/strong&gt;입니다. 즉, 이 시점을 제외하고는 항상 아무것도 변하지 않습니다. 같은 &lt;strong&gt;동적&lt;/strong&gt;이라고 말해도 실제로는 시점이 페이지가 완결되는 시점이 다르다는 점입니다. 물론 글을 쓴 시점에 &lt;code&gt;response&lt;/code&gt;가 완성된다는 의미는 아닙니다. 대부분의 웹 어플리케이션은 lazy하기 때문에 처음 &lt;code&gt;request&lt;/code&gt;가 들어오는 시점에 해당 페이지를 적절히 생성하고 캐시합니다. 중요한 건 실제로는 포스트를 올린 시점에 블로그의 모든 페이지가 정적으로 완결될 수 있다는 점입니다. 즉 블로그의 모든 페이지를 미리 생성할 수 있습니다. 이미 이러한 방식을 지원하는 툴들이 블로그 툴이 존재합니다. Jekyll을 기반으로하는 Octopress를 사용한다면 바로 글을 쓰는 시점에 블로그에 포함되는 모든 페이지를 &lt;strong&gt;정적 페이지&lt;/strong&gt;, 바꿔말해 html 파일로 만들어 줍니다.&lt;/p&gt;
+
+&lt;p&gt;단, 여기에는 약간의 함정이 있습니다. 블로그에도 정말 적은 부분이지만 사용자의 요청이 발생하는 시점에서 실시간으로 동적으로 생성하고 반응해야하는 부분이 있습니다. 바로 댓글입니다. 이 부분은 따로 고민하지 않습니다. 그냥 댓글이 들어갈 부분에 &lt;a href="#"&gt;Disqus&lt;/a&gt;를 삽입합니다.&lt;/p&gt;
+
+&lt;p&gt;이렇듯 의외로 블로그는 정적인 웹 플랫폼입니다. 근데 더 큰 함정이 있군요. 이렇게 만들면 블로그에 글은 어떻게 쓸까요? 다르게 말하면 블로그에서 가장 동적인 부분은 글을 작성하는 부분입니다. 이런 부분은 정적 블로그 생성기에서는 존재하지 않습니다. 여기서 모든 포스트는 그저 마크다운 파일일 뿐입니다. 또한 글이 작성된 시점이나 사이트에 기능이나 페이지가 더해진 시점을 일반적으로 Git 저장소에 push가 일어난 시점으로 판단합니다. 이런 부분은 일반인들이 이런 툴을 사용하기에 매우 프로그래머스럽습니다. 하지만 프로그래머들에게 이런 면은 다른 면에서 자유를 선사합니다. 바로 블로그 글을 자신이 원하는 에디터로 작성 할 수 있다는 점입니다. 지금은 Ghost를 비롯해 좀 더 좋은 경험을 제공하기 위한 웹에디터들이 적용되고 있기는 합니다만, 여전히 웹에서 글을 작성한다는 것은 매우 불만스러운 일입니다. 반면에 마크다운을 기반으로 하고 있다면 그저 텍스트 문서를 원하는 에디터에서 작성하면 그만입니다.&lt;/p&gt;
+
+&lt;p&gt;아시는 분은 아시겠지만! 이미 Github을 적극 활용하는 많은 분들은 Github Pages와 Github에서 지원하는 루비 기반의 정적 웹페이지 생성기(이자 Github CEO가 만든)인 Jekyll을 적극 활용해서 블로그나 사이트를 운영하고 있습니다. 단순히 블로그에서만 사용할 수 있는 건 아닙니다. 이미 괜찮은 블로그 솔루션들이 마련되어 있기에 편하게 사용할 수 있는 것 뿐이지, 결과적으로 정적인 사이트라면 얼마든지 생성할 수 있습니다. 루비 커뮤니티에서 두 번째로 유명한 &lt;a href="http://middlemanapp.com/community/built-using-middleman/"&gt;Middleman으로 생성한 사례들&lt;/a&gt;도 매우 많습니다. 이 사이트도 Middleman으로 만들어졌고, 글을 작성하면 Travis를 통해 빌드하고, 다시 변경된 내용을 Github Repository에 반영해 Github Pages로 배포되고 있습니다. 이러한 활용 방법에 대해서는 다른 포스트에서 좀 더 자세히 다루겠습니다. 이 외에도 &lt;a href="http://staticsitegenerators.net/"&gt;Static Site Generator&lt;/a&gt;와 &lt;a href="http://modernstatic.com/"&gt;Modern Static&lt;/a&gt;에서는 다양한 정적 웹페이지 생성기들을 소개하고 있습니다. &lt;/p&gt;
 </content>
   </entry>
 </feed>

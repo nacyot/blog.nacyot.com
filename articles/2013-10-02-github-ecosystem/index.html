@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<title>nacyot의 프로그래밍 이야기 :: Github을 둘러싼 유용한 서비스들</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class='mini-wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.png'>
+</a>
+</div>
+</div>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<span class='date'>
+Oct  2 2013
+</span>
+<h1 class='title'>
+<a href="./">Github을 둘러싼 유용한 서비스들</a>
+</h1>
+<div class='body'>
+<p>소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은
+서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수
+있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이
+서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는
+기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을
+검토해보셔도 좋을 듯 합니다. 적용이 쉬운 것부터 차례대로 소개하도록
+하겠습니다.</p>
+
+
+
+<h2><a href="https://codeclimate.com/">Code climate</a></h2>
+
+<p>Target : Ruby</p>
+
+<p>Ruby 언어의 코드 메트릭스(복잡도, 코드 스멜, 코드 중복 등)를 계산하고
+보고서를 작성해줍니다. 프로젝트 등록은 정말 쉽습니다.</p>
+
+<blockquote>
+<p><a href="https://codeclimate.com/github/signup">https://codeclimate.com/github/signup</a></p>
+</blockquote>
+
+<p>위 URL에 가셔서 저장소 주소를 등록만 해주면 자동적으로 레포트를
+만들어주고산</p>
+
+<blockquote>
+<p><a href="https://codeclimate.com/github/GITHUB_ID/REPOSITORY_NAME">https://codeclimate.com/github/GITHUB_ID/REPOSITORY_NAME</a></p>
+</blockquote>
+
+<p>위 URL로 가시면 해당하는 저장소의 코드 상태를 볼 수 있습니다. 레포트는
+푸쉬에 hook가 걸려있어 저장소에 새로운 변경사항이 올라올 때마다 새로
+분석됩니다. 또한 오픈소스 프로젝트를 대상으로 하는 관계로 레포트
+내용은 전부 공개됩니다.</p>
+
+<h2><a href="https://gemnasium.com/">Gemnasium</a></h2>
+
+<p>Target : Ruby</p>
+
+<p>Gemnasium은 의존하고 있는 Library(Gem)의 최신버전 여부를 알려주는
+서비스입니다. 역시 오픈소스는 무료로 사용할 수 있으며 매우 쉽게
+연동시킬 수 있습니다. 사이트로 들어가셔서 github 아이디로 로그인
+하시고, 필요한 저장소를 연동해주면 됩니다. 사실 저장소 등록에 직접적인
+권한은 필요가 없으며,</p>
+
+<blockquote>
+<p><a href="https://gemnasium.com/GITHUB_ID">https://gemnasium.com/GITHUB_ID</a></p>
+</blockquote>
+
+<p>위 url로 접근하시면 github에 올라와있는 어떤 프로젝트든지 등록이
+가능합니다.</p>
+
+<h2><a href="http://rubydoc.info/">Rubydoc.info</a></h2>
+
+<p>Target : Ruby</p>
+
+<p>Rubydoc.info는 YARD를 지원해주는 루비 온라인 문서화 서비스입니다.
+사이트에 들어가셔서 오른쪽의 add project를 해주시면 해당하는 저장소의
+문서가 자동적으로 생성됩니다. 대부분의 오픈소스 프로젝트에 있어
+로컬에서 문서를 만들어 사용하기보다는 이 사이트를 이용하고 있습니다.</p>
+
+<h2><a href="https://travis-ci.org/">Travis</a></h2>
+
+<p>Target : -</p>
+
+<p>Travis는 CI서버입니다. 역시 오픈소스에 대해서는 무료로 사용할 수
+있습니다. Travis를 사용하면 Jenkins를 서버를 사용하는 등 번거로운
+작업을 덜 수가 있으며, bundle, npm 등 패키지 관리자 뿐만 아니라
+apt-get을 통한 프로그램 설치도 할 수 있어 매우 다양한 일들을 할 수
+있습니다. Travis에 가능한 일들에 대해서는
+<a href="http://about.travis-ci.org/docs/user/ci-environment/">CI Environment</a>
+문서를 참조해주시기 바랍니다.</p>
+
+<h3>Travis 연동</h3>
+
+<p>Github의 저장소를 Travis와 연동하기 위해서는 repository 설정에서
+Travis hook를 설정해줄 필요가 있습니다. 하지만 이 문제는 Travis 쪽에서
+Github 아이디로 로그인을 하고 연동하려는 저장소를 on으로 바꿔주면 바로
+연동이 됩니다. 여기까지만 해도 Push가 일어나면 Travis 쪽으로 빌드
+요청이 보내지고, 자동적으로 빌드를 수행합니다. 하지만 아직까지는 어떤
+일을 하라고 지정된 바가 없기 때문에 이에 대해서는 별개로 .travis.yml
+파일을 어플리케이션 루트 폴더에 만들어서 기술하고, 저장소에
+push해줍니다.</p>
+
+<h3>.travis.yml 예제</h3>
+
+<p>현재 bbapi 저장소에 등록된 .travis.yml 예제입니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ruby</span>
+</span><span id="line-2"><span class="l-Scalar-Plain">rvm</span><span class="p-Indicator">:</span>
+</span><span id="line-3">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">1.9.3</span>
+</span><span id="line-4">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">2.0.0</span>
+</span><span id="line-5"><span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+</span><span id="line-6"><span class="l-Scalar-Plain">global</span><span class="p-Indicator">:</span>
+</span><span id="line-7">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">DB=sqlite3</span>
+</span><span id="line-8"><span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
+</span><span id="line-9">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">RAILS_ENV=test bundle exec rake db:create</span>
+</span><span id="line-10">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">RAILS_ENV=test bundle exec rake db:migrate --trace</span>
+</span><span id="line-11">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">bundle exec rspec spec/</span>
+</span><span id="line-12"><span class="l-Scalar-Plain">before_script</span><span class="p-Indicator">:</span>
+</span><span id="line-13">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cp config/database.travis.yml config/database.yml</span>
+</span></pre></div>
+<p>각각의 부분에 대해서 간단한 설명을 붙여두면,</p>
+<div class="highlight"><pre><span id="line-1"><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ruby</span>
+</span></pre></div>
+<p>Ruby 언어의 사용을 명시합니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="l-Scalar-Plain">rvm</span><span class="p-Indicator">:</span>
+</span><span id="line-2">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">1.9.3</span>
+</span><span id="line-3">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">2.0.0</span>
+</span></pre></div>
+<p>어떤 버전의 Ruby를 사용할 지 지정합니다. Travis에서는 매우 다양한
+버전의 Ruby를 지원하고 있어 여러한 환경에서 테스트해볼 수 있습니다.
+이런 식으로 버전이 지정되어 있는 경우 Push가 일어났을 때 두 환경
+모두에 대해서 빌드를 수행합니다. 이 때 Gemfile에 Ruby version을
+명시하면 이 설정과 충돌이 일어나므로 유의가 필요합니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+</span><span id="line-2">  <span class="l-Scalar-Plain">global</span><span class="p-Indicator">:</span>
+</span><span id="line-3">     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">DB=sqlite3</span>
+</span></pre></div>
+<p>필요한 환경 변수를 지정합니다. 추가적으로 Travis에서는 환경변수를
+암호화하는 방법도 제공하고 있어 필요한 경우 API_key 값과 같이 민감한
+정보를 암호화해서 지정할 수도 있습니다. 이러한 암호화는 travis gem에서
+추가적으로 설명합니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="l-Scalar-Plain">script</span><span class="p-Indicator">:</span>
+</span><span id="line-2">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">RAILS_ENV=test bundle exec rake db:create</span>
+</span><span id="line-3">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">RAILS_ENV=test bundle exec rake db:migrate --trace</span>
+</span><span id="line-4">    <span class="l-Scalar-Plain">- bundle exec rspec spec/</span>
+</span><span id="line-5"><span class="l-Scalar-Plain">before_script</span><span class="p-Indicator">:</span>
+</span><span id="line-6">  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">cp config/database.travis.yml config/database.yml</span>
+</span></pre></div>
+<p>실제로 실행될 스크립트를 작성합니다. 여기서는 우선 before_script가
+실행되고, script가 작동됩니다.</p>
+
+<h3>travis gem</h3>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>gem install travis
+</span></pre></div>
+<p>travis gem을 통해서 콘솔 상에서 travis의 빌드를 관리하거나 빌드 결과를
+가져올 수 있습니다. 예를 들어</p>
+<div class="highlight"><pre><span id="line-1"><span class="n">prog</span><span class="o">/</span><span class="n">bbapi</span><span class="err">$</span> <span class="n">travis</span> <span class="n">branches</span>
+</span><span id="line-2"><span class="nl">master:</span>           <span class="err">#</span><span class="mi">1</span>    <span class="n">failed</span>     <span class="n">Set</span> <span class="n">class</span> <span class="n">name</span> <span class="n">of</span> <span class="n">owner</span>
+</span><span id="line-3"><span class="nl">GithubEcosystem:</span>  <span class="err">#</span><span class="mi">3</span>    <span class="n">passed</span>     <span class="n">Add</span> <span class="n">some</span> <span class="n">options</span> <span class="n">to</span> <span class="p">.</span><span class="n">rspec</span>
+</span><span id="line-4"><span class="n">prog</span><span class="o">/</span><span class="n">bbapi</span><span class="err">$</span> <span class="n">travis</span> <span class="n">status</span>
+</span><span id="line-5"><span class="n">build</span> <span class="err">#</span><span class="mi">3</span> <span class="n">passed</span>
+</span></pre></div>
+<p>와 같이 현재 저장소의 빌드 상황을 확인해 볼 수 있습니다.</p>
+
+<h4>환경변수 암호화</h4>
+
+<p>다음은 환경변수를 암호화하는 예입니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>travis encrypt -r &lt;github_id&gt;/&lt;repository_name&gt;
+</span><span id="line-2"><span class="nv">FACEBOOK_API_KEY</span><span class="o">=</span>&lt;API_KEY&gt;  --add
+</span></pre></div>
+<p>-r 에는 이 암호화된 환경변수를 사용할 저장소를 지정하고, --add
+ 플래그는 이 결과를 바로 .travis.yml에 추가하라는 의미를 가집니다.
+ 이러한 방식을 통해 API_KEY를 공개하지 않고 사용할 수 있습니다.</p>
+
+<h4>전체 명령어</h4>
+
+<blockquote>
+<div class="highlight"><pre><span id="line-1">   <span class="n">accounts</span>     <span class="n">displays</span> <span class="n">accounts</span> <span class="n">and</span> <span class="n">their</span> <span class="n">subscription</span> <span class="n">status</span>
+</span><span id="line-2">   <span class="n">branches</span>     <span class="n">displays</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">build</span> <span class="k">for</span> <span class="n">each</span> <span class="n">branch</span>
+</span><span id="line-3">   <span class="n">cancel</span>       <span class="n">cancels</span> <span class="n">a</span> <span class="n">job</span> <span class="n">or</span> <span class="n">build</span>
+</span><span id="line-4">   <span class="n">console</span>      <span class="n">interactive</span> <span class="n">shell</span>
+</span><span id="line-5">   <span class="n">disable</span>      <span class="n">disables</span> <span class="n">a</span> <span class="n">project</span>
+</span><span id="line-6">   <span class="n">enable</span>       <span class="n">enables</span> <span class="n">a</span> <span class="n">project</span>
+</span><span id="line-7">   <span class="n">encrypt</span>      <span class="n">encrypts</span> <span class="n">values</span> <span class="k">for</span> <span class="n">the</span> <span class="p">.</span><span class="n">travis</span><span class="p">.</span><span class="n">yml</span>
+</span><span id="line-8">   <span class="n">endpoint</span>     <span class="n">displays</span> <span class="n">or</span> <span class="n">changes</span> <span class="n">the</span> <span class="n">API</span> <span class="n">endpoint</span>
+</span><span id="line-9">   <span class="n">help</span>         <span class="n">helps</span> <span class="n">you</span> <span class="n">out</span> <span class="n">when</span> <span class="n">in</span> <span class="n">dire</span> <span class="n">need</span> <span class="n">of</span> <span class="n">information</span>
+</span><span id="line-10">   <span class="n">history</span>      <span class="n">displays</span> <span class="n">a</span> <span class="n">projects</span> <span class="n">build</span> <span class="n">history</span>
+</span><span id="line-11">   <span class="n">init</span>         <span class="n">generates</span> <span class="n">a</span> <span class="p">.</span><span class="n">travis</span><span class="p">.</span><span class="n">yml</span> <span class="n">and</span> <span class="n">enables</span> <span class="n">the</span> <span class="n">project</span>
+</span><span id="line-12">   <span class="n">login</span>        <span class="n">authenticates</span> <span class="n">against</span> <span class="n">the</span> <span class="n">API</span> <span class="n">and</span> <span class="n">stores</span> <span class="n">the</span> <span class="n">token</span>
+</span><span id="line-13">   <span class="n">logs</span>         <span class="n">streams</span> <span class="n">test</span> <span class="n">logs</span>
+</span><span id="line-14">   <span class="n">monitor</span>      <span class="n">live</span> <span class="n">monitor</span> <span class="k">for</span> <span class="n">what</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">going</span> <span class="n">on</span>
+</span><span id="line-15">   <span class="n">open</span>         <span class="n">opens</span> <span class="n">a</span> <span class="n">build</span> <span class="n">or</span> <span class="n">job</span> <span class="n">in</span> <span class="n">the</span> <span class="n">browser</span>
+</span><span id="line-16">   <span class="n">pubkey</span>       <span class="n">prints</span> <span class="n">out</span> <span class="n">a</span> <span class="n">repository</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">public</span> <span class="n">key</span>
+</span><span id="line-17">   <span class="n">raw</span>          <span class="n">makes</span> <span class="n">an</span> <span class="p">(</span><span class="n">authenticated</span><span class="p">)</span> <span class="n">API</span> <span class="n">call</span> <span class="n">and</span> <span class="n">prints</span> <span class="n">out</span> <span class="n">the</span> <span class="n">result</span>
+</span><span id="line-18">   <span class="n">restart</span>      <span class="n">restarts</span> <span class="n">a</span> <span class="n">build</span> <span class="n">or</span> <span class="n">job</span>
+</span><span id="line-19">   <span class="n">setup</span>        <span class="n">sets</span> <span class="n">up</span> <span class="n">an</span> <span class="n">addon</span> <span class="n">or</span> <span class="n">deploy</span> <span class="n">target</span>
+</span><span id="line-20">   <span class="n">show</span>         <span class="n">displays</span> <span class="n">a</span> <span class="n">build</span> <span class="n">or</span> <span class="n">job</span>
+</span><span id="line-21">   <span class="n">status</span>       <span class="n">checks</span> <span class="n">status</span> <span class="n">of</span> <span class="n">the</span> <span class="n">latest</span> <span class="n">build</span>
+</span><span id="line-22">   <span class="n">sync</span>         <span class="n">triggers</span> <span class="n">a</span> <span class="n">new</span> <span class="n">sync</span> <span class="n">with</span> <span class="n">GitHub</span>
+</span><span id="line-23">   <span class="n">token</span>        <span class="n">outputs</span> <span class="n">the</span> <span class="n">secret</span> <span class="n">API</span> <span class="n">token</span>
+</span><span id="line-24">   <span class="n">version</span>      <span class="n">outputs</span> <span class="n">the</span> <span class="n">client</span> <span class="n">version</span>
+</span><span id="line-25">   <span class="n">whatsup</span>      <span class="n">lists</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">builds</span>
+</span><span id="line-26">   <span class="n">whoami</span>       <span class="n">outputs</span> <span class="n">the</span> <span class="n">current</span> <span class="n">user</span>
+</span></pre></div></blockquote>
+
+<h3>travis-lint gem</h3>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>gem install travis-lint
+</span></pre></div>
+<p>travis-lint 프로그램을 사용해 설정파일이 정상적인지를 확인해볼 수 있습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>travis-lint                                                                                            
+</span><span id="line-2">Hooray, /home/hsin/prog/_working/bbapi/.travis.yml seems to be solid!
+</span></pre></div>
+<h2><a href="https://coveralls.io/">Coveralls</a></h2>
+
+<p>Target : -</p>
+
+<p>Coveralls는 Test Coverage를 자동적으로 측정해주는 서비스로 Ruby를
+비롯해 python, php, node.js, javascript, c, c++, java, sacala 등
+다양한 언어에서 사용할 수 있습니다. Test coverage란 테스트를 실행하는
+과정에서 실제 어플리케이션 코드가 알마만큼 실행되었는지를 %로 나타낸
+수치입니다.</p>
+
+<p>역시 Github과 연동할 수 있으면 실제 작동은 (일반적으로) Travis
+서버에서 테스트가 실행된 결과를 바탕으로 Coveralls 쪽으로 레포트를
+보내도록 되어있습니다. 따라서 반드시 Travis를 사용해야하고, 빌드
+과정에서 Test(spec)을 실행해줄 필요가 있습니다.</p>
+
+<h3>저장소와 연동(Ruby 예제)</h3>
+
+<p>Travis 설정 외에도 coveralls를 실제 프로젝트에 적용시키기 위해서는
+저장소에서 몇가지 설정을 해줄 필요가 있습니다. 먼저 Gemfile에
+coveralls를 추가해줍니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="n">group</span> <span class="ss">:test</span> <span class="k">do</span>
+</span><span id="line-2">  <span class="n">gem</span> <span class="s1">&#39;coveralls&#39;</span><span class="p">,</span> <span class="nb">require</span><span class="p">:</span> <span class="kp">false</span>
+</span><span id="line-3">  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+</span><span id="line-4"><span class="k">end</span>
+</span></pre></div>
+<p>다음으로 spec/spec<em>helper.rb 파일을 통해 coveralls(작업복)을
+입혀줍니다. 일반적으로 spec</em>helper.rb 맨위에 기술해줄 필요가 있습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nb">require</span> <span class="s1">&#39;coveralls&#39;</span>
+</span><span id="line-2"><span class="no">Coveralls</span><span class="o">.</span><span class="n">wear!</span>
+</span></pre></div>
+<p>로컬에서 테스트를 실행했을 때 아래와 같은 메시지가 뜨면 정상적으로 coveralls이 입혀진 상태입니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="cp">[</span><span class="nx">Coveralls</span><span class="cp">]</span><span class="x"> Set up the SimpleCov formatter.</span>
+</span><span id="line-2"><span class="cp">[</span><span class="nx">Coveralls</span><span class="cp">]</span><span class="x"> Using SimpleCov&#39;s default settings.</span>
+</span><span id="line-3"><span class="x">...</span>
+</span><span id="line-4"><span class="cp">[</span><span class="nx">Coveralls</span><span class="cp">]</span><span class="x"> Outside the Travis environment, not sending data.</span>
+</span></pre></div>
+<p>단 맨 마지막 로그에서 알 수 있듯이 Travis 환경이 아닌 곳에서는
+데이터가 저장되지 않습니다. 이제 다음 push가 일어날 때부터 travis를
+통해서 자동적으로 coveralls 페이지가 업데이트됩니다.</p>
+
+</div>
+<div class='footer'>
+<hr>
+<div class='author'>
+<h1>nacyot</h1>
+공짜면 환장하는 프로그래머(29)
+</div>
+<div class='share'>
+<h1>Share this post</h1>
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2014 • All rights reserved.
+</p>
+</div>
+</div>
+
+</body>
+</html>
+

@@ -70,6 +70,13 @@ h6 {
 .articles .article .body p {
   margin-bottom: 25px;
 }
+.articles .article .body .footnotes {
+  line-height: 1em;
+  font-size: 0.9em;
+}
+.articles .article .body .footnotes p {
+  margin-bottom: 10px;
+}
 .articles .article .more {
   font-size: 0.9em;
 }

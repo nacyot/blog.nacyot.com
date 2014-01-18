@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<title>nacyot의 프로그래밍 이야기 :: AngularJs 스타일 가이드</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div class='mini-wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.png'>
+</a>
+</div>
+</div>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<span class='date'>
+Oct 30 2013
+</span>
+<h1 class='title'>
+<a href="./">AngularJs 스타일 가이드</a>
+</h1>
+<div class='body'>
+<p>이 글은 Minko Gechev 씨의 <a href="https://github.com/mgechev/angularjs-style-guide">AngularJS Style Guide</a> 문서를 <a href="http://nacyot.com">nacyot</a>이 변역한 글입니다. 번역된 문서는 <a href="https://github.com/nacyot/angularjs-style-guide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/mgechev/angularjs-style-guide">여기</a>에서 찾아볼 수 있습니다. 관련된 질문은 <a href="http://nacyot.com/guestbook">GuestBook</a>이나 <a href="mailto:propellerheaven@gmail.com">Email</a>으로 해주시기합니다.</p>
+
+
+
+<h1>소개</h1>
+
+<p>이 스타일 가이드의 목표는 AngularJS 어플리케이션을 제작하는 데 있어서 현재의 베스트 프렉티스를 알려드리는 일입니다.</p>
+
+<p>이 문서의 베스트 프렉티스는 아래 자료들로부터 수집되었습니다.</p>
+
+<ol>
+<li>AngularJS 소스 코드</li>
+<li>제가 읽은 소스 코드와 문서들</li>
+<li>제 경험</li>
+</ol>
+
+<p><strong>주의</strong>: 이 문서는 아직 작성중입니다. 이 문서의 가장 큰 목표는 community-driven입니다. 따라서 스타일의 차이를 줄이는 일을 AngularJS 커뮤니티에 있어서 반가운 일일 것입니다.</p>
+
+<p>이 스타일 가이드에서 자바스크립트 프로그래밍의 가이드라인을 제공하진 않습니다. 자바스크립트에 관련한 문서는 아래에서 찾을 수 있습니다.</p>
+
+<ol>
+<li><a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">구글 자바스크립트 스타일 가이드</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Developer_Guide/Coding_Style">모질라 자바스크립트 스타일 가이드</a></li>
+<li><a href="https://github.com/styleguide/javascript">GitHub&#39;s 자바스크립트 스타일 가이드</a></li>
+<li><a href="http://javascript.crockford.com/code.html">Douglas Crockford&#39;s 자바스크립트 스타일 가이드</a></li>
+</ol>
+
+<p>AngularJS 어플리케이션 제작에 있어서는 <a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">구글 자바스크립트 스타일 가이드</a>를 추천합니다..</p>
+
+<p>AngularJS GitHub 위키에는 <a href="https://github.com/ProLoser">ProLoser</a>가 작성한 관련된 부분이 있습니다. <a href="https://github.com/angular/angular.js/wiki">여기</a>에서 확인하실 수 있습니다..</p>
+
+<h1>차례</h1>
+
+<ul>
+<li><a href="#general">일반</a>
+
+<ul>
+<li><a href="#directory-structure">디렉토리 구조</a></li>
+<li><a href="#optimize-the-digest-cycle">Digest cycle 최적화</a></li>
+<li><a href="#others">기타</a></li>
+</ul></li>
+<li><a href="#modules">모듈</a></li>
+<li><a href="#controllers">컨트롤러</a></li>
+<li><a href="#directives">디렉티브</a></li>
+<li><a href="#filters">필터</a></li>
+<li><a href="#services">서비스</a></li>
+<li><a href="#templates">템플릿</a></li>
+<li><a href="#routing">라이팅</a></li>
+<li><a href="#testing">테스트</a></li>
+<li><a href="#contribution">기여</a></li>
+</ul>
+
+<h1>일반</h1>
+
+<h3>디렉토리 구조</h3>
+
+<p>규모가 큰 AngularJS 어플리케이션엔 다수의 컴포넌트가 있으므로 디렉토리 계층 구조를 만드는 것이 좋습니다.</p>
+
+<p>주로 두 가지 접근법이 사용됩니다.</p>
+
+<ul>
+<li>컴포넌트 타입 별로 상위 디렉터리를 구성하고, 기능별로 하위 폴더를 구성.</li>
+</ul>
+
+<p>이러한 접근법을 사용한 디렉토리 구조는 다읍과 같습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="p">.</span>
+</span><span id="line-2"><span class="err">├──</span> <span class="n">app</span>
+</span><span id="line-3"><span class="err">│  </span> <span class="err">├──</span> <span class="n">app</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-4"><span class="err">│  </span> <span class="err">├──</span> <span class="n">controllers</span>
+</span><span id="line-5"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
+</span><span id="line-6"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">FirstCtrl</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-7"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">SecondCtrl</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-8"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
+</span><span id="line-9"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">└──</span> <span class="n">ThirdCtrl</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-10"><span class="err">│  </span> <span class="err">├──</span> <span class="n">directives</span>
+</span><span id="line-11"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
+</span><span id="line-12"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-13"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
+</span><span id="line-14"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-15"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">└──</span> <span class="n">directive3</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-16"><span class="err">│  </span> <span class="err">├──</span> <span class="n">filters</span>
+</span><span id="line-17"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
+</span><span id="line-18"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
+</span><span id="line-19"><span class="err">│  </span> <span class="err">└──</span> <span class="n">services</span>
+</span><span id="line-20"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">CommonService</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-21"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">cache</span>
+</span><span id="line-22"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">├──</span> <span class="n">Cache1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-23"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">Cache2</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-24"><span class="err">│  </span>     <span class="err">└──</span> <span class="n">models</span>
+</span><span id="line-25"><span class="err">│  </span>         <span class="err">├──</span> <span class="n">Model1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-26"><span class="err">│  </span>         <span class="err">└──</span> <span class="n">Model2</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-27"><span class="err">├──</span> <span class="n">lib</span>
+</span><span id="line-28"><span class="err">└──</span> <span class="n">test</span>
+</span></pre></div>
+<ul>
+<li>기능 별로 상위 디렉토리를 나누고, 컴포넌트 타입 별로 하위 디렉토리를 구성.</li>
+</ul>
+
+<p>다음과 같은 디렉토리 구조가 됩니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="p">.</span>
+</span><span id="line-2"><span class="err">├──</span> <span class="n">app</span>
+</span><span id="line-3"><span class="err">│  </span> <span class="err">├──</span> <span class="n">app</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-4"><span class="err">│  </span> <span class="err">├──</span> <span class="n">common</span>
+</span><span id="line-5"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">controllers</span>
+</span><span id="line-6"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">directives</span>
+</span><span id="line-7"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">filters</span>
+</span><span id="line-8"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">services</span>
+</span><span id="line-9"><span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
+</span><span id="line-10"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">controllers</span>
+</span><span id="line-11"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">FirstCtrl</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-12"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">SecondCtrl</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-13"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">directives</span>
+</span><span id="line-14"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-15"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">filters</span>
+</span><span id="line-16"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">filter1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-17"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">filter2</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-18"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">services</span>
+</span><span id="line-19"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">├──</span> <span class="n">service1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-20"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">└──</span> <span class="n">service2</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-21"><span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
+</span><span id="line-22"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">controllers</span>
+</span><span id="line-23"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">ThirdCtrl</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-24"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">directives</span>
+</span><span id="line-25"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-26"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive3</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-27"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">filters</span>
+</span><span id="line-28"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">filter3</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-29"><span class="err">│  </span>     <span class="err">└──</span> <span class="n">services</span>
+</span><span id="line-30"><span class="err">│  </span>         <span class="err">└──</span> <span class="n">service3</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-31"><span class="err">├──</span> <span class="n">lib</span>
+</span><span id="line-32"><span class="err">└──</span> <span class="n">test</span>
+</span></pre></div>
+<ul>
+<li><p>디렉티브 디렉토리를 만들 땐 디렉티브에 관련된 파일들(템플릿, CSS/SASS 파일, 자바스크립트)을 한 폴더에 모읍니다. 이런 방식으로 디렉토리를 구성한다면 프로젝트 어디서나 이 구조를 일관적으로 사용할 수 있습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="n">app</span>
+</span><span id="line-2"><span class="err">└──</span> <span class="n">directives</span>
+</span><span id="line-3">    <span class="err">├──</span> <span class="n">directive1</span>
+</span><span id="line-4">    <span class="err">│  </span> <span class="err">├──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">html</span>
+</span><span id="line-5">    <span class="err">│  </span> <span class="err">├──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-6">    <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">sass</span>
+</span><span id="line-7">    <span class="err">└──</span> <span class="n">directive2</span>
+</span><span id="line-8">        <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">html</span>
+</span><span id="line-9">        <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-10">        <span class="err">└──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">sass</span>
+</span></pre></div></li>
+</ul>
+
+<p>이러한 디렉티브 디렉토리 구성은 위에서 제시한 두 가지 디렉토리 구성법에서 모두 사용할 수 있습니다.</p>
+
+<ul>
+<li><p>두 방식을 사용하는 데 있어서 또 하나 작은 선택지는 <a href="http://joshdmiller.github.io/ng-boilerplate/#/home">ng-boilerplate</a>을 사용하는 것입니다. 특정 컴포넌트의 유닛 테스트는 컴포넌트와 같은 폴더에 저장합니다. 이를 통해 컴포넌트의 코드가 변경되었을 때 테스트 코드를 찾기 쉬우며, 테스트를 컴포넌트의 사용법을 다룬 문서처럼 사용할 수 있습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="n">services</span>
+</span><span id="line-2"><span class="err">├──</span> <span class="n">cache</span>
+</span><span id="line-3"><span class="err">│  </span> <span class="err">├──</span> <span class="n">cache1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-4"><span class="err">│  </span> <span class="err">└──</span> <span class="n">cache1</span><span class="p">.</span><span class="n">spec</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-5"><span class="err">└──</span> <span class="n">models</span>
+</span><span id="line-6">    <span class="err">├──</span> <span class="n">model1</span><span class="p">.</span><span class="n">js</span>
+</span><span id="line-7">    <span class="err">└──</span> <span class="n">model1</span><span class="p">.</span><span class="n">spec</span><span class="p">.</span><span class="n">js</span>
+</span></pre></div></li>
+<li><p><code>app.js</code> 파일에는 라우트 정의와 설정이 포함되어야 하며, 필요한 경우 초기화 작업을 해줍니다.</p></li>
+<li><p>각각의 자바스크립트 파일에는 오직 하나의 컴포넌트만을 포함하세요. 파일 이름은 컴포넌트의 이름과 같아야합니다.</p></li>
+<li><p><a href="http://yeoman.io">Yeoman</a>이나 <a href="http://joshdmiller.github.io/ng-boilerplate/#/home">ng-boilerplate</a>와 같은 Angular 프로젝트 구조 템플릿을 사용합니다.</p></li>
+</ul>
+
+<p>저는 같은 종류의 컴포넌트를 찾기 쉬운 첫번째 방법을 선호합니다.</p>
+
+<p>각 컴포넌트의 명명 규칙은 각 컴포넌트 절에서 설명합니다.</p>
+
+<h3>Digest cycle 최적화</h3>
+
+<ul>
+<li>가장 중요한 변수만 감시합니다(예를 들어 실시간 통신이 필요한 경우 각각의 메시지를 받을 때 digest loop를 일으키지 않아야합니다).</li>
+<li><code>$watch</code>는 가능한한 간단하게 작성합니다. 무겁과 느린 처리를 하나의 <code>$watch</code>에 집어넣으면 어플리케이션 전체를 느리게 만듭니다. (자바스크립트는 싱글 쓰레드에서 작동하므로 $digest 루프 또한 싱글 쓰레드로 작동합니다.)</li>
+</ul>
+
+<h3>기타</h3>
+
+<ul>
+<li>사용해야 함.
+
+<ul>
+<li><code>setTimeout</code> 대신 <code>$timeout</code> </li>
+<li><code>window</code> 대신 <code>$window</code></li>
+<li><code>document</code> 대신 <code>$document</code></li>
+<li><code>$.ajax</code> 대신 <code>$http</code></li>
+</ul></li>
+</ul>
+
+<p>이를 통해 테스트를 쉽게 만들고 예상치 못한 작동을 방지 할 수 있습니다. @@@ </p>
+
+<ul>
+<li><p>아래의 툴을 사용해 작업을 자동화해야합니다.</p>
+
+<ul>
+<li><a href="http://yeoman.io">Yeoman</a></li>
+<li><a href="http://gruntjs.com">Grunt</a></li>
+<li><a href="http://bower.io">Bower</a></li>
+</ul></li>
+<li><p>콜백 대신에 promises(<code>$q</code>)를 사용하세요. $q를 사용하면 코드가 깔끔해지고, 여러분을 콜백 지옥에서 구원해줄 것입니다.</p></li>
+<li><p>가능할 땐 <code>$http</code> 대신 <code>$resource</code>를 사용. 높은 수준의 추상화는 자질구레한 작업으로부터 해방시켜줍니다.</p></li>
+<li><p>AngularJS pre-minifier(<a href="https://github.com/btford/ngmin">ngmin</a>, <a href="https://github.com/olov/ng-annotate">ng-annotate</a>)를 사용해 minification 시의 문제를 미리 방지합니다..</p></li>
+<li><p>전역 변수를 사용하지 마세요. 모든 의존성은 의존성 주입(DI)로 해결하시기 바랍니다.</p></li>
+<li><p><code>$scope</code>를 오염시키지 마세요. 오직 템플릿에서 사용하는 변수와 함수들만 추가하세요.</p></li>
+<li><p><a href="https://github.com/angular/angular.js/pull/4366/files"><code>nginit</code>보다 컨트롤러를 사용하세요</a>. <code>ngInit</code>의 유일한 적절한 사용법은 <code>ngRepeat</code> 프로퍼티의 별칭을 만드는 일입니다. 이 외의 모든 경우엔 변수 범위(scope)를 초기화하는데 <code>ngInit</code> 대신 컨트롤러를 사용해야합니다.</p></li>
+<li><p>변수명, 프로퍼티명, 메소드명 앞에 <code>$</code>를 사용하지 않습니다. <code>$</code>를 앞에 붙이는 명명법은 AngularJS와 관련되어 특별한 의미로 사용됩니다.</p></li>
+</ul>
+
+<h1>모듈</h1>
+
+<p>모듈의 구성은 일반적으로 두 가지 기준이 사용됩니다.</p>
+
+<ol>
+<li>기능</li>
+<li>컴포넌트 타입</li>
+</ol>
+
+<p>두 접근법에 큰 차이는 없지만 첫번째 방법이 좀 더 깔끔합니다. 또한 (아직 AngularJS 로드맵에는 없습니다만) 모듈의 지연 로딩이 지원된다면 어플리케이션의 성능도 좋아질 것입니다.</p>
+
+<h1>컨트롤러</h1>
+
+<ul>
+<li>컨트롤러에서 DOM을 조작하지 마세요. 컨트롤러 대신 디렉티브를 사용하시기 바랍니다.</li>
+<li>컨터르롤러의 이름은 컨트롤러의 이름을 기준으로 지어야 하며(예를 들어 shopping cart, homepage, admin panel), 이름의 끝에는 <code>Ctrl</code>을 붙여줍니다. 컨트롤러 이름은 UpperCamelCase를 사용해 작성합니다(<code>HomePageCtrl</code>, <code>ShoppingCartCtrl</code>, <code>AdminPanelCtrl</code>, etc.).</li>
+<li>컨트롤러를 전역 공간에 정의하지 마세요(이런 사용법이 AngularJS 자체에서 제약이 되어있지 않더라도, 이러한 방법은 전역 공간을 더럽히는 안 좋은 방법입니다).</li>
+<li><p>컨트롤러를 정의할 때 배열 문법을 사용하세요.</p>
+<div class="highlight"><pre><span id="line-1"><span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;dependency1&#39;</span>, <span class="s">&#39;dependency2&#39;</span>, ..., <span class="s">&#39;dependencyn&#39;</span>, <span class="n">function</span> (<span class="n">dependency1</span>, <span class="n">dependency2</span>, ..., <span class="n">dependencyn</span>) {
+</span><span id="line-2">  //...<span class="nb">body</span>
+</span><span id="line-3">}]);
+</span></pre></div></li>
+</ul>
+
+<p>이런 식으로 정의하면 minification에서 발생할 수 있는 문제를 피할 수 있습니다. <a href="https://github.com/olov/ng-annotate">ng-annotate</a>나 grunt task <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>와 같은 툴을 사용하면 자동적으로 배열을 사용해 컨트롤러를 정의합니다.
+* 컨트롤러의 의존성은 원래 이름을 사용하세요. 이를 통해 일기 쉬운 코드를 만들 수 있습니다.</p>
+<div class="highlight"><pre><span id="line-1">    <span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;$scope&#39;</span>, <span class="n">function</span> (<span class="o">s</span>) {
+</span><span id="line-2">      //...<span class="nb">body</span>
+</span><span id="line-3">    }]);
+</span></pre></div>
+<p>위의 예제보다는 아래의 예제가 읽기 쉽습니다.</p>
+<div class="highlight"><pre><span id="line-1">    <span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;$scope&#39;</span>, <span class="n">function</span> (<span class="nv">$scope</span>) {
+</span><span id="line-2">      //...<span class="nb">body</span>
+</span><span id="line-3">    }]);
+</span></pre></div>
+<p>이렇게 스크롤이 필요할 정도로 코드가 길어졌을 때 특히 유용합니다. 원래의 이름을 사용하지 않으면 코드를 작성하는 프로그래머가 의존성의 이름을 까먹어버릴지도 모릅니다.</p>
+
+<ul>
+<li>컨트롤라는 가능한 최소한의 기능만을 가져야합니다. 추상적이고 일반적으로 쓰이는 함수들은 서비스에 정의하세요.</li>
+<li>다른 컨트롤러와 소통이 필요한 경우엔 메소드 호출이나 <code>$emit</code>, <code>$broadcast</code>, <code>$on</code> 메소드를 사용해주세요. <code>$emit</code>이나 <code>$broadcasted</code>되는 메소드는 최소한으로 유지합니다.</li>
+<li><code>$emit</code>나 <code>$broadcast</code>를 통해서 넘겨지는 모든 메시지는 이름 충돌이나 버그를 방지하기 위해 목록을 작성해서 관리하세요.</li>
+<li><p><a href="#filters">filter</a>에 데이터 포맷 로직이나 캡슐화가 필요한 경우에는 아래와 같이 의존선을 선언하시기 바랍니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;myFormat&#39;</span>, <span class="n">function</span> () {
+</span><span id="line-2">  <span class="k">return</span> <span class="n">function</span> () {
+</span><span id="line-3">    //<span class="nb">body</span>...
+</span><span id="line-4">  };
+</span><span id="line-5">});
+</span><span id="line-6">
+</span><span id="line-7"><span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;$scope&#39;</span>, <span class="s">&#39;myFormatFilter&#39;</span>, <span class="n">function</span> (<span class="nv">$scope</span>, <span class="n">myFormatFilter</span>) {
+</span><span id="line-8">  //<span class="nb">body</span>...
+</span><span id="line-9">}]);
+</span></pre></div></li>
+</ul>
+
+<h1>디렉티브</h1>
+
+<ul>
+<li>디렉티브의 이름은 lowerCamelCase를 사용하세요.</li>
+<li>link 함수에서 <code>$scope</code> 대신 <code>scope</code>를 사용하세요. complie이나 post/pre link 함수들에선 이미 함수가 불려졌을 때 넘어온 인수들이 정의되어있습니다. DI를 사용해 이것들을 변경할 수 없습니다. 이 스타일은 AngularJS 소스코드에서 사용하는 스타일입니다.</li>
+<li>여러분만의 특별한 전치사를 붙여서 사용하세요. 이는 Third-party 라이브러리와 이름 충돌을 방지해줍니다.</li>
+<li><code>ng</code>와 <code>ui</code>를 전치사로 사용하지 마세요. 이 단어들은 AngularJS와 AngularJS UI에서 사용되는 전치사입니다.</li>
+<li>디렉티브를 통해서만 DOM 조작을 해주세요.</li>
+<li>재사용 가능한 컴포넌트를 만들려면 독립된 범위(scope)를 만들어주세요.</li>
+<li>디렉티브는 주석(comments)이나 클래스(clases)보단 요소(elements)나 속성(attributes)으로 사용하세요. 이는 코드의 가독성을 향상시켜줍니다.</li>
+<li>범위(scope)를 없앨 때는 <code>$scope.$on(&#39;$destroy&#39;, fn)</code>를 사용하세요. 이러한 접근은 특히 third-party 플러그인을 디렉티브로 감싸서 사용할 때 유용합니다.</li>
+</ul>
+
+<h1>필터</h1>
+
+<ul>
+<li>이름은 lowerCamelCase를 사용하세요</li>
+<li>필터는 가능한 한 가볍게 만들어주세요. 필터는 간혹 <code>$digest</code> 루프 내에서 호출될 수 있기 때문에 느린 필터는 어플리케이션 전체를 느리게 만들 수 있습니다.</li>
+</ul>
+
+<h1>서비스</h1>
+
+<ul>
+<li>서비스명은 camelCase나 CamelCase로 작성.</li>
+<li>서비스엔 비지니스 로직을 캡슐화.</li>
+<li>비지니스 로직을 캡슐화하고 있는 서비스들은 <code>factory</code> 대신에 <code>service</code>를 선호합니다.</li>
+<li>세션 수준의 캐시는 <code>$cacheFactory</code>를 사용하세요. 이는 요청(request)나 무거운 처리를 캐시하고 싶을 때 사용합니다.</li>
+</ul>
+
+<h1>템플릿</h1>
+
+<ul>
+<li>문서가 반짝이는 현상을 방지하기 위해서 <code>{{}}</code> 대신에 <code>ng-bind</code>나 <code>ng-cloak</code>를 사용하세요.</li>
+<li>템플릿에서는 복잡한 코드 사용을 가능한 자제.</li>
+<li>동적으로 src 속성을 사용해야한다면 <code>src</code>를 <code>{{}}</code>와 같이 사용하는 대신에 <code>ng-src</code>를 사용하세요.</li>
+<li><p><code>style</code>속성을 $scope에 정의된 문자열로 사용하고 싶을 때 <code>{{}}</code>를 사용하는 대신에 <code>ng-style</code>를 사용하면 $scope에 객체를 선언해 여러가지 속성을 한꺼번에 지정할 수 있습니다.</p>
+<div class="highlight"><pre><span id="line-1">...
+</span><span id="line-2"><span class="p">$</span><span class="nv">scope</span><span class="p">.</span><span class="nv">divStyle</span> = <span class="err">{</span>
+</span><span id="line-3">  width: 200,
+</span><span id="line-4">  position: relative
+</span><span id="line-5">};
+</span><span id="line-6">...
+</span><span id="line-7">
+</span><span id="line-8"><span class="nt">&lt;div</span> <span class="na">ng-style=</span><span class="s">&quot;divStyle&quot;</span><span class="nt">&gt;</span>IE에서도 작동하는 아름다운 스타일을 가진 div<span class="nt">&lt;/div&gt;</span>;
+</span></pre></div></li>
+</ul>
+
+<h1>라우팅</h1>
+
+<ul>
+<li>view가 보여지기 전에 <code>resolve</code>를 사용해 의존관계를 해결해주세요.</li>
+</ul>
+
+<h1>테스트</h1>
+
+<p>TBD</p>
+
+<h1>기여</h1>
+
+<p>이 문서는 communty-driven을 지향하며, 문서에 대한 기여는 언제든 대환영입니다.
+부족한 부분을 보충해주시거나 여러분이 사용하는 모국어로 문서를 번역해주셔도 좋습니다.</p>
+
+</div>
+<div class='footer'>
+<hr>
+<div class='author'>
+<h1>nacyot</h1>
+프로그래머(29)
+</div>
+<div class='share'>
+<h1>Share this post</h1>
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+
+</p>
+</div>
+</div>
+
+</body>
+</html>
+

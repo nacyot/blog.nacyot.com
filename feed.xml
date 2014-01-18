@@ -10,11 +10,11 @@
     <name>Blog Author</name>
   </author>
   <entry>
-    <title>Ubuntu 13.10 개발환경 세팅</title>
+    <title>우분투 13.10 개발환경 세팅</title>
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.url.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-01-18T16:38:51+00:00</updated>
+    <updated>2014-01-18T16:48:45+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -319,7 +319,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-static-site-generator/"/>
     <id>http://blog.url.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-01-18T16:38:51+00:00</updated>
+    <updated>2014-01-18T16:48:45+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -365,7 +365,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-18T16:38:51+00:00</updated>
+    <updated>2014-01-18T16:48:45+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -586,7 +586,7 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-24T03:00:00Z</published>
-    <updated>2014-01-18T16:38:51+00:00</updated>
+    <updated>2014-01-18T16:48:45+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -2486,7 +2486,7 @@ t.send &amp;#39;(&amp;#39;, &amp;#39;I love Ruby&amp;#39;  # =&amp;gt; &amp;quot
     <link rel="alternate" href="http://blog.url.com/articles/2013-10-30-angularjs-style-guide/"/>
     <id>http://blog.url.com/articles/2013-10-30-angularjs-style-guide/</id>
     <published>2013-10-30T03:00:00Z</published>
-    <updated>2014-01-18T16:38:51+00:00</updated>
+    <updated>2014-01-18T16:48:45+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -2832,7 +2832,7 @@ $scope.divStyle = {
     <link rel="alternate" href="http://blog.url.com/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/"/>
     <id>http://blog.url.com/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/</id>
     <published>2013-10-02T03:00:00Z</published>
-    <updated>2014-01-18T16:38:51+00:00</updated>
+    <updated>2014-01-18T16:48:45+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -2940,8 +2940,6 @@ Rails 어플리케이션 루트의 .rspec 파일에 기록합니다.&lt;/p&gt;
   됩니다.
 --format d
 ```&lt;/p&gt;
-
-&lt;h2&gt;spec_helper.rb&lt;/h2&gt;
 </content>
   </entry>
 </feed>

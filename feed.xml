@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.url.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-01-19T13:21:26+00:00</updated>
+    <updated>2014-01-26T23:36:55+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -343,7 +343,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-static-site-generator/"/>
     <id>http://blog.url.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-01-19T13:21:26+00:00</updated>
+    <updated>2014-01-26T23:36:55+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -389,7 +389,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-19T13:21:26+00:00</updated>
+    <updated>2014-01-26T23:36:55+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -610,7 +610,7 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-24T03:00:00Z</published>
-    <updated>2014-01-19T13:21:26+00:00</updated>
+    <updated>2014-01-26T23:36:55+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -2510,7 +2510,7 @@ t.send &amp;#39;(&amp;#39;, &amp;#39;I love Ruby&amp;#39;  # =&amp;gt; &amp;quot
     <link rel="alternate" href="http://blog.url.com/articles/2013-10-30-angularjs-style-guide/"/>
     <id>http://blog.url.com/articles/2013-10-30-angularjs-style-guide/</id>
     <published>2013-10-30T03:00:00Z</published>
-    <updated>2014-01-19T13:21:26+00:00</updated>
+    <updated>2014-01-26T23:36:55+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -2856,7 +2856,7 @@ $scope.divStyle = {
     <link rel="alternate" href="http://blog.url.com/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/"/>
     <id>http://blog.url.com/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/</id>
     <published>2013-10-02T03:00:00Z</published>
-    <updated>2014-01-19T13:21:26+00:00</updated>
+    <updated>2014-01-26T23:36:55+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>

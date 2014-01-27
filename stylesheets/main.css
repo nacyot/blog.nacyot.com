@@ -54,8 +54,8 @@ h6 {
   margin-bottom: 32px;
 }
 .articles .article .summary {
-  font-size: 1.2em;
-  line-height: 1.7em;
+  font-size: 1.3em;
+  line-height: 2em;
 }
 .articles .article .body {
   font-size: 1.3em;
@@ -110,23 +110,4 @@ h6 {
   margin-top: 40px;
   margin-bottom: 60px;
   text-align: center;
-}
-pre {
-  white-space: pre;
-}
-.highlight pre > span:before {
-  font-size: .9em;
-  color: #aaa;
-  content: counter(linenumbers);
-  counter-increment: linenumbers;
-  left: -3.2ex;
-  position: absolute;
-  text-align: right;
-  width: 2.5ex;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }

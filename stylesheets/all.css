@@ -3398,8 +3398,8 @@ h6 {
   margin-bottom: 32px;
 }
 .articles .article .summary {
-  font-size: 1.2em;
-  line-height: 1.7em;
+  font-size: 1.3em;
+  line-height: 2em;
 }
 .articles .article .body {
   font-size: 1.3em;
@@ -3454,25 +3454,6 @@ h6 {
   margin-top: 40px;
   margin-bottom: 60px;
   text-align: center;
-}
-pre {
-  white-space: pre;
-}
-.highlight pre > span:before {
-  font-size: .9em;
-  color: #aaa;
-  content: counter(linenumbers);
-  counter-increment: linenumbers;
-  left: -3.2ex;
-  position: absolute;
-  text-align: right;
-  width: 2.5ex;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 .highlight .hll { background-color: #ffffcc }
 .highlight .c { color: #008800; font-style: italic } /* Comment */
@@ -3537,41 +3518,43 @@ pre {
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 .highlight {
-    font-family: "Inconsolata", Monaco, Courier, monospace;
-    font-size: .65em;
-    border: 1px solid #fafafa;
-    border-left: 3em solid #efefef;
-    position: relative;
-    margin: 1em 0; 
+  font-family: "Inconsolata", Monaco, Courier, monospace;
+  font-size: 1em;
+  border: 1px solid #fafafa;
+  border-left: 3em solid #efefef;
+  position: relative;
+  margin: 1em 0; 
 }
 
 .highlight pre {
-    counter-reset: linenumbers;
-    margin: 0;
-    overflow: auto;
-    padding: 0em 1.4em; 
-    border: 0px;
-    border-radius: 0px;
+  white-space: pre;
+  font-size: 0.9em;
+  counter-reset: linenumbers;
+  margin: 0;
+  overflow: auto;
+  padding: 0em 1.4em; 
+  border: 0px;
+  border-radius: 0px;
 }
 
 .highlight pre > span {
-    display: block;
-    padding: 0.5em; }
+  display: block;
+  padding: 0.5em; }
 
 .highlight pre > span:before {
-    font-size: .9em;
-    color: #aaa;
-    content: counter(linenumbers);
-    counter-increment: linenumbers;
-    left: -4.2em;
-    position: absolute;
-    text-align: right;
-    width: 3.5em;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none; }
+  font-size: .9em;
+  color: #aaa;
+  content: counter(linenumbers);
+  counter-increment: linenumbers;
+  left: -4.2em;
+  position: absolute;
+  text-align: right;
+  width: 3.5em;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 

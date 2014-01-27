@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/"/>
     <id>http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-01-27T16:46:47+00:00</updated>
+    <updated>2014-01-27T16:49:40+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -154,7 +154,7 @@ ubuntu              12.10               b750fe79269d        10 months ago       
 &amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              27cf78414709        10 months ago       175.3 MB
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;-a&lt;/code&gt;(&lt;code&gt;-a=false: show all images&lt;/code&gt;) 플래그는 이미지를 빌드하는 과정에서 생성되는 모든 이미지를 보여줍니다. 자세히 보시면 저장소(Repository)가 &lt;none&gt;인 이미지들이 존재하는 것을 알 수 있습니다. &lt;code&gt;-a&lt;/code&gt; 플러그의 설명에서 알 수 있듯이 이 이미지들은 최종적인 이미지를 생성하는 과정에서 생성되는 중간 이미지들입니다. 나머지 다수의 우분투 이미지들은 TAG에서 보시듯이 다양한 버전의 이미지가 등록된 것을 알 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;-a&lt;/code&gt;(&lt;code&gt;-a=false: show all images&lt;/code&gt;) 플래그는 이미지를 빌드하는 과정에서 생성되는 모든 이미지를 보여줍니다. 자세히 보시면 저장소(Repository)가 &lt;code&gt;&amp;lt;none&amp;gt;&lt;/code&gt;인 이미지들이 존재하는 것을 알 수 있습니다. &lt;code&gt;-a&lt;/code&gt; 플러그의 설명에서 알 수 있듯이 이 이미지들은 최종적인 이미지를 생성하는 과정에서 생성되는 중간 이미지들입니다. 나머지 다수의 우분투 이미지들은 TAG에서 보시듯이 다양한 버전의 이미지가 등록된 것을 알 수 있습니다.&lt;/p&gt;
 
 &lt;h2&gt;컨테이너(Container)&lt;/h2&gt;
 
@@ -464,7 +464,7 @@ $ docker run -d -p 9999:80 nacyot/moniwiki
 http://127.0.0.1:9999/moniwiki/
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="../../images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;올레! 잘 돌아가네요. &lt;/p&gt;
 
@@ -480,7 +480,7 @@ http://127.0.0.1:9999/moniwiki/
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.url.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-01-27T16:46:47+00:00</updated>
+    <updated>2014-01-27T16:49:40+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -809,7 +809,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-static-site-generator/"/>
     <id>http://blog.url.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-01-27T16:46:47+00:00</updated>
+    <updated>2014-01-27T16:49:40+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -855,7 +855,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-27T16:46:47+00:00</updated>
+    <updated>2014-01-27T16:49:40+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1014,7 +1014,7 @@ $ git browse
 
 &lt;p&gt;&lt;code&gt;git browse&lt;/code&gt; 명령어도 hub 확장으로 현재 디렉토리에 위치한 git 저장소의 원격 저장소를 근거로 Github 페이지를 찾아 바로 웹브라우져를 열어줍니다. 이 명령어를 통해서 따로 웹브라우져를 실행시키지 않더라도 저장소의 Github 페이지를 바로 확인할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="repository" src="images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="repository" src="../../images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 pull-request 브랜치를 만들고 실제로 풀리퀘스트를 보내보도록 하겠습니다.&lt;/p&gt;
 
@@ -1055,7 +1055,7 @@ https://github.com/nacyot/pull-request/pull/1
 
 &lt;p&gt;풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="pull-request" src="images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pull-request" src="../../images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git pull-request&lt;/code&gt; 명령어는 아래와 같이 좀 더 명시적으로 사용할 수도 있습니다.&lt;/p&gt;
 
@@ -1076,7 +1076,7 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-24T03:00:00Z</published>
-    <updated>2014-01-27T16:46:47+00:00</updated>
+    <updated>2014-01-27T16:49:40+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -2976,7 +2976,7 @@ t.send &amp;#39;(&amp;#39;, &amp;#39;I love Ruby&amp;#39;  # =&amp;gt; &amp;quot
     <link rel="alternate" href="http://blog.url.com/articles/2013-10-30-angularjs-style-guide/"/>
     <id>http://blog.url.com/articles/2013-10-30-angularjs-style-guide/</id>
     <published>2013-10-30T03:00:00Z</published>
-    <updated>2014-01-27T16:46:47+00:00</updated>
+    <updated>2014-01-27T16:49:40+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>

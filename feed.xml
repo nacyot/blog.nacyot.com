@@ -14,13 +14,13 @@
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/"/>
     <id>http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-01-27T16:37:25+00:00</updated>
+    <updated>2014-01-27T16:46:47+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
-    <content type="html">&lt;p&gt;클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 독자적인 환경을 구축해준다는 데서 매력적이긴 하지만(!), 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.&lt;/p&gt;
 
-&lt;p&gt;이런 흐름 속에서 가상 머신의 단점은 극복하면서 장점만을 극대화하기 위한 최적화는 끊임없이 이루어지고 있습니다. 도커 역시 이런 단점을 극복하기 위해서 나온 가상화 어플리케이션입니다. 도커는 단순한 가상 머신을 넘어서 어느 플랫폼에서나 재현가능한 어플리케이션 컨테이너를 만들어주는 걸 목표로 합니다. LXC(리눅스 컨테이너)라는 독특한 개념에서 출발하는 Docker의 가상화는 기존에 운영체제를 통째로 가상화하는 것과는 접근 자체를 달리하는 방법입니다. 가상 머신이라고 하기에는 좀 더 격리된 환경을 만들어주는 도구라고 하는 게 맞을 지도 모릅니다.&lt;/p&gt;
+&lt;p&gt;이런 가운데 가상 머신의 단점은 극복하면서 장점만을 극대화하기 위한 최적화가 계속해서 이루어지고 있습니다. 도커 역시 이런 단점을 극복하기 위해서 나온 가상화 어플리케이션입니다. 도커는 단순한 가상 머신을 넘어서 어느 플랫폼에서나 재현가능한 어플리케이션 컨테이너를 만들어주는 걸 목표로 합니다. LXC(리눅스 컨테이너)라는 독특한 개념에서 출발하는 Docker의 가상화는 기존에 운영체제를 통째로 가상화하는 것과는 접근 자체를 달리합니다. 가상 머신이라고 하기에는 격리된 환경을 만들어주는 도구라고 하는 게 맞을 지도 모릅니다.&lt;/p&gt;
 
 &lt;p&gt;예를 들어 보죠. 우분투에서 CentOS라는 Docker를 통해 가상 환경을 구축하는데 얼마만큼의 시간이 걸릴까요? 먼저 여기서는 Ubuntu 상에서 작업을 한다고 가정하겠습니다.&lt;/p&gt;
 
@@ -46,9 +46,9 @@ CentOS release 6.4 (Final)
 Kernel \r on an \m
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;어떻게 이런 일이 가능할까요? 원리적인 부분은 이미 좋은 문서들이 있습니다. 한국어로 된 좋은 자료로는 Deview 2013에서 김영찬 님이 발표하신 &lt;a href="http://deview.kr/2013/detail.nhn?topicSeq=45"&gt;이렇게 배포해야 할까? - Lightweight Linux Container Docker 를 활용하여 어플리케이션 배포하기&lt;/a&gt; 세션과 xym 님이 쓴 &lt;a href="http://spoqa.github.io/2013/11/22/docker-the-cloud.html"&gt;docker the cloud&lt;/a&gt;가 읽어볼만 할 것 같습니다. 하지만 분명한 건 VMWare를 사용한다고 해서 가상화 기술에 빠삭해야하는 것이 아니듯이, Docker 역시 기본적으로는 툴이라는 사실을 이해해야합니다. 제 생각에 도커의 인사이드를 이해하는 것도 중요하지만, 막상 이 도구를 사용해보면 컨테이너와 이미지의 차이를 이해하는 게 더 중요하고, Dockerfile을 만들어 자신만의 배포 프로세스를 저장하는 법을 익히는 게 중요합니다.&lt;/p&gt;
+&lt;p&gt;어떻게 이런 일이 가능할까요? 원리적인 부분은 이미 좋은 문서들이 있습니다. 한국어로 된 좋은 자료로는 Deview 2013에서 김영찬 님이 발표하신 &lt;a href="http://deview.kr/2013/detail.nhn?topicSeq=45"&gt;이렇게 배포해야 할까? - Lightweight Linux Container Docker 를 활용하여 어플리케이션 배포하기&lt;/a&gt; 세션과 xym 님이 쓴 &lt;a href="http://spoqa.github.io/2013/11/22/docker-the-cloud.html"&gt;docker the cloud&lt;/a&gt;를 추천합니다. 하지만 분명한 건 VMWare를 사용한다고 해서 가상화 기술에 빠삭해야하는 것이 아니듯이, Docker 역시 기본적으로는 툴이라는 사실을 이해해야합니다. 제 생각에 도커의 원리를 이해하는 것도 중요하지만, 막상 이 도구를 사용하는 동안엔 컨테이너와 이미지의 차이를 이해하는 게 더 중요하고, Dockerfile을 만들어 자신만의 배포 프로세스를 저장하는 법을 익히는 게 더 중요합니다.&lt;/p&gt;
 
-&lt;p&gt;이 글에서는 바로 이러한 시점에서 개발 환경이자 배포 툴로서 도커를 이해하기 위한 개념들을 소개하고 실제로 간단한 오프소스 어플리케이션을 배포하는 부분까지 다뤄보도록 하겠습니다. 각 부분에 대한 좀 더 자세한 이야기는 기회가 된다면 따로 다뤄보도록 하죠.&lt;/p&gt;
+&lt;p&gt;이 글에서는 바로 이러한 시점에서 개발 환경이자 배포 툴로써의 도커를 이해하기 위한 개념들을 소개하고 모니위키 어플리케이션을 도커로 설치하는 부분까지 다뤄보도록 하겠습니다. 각 부분에 대한 좀 더 자세한 이야기는 기회가 된다면 따로 다뤄보도록 하죠.&lt;/p&gt;
 
 &lt;h2&gt;설치&lt;/h2&gt;
 
@@ -464,15 +464,15 @@ $ docker run -d -p 9999:80 nacyot/moniwiki
 http://127.0.0.1:9999/moniwiki/
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="../../images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;올레! 잘 돌아가네요. &lt;/p&gt;
 
 &lt;h2&gt;정리&lt;/h2&gt;
 
-&lt;p&gt;도커의 활용가능성은 무궁무진합니다. 당연히 실제 배포에도 사용할 수 있고, 유연하고 날렵한 격리된 환경을 활용해 실험적인 개발을 진행할 수도 있습니다. Vagrant보다도 훨씬 빠른 가상 환경을 활용할 수 있으며 접근 방법은 다르지만 서버환경을 자동적으로 구성할 수도 있습니다. 미리 만든 이미지를 자신의 저장소(registry)에 등록해 여러대의 머신에 컨테이너들을 자동적으로 배포할 수도 있고, 오픈소스 프로젝트에서 Dockerfile을 제공해 설치를 색다른 방법으로(?) 지원할 수도 있습니다. Dokku를 사용하면 정말 쉽게 mini-heroku와 같은 PaaS 플랫폼을 구축해 볼 수도 있습니다.&lt;/p&gt;
+&lt;p&gt;도커의 활용가능성은 무궁무진합니다. 당연히 실제 배포에도 사용할 수 있고, 유연하고 날렵한 격리된 환경을 활용해 실험적인 개발을 진행할 수도 있습니다. Vagrant보다도 훨씬 빠른 가상 환경을 활용할 수 있으며 접근 방법은 다르지만 서버환경을 자동적으로 구성할 수도 있습니다. 미리 만든 이미지를 자신의 저장소(registry)에 등록해 여러대의 머신에 컨테이너들을 자동적으로 배포할 수도 있고, 오픈소스 프로젝트에서 Dockerfile을 제공해 설치를 색다른 방법으로(?) 지원할 수도 있습니다. &lt;a href="https://github.com/progrium/dokku"&gt;Dokku&lt;/a&gt;를 사용하면 정말 쉽게 mini-heroku와 같은 PaaS 플랫폼을 구축해 볼 수도 있습니다.&lt;/p&gt;
 
-&lt;p&gt;단순히 생산성을 넘어, 도커의 매력은 상상력을 자극한다는 점입니다. 특히나 서버 자동화가 화두인 요즘에 인프라스트럭쳐가 &lt;strong&gt;코드&lt;/strong&gt;로 변해버리는 묘한 경험을 하게 해줍니다. 인프라스트럭쳐가 코드가 되면 신기한 일들이 벌어지기 시작합니다. 아직은 낯설게 느껴질지도 모르는 개념이고 툴입니다만 직접 이것저것 해보다보면 저처럼 분명 반하실 거라 생각합니다 :)&lt;/p&gt;
+&lt;p&gt;단순히 생산성을 넘어, 도커의 매력은 상상력을 자극한다는 점입니다. 특히나 서버 자동화가 화두인 요즘에 인프라스트럭쳐가 &lt;strong&gt;코드&lt;/strong&gt;로 변해버리는 묘한 체험을 하게 해줍니다. 인프라스트럭쳐가 코드가 되면 뭔가 신기한 일들이 벌어집니다. 이런 상황에서 아직까지 낯설게 느껴질지도 모르는 개념이고 툴입니다만 직접 설치하고  이것저것 해보다보면 저처럼 분명 반하실 거라 생각합니다 :)&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -480,7 +480,7 @@ http://127.0.0.1:9999/moniwiki/
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.url.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-01-27T16:37:25+00:00</updated>
+    <updated>2014-01-27T16:46:47+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -809,7 +809,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-static-site-generator/"/>
     <id>http://blog.url.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-01-27T16:37:25+00:00</updated>
+    <updated>2014-01-27T16:46:47+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -855,7 +855,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-27T16:37:25+00:00</updated>
+    <updated>2014-01-27T16:46:47+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1014,7 +1014,7 @@ $ git browse
 
 &lt;p&gt;&lt;code&gt;git browse&lt;/code&gt; 명령어도 hub 확장으로 현재 디렉토리에 위치한 git 저장소의 원격 저장소를 근거로 Github 페이지를 찾아 바로 웹브라우져를 열어줍니다. 이 명령어를 통해서 따로 웹브라우져를 실행시키지 않더라도 저장소의 Github 페이지를 바로 확인할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="repository" src="../../images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="repository" src="images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 pull-request 브랜치를 만들고 실제로 풀리퀘스트를 보내보도록 하겠습니다.&lt;/p&gt;
 
@@ -1055,7 +1055,7 @@ https://github.com/nacyot/pull-request/pull/1
 
 &lt;p&gt;풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="pull-request" src="../../images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pull-request" src="images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git pull-request&lt;/code&gt; 명령어는 아래와 같이 좀 더 명시적으로 사용할 수도 있습니다.&lt;/p&gt;
 
@@ -1076,7 +1076,7 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-24T03:00:00Z</published>
-    <updated>2014-01-27T16:37:25+00:00</updated>
+    <updated>2014-01-27T16:46:47+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -2976,7 +2976,7 @@ t.send &amp;#39;(&amp;#39;, &amp;#39;I love Ruby&amp;#39;  # =&amp;gt; &amp;quot
     <link rel="alternate" href="http://blog.url.com/articles/2013-10-30-angularjs-style-guide/"/>
     <id>http://blog.url.com/articles/2013-10-30-angularjs-style-guide/</id>
     <published>2013-10-30T03:00:00Z</published>
-    <updated>2014-01-27T16:37:25+00:00</updated>
+    <updated>2014-01-27T16:46:47+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>

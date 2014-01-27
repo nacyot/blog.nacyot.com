@@ -3455,6 +3455,9 @@ h6 {
   margin-bottom: 60px;
   text-align: center;
 }
+.site-footer a {
+  color: black;
+}
 .highlight .hll { background-color: #ffffcc }
 .highlight .c { color: #008800; font-style: italic } /* Comment */
 /* .highlight .err { border: 1px solid #FF0000 } /* Error */

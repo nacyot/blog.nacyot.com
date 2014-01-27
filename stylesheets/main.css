@@ -111,3 +111,6 @@ h6 {
   margin-bottom: 60px;
   text-align: center;
 }
+.site-footer a {
+  color: black;
+}

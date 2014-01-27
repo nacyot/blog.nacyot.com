@@ -3530,7 +3530,7 @@ h6 {
 }
 
 .highlight pre {
-  white-space: pre;
+  white-space: nowrap;
   font-size: 0.9em;
   counter-reset: linenumbers;
   margin: 0;

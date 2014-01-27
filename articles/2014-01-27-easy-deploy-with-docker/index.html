@@ -77,11 +77,13 @@ Jan 27 2014
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker images
 </span><span id="line-2">REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
 </span></pre></div>
-<p>docker images 명령어는 현재 시스템에서 사용가능한 이미지 일람을 보여줍니다. 이미지가 어디서 오는지 궁금하게 느껴지실지도 모릅니다. 이미지는 크게 두 가지 방법을 통해서 추가할 수 있습니다.</p>
+<p>docker images 명령어는 현재 시스템에서 사용가능한 이미지 일람을 보여줍니다. 이미지가 어디서 오는지 궁금하게 느껴지실지도 모릅니다. 이미지는 크게 세 가지 방법을 통해서 추가할 수 있습니다.</p>
 
 <p>하나는 처음 예제에서와 마찬가지로 <code>docker pull &lt;이미지 이름&gt;</code>을 통해서 가져오는 방법입니다. 바로 이 명령어를 사용하면 docker.io의 공식 저장소에서 이미지를 다운로드 받아옵니다. 쉘을 활용하는 개발자라면 이런 개념이 낯설지는 않을 것입니다. 리눅스에서 <code>apt-get</code>이나 <code>yum</code> 혹은 <code>gem</code>이나 <code>pip</code>, <code>cpan</code>, <code>npm</code> 같은 명령어를 사용해보셨다면 바로 이해하실 수 있을 겁니다. 이런 유틸리티를 사용해본 적이 없다고 하더라도 마찬가지 개념으로 docker 이미지 파일들을 관리하는 중앙 저장소가 있다고 이해하셔도 무방합니다. 독특한 점은 <code>intsall</code>이 아닌 <code>pull</code> 명령어를 사용한다는 점입니다. 이에 대해서는 개념적으로 VCS(버전 관리 시스템)을 알고 계신다면 추가적인 설명이 필요없겠습니다만, 어쨌거나 단순히 다운로드라고 이해하셔도 현재 단계에서는 무방합니다.</p>
 
-<p>또 다른 방법은 Dockerfile을 통해서 기술된 과정을 거쳐 도커 이미지를 생성하는 방법입니다. 이에 대해서는 아래에서 좀 더 자세히 다룹니다. 여기서는 편의상 ubuntu 이미지를 다운로드 받아오겠습니다. 이 이미지에 대한 정보는 웹을 통해서 확인하실 수 있습니다. 공식 저장소에 있는 이미지 정보들은 <a href="https://index.docker.io%EC%97%90%EC%84%9C">https://index.docker.io에서</a> 확인할 수 있으며 우분투 이미지에 관해서는 <a href="https://index.docker.io/_/ubuntu/">이 페이지</a>에서 찾을 수 있습니다.</p>
+<p>(두 번째 방법 커밋을 하는 방법입니다. 아래에서 설명합니다. 또 다른 방법은 Dockerfile을 통해서 기술된 과정을 거쳐 도커 이미지를 생성하는 방법입니다. 이에 대해서는 맨 마지막에 자세히 다룹니다.)</p>
+
+<p>여기서는 편의상 ubuntu 이미지를 다운로드 받아오겠습니다. 이 이미지에 대한 정보는 웹을 통해서 확인하실 수 있습니다. 공식 저장소에 있는 이미지 정보들은 <a href="https://index.docker.io%EC%97%90%EC%84%9C">https://index.docker.io에서</a> 확인할 수 있으며 우분투 이미지에 관해서는 <a href="https://index.docker.io/_/ubuntu/">이 페이지</a>에서 찾을 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker pull ubuntu
 </span><span id="line-2">Pulling repository ubuntu
 </span><span id="line-3">04180f9bd8a6: Download <span class="nb">complete</span>
@@ -136,13 +138,15 @@ Jan 27 2014
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -i -t ubuntu:12.04 /bin/bash
 </span><span id="line-2">root@8bfd70fe7392:/#
 </span></pre></div>
-<p>우분투 안에 우분투에 접속하는데 성공했습니다! 짝짝짝. 그런데 앞서 말씀드렸다싶이 <strong>이미지에 접속했다</strong>는 말은 함정입니다. 이 말은 마치 가상머신 ssh 프로토콜을 사용해 접근한 것과 같은 착각을 일으킵니다. 이제 새로운 명령어를 하나 배워보도록 하겠습니다. 앞서서 우리가 사용한 사용가능한 이미지들을 확인하는 명령어는 <code>docker images</code>입니다. 이번에 사용할 명령어는 현재 실행중인 컨테이너들을 출력하는 명령어 <code>docker ps</code>입니다. 별도의 쉘이나 터미널을 열고 <code>docker ps</code> 실행시켜보시기 바랍니다.</p>
+<p>우분투 안에 우분투에 접속하는데 성공했습니다! 짝짝짝. 그런데 앞서 말씀드렸다싶이 <strong>이미지에 접속했다</strong>는 말에는 함정이 있습니다. 이 말은 마치 가상머신 ssh 프로토콜을 사용해 접근한 것과 같은 착각을 일으킵니다. 이제 새로운 명령어를 하나 배워보도록 하겠습니다. 앞서서 우리가 사용한 사용가능한 이미지들을 확인하는 명령어는 <code>docker images</code>입니다. 이번에 사용할 명령어는 현재 실행중인 컨테이너들을 출력하는 명령어 <code>docker ps</code>입니다. 별도의 쉘이나 터미널을 열고 <code>docker ps</code> 실행시켜보시기 바랍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>             <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>               <span class="n">NAMES</span>
 </span><span id="line-2"><span class="mf">0f</span><span class="n">ae5858c9c0</span>        <span class="n">ubuntu</span><span class="o">:</span><span class="mf">12.04</span>        <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>           <span class="mi">8</span> <span class="n">seconds</span> <span class="n">ago</span>       <span class="n">Up</span> <span class="mi">7</span> <span class="n">seconds</span>                            <span class="n">sleepy_nobel</span>
 </span></pre></div>
-<p>8초전에 만들어진 컨터이너가 실행되고 있는 것을 알 수 있습니다. 여기서 우리가 실행한 컨터이너 정보를 알 수 있습니다. 우리는 <code>ubuntu:12.04</code> 이미지로부터 컨테이너를 생성했고, 이 컨테이너에 <code>/bin/bash</code>라는 쉘을 실행시켰습니다. 그 외에도 맨 앞의 컨테이너 아이디는 앞으로 Docker에서 컨테이너를 조작할 때 사용하는 컬럼이기 때문에 필수적으로 알아둘 필요가 있습니다. 물론 외우실 필요는 전혀 없습니다만.</p>
+<p>8초전에 만들어진 컨테이너가 실행되고 있는 것을 알 수 있습니다. 여기서 우리가 실행한 컨테이너 정보를 알 수 있습니다. 우리는 <code>ubuntu:12.04</code> 이미지로부터 컨테이너를 생성했고, 이 컨테이너에 <code>/bin/bash</code>라는 쉘을 실행시켰습니다. 그 외에도 맨 앞의 컨테이너 아이디는 앞으로 Docker에서 컨테이너를 조작할 때 사용하는 컬럼이기 때문에 필수적으로 알아둘 필요가 있습니다.</p>
 
-<p>유난처럼 느껴질지도 모릅니다만, 이미지와 컨테이너를 정확하게 짚고 넘어갈 필요가 있습니다. 하지만 그렇다고 이미지와 컨테이너 개념은 아주 헷갈리는 개념인 것은 아닙니다. 단지 이미지는 추상적인 존재라는 것을 이해하실 필요가 있습니다. 위의 예제에서는 직접 명령어를 넘겨서 이미지를 컨테이너로 실행시켰습니다만, 보통 이미지들은 자신이 실행할 명령어들을 가지고 있습니다. 예를 들어 레디스, 마리아DB, 루비 온 레일즈 어플리케이션을 담고 있는 이미지라면, 각각의 어플리케이션을 실행하는 스크립트를 실행하게되겠죠. 컨테이너는 독립된 환경에서 실행됩니다만, 컨테이너의 기본적인 역할은 이 미리 규정된 명령어를 실행하는 일입니다. 이 명령어가 종료되면 컨테이너도 종료 상태(Exit)에 들어갑니다. 이러한 죽은 컨테이너의 목록까지 확인하려면 <code>docker ps -a</code> 명령어를 사용하면 됩니다. 실제로 쉘을 종료하고 컨테이너 목록을 확인해보겠습니다.</p>
+<p>유난처럼 느껴질지도 모릅니다만, 이미지와 컨테이너를 정확하게 짚고 넘어갈 필요가 있습니다. 하지만 그렇다고 이미지와 컨테이너 개념은 아주 헷갈리는 개념인 것은 아닙니다. 단지 이미지는 추상적인 존재라는 것을 이해하실 필요가 있습니다.</p>
+
+<p>또한 위의 예제에서는 직접 명령어를 넘겨서 이미지를 컨테이너로 실행시켰습니다만, 보통 이미지들은 자신이 실행할 명령어들을 가지고 있습니다. 예를 들어 레디스, 마리아DB, 루비 온 레일즈 어플리케이션을 담고 있는 이미지라면, 각각의 어플리케이션을 실행하는 스크립트를 실행하게되겠죠. 컨테이너는 독립된 환경에서 실행됩니다만, 컨테이너의 기본적인 역할은 이 미리 규정된 명령어를 실행하는 일입니다. 이 명령어가 종료되면 컨테이너도 종료 상태(Exit)에 들어갑니다. 이러한 죽은 컨테이너의 목록까지 확인하려면 <code>docker ps -a</code> 명령어를 사용하면 됩니다. 실제로 쉘을 종료하고 컨테이너 목록을 확인해보겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">root</span><span class="err">@</span><span class="n">d02cd092f62d</span><span class="o">:/</span><span class="err">#</span> <span class="n">exit</span>
 </span><span id="line-2"><span class="n">exit</span>
 </span><span id="line-3"><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span>
@@ -160,23 +164,23 @@ Jan 27 2014
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker attach e2af613
 </span><span id="line-2">root@e2af61348652:/#
 </span></pre></div>
-<p>다시 docker 컨테이너 안으로 들어왔습니다! WoW! 부활의 기적입니다. 여기까지 도커 컨테이너의 생명 주기를 보았습니다. 도커 컨테이너를 실행시키는 <code>run</code>부터 실행이 종료되었을 때 다시 실행하는 <code>restart</code>를 배웠습니다. 이 외에도 실행을 강제로 종료시키는 <code>stop</code> 명령어도 있으며, 종료된 컨테이너를 영면으로 이끌어주는 <code>rm</code> 명령어도 있습니다. 잠시 기억을 더듬어 올라가 이 글의 아주 처음에 <code>run</code> 명령어와 함께 사용한 <code>-rm</code> 플래그는 컨테이너가 종료 상태로 들어가면 자동으로 삭제를 해주는 옵션입니다.</p>
+<p>다시 docker 컨테이너 안으로 들어왔습니다! WoW! 부활의 기적을 여기서 만나는군요. 여기까지 도커 컨테이너의 생명 주기를 보았습니다. 도커 컨테이너를 실행시키는 <code>run</code>부터 실행이 종료되었을 때 다시 실행하는 <code>restart</code>를 배웠습니다. 이 외에도 실행을 강제로 종료시키는 <code>stop</code> 명령어도 있으며, 종료된 컨테이너를 영면으로 이끌어주는 <code>rm</code> 명령어도 있습니다. 잠시 기억을 더듬어 올라가 이 글의 아주 처음에 <code>run</code> 명령어와 함께 사용한 <code>-rm</code> 플래그는 컨테이너가 종료 상태로 들어가면 자동으로 삭제를 해주는 옵션입니다.</p>
 
-<p>네, 다시 한 번 이야기합니다. 이미지에는 접속한다는 개념이 없습니다. 실제로 실행되는 <strong>가상 머신</strong>은 항상 컨테이너입니다. 네, 분명 저는 &#39;명령어&#39;를 실행시킨다고 했습니다만, 컨테이너는 격리된 환경에서 특정한 명령을 실행시켜주는 가상 머신과 같은 무언가입니다. 그렇다면 쉘을 실행시키지 않았을 때 이 가상 머신을 조작할 수 있는 방법이 있을까요? 이게 참 애매모호합니다. 분명히 불가능한 것은 아닙니다. 이 부분에 대해서 여기선 다루지 않습니다만, 직접 파일 시스템을 조작할 수도 있고, 리눅스 컨테이너를 조작해 특정 컨테이너에 대해 쉘을 실행시킬 수도 있습니다. 하지만 좀 더 올바른 방법은 조작이 필요한 컨테이너에 ssh 서비스를 올려서 ssh 프로토콜로 접근하는 방법입니다. 실제 도커로 서비스를 운영하면 필요할 날이 오겠지만, 일단은 그렇구나 하고 넘어가셔도 무방합니다.</p>
+<p>네, 다시 한 번 이야기합니다. 이미지에는 접속한다는 개념이 없습니다. 실제로 실행되는 <strong>가상 머신</strong>은 항상 컨테이너입니다. 분명 저는 &#39;명령어&#39;를 실행시킨다고 했습니다만, 컨테이너란 격리된 환경에서 특정한 명령을 실행시켜주는 가상 머신과 같은 무언가입니다. 그렇다면 쉘을 실행시키지 않았을 때 이 가상 머신을 조작할 수 있는 방법이 있을까요? 원론적으로 불가능한 것은 아닙니다. 이 부분에 대해서 여기선 다루지 않습니다만, 직접 파일 시스템을 조작할 수도 있고, 리눅스 컨테이너를 조작해 특정 컨테이너에 대해 쉘을 실행시킬 수도 있습니다. 하지만 좀 더 정상적인 방법은 조작이 필요한 컨테이너에 ssh 서비스를 올려서 ssh 프로토콜로 접근하는 방법입니다. 실제 도커로 서비스를 운영하면 이런 부분이 절실할 날이 오겠지만, 일단은 그렇구나 하고 넘어가셔도 무방합니다.</p>
 
 <h2>버전 관리 시스템과 도커</h2>
 
-<p>다시 이미지로 돌아가겠습니다. 한 가지 질문을 던져보죠. 좋습니다. 이미지와 컨테이너는 다릅니다. 근데 그렇다면 이 컨테이너를 지지고 볶고 삶고 데치고 하면 이미지는 어떻게 될까요?</p>
+<p>다시 이미지로 돌아가겠습니다. 누누이 강조하지만 이미지와 컨테이너는 다릅니다. 좋습니다. 그렇다면 한가지 질문을 던져보죠. 그렇다면 이 컨테이너를 지지고 볶고 삶고 데치고 하면 이미지는 어떻게 될까요?</p>
 
-<p>네. 이미지에는 아무런 변화도 생기지 않습니다. 아주 세속적인 예를 들어보면 윈도우 CD로 윈도우를 설치해서 사용한다고 해서 설치한 윈도우 CD에 어떤 변화가 생기지는 않는 것과 같은 이치입니다. 이미지는 어디까지나 고정된 이미지입니다. 도커에서 이미지는 불변(Immutable)하는 저장 매체입니다. 그런데 도커에서는 이미지는 불변이지만 이 이미지 위에 무언가를 더해서 새로운 이미지를 만들어내는 일이 가능합니다. 좀 더 정확히 말하면 컨테이너는 변경가능(Mutabe)합니다. 특정한 이미지로부터 생성된 컨테이너에 어떤 변경사항을 더하고, 이 변경된 상태를 이미지로 만들어내는 것이 가능합니다.</p>
+<p>당연히 이미지에는 아무런 변화도 생기지 않습니다. 아주 세속적인 예를 들어보면 윈도우 CD로 윈도우를 설치해서 사용한다고 해서 설치한 윈도우 CD에 어떤 변화가 생기지는 않는 것과 같은 이치입니다. 이미지는 어디까지나 고정된 이미지입니다. 도커에서 이미지는 불변(Immutable)하는 저장 매체입니다. 그런데 도커에서 이미지는 불변이지만 이 이미지 위에 무언가를 더해서 새로운 이미지를 만들어내는 일이 가능합니다. 좀 더 정확히 말하면 컨테이너는 변경가능(Mutabe)합니다. 특정한 이미지로부터 생성된 컨테이너에 어떤 변경사항을 더하고, 이 변경된 상태를 이미지로 만들어내는 것이 가능합니다.</p>
 
-<p>앞서 실행한 컨테이너 Git을 설치해보겠습니다. 위에 실행된 쉘에서 다음과 같은 명령어를 입력합니다.</p>
+<p>앞서 실행한 컨테이너에 Git을 설치해보겠습니다. 위에서 실행한 쉘에 다음과 같은 명령어를 입력합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">root</span><span class="err">@</span><span class="n">e2af61348652</span><span class="o">:/</span><span class="err">#</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">git</span>
 </span><span id="line-2"><span class="p">...</span>
 </span><span id="line-3"><span class="n">root</span><span class="err">@</span><span class="n">e2af61348652</span><span class="o">:/</span><span class="err">#</span> <span class="n">git</span> <span class="o">--</span><span class="n">version</span>
 </span><span id="line-4"><span class="n">git</span> <span class="n">version</span> <span class="mf">1.7.9.5</span>
 </span></pre></div>
-<p>우분투의 패키지 관리자인 apt-get을 통해서 버전 관리 시스템인 <code>Git</code>을 설치했습니다. 도커는 마치 자신이 VCS인양, 어떤 컨테이너와 이 컨테이너의 부모 이미지 간의 파일의 변경사항을 확인할 수 있는 명령어를 제공합니다. 마치 <code>git diff</code> 명령어르 프로젝트의 변경사항을 확인하듯이, 컨테이너 쉘 바깥에서 <code>docker diff</code> 명령어로 부모 이미지와 여기서 파생된 컨테이너의 파일 시스템 간의 변경사항을 확인할 수 있습니다. </p>
+<p>우분투의 패키지 관리자인 apt-get을 통해서 버전 관리 시스템인 <code>Git</code>을 설치했습니다. 여기서 도커는 마치 자신이 VCS인양, 어떤 컨테이너와 이 컨테이너의 부모 이미지 간의 파일의 변경사항을 확인할 수 있는 명령어를 제공합니다. 마치 <code>git diff</code> 명령어로 프로젝트의 변경사항을 확인하듯이, <code>docker diff</code> 명령어로 부모 이미지와 여기서 파생된 컨테이너의 파일 시스템 간의 변경사항을 확인할 수 있습니다. </p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker diff e2af61
 </span><span id="line-2">A /.bash_history
 </span><span id="line-3">A /.wh..wh.plnk/310.4862541
@@ -190,21 +194,21 @@ Jan 27 2014
 </span><span id="line-11">A /var/log/apt/term.log
 </span><span id="line-12">C /var/log/dpkg.log
 </span></pre></div>
-<p>이제 기본 우분투 12.04 이미지에 Git를 설지한 새로운 이미지를 생성해보도록 하겠습니다. 이 작업도 VCS와 매우 비슷합니다. 도커에서는 이 작업을 <code>commit</code>이라고 합니다.</p>
+<p>이제 기본 우분투 12.04 이미지에 Git가 설치된 새로운 이미지를 생성해보도록 하겠습니다. 이 작업도 VCS와 매우 비슷합니다. 도커에서는 이 작업을 <code>commit</code>이라고 합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker commit e2af61 ubuntu:git
 </span><span id="line-2">5ff1d6b1c5db272c3f1a88c96f78146ed48d18848f0a10e6aefa066b462ff5ee
 </span><span id="line-3"><span class="nv">$ </span>docker images <span class="p">|</span> grep git
 </span><span id="line-4">REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
 </span><span id="line-5">ubuntu              git                 5ff1d6b1c5db        About a minute ago   222.3 MB
 </span></pre></div>
-<p>이미지 만들기 정말 쉽죠? 단지 커밋을 하고 뒤에 이름을 붙여주면 바로 새로운 도커 이미지가 생성됩니다. 이미지로부터 컨테이너를 실행시키고 이 컨테이너의 수정사항을 통해서 새로운 이미지를 만들었습니다. 그렇다면 정말로 이 이미지를 통해서 컨테이너를 실행시키면(<code>run</code>) git가 잘 들어가 있을까요? 직접 확인해보죠.</p>
+<p>이미지 만들기 정말 쉽죠? 단지 커밋을 하고 뒤에 이름을 붙여주면 바로 새로운 도커 이미지가 생성됩니다. 이미지로부터 컨테이너를 실행시키고 이 컨테이너의 수정사항을 통해서 새로운 이미지를 만들었습니다. 그렇다면 정말로 이 이미지를 통해서 컨테이너를 실행시키면(<code>run</code>) git가 실해될까요? 직접 확인해보죠.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -i -t ubuntu:git /bin/bash
 </span><span id="line-2">root@27d4e3090750:/# git --version
 </span><span id="line-3">git version 1.7.9.5
 </span></pre></div>
-<p>너무 감동적이라 눙물이 나올 것 같습니다 TT.</p>
+<p>감동에 눙물이 나올 것 같습니다 TT.</p>
 
-<p>하지만 이 이미지는 별로 필요가 없군요. 저는 공은 공 사는 사, 낭비라하면 물 한 방울 용서하지 않는 냉혈한올시다. 필요없는 이미지는 삭제해버리겠습니다. 하나 알아두셔야 하는 중요한 사항은, 이미지에서 (종료상태를 포함한) 파생된 컨테이너가 하나라도 있다면 이미지는 삭제할 수 없습니다. (처음에 이 부분을 정확히 이해하지 못 해 한참을 해맸던 기억이 납니다. 흙) 따라서 먼저 컨테이너를 종료하고, 삭제까지 해주어야합니다. <code>docker rm</code>은 컨테이너를 삭제하는 명령어입니다. <code>docker rmi</code>는 이미지를 삭제하는 명령어입니다. 이 두 명령어를 혼동하지 않아야합니다.</p>
+<p>하지만 이 이미지는 별로 필요가 없군요. 냉정하게 필요없는 이미지는 삭제해버리겠습니다. 하나 알아두셔야 하는 중요한 사항은, 이미지에서 (종료상태를 포함한) 파생된 컨테이너가 하나라도 있다면 이미지는 삭제할 수 없습니다. (처음에 이 부분을 정확히 이해하지 못 해 한참을 해맸던 기억이 납니다) 따라서 먼저 컨테이너를 종료하고, 삭제까지 해주어야합니다. <code>docker rm</code>은 컨테이너를 삭제하는 명령어입니다. <code>docker rmi</code>는 이미지를 삭제하는 명령어입니다. 이 두 명령어를 혼동하지 않아야합니다.</p>
 
 <p>먼저 컨테이너를 지우고, 이미지를 삭제해보겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker ps -a
@@ -217,7 +221,9 @@ Jan 27 2014
 </span><span id="line-8">Deleted: 5ff1d6b1c5db272c3f1a88c96f78146ed48d18848f0a10e6aefa066b462ff5ee
 </span></pre></div>
 <p>브라보! 이번에는 도커 이미지의 생명주기를 배웠습니다. 도커 이미지를 <code>pull</code>로 받아오고 <code>commit</code>
-으로 파생된 이미지를 만들고 <code>rmi</code> 명령어로 삭제까지 해보았습니다. 컨테이너와 이미지의 생명주기만 이해하고 나면 도커의 80%는 마스터한 거나 다름 없습니다. 도커를 통해서 하는 일은 거의 다 이 이미지와 컨테이너 개념으로 커버가 가능합니다. 이제 남은 일은 자신에게 필요한 <strong>이미지</strong>를 만들고 이 이미지를 통해서 컨테이너(가상 머신)을 실행하는 일입니다. 물론 이제 기본적인 개념들을 배웠으니 오픈된 중앙 저장소격에 해당하는 <a href="https://index.docker.io/">Docker Index</a>에서 이미 만들어져있는 다양한 이미지들을 활용할 수도 있습니다. 도커의 모토를 잊지 마시기 바랍니다. 거짓말 조금 보태서(?!) 완성된 이미지는 언제 어디에 서라 도  가동 가능합니다.</p>
+으로 파생된 이미지를 만들고 <code>rmi</code> 명령어로 삭제까지 해보았습니다. 컨테이너와 이미지의 생명주기만 이해하고 나면 도커의 80%는 이해한 거나 다름 없습니다. 도커를 통해서 하는 일은 거의 다 이 이미지와 컨테이너 개념으로 커버가 가능합니다. 이제 남은 일은 자신에게 필요한 <strong>이미지</strong>를 만들고 이 이미지를 통해서 컨테이너(가상 머신)를 실행하는 일입니다. 물론 이제 기본적인 개념들을 배웠으니 오픈된 중앙 저장소격에 해당하는 <a href="https://index.docker.io/">Docker Index</a>에서 이미 만들어져있는 다양한 이미지들을 활용할 수도 있습니다.</p>
+
+<p>무엇을 하건 도커의 모토를 잊지 마시기 바랍니다. 거짓말 조금 보태서(?!) 완성된 이미지는 언제 어디에 서라 도  가동 가능합니다.</p>
 
 <h2>Dockerfile로 이미지 생성하고 어플리케이션 실행시키기</h2>
 

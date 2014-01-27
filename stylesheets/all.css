@@ -3350,8 +3350,11 @@ h5,
 h6 {
   font-weight: 900;
 }
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
 .main {
-  width: 60%;
   margin: auto;
   margin-top: 60px;
   text-align: left;
@@ -3451,6 +3454,9 @@ h6 {
   margin-top: 40px;
   margin-bottom: 60px;
   text-align: center;
+}
+pre {
+  white-space: pre;
 }
 .highlight pre > span:before {
   font-size: .9em;

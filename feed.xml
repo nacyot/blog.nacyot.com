@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-30-deploying-application-with-dokku/"/>
     <id>http://blog.url.com/articles/2014-01-30-deploying-application-with-dokku/</id>
     <published>2014-01-29T16:30:00Z</published>
-    <updated>2014-01-29T17:05:09+00:00</updated>
+    <updated>2014-01-29T17:07:19+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -32,7 +32,7 @@
 
 &lt;p&gt;IaaS나 Paas는 이보다 좀 더 낮은 단계의 추상화를 제공합니다. 서비스를 이용하는 사람은 서버가 어떤 하드웨어로 구성되어있고, 램은 몇 기가고 CPU는 뭘 쓰고 있고 신경쓸 필요가 없을 뿐더러, 어떤 운영체게 위에서 돌아가는지, 어플리케이션이 어떤 언어를 사용하고, 어떤 구조로 만들어져있고 데이터베이스가 어떻게 분산되어있는지도 신경쓸 필요가 없습니다. 앞의 문장을 &lt;strong&gt;어디까지 신경써야 하는가&lt;/strong&gt;를 가지고 단계를 나눌 수 있습니다. 앞서 이야기했듯이 서비스는 위에서 아무것도 신경쓰지 않습니다. 여기서 한단계 내려가면 사용하는 언어와 어플리케이션만 신경써야하는 단계가 있습니다. 이 아래에 있는 것들은 서비스로 지원합니다. 여기가 PaaS가 위치한 곳입니다. 여기서 더 아래로 내려가면 CPU의 성능과 램의 용량을 따지고 어떤 운영체제를 사용하고  각각의 시스템들을 어떻게 연동시켜야하는지 하는 부분이 나옵니다. 심지어 시스템의 크기까지 제어할 수 있습니다. 여기가 바로 IaaS가 위치한 곳입니다. 더 아래로 내려가면 네, 실제 서버 구성부터 이것저것 모든 것을 다 해야합니다. 해보신 분들은 아시겠지만 이런 일은 한 마디로 말해서 고역입니다. 운영체제도 하드웨어도 같지 않은 같지 않은 수십대의 시스템을 효과적으로 관리한다는 건 거의 불가능에 가깝습니다. 거기다가 고장까지 고려하면 더더욱 쉽지 않은 일입니다.&lt;/p&gt;
 
-&lt;p&gt;다시 클라우드입니다만, 클라우드의 본질적인 가치는 어플리케이션을 개발하는데 있어서 우리가 어디까지 신경서야하는 지 그 위치를 &lt;strong&gt;선택가능한 옵션&lt;/strong&gt;으로 떨어뜨려줬다는 데 있습니다. 그건 내가 해줄게 하는 겁니다. AWS가 나오기 전에 서비스를 만드는 사람들에게 그런 종류의 선택권은 존재하지 않았습니다. 구체적이 서비스를 예르 들면 &lt;a href="http://aws.amazon.com/en/ec2/"&gt;AmazonWS EC2&lt;/a&gt;가 IaaS라면 히로쿠나 구글 앱 엔진은 대표적인 PaaS 서비스입니다. 더욱 재미있는 건 Heroku가 다름 아닌 AWS 위에서 돌아가고 있다는 사실입니다. &lt;/p&gt;
+&lt;p&gt;다시 클라우드입니다만, 클라우드의 본질적인 가치는 어플리케이션을 개발하는데 있어서 우리가 어디까지 신경서야하는 지 그 위치를 &lt;strong&gt;선택가능한 옵션&lt;/strong&gt;으로 떨어뜨려줬다는 데 있습니다. 그건 내가 해줄게 하는 겁니다. AWS가 나오기 전에 서비스를 만드는 사람들에게 그런 종류의 선택권은 존재하지 않았습니다. 구체적이 서비스를 예를 들면 &lt;a href="http://aws.amazon.com/en/ec2/"&gt;AmazonWS EC2&lt;/a&gt;가 IaaS라면 히로쿠나 구글 앱 엔진은 대표적인 PaaS 서비스입니다. 더욱 재미있는 건 Heroku가 다름 아닌 AWS 위에서 돌아가고 있다는 사실입니다. &lt;/p&gt;
 
 &lt;p&gt;특히 히로쿠는 &lt;a href="http://rubyonrails.org/"&gt;루비 온 레일즈&lt;/a&gt;를 시작으로 현재는 자바, Nodejs, 파이썬 어플리케이션까지 지원하고 있습니다. 히로쿠를 사용하면 회사나 개발자는 딱 &lt;strong&gt;어플리케이션&lt;/strong&gt;만 만들어내면 됩니다. 거짓말 조금 보태서 어디서 어떻게 관리하고 배포할 지 일절 고민할 필요가 없습니다. 어플리케이션을 만들고 Heroku에 있는 Git 서버에 푸쉬하기만 하면 어플리케이션을 자동으로 빌드하고 연결한 도메인으로 배포해줍니다. 이건 그저 감탄만 나올 정도로 너무 훌륭합니다만(!) 같은 크기에 있어서 IaaS 서비스보다 PaaS가 일반적으로 더 비싼 편이기 때문에 가격 정책이나 여러가지를 고려해서 맞는 서비스를 이용한 게 현명한 일입니다.&lt;/p&gt;
 
@@ -405,7 +405,7 @@ include /home/dokku/*/nginx.conf;
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/"/>
     <id>http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-01-29T17:05:09+00:00</updated>
+    <updated>2014-01-29T17:07:19+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -877,7 +877,7 @@ http://127.0.0.1:9999/moniwiki/
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.url.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-01-29T17:05:09+00:00</updated>
+    <updated>2014-01-29T17:07:19+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1206,7 +1206,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-static-site-generator/"/>
     <id>http://blog.url.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-01-29T17:05:09+00:00</updated>
+    <updated>2014-01-29T17:07:19+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1252,7 +1252,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-29T17:05:09+00:00</updated>
+    <updated>2014-01-29T17:07:19+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1473,7 +1473,7 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-24T03:00:00Z</published>
-    <updated>2014-01-29T17:05:09+00:00</updated>
+    <updated>2014-01-29T17:07:19+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>

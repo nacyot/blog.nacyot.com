@@ -70,7 +70,8 @@
 }
 
 .highlight pre {
-  white-space: nowrap;
+  white-space: pre;
+  word-wrap: normal;
   font-size: 0.9em;
   counter-reset: linenumbers;
   margin: 0;
@@ -82,7 +83,8 @@
 
 .highlight pre > span {
   display: block;
-  padding: 0.5em; }
+  padding: 0.5em;
+}
 
 .highlight pre > span:before {
   font-size: .9em;
@@ -98,6 +100,7 @@
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+}
 
 

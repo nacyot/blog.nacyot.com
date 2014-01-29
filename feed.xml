@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-30-deploying-application-with-dokku/"/>
     <id>http://blog.url.com/articles/2014-01-30-deploying-application-with-dokku/</id>
     <published>2014-01-29T16:30:00Z</published>
-    <updated>2014-01-29T16:47:47+00:00</updated>
+    <updated>2014-01-29T17:05:09+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -405,7 +405,7 @@ include /home/dokku/*/nginx.conf;
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/"/>
     <id>http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-01-29T16:47:47+00:00</updated>
+    <updated>2014-01-29T17:05:09+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -877,7 +877,7 @@ http://127.0.0.1:9999/moniwiki/
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.url.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-01-29T16:47:47+00:00</updated>
+    <updated>2014-01-29T17:05:09+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1206,7 +1206,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-static-site-generator/"/>
     <id>http://blog.url.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-01-29T16:47:47+00:00</updated>
+    <updated>2014-01-29T17:05:09+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1252,7 +1252,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-29T16:47:47+00:00</updated>
+    <updated>2014-01-29T17:05:09+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -1473,7 +1473,7 @@ https://github.com/nacyot/pull-request/pull/1
     <link rel="alternate" href="http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/"/>
     <id>http://blog.url.com/articles/2013-11-24-ruby-trivias-you-should-know-4/</id>
     <published>2013-11-24T03:00:00Z</published>
-    <updated>2014-01-29T16:47:47+00:00</updated>
+    <updated>2014-01-29T17:05:09+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>

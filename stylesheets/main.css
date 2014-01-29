@@ -106,6 +106,10 @@ h6 {
   font-size: 1.3em;
   font-weight: 900;
 }
+.articles .navigation {
+  font-size: 1.5em;
+  line-height: 2em;
+}
 .site-footer {
   margin-top: 40px;
   margin-bottom: 60px;

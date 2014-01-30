@@ -57,6 +57,9 @@ h6 {
   font-size: 1.3em;
   line-height: 2em;
 }
+.articles .article img {
+  max-width: 100%;
+}
 .articles .article .body {
   font-size: 1.3em;
   line-height: 2em;

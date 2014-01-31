@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Blog Name</title>
-  <subtitle>Blog subtitle</subtitle>
-  <id>http://blog.url.com/</id>
-  <link href="http://blog.url.com/"/>
-  <link href="http://blog.url.com/feed.xml" rel="self"/>
+  <title>Nacyot의 프로그래밍 이야기</title>
+  <subtitle>Nacyot의 프로그래밍 이야기</subtitle>
+  <id>http://blog.nacyot.com/</id>
+  <link href="http://blog.nacyot.com/"/>
+  <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
   <updated>2014-01-30T08:30:00Z</updated>
   <author>
     <name>Blog Author</name>
   </author>
   <entry>
     <title>깃허브(Github) 후크 API와 Slack에 알림 전달하기</title>
-    <link rel="alternate" href="http://blog.url.com/articles/2014-01-30-github-hook-api-slack-sample/"/>
-    <id>http://blog.url.com/articles/2014-01-30-github-hook-api-slack-sample/</id>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/"/>
+    <id>http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/</id>
     <published>2014-01-30T08:30:00Z</published>
-    <updated>2014-01-30T08:55:44+00:00</updated>
+    <updated>2014-01-31T01:01:50+00:00</updated>
     <author>
-      <name>Article Author</name>
+      <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 &lt;code&gt;.git/hooks&lt;/code&gt;에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.&lt;/p&gt;
 
@@ -63,11 +63,11 @@
 
 &lt;p&gt;깃허브에서 저장소에 웹후크나 서비스 후크를 등록하기 위해서는 저장소의 관리 권한이 있어야합니다. 먼저 저장소의 오른쪽에 보이는 Settings 메뉴에 들어갑니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Github settings" src="../../images/2014-01-30-github-hook-api-slack-sample/settings.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Github settings" src="images/2014-01-30-github-hook-api-slack-sample/settings.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;들어와서 왼쪽에 보시면 Service Hooks라는 메뉴를 찾을 수 있습니다. Service Hooks 누르면 Github에서 바로 통합 가능한 서비스 리스트들을 전부 확인할 수 있습니다. 채팅 서비스인 &lt;a href="http://hipchat.com/"&gt;Hipchat&lt;/a&gt;을 비롯해, 빌드 서비스인 &lt;a href="https://circleci.com/"&gt;CircleCI&lt;/a&gt;, &lt;a href="https://travis-ci.org/"&gt;Travis&lt;/a&gt;, 코드 매트릭스 관리 서비스인 &lt;a href="https://codeclimate.com/?v=original"&gt;Code Climate&lt;/a&gt;, 테스트 커버리지 리포트 서비스인 &lt;a href="https://coveralls.io/"&gt;Coveralls&lt;/a&gt;등 다양한 서비스를 지원하고 있습니다. 여기서는 맨 위에 있는 Webhook URLs를 사용하겠습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Webhook" src="../../images/2014-01-30-github-hook-api-slack-sample/webhook.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Webhook" src="images/2014-01-30-github-hook-api-slack-sample/webhook.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Webhook URLs를 클릭하시면 이벤트가 발생했을 때 정보를 받을 URL을 지정할 수 있습니다. 아직 후크 메시지를 받아 처리할 수 있는 서버가 없으므로 여기서는 서버를 등록하면 어떤 식으로 메시지가 오는 지, 어떤 이벤트들을 등록되어있는지 보여드리도록 하겠습니다. Webhook URLs에 &lt;code&gt;notifier.nacyot.com&lt;/code&gt;라는 Slack에 깃허브 저장소의 변경사항을 전달해주는 어플리케이션을 등록했다고 가정해보죠. &lt;/p&gt;
 
@@ -131,7 +131,7 @@ curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 
 
 &lt;p&gt;이제 저장소에서 이슈와 관련 이벤트가 발생하거나 위키에 페이지가 추가되거나 업데이트될 때 알림이 오게 됩니다. 이번엔 실제로 알림이 오는 것을 확인해보겠습니다. 위키 페이지를 하나 생성해보겠습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Creating Wiki page" src="../../images/2014-01-30-github-hook-api-slack-sample/wiki.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Creating Wiki page" src="images/2014-01-30-github-hook-api-slack-sample/wiki.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;이번엔 &lt;code&gt;notifier.nacyot.com&lt;/code&gt;에 요청이 들어오는지 확인해보겠습니다.&lt;/p&gt;
 
@@ -142,7 +142,7 @@ curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 
 
 &lt;p&gt;정상적으로 들어오네요. 네, 앞서서 이야기했듯이 이 서버가 해주는 역할은 깃허브로부터 후크를 받고 이를 Slack이라는 채팅 서비스에 연결해주는 역할을 합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Slack Room" src="../../images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Slack Room" src="images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;채팅방에도 메시지가 잘 들어오는 것을 알 수 있습니다. (시간 차이는 시간 설정 때문에 9시간 차이가 나서 그렇습니다)&lt;/p&gt;
 
@@ -237,7 +237,7 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
 
 &lt;p&gt;앞서 다룬 것과 마찬가지 방법으로 &lt;code&gt;gollum&lt;/code&gt; 이벤트를 추가해줍니다. 네 이걸로 모든 설정이 끝났습니다. 이제 해당하는 저장소의 위키를 수정해보면 서버에 알림이 가고 서버가 Slack으로 위키를 수정했다는 알림이 가게 됩니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Slack Room" src="../../images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Slack Room" src="images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;만약 정상적으로 메시지가 가지 않을 경우엔 Github Webhook 등록 페이지에서 Test Hook 버튼을 누르고 &lt;code&gt;docker logs &amp;lt;CONTAINER_ID&amp;gt;&lt;/code&gt; 명령어를 통해서 요청이 정상 전달되는지부터 확인할 필요가 있습니다. 일단 이러한 방법을 통해서 무사히 Slack으로 이전을 마쳤습니다.&lt;/p&gt;
 
@@ -250,12 +250,12 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
   </entry>
   <entry>
     <title>도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)</title>
-    <link rel="alternate" href="http://blog.url.com/articles/2014-01-30-deploying-application-with-dokku/"/>
-    <id>http://blog.url.com/articles/2014-01-30-deploying-application-with-dokku/</id>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/"/>
+    <id>http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/</id>
     <published>2014-01-29T16:30:00Z</published>
-    <updated>2014-01-30T08:55:44+00:00</updated>
+    <updated>2014-01-31T01:01:50+00:00</updated>
     <author>
-      <name>Article Author</name>
+      <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;지난 번 &lt;a href="http://docker.io/"&gt;도커&lt;/a&gt; 시리즈의 첫번째 글에서는 &lt;a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"&gt;도커(Docker) 튜토리얼 : 깐 김에 배포까지&lt;/a&gt; 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 도커를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 &lt;a href="https://github.com/progrium/dokku/blob/master/dokku"&gt;도쿠&lt;/a&gt;(Dokku)를 다루도록 하겠습니다.&lt;/p&gt;
 
@@ -641,12 +641,12 @@ include /home/dokku/*/nginx.conf;
   </entry>
   <entry>
     <title>도커(Docker) 튜토리얼 : 깐 김에 배포까지</title>
-    <link rel="alternate" href="http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/"/>
-    <id>http://blog.url.com/articles/2014-01-27-easy-deploy-with-docker/</id>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"/>
+    <id>http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-01-30T08:55:44+00:00</updated>
+    <updated>2014-01-31T01:01:50+00:00</updated>
     <author>
-      <name>Article Author</name>
+      <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.&lt;/p&gt;
 
@@ -1113,12 +1113,12 @@ http://127.0.0.1:9999/moniwiki/
   </entry>
   <entry>
     <title>우분투 13.10 개발환경 세팅</title>
-    <link rel="alternate" href="http://blog.url.com/articles/2014-01-18-ubuntu-setting/"/>
-    <id>http://blog.url.com/articles/2014-01-18-ubuntu-setting/</id>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/"/>
+    <id>http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-01-30T08:55:44+00:00</updated>
+    <updated>2014-01-31T01:01:50+00:00</updated>
     <author>
-      <name>Article Author</name>
+      <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.&lt;/p&gt;
 
@@ -1442,12 +1442,12 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
   </entry>
   <entry>
     <title>정적 웹사이트 생성기의 유혹</title>
-    <link rel="alternate" href="http://blog.url.com/articles/2014-01-15-static-site-generator/"/>
-    <id>http://blog.url.com/articles/2014-01-15-static-site-generator/</id>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-15-static-site-generator/"/>
+    <id>http://blog.nacyot.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-01-30T08:55:44+00:00</updated>
+    <updated>2014-01-31T01:01:50+00:00</updated>
     <author>
-      <name>Article Author</name>
+      <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;개인적으로 요새 화두인 주제가 바로 정적 웹사이트 생성기입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만 여기에 대해서는 약간 배경에 대해서 이해할 필요가 있습니다.&lt;/p&gt;
 
@@ -1488,12 +1488,12 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
   </entry>
   <entry>
     <title>hub로 명령행에서 Github 풀리퀘스트 보내기</title>
-    <link rel="alternate" href="http://blog.url.com/articles/2013-12-29-hub-and-pull-request/"/>
-    <id>http://blog.url.com/articles/2013-12-29-hub-and-pull-request/</id>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2013-12-29-hub-and-pull-request/"/>
+    <id>http://blog.nacyot.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-01-30T08:55:44+00:00</updated>
+    <updated>2014-01-31T01:01:50+00:00</updated>
     <author>
-      <name>Article Author</name>
+      <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.&lt;/p&gt;
 

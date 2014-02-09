@@ -3342,6 +3342,9 @@ fieldset[disabled] .radio,
 
 
 
+body {
+  padding-top: 35px;
+}
 h1,
 h2,
 h3,
@@ -3358,6 +3361,10 @@ h6 {
   margin: auto;
   margin-top: 60px;
   text-align: left;
+}
+.navbar {
+  background-color: white;
+  border-bottom: 2px dashed gray;
 }
 .mini-wall {
   height: 200px;

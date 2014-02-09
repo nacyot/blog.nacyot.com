@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/</id>
     <published>2014-01-30T08:30:00Z</published>
-    <updated>2014-02-02T23:44:02+00:00</updated>
+    <updated>2014-02-09T16:16:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -63,11 +63,11 @@
 
 &lt;p&gt;깃허브에서 저장소에 웹후크나 서비스 후크를 등록하기 위해서는 저장소의 관리 권한이 있어야합니다. 먼저 저장소의 오른쪽에 보이는 Settings 메뉴에 들어갑니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Github settings" src="images/2014-01-30-github-hook-api-slack-sample/settings.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Github settings" src="../../images/2014-01-30-github-hook-api-slack-sample/settings.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;들어와서 왼쪽에 보시면 Service Hooks라는 메뉴를 찾을 수 있습니다. Service Hooks 누르면 Github에서 바로 통합 가능한 서비스 리스트들을 전부 확인할 수 있습니다. 채팅 서비스인 &lt;a href="http://hipchat.com/"&gt;Hipchat&lt;/a&gt;을 비롯해, 빌드 서비스인 &lt;a href="https://circleci.com/"&gt;CircleCI&lt;/a&gt;, &lt;a href="https://travis-ci.org/"&gt;Travis&lt;/a&gt;, 코드 매트릭스 관리 서비스인 &lt;a href="https://codeclimate.com/?v=original"&gt;Code Climate&lt;/a&gt;, 테스트 커버리지 리포트 서비스인 &lt;a href="https://coveralls.io/"&gt;Coveralls&lt;/a&gt;등 다양한 서비스를 지원하고 있습니다. 여기서는 맨 위에 있는 Webhook URLs를 사용하겠습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Webhook" src="images/2014-01-30-github-hook-api-slack-sample/webhook.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Webhook" src="../../images/2014-01-30-github-hook-api-slack-sample/webhook.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Webhook URLs를 클릭하시면 이벤트가 발생했을 때 정보를 받을 URL을 지정할 수 있습니다. 아직 후크 메시지를 받아 처리할 수 있는 서버가 없으므로 여기서는 서버를 등록하면 어떤 식으로 메시지가 오는 지, 어떤 이벤트들을 등록되어있는지 보여드리도록 하겠습니다. Webhook URLs에 &lt;code&gt;notifier.nacyot.com&lt;/code&gt;라는 Slack에 깃허브 저장소의 변경사항을 전달해주는 어플리케이션을 등록했다고 가정해보죠. &lt;/p&gt;
 
@@ -131,7 +131,7 @@ curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 
 
 &lt;p&gt;이제 저장소에서 이슈와 관련 이벤트가 발생하거나 위키에 페이지가 추가되거나 업데이트될 때 알림이 오게 됩니다. 이번엔 실제로 알림이 오는 것을 확인해보겠습니다. 위키 페이지를 하나 생성해보겠습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Creating Wiki page" src="images/2014-01-30-github-hook-api-slack-sample/wiki.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Creating Wiki page" src="../../images/2014-01-30-github-hook-api-slack-sample/wiki.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;이번엔 &lt;code&gt;notifier.nacyot.com&lt;/code&gt;에 요청이 들어오는지 확인해보겠습니다.&lt;/p&gt;
 
@@ -142,7 +142,7 @@ curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 
 
 &lt;p&gt;정상적으로 들어오네요. 네, 앞서서 이야기했듯이 이 서버가 해주는 역할은 깃허브로부터 후크를 받고 이를 Slack이라는 채팅 서비스에 연결해주는 역할을 합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Slack Room" src="images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Slack Room" src="../../images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;채팅방에도 메시지가 잘 들어오는 것을 알 수 있습니다. (시간 차이는 시간 설정 때문에 9시간 차이가 나서 그렇습니다)&lt;/p&gt;
 
@@ -237,7 +237,7 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
 
 &lt;p&gt;앞서 다룬 것과 마찬가지 방법으로 &lt;code&gt;gollum&lt;/code&gt; 이벤트를 추가해줍니다. 네 이걸로 모든 설정이 끝났습니다. 이제 해당하는 저장소의 위키를 수정해보면 서버에 알림이 가고 서버가 Slack으로 위키를 수정했다는 알림이 가게 됩니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Slack Room" src="images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Slack Room" src="../../images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;만약 정상적으로 메시지가 가지 않을 경우엔 Github Webhook 등록 페이지에서 Test Hook 버튼을 누르고 &lt;code&gt;docker logs &amp;lt;CONTAINER_ID&amp;gt;&lt;/code&gt; 명령어를 통해서 요청이 정상 전달되는지부터 확인할 필요가 있습니다. 일단 이러한 방법을 통해서 무사히 Slack으로 이전을 마쳤습니다.&lt;/p&gt;
 
@@ -253,7 +253,7 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/</id>
     <published>2014-01-29T16:30:00Z</published>
-    <updated>2014-02-02T23:44:02+00:00</updated>
+    <updated>2014-02-09T16:16:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -289,11 +289,14 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
 $ wget -qO- https://raw.github.com/progrium/dokku/v0.2.1/bootstrap.sh | sudo DOKKU_TAG=v0.2.1 bash
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;현재 최신 안정 버진인 &lt;code&gt;0.2.1&lt;/code&gt;을 설치합니다. 도쿠 공식 문서에 따르면 우분투 12.04에서는 &lt;code&gt;python-software-properties&lt;/code&gt; 패키지가 필요할 지도 모른다고 이야기하고 있습니다. 설치가 제대로 진행되지 않는다면 아래 명령어로 이 패키지를 설치해 주시기바랍니다.&lt;/p&gt;
+&lt;p&gt;현재 최신 안정 버진인 &lt;code&gt;0.2.1&lt;/code&gt;을 설치합니다. 도쿠 공식 문서에 따르면 우분투 12.04에서는 &lt;code&gt;python-software-properties&lt;/code&gt; 패키지가 필요할 지도 모른다고 이야기하고 있습니다. 아래와 같은 메시지가 뜨면서 설치가 실패하는 경우가 있습니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
-$ apt-get install -y python-software-properties`
+/var/lib/dokku/plugins/nginx-vhosts/install: line 5: add-apt-repository: command not found
+make: *** [plugins] Error 127
 &lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이때는 &lt;code&gt;apt-get install python-software-properties&lt;/code&gt;를 실행시켜 필요한 패키지를 설치해주세요.&lt;/p&gt;
 
 &lt;p&gt;설치가 끝났으면 제대로 설치가 되었는지 확인해봅니다.&lt;/p&gt;
 
@@ -644,7 +647,7 @@ include /home/dokku/*/nginx.conf;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-02-02T23:44:02+00:00</updated>
+    <updated>2014-02-09T16:16:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1100,7 +1103,7 @@ $ docker run -d -p 9999:80 nacyot/moniwiki
 http://127.0.0.1:9999/moniwiki/
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="../../images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;올레! 잘 돌아가네요. &lt;/p&gt;
 
@@ -1116,7 +1119,7 @@ http://127.0.0.1:9999/moniwiki/
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-02-02T23:44:02+00:00</updated>
+    <updated>2014-02-09T16:16:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1445,7 +1448,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-15-static-site-generator/"/>
     <id>http://blog.nacyot.com/articles/2014-01-15-static-site-generator/</id>
     <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-02-02T23:44:02+00:00</updated>
+    <updated>2014-02-09T16:16:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1491,7 +1494,7 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
     <link rel="alternate" href="http://blog.nacyot.com/articles/2013-12-29-hub-and-pull-request/"/>
     <id>http://blog.nacyot.com/articles/2013-12-29-hub-and-pull-request/</id>
     <published>2013-12-29T06:31:32Z</published>
-    <updated>2014-02-02T23:44:02+00:00</updated>
+    <updated>2014-02-09T16:16:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1650,7 +1653,7 @@ $ git browse
 
 &lt;p&gt;&lt;code&gt;git browse&lt;/code&gt; 명령어도 hub 확장으로 현재 디렉토리에 위치한 git 저장소의 원격 저장소를 근거로 Github 페이지를 찾아 바로 웹브라우져를 열어줍니다. 이 명령어를 통해서 따로 웹브라우져를 실행시키지 않더라도 저장소의 Github 페이지를 바로 확인할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="repository" src="images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="repository" src="../../images/2013-12-29-hub-and-pull-request/repository.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 pull-request 브랜치를 만들고 실제로 풀리퀘스트를 보내보도록 하겠습니다.&lt;/p&gt;
 
@@ -1691,7 +1694,7 @@ https://github.com/nacyot/pull-request/pull/1
 
 &lt;p&gt;풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="pull-request" src="images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="pull-request" src="../../images/2013-12-29-hub-and-pull-request/pull-request.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;git pull-request&lt;/code&gt; 명령어는 아래와 같이 좀 더 명시적으로 사용할 수도 있습니다.&lt;/p&gt;
 

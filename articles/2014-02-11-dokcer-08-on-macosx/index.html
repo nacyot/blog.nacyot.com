@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<title>nacyot의 프로그래밍 이야기 :: 도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+</head>
+<body>
+<nav class='navbar navbar-fixed-top' role='navigation'>
+<div class='navbar-header'>
+<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+</div>
+<div class='collapse navbar-collapse'>
+<ul class='nav navbar-nav'>
+<li>
+<a href='http://blog.nacyot.com'>
+<i class='fa fa-comment'>프로그래밍 이야기</i>
+</a>
+</li>
+<li>
+<a href='http://wiki.nacyot.com'>
+<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div class='mini-wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+</a>
+</div>
+</div>
+<div class='row'>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<span class='date'>
+Feb 10 2014
+</span>
+<h1 class='title'>
+<a href="./">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
+</h1>
+<div class='body'>
+<p><a href="http://docker.io">도커</a>는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 소개 글</a>을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
+
+<h2>TL;DR, 맥에서 바로 도커 시작하기</h2>
+
+<ol>
+<li>Virtual 박스 설치</li>
+<li>docker, boot2docker 설치</li>
+</ol>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>brew tap homebrew/binary
+</span><span id="line-2"><span class="nv">$ </span>brew install docker boot2docker
+</span></pre></div>
+<ol>
+<li>boot2docker 실행</li>
+</ol>
+<div class="highlight"><pre><span id="line-1"><span class="n">export</span> <span class="n">DOCKER_HOST</span><span class="o">=</span><span class="n">tcp</span><span class="o">:</span><span class="c1">//¶</span>
+</span><span id="line-2"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">boot2docker</span> <span class="n">init</span>
+</span><span id="line-3"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">boot2docker</span> <span class="n">up</span>
+</span></pre></div>
+<ol>
+<li>도커 컨테이너 실행</li>
+</ol>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker pull ubuntu
+</span><span id="line-2"><span class="nv">$ </span>docker run -rm -i -t ubuntu:latest /bin/bash
+</span></pre></div>
+<h2>맥에서 도커를 실행하는 원리</h2>
+
+<p>도커는 기본적으로 리눅스 컨테이너(이하 lxc)를 지원하는 운영체제만 사용할 수 있습니다. 처음에는 우분투만 지원을 했습니다만 현재는 좀 더 다양한 운영체제를 지원하도록 확장해나가는 과정에 있습니다. 하지만 원론적으로 lxc를 지원하고 있지 않은 윈도우나 맥에서는 도커를 사용할 수 없습니다. </p>
+
+<p>하지만 엄밀히 말하면 이전에도 맥이나 윈도우에서 도커를 사용하는 것이 불가능한 것은 아니었습니다. 그러면 어떻게 설치를 하는지, 간단히 말해 <a href="http://www.vagrantup.com/">Vagrant</a>나 아예 별개의 가상화 어플리케이션을 통해서 리눅스 운영체제를 실행시키는 방식이었습니다. 이렇나 방식이 당연히 가능한 건, 아예 OS를 lxc를 지원하는 리눅스를 가상 머신으로 올려놓기 때문입니다. 물론 이렇게도 도커를 사용하는 것이 불가능한 것은 아닙니다만, VM의 성능도 성능이고 리눅스 운영체제에 비해서 &#39;한 다리&#39; 건너서 사용한다는 인상을 지우기는 어렵습니다.</p>
+
+<p>그런데 <a href="http://blog.docker.io/2014/02/docker-0-8-quality-new-builder-features-btrfs-storage-osx-support/">도커 블로그에선 0.8 발표</a>와 함께 맥의 공식 지원을 언급하고 있습니다.</p>
+
+<blockquote>
+<p>Today we are happy to introduce Docker 0.8, with a focus on Quality and 3 notable features: new builder instructions, a new BTRFS storage driver, and official support for Mac OSX. You can see the full Changelog on the repository, and read below for details on each feature.</p>
+</blockquote>
+
+<p>그렇다면 여기서 공식으로 지원한다는 얘기는 무슨 얘기일까요? 맥이 lxc를 지원하지 않는다면 네이티브에서 도커를 실행한다는 건 근본적으로 불가능합니다. 그렇다면 여전히 근본적인 해결책은 아닙니다만, 여기서 공식지원이 의미하는 바는 기존에 VM을 사용하는 부하를 극도로 줄인 환경을 도커가 직접 제공해준다는 걸 의미합니다. 가상 머신은 여전히 올라갑니다. 이 때 사용되는 운영체제가 <a href="https://github.com/steeve/boot2docker">boot2docker</a>라는 단지 도커만을 위한 초경량 리눅스 <a href="http://tinycorelinux.net/">Tiny Core Linux</a> 배포판 중 하나입니다. 이 운영체제는 RAM에서 작동하며 매우 적은 용량에 단 몇 초만에 부팅이 가능합니다(그렇다고 이야기하고 있습니다). 도커 컨테이너 만큼은 아니겠지만 매우 빠릅니다. 이러한 가상 머신 부분의 경량화와 맥 클라이언트에서 Docker 명령어를 직접 사용할 수 있게 함으로써, 맥에서 네이티브나 다름없는 도커 지원을 실현했습니다.</p>
+
+<p><img src="https://github-camo.global.ssl.fastly.net/fd2fda3c0d55a0a63873f4221ddbe2f1dda145c5/687474703a2f2f692e696d6775722e636f6d2f68497775644b332e676966" alt="docker2boot"></p>
+
+<p>네이티브 환경에 비하면 약간의 불만족은 남아있겠습니다만, 그럼에도 불구하고 개발환경을 구축하는 데는  손색이 없습니다. </p>
+
+<h2>맥에서 boot2docker를 활용한 도커 설치</h2>
+
+<p>네, 그렇다면 실제로 설치를 해보도록 하겠습니다. </p>
+
+<p>먼저 docker2boot를 사용하기 위해서는 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>를 설치해야합니다. 공식 사이트에서 MacOSX용 dmg 파일을 다운로드 받아 설치 과정을 진행해주시기 바랍니다.</p>
+
+<p>도커 공식 사이트에서는 <a href="http://docs.docker.io/en/latest/installation/mac/">맥에서 설치를 위한 문서</a>를 제공하고 있으니 참조하시기 바랍니다. 먼저 boot2docker를 다운로드 받고 실행권한을 추가해줍니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>mkdir ~/bin
+</span><span id="line-2"><span class="nv">$ </span><span class="nb">cd</span> ~/bin
+</span><span id="line-3"><span class="nv">$ </span>curl https://raw.github.com/steeve/boot2docker/master/boot2docker &gt; boot2docker
+</span><span id="line-4"><span class="nv">$ </span>chmod +x boot2docker
+</span></pre></div>
+<p>다음으로 도커를 다운로드 받고 실행권한을 추가해줍니다. 이 때 DOCKER_HOST를 추가하는 가상 머신의 도커에 접속하기 위함입니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>curl -o docker http://get.docker.io/builds/Darwin/x86_64/docker-latest
+</span><span id="line-2"><span class="nv">$ </span>chmod +x docker
+</span><span id="line-3"><span class="nv">$ </span><span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span>tcp://
+</span><span id="line-4"><span class="nv">$ </span>sudo cp docker /usr/local/bin/
+</span></pre></div>
+<p>도커와 boot2docker 설치 과정은 homebrew를 통해서도 진행이 가능합니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>brew tap homebrew/binary
+</span><span id="line-2"><span class="nv">$ </span>brew install docker boot2docker
+</span></pre></div>
+<p>다음으로 boot2docker를 실행시킵니다. 이 과정을 거치기 전에 VirtualBox를 설치했는지 꼭 확인하시기 바랍니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>./boot2docker init
+</span><span id="line-2"><span class="nv">$ </span>./boot2docker up
+</span><span id="line-3"><span class="o">[</span>2014-02-10 23:40:41<span class="o">]</span> Starting boot2docker-vm...
+</span><span id="line-4"><span class="o">[</span>2014-02-10 23:41:01<span class="o">]</span> Started.
+</span></pre></div>
+<p>맥북 에어에서 실제로 걸린 시간은 이미지 다운로드하는데 30여초, 기동하는데 20여초가 걸렸습니다. 설치는 끝이났습니다. 이제 설치가 잘 되었는지 버전 출력을 해보도록 하겠습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker version
+</span><span id="line-2">Client version: 0.8.0
+</span><span id="line-3">Go version <span class="o">(</span>client<span class="o">)</span>: go1.2
+</span><span id="line-4">Git commit <span class="o">(</span>client<span class="o">)</span>: cc3a8c8
+</span><span id="line-5">Server version: 0.8.0
+</span><span id="line-6">Git commit <span class="o">(</span>server<span class="o">)</span>: cc3a8c8
+</span><span id="line-7">Go version <span class="o">(</span>server<span class="o">)</span>: go1.2
+</span></pre></div>
+<h2>도커 실행 테스트</h2>
+
+<p>그렇다면 정말로 가상머신이 잘 올라간 상태로 도커가 사용 가능한지 테스트해보도록 하겠습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker pull ubuntu
+</span><span id="line-2">Pulling repository ubuntu
+</span><span id="line-3">eb601b8965b8: Download <span class="nb">complete</span>
+</span><span id="line-4">9cc9ea5ea540: Download <span class="nb">complete</span>
+</span><span id="line-5">9f676bd305a4: Download <span class="nb">complete</span>
+</span><span id="line-6">9cd978db300e: Download <span class="nb">complete</span>
+</span><span id="line-7">5ac751e8d623: Download <span class="nb">complete</span>
+</span><span id="line-8">511136ea3c5a: Download <span class="nb">complete</span>
+</span><span id="line-9">f323cf34fd77: Download <span class="nb">complete</span>
+</span><span id="line-10">1c7f181e78b9: Download <span class="nb">complete</span>
+</span><span id="line-11">6170bb7b0ad1: Download <span class="nb">complete</span>
+</span><span id="line-12">321f7f4200f4: Download <span class="nb">complete</span>
+</span><span id="line-13">7a4f87241845: Download <span class="nb">complete</span>
+</span></pre></div>
+<p>이미지 pull도 한 번 해보고,</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker images
+</span><span id="line-2">REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+</span><span id="line-3">ubuntu              13.10               9f676bd305a4        6 days ago          178 MB
+</span><span id="line-4">ubuntu              saucy               9f676bd305a4        6 days ago          178 MB
+</span><span id="line-5">ubuntu              13.04               eb601b8965b8        6 days ago          166.5 MB
+</span><span id="line-6">ubuntu              raring              eb601b8965b8        6 days ago          166.5 MB
+</span><span id="line-7">ubuntu              12.10               5ac751e8d623        6 days ago          161 MB
+</span><span id="line-8">ubuntu              quantal             5ac751e8d623        6 days ago          161 MB
+</span><span id="line-9">ubuntu              10.04               9cc9ea5ea540        6 days ago          180.8 MB
+</span><span id="line-10">ubuntu              lucid               9cc9ea5ea540        6 days ago          180.8 MB
+</span><span id="line-11">ubuntu              12.04               9cd978db300e        6 days ago          204.4 MB
+</span><span id="line-12">ubuntu              latest              9cd978db300e        6 days ago          204.4 MB
+</span><span id="line-13">ubuntu              precise             9cd978db300e        6 days ago          204.4 MB
+</span></pre></div>
+<p>pull 해온 이미지 리스트도 한 번 보고, 컨테이너 리스트도 출력해보죠.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker ps
+</span><span id="line-2">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS             PORTS               NAMES
+</span></pre></div>
+<p>오오 pull도 되고 images 명령어도 먹는 걸 볼 수 있습니다. 아직 실행한 컨테이너는 없으니 아무것도 뜨지 않습니다. 일단 작동하고 있는 것 같습니다. 마지막으로 컨테이너를 올려보겠습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -rm -i -t ubuntu:latest /bin/bash
+</span><span id="line-2">root@e616c4c3fd53:/# 
+</span></pre></div>
+<p>컨테이너 안의 쉘이 실행된 화면을 바로 확인하실 수 있습니다.</p>
+
+<h2>트러블 슈팅</h2>
+<div class="highlight"><pre><span id="line-1"><span class="n">export</span> <span class="n">DOCKER_HOST</span><span class="o">=</span><span class="n">tcp</span><span class="o">:</span><span class="c1">//¶</span>
+</span></pre></div>
+<p>명령어를 통해 DOCKER_HOST를 반드시 설정해줘야합니다. 이 설정을 하지 않으면</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker images
+</span><span id="line-2">2014/02/10 23:48:19 dial unix /var/run/docker.sock: no such file or directory
+</span></pre></div>
+<p>와 같은 에러가 발생합니다. 이는 도커가 기본적으로 로컬 머신 상의 /var/run/docker.sock를 통해서 작동하기 때문입니다. 이를 가상 머신에서 가동중인 docker와 바로 연동할 수 있도록 <code>tcp://</code>로 연결하도록 설정해주는 것입니다. 같은 의미로 <code>export DOCKER_HOST=localhost</code>를 실행해도 됩니다.</p>
+
+<p>또한 <code>./boot2docker</code> 명령어를 통해서 </p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>./boot2docker
+</span><span id="line-2">Usage ./boot2docker <span class="o">{</span>init<span class="p">|</span>start<span class="p">|</span>up<span class="p">|</span>pause<span class="p">|</span>stop<span class="p">|</span>restart<span class="p">|</span>status<span class="p">|</span>info<span class="p">|</span>delete<span class="p">|</span>ssh<span class="p">|</span>download<span class="o">}</span>
+</span></pre></div>
+<p>boot2docker를 재실행하거나 멈추는 작업을 수행할 수 있습니다.</p>
+
+<h2>정리</h2>
+
+<p>이제 무거운 가상 머신 없이도 맥에서 도커를 부담없이 설치하고 사용해볼 수 있습니다 &gt;_&lt;</p>
+
+</div>
+<div class='footer'>
+<hr>
+<div class='author'>
+<h1>nacyot</h1>
+프로그래머(29)
+</div>
+<div class='share'>
+<h1>Share this post</h1>
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</div>
+<div class='navigation'>
+<div class='prevnav'>
+<div class='fa fa-chevron-left'></div>
+이전 글
+<a href='/articles/2014-01-30-github-hook-api-slack-sample/' rel='prev'>깃허브(Github) 후크 API와 Slack에 알림 전달하기</a>
+</div>
+<div class='nextnav'>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+</div>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+</div>
+
+<div class='row'>
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2014 • All rights reserved.
+&nbsp;&nbsp;&nbsp;
+<a class='icon' href='http://nacyot.com'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
+

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<title>nacyot의 프로그래밍 이야기 :: 이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+</head>
+<body>
+<nav class='navbar navbar-fixed-top' role='navigation'>
+<div class='navbar-header'>
+<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+</div>
+<div class='collapse navbar-collapse'>
+<ul class='nav navbar-nav'>
+<li>
+<a href='http://blog.nacyot.com'>
+<i class='fa fa-comment'>프로그래밍 이야기</i>
+</a>
+</li>
+<li>
+<a href='http://wiki.nacyot.com'>
+<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div class='mini-wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+</a>
+</div>
+</div>
+<div class='row'>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<span class='date'>
+Mar 11 2014
+</span>
+<h1 class='title'>
+<a href="./">이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</a>
+</h1>
+<div class='body'>
+<p>텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 <a href="http://ternjs.net/">Tern</a>입니다.</p>
+
+
+
+<p>Tern은 <a href="https://github.com/marijnh/CodeMirror">코드미러</a>라는 에디터를 만들었던 Marijn Haverbeke의 또다른 오픈소스 어플리케이션으로 기본적으로 자바스크립트 코드 분석기입니다. 지금 바로 <a href="http://ternjs.net/doc/demo.html">데모 페이지</a>에서 코드 미러 위에서 동작하는 Tern의 기능들을 확인해보시기 바랍니다. 이러한 정적 코드 분석의 결과는 질높은 문법 체크 및 자동완성을 비롯한 다양한 부가 기능을 제공하는데 이용될 수 있습니다. 특히 Tern은 특정 에디터에 종속되지 않는다는 점에서 봤을 때 마츠야마 토모히로 씨가 Emacs는 죽었다는 글에서 이야기했던 (이맥스 문화권에서 나오진 않았지만) <strong><em>외부 프로그램에 의한 잠재적인 사회적 가치를 극대화</em></strong>해야한다는 사상에 정말로 잘 들어맞는 프로그램입니다. Tern은 어떤 에디터에 종속적이지 않습니다. Tern은 독자적인 서버로 실행되고, 에디터에서 보내오는 결과에 대한 적절한 분석결과를 되돌려 줄 뿐입니다. 리눅스에서 명령어들의 결과를 파이프라인으로 보내는데 익숙하다면 이러한 개념이 얼마나 합리적이고 적절히 확장 가능한지 이해할 수 있을 것입니다. 분석 결과는 에디터의 플러그인들이 적절히 처리해줍니다. 실제 Tern의 저장소에는 Emacs, Vim, Sublime Text, eclipse를 플러그인으로 지원하고 있으면 Brackets과 Edge Code에서는 빌트인으로 지원하고 있다고 쓰여있습니다.</p>
+
+<p>이 글에서는 그 중에서도 제가 애용하는 텍스트 에디터인 이맥스(Emacs)에서 Tern을 연동해 사용하는 방법에 대해서 다루도록 하겠습니다.</p>
+
+<h2>설치</h2>
+
+<p>우선 Tern을 사용하기 위해서는 Tern을 설치해야할 필요가 있습니다. 먼저 npm을 사용해서 설치해보겠습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>npm install -g tern
+</span><span id="line-2">npm http GET https://registry.npmjs.org/tern
+</span><span id="line-3">npm http 200 https://registry.npmjs.org/tern
+</span><span id="line-4">...
+</span><span id="line-5">tern@0.5.0 /home/myhome/.nvm/v0.10.24/lib/node_modules/tern
+</span><span id="line-6">├── acorn@0.4.2
+</span><span id="line-7">├── glob@3.2.9 <span class="o">(</span>inherits@2.0.1<span class="o">)</span>
+</span><span id="line-8">└── minimatch@0.2.14 <span class="o">(</span>sigmund@1.0.0, lru-cache@2.5.0<span class="o">)</span>
+</span></pre></div>
+<p>npm을 사용하는 게 가장 간단합니다만, npm을 사용할 수 없는 경우엔,</p>
+
+<p>nodejs와 npm을 설치해주세요(...). 그만 nodejs를 받아들이시기 바랍니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>tern 
+</span><span id="line-2">Listening on port 60805
+</span><span id="line-3">^c<span class="o">(</span>종료<span class="o">)</span>
+</span></pre></div>
+<p>이제 tern을 실행해보면 랜덤한 포트에서 tern이 실행되는 것을 알 수 있습니다.</p>
+
+<h2>Tern 이맥스 설정</h2>
+
+<p>Tern 설치가 되었다면 이제 이맥스와 연동을 해야합니다. Tern은 기본적으로 이맥스 24 이상을 지원하고 있습니다. 먼저 설치된 이맥스 버전을 확인해주시고, 필요한 경우 버전을 올려줍니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>emacs --version
+</span><span id="line-2">GNU Emacs 24.3.1
+</span><span id="line-3">Copyright <span class="o">(</span>C<span class="o">)</span> 2013 Free Software Foundation, Inc.
+</span><span id="line-4">GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+</span><span id="line-5">You may redistribute copies of Emacs
+</span><span id="line-6">under the terms of the GNU General Public License.
+</span><span id="line-7">For more information about these matters, see the file named COPYING.
+</span></pre></div>
+<p>또한 이맥스 24에는 강력한 패키지 관리자가 기본으로 포함되어있습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nx">M</span><span class="na">-x</span> <span class="nx">package</span><span class="na">-install</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span> <span class="nx">tern</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span>
+</span><span id="line-2"><span class="nx">M</span><span class="na">-x</span> <span class="nx">package</span><span class="na">-install</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span> <span class="nx">tern</span><span class="na">-auto-complate</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span>
+</span></pre></div>
+<p>만약 패키지를 찾을 수 없다면 <code>~/.emacs.d/init.el</code>이나 이에 해당하는 사용하고 있는 이맥스 설정 파일에 다음 내용을 추가합니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
+</span><span id="line-2">             <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;melpa&quot;</span> <span class="o">.</span> <span class="s">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+</span></pre></div>
+<p>다시 위로 돌아가 package-install을 하면 정상적으로 설치가 가능할 것입니다. 만약 이래도 패키지가 뜨지 않는다면 Tern 저장소의 내용을 클론해서 이맥스 디렉토리 아래의 <code>el</code>들을 <code>.emacs.d</code> 디렉토리 아래로 복사합니다. 복사한 후 자신의 설정 파일(기본적으로 <code>~/.emacs.d/init.el</code>)에 아래 내용을 적절히 상황에 맞게 수정해서 추가해줍니다. <code>js2-mode-hook</code>는 자신이 사용하는 Javascript major 모드로 바꿉니다. 그 아래 내용은 자동완성을 적용하는 부분입니다. <code>tern-ac-on-dot</code> 설정을 통해서 emacs에서는 기본적으로  .을 입력할 때 tern 자동완성을 실행시킬 수 있습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;load-path</span> <span class="s">&quot;~/.emacs.d/tern/&quot;</span><span class="p">)</span>
+</span><span id="line-2"><span class="p">(</span><span class="nv">autoload</span> <span class="ss">&#39;tern-mode</span> <span class="s">&quot;tern.el&quot;</span> <span class="no">nil</span> <span class="no">t</span><span class="p">)</span>
+</span><span id="line-3">
+</span><span id="line-4"><span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;js2-mode-hook</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">tern-mode</span> <span class="no">t</span><span class="p">)))</span>
+</span><span id="line-5">
+</span><span id="line-6"><span class="p">(</span><span class="nv">eval-after-load</span> <span class="ss">&#39;tern</span>
+</span><span id="line-7">  <span class="o">&#39;</span><span class="p">(</span><span class="k">progn</span>
+</span><span id="line-8">     <span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;tern-auto-complete</span><span class="p">)</span>
+</span><span id="line-9">     <span class="p">(</span><span class="k">setq</span> <span class="nv">tern-ac-on-dot</span> <span class="no">t</span><span class="p">)</span>
+</span><span id="line-10">     <span class="p">(</span><span class="nv">tern-ac-setup</span><span class="p">)))</span>
+</span></pre></div>
+<p>이걸로 기본적인 설정은 끝났습니다. <code>M-x load-file</code> 명령어나 emacs를 다시 실행시켜 설정을 적용시켜줍니다. 이제 js 파일을 편집할 때(좀 더 정확히는 javascript 메이져 모드일 때), tern 마이너 모드가 실행됩니다.</p>
+
+<h2>자바스크립트 프로젝트 설정</h2>
+
+<p>tern 마이너 모드가 실행되면 자동적으로 tern 서버가 실행되고, 이 서버와 통신하면서 자동 완성을 비롯한 몇 가지 부가 기능들을 사용할 수 있게됩니다. 하지만 이 상태에선 자동완성이 될만한 표현식을 입력해봐도 거의 자동으로 완성되는 게 없습니다. 이는 tern 서버가 현재 javascript가 어떤 맥락에서 평가되는지 판단할 수 없기 때문입니다. 이를 위해서는 자바스크립트 프로젝트 단위로 <code>.tern-project</code> 파일을 만들어야합니다.</p>
+
+<p>프로젝트 설정 파일의 대략적인 구조는 다음과 같습니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="p">{</span>
+</span><span id="line-2">  <span class="s">&quot;libs&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span id="line-3">    <span class="s">&quot;browser&quot;</span><span class="p">,</span>
+</span><span id="line-4">    <span class="s">&quot;jquery&quot;</span>
+</span><span id="line-5">  <span class="p">],</span>
+</span><span id="line-6">  <span class="s">&quot;loadEagerly&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span id="line-7">  <span class="p">],</span>
+</span><span id="line-8">  <span class="s">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span id="line-9">  <span class="p">}</span>
+</span><span id="line-10"><span class="p">}</span>
+</span></pre></div>
+<p><code>libs</code>에는 tern에서 미리 정의해놓고 있는 <a href="http://ternjs.net/doc/manual.html#typedef">JSON type definitions</a> 형식을 따르는 라이브러리 정의 파일을 지정할 수 있습니다. <a href="https://github.com/marijnh/tern/tree/master/defs">tern 저장소에서 확인할 수 있는 바</a>로는 <code>browser</code>, <code>chai</code>, <code>ecma5</code>,  <code>jquery</code>, <code>underscore</code> 다섯가지를 기본적으로 사용할 수 있습니다.</p>
+
+<p>예를 들어 <code>underscore</code>를 사용하면 다음과 같이 자동 완성이 되는 것을 볼 수 있습니다.</p>
+
+<p><img src="/images/2014-03-12-emacs-with-tern/underscore.png" alt="Underscore auto complate"></p>
+
+<p><code>loadEagerly</code> 옵션을 통해 프로젝트 아래에서 미리 읽어둘 파일을 지정할 수 있습니다. 예를 들어 d3js를 bower로 설치하고 다음과 같이 프로젝트를 설정합니다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="p">{</span>
+</span><span id="line-2">  <span class="s">&quot;libs&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span id="line-3">    <span class="s">&quot;browser&quot;</span><span class="p">,</span>
+</span><span id="line-4">    <span class="s">&quot;jquery&quot;</span>
+</span><span id="line-5">  <span class="p">],</span>
+</span><span id="line-6">  <span class="s">&quot;loadEagerly&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span id="line-7">    <span class="s">&quot;bower_components/d3js/build/d3.v3.js&quot;</span>
+</span><span id="line-8">  <span class="p">],</span>
+</span><span id="line-9">  <span class="s">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span id="line-10">  <span class="p">}</span>
+</span><span id="line-11"><span class="p">}</span>
+</span></pre></div>
+<p>이를 통해서 d3js 라이브러리에 관련된 자동 완성이나 <code>tern-find-definition</code>과 같은 기능을 사용할 수 있게됩니다. <code>**</code>와 같은 패턴 매치도 사용가능하니 자바스크립트를 모아놓는 디렉토리를 미리 불러오는 것도 가능합니다.</p>
+
+<p><img src="/images/2014-03-12-emacs-with-tern/d3js.png" alt="d3js auto complate"></p>
+
+<p>이외에도 Node.js 플러그인, RequireJS 플러그인, Angular.js 플러그인 등 추가적인 확장을 사용할 수 있습니다. 이에 대한 자세한 설명은 공식 문서의 <a href="http://ternjs.net/doc/manual.html#plugins">서버 플러그인 섹션</a>을 참조하시기 바랍니다.</p>
+
+<h2>Tern 사용하기 : M-x 명령어 및 단축키</h2>
+
+<p>tern emacs 확장에는 다음과 같은 명령어들이 정의되어있습니다. 괄호 안에 키는 기본 단축키 입니다.</p>
+
+<ul>
+<li>tern-get-docs(<code>C-c C-d</code>) : 커서 위치의 문서를 찾습니다.</li>
+<li>tern-find-definition(M-. , 되돌아가기: <code>C-c C-r</code>) : 커서 위치의 정의를 찾아갑니다.</li>
+<li>tern-rename-variable(<code>C-c C-c</code>) : 커서 위치의 변수 이름을 변경합니다.</li>
+<li>tern-use-server : 특정 tern 서버를 지정합니다.</li>
+<li>tern-get-type : 커서 위치의 타입을 출력해줍니다.</li>
+<li>tern-highlight-refs : 커서 위치와 같은 것들을 하이라이트해줍니다.</li>
+<li>tern-find-definition-by-name : 지정한 이름의 정의를 찾아갑니다.</li>
+</ul>
+
+<h2>결론</h2>
+
+<p>Tern과 함께 Emacs에서도 즐거운 자바스크립트 코딩을 즐기시기바랍니다. 아듀~ :)</p>
+
+</div>
+<div class='footer'>
+<hr>
+<div class='author'>
+<h1>nacyot</h1>
+프로그래머(29)
+</div>
+<div class='share'>
+<h1>Share this post</h1>
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</div>
+<div class='navigation'>
+<div class='prevnav'>
+<div class='fa fa-chevron-left'></div>
+이전 글
+<a href='/articles/2014-02-11-dokcer-08-on-macosx/' rel='prev'>도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
+</div>
+<div class='nextnav'>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+</div>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+</div>
+
+<div class='row'>
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2014 • All rights reserved.
+&nbsp;&nbsp;&nbsp;
+<a class='icon' href='http://nacyot.com'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
+

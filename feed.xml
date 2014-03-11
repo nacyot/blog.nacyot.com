@@ -5,16 +5,171 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-02-10T15:16:00Z</updated>
+  <updated>2014-03-11T16:15:32Z</updated>
   <author>
-    <name>Blog Author</name>
+    <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/"/>
+    <id>http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/</id>
+    <published>2014-03-11T16:15:32Z</published>
+    <updated>2014-03-11T16:39:45+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 &lt;a href="http://ternjs.net/"&gt;Tern&lt;/a&gt;입니다.&lt;/p&gt;
+
+
+
+&lt;p&gt;Tern은 &lt;a href="https://github.com/marijnh/CodeMirror"&gt;코드미러&lt;/a&gt;라는 에디터를 만들었던 Marijn Haverbeke의 또다른 오픈소스 어플리케이션으로 기본적으로 자바스크립트 코드 분석기입니다. 지금 바로 &lt;a href="http://ternjs.net/doc/demo.html"&gt;데모 페이지&lt;/a&gt;에서 코드 미러 위에서 동작하는 Tern의 기능들을 확인해보시기 바랍니다. 이러한 정적 코드 분석의 결과는 질높은 문법 체크 및 자동완성을 비롯한 다양한 부가 기능을 제공하는데 이용될 수 있습니다. 특히 Tern은 특정 에디터에 종속되지 않는다는 점에서 봤을 때 마츠야마 토모히로 씨가 Emacs는 죽었다는 글에서 이야기했던 (이맥스 문화권에서 나오진 않았지만) &lt;strong&gt;&lt;em&gt;외부 프로그램에 의한 잠재적인 사회적 가치를 극대화&lt;/em&gt;&lt;/strong&gt;해야한다는 사상에 정말로 잘 들어맞는 프로그램입니다. Tern은 어떤 에디터에 종속적이지 않습니다. Tern은 독자적인 서버로 실행되고, 에디터에서 보내오는 결과에 대한 적절한 분석결과를 되돌려 줄 뿐입니다. 리눅스에서 명령어들의 결과를 파이프라인으로 보내는데 익숙하다면 이러한 개념이 얼마나 합리적이고 적절히 확장 가능한지 이해할 수 있을 것입니다. 분석 결과는 에디터의 플러그인들이 적절히 처리해줍니다. 실제 Tern의 저장소에는 Emacs, Vim, Sublime Text, eclipse를 플러그인으로 지원하고 있으면 Brackets과 Edge Code에서는 빌트인으로 지원하고 있다고 쓰여있습니다.&lt;/p&gt;
+
+&lt;p&gt;이 글에서는 그 중에서도 제가 애용하는 텍스트 에디터인 이맥스(Emacs)에서 Tern을 연동해 사용하는 방법에 대해서 다루도록 하겠습니다.&lt;/p&gt;
+
+&lt;h2&gt;설치&lt;/h2&gt;
+
+&lt;p&gt;우선 Tern을 사용하기 위해서는 Tern을 설치해야할 필요가 있습니다. 먼저 npm을 사용해서 설치해보겠습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ npm install -g tern
+npm http GET https://registry.npmjs.org/tern
+npm http 200 https://registry.npmjs.org/tern
+...
+tern@0.5.0 /home/myhome/.nvm/v0.10.24/lib/node_modules/tern
+├── acorn@0.4.2
+├── glob@3.2.9 (inherits@2.0.1)
+└── minimatch@0.2.14 (sigmund@1.0.0, lru-cache@2.5.0)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;npm을 사용하는 게 가장 간단합니다만, npm을 사용할 수 없는 경우엔,&lt;/p&gt;
+
+&lt;p&gt;nodejs와 npm을 설치해주세요(...). 그만 nodejs를 받아들이시기 바랍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ tern 
+Listening on port 60805
+^c(종료)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 tern을 실행해보면 랜덤한 포트에서 tern이 실행되는 것을 알 수 있습니다.&lt;/p&gt;
+
+&lt;h2&gt;Tern 이맥스 설정&lt;/h2&gt;
+
+&lt;p&gt;Tern 설치가 되었다면 이제 이맥스와 연동을 해야합니다. Tern은 기본적으로 이맥스 24 이상을 지원하고 있습니다. 먼저 설치된 이맥스 버전을 확인해주시고, 필요한 경우 버전을 올려줍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+$ emacs --version
+GNU Emacs 24.3.1
+Copyright (C) 2013 Free Software Foundation, Inc.
+GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+You may redistribute copies of Emacs
+under the terms of the GNU General Public License.
+For more information about these matters, see the file named COPYING.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 이맥스 24에는 강력한 패키지 관리자가 기본으로 포함되어있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+M-x package-install &amp;lt;enter&amp;gt; tern &amp;lt;enter&amp;gt;
+M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;gt;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 패키지를 찾을 수 없다면 &lt;code&gt;~/.emacs.d/init.el&lt;/code&gt;이나 이에 해당하는 사용하고 있는 이맥스 설정 파일에 다음 내용을 추가합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;lisp
+(add-to-list &amp;#39;package-archives
+             &amp;#39;(&amp;quot;melpa&amp;quot; . &amp;quot;http://melpa.milkbox.net/packages/&amp;quot;) t)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;다시 위로 돌아가 package-install을 하면 정상적으로 설치가 가능할 것입니다. 만약 이래도 패키지가 뜨지 않는다면 Tern 저장소의 내용을 클론해서 이맥스 디렉토리 아래의 &lt;code&gt;el&lt;/code&gt;들을 &lt;code&gt;.emacs.d&lt;/code&gt; 디렉토리 아래로 복사합니다. 복사한 후 자신의 설정 파일(기본적으로 &lt;code&gt;~/.emacs.d/init.el&lt;/code&gt;)에 아래 내용을 적절히 상황에 맞게 수정해서 추가해줍니다. &lt;code&gt;js2-mode-hook&lt;/code&gt;는 자신이 사용하는 Javascript major 모드로 바꿉니다. 그 아래 내용은 자동완성을 적용하는 부분입니다. &lt;code&gt;tern-ac-on-dot&lt;/code&gt; 설정을 통해서 emacs에서는 기본적으로  .을 입력할 때 tern 자동완성을 실행시킬 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;```lisp
+(add-to-list &amp;#39;load-path &amp;quot;~/.emacs.d/tern/&amp;quot;)
+(autoload &amp;#39;tern-mode &amp;quot;tern.el&amp;quot; nil t)&lt;/p&gt;
+
+&lt;p&gt;(add-hook &amp;#39;js2-mode-hook (lambda () (tern-mode t)))&lt;/p&gt;
+
+&lt;p&gt;(eval-after-load &amp;#39;tern
+  &amp;#39;(progn
+     (require &amp;#39;tern-auto-complete)
+     (setq tern-ac-on-dot t)
+     (tern-ac-setup)))
+```&lt;/p&gt;
+
+&lt;p&gt;이걸로 기본적인 설정은 끝났습니다. &lt;code&gt;M-x load-file&lt;/code&gt; 명령어나 emacs를 다시 실행시켜 설정을 적용시켜줍니다. 이제 js 파일을 편집할 때(좀 더 정확히는 javascript 메이져 모드일 때), tern 마이너 모드가 실행됩니다.&lt;/p&gt;
+
+&lt;h2&gt;자바스크립트 프로젝트 설정&lt;/h2&gt;
+
+&lt;p&gt;tern 마이너 모드가 실행되면 자동적으로 tern 서버가 실행되고, 이 서버와 통신하면서 자동 완성을 비롯한 몇 가지 부가 기능들을 사용할 수 있게됩니다. 하지만 이 상태에선 자동완성이 될만한 표현식을 입력해봐도 거의 자동으로 완성되는 게 없습니다. 이는 tern 서버가 현재 javascript가 어떤 맥락에서 평가되는지 판단할 수 없기 때문입니다. 이를 위해서는 자바스크립트 프로젝트 단위로 &lt;code&gt;.tern-project&lt;/code&gt; 파일을 만들어야합니다.&lt;/p&gt;
+
+&lt;p&gt;프로젝트 설정 파일의 대략적인 구조는 다음과 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+{
+  &amp;quot;libs&amp;quot;: [
+    &amp;quot;browser&amp;quot;,
+    &amp;quot;jquery&amp;quot;
+  ],
+  &amp;quot;loadEagerly&amp;quot;: [
+  ],
+  &amp;quot;plugins&amp;quot;: {
+  }
+}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;libs&lt;/code&gt;에는 tern에서 미리 정의해놓고 있는 &lt;a href="http://ternjs.net/doc/manual.html#typedef"&gt;JSON type definitions&lt;/a&gt; 형식을 따르는 라이브러리 정의 파일을 지정할 수 있습니다. &lt;a href="https://github.com/marijnh/tern/tree/master/defs"&gt;tern 저장소에서 확인할 수 있는 바&lt;/a&gt;로는 &lt;code&gt;browser&lt;/code&gt;, &lt;code&gt;chai&lt;/code&gt;, &lt;code&gt;ecma5&lt;/code&gt;,  &lt;code&gt;jquery&lt;/code&gt;, &lt;code&gt;underscore&lt;/code&gt; 다섯가지를 기본적으로 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어 &lt;code&gt;underscore&lt;/code&gt;를 사용하면 다음과 같이 자동 완성이 되는 것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="Underscore auto complate" src="images/2014-03-12-emacs-with-tern/underscore.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;loadEagerly&lt;/code&gt; 옵션을 통해 프로젝트 아래에서 미리 읽어둘 파일을 지정할 수 있습니다. 예를 들어 d3js를 bower로 설치하고 다음과 같이 프로젝트를 설정합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+{
+  &amp;quot;libs&amp;quot;: [
+    &amp;quot;browser&amp;quot;,
+    &amp;quot;jquery&amp;quot;
+  ],
+  &amp;quot;loadEagerly&amp;quot;: [
+    &amp;quot;bower_components/d3js/build/d3.v3.js&amp;quot;
+  ],
+  &amp;quot;plugins&amp;quot;: {
+  }
+}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;이를 통해서 d3js 라이브러리에 관련된 자동 완성이나 &lt;code&gt;tern-find-definition&lt;/code&gt;과 같은 기능을 사용할 수 있게됩니다. &lt;code&gt;**&lt;/code&gt;와 같은 패턴 매치도 사용가능하니 자바스크립트를 모아놓는 디렉토리를 미리 불러오는 것도 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt="d3js auto complate" src="images/2014-03-12-emacs-with-tern/d3js.png" /&gt;&lt;/p&gt;
+
+&lt;p&gt;이외에도 Node.js 플러그인, RequireJS 플러그인, Angular.js 플러그인 등 추가적인 확장을 사용할 수 있습니다. 이에 대한 자세한 설명은 공식 문서의 &lt;a href="http://ternjs.net/doc/manual.html#plugins"&gt;서버 플러그인 섹션&lt;/a&gt;을 참조하시기 바랍니다.&lt;/p&gt;
+
+&lt;h2&gt;Tern 사용하기 : M-x 명령어 및 단축키&lt;/h2&gt;
+
+&lt;p&gt;tern emacs 확장에는 다음과 같은 명령어들이 정의되어있습니다. 괄호 안에 키는 기본 단축키 입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;tern-get-docs(&lt;code&gt;C-c C-d&lt;/code&gt;) : 커서 위치의 문서를 찾습니다.&lt;/li&gt;
+&lt;li&gt;tern-find-definition(M-. , 되돌아가기: &lt;code&gt;C-c C-r&lt;/code&gt;) : 커서 위치의 정의를 찾아갑니다.&lt;/li&gt;
+&lt;li&gt;tern-rename-variable(&lt;code&gt;C-c C-c&lt;/code&gt;) : 커서 위치의 변수 이름을 변경합니다.&lt;/li&gt;
+&lt;li&gt;tern-use-server : 특정 tern 서버를 지정합니다.&lt;/li&gt;
+&lt;li&gt;tern-get-type : 커서 위치의 타입을 출력해줍니다.&lt;/li&gt;
+&lt;li&gt;tern-highlight-refs : 커서 위치와 같은 것들을 하이라이트해줍니다.&lt;/li&gt;
+&lt;li&gt;tern-find-definition-by-name : 지정한 이름의 정의를 찾아갑니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;Tern과 함께 Emacs에서도 즐거운 자바스크립트 코딩을 즐기시기바랍니다. 아듀~ :)&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/"/>
     <id>http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/</id>
     <published>2014-02-10T15:16:00Z</published>
-    <updated>2014-02-16T15:50:24+00:00</updated>
+    <updated>2014-03-11T16:39:45+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -211,7 +366,7 @@ Usage ./boot2docker {init|start|up|pause|stop|restart|status|info|delete|ssh|dow
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/</id>
     <published>2014-01-30T08:30:00Z</published>
-    <updated>2014-02-16T15:50:24+00:00</updated>
+    <updated>2014-03-11T16:39:45+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -260,11 +415,11 @@ Usage ./boot2docker {init|start|up|pause|stop|restart|status|info|delete|ssh|dow
 
 &lt;p&gt;깃허브에서 저장소에 웹후크나 서비스 후크를 등록하기 위해서는 저장소의 관리 권한이 있어야합니다. 먼저 저장소의 오른쪽에 보이는 Settings 메뉴에 들어갑니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Github settings" src="../../images/2014-01-30-github-hook-api-slack-sample/settings.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Github settings" src="images/2014-01-30-github-hook-api-slack-sample/settings.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;들어와서 왼쪽에 보시면 Service Hooks라는 메뉴를 찾을 수 있습니다. Service Hooks 누르면 Github에서 바로 통합 가능한 서비스 리스트들을 전부 확인할 수 있습니다. 채팅 서비스인 &lt;a href="http://hipchat.com/"&gt;Hipchat&lt;/a&gt;을 비롯해, 빌드 서비스인 &lt;a href="https://circleci.com/"&gt;CircleCI&lt;/a&gt;, &lt;a href="https://travis-ci.org/"&gt;Travis&lt;/a&gt;, 코드 매트릭스 관리 서비스인 &lt;a href="https://codeclimate.com/?v=original"&gt;Code Climate&lt;/a&gt;, 테스트 커버리지 리포트 서비스인 &lt;a href="https://coveralls.io/"&gt;Coveralls&lt;/a&gt;등 다양한 서비스를 지원하고 있습니다. 여기서는 맨 위에 있는 Webhook URLs를 사용하겠습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Webhook" src="../../images/2014-01-30-github-hook-api-slack-sample/webhook.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Webhook" src="images/2014-01-30-github-hook-api-slack-sample/webhook.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Webhook URLs를 클릭하시면 이벤트가 발생했을 때 정보를 받을 URL을 지정할 수 있습니다. 아직 후크 메시지를 받아 처리할 수 있는 서버가 없으므로 여기서는 서버를 등록하면 어떤 식으로 메시지가 오는 지, 어떤 이벤트들을 등록되어있는지 보여드리도록 하겠습니다. Webhook URLs에 &lt;code&gt;notifier.nacyot.com&lt;/code&gt;라는 Slack에 깃허브 저장소의 변경사항을 전달해주는 어플리케이션을 등록했다고 가정해보죠. &lt;/p&gt;
 
@@ -328,7 +483,7 @@ curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 
 
 &lt;p&gt;이제 저장소에서 이슈와 관련 이벤트가 발생하거나 위키에 페이지가 추가되거나 업데이트될 때 알림이 오게 됩니다. 이번엔 실제로 알림이 오는 것을 확인해보겠습니다. 위키 페이지를 하나 생성해보겠습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Creating Wiki page" src="../../images/2014-01-30-github-hook-api-slack-sample/wiki.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Creating Wiki page" src="images/2014-01-30-github-hook-api-slack-sample/wiki.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;이번엔 &lt;code&gt;notifier.nacyot.com&lt;/code&gt;에 요청이 들어오는지 확인해보겠습니다.&lt;/p&gt;
 
@@ -339,7 +494,7 @@ curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 
 
 &lt;p&gt;정상적으로 들어오네요. 네, 앞서서 이야기했듯이 이 서버가 해주는 역할은 깃허브로부터 후크를 받고 이를 Slack이라는 채팅 서비스에 연결해주는 역할을 합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Slack Room" src="../../images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Slack Room" src="images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;채팅방에도 메시지가 잘 들어오는 것을 알 수 있습니다. (시간 차이는 시간 설정 때문에 9시간 차이가 나서 그렇습니다)&lt;/p&gt;
 
@@ -434,7 +589,7 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
 
 &lt;p&gt;앞서 다룬 것과 마찬가지 방법으로 &lt;code&gt;gollum&lt;/code&gt; 이벤트를 추가해줍니다. 네 이걸로 모든 설정이 끝났습니다. 이제 해당하는 저장소의 위키를 수정해보면 서버에 알림이 가고 서버가 Slack으로 위키를 수정했다는 알림이 가게 됩니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Slack Room" src="../../images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Slack Room" src="images/2014-01-30-github-hook-api-slack-sample/github_slack.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;만약 정상적으로 메시지가 가지 않을 경우엔 Github Webhook 등록 페이지에서 Test Hook 버튼을 누르고 &lt;code&gt;docker logs &amp;lt;CONTAINER_ID&amp;gt;&lt;/code&gt; 명령어를 통해서 요청이 정상 전달되는지부터 확인할 필요가 있습니다. 일단 이러한 방법을 통해서 무사히 Slack으로 이전을 마쳤습니다.&lt;/p&gt;
 
@@ -450,7 +605,7 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/</id>
     <published>2014-01-29T16:30:00Z</published>
-    <updated>2014-02-16T15:50:24+00:00</updated>
+    <updated>2014-03-11T16:39:45+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -844,7 +999,7 @@ include /home/dokku/*/nginx.conf;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-02-16T15:50:24+00:00</updated>
+    <updated>2014-03-11T16:39:45+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1300,7 +1455,7 @@ $ docker run -d -p 9999:80 nacyot/moniwiki
 http://127.0.0.1:9999/moniwiki/
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="../../images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
 
 &lt;p&gt;올레! 잘 돌아가네요. &lt;/p&gt;
 
@@ -1316,7 +1471,7 @@ http://127.0.0.1:9999/moniwiki/
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/"/>
     <id>http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/</id>
     <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-02-16T15:50:24+00:00</updated>
+    <updated>2014-03-11T16:39:45+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1638,52 +1793,6 @@ curl -s https://get.docker.io/ubuntu/ | sudo sh
 &lt;h2&gt;정리&lt;/h2&gt;
 
 &lt;p&gt;일단 중요한 부분은 다 정리한 듯. 이외에도 VirtualBox, Vagrant, Pandoc, Tex, python, 등등 설치해야되지만, 필요해지면 설치할 예정.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>정적 웹사이트 생성기의 유혹</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-15-static-site-generator/"/>
-    <id>http://blog.nacyot.com/articles/2014-01-15-static-site-generator/</id>
-    <published>2014-01-05T03:00:00Z</published>
-    <updated>2014-02-16T15:50:24+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;개인적으로 요새 화두인 주제가 바로 정적 웹사이트 생성기입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만 여기에 대해서는 약간 배경에 대해서 이해할 필요가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;분명히 &lt;strong&gt;정적&lt;/strong&gt;이라는 단어는 그 동안에 웹 어플리케이션이 발전해 온 데 있어서 정반대의 위치에 있는 단어입니다. &lt;strong&gt;정적&lt;/strong&gt;인 페이지란 말그대로 이미 완성된 HTML이고, 클라이언트의 요청을 받는 서버의 역할은 단순히 이렇게 완성되어 있는 HTML을 보내주는 역할을 할 뿐입니다. 이러한 모델은 우편부를 통해서 비유하기에 아주 적절합니다. 그렇다면 웹이 &lt;strong&gt;동적&lt;/strong&gt;으로 발전해왔다는 건 어떤 걸 의미할까요? 여기서 &lt;strong&gt;동적&lt;/strong&gt;이란 화려한 시각적 효과나 움직임을 지칭하는 단어가 아닙니다. 좀 더 정확히 말하자면 HTML 페이지를 클라이언트의 요청에 따라서 실시간으로 생성해서 보내준다는 의미를 가지고 있습니다. 그래서 이러한 웹 어플리케이션을 배울 때 가장 먼저 나오는 가장 간단한 예는 항상 이름을 받고서 이름을 출력해주는 예제입니다. 즉 서버는 완성된 HTML을 가지고 있지 않습니다. 거의 완성되어있거나, 심지어는 아무것도 없이도 요청에 따라 실시간으로 완성된 문서를 다시 보내줍니다. 즉, 여기서 서버란 웹서버 어플리케이션과 웹 어플리케이션을 함께 이야기합니다.&lt;/p&gt;
-
-&lt;p&gt;하지만 본질적인 부분을 다시 생각해볼 필요가 있습니다. 정말로 &lt;strong&gt;동적&lt;/strong&gt;인 웹페이지란 필요한 걸까요? 단언컨데, 네 필요합니다. 질문을 바꿀 필요가 있습니다. 모든 경우에 정말로 &lt;strong&gt;동적&lt;/strong&gt;인 웹페이지가 필요한 걸까요? 여기에 &lt;strong&gt;모든 경우에&lt;/strong&gt;라는 수사를 통해서 저는 이도 저도 아닌 회색 영역을 만들었습니다. 네, 물론 아닙니다. 웹페이지 상에 동적으로 변해야하는 부분이 단 하나도 없다면, 완성된 HTML 형식으로 사이트를 공개해도 아무런 문제가 없습니다. 단지 우리는 21.1세기에 더 이상 그런 원시적인 웹 사이트는 거의 없다고 믿고 있을 뿐이죠.&lt;/p&gt;
-
-&lt;p&gt;사실 &lt;strong&gt;정적&lt;/strong&gt;이라는 건 &lt;strong&gt;나쁜 것&lt;/strong&gt;이 아닙니다. 오히려 &lt;strong&gt;동적&lt;/strong&gt; 방식이야 말로 실시간으로 &lt;strong&gt;사이트를 생성&lt;/strong&gt;하는 데서 오는 굉장히 큰 비용을 감당해야합니다. 바로 이런 이유 때문에 &lt;strong&gt;어떤 프레임워크&lt;/strong&gt;를 사용할 것인가, &lt;strong&gt;어떤 언어&lt;/strong&gt;를 사용할 것인가 하는 게 굉장히 중요한 문제입니다. 제가 사랑해마지 않는 루비조차도 바로 이런 이유(즉 상대적으로 느리기 때문에!)로 언젠가 서비스가 커지면 갈아치워야할 프로토타입용이라고 생각되는 경우가 굉장히 많습니다. 물론 대부분의 서비스는 그 단계까지도 가지도 못 하고 프로토타입만 서비스하다  망합니다만....&lt;/p&gt;
-
-&lt;p&gt;뭐, 그렇습니다.&lt;/p&gt;
-
-&lt;p&gt;단순히 서버 수준의 스케일링까지 고려를 하지 않더라도 동적으로 웹페이지를 생성하는 일은 굉장히 느립니다. 이는 만들어져있는 즉석식품과와 주문 받으면 음식을 조리하는 방식의 차이입니다. 정적이 전자라면, 동적은 후자입니다. 당연히 느립니다. 그 차이가 비록 와닿지 않을 정도라고 하더라도 분명히 느리며, 또한 이러한 차이를 극복하기 위해 실제 웹서비스들에서는 캐시를 사용해 마치 자신이 정적 웹 페이지인 것 마냥 작동합니다. 캐시가 가능한 이유는 웹 어플리케이션의 많은 부분이 &lt;strong&gt;사실은&lt;/strong&gt; 정적이기 때문입니다. 즉, 요청마다 다르게 보여주는 부분은 실제로는 그렇게 많지 않다는 이야기입니다.&lt;/p&gt;
-
-&lt;p&gt;정적인 자원은 다른 처리 비용을 발생시키지 않기 때문에 동적인 자원에 비해서 훨씬 더 빠릅니다. 그저 이미 만들어져있는 것을 보내주면 그만입니다. 앞에서 이야기했듯이 서버는 그저 우편부 역할을 할 뿐입니다. 여기서 오는 또 하나의 장점은 이렇게 미리 HTML 문서를 만들 경우 배포가 매우 쉽다는 점입니다. 어느 웹서버든 HTML은 serve할 수 있습니다. 복잡하게 어떤 언어를 쓰면 이렇게 하고 어떤 프레임워크를 써면 저렇게 하고 프록시 서버 써서 도메인 돌리고 그런 걸 고민할 필요가 없습니다. 싸구려 호스팅에 올려도 되고, 남는 서버에 올려도 되고, 아마존 S3에 올려도 되고, Github Pages로 배포할 수도 있습니다. 어플리케이션이 아니니 SQL injection 같은 보안 이슈도 없고요. 오오... 은근히 좋아보이네요. &lt;/p&gt;
-
-&lt;p&gt;하지만!&lt;/p&gt;
-
-&lt;p&gt;네, 이제, 웹 프레임워크는 다 버리고 HTML 하드 코딩하시면 되겠습니다.&lt;/p&gt;
-
-&lt;p&gt;바로 여기입니다. 당연히 HTML을 직접 작성해야하는 &lt;strong&gt;정적&lt;/strong&gt; 방식이 좋다고는 결코 말할 수 없습니다. 즉 &lt;code&gt;2 * 10 + 1 * 1 + 1 * 0.1&lt;/code&gt; 세기에 다시 주목받는 정적 웹사이트란, 단순히 HTML을 Serve 해준다는 의미에서의 웹사이트를 말하는 것이 아니라 거기서 한 층 더 나아가 웹사이트를 동적으로 생성하되, 정적으로 Serve 한다는 의미에서 정적 웹사이트 생성기가 되는 것입니다. 이는 프로그래밍에 있어서 &lt;strong&gt;컴파일&lt;/strong&gt;의 사전적인 의미에 좀 더 가까운 작업입니다. 실제로 미리 모든 것을 만들어둔다는 점에서는 프로그래밍의 컴파일 개념과도 비슷합니다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어보죠. 이러한 방식을 적용할 수 있는 정말 좋은 플랫폼이 &lt;strong&gt;블로그&lt;/strong&gt;입니다. 블로그는 시작부터 HTML 문서들을 좀 더 쉽게 배포하기 위한 &lt;strong&gt;동적&lt;/strong&gt;인 플랫폼으로 출발했거나, 그런 목적으로 개발되었습니다. 하지만 문서 기반의 모든 플랫폼은 본질적으로 &lt;strong&gt;내가 가진 문서를 얼마나 잘 보여줄 것인가&lt;/strong&gt; 하는 문제가 가장 중요한 문제입니다. 그런데 여기서 &lt;strong&gt;문서&lt;/strong&gt;란 &lt;strong&gt;정적&lt;/strong&gt;입니다. 그러나 문서를 지원하는 다양한 페이지들은 동적입니다. 이런 페이지에는 페이징, 카테고리, 태그, 날짜 기반 페이지, Feed가 있습니다. 그런데 여기서 동적이라는 b말의 시점을 잘 따져볼 필요가 있습니다. 웹페이지가 동적으로 생성된다는 의미는 웹페이지가 &lt;code&gt;request&lt;/code&gt;되는 시점에서 동적으로 &lt;code&gt;response&lt;/code&gt;를 생성한다는 의미입니다. 그런데 페이징, 카테고리, 태그, 날짜 기반 페이지, Feed와 같은 블로그의 핵심 기능들은 request를 요청하는 시점이 아니라, 블로그 운영자가 포스트를 올리는 시점에 &lt;strong&gt;동적&lt;/strong&gt;입니다. 즉, 이 시점을 제외하고는 항상 아무것도 변하지 않습니다. 같은 &lt;strong&gt;동적&lt;/strong&gt;이라고 말해도 실제로는 시점이 페이지가 완결되는 시점이 다르다는 점입니다. 물론 글을 쓴 시점에 &lt;code&gt;response&lt;/code&gt;가 완성된다는 의미는 아닙니다. 대부분의 웹 어플리케이션은 lazy하기 때문에 처음 &lt;code&gt;request&lt;/code&gt;가 들어오는 시점에 해당 페이지를 적절히 생성하고 캐시합니다. 중요한 건 실제로는 포스트를 올린 시점에 블로그의 모든 페이지가 정적으로 완결될 수 있다는 점입니다. 즉 블로그의 모든 페이지를 미리 생성할 수 있습니다. 이미 이러한 방식을 지원하는 툴들이 이미 존재합니다. Jekyll을 기반으로하는 Octopress를 사용한다면 바로 글을 쓰는 시점에 블로그에 포함되는 모든 페이지를 &lt;strong&gt;정적 페이지&lt;/strong&gt;, 바꿔말해 HTML 파일로 만들어 줍니다.&lt;/p&gt;
-
-&lt;p&gt;단, 여기에는 약간의 함정이 있습니다. 블로그에도 정말 적은 부분이지만 사용자의 요청이 발생하는 시점에서 실시간으로 동적으로 생성하고 반응해야하는 부분이 있습니다. 바로 댓글입니다. 이 부분은 따로 고민하지 않습니다. 그냥 댓글이 들어갈 부분에 &lt;a href="http://disqus.com/"&gt;Disqus&lt;/a&gt;를 삽입합니다.&lt;/p&gt;
-
-&lt;p&gt;이렇듯 의외로 블로그는 정적인 웹 플랫폼입니다. 근데 더 큰 함정이 있군요. 이렇게 만들면 블로그에 글은 어떻게 쓸까요? 다르게 말하면 블로그에서 가장 동적인 부분은 글을 작성하는 부분입니다. 이런 부분은 정적 블로그 생성기에서는 존재하지 않습니다. 여기서 모든 포스트는 그저 마크다운 파일일 뿐입니다. 또한 글이 작성된 시점이나 사이트에 기능이나 페이지가 더해진 시점을 일반적으로 Git 저장소에 push가 일어난 시점으로 판단합니다. 이런 부분은 일반인들이 이런 툴을 사용하기에 매우 프로그래머스럽습니다. 하지만 프로그래머들에게 이런 점은 다른 방향에서 자유를 선사합니다. 바로 블로그 글을 자신이 원하는 에디터로 작성 할 수 있다는 점입니다. 저는 지금 이 글을 제가 애용하는 에디터인 Emacs 위에서 작성하고 있습니다. 예전부터 블로그나 위키를 운영하면서 에디터 통합을 꿈꾸던 입장에서는 지금은 너무 쉽게 이런 접근이 가능합니다. 물론 또다른 방향에서 웹 편집기들은 발전하고 있습니다. &lt;a href="https://github.com/HackerWins/summernote"&gt;Summernote&lt;/a&gt;와 같은 부트스트랩 기반의 에디터도 있고 &lt;a href="http://ghost.org"&gt;Ghost&lt;/a&gt;와 같은 마크다운 프리뷰를 바로 보여주는 훌륭한 플랫폼도 있습니다. Mediawiki에는 웹문서에서 바로 편집을 하는 것 같은 경험을 제공하는 &lt;a href="http://www.mediawiki.org/wiki/VisualEditor"&gt;Visual Editor&lt;/a&gt; 같은 확장도 있습니다.[^1] 많은 훌륭한 시도들이 있습니다만 여전히 웹에서 글을 작성한다는 것은 전용 에디터에 비해서 매우 불만족스러운 일입니다. 반면에 마크다운 파일을 기반으로 하고 있다면 그저 텍스트 문서를 원하는 에디터에서 작성하면 그만입니다.&lt;/p&gt;
-
-&lt;p&gt;[^1]: http://www.mediawiki.org/wiki/VisualEditor 에서 직접 edit를 해보시기 바랍니다.&lt;/p&gt;
-
-&lt;p&gt;아시는 분은 아시겠지만! 이미 &lt;a href="http://github.com"&gt;Github&lt;/a&gt;을 적극 활용하는 많은 분들은 Github Pages와 Github에서 지원하는 루비 기반의 정적 웹페이지 생성기(이자 Github CEO가 만든)인 &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;을 적극 활용해서 블로그나 사이트를 운영하고 있습니다. 단순히 블로그에서만 사용할 수 있는 건 아닙니다. 이미 괜찮은 블로그 솔루션들이 마련되어 있기에 편하게 사용할 수 있는 것 뿐이지, 결과적으로 정적인 사이트라면 얼마든지 생성할 수 있습니다. 루비 커뮤니티에서 두 번째로 유명한 &lt;a href="http://middlemanapp.com/community/built-using-middleman/"&gt;Middleman으로 생성한 사례들&lt;/a&gt;도 매우 많습니다. 이 사이트도 Middleman으로 만들어졌고, 글을 작성하면 &lt;a href="https://travis-ci.org/"&gt;Travis&lt;/a&gt;를 통해 빌드하고, 다시 변경된 내용을 Github Repository에 반영해 Github Pages로 배포되고 있습니다. 이러한 활용 방법에 대해서는 다른 포스트에서 좀 더 자세히 다루겠습니다. 이 외에도 &lt;a href="http://staticsitegenerators.net/"&gt;Static Site Generator&lt;/a&gt;와 &lt;a href="http://modernstatic.com/"&gt;Modern Static&lt;/a&gt;에서는 다양한 정적 웹페이지 생성기들을 소개하고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;당연하게도 이런 정적 페이지 생성기들은 정적 페이지를 통한 배포의 이점을 전부 그대로 누립니다. 그냥 HTML 문서니까요. 동시에 빌드 시점에서는 프로그래밍 언어의 강력함도 누릴 수 있습니다. &lt;/p&gt;
-
-&lt;p&gt;결국에 중요한 문제는 어느 시점에서 &lt;strong&gt;동적&lt;/strong&gt;이면 되는가의 문제로 귀결됩니다. 블로그가 정적 웹페이지로도 만들어질 수도 있는 건 모든 시점에 동적일 필요가 없었기 때문입니다. 반면에 소셜 사이트를 정적 웹페이지로 만드는 건 거의 불가능하다고 봐도 되겠죠. 네, 케바케입니다. 하지만 분명한 건 정적 웹페이지로 만들 수 있는 페이지를 동적 어플리케이션으로 서버에 물려놓는 건 사이트 구축은 그렇다고 쳐도, 운영 면에서 불리합니다. 정적 웹페이지 생성기는 중간쯤 어딘가에서 어떤 공백을 메워줍니다.&lt;/p&gt;
-
-&lt;p&gt;네, 모든 종류의 웹사이트가 정적일 수는 없습니다. 거꾸로 모든 종류의 웹사이트가 동적일 필요도 없는 거고, 적절한 타협점이 필요한 거죠.&lt;/p&gt;
 </content>
   </entry>
 </feed>

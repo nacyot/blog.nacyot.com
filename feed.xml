@@ -5,16 +5,110 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-03-11T16:15:32Z</updated>
+  <updated>2014-03-16T15:20:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>emacs.sexy 한글 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
+    <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
+    <published>2014-03-16T15:20:00Z</published>
+    <updated>2014-03-16T15:34:37+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://emacs.sexy (원본)&lt;/li&gt;
+&lt;li&gt;http://sexy.emacs.kr (한국어 사이트)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p&gt;&lt;a href="http://t.co/NrSRaEXMWO"&gt;http://t.co/NrSRaEXMWO&lt;/a&gt; &lt;a href="http://t.co/3YY2lCXkLd"&gt;http://t.co/3YY2lCXkLd&lt;/a&gt; 한국어 번역&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/statuses/445030787130200064"&gt;2014년 3월 16일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+
+
+&lt;h2&gt;Github&lt;/h2&gt;
+
+&lt;p&gt;특별한 건 없습니다만, 번역과 번역 저장소 관리에 대해서 조금 이야기를 해보자면 현재 sexy.emacs.kr은 두 개의 저장소에서 관리되고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;하나는 번역 메모리 omegat의 프로젝트를 담은 &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;https://github.com/nacyot/omegat-emacs.sexy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이고, 또 하나는 omegat-emacs.sexy에서 번역한 결과를 travis로 빌드해서 자동으로 push 되도록 설정해둔 &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;https://github.com/nacyot/sexy.emacs.kr&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;입니다.&lt;/p&gt;
+
+&lt;h2&gt;OmegaT&lt;/h2&gt;
+
+&lt;p&gt;개인적으로 번역 프로젝트에는 전부 OmegaT를 사용하고 있습니다.자바로 만들어진 번역 메모리로 기능적으론 굉장히 훌륭합니다. 특히 OmegaT는 문장 단위로 번역을 진행해서, 직접 원본 파일을 번역하는 것과 달리 원문의 업데이트에 비교적 쉽게 대응할 수 있습니다. 약간 번거롭고 저장소와 호환이 안 맞아서 한참 고생을 했는데, 최근에 활용 방향이 정리가 되서 베스트 프렉티스를 정리해보는 중입니다. 이에 대한 내용은 조만간 공유해 볼 예정입니다.&lt;/p&gt;
+
+&lt;h2&gt;Omegat + Travis&lt;/h2&gt;
+
+&lt;p&gt;이번에 한 가지 시도해본 건 Travis를 통해 OmegaT의 프로젝트를 빌드하는 일입니다. OmegaT에서는 원본 문서를 편집하지 않고 Segment 단위로 한 문장(혹은 한 문단) 씩 번역을 진행합니다. 따라서 여기서 빌드란 OmegaT를 통해서 번역한 결과물을 실제 파일로 출력하는 과정을 말합니다. 로컬에서 번역을 진행하고 빌드 후 저장소를 올리는 것도 어렵지 않습니다만 신경써야할 부분이 하나 더 느는 문제가 있고, 또 하나는 커밋 단위로 빌드를 하고 싶었기 때문입니다. 이는 이 블로그나 위키에서도 마찬가지로 문서를 작성하면 자동적으로 Travis에서 Middleman 어플리케이션을 빌드하고 깃허브 저장소에 올리는 것과 마찬가지입니다. 즉, 이를 통해 OmegaT를 통한 번역작업과 Github 페이지를 통한 배포 작업을 하나의 트랜젝션으로 묶을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;전체 스크립트는 &lt;a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/.travis.yml"&gt;여기&lt;/a&gt;에 있습니다. 여기서 가장 중요한 두 명령어는 아래와 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;yaml
+before_install:
+  - sudo apt-get install -qq openjdk-6-jdk omegat
+script:
+  - /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java -jar /usr/share/omegat/OmegaT.jar . --mode=console-translate
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;첫번째 명령어는 &lt;code&gt;apt-get&lt;/code&gt;으로 openjdk-6-jdk와 omegat를 설치합니다. 아래 명령어는 실제로 프로젝트를 빌드하는 명령어입니다. OmegaT를 설치하면 &lt;code&gt;omegat&lt;/code&gt; 명령어를 사용할 수 있기는 합니다만, 이 명령어는 자바 버전에 의존적이라 &lt;code&gt;java&lt;/code&gt;와 &lt;code&gt;omegat&lt;/code&gt; 모두 강제로 경로를 지정해서 실행하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 작업을 할 때 OmegaT의 프로젝트 구조를 로컬에서와 같도록 최대한 보장해줄 필요가 있습니다. 예를 들어 과거 프로젝트에서 생성한 번역 메모리를 재활용할 수 있게 도와주는 &lt;code&gt;/tm/auto&lt;/code&gt; 디렉토리는 실제론 필요가 없지만, 빌드 시에 없으면 프로젝트를 인식하지 못 합니다. &lt;code&gt;target&lt;/code&gt; 디렉토리는 빌드 결과가 출력되는 디렉토리인데 자동으로 생성해주지 않기 때문에, 빈 디렉토리라도 생성해두지 않으면 빌드에 실패합니다. 이 외에 &lt;code&gt;glossary&lt;/code&gt;, &lt;code&gt;dictionary&lt;/code&gt;, &lt;code&gt;source&lt;/code&gt;도 정상적으로 프로젝트 디렉토리 안에 생성되어 있어야합니다.&lt;/p&gt;
+
+&lt;p&gt;OmegaT의 경우 &lt;code&gt;apt-get&lt;/code&gt;으로 설치하면 상당히 구버전이 설치됩니다. 저 같은 경우는 번역에 3버전을 사용하고 있는데, 빌드 과정에서 특별한 문제점은 없었습니다. 만약 &lt;code&gt;apt-get&lt;/code&gt;으로 설치하는 버전을 사용하기가 어렵다면 별도로 프로젝트에 OmegaT를 집어넣거나, wget으로 소스포지에서 다운로드해야합니다.&lt;/p&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p&gt;&lt;a href="https://twitter.com/marocchino"&gt;@marocchino&lt;/a&gt; 아... 빌드에서 사용할 파일 따로 가져올 방법이 없어서 압축해서 포함시키려고 했는데 100mb 넘는다고 안 들어가더군요 ㅎㅎ. 좋은 접근은 아니었죠 ㅜ&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/statuses/444838462277967873"&gt;2014년 3월 15일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;이건 비밀입니다만(...) 처음에는 직접 OmegaT의 최신 버전을 프로젝트에 집어넣고 빌드 과정에서 압축을 풀어 사용하려고 했습니다. 하지만 Github 저장소에는 100mb 이상의 파일을 넣을 수 없다는 사실을 처음 알았습니다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 100mb 넘는 파일을 추가하고 Github에 올리기 위해선 커밋 히스토리 자체를 삭제할 필요가 생기는데 아래 명령어를 사용할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+git filter-branch --tree-filter &amp;#39;rm -rf path/to/your/file&amp;#39; HEAD
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Rake&lt;/h2&gt;
+
+&lt;p&gt;빌드 과정에서 몇 가지 rake 작업이 이루어집니다. OmegaT를 사용한 번역에서는 원본 파일을 직접 수정하지 않고, 문장들만을 번역합니다. 따라서 원칙적으로 원본 파일은 건드리지 않고 작업을 하기 위해서 빌드된 결과물을 rake  스크립트를 통해서 편집해줍니다. &lt;code&gt;rewrite_cname&lt;/code&gt;은 CNAME 파일이 &lt;code&gt;sexy.emacs.kr&lt;/code&gt;(실제 배포될 URL)을 가리키도록 합니다.  &lt;code&gt;add_link&lt;/code&gt;는 별도로 관리중인 &lt;a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/data/sites.json"&gt;한국어 링크를 정리한 json 파일&lt;/a&gt;에서 링크를 가져와 문서의 아래 쪽에 추가해줍니다. 마지막으로 &lt;code&gt;add_link_to_translator&lt;/code&gt;는 번역자 정보를 문서에 추가해줍니다.&lt;/p&gt;
+
+&lt;h2&gt;Github Pages&lt;/h2&gt;
+
+&lt;p&gt;빌드 과정의 마지막에는 이렇게 생성된 번역 결과를 sexy.emacs.kr 깃허브 저장소에 push하도록 되어있습니다. 깃허브에서는 gh-pages 브랜치를 이용해 저장소의 내용을 배포할 수 있습니다. 특별한 건 없습니다만, Github Pages에서 커스텀 도메인으로 배포 가능하도록 DNS A record를 지정해야하는 ip 주소가 최근에 바뀐 듯 합니다. &lt;a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages"&gt;깃허브 Help 사이트&lt;/a&gt;에서는 &lt;code&gt;192.30.252.153&lt;/code&gt;과 &lt;code&gt;192.30.252.154&lt;/code&gt;를 지정해야한다고 이야기하고 있으며, 예전 ip도 업데이트를 권장하고 있었습니다.&lt;/p&gt;
+
+&lt;h2&gt;Travis&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://travis-ci.org/nacyot/omegat-emacs.sexy"&gt;Travis의 빌드 결과&lt;/a&gt;는 여기서 확인할 수 있습니다. 이를 통해서 빌드가 어떤 식으로 이루어지는지 감이 오실 거라고 생각합니다.&lt;/p&gt;
+
+&lt;p&gt;아시는 분은 이미 아시리라고 생가합니다만, 공개 프로젝트를 운영하신다면 tarvis는 둘도 없는 강력한 빌드 서비스입니다. 어떤 자원을 사용하건 자원에 대한 대가를 치루는 거는 꽤나 번거롭고 관리가 드는 일입니다만, 공개 프로젝트에 한해서 Travis는 이러한 부담이 전혀 없이 무료로 사용할 수 있습니다. 위에서 보셨다시피 커밋에 대응한 자동 빌드 및 심지어 빌드 성공시 깃헙 페이지에 자동 배포하는 역할까지 수행하고 있습니다.&lt;/p&gt;
+
+&lt;h2&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;이 프로젝트의 경우는 번역할 절대 양이 많지도 않고 업데이트가 크게 많다고 생각되지 않기 때문에 조금 오버를 했다는 느낌도 없지 않습니다만, 예전부터 생각해오던 것을 직접 적용해서 작은 번역 프로젝트를 하나 진행해 보았습니다. 좀 더 큰 프로젝트에서라면 번역에만 집중할 수 있는 이러한 워크플로우가 꽤나 도움이 될 것이라고 기대하고 있습니다.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/"/>
     <id>http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/</id>
     <published>2014-03-11T16:15:32Z</published>
-    <updated>2014-03-11T16:39:45+00:00</updated>
+    <updated>2014-03-16T15:34:37+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -169,7 +263,7 @@ M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;g
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/"/>
     <id>http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/</id>
     <published>2014-02-10T15:16:00Z</published>
-    <updated>2014-03-11T16:39:45+00:00</updated>
+    <updated>2014-03-16T15:34:37+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -366,7 +460,7 @@ Usage ./boot2docker {init|start|up|pause|stop|restart|status|info|delete|ssh|dow
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/</id>
     <published>2014-01-30T08:30:00Z</published>
-    <updated>2014-03-11T16:39:45+00:00</updated>
+    <updated>2014-03-16T15:34:37+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -605,7 +699,7 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/</id>
     <published>2014-01-29T16:30:00Z</published>
-    <updated>2014-03-11T16:39:45+00:00</updated>
+    <updated>2014-03-16T15:34:37+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -999,7 +1093,7 @@ include /home/dokku/*/nginx.conf;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/</id>
     <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-03-11T16:39:45+00:00</updated>
+    <updated>2014-03-16T15:34:37+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1464,335 +1558,6 @@ http://127.0.0.1:9999/moniwiki/
 &lt;p&gt;도커의 활용가능성은 무궁무진합니다. 당연히 실제 배포에도 사용할 수 있고, 유연하고 날렵한 격리된 환경을 활용해 실험적인 개발을 진행할 수도 있습니다. Vagrant보다도 훨씬 빠른 가상 환경을 활용할 수 있으며 접근 방법은 다르지만 서버환경을 자동적으로 구성할 수도 있습니다. 미리 만든 이미지를 자신의 저장소(registry)에 등록해 여러대의 머신에 컨테이너들을 자동적으로 배포할 수도 있고, 오픈소스 프로젝트에서 Dockerfile을 제공해 설치를 색다른 방법으로(?) 지원할 수도 있습니다. &lt;a href="https://github.com/progrium/dokku"&gt;Dokku&lt;/a&gt;를 사용하면 정말 쉽게 mini-heroku와 같은 PaaS 플랫폼을 구축해 볼 수도 있습니다.&lt;/p&gt;
 
 &lt;p&gt;단순히 생산성을 넘어, 도커의 매력은 상상력을 자극한다는 점입니다. 특히나 서버 자동화가 화두인 요즘에 인프라스트럭쳐가 &lt;strong&gt;코드&lt;/strong&gt;로 변해버리는 묘한 체험을 하게 해줍니다. 인프라스트럭쳐가 코드가 되면 뭔가 신기한 일들이 벌어집니다. 이런 상황에서 아직까지 낯설게 느껴질지도 모르는 개념이고 툴입니다만 직접 설치하고  이것저것 해보다보면 저처럼 분명 반하실 거라 생각합니다 :)&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>우분투 13.10 개발환경 세팅</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/"/>
-    <id>http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/</id>
-    <published>2014-01-17T15:00:00Z</published>
-    <updated>2014-03-11T16:39:45+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.&lt;/p&gt;
-
-&lt;p&gt;참고로 본인은 Ubuntu / Terminator(터미널 프로그램) / Emacs(에디터) / Dvorak(키보드 레이아웃) 사용자.&lt;/p&gt;
-
-
-
-&lt;h2&gt;Ubuntu 13.10 설치&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.ubuntu.com/download/desktop"&gt;우분투 공식 홈페이지&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;우분투 13.10 설치. 우분투에는 기본적으로 setup disk creator이라는 어플이 들어가서 있어서 이걸로 usb에 옮겨담을 수 있는데 조금 문제가 있어서 윈도우에서 &lt;a href="http://www.linuxliveusb.com/"&gt;Linux Live USB Driver&lt;/a&gt;로 USB에 설치.&lt;/p&gt;
-
-&lt;h2&gt;APT 다운로드 서버 설정&lt;/h2&gt;
-
-&lt;p&gt;처음에 자동으로 업데이트를 실시하지만 패키지도 많고 상당히 시간이 오래걸린다. 이 때 미러 서버를 바꿔주면 속도가 많이 개선된다.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;자동으로 뜨는 업데이트는 진행하지 말 것.&lt;/li&gt;
-&lt;li&gt;System Settings&lt;/li&gt;
-&lt;li&gt;Software &amp;amp; Updates&lt;/li&gt;
-&lt;li&gt;Ubuntu Software 탭에서 Download from : http://ftp.daum.net/ubuntu&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;APT 다운로드 서버 설정. 자세히 알고 있다면 &lt;code&gt;/etc/apt&lt;/code&gt;에 설정 파일들을 직접 편집해도 되지만 보통 시스템 설정을 사용하는 게 편리하다. 디폴트로 잡혀있는 kr.archive.ubuntu.com은 많이 느린 편이고, 한국에서는 Daum이나 Neowiz 서버가 빠르긴한데 업데이트가 느리거나 불안정하다는 얘기가 있다. 한국 미러에 문제가 있는 경우, 일본에서 빠른 서버 찾아서 사용하면 된다. jaist를 많이 사용하는 것 같다.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;터미널에서 업데이트 진행(Software &amp;amp; Updates 윈도우에서 진행해도 무관하다).&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo apt-get update
-sudo apt-get upgrade
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;그래픽 카드 설치&lt;/h2&gt;
-
-&lt;h3&gt;AMD A10 5800K(APU)&lt;/h3&gt;
-
-&lt;p&gt;일단 Ubuntu에서 기본적으로 지원하는 드라이버 Xorg로는 화면이 깨지는 현상이 있어서 AMD 쪽에서 나오는 서드파티 드라이버를 설치해야한다. &lt;code&gt;fglrx&lt;/code&gt;를 설치하면 화면이 깨지는 현상은 사라지는데 마우스 커서가 없어지는 문제가 있어서 &lt;code&gt;fglrx-update&lt;/code&gt;를 설치.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;sudo apt-get install fglrx-update fglrx-update-dev&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이걸로 안 되면 삭제하고 &lt;code&gt;fglrx&lt;/code&gt; 설치.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;sudo apt-get install fglrx fglrx-dev&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4&gt;듀얼 모니터 설정&lt;/h4&gt;
-
-&lt;p&gt;단 &lt;code&gt;fglrx-update&lt;/code&gt;를 설치하니 듀얼모니터가 해상도 제한이 걸린다며 지정이 안 되는 문제가 발생했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo aticonfig --initial # /etc/X11/xorg.conf 생성.
-sudo amdcccle
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;설정을 알고 있다면 직접 xorg.conf 생성 후 직접 편집해도 되지만, 잘 모른다면 AMD 드라이버 설정 관리자(amdcccle)를 열어서 듀얼 모니터를 잡아주면 된다. 여기서 화면 회전이나 추가적인 설정 가능.&lt;/p&gt;
-
-&lt;h3&gt;NVidia GTX 560Ti&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo apt-add-repository ppa:xorg-edgers/ppa
-sudo apt-add-repository ppa:ubuntu-x-swat/x-updates
-sudo apt-get update
-sudo apt-get install nvidia-current
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;NVidia 카드의 경우 우분투 디폴트 그래픽 드라이버로도 사용은 가능하지만 부드럽지 못 하거나 느려서, Nvidia 전용 드라이버를 설치해주는 게 좋다. 위의 명령어들이 기본적인 설치 방법인데 설치할 수 있는 여러 버전들이 있으니 nvidia-current로 설치가 제대로 되지 않으면 버전명을 바꿔가며 설치해보는 게 좋다. 보통은 설치 후 재부팅이 필요하다.&lt;/p&gt;
-
-&lt;p&gt;이 과정에서 드라이버가 제대로 작동하지 않아 화면이 먹통이 될 수 있는데, 이런 경우네 Alt + Ctrl + F1 을 눌러 가상 콘솔로 넘어가 터미널 환경에서 드라이버를 삭제하거나 다른 드라이버를 설치 후 재부팅하는 게 좋다. 이 외에도 공식 홈페이지에서 &lt;code&gt;.run&lt;/code&gt; 확장자를 가진 드라이버를 제공하기도 하는데 이 드라이버를 설치하고자 할 때는 해당파일에 실행 권한을 주고 관리자 권한으로 실행하면 된다.&lt;/p&gt;
-
-&lt;h4&gt;QHD270&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;http://learnitwithme.com/wordpress/?p=342&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;개인적으로 이 과정에서 공식 드라이버 설치시 화면이 먹통이 되는 문제로 한참을 방황했는데 이는 그래픽 드라이버가 아니라 모니터 문제였다. 한국에서 생산된 27인치 모니터 중 2560 * 1440에 최적화된 모니터의 경우 제대로 출력이 되지 않는 경우가 있다. 이런 경우엔 위 링크를 참조해 문제를 해결하면 된다.&lt;/p&gt;
-
-&lt;h3&gt;참고&lt;/h3&gt;
-
-&lt;p&gt;일반적으로 어떤 그래픽 카드건 Software &amp;amp; Updates의 Additianal Drivers에서 사용가능한 드라이버를 확인할 수 있다. 일반적으로 하드웨어 벤더에서 제공하는 독점 드라이버를 선택하는 게 안정성이나 성능 면에서 월등하다. 문제가 있으면 여기에 뜨는 것들을 바꿔가며 테스트 해보고 구글링으로 해당하는 문제를 찾아보는 게 좋다. &lt;/p&gt;
-
-&lt;h2&gt;Nabi 설정&lt;/h2&gt;
-
-&lt;h3&gt;한글 입력기 Nabi 설치[^1]&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo add-apt-repository ppa:createsc/copy4
-sudo apt-get update
-sudo apt-get install nabi
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;[^1]: 참고 http://www.ubuntu.or.kr/viewtopic.php?p=62810&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;System Settings&lt;/li&gt;
-&lt;li&gt;Language Support&lt;/li&gt;
-&lt;li&gt;키보드 입력기 : Hangul&lt;/li&gt;
-&lt;li&gt;재부팅 or 로그아웃&lt;/li&gt;
-&lt;li&gt;드보락 설정(필요시, 링크 참조)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;System Tray Whitelist 등록[^2]&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo add-apt-repository ppa:mc3man/systray-white
-sudo apt-get update
-sudo apt-get upgrade
-gsettings set com.canonical.Unity.Panel systray-whitelist &amp;quot;[&amp;#39;all&amp;#39;]&amp;quot;
-sudo reboot
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;[^2]: 참조 http://www.ubuntu.or.kr/viewtopic.php?p=112275&lt;/p&gt;
-
-&lt;h2&gt;방화병 설정 및 ssh 서버 설치&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo ufw enable
-sudo ufw allow 22/tcp
-sudo apt-get install ssh
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;외부 접속 위해서 ssh-server 설치해줘야 되는 건지 원래 되는 건지(설치 되어있는지) 정확히 기억이 안난다. &lt;code&gt;uft&lt;/code&gt;은 방화벽 설정인데 기본적으로 포트가 다 열려있으므로, 사용하지 않는다면 생략해도 무방.&lt;/p&gt;
-
-&lt;h2&gt;ssh key 생성&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-ssh-keygen -t rsa -C &amp;quot;&amp;lt;EmailAddress&amp;gt;
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;ssh key 생성 후, &lt;code&gt;~/.ssh/id_rsa.pub&lt;/code&gt; 파일 출력해서 github, bitbucket, gitlab에 등록 해 줌.&lt;/p&gt;
-
-&lt;h2&gt;OpenVPN 세팅&lt;/h2&gt;
-
-&lt;p&gt;```
-sudo apt-get install openvpn&lt;/p&gt;
-
-&lt;h1&gt;/etc/openvpn vpn 환경 설정 파일 설정&lt;/h1&gt;
-
-&lt;p&gt;sudo service openvpn restart
-```&lt;/p&gt;
-
-&lt;p&gt;개인적으로는 로컬 서버에서 돌리는 것들이 있어서 openvpn 열어서 사용중. 필요하면 /etc/openvpn디렉토리에서 설정.&lt;/p&gt;
-
-&lt;h2&gt;Unix 설정 파일 Clone&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo apt-get install zsh tmux git
-chsh # /bin/zsh
-git clone git@&amp;lt;GIT_SERVER&amp;gt;:configuration/unix-config.git conf
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;환경설정 파일들은 마찬가지로 기존에 사용하는 것들 그대로 가져와서 사용. 개인적으로 private repository에서 관리중이고 클론해서 &lt;code&gt;~&lt;/code&gt;에서 &lt;code&gt;conf&lt;/code&gt; 디렉토리의 폴더로 심볼릭 링크 걸어서 사용. 필요한 게 추가로 있으면 scp로 기존 작업 환경에서 복사해서 사용. &lt;/p&gt;
-
-&lt;h2&gt;Terminator 설치&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo apt-get install terminator
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;터미네이터 설정 파일은 &lt;code&gt;.config/terminator/config&lt;/code&gt;. 보통은 scp로 원래 쓰던 거 가져다가 세팅했는데,이번엔 &lt;a href="https://github.com/ghuntley/terminator-solarized"&gt;terminator-solarized&lt;/a&gt; 테마도 같이사용해봤다.사용해보진 않았는데 Mac 쓰던 경우엔 &lt;a href="https://gist.github.com/olistik/3894072"&gt;이 gist&lt;/a&gt;도좋을 듯.&lt;/p&gt;
-
-&lt;h2&gt;Eamcs 설치&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo apt-get install emacs24 emacs24-common
-git clone git@&amp;lt;GIT_SERVER&amp;gt;:configuration/emacs-config.git .emacs.d
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;ubuntu 13.10에서는 emacs24를 바로 설치해서 사용 가능. 환경 설정에 기존에 사용하던 거 그대로 가져와서 사용.&lt;/p&gt;
-
-&lt;h3&gt;the silver seacher 설치&lt;/h3&gt;
-
-&lt;p&gt;ubuntu 13.10에서는 apt-get으로 바로 silver seacher 설치할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo apt-get install silversearcher-ag
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;워크스페이스 활성화&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo apt-get install compizconfig-settings-manager
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Windows(Super) 키 누르고 &lt;code&gt;컴피즈 설정 관리자&lt;/code&gt; 실행.&lt;/li&gt;
-&lt;li&gt;General =&amp;gt; 일반 설정&lt;/li&gt;
-&lt;li&gt;데스크탑 크기 탭에서 &lt;code&gt;가로 가상 크기&lt;/code&gt;와 &lt;code&gt;세로 가상 크기&lt;/code&gt; 지정.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3&gt;워크스페이스 간 창 이동 단축키 변경&lt;/h3&gt;
-
-&lt;p&gt;Ubuntu Unity에서는 워크스페이스간에 창 이동을 시킬때 컨트롤 + 쉬프트 + 알트 화살표를 사용하는데 Ubuntu 13.10에서는 기본적으로 양 옆 이동은 가능하나 위 아래 이동은 안 먹히는 문제가 있다. 이를 해결하기 위해서는,&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Windows(Super) 키 누르고 &lt;code&gt;컴피즈 설정 관리자&lt;/code&gt; 실행.&lt;/li&gt;
-&lt;li&gt;Desktop =&amp;gt; Desktop Wall&lt;/li&gt;
-&lt;li&gt;바로가기 탭의 Move with window within wall을 열고,&lt;/li&gt;
-&lt;li&gt;단축키 다시 설정 해줌(연필 아이콘)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2&gt;Ruby 설치&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-echo &amp;#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
-echo &amp;#39;eval &amp;quot;$(rbenv init -)&amp;quot;&amp;#39; &amp;gt;&amp;gt; ~/.zshrc
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;rbenv 설치. 기본적으로 README에는 bash 기준으로 설정이 되어있는데, 자신이 사용하는 쉘 설정 파일에 집어넣어준다(여기선 zsh). 필요하면 설정하고 쉘을 다시 실행시켜준다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-sudo apt-get install -qy build-essential zlib1g-dev libyaml-dev libssl-devlibgdbm-devlibreadline-dev libncurses5-dev libffi-dev curl libxml2-dev libxslt-devlibcurl4-openssl-dev libicu-dev
-rbenv install 2.1.0
-rbenv install 2.0.0-p353
-rbenv install 1.9.3-p484
-rbenv global 2.1.0
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;ruby-build는 rbenv에서 루비 빌드를 하기 위한 플러그인. 위에서 설치하는 패키지들은 루비 빌드에 사용되는 패키지들.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-gem install travis middleman middleman-blog rails heroku --verbose
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;중요한 gem들 설치... 별로 중요해보이지 않지만 패스.&lt;/p&gt;
-
-&lt;h2&gt;Hub 설치&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-git clone git://github.com/github/hub.git
-cd hub/
-sudo .rbenv/shims/rake install
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;적당한 디렉토리에 클론하고 &lt;code&gt;rake install&lt;/code&gt;로 설치.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-wget https://raw.github.com/github/hub/master/etc/hub.zsh_completion
-sudo mv hub.zsh_completion /usr/local/share/zsh/site-functions/_hub
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;zsh용 자동완성 파일을 받아서 위의 디렉토리로 복사해준다. 아래 설정을 &lt;code&gt;.zshrc&lt;/code&gt; 파일에 추가해준다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-eval &amp;quot;$(hub alias -s)&amp;quot;
-compdef git=hub
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2&gt;Wine 카카오톡 설치&lt;/h2&gt;
-
-&lt;p&gt;현재 팀에서 사용하고 있는 메신저가 카카오톡이라 Wine로 카카오톡 설치 시도. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo add-apt-repository ppa:ubuntu-wine/ppa
-sudo apt-get upgrade
-sudo apt-cache search &amp;quot;wine&amp;quot;
-sudo apt-get install wine1.7
-winetricks gdiplus
-winetricks wmp9 
-winetricks riched20
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;wmp9&lt;/code&gt;은 메시지 알림음, &lt;code&gt;riched20&lt;/code&gt;은 한글 입력에 필요한 듯.&lt;/p&gt;
-
-&lt;p&gt;한글 설정을 위해 굴림 폰트 구해서 wine 폴더 쪽으로 복사해주고 기본 폰트 쪽에 링크를 걸어준다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-mv gulim.ttc ../.wine/drive_c/windows/Fonts/
-ln -s gulim.ttc batang.ttc
-ln -s gulim.ttc dotum.ttc
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;~/.wine/system.reg&lt;/code&gt; 파일을 열어서 아래 부분을 찾아서,&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-&amp;quot;MS Shell Dlg&amp;quot;=&amp;quot;Tahoma&amp;quot;
-&amp;quot;MS Shell Dlg 2&amp;quot;=&amp;quot;Tahoma&amp;quot;
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;아래 내용으로 바꿔준다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-&amp;quot;MS Shell Dlg&amp;quot;=&amp;quot;Gulim&amp;quot;
-&amp;quot;MS Shell Dlg 2&amp;quot;=&amp;quot;Gulim&amp;quot;
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="http://app.pc.kakao.com/talk/win32/KakaoTalk_Setup.exe"&gt;카카오톡 설치 파일&lt;/a&gt; 다운 받아서 실행. 한글이 깨지는 경우 적당이 추측해서 설치해준다.&lt;/p&gt;
-
-&lt;p&gt;터미널에서 아래 명령어를 실행해본다. 이 때 카카오톡 아이콘 위치가 정확하지 않으면 직접 확인해준다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-wine C:\\windows\\command\\start.exe/Unix/home/daekwon/.wine/dosdevices/c:/users/Public/Desktop/카카오톡.lnk
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이렇게 실행했는데, 한글이 깨지면 카카오톡을 전부 종료하고 강제로 &lt;code&gt;LC_ALL&lt;/code&gt; 환경변수를 지정해 실행해본다. 이게 나 같은 경우에는 이번에 Ubuntu를 영어로 설치해서 그러니 Wine도 기본으로 Language가 영어로 잡혀서 폰트 설정만으로는 제대로 적용이 안 됐다. 이 환경변수를 사용해 한글이 잘 되면 카카오톡 설치시 바탕화면에 생기는 아이콘의 실행 경로에 &lt;code&gt;LC_ALL&lt;/code&gt; 환경변수를 지정해 놓는다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-LC_ALL=ko_KR.utf8 wine C:\\windows\\command\\start.exe/Unix/home/daekwon/.wine/dosdevices/c:/users/Public/Desktop/카카오톡.lnk
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;한글이 조금 구려보이긴 하지만 잘 되는 것은 확인.&lt;/p&gt;
-
-&lt;h2&gt;개발용 &lt;a href="http://docker.io/"&gt;Docker&lt;/a&gt; 설치&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-curl -s https://get.docker.io/ubuntu/ | sudo sh
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;요새 서버에 도입하려고 궁리중인 Docker. 공식 사이트에서 제공해주는 스크립트 하나면 정말 간단히 설치할 수 있다. 자세항 내용은 &lt;a href="http://docs.docker.io/en/latest/installation/ubuntulinux/"&gt;공식 문서&lt;/a&gt; 확인.&lt;/p&gt;
-
-&lt;h2&gt;정리&lt;/h2&gt;
-
-&lt;p&gt;일단 중요한 부분은 다 정리한 듯. 이외에도 VirtualBox, Vagrant, Pandoc, Tex, python, 등등 설치해야되지만, 필요해지면 설치할 예정.&lt;/p&gt;
 </content>
   </entry>
 </feed>

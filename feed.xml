@@ -5,16 +5,859 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-03-16T15:20:00Z</updated>
+  <updated>2014-03-23T10:40:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>쿡패드(Cookpad) 루비(ruby) 스타일 가이드</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
+    <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
+    <published>2014-03-23T10:40:00Z</published>
+    <updated>2014-03-23T13:56:21+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;이 문서는 Cookpad의 &lt;a href="https://github.com/cookpad/styleguide"&gt;Ruby Style Guide&lt;/a&gt;를 &lt;a href="http://nacyot.com"&gt;nacyot&lt;/a&gt;이 한국어로 번역한 문서입니다. 번역된 문서는 &lt;a href="https://github.com/nacyot/styleguide"&gt;Github 저장소&lt;/a&gt;에서 관리되고 있으며 원본은&lt;a href="https://github.com/cookpad/styleguide"&gt;여기&lt;/a&gt;에서 찾아볼 수 있습니다. 이 문서는 &lt;a href="http://creativecommons.org/licenses/by/3.0/"&gt;cc-by&lt;/a&gt; 라이센스를 따릅니다.&lt;/p&gt;
+
+
+
+&lt;h1&gt;목차&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#ruby-version"&gt;루비(Ruby) 버전&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#indentation"&gt;들여쓰기&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#whitespaces"&gt;공백&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#empty-lines"&gt;빈 행&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#character-encoding-and-magic-comments"&gt;문자 인코딩과 매직 코멘트&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#line-columns"&gt;한 줄의 글자수 제한&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#numbers"&gt;숫자&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#strings"&gt;문자열&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#regular-expressions"&gt;정규표현식&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#arrays"&gt;배열&lt;/a&gt;- &lt;a href="#hashes"&gt;해시&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#operations"&gt;계산식&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#assignments"&gt;대입식&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#control-structures"&gt;제어구조&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#method-calls"&gt;메소드 호출&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#begin-and-end"&gt;BEGIN과 END&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#module-and-class-definitions"&gt;모듈과 클래스 정의&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#method-definitions"&gt;메소드 정의&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#variables"&gt;변수&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1&gt;루비(Ruby) 스타일 가이드&lt;/h1&gt;
+
+&lt;h2&gt;시작하며&lt;/h2&gt;
+
+&lt;p&gt;이 문서는 주식회사 쿡패드(Cookpad)의 루비 코드 표준 스타일을 정의한 문서입니다.
+이 문서에서는 최소한 실력을 갖춘 Ruby 프로그래머라면 누구라도 읽기 쉬운 코드가 되도록 가독성과 일관성에 무게를 둔 스타일을 정의하고 있습니다. &amp;#39;bad&amp;#39;가 붙어있는 예제는 사용해서는 안 되는 표현이 아니라 일관성을 위해 지양해야할 표현입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name="ruby-version"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;루비(Ruby) 버전&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 루비 2.0 이상의 버전을 사용하는 프로젝트에서는 키워드 인수, 심볼 리터럴(&lt;code&gt;%i&lt;/code&gt;)을 비롯한 루비 2.0에서 추가된 기능을 적극 활용한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="indentation"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;들여쓰기&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 한 단계의 들여쓰기는 두 번의 스페이스를 사용한다.들여쓰기에 탭을 사용하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드 체인이 길어진 상황에서 마지막 메소드에 블록을 넘겨야한다면, 마지막 메소드를 받는 리시버를 별도의 로컬 변수에 대입하고 이 변수에 메소드를 호출하면서 블록을 넘겨준다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;posts = Post.joins(:user)
+  .merge(User.paid)
+  .where(created&lt;em&gt;at: target&lt;/em&gt;date)
+posts.each do |post|
+  next if stuff&lt;em&gt;ids.include?(post.user&lt;/em&gt;id)
+  comment_count += post.comments.size
+end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;posts = Post.joins(:user)
+  .merge(User.paid)
+  .where(created&lt;em&gt;at: target&lt;/em&gt;date).each do |post|
+    next if stuff&lt;em&gt;ids.include?(post.user&lt;/em&gt;id)
+    comment_count += post.comments.size
+  end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 식이 완결되지 않고 줄바꿈이 이루어질 때는 줄바꿈된 줄부터는 이전의 행보다 한 단계 더 들여쓴다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;User.active.
+  some&lt;em&gt;scope(foo).
+  other&lt;/em&gt;scope(bar)&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;User.active.
+some&lt;em&gt;scope(foo).
+other&lt;/em&gt;scope(bar)
+```&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="whitespaces"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;공백&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 줄 마지막에 공백을 넣지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="empty-lines"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;빈 행&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 파일 마지막에 빈 행을 넣지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="character-encoding-and-magic-comments"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;문자 인코딩과 매직 코멘트&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 특별한 이유가 없다면 인코딩은 UTF-8을 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 루비 2.0 부터 기본 인코딩이 UTF-8이므로 인코딩 지정을 위한 별도의 매직 코멘트는 사용하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 매직 코멘트를 사용해야 할 때는 아래 형식을 사용한다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;coding: utf-8&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="line-columns"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;한 줄의 글자수 제한&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 특별한 이유가 없다면 한 줄은 80자 이하로 작성한다. 이 때 전각 문자는 2글자로 계산한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 어떠한 경우에도 한 줄은 128자 이하로 작성한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="numbers"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;숫자&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 자리수가 큰 10진수 숫자 리터럴을 사용할 때는 읽기 좋게 3자리마다 밑줄을 넣는다.
+
+&lt;ul&gt;
+&lt;li&gt;예: &lt;code&gt;1_000_000.001_023&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 자리수가 큰 2진수나 16진수를 사용할 때는 읽기 좋게 4자리마다 밑줄을 넣는다.
+
+&lt;ul&gt;
+&lt;li&gt;예: &lt;code&gt;0xABCD_1234&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 16진수를 사용할 때는 알파벳 대소문자 어떤 것을 사용해도 무관하나 하나의 파일에서는 일관성을 지켜서 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 루비 2.1 이후 버전을 사용한다면 분수 표현은 &lt;code&gt;r&lt;/code&gt; 접미사를 사용한다.
+
+&lt;ul&gt;
+&lt;li&gt;예: &lt;code&gt;1/2r #=&amp;gt; (1/2)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; Ruby 2.0.0 이전 버전을 사용한다면 분수 표현은 &lt;code&gt;Integer#quo&lt;/code&gt; 메소드를 사용한다.
+
+&lt;ul&gt;
+&lt;li&gt;예: &lt;code&gt;1.quo(2) #=&amp;gt; (1/2)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; Ruby 2.1 이후 버전을 사용한다면 복수소 표현은 &lt;code&gt;i&lt;/code&gt;나 &lt;code&gt;ri&lt;/code&gt; 접미사를 사용한다.
+
+&lt;ul&gt;
+&lt;li&gt;예: &lt;code&gt;1 + 2i #=&amp;gt; (1+2i)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="strings"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;문자열&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 빈문자열은 &lt;code&gt;&amp;#39;&amp;#39;&lt;/code&gt;을 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 특별한 이유가 없다면 &lt;code&gt;String.new&lt;/code&gt; 메소드로 문자열을 생성하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문자열 안에서 이스케이프 시켄스가 최소화될 수 있도록 적절한 구분문자열을 선택한다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; &lt;code&gt;%&lt;/code&gt; 문법으로 문자열 리터럴을 사용할 때는 괄호를 구분 문자열로 사용한다.이 때 괄호의 종류는 어떤 걸 사용해도 무방하며, 아래와 같은 특별한 경우에는 다른 기호를 구분자로 사용해도 무방하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+OPEN_PARENTHESES = %!({[!    
+&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문자열 보간을 사용할 때 단지 &lt;code&gt;Object#to_s&lt;/code&gt;를 호출하지 않는다.예) &lt;code&gt;&amp;quot;#{obj.to_s}&amp;quot;&lt;/code&gt; -&amp;gt; &lt;code&gt;obj.to_s&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문자열 보간을 사용할 때 중괄호를 생략할 수 있는 경우가 있지만, 생략하지 않고 반드시 중괄호를 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; (Ruby 1.9+) Unicode 문자를 이스케이스 시켄스로 입력할 때는 &lt;code&gt;&amp;quot;\xE3\x8C\xB3&amp;quot;&lt;/code&gt; 방식이 아니라 &lt;code&gt;&amp;quot;\u{3333}&amp;quot;&lt;/code&gt;와 같이 &lt;code&gt;\u&lt;/code&gt;를 사용한다.루비 1.8 버전을 지원해야하는 스크립트라면 적용하지 않는다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 루프에서 문자열 리터럴을 사용하지 말 것.여기서 루프란 &lt;code&gt;while&lt;/code&gt;, &lt;code&gt;until&lt;/code&gt;, &lt;code&gt;for&lt;/code&gt;을 비롯해 &lt;code&gt;each&lt;/code&gt;와 같은 블록을 사용하는 반복자 표현을 의미한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 문자열 리터럴들을 &lt;code&gt;String#+&lt;/code&gt; 메소드를 사용해서 연결하지 않는다.문자열 보간법을 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문자열에 파괴적인 연결 연산자인 &lt;code&gt;+=&lt;/code&gt;를 사용하지 않는다.&lt;code&gt;String#&amp;lt;&amp;lt;&lt;/code&gt; 메소드나 &lt;code&gt;String#concat&lt;/code&gt; 메소드를 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="regular-expressions"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;정규표현식&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 역참조하지 않는 그룹은 사용하지 않는다.&lt;code&gt;(?:...)&lt;/code&gt;을 대신 사용.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 복잡한 정규표현식을 사용할 때는 &lt;code&gt;x&lt;/code&gt; 옵션을 사용해 줄바꿈, 공백, 주석 (&lt;code&gt;(?# ...)&lt;/code&gt;)을 사용해 가독성을 높인다.
+
+&lt;ul&gt;
+&lt;li&gt;자세한 예는 &lt;a href="https://github.com/ruby/ruby/blob/trunk/lib/uri/common.rb#L457"&gt;uri/common.rb 에 정의된 정규표현식&lt;/a&gt;을 참조.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="arrays"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;배열&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 배열 리터럴을 여러 줄로 작성할 때는 &lt;code&gt;[&lt;/code&gt;와 첫번째 요소 사이에 하나의 공백을 두고 요소들의 들여쓰기를 맞춘다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;[ :foo,
+  :bar,
+  :baz
+]&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;[:foo,
+  :bar,
+  :baz
+]
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입식에서 배열 리터럴을 여러 줄에 걸쳐 작성할 때는 &lt;code&gt;[&lt;/code&gt; 뒤에서 줄바꿈하고 요소를 입력하는 줄들은 한단계씩 들여쓰기 하고 배열을 닫는 &lt;code&gt;]&lt;/code&gt;는 별도의 줄에 적는다. 이 때 &lt;code&gt;]&lt;/code&gt;는 &lt;code&gt;[&lt;/code&gt;이 있는 줄의 첫 부분과 들여쓰기를 맞춘다.&lt;/p&gt;
+
+&lt;p&gt;``` ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;array = [
+  :foo,
+  :bar,
+  :baz,
+]&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;array = [ :foo,
+          :bar,
+          :baz, ]&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;array = [ :foo,
+          :bar,
+          :baz,
+        ]&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;array = [
+  :foo,
+  :bar,
+  :baz, ]
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 여러줄로 된 배열 리터럴을 사용할 때는 마지막 요소 다음에도 &lt;code&gt;,&lt;/code&gt;를 입력한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 문자열로만 구성된 배열을 만들 때는 &lt;code&gt;%w(...)&lt;/code&gt;이나 &lt;code&gt;%W(...)&lt;/code&gt; 문법을 사용한다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;words = %w(foo bar baz)&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;words = [&amp;#39;foo&amp;#39;, &amp;#39;bar&amp;#39;, &amp;#39;baz&amp;#39;]
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 빈 배열은 &lt;code&gt;[]&lt;/code&gt;을 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 인수 없이 &lt;code&gt;Array.new&lt;/code&gt; 메소드를 사용하지 않는다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 같은 요소를 &lt;code&gt;n&lt;/code&gt; 개 가진 배열을 초기화할 때는 &lt;code&gt;Array.new(n, obj)&lt;/code&gt;을 사용한다.&lt;code&gt;[obj] * n&lt;/code&gt; 을 사용하지 않는다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 범위(Range) 리터럴을 배열로 변환할 때는 &lt;code&gt;Range#to_a&lt;/code&gt; 메소드를 사용하지 않고, &lt;code&gt;[*range]&lt;/code&gt; 표현을 사용한다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;[*1..10]  #=&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;(1..10).to_a  #=&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="hashes"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;해시&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 해시 리터럴을 한 줄에 작성할 때는 &lt;code&gt;{&lt;/code&gt; 와 첫번째 요소 사이와 마지막 요소와 &lt;code&gt;}&lt;/code&gt; 사이에 각각 하나의 공백을 넣는다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;{ hoge: 1, fuga: 2 }&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;{hoge: 1, fuga: 2}
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 해시 리터럴에서 Symbol을 key로 사용할 때 HashRocket(Ruby 1.8에서 사용되던 &lt;code&gt;=&amp;gt;&lt;/code&gt;을 사용한 표현. 예: &lt;code&gt;{ :foo =&amp;gt; 42 }&lt;/code&gt;)문법을 사용하지 않는다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;{ first: 42,
+  second: &amp;#39;foo&amp;#39;,
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;{ :first =&amp;gt; 42,
+  :second =&amp;gt; &amp;#39;foo&amp;#39;,
+}
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 해시 리터럴의 key가 symbol이지만 &lt;code&gt;.&lt;/code&gt;, &lt;code&gt;-&lt;/code&gt;와 같은 기호를 사용할 때는 HashRokcet 문법만 사용한다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;{ :cookpad =&amp;gt; 42,
+  :&amp;#39;cookpad.com&amp;#39; =&amp;gt; &amp;#39;foo&amp;#39;,
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;{ cookpad: 42,
+  :&amp;#39;cookpad.com&amp;#39; =&amp;gt; &amp;#39;foo&amp;#39;,
+}
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 빈 해시는 &lt;code&gt;{}&lt;/code&gt;를 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 해시만 따로 여러줄에 걸쳐서 작성할 때는 &lt;code&gt;{&lt;/code&gt; 다음에 바로 첫번째 요소를 입력하고, 두번째 요소부터는 한 단계 들여쓰기 한다. &lt;code&gt;}&lt;/code&gt;는 별도의 행에 작성하고, &lt;code&gt;{&lt;/code&gt;를 입력한 줄의 앞부분과 들여쓰기를 맞춘다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;{ first: 42,
+  second: &amp;#39;foo&amp;#39;,
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;{
+  first: 42,
+  second: &amp;#39;foo&amp;#39;,
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;{ first: 42,
+second: &amp;#39;foo&amp;#39;,
+}
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입식에서 해시 리터럴을 여러 줄에 걸쳐서 작성할 때는 &lt;code&gt;{&lt;/code&gt; 뒤에서 줄바꿈하고 각 요소들은 한단계 들여쓰기해서 작성한다. &lt;code&gt;}&lt;/code&gt;는 별도의 줄에 입력하고 &lt;code&gt;{&lt;/code&gt;을 입력한 줄의 앞부분과 들여쓰기를 맞춘다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;hash = {
+  first: 42,
+  second: &amp;#39;foo&amp;#39;,
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;hash = { first: 42,
+         second: &amp;#39;foo&amp;#39;,
+       }&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;hash = { first: 42,
+         second: &amp;#39;foo&amp;#39;,
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;hash = { first: 42,
+  second: &amp;#39;foo&amp;#39;,
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;hash = {
+first: 42,
+second: &amp;#39;foo&amp;#39;,
+}
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 여러 줄로 걸쳐 해시 리터럴을 작성할 때는 마지막 요소 다음에도 &lt;code&gt;,&lt;/code&gt;를 넣는다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 심볼이 문자열보다 검색 속도가 더 빠르므로, 해키 키로는 문자열보다 심볼을 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;```ruby
+  # good
+  { foo: 1, bar: 2 }&lt;/p&gt;
+
+&lt;p&gt;# bad
+  { &amp;#39;foo&amp;#39; =&amp;gt; 1, &amp;#39;bar&amp;#39; =&amp;gt; 2 }
+  ```&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; (Ruby 1.9+) 해시 리터컬의 키가 전부 Symbol 리터럴이면 &lt;code&gt;{ key: value }&lt;/code&gt; 방식을 사용한다.이 때 &lt;code&gt;:&lt;/code&gt; 뒤에 공백을 넣을 것.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="operations"&gt;&lt;/a&gt;## 계산식&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 연산자 양쪽에 모두 공백을 사용할 것.단 &lt;code&gt;**&lt;/code&gt; 연산자를 사용할 때는 양쪽 모두 공백을 넣지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;and&lt;/code&gt;, &lt;code&gt;or&lt;/code&gt;, &lt;code&gt;not&lt;/code&gt;은 사용하지 않는다.
+
+&lt;ul&gt;
+&lt;li&gt;단 &lt;code&gt;式 or raise &amp;#39;message&amp;#39;&lt;/code&gt;과 같이 사용할 때 &lt;code&gt;or&lt;/code&gt;은 사용해도 된다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 조건 연산자를 중첩적으로 사용하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 조건 연산자를 여러줄에 작성하지 않는다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;fizzbuzz = if n % 3 == 0
+    n % 5 == 0 ?&amp;#39;fizzbuzz&amp;#39; : &amp;#39;fizz&amp;#39;
+  else
+    n % 5 == 0 ?&amp;#39;buzz&amp;#39; : &amp;quot;#{n}&amp;quot;
+  end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;fizzbuzz = n % 3 == 0 ?(n % 5 == 0 ?&amp;#39;fizzbuzz&amp;#39; : &amp;#39;fizz&amp;#39;) : (n % 5 == 0 ?&amp;#39;buzz&amp;#39; : &amp;quot;#{n}&amp;quot;)&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;fizzbuzz = n % 3 == 0 ?      (n % 5 == 0 ?&amp;#39;fizzbuzz&amp;#39; : &amp;#39;fizz&amp;#39;) :
+  (n % 5 == 0 ?&amp;#39;buzz&amp;#39; : &amp;quot;#{n}&amp;quot;)
+```&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="assignments"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;대입식&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입 기호(=) 양쪽에는 공백을 넣는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입식에 조건식을 사용하지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="control-structures"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;제어구조&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; &lt;code&gt;if !condition&lt;/code&gt; 대신 &lt;code&gt;unless condition&lt;/code&gt;을 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; &lt;code&gt;while !condition&lt;/code&gt; 대신 &lt;code&gt;until condition&lt;/code&gt;을 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; &lt;code&gt;unless&lt;/code&gt;를 사용할 때는 &lt;code&gt;else&lt;/code&gt;를 사용하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;unless&lt;/code&gt;, &lt;code&gt;case&lt;/code&gt; 조건식을 사용할 때는 줄바꿈을 사용한다.조건식 본문은 조건식과 같은 줄에 입력하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;if&lt;/code&gt;, &lt;code&gt;unless&lt;/code&gt;, &lt;code&gt;case&lt;/code&gt;를 사용할 때는 &lt;code&gt;then&lt;/code&gt;과 &lt;code&gt;:&lt;/code&gt;를 사용하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;while&lt;/code&gt;과 &lt;code&gt;until&lt;/code&gt; 조건식을 사용할 때는 줄바꿈을 사용한다.조건식 본문은 조건식과 같은 줄에 입력하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;while&lt;/code&gt;, &lt;code&gt;until&lt;/code&gt;문을 사용할 때는 &lt;code&gt;do&lt;/code&gt;나 &lt;code&gt;:&lt;/code&gt;를 사용하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; &lt;code&gt;unless&lt;/code&gt;와 &lt;code&gt;until&lt;/code&gt; 조건식에는 &lt;code&gt;||&lt;/code&gt;으로 조건을 연결하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 조건식과 본문 코드가 짧으면 본문 코드 뒤에 조건 변경자를 사용할 것.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 조건식이 여러줄로 길어질 때는 조건을 별도의 메소드로 추출하고 적절한 이름을 붙여 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입식에서 제어구조를 사용해야할 때는 본문 코드를 2단계 들여쓰고 마지막 &lt;code&gt;end&lt;/code&gt;는 본문보다 한단계 덜 들여쓴다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;result = if condition
+    body_code
+  end&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;result =
+  if condition
+    body_code
+  end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;result = if condition
+  body_code
+end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;result = if condition
+           body_code
+         end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; return, next, break가  의미 있는 값을 리턴하지 않을 때는, 각 키워드 뒤에 어떤 식도 작성하지 않는다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;단 컨트롤러의 액션에서 redirect_to나 render와 같은 계속 처리를 선언하는 메소드는 return이나 next 뒤에서 호출해도 무방하다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="method-calls"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;메소드 호출&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드 호출 시 괄호는  경우를 제외하고는 생략하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 인수가 없는 메소드를 호출할 때는 괄호를 생략한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; DSL-like 메소드를 호출할 때는 메소드 호출 시 괄호를 생략해도 무방하다.하지만 첫번째 인수 전체가 괄호로 둘러쌓여있다면 경고가 발생하므로 괄호를 생략하지 않는다.DSL-like 메소드란 아래의 메소드를 의미한다.
+
+&lt;ul&gt;
+&lt;li&gt;p, print, puts, require 등의 글로벌 함수&lt;/li&gt;
+&lt;li&gt;attr_reader이나 private 같은 클래스와 모듈 정의에서 선언적으로 사용되는 메소드(Rails 등의 프레임워크에서 제공하는 것을 포함).&lt;/li&gt;
+&lt;li&gt;redirect_to와 render 등 ActionController가 제공하는 액션에 대해 계속 처리를 선언하는 메소드.&lt;/li&gt;
+&lt;li&gt;이외에 DSL을 위해 준비된 메소드.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;메소드 호출 안에서 메소드를 호출하는 때는 다른 규칙에 위배되지 않는 한에서 가장 바깥의 메소드 호출에서 괄호를 생략해도 무방하다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드 이름과 메소드 호출을 의미하는 괄호 사이에는 공백을 넣지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 인자 마지막에 해시 리터럴을 사용할 때는 해시 리터럴 괄호를 생략한다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;foo(1, 2, foo: :bar, baz: 42)&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;foo(1, 2, { foo: :bar, baz: 42 })
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 블록의 리턴값이 의미를 가지지 않는 메소드를 호출할 때는 &lt;code&gt;do&lt;/code&gt;/&lt;code&gt;end&lt;/code&gt; 방식으로 블록을 사용한다.예) 블록에서 부작용을 일으킬 때(변수 변환 등).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 블록의 리턴값이 의미를 가지는 메소드를 호출할 때는 중괄호를 사용해 블록을 사용한다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;puts [1, 2, 3].map {|i|
+  i * i
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;puts [1, 2, 3].map do |i|
+  i * i
+end&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].map {|n|
+  n * n
+}.each {|n|
+  puts Math.sqrt(n)
+}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].map do |n|
+  n * n
+end.each do |n|
+  puts Math.sqrt(n)
+end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 블록을 사용하는 메소드 호출을 한 줄로 작성할 때는 중괄호를 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;do&lt;/code&gt;/&lt;code&gt;end&lt;/code&gt;를 사용할 때는 &lt;code&gt;do 앞뒤로 공백을 넣으며, 블록 인자 뒤에 줄바꿈을 넣고&lt;/code&gt;end&lt;code&gt;는 독립된 행으로 작성한다.블록 본문은 한 단계 들여쓰며&lt;/code&gt;end`의 들여쓰기는 메소드를 호출하는 첫 행에 맞춘다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].each do |num|
+  puts num
+end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].each do |num|
+    puts num
+  end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].each do |num|
+                 puts num
+               end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].each do |num| puts num end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 중괄호를 사용하는 블록은 &lt;code&gt;{&lt;/code&gt; 앞에 공백을 하나 사용한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 중괄호를 사용하는 블록을 한 줄에 작성하는 경우 &lt;code&gt;{&lt;/code&gt;이나 블록 인자와 본문 코드, 본문 코드와 &lt;code&gt;}&lt;/code&gt; 사이에 공백을 하나씩 넣는다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].each {|num| puts num }
+[1, 2, 3].each { |num| puts num }&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].each {|num| puts num}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;[1, 2, 3].each { |num| puts num}&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;10.times { puts &amp;#39;Hello world&amp;#39; }&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;10.times {puts &amp;#39;Hello world&amp;#39; }&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;10.times {puts &amp;#39;Hello world&amp;#39;}&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;10.times { puts &amp;#39;Hello world&amp;#39;}
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 메소드를 호출할 때 인자가 길어지면 아래의 규칙에 따라 여러 줄에 나눠서 작성한다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;인자가 길어지면 &lt;code&gt;(&lt;/code&gt; 바로 다음에 줄바꿈을 넣고 다음 행부터 들여쓰기를 한 단계 깊게 한 행에 하나의 인자를 작성한다. 메소드 호출을 닫을 때는 들여쓰기를 첫 줄과 마찬가지로 하고 &lt;code&gt;)&lt;/code&gt;를 별도의 줄에 작성한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+  Foo.new(
+    arg,
+    long_argument,
+    key: value,
+    long_key: long_value,
+    pretty_so_much_very_long_key:
+      pretty_so_much_very_tooooooooooooooooooooo_long_value,
+  )
+&lt;/code&gt;
+- 인자가 짧을 때는 &lt;code&gt;(&lt;/code&gt;에 이어서 첫번째 인자를 작성하고, 다음 줄부터는 들여쓰기을 첫번째 인자에 맞추서 인자들을 하나씩 작성한다. 메소드 호출을 마칠 때는 &lt;code&gt;)&lt;/code&gt;을 마지막 인자 바로 다음에 적는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+  Foo.new(arg,
+          long_argument,
+          key: value,
+          long_key: long_value)
+&lt;/code&gt;
+- DSL 메소드를 여러 줄에 걸쳐서 작성할 때는 첫번째 인수를 메소드 이름 바로 뒤에 적고, 다음 줄부터 들여쓰기를 한단계 깊게 인수를 한 줄에 하나씩 작성한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ruby
+  ActionMailer::Base.delivery_method :smtp,
+      host: &amp;#39;localhost&amp;#39;,
+      port: 25
+&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="begin-and-end"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;BEGIN과 END&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;BEGIN&lt;/code&gt; 블록과 &lt;code&gt;END&lt;/code&gt; 블록은 사용하지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="module-and-class-definitions"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;모듈과 클래스 정의&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드에 별칭을 붙일 때는 &lt;code&gt;alias&lt;/code&gt;를 사용하지 말고 &lt;code&gt;alias_method&lt;/code&gt;를 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;attr&lt;/code&gt;을 사용하지 말고 &lt;code&gt;attr_accessor&lt;/code&gt;, &lt;code&gt;attr_reader&lt;/code&gt;, &lt;code&gt;attr_writer&lt;/code&gt;을 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 클래스 메소드를 정의할 때는 의미없이 들여쓰기가 깊어지지 않도록 &lt;code&gt;self.&lt;/code&gt; 문법을 사용한다.하지만 private 메소드와 public 메소드를 모두 사용할 때는 &lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt; 를 사용해도 무방하다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class Foo
+  # good
+  def self.foo
+  end&lt;/p&gt;
+
+&lt;p&gt;# bad
+  def Foo.foo
+  end
+end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; private와 protected 클래스 메소드를 정의할 때는 &lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt; / &lt;code&gt;end&lt;/code&gt; 안에서 메소드를 정의하고 가시성을 변경한다.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;```ruby
+    class Foo
+      # good
+      class &amp;lt;&amp;lt; self
+        def foo
+        end
+        private :foo
+      end&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  # bad
+  def self.foo
+  end
+  class &amp;lt;&amp;lt;self
+    private :foo
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드가 정의되어있을 때 메소드 이름을 인수로 &lt;code&gt;private&lt;/code&gt;나 &lt;code&gt;protected&lt;/code&gt;나 &lt;code&gt;public&lt;/code&gt; 메소드를 호출해 메소드의 가시성을 변경할 때는 메소드 정의와 가시성 변경 메소드 사이에 빈 줄을 두지 않는다.&lt;/p&gt;
+
+&lt;p&gt;```ruby
+class Foo
+  # good
+  def foo
+  end
+  private :foo&lt;/p&gt;
+
+&lt;p&gt;# bad
+  def foo
+  end&lt;/p&gt;
+
+&lt;p&gt;private :foo
+end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;private&lt;/code&gt;나 &lt;code&gt;protected&lt;/code&gt;나 &lt;code&gt;public&lt;/code&gt;을 인수 없이 사용할 때는 들여쓰기를 메소드 정의와 같게 하고 메소드 호출 앞뒤로 한 줄을 띄워준다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;class Foo
+  def foo
+  end&lt;/p&gt;
+
+&lt;p&gt;private&lt;/p&gt;
+
+&lt;p&gt;def bar
+  end
+end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;class Foo
+  def foo
+  end&lt;/p&gt;
+
+&lt;p&gt;private&lt;/p&gt;
+
+&lt;p&gt;def bar
+  end
+end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;class Foo
+  def foo
+  end&lt;/p&gt;
+
+&lt;p&gt;private&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def bar
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;class Foo
+  def foo
+  end&lt;/p&gt;
+
+&lt;p&gt;private
+  def bar
+  end
+end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 외부에 노출되는 클래스와 모듈의 메소드 및 변수에 대한 문서는 Markdown으로 작성한다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문서화를 위한 주석과 메소드 정의 사이에 빈 줄을 넣지 않는다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문서화는 &lt;a href="http://tomdoc.org/"&gt;TomDoc&lt;/a&gt; 포맷을 따른다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 하나의 클래스를 여러가지 목적으로 사용하지 않는다.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="method-definitions"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;메소드 정의&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드를 정의할 때 인수 리스트의 괄호는 생략하지 않는다.인수가 없는 메소드를 정의할 때는 괄호를 사용하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드와 인수 리스트의 괄호 사이에는 공백을 넣지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 메소드 본문에 주석을 필요한 코드를 작성하지 않는다.
+
+&lt;ul&gt;
+&lt;li&gt;메소드 본문에 주석을 남기기보단 별도의 메소드로 추출해서 이름을 붙이는 게 가독성을 향상시킨다.&lt;/li&gt;
+&lt;li&gt;수식에 대한 보충이나 출처는 본문에 주석을 남겨도 무방하다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 하나의 메소드로 여러가지 일을 하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 인수를 삭제하지 않는다.&lt;/p&gt;
+
+&lt;p&gt;```ruby&lt;/p&gt;
+
+&lt;h1&gt;good&lt;/h1&gt;
+
+&lt;p&gt;def your&lt;em&gt;method(str)
+  new&lt;/em&gt;str = str.sub(&amp;#39;xxx&amp;#39;, &amp;#39;yyy&amp;#39;)
+end&lt;/p&gt;
+
+&lt;h1&gt;bad&lt;/h1&gt;
+
+&lt;p&gt;def your_method(str)
+  str.sub!(&amp;#39;xxx&amp;#39;, &amp;#39;yyy&amp;#39;)
+end
+```&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a name="variables"&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;변수&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 글로별 변수를 (&lt;code&gt;$foo&lt;/code&gt;) 임의로 정의하지 않는다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 클래스 변수(&lt;code&gt;@@foo&lt;/code&gt;)를 사용하지 않는다. 클래스 변수 대신 &lt;code&gt;class_attribute&lt;/code&gt;를 사용한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 변수 이름에는 영어 단어를 생략해서 사용하지 않는다.단, 변수명이 너무 길어질 때는 단어의 첫문자를 제외한 모음을 생략하거나 일반적인 약어를 사용해도 무방하다.관습적인 변수 이름인 &lt;code&gt;i&lt;/code&gt;나 &lt;code&gt;j&lt;/code&gt;와 같은 변수는 사용해도 좋다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 하나의 변수를 여러 가지 용도로 사용해서는 안 된다.이러한 경우엔 메소드를 분리한다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 지역 변수 스코프(유효범위)를 가능하면 작게 만든다.지역 변수가 존재하지 않는 메소드가 좋은 메소드이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;이 외(분류하기 어려운 규칙)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 파괴적인 메소드를 사용할 때는 그 영향 범위를 최소한으로 한정한다.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
     <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
     <published>2014-03-16T15:20:00Z</published>
-    <updated>2014-03-16T15:42:53+00:00</updated>
+    <updated>2014-03-23T13:56:21+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -103,7 +946,7 @@ git filter-branch --tree-filter &amp;#39;rm -rf path/to/your/file&amp;#39; HEAD
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/"/>
     <id>http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/</id>
     <published>2014-03-11T16:15:32Z</published>
-    <updated>2014-03-16T15:42:53+00:00</updated>
+    <updated>2014-03-23T13:56:21+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -258,7 +1101,7 @@ M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;g
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/"/>
     <id>http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/</id>
     <published>2014-02-10T15:16:00Z</published>
-    <updated>2014-03-16T15:42:53+00:00</updated>
+    <updated>2014-03-23T13:56:21+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -455,7 +1298,7 @@ Usage ./boot2docker {init|start|up|pause|stop|restart|status|info|delete|ssh|dow
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-github-hook-api-slack-sample/</id>
     <published>2014-01-30T08:30:00Z</published>
-    <updated>2014-03-16T15:42:53+00:00</updated>
+    <updated>2014-03-23T13:56:21+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -694,7 +1537,7 @@ curl -u &amp;lt;USER_NAME&amp;gt; https://api.github.com/repos/&amp;lt;USER_NAME
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/"/>
     <id>http://blog.nacyot.com/articles/2014-01-30-deploying-application-with-dokku/</id>
     <published>2014-01-29T16:30:00Z</published>
-    <updated>2014-03-16T15:42:53+00:00</updated>
+    <updated>2014-03-23T13:56:21+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1081,478 +1924,6 @@ include /home/dokku/*/nginx.conf;
 &lt;p&gt;지금까지 도쿠를 통해 샘플 어플리케이션을 배포해보고, 배포가 어떻게 이루어지는 지 간략하게 살펴보았습니다. 이제 도쿠가 어떻게 돌아가는지 감이 좀 잡히시나요? 실제 서비스 운용을 위한 용도는 아닙니다만, 도커와 도쿠를 개인 서버는 물론 KT cloud와 SKT T developes VM, Amazon EC2 마이크로 인스턴스에도 올려봤습니다만 신기할 정도로 잘 돌아갑니다. 이렇게 쉽게(?) 내 손 안에 히로쿠가 올라오다니 신기할 따름입니다.&lt;/p&gt;
 
 &lt;p&gt;이번에는 도쿠의 원리를 가볍게 보여드리고자 샘플 어플리케이션을 배포해보았습니다만, (언제가 될 지 기약은 없습니다만) 다음 글에서는 레일즈4 어플리케이션을 도쿠를 통해 배포하면서 데이터베이스를 연동하고 빌드 과정에서 생길 수 있는 문제와 이를 해결하기 위해 buildstep과 buildpack을 간단히 커스터마이징 해보겠습니다.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>도커(Docker) 튜토리얼 : 깐 김에 배포까지</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"/>
-    <id>http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/</id>
-    <published>2014-01-27T03:00:00Z</published>
-    <updated>2014-03-16T15:42:53+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.&lt;/p&gt;
-
-&lt;p&gt;이런 가운데 가상 머신의 단점은 극복하면서 장점만을 극대화하기 위한 최적화가 계속해서 이루어지고 있습니다. 도커 역시 이런 단점을 극복하기 위해서 나온 가상화 어플리케이션입니다. 도커는 단순한 가상 머신을 넘어서 어느 플랫폼에서나 재현가능한 어플리케이션 컨테이너를 만들어주는 걸 목표로 합니다. LXC(리눅스 컨테이너)라는 독특한 개념에서 출발하는 Docker의 가상화는 기존에 운영체제를 통째로 가상화하는 것과는 접근 자체를 달리합니다. 가상 머신이라고 하기에는 격리된 환경을 만들어주는 도구라고 하는 게 맞을 지도 모릅니다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어 보죠. 우분투에서 CentOS라는 Docker를 통해 가상 환경을 구축하는데 얼마만큼의 시간이 걸릴까요? 먼저 여기서는 Ubuntu 상에서 작업을 한다고 가정하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ cat /etc/issue
-Ubuntu 13.10 \n \l
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;실제로 도커는 LXC를 사용하기 때문에 특정 리눅스 배포판에서 사용할 수 있고, 윈도우나 맥에서는 사용이 불가능합니다. Docker가 설치되어 있다는 가정 하에 Ubuntu에서 CentOS 가상 머신을 띄우는 데는 아래 두 명령어만 실행시키면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker pull centos
-$ docker run -rm -i -t centos:6.4 /bin/bash
-bash-4.1#
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;먼저 위의 pull 명령어를 통해서 centos 이미지를 다운로드 받습니다. 그리고 이 이미지에 쉘 명령어를 실행시킵니다. 이걸로 끝입니다. 먼저 첫번째 명령어를 실행시키는데 제 컴퓨터에서 12초 정도가
-걸렸습니다. 아래 명령어를 실행시키는데 0.3초가 걸리지 않았습니다. 쉘이 실행되면 bash 쉘로 바뀐 것을 알 수 있습니다. 실제로 CentOS인지 확인해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-bash-4.1# cat /etc/issue
-CentOS release 6.4 (Final)
-Kernel \r on an \m
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;어떻게 이런 일이 가능할까요? 원리적인 부분은 이미 좋은 문서들이 있습니다. 한국어로 된 좋은 자료로는 Deview 2013에서 김영찬 님이 발표하신 &lt;a href="http://deview.kr/2013/detail.nhn?topicSeq=45"&gt;이렇게 배포해야 할까? - Lightweight Linux Container Docker 를 활용하여 어플리케이션 배포하기&lt;/a&gt; 세션과 xym 님이 쓴 &lt;a href="http://spoqa.github.io/2013/11/22/docker-the-cloud.html"&gt;docker the cloud&lt;/a&gt;를 추천합니다. 하지만 분명한 건 VMWare를 사용한다고 해서 가상화 기술에 빠삭해야하는 것이 아니듯이, Docker 역시 기본적으로는 툴이라는 사실을 이해해야합니다. 제 생각에 도커의 원리를 이해하는 것도 중요하지만, 막상 이 도구를 사용하는 동안엔 컨테이너와 이미지의 차이를 이해하는 게 더 중요하고, Dockerfile을 만들어 자신만의 배포 프로세스를 저장하는 법을 익히는 게 더 중요합니다.&lt;/p&gt;
-
-&lt;p&gt;이 글에서는 바로 이러한 시점에서 개발 환경이자 배포 툴로써의 도커를 이해하기 위한 개념들을 소개하고 모니위키 어플리케이션을 도커로 설치하는 부분까지 다뤄보도록 하겠습니다. 각 부분에 대한 좀 더 자세한 이야기는 기회가 된다면 따로 다뤄보도록 하죠.&lt;/p&gt;
-
-&lt;h2&gt;설치&lt;/h2&gt;
-
-&lt;p&gt;각 운영체제 별 Docker의 설치 방법은 공식 홈페이지에 잘 정리되어 있습니다. 제가 사용하는 Ubuntu의 경우에는 Docker에서 제공하는 스크립트 파일 하나를 통해서 원큐에 정말 쉽게 Docker를 설치할 수 있습니다. 가상 머신에서도 설치가 가능하니, 가능하다면 Ubuntu 환경을 사용하길 권장합니다. 네, 글을 쓰는 편의상.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-curl -s https://get.docker.io/ubuntu/ | sudo sh
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;단, 당연히 curl이 설치 되어있어야합니다.[^1] 1월 현재 12.04 / 13.10에서도 같은 방법으로 설치가 가능했습니다만, 설치 과정에 문제가 있거나 다른 운영체제를 사용하시는 경우엔 설치 문서를 꼼꼼히 읽어보시고 진행해나가시기 바랍니다. 설치가 끝나면 설치가 잘 됐나 확인해봅니다.&lt;/p&gt;
-
-&lt;p&gt;[^1]: &lt;code&gt;curl&lt;/code&gt;이 없다면 &lt;code&gt;sudo apt-get curl&lt;/code&gt;로 설치하시면 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker -v
-Docker version 0.7.6, build bc3b2ec
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Wow! 훌륭합니다. 필요하다면 ufw(방화벽) 설정을 통해서 도커가 사용하는 4243/tcp 포트도 열어줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-sudo ufw allow 4243/tcp
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;기본적으로 docker의 대부분의 명령어를 실행 시 root 권한이 필요합니다. 따라서 sudo를 사용해야하는 번거로움이 따라오는데, 이를 위해 현재 유저를 docker 그룹에 포함시켜 줍니다. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ sudo groupadd docker
-$ sudo gpasswd -a ${USER} docker
-$ sudo service docker restart
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;명령어들을 실행하고 재로그인을 하게 되면 더 이상 sudo 명령어를 앞에 붙이지 않아도 docker 명령을 사용할 수 있습니다. 단, 이 방법을 사용할 경우엔, 공식 문서에서도 경고하고 있듯이 docker group은 root와 같은 권한 가지고 있다는 사실을 인지하고 있어야합니다.&lt;/p&gt;
-
-&lt;h2&gt;이미지(Image)&lt;/h2&gt;
-
-&lt;p&gt;설치만 끝났다면, 이제 끝이 보입니다. 대단해보이지만 정말 별 게 없습니다. 먼저 도커를 시작하면 이미지 개념을 이해할 필요가 있습니다. 처음에 보여드린 예제를 보면 centos 이미지를 다운로드 받고, 이 이미지에 shell을 실행시킵니다. 그런데 여기에 약간의 함정이 있습니다. Docker에서 실제로 실행되는 건 이미지가 아닙니다! 이미지는 추상적인 개념입니다. 실행되는 건 이미지를 기반으로 생성된 컨테이너입니다. 먼저 어떤 일이 일어나는지 확인해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;먼저 &lt;code&gt;docker images&lt;/code&gt; 명령어로 시스템에 어떤 이미지가 있는지 확인해보죠. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;docker images 명령어는 현재 시스템에서 사용가능한 이미지 일람을 보여줍니다. 이미지가 어디서 오는지 궁금하게 느껴지실지도 모릅니다. 이미지는 크게 세 가지 방법을 통해서 추가할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;하나는 처음 예제에서와 마찬가지로 &lt;code&gt;docker pull &amp;lt;이미지 이름&amp;gt;&lt;/code&gt;을 통해서 가져오는 방법입니다. 바로 이 명령어를 사용하면 docker.io의 공식 저장소에서 이미지를 다운로드 받아옵니다. 쉘을 활용하는 개발자라면 이런 개념이 낯설지는 않을 것입니다. 리눅스에서 &lt;code&gt;apt-get&lt;/code&gt;이나 &lt;code&gt;yum&lt;/code&gt; 혹은 &lt;code&gt;gem&lt;/code&gt;이나 &lt;code&gt;pip&lt;/code&gt;, &lt;code&gt;cpan&lt;/code&gt;, &lt;code&gt;npm&lt;/code&gt; 같은 명령어를 사용해보셨다면 바로 이해하실 수 있을 겁니다. 이런 유틸리티를 사용해본 적이 없다고 하더라도 마찬가지 개념으로 docker 이미지 파일들을 관리하는 중앙 저장소가 있다고 이해하셔도 무방합니다. 독특한 점은 &lt;code&gt;intsall&lt;/code&gt;이 아닌 &lt;code&gt;pull&lt;/code&gt; 명령어를 사용한다는 점입니다. 이에 대해서는 개념적으로 VCS(버전 관리 시스템)을 알고 계신다면 추가적인 설명이 필요없겠습니다만, 어쨌거나 단순히 다운로드라고 이해하셔도 현재 단계에서는 무방합니다.&lt;/p&gt;
-
-&lt;p&gt;(두 번째 방법 커밋을 하는 방법입니다. 아래에서 설명합니다. 또 다른 방법은 Dockerfile을 통해서 기술된 과정을 거쳐 도커 이미지를 생성하는 방법입니다. 이에 대해서는 맨 마지막에 자세히 다룹니다.)&lt;/p&gt;
-
-&lt;p&gt;여기서는 편의상 ubuntu 이미지를 다운로드 받아오겠습니다. 이 이미지에 대한 정보는 웹을 통해서 확인하실 수 있습니다. 공식 저장소에 있는 이미지 정보들은 https://index.docker.io에서 확인할 수 있으며 우분투 이미지에 관해서는 &lt;a href="https://index.docker.io/_/ubuntu/"&gt;이 페이지&lt;/a&gt;에서 찾을 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker pull ubuntu
-Pulling repository ubuntu
-04180f9bd8a6: Download complete
-1e548c932d40: Download complete
-5e94ff221e91: Download complete
-b750fe79269d: Download complete
-3e47bae8d07a: Download complete
-43461fe97ba1: Download complete
-8dbd9e392a96: Download complete
-511136ea3c5a: Download complete
-27cf78414709: Download complete
-46e4dee27895: Download complete
-86f6383454b4: Download complete
-7a4f87241845: Download complete
-1957a8106a4c: Download complete
-b74728ce6435: Download complete
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;도커가 무언가를 열심히 다운로드 받습니다. 사실 이것들 하나하나가 이미지라는 것을 이해할 필요가 있습니다. 우분투 하나를 설치했을 뿐인데, 무려 14개의 이미지를 다운로드 받았습니다. 다운로드가 전부 끝났으면 이제 다시 이미지들을 확인해봅니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-ubuntu              saucy               43461fe97ba1        3 days ago          144.6 MB
-ubuntu              raring              5e94ff221e91        3 days ago          133.6 MB
-ubuntu              quantal             3e47bae8d07a        3 days ago          127.6 MB
-ubuntu              lucid               04180f9bd8a6        3 days ago          139.6 MB
-ubuntu              precise             1e548c932d40        3 days ago          125.9 MB
-ubuntu              12.04               8dbd9e392a96        9 months ago        128 MB
-ubuntu              latest              8dbd9e392a96        9 months ago        128 MB
-ubuntu              12.10               b750fe79269d        10 months ago       175.3 MB
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;그런데 저는 위에서 다운로드 받은 것들 하나하나가 이미지라고 얘기했는데 이상하게도 다운받은 이미지수와 실제로 출력되는 이미지 수가 맞지 않습니다. 이를 확인하기 위해서는 이번엔 &lt;code&gt;-a&lt;/code&gt; 플래그를 통해서 모든 이미지를 출력해보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-ubuntu              saucy               43461fe97ba1        3 days ago          144.6 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              86f6383454b4        3 days ago          0 B
-ubuntu              raring              5e94ff221e91        3 days ago          133.6 MB
-ubuntu              quantal             3e47bae8d07a        3 days ago          127.6 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              1957a8106a4c        3 days ago          0 B
-ubuntu              lucid               04180f9bd8a6        3 days ago          139.6 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              7a4f87241845        3 days ago          0 B
-ubuntu              precise             1e548c932d40        3 days ago          125.9 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              46e4dee27895        5 weeks ago         0 B
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              b74728ce6435        5 weeks ago         0 B
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              511136ea3c5a        7 months ago        0 B
-ubuntu              12.04               8dbd9e392a96        9 months ago        128 MB
-ubuntu              latest              8dbd9e392a96        9 months ago        128 MB
-ubuntu              12.10               b750fe79269d        10 months ago       175.3 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              27cf78414709        10 months ago       175.3 MB
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;-a&lt;/code&gt;(&lt;code&gt;-a=false: show all images&lt;/code&gt;) 플래그는 이미지를 빌드하는 과정에서 생성되는 모든 이미지를 보여줍니다. 자세히 보시면 저장소(Repository)가 &lt;code&gt;&amp;lt;none&amp;gt;&lt;/code&gt;인 이미지들이 존재하는 것을 알 수 있습니다. &lt;code&gt;-a&lt;/code&gt; 플러그의 설명에서 알 수 있듯이 이 이미지들은 최종적인 이미지를 생성하는 과정에서 생성되는 중간 이미지들입니다. 나머지 다수의 우분투 이미지들은 TAG에서 보시듯이 다양한 버전의 이미지가 등록된 것을 알 수 있습니다.&lt;/p&gt;
-
-&lt;h2&gt;컨테이너(Container)&lt;/h2&gt;
-
-&lt;p&gt;다시 한 번 특정 이미지의 쉘에 접근해보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker run -i -t ubuntu:12.04 /bin/bash
-root@8bfd70fe7392:/#
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;우분투 안에 우분투에 접속하는데 성공했습니다! 짝짝짝. 그런데 앞서 말씀드렸다싶이 &lt;strong&gt;이미지에 접속했다&lt;/strong&gt;는 말에는 함정이 있습니다. 이 말은 마치 가상머신 ssh 프로토콜을 사용해 접근한 것과 같은 착각을 일으킵니다. 이제 새로운 명령어를 하나 배워보도록 하겠습니다. 앞서서 우리가 사용한 사용가능한 이미지들을 확인하는 명령어는 &lt;code&gt;docker images&lt;/code&gt;입니다. 이번에 사용할 명령어는 현재 실행중인 컨테이너들을 출력하는 명령어 &lt;code&gt;docker ps&lt;/code&gt;입니다. 별도의 쉘이나 터미널을 열고 &lt;code&gt;docker ps&lt;/code&gt; 실행시켜보시기 바랍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-0fae5858c9c0        ubuntu:12.04        /bin/bash           8 seconds ago       Up 7 seconds                            sleepy_nobel
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;8초전에 만들어진 컨테이너가 실행되고 있는 것을 알 수 있습니다. 여기서 우리가 실행한 컨테이너 정보를 알 수 있습니다. 우리는 &lt;code&gt;ubuntu:12.04&lt;/code&gt; 이미지로부터 컨테이너를 생성했고, 이 컨테이너에 &lt;code&gt;/bin/bash&lt;/code&gt;라는 쉘을 실행시켰습니다. 그 외에도 맨 앞의 컨테이너 아이디는 앞으로 Docker에서 컨테이너를 조작할 때 사용하는 컬럼이기 때문에 필수적으로 알아둘 필요가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;유난처럼 느껴질지도 모릅니다만, 이미지와 컨테이너를 정확하게 짚고 넘어갈 필요가 있습니다. 하지만 그렇다고 이미지와 컨테이너 개념은 아주 헷갈리는 개념인 것은 아닙니다. 단지 이미지는 추상적인 존재라는 것을 이해하실 필요가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;또한 위의 예제에서는 직접 명령어를 넘겨서 이미지를 컨테이너로 실행시켰습니다만, 보통 이미지들은 자신이 실행할 명령어들을 가지고 있습니다. 예를 들어 레디스, 마리아DB, 루비 온 레일즈 어플리케이션을 담고 있는 이미지라면, 각각의 어플리케이션을 실행하는 스크립트를 실행하게되겠죠. 컨테이너는 독립된 환경에서 실행됩니다만, 컨테이너의 기본적인 역할은 이 미리 규정된 명령어를 실행하는 일입니다. 이 명령어가 종료되면 컨테이너도 종료 상태(Exit)에 들어갑니다. 이러한 죽은 컨테이너의 목록까지 확인하려면 &lt;code&gt;docker ps -a&lt;/code&gt; 명령어를 사용하면 됩니다. 실제로 쉘을 종료하고 컨테이너 목록을 확인해보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-root@d02cd092f62d:/# exit
-exit
-$ docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-e2af61348652        ubuntu:12.04        /bin/bash           2 minutes ago       Exit 0                                  nostalgic_fermi  
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;상태(Status) 컬럼에서 확인할 수 있듯이 컨테이너가 임종하셨습니다. 이번엔 &lt;code&gt;restart&lt;/code&gt; 명령어를 통해 이미지를 되살려보겠습니다. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker restart e2af613
-e2af613
-$ sudo docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-e2af61348652        ubuntu:12.04        /bin/bash           4 minutes ago       Up 6 seconds                            nostalgic_fermi  
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;컨테이너가 되살아났습니다! 하지만 쉘이 실행되지는 않습니다. 컨테이너 속으로 들어가기 위해서는 &lt;code&gt;attach&lt;/code&gt; 명령어를 사용할 필요가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker attach e2af613
-root@e2af61348652:/#
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;다시 docker 컨테이너 안으로 들어왔습니다! WoW! 부활의 기적을 여기서 만나는군요. 여기까지 도커 컨테이너의 생명 주기를 보았습니다. 도커 컨테이너를 실행시키는 &lt;code&gt;run&lt;/code&gt;부터 실행이 종료되었을 때 다시 실행하는 &lt;code&gt;restart&lt;/code&gt;를 배웠습니다. 이 외에도 실행을 강제로 종료시키는 &lt;code&gt;stop&lt;/code&gt; 명령어도 있으며, 종료된 컨테이너를 영면으로 이끌어주는 &lt;code&gt;rm&lt;/code&gt; 명령어도 있습니다. 잠시 기억을 더듬어 올라가 이 글의 아주 처음에 &lt;code&gt;run&lt;/code&gt; 명령어와 함께 사용한 &lt;code&gt;-rm&lt;/code&gt; 플래그는 컨테이너가 종료 상태로 들어가면 자동으로 삭제를 해주는 옵션입니다.&lt;/p&gt;
-
-&lt;p&gt;네, 다시 한 번 이야기합니다. 이미지에는 접속한다는 개념이 없습니다. 실제로 실행되는 &lt;strong&gt;가상 머신&lt;/strong&gt;은 항상 컨테이너입니다. 분명 저는 &amp;#39;명령어&amp;#39;를 실행시킨다고 했습니다만, 컨테이너란 격리된 환경에서 특정한 명령을 실행시켜주는 가상 머신과 같은 무언가입니다. 그렇다면 쉘을 실행시키지 않았을 때 이 가상 머신을 조작할 수 있는 방법이 있을까요? 원론적으로 불가능한 것은 아닙니다. 이 부분에 대해서 여기선 다루지 않습니다만, 직접 파일 시스템을 조작할 수도 있고, 리눅스 컨테이너를 조작해 특정 컨테이너에 대해 쉘을 실행시킬 수도 있습니다. 하지만 좀 더 정상적인 방법은 조작이 필요한 컨테이너에 ssh 서비스를 올려서 ssh 프로토콜로 접근하는 방법입니다. 실제 도커로 서비스를 운영하면 이런 부분이 절실할 날이 오겠지만, 일단은 그렇구나 하고 넘어가셔도 무방합니다.&lt;/p&gt;
-
-&lt;h2&gt;버전 관리 시스템과 도커&lt;/h2&gt;
-
-&lt;p&gt;다시 이미지로 돌아가겠습니다. 누누이 강조하지만 이미지와 컨테이너는 다릅니다. 좋습니다. 그렇다면 한가지 질문을 던져보죠. 그렇다면 이 컨테이너를 지지고 볶고 삶고 데치고 하면 이미지는 어떻게 될까요?&lt;/p&gt;
-
-&lt;p&gt;당연히 이미지에는 아무런 변화도 생기지 않습니다. 아주 세속적인 예를 들어보면 윈도우 CD로 윈도우를 설치해서 사용한다고 해서 설치한 윈도우 CD에 어떤 변화가 생기지는 않는 것과 같은 이치입니다. 이미지는 어디까지나 고정된 이미지입니다. 도커에서 이미지는 불변(Immutable)하는 저장 매체입니다. 그런데 도커에서 이미지는 불변이지만 이 이미지 위에 무언가를 더해서 새로운 이미지를 만들어내는 일이 가능합니다. 좀 더 정확히 말하면 컨테이너는 변경가능(Mutabe)합니다. 특정한 이미지로부터 생성된 컨테이너에 어떤 변경사항을 더하고, 이 변경된 상태를 이미지로 만들어내는 것이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;앞서 실행한 컨테이너에 Git을 설치해보겠습니다. 위에서 실행한 쉘에 다음과 같은 명령어를 입력합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-root@e2af61348652:/# apt-get install -y git
-...
-root@e2af61348652:/# git --version
-git version 1.7.9.5
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;우분투의 패키지 관리자인 apt-get을 통해서 버전 관리 시스템인 &lt;code&gt;Git&lt;/code&gt;을 설치했습니다. 여기서 도커는 마치 자신이 VCS인양, 어떤 컨테이너와 이 컨테이너의 부모 이미지 간의 파일의 변경사항을 확인할 수 있는 명령어를 제공합니다. 마치 &lt;code&gt;git diff&lt;/code&gt; 명령어로 프로젝트의 변경사항을 확인하듯이, &lt;code&gt;docker diff&lt;/code&gt; 명령어로 부모 이미지와 여기서 파생된 컨테이너의 파일 시스템 간의 변경사항을 확인할 수 있습니다. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker diff e2af61
-A /.bash_history
-A /.wh..wh.plnk/310.4862541
-A /.wh..wh.plnk/93.4862548
-C /bin
-A /bin/less
-...
-C /var/log/alternatives.log
-C /var/log/apt
-A /var/log/apt/history.log
-A /var/log/apt/term.log
-C /var/log/dpkg.log
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이제 기본 우분투 12.04 이미지에 Git가 설치된 새로운 이미지를 생성해보도록 하겠습니다. 이 작업도 VCS와 매우 비슷합니다. 도커에서는 이 작업을 &lt;code&gt;commit&lt;/code&gt;이라고 합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker commit e2af61 ubuntu:git
-5ff1d6b1c5db272c3f1a88c96f78146ed48d18848f0a10e6aefa066b462ff5ee
-$ docker images | grep git
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-ubuntu              git                 5ff1d6b1c5db        About a minute ago   222.3 MB
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이미지 만들기 정말 쉽죠? 단지 커밋을 하고 뒤에 이름을 붙여주면 바로 새로운 도커 이미지가 생성됩니다. 이미지로부터 컨테이너를 실행시키고 이 컨테이너의 수정사항을 통해서 새로운 이미지를 만들었습니다. 그렇다면 정말로 이 이미지를 통해서 컨테이너를 실행시키면(&lt;code&gt;run&lt;/code&gt;) git가 실해될까요? 직접 확인해보죠.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker run -i -t ubuntu:git /bin/bash
-root@27d4e3090750:/# git --version
-git version 1.7.9.5
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;감동에 눙물이 나올 것 같습니다 TT.&lt;/p&gt;
-
-&lt;p&gt;하지만 이 이미지는 별로 필요가 없군요. 냉정하게 필요없는 이미지는 삭제해버리겠습니다. 하나 알아두셔야 하는 중요한 사항은, 이미지에서 (종료상태를 포함한) 파생된 컨테이너가 하나라도 있다면 이미지는 삭제할 수 없습니다. (처음에 이 부분을 정확히 이해하지 못 해 한참을 해맸던 기억이 납니다) 따라서 먼저 컨테이너를 종료하고, 삭제까지 해주어야합니다. &lt;code&gt;docker rm&lt;/code&gt;은 컨테이너를 삭제하는 명령어입니다. &lt;code&gt;docker rmi&lt;/code&gt;는 이미지를 삭제하는 명령어입니다. 이 두 명령어를 혼동하지 않아야합니다.&lt;/p&gt;
-
-&lt;p&gt;먼저 컨테이너를 지우고, 이미지를 삭제해보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker ps -a
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-27d4e3090750        ubuntu:git          /bin/bash           4 minutes ago       Exit 0                                  silly_heisenberg
-$ docker rm 27d4e
-27d4e
-$ docker rmi ubuntu:git
-Untagged: 5ff1d6b1c5db272c3f1a88c96f78146ed48d18848f0a10e6aefa066b462ff5ee
-Deleted: 5ff1d6b1c5db272c3f1a88c96f78146ed48d18848f0a10e6aefa066b462ff5ee
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;브라보! 이번에는 도커 이미지의 생명주기를 배웠습니다. 도커 이미지를 &lt;code&gt;pull&lt;/code&gt;로 받아오고 &lt;code&gt;commit&lt;/code&gt;
-으로 파생된 이미지를 만들고 &lt;code&gt;rmi&lt;/code&gt; 명령어로 삭제까지 해보았습니다. 컨테이너와 이미지의 생명주기만 이해하고 나면 도커의 80%는 이해한 거나 다름 없습니다. 도커를 통해서 하는 일은 거의 다 이 이미지와 컨테이너 개념으로 커버가 가능합니다. 이제 남은 일은 자신에게 필요한 &lt;strong&gt;이미지&lt;/strong&gt;를 만들고 이 이미지를 통해서 컨테이너(가상 머신)를 실행하는 일입니다. 물론 이제 기본적인 개념들을 배웠으니 오픈된 중앙 저장소격에 해당하는 &lt;a href="https://index.docker.io/"&gt;Docker Index&lt;/a&gt;에서 이미 만들어져있는 다양한 이미지들을 활용할 수도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;무엇을 하건 도커의 모토를 잊지 마시기 바랍니다. 거짓말 조금 보태서(?!) 완성된 이미지는 언제 어디에 서라 도  가동 가능합니다.&lt;/p&gt;
-
-&lt;h2&gt;Dockerfile로 이미지 생성하고 어플리케이션 실행시키기&lt;/h2&gt;
-
-&lt;p&gt;멀리 돌아왔습니다. 앞서서 도커 이미지를 추가하는 방법은 크게 세 가지가 있다고 이야기했습니다. 먼저 &lt;code&gt;pull&lt;/code&gt;을 사용하는 방법은 이미 앞에서 다룬 바 있습니다. 그리고 컨테이너의 변경사항으로부터 이미지를 만드는 법에 대해서도 소개했습니다. 이러한 방법들은 매우 좋기는 하지만, 어딘가 2% 부족합니다. 이를 보완해주는 Dockerfile이라고 불리는 도커 이미지 생성용 배치 파일이 있습니다.&lt;/p&gt;
-
-&lt;p&gt;Dockerfile은 특정한 이미지를 출발점으로 새로운 이미지 구성에 필요한 일련의 명령어들을 저장해놓는 파일입니다. 미리 만들어둔 docker-moniwiki라는 프로젝트를 통해서 간단히 Dockerfile을 설명하고, 실제로 모니위키 어플리케이션을 가진 이미지를 생성하고 컨테이너를 통해서 실행시켜보도록하겠습니다. 먼저 프로젝트를 clone 받습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-git clone https://github.com/nacyot/docker-moniwiki.git
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이 프로젝트에는 3개의 파일이 있습니다만, 실질적으로 Dockerfile 하나밖에 없다고 보셔도 무방합니다. 전체 파일 내용은 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;```
-FROM ubuntu:12.04
-MAINTAINER Daekwon Kim &lt;a href="mailto:propellerheaven@gmail.com"&gt;propellerheaven@gmail.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1&gt;Run upgrades&lt;/h1&gt;
-
-&lt;p&gt;RUN echo &amp;quot;deb http://archive.ubuntu.com/ubuntu precise main universe&amp;quot; &amp;gt; /etc/apt/sources.list
-RUN apt-get update&lt;/p&gt;
-
-&lt;h1&gt;Install basic packages&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get -qq -y install git curl build-essential&lt;/p&gt;
-
-&lt;h1&gt;Install apache2&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get -qq -y install apache2
-ENV APACHE&lt;em&gt;RUN&lt;/em&gt;USER www-data
-ENV APACHE&lt;em&gt;RUN&lt;/em&gt;GROUP www-data
-ENV APACHE&lt;em&gt;LOG&lt;/em&gt;DIR /var/log/apache2
-RUN a2enmod rewrite&lt;/p&gt;
-
-&lt;h1&gt;Install php&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get -qq -y install php5
-RUN apt-get -qq -y install libapache2-mod-php5&lt;/p&gt;
-
-&lt;h1&gt;Install Moniwiki&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get install rcs
-RUN cd /tmp; curl -L -O http://dev.naver.com/frs/download.php/8193/moniwiki-1.2.1.tgz
-RUN tar xf /tmp/moniwiki-1.2.1.tgz
-RUN mv moniwiki /var/www/
-RUN chown -R www-data:www-data /var/www/moniwiki
-RUN chmod 777 /var/www/moniwiki/data/ /var/www/moniwiki/
-RUN chmod +x /var/www/moniwiki/secure.sh
-RUN ./var/www/moniwiki/secure.sh&lt;/p&gt;
-
-&lt;p&gt;EXPOSE 80
-CMD [&amp;quot;/usr/sbin/apache2&amp;quot;, &amp;quot;-D&amp;quot;, &amp;quot;FOREGROUND&amp;quot;]
-```&lt;/p&gt;
-
-&lt;p&gt;보시는 바와 같이 Dockerfile은 모니위키를 설치하는 일련의 과정과 서버를 실행하는 명령어로 구성되어 있습니다. 각각의 부분을 간략히 살펴보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-FROM ubuntu:12.04
-MAINTAINER Daekwon Kim &amp;lt;propellerheaven@gmail.com&amp;gt;
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;먼저 맨 위에 정의된 &lt;code&gt;FROM&lt;/code&gt;은 어떤 이미지로부터 새로운 이미지를 생성할 지를 지정합니다. 다음으로 MAINTAINER는 이 Dockerfile을 생성-관리하는 사람을 입력해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-RUN echo &amp;quot;deb http://archive.ubuntu.com/ubuntu precise main universe&amp;quot; &amp;gt; /etc/apt/sources.list
-RUN apt-get update
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;RUN&lt;/code&gt;은 직접 쉘 명령어를 실행하는 명령어입니다. 이 때 바로 뒤에 명령어를 입력하게 되면 쉘을 통해서 명령어가 실행됩니다. 위의 두 줄은 패키지 관리자 &lt;code&gt;apt-get&lt;/code&gt;에 저장소를 추가하고 저장소 정보를 갱신하는 명령어입니다.&lt;/p&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h1&gt;Install basic packages&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get -qq -y install git curl build-essential&lt;/p&gt;
-
-&lt;h1&gt;Install apache2&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get -qq -y install apache2
-ENV APACHE&lt;em&gt;RUN&lt;/em&gt;USER www-data
-ENV APACHE&lt;em&gt;RUN&lt;/em&gt;GROUP www-data
-ENV APACHE&lt;em&gt;LOG&lt;/em&gt;DIR /var/log/apache2
-RUN a2enmod rewrite&lt;/p&gt;
-
-&lt;h1&gt;Install php&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get -qq -y install php5
-RUN apt-get -qq -y install libapache2-mod-php5
-```&lt;/p&gt;
-
-&lt;p&gt;다음 부분에서는 모니위키 설치에 필요한 패키지들과 apache2 서버, php 프로그램을 설치 및 설정해줍니다. 아파치 설치 과정에서 나오는 &lt;code&gt;ENV&lt;/code&gt;를 통해 환경 변수를 지정할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
-&lt;h1&gt;Install Moniwiki&lt;/h1&gt;
-
-&lt;p&gt;RUN apt-get install rcs
-RUN cd /tmp; curl -L -O http://dev.naver.com/frs/download.php/8193/moniwiki-1.2.1.tgz
-RUN tar xf /tmp/moniwiki-1.2.1.tgz
-RUN mv moniwiki /var/www/
-RUN chown -R www-data:www-data /var/www/moniwiki
-RUN chmod 777 /var/www/moniwiki/data/ /var/www/moniwiki/
-RUN chmod +x /var/www/moniwiki/secure.sh
-RUN ./var/www/moniwiki/secure.sh
-```&lt;/p&gt;
-
-&lt;p&gt;이제 실제로 모니위키를 설치합니다. 여기서는 모니위키를 curl을 통해서 다운로드 받고, 압축을 풀고 모니위키 실행에 필요한 권한 관련 설정을 해주고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-EXPOSE 80
-CMD [&amp;quot;/usr/sbin/apache2&amp;quot;, &amp;quot;-D&amp;quot;, &amp;quot;FOREGROUND&amp;quot;]
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이제 마지막입니다. &lt;code&gt;EXPOSE&lt;/code&gt;는 가상 머신에 오픈할 포트를 지정해줍니다. 마지막줄의 &lt;code&gt;CMD&lt;/code&gt;는 컨테이너에서 실행될 명령어를 지정해줍니다. 이 글의 앞선 예에서는 &lt;code&gt;docker run&lt;/code&gt;을 통해서 &lt;code&gt;/bin/bash&lt;/code&gt;를 실행했습니다만, 여기서는 아파치 서버를 &lt;code&gt;FOREGROUND&lt;/code&gt;에 실행시킵니다.&lt;/p&gt;
-
-&lt;p&gt;자 기다리고 기다리던 대망의 순간이 왔습니다. 직접 이 Dockerfile을 빌드할 차례입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker build -t nacyot/moniwiki .
-Uploading context 71.68 kB
-Uploading context
-Step 1 : FROM ubuntu:12.04
----&amp;gt; 8dbd9e392a96
-Step 2 : MAINTAINER Daekwon Kim &amp;lt;propellerheaven@gmail.com&amp;gt;
----&amp;gt; Running in a2af31ca9d62
----&amp;gt; c42835b9308b
-Step 3 : RUN echo &amp;quot;deb http://archive.ubuntu.com/ubuntu precise main universe&amp;quot; &amp;gt; /etc/apt/sources.list
----&amp;gt; Running in d305ce1fea04
----&amp;gt; f4cb16c39b0e
-Step 4 : RUN apt-get update
-...
----&amp;gt; c63d093aacfb
-Step 21 : EXPOSE 80
----&amp;gt; Running in cee6a6048c83
----&amp;gt; 7436a638e52c
-Step 22 : CMD [&amp;quot;/usr/sbin/apache2&amp;quot;, &amp;quot;-D&amp;quot;, &amp;quot;FOREGROUND&amp;quot;]
----&amp;gt; Running in 2f251c355290
----&amp;gt; 0a148bb4de2f
-Successfully built 0a148bb4de2f
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;docker build&lt;/code&gt; 명령어는 &lt;code&gt;-t&lt;/code&gt; 플래그를 사용해 이름과 태그를 지정할 수 있습니다. 그리고 마지막에 &lt;code&gt;.&lt;/code&gt;은 빌드 대상 디렉토리를 가리킵니다. 이 때 알아두면 좋은 게 하나 있습니다. 위에서 정의한 &lt;code&gt;RUN&lt;/code&gt; 명령 하나 하나는 명령 하나마다 이미지가 됩니다. 기본적으로 이 빌드를 통해서 생성되는 최종 이미지는 &lt;code&gt;nacyot/moniwi&lt;/code&gt;가 됩니다만, &lt;code&gt;docker images -a&lt;/code&gt;를 통해서 살펴보면 이름없는 도커 이미지들이 다수 생성되는 것을 알 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker images -a
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              c63d093aacfb        4 minutes ago       670.4 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              7436a638e52c        4 minutes ago       670.4 MB
-nacyot/moniwiki     latest              0a148bb4de2f        4 minutes ago       670.4 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              49825025193f        4 minutes ago       670.4 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              5b374f859553        4 minutes ago       670.4 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              c8afe13ab509        4 minutes ago       670.4 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              bb65aa482123        4 minutes ago       663.1 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              fa7f2059c9ba        4 minutes ago       655.8 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              1a18589e4d9a        4 minutes ago       648.5 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              fdd759b53314        4 minutes ago       646.1 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              786c8ad1df43        4 minutes ago       610.5 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              14e8b032683a        4 minutes ago       610.5 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              6be08754c2ae        4 minutes ago       547.9 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              67e17f5a39f1        4 minutes ago       547.9 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              55ec9487188b        4 minutes ago       547.9 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              88a61604a1d0        4 minutes ago       547.9 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              7edabbb84352        4 minutes ago       547.9 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              78e9afc826cd        4 minutes ago       503 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              8066398c160f        5 minutes ago       272.5 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              f4cb16c39b0e        6 minutes ago       128 MB
-&amp;lt;none&amp;gt;              &amp;lt;none&amp;gt;              c42835b9308b        6 minutes ago       128 MB
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;이미지 아이디가 빌드 과정에서 출력되는 아이디와 같은 것을 알 수있습니다. 필요한 경우 중간 이미지에 접근하거나 직접 중간 이미지로부터 다른 이미지를 생성하는 것도 가능합니다. 정말 좋은 소식은 도커는 이러한 빌드 순서를 기억하고 각 이미지를 보존하기 때문에 같은 빌드 과정에 대해서는 캐시를 사용해 매우 빠르게 빌드가 가능하다는 점입니다. 실제로 Docker 파일을 만드는 과정에서는 많은 시행 착오를 겪게되는데, 중간에 빌드가 실패하더라도 성공했던 명령어까지는 거의 시간 소모 없이 빠르게 진행되도록 설계되어있습니다.&lt;/p&gt;
-
-&lt;p&gt;빌드 자체는 꽤나 번거로운 일입니다. 도커의 가상화가 굉장히 빠르다고 해도 어플리케이션 실행환경을 구축하는 일은 상당히 시간도 많이 걸립니다. 더욱이 빌드 자체는 완벽히 &amp;#39;재현 가능&amp;#39;하지 않습니다. 하지만 이렇게 Dockerfile을 통해서 배치화를 시켜두면 Dockerfile이라는 정말 작은 파일 하나로 어플리케이션 배포 환경을 구축할 수 있다는 장점이 있으며, 또한 쉽게 유연하게 사용할 수 있습니다. 아주 흥미로운 이야기를 하나 해드리자면 Docker 생태계에 있는 오픈소스 어플리케이션들은 아예 Dockerfile을 프로젝트에 포함하고 있습니다. 대표적으로 도커 모니터링 툴인 &lt;a href="https://github.com/shipyard/shipyard"&gt;Shipyard&lt;/a&gt;가 있습니다. 여기서 제공하는 Dockerfile을 빌드해서 이미지를 만들고, 이 이미지로 컨테이너를 가동하면 바로 shipyard 어플리케이션을 사용할 수 있습니다. 전율이 느껴지시나요?&lt;/p&gt;
-
-&lt;p&gt;Dockerfile은 단순히 어플리케이션 설치를 스크립트로 만들어주는 게 아니라, 배포환경 구축까지 한꺼번에 해주는 역할을 합니다. 오래전 제로보드나 테터툴즈 한 번 설치해보겠다고 &lt;code&gt;&amp;lt;? phpinfo() ?&amp;gt;&lt;/code&gt; 찍어가며 php랑 aphche랑 잘 붙었나 안 붙었나 확인해보고 안 되면 이유도 못 찾아 혼자 서러워했던 적이 있는 분이라면(어라?) 이해하리라 믿습니다. 다른 예를 들어볼까요? 설치가 까다로운 걸로 악명높은 오픈소스 웹 어플리케이션 중에 &lt;a href="http://gitlab.org/"&gt;Gitlab&lt;/a&gt;이라는 어플리케이션이 있습니다. &lt;a href="https://github.com/crashsystems/gitlab-docker"&gt;gitlab-docker&lt;/a&gt;에서 제공하는 &lt;code&gt;Dockerfile&lt;/code&gt; 하나면 이제 Gitlab도 두렵지 않습니다. 그저 &lt;code&gt;Build&lt;/code&gt;하고 &lt;code&gt;Run&lt;/code&gt;하면 Gitlab이 뜹니다.&lt;/p&gt;
-
-&lt;p&gt;네, 얘기가 길어졌네요. 다시 모니위키로 돌아갑니다. 빌드가 끝났으니 실행을 해보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker run -d -p 9999:80 nacyot/moniwiki
-746443ad118afdb3f254eedaeeada5abc2b125c7263bc5e67c2964b570166187
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;다시 &lt;code&gt;docker run&lt;/code&gt; 입니다. 이번에는 &lt;code&gt;-d&lt;/code&gt;와 &lt;code&gt;-p&lt;/code&gt; 플래그를 사용합니다. 앞서서 자세히 설명하진 않았습니다만, &lt;code&gt;-d&lt;/code&gt; 플래그는 &lt;code&gt;-i&lt;/code&gt; 플래그의 반대 역할을 하는 플래그로, 컨테이너늘 백그라운드에서 실행시켜줍니다. &lt;code&gt;-p&lt;/code&gt;는 포트포워딩을 지정하는 플래그입니다. &lt;code&gt;:&lt;/code&gt;을 경계로 앞에는 외부 포트, 뒤로는 내부 포트입니다. 참고로 컨테이너 안에서 아파치가 80포트로 실행됩니다. 따라서 여기서는 localhost에 9999로 들어오는 연결을 여기서 실행한 컨테이너의 80포트로 보내도록합니다.&lt;/p&gt;
-
-&lt;p&gt;이제 정말 마지막입니다. 로컬의 9999 포트에 접근해 정말로 모니위키가 실행되는지 보도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-http://127.0.0.1:9999/moniwiki/
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img alt="모니위키 설치 페이지" src="images/2014-01-27-easy-deploy-with-docker/moniwiki.png" /&gt;&lt;/p&gt;
-
-&lt;p&gt;올레! 잘 돌아가네요. &lt;/p&gt;
-
-&lt;h2&gt;정리&lt;/h2&gt;
-
-&lt;p&gt;도커의 활용가능성은 무궁무진합니다. 당연히 실제 배포에도 사용할 수 있고, 유연하고 날렵한 격리된 환경을 활용해 실험적인 개발을 진행할 수도 있습니다. Vagrant보다도 훨씬 빠른 가상 환경을 활용할 수 있으며 접근 방법은 다르지만 서버환경을 자동적으로 구성할 수도 있습니다. 미리 만든 이미지를 자신의 저장소(registry)에 등록해 여러대의 머신에 컨테이너들을 자동적으로 배포할 수도 있고, 오픈소스 프로젝트에서 Dockerfile을 제공해 설치를 색다른 방법으로(?) 지원할 수도 있습니다. &lt;a href="https://github.com/progrium/dokku"&gt;Dokku&lt;/a&gt;를 사용하면 정말 쉽게 mini-heroku와 같은 PaaS 플랫폼을 구축해 볼 수도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;단순히 생산성을 넘어, 도커의 매력은 상상력을 자극한다는 점입니다. 특히나 서버 자동화가 화두인 요즘에 인프라스트럭쳐가 &lt;strong&gt;코드&lt;/strong&gt;로 변해버리는 묘한 체험을 하게 해줍니다. 인프라스트럭쳐가 코드가 되면 뭔가 신기한 일들이 벌어집니다. 이런 상황에서 아직까지 낯설게 느껴질지도 모르는 개념이고 툴입니다만 직접 설치하고  이것저것 해보다보면 저처럼 분명 반하실 거라 생각합니다 :)&lt;/p&gt;
 </content>
   </entry>
 </feed>

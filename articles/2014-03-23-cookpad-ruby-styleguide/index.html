@@ -48,7 +48,7 @@ Mar 23 2014
 <a href="./">쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
 </h1>
 <div class='body'>
-<p>이 문서는 Cookpad의 <a href="https://github.com/cookpad/styleguide">Ruby Style Guide</a>를 <a href="http://nacyot.com">nacyot</a>이 한국어로 번역한 문서입니다. 번역된 문서는 <a href="https://github.com/nacyot/styleguide">Github 저장소</a>에서 관리되고 있으며 원본은<a href="https://github.com/cookpad/styleguide">여기</a>에서 찾아볼 수 있습니다. 이 문서는 <a href="http://creativecommons.org/licenses/by/3.0/">cc-by</a> 라이센스를 따릅니다.</p>
+<p>이 문서는 Cookpad의 <a href="https://github.com/cookpad/styleguide">Ruby Style Guide</a>를 <a href="http://nacyot.com">nacyot</a>이 한국어로 번역한 문서입니다. 번역된 문서는 <a href="https://github.com/nacyot/styleguide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/cookpad/styleguide">여기</a>에서 찾아볼 수 있습니다. 이 문서는 <a href="http://creativecommons.org/licenses/by/3.0/">cc-by</a> 라이센스를 따릅니다.</p>
 
 
 
@@ -80,7 +80,7 @@ Mar 23 2014
 <h2>시작하며</h2>
 
 <p>이 문서는 주식회사 쿡패드(Cookpad)의 루비 코드 표준 스타일을 정의한 문서입니다.
-이 문서에서는 최소한 실력을 갖춘 Ruby 프로그래머라면 누구라도 읽기 쉬운 코드가 되도록 가독성과 일관성에 무게를 둔 스타일을 정의하고 있습니다. &#39;bad&#39;가 붙어있는 예제는 사용해서는 안 되는 표현이 아니라 일관성을 위해 지양해야할 표현입니다.</p>
+이 문서에서는 최소한 실력을 갖춘 Ruby 프로그래머라면 누구라도 읽기 쉬운 코드가 되도록 가독성과 일관성에 무게를 둔 스타일을 정의하고 있습니다. &#39;bad&#39;가 붙어있는 예제는 사용해서는 안 되는 표현이란 의미보다 일관성을 위해 지양해야할 표현들입니다.</p>
 
 <p><a name="ruby-version"></a></p>
 
@@ -95,8 +95,8 @@ Mar 23 2014
 <h2>들여쓰기</h2>
 
 <ul>
-<li><strong>[MUST]</strong> 한 단계의 들여쓰기는 두 번의 스페이스를 사용한다.들여쓰기에 탭을 사용하지 않는다.</li>
-<li><p><strong>[MUST]</strong> 메소드 체인이 길어진 상황에서 마지막 메소드에 블록을 넘겨야한다면, 마지막 메소드를 받는 리시버를 별도의 로컬 변수에 대입하고 이 변수에 메소드를 호출하면서 블록을 넘겨준다.</p>
+<li><strong>[MUST]</strong> 한 단계 들여쓰기는 스페이스 두 번을 사용한다. 들여쓰기로 탭을 사용하지 않는다.</li>
+<li><p><strong>[MUST]</strong> 메소드 체인이 졌을 때 마지막 메소드에 블록을 넘겨야한다면, 마지막 메소드를 받는 리시버를 별도의 로컬 변수에 대입하고 이 변수에 메소드를 호출하면서 블록을 넘겨준다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="c1"># good</span>
 </span><span id="line-2"><span class="n">posts</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">joins</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
 </span><span id="line-3">  <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="no">User</span><span class="o">.</span><span class="n">paid</span><span class="p">)</span>
@@ -114,7 +114,7 @@ Mar 23 2014
 </span><span id="line-15">    <span class="n">comment_count</span> <span class="o">+=</span> <span class="n">post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">size</span>
 </span><span id="line-16">  <span class="k">end</span>
 </span></pre></div></li>
-<li><p><strong>[SHOULD]</strong> 식이 완결되지 않고 줄바꿈이 이루어질 때는 줄바꿈된 줄부터는 이전의 행보다 한 단계 더 들여쓴다.</p>
+<li><p><strong>[SHOULD]</strong> 식이 완결되지 않고 줄바꿈이 이루어질 때 줄바꿈된 줄부터는 이전의 행보다 한 단계 더 들여쓴다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="c1"># good</span>
 </span><span id="line-2"><span class="no">User</span><span class="o">.</span><span class="n">active</span><span class="o">.</span>
 </span><span id="line-3">  <span class="n">some_scope</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span><span class="o">.</span>
@@ -160,8 +160,8 @@ Mar 23 2014
 <h2>한 줄의 글자수 제한</h2>
 
 <ul>
-<li><strong>[SHOULD]</strong> 특별한 이유가 없다면 한 줄은 80자 이하로 작성한다. 이 때 전각 문자는 2글자로 계산한다.</li>
-<li><strong>[MUST]</strong> 어떠한 경우에도 한 줄은 128자 이하로 작성한다.</li>
+<li><strong>[SHOULD]</strong> 특별한 이유가 없다면 한 줄은 80자 이하로 작성한다. 이 때 전각 문자는 2글자로 취급한다.</li>
+<li><strong>[MUST]</strong> 어떠한 경우에도 한 줄은 128자 이내로 작성한다.</li>
 </ul>
 
 <p><a name="numbers"></a></p>
@@ -208,7 +208,7 @@ Mar 23 2014
 <li><p><strong>[SHOULD]</strong> <code>%</code> 문법으로 문자열 리터럴을 사용할 때는 괄호를 구분 문자열로 사용한다.이 때 괄호의 종류는 어떤 걸 사용해도 무방하며, 아래와 같은 특별한 경우에는 다른 기호를 구분자로 사용해도 무방하다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="no">OPEN_PARENTHESES</span> <span class="o">=</span> <span class="sx">%!({[!</span>    
 </span></pre></div></li>
-<li><p><strong>[MUST]</strong> 문자열 보간을 사용할 때 단지 <code>Object#to_s</code>를 호출하지 않는다.예) <code>&quot;#{obj.to_s}&quot;</code> -&gt; <code>obj.to_s</code></p></li>
+<li><p><strong>[MUST]</strong> <code>Object#to_s</code>만 호출하는 용도로 위해 문자열 보간(interpolation)을 사용하지 않는다.예) <code>&quot;#{obj.to_s}&quot;</code> -&gt; <code>obj.to_s</code></p></li>
 <li><p><strong>[MUST]</strong> 문자열 보간을 사용할 때 중괄호를 생략할 수 있는 경우가 있지만, 생략하지 않고 반드시 중괄호를 사용한다.</p></li>
 <li><p><strong>[SHOULD]</strong> (Ruby 1.9+) Unicode 문자를 이스케이스 시켄스로 입력할 때는 <code>&quot;\xE3\x8C\xB3&quot;</code> 방식이 아니라 <code>&quot;\u{3333}&quot;</code>와 같이 <code>\u</code>를 사용한다.루비 1.8 버전을 지원해야하는 스크립트라면 적용하지 않는다.</p></li>
 <li><p><strong>[SHOULD]</strong> 루프에서 문자열 리터럴을 사용하지 말 것.여기서 루프란 <code>while</code>, <code>until</code>, <code>for</code>을 비롯해 <code>each</code>와 같은 블록을 사용하는 반복자 표현을 의미한다.</p></li>

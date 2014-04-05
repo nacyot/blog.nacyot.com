@@ -1,0 +1,1542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(Immutable Infrastructure)</title>
+<meta name="author" content="(Daekwon Kim)"/>
+<link rel="stylesheet" href="./reveal.js/css/reveal.min.css"/>
+<link rel="stylesheet" href="./reveal.js/css/theme/nacyot.css" id="theme"/>
+<link rel="stylesheet" href="./stylesheets/code.css"/>
+<link rel="stylesheet" href="./reveal.js/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Immutable Infrastructure</h1>
+<h2>Daekwon Kim</h2>
+<h2><a href="mailto:propellerheaven@gmail.com">propellerheaven@gmail.com</a></h2>
+<h2></h2></section>
+
+<section id="sec-1" >
+
+<h2>nacyot</h2>
+<ul class="org-ul">
+<li><img src="./images/nacyot.jpeg" alt="nacyot.jpeg" />
+</li>
+<li><a href="http://nacyot.com">http://nacyot.com</a>
+</li>
+<li>@nacyot
+</li>
+<li>Ruby programmer
+</li>
+</ul>
+</section>
+<section id="sec-2" >
+
+<h2></h2>
+<ul class="org-ul">
+<li>Web Development
+</li>
+<li>Ruby on Rails
+</li>
+<li>Programming Languages
+</li>
+<li>Visualization
+</li>
+<li>Translation
+</li>
+<li>Deployment
+</li>
+</ul>
+</section>
+<section id="sec-3" >
+
+<h2>Deployment</h2>
+<ul class="org-ul">
+<li>Immutable Infrastructure
+</li>
+</ul>
+</section>
+<section id="sec-4" >
+
+<h2>Leevi</h2>
+<ul class="org-ul">
+<li><img src="./images/leevi.png" alt="leevi.png" />
+</li>
+<li><a href="http://leevi.co.kr/">http://leevi.co.kr/</a>
+</li>
+</ul>
+</section>
+<section id="sec-5" >
+
+<h2>Remotty</h2>
+<ul class="org-ul">
+<li><img src="./images/remotty.jpg" alt="remotty.jpg" />
+</li>
+<li><a href="http://blog.remotty.com">http://blog.remotty.com</a>
+</li>
+</ul>
+</section>
+<section id="sec-6" >
+
+<h2></h2>
+
+</section>
+<section id="sec-7" >
+
+<h2>지난 이야기</h2>
+<ul class="org-ul">
+<li>Web Development
+</li>
+<li>Server Management
+</li>
+<li>Amazon Web Service
+</li>
+</ul>
+</section>
+<section id="sec-8" >
+
+<h2>오늘 이야기</h2>
+<ul class="org-ul">
+<li>Immutable Infrastructure
+</li>
+<li>Disposable Components
+</li>
+<li>Orchestration
+</li>
+<li>Blue Green Deployment
+</li>
+<li>Continuous Delivery
+</li>
+</ul>
+</section>
+<section id="sec-9" >
+
+<h2>새로운 툴</h2>
+<ul class="org-ul">
+<li>Chef / Puppet / Ansible
+</li>
+<li>Docker
+</li>
+<li>Vagrant
+</li>
+<li>Packer
+</li>
+<li>Serf
+</li>
+<li>ServerSpec
+</li>
+<li>Amazon Web Service
+</li>
+</ul>
+</section>
+<section id="sec-10" >
+
+<h2></h2>
+
+</section>
+<section id="sec-11" >
+
+<h2>TOC</h2>
+<ul class="org-ul">
+<li>Cloud
+<ul class="org-ul">
+<li>Auto Scaling
+</li>
+<li>Image
+</li>
+<li>Deploy
+</li>
+</ul>
+</li>
+<li>Immutable Infrastructure
+<ul class="org-ul">
+<li>Disposable Components
+</li>
+<li>Configuration Management
+</li>
+<li>Docker
+</li>
+<li>HashiCorp
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-12" >
+
+<h2>Cloud</h2>
+<ul class="org-ul">
+<li>SaaS
+</li>
+<li>PasS
+</li>
+<li>IaaS
+</li>
+</ul>
+</section>
+<section id="sec-13" >
+
+<h2>Cloud</h2>
+<ul class="org-ul">
+<li>Software as a Service
+<ul class="org-ul">
+<li>Google Apps
+</li>
+<li>Adobe Creative Cloud
+</li>
+</ul>
+</li>
+<li>Platform as a Service
+<ul class="org-ul">
+<li>Heroku
+</li>
+<li>Google App Engine
+</li>
+</ul>
+</li>
+<li>Infrastructure as a Service
+<ul class="org-ul">
+<li>Amazon Web Service
+</li>
+<li>Ucloud biz
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-13-1" >
+
+<h3>Platform as a Service</h3>
+</section>
+<section id="sec-14" >
+
+<h2>컴퓨터 vs 클라우드</h2>
+
+</section>
+<section id="sec-15" >
+
+<h2>컴퓨터(서버)</h2>
+<ul class="org-ul">
+<li>물리적 실체
+<ul class="org-ul">
+<li>공간적 제약
+</li>
+<li>장소적 제약
+</li>
+<li>예산적 제약
+</li>
+<li>유지보수
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-16" >
+
+<h2>클라우드 위의 컴퓨터</h2>
+<ul class="org-ul">
+<li>비물리적 실체
+<ul class="org-ul">
+<li>공간적 제약?
+</li>
+<li>장소적 제약?
+</li>
+<li>예산적 제약?
+</li>
+<li>유지보수?
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-16-1" >
+
+<h3>Delegate, Delegate, Delegate</h3>
+
+</section>
+<section id="sec-16-2" >
+
+<h3>공간적 제약</h3>
+<ul class="org-ul">
+<li>언제든 원하는 만큼 사용할 수 있음
+</li>
+<li>물리적 서버를 설치할 필요 없음
+</li>
+</ul>
+</section>
+<section id="sec-16-3" >
+
+<h3>장소적 제약</h3>
+<ul class="org-ul">
+<li>원하는 리젼(장소)에서 서비스 가능
+<ul class="org-ul">
+<li>AWS EC2, Digital Ocean
+</li>
+</ul>
+</li>
+<li>원하는 위치에서 배포 가능
+<ul class="org-ul">
+<li>CDN, AWS CloudFront
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-16-4" >
+
+<h3></h3>
+<ul class="org-ul">
+<li><img src="./images/AWS+global+infrastructure.jpg" alt="AWS+global+infrastructure.jpg" />
+</li>
+</ul>
+</section>
+<section id="sec-16-5" >
+
+<h3>예산적 제약</h3>
+<ul class="org-ul">
+<li>매몰비용이 거의 발생하지 않음
+<ul class="org-ul">
+<li>서버를 구입할 필요 없음
+</li>
+<li>월 단위 대여할 필요 없음
+</li>
+</ul>
+</li>
+<li>사용한 만큼만 내면 됨
+<ul class="org-ul">
+<li>시간 단위 과금
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-16-6" >
+
+<h3>유지보수</h3>
+<ul class="org-ul">
+<li>필요없음
+</li>
+<li>Disposable Components?
+</li>
+</ul>
+</section>
+<section id="sec-17"  data-background="#8DB255">
+
+<h2></h2>
+
+<ul class="org-ul">
+<li>"Amazon Web Service는 인터넷의 발전소다."
+<ul class="org-ul">
+<li><a href="http://www.slideshare.net/kentamagawa/aws-cloud-design-pattenr-korean-cdp-seminar-in-kore">타마카와 켄</a>
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-18" >
+
+<h2></h2>
+
+</section>
+<section id="sec-19" >
+
+<h2>디지털 오션 예제</h2>
+</section>
+<section id="sec-19-1" >
+
+<h3>서버 실행하기</h3>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ tugboat create ContainerShip -s 66 -i 2158507 -r 6 -k 301023
+$ tugboat droplets
+<span class="org-function-name">ContainerShip</span> (ip: 128.199.253.99, status: new, region: 6, id: 1383635)
+</pre>
+</div>
+</section>
+<section id="sec-19-2" >
+
+<h3>서버 종료하기</h3>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ tugboat destroy ContainerShip
+Droplet fuzzy name provided. Finding droplet ID...done, 1383635 (ContainerShip)
+Warning! Potentially destructive action. Please confirm [y/n]: y
+Queuing destroy for 1383635 (ContainerShip)...done
+</pre>
+</div>
+</section>
+<section id="sec-20" >
+
+<h2>Billing</h2>
+<ul class="org-ul">
+<li><img src="./images/digitalocean.png" alt="digitalocean.png" />
+</li>
+</ul>
+</section>
+<section id="sec-21" >
+
+<h2>10원</h2>
+<ul class="org-ul">
+<li><img src="./images/digitalocean.png" alt="digitalocean.png" />
+</li>
+</ul>
+</section>
+<section id="sec-22" >
+
+<h2>Cloud != Server Hosting</h2>
+</section>
+<section id="sec-22-1" >
+
+<h3>RRRSpec</h3>
+<ul class="org-ul">
+<li>분산 테스트 프레임워크
+</li>
+<li><img src="./images/cookpad_logo.jpg" alt="cookpad_logo.jpg" />
+</li>
+</ul>
+</section>
+<section id="sec-22-2" >
+
+<h3>RRRSpec</h3>
+<ul class="org-ul">
+<li>테스트 17000개
+</li>
+<li>1대로 몇 시간 걸림
+</li>
+</ul>
+</section>
+<section id="sec-22-3" >
+
+<h3>RRRSpec</h3>
+<ul class="org-ul">
+<li>1대 * 몇 시간 
+</li>
+<li>== 
+</li>
+<li>EC2 스팟 인스턴스 60대 * 8~9분
+</li>
+</ul>
+</section>
+<section id="sec-23" >
+
+<h2>Deployment on Cloud</h2>
+</section>
+<section id="sec-23-1" >
+
+<h3>Auto Scaling</h3>
+<ul class="org-ul">
+<li>부하가 커지면
+<ul class="org-ul">
+<li>자동적으로 인스턴스가 실행되고(Scale Out)
+</li>
+</ul>
+</li>
+<li>부하가 작아지면
+<ul class="org-ul">
+<li>자동적으로 인스턴스가 종료됨
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-23-2" >
+
+<h3>Auto Scaling의 장점</h3>
+<ul class="org-ul">
+<li>유연한 대응
+</li>
+<li>합리적 비용
+</li>
+</ul>
+</section>
+<section id="sec-23-3" >
+
+<h3>Auto Scaling의 조건</h3>
+<ul class="org-ul">
+<li>어플리케이션 설계
+<ul class="org-ul">
+<li>정교한 비지니스 로직 분리
+</li>
+<li>서버 환경 설정 분리 및 자동화
+</li>
+<li>데이터 스토어 분리
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-23-4" >
+
+<h3>When in Rome, do as the Romans do</h3>
+<ul class="org-ul">
+<li>클라우드 위에선 클라우드에 어울리는 설계가 필요
+</li>
+<li>Best Practice
+<ul class="org-ul">
+<li><a href="http://aws.clouddesignpattern.org/index.php/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E5%8E%9F%E5%89%87">CDP 클라우드 설계 원칙</a>
+</li>
+<li><a href="http://12factor.net/">The Twelve-Factor App</a>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-23-5" >
+
+<h3>CDP 클라우드 설계 원칙</h3>
+<ul class="org-ul">
+<li>가능한 한 서비스를 이용
+</li>
+<li>생각보다 행동으로
+</li>
+<li>작은 규모로 시작하여 스케일 아웃
+</li>
+<li>변화를 전 계층에서 처리
+</li>
+<li>고장을 위한 설계
+</li>
+<li>처음뿐이 아닌 주기적인 개선
+</li>
+</ul>
+</section>
+<section id="sec-23-6" >
+
+<h3>Auto Scaling을 전제로 한 컴퓨터란</h3>
+<ul class="org-ul">
+<li>어플리케이션이 가동되기 위한 환경이 구성된
+</li>
+<li>인스턴스로부터 Stamp 패턴으로 생성된
+</li>
+<li>AMI 이미지로부터 생성된
+</li>
+<li>가상 인스턴스(컴퓨터)
+</li>
+</ul>
+</section>
+<section id="sec-23-7" >
+
+<h3>Auto Scaling을 전제로 한 컴퓨터란</h3>
+<ul class="org-ul">
+<li>어플리케이션이 가동되기 위한 환경이 구성된
+</li>
+<li>인스턴스로부터 Stamp 패턴으로 생성된
+</li>
+<li>AMI 이미지로부터 생성된
+</li>
+<li>Disposable Components
+</li>
+</ul>
+</section>
+<section id="sec-23-8" >
+
+<h3>Disposable Copmonent</h3>
+<ul class="org-ul">
+<li>쓰고
+</li>
+<li>버리는
+</li>
+</ul>
+</section>
+<section id="sec-23-9" >
+
+<h3>Disposable Copmonent</h3>
+<ul class="org-ul">
+<li>미리 설정된
+</li>
+<li>쓰고
+</li>
+<li>버리는
+</li>
+<li>인스턴스(컴퓨터)
+</li>
+</ul>
+</section>
+<section id="sec-23-10" >
+
+<h3>Disposable Copmonent</h3>
+<ul class="org-ul">
+<li>서버 설정?
+</li>
+<li>서버 관리?
+</li>
+</ul>
+</section>
+<section id="sec-24" >
+
+<h2>Image</h2>
+
+</section>
+<section id="sec-25" >
+
+<h2>Image</h2>
+<ul class="org-ul">
+<li>새로운 문제
+</li>
+</ul>
+</section>
+<section id="sec-26" >
+
+<h2>Image</h2>
+<ul class="org-ul">
+<li>이미지는 정말로 작동 가능한가?
+</li>
+</ul>
+</section>
+<section id="sec-27" >
+
+<h2>Image</h2>
+<ul class="org-ul">
+<li>아마도&#x2026;
+</li>
+</ul>
+
+</section>
+<section id="sec-27-1" >
+
+<h3>최초의 이미지는 어디서 오는가?</h3>
+<ul class="org-ul">
+<li>서버 설정
+<ul class="org-ul">
+<li>useradd &#x2026;
+</li>
+<li>set env
+</li>
+<li>apt-get update
+</li>
+<li>apt-get install &#x2026;(순서!!)
+</li>
+<li>ufw &#x2026;
+</li>
+<li>iptable &#x2026;
+</li>
+<li>&#x2026;
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-27-2" >
+
+<h3>최초의 이미지는 어디서 오는가?</h3>
+<ul class="org-ul">
+<li>어플리케이션 설치
+<ul class="org-ul">
+<li>ruby build
+</li>
+<li>apt-get &#x2026;
+</li>
+<li>gem install bundler
+</li>
+<li>git clone &#x2026;
+</li>
+<li>bundle inastll
+</li>
+<li>configuration
+</li>
+<li>run application server
+</li>
+<li>server proxy
+</li>
+<li>&#x2026;
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-27-3" >
+
+<h3>어플리케이션이 업데이트 되면?</h3>
+<ul class="org-ul">
+<li>어플리케이션 업데이트
+<ul class="org-ul">
+<li>git pull &#x2026;
+</li>
+<li>apt-get &#x2026;
+</li>
+<li>bundle update
+</li>
+<li>configuration
+</li>
+<li>&#x2026;
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-27-4" >
+
+<h3>유지보수</h3>
+</section>
+<section id="sec-28"  data-background="#F3C13A">
+
+<h2></h2>
+
+<ul class="org-ul">
+<li>The system becomes a house of cards. You fear any change and you fear replacing it since you don’t know everything about how it works.
+<ul class="org-ul">
+<li>Trash Your Servers and Burn Your Code: Immutable Infrastructure and Disposable Components, Chad Fowler
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-29" >
+
+<h2>서버 관리의 본질은 전역적 환경설정</h2>
+<ul class="org-ul">
+<li>서버는 
+<ul class="org-ul">
+<li>하드웨어부터 
+</li>
+<li>OS를 거쳐
+</li>
+<li>어플리케이션까지 
+</li>
+<li>모든 요소들이 얽히고 섥혀있는 곳
+</li>
+</ul>
+</li>
+<li>의존성 거의 관리 불가능
+</li>
+</ul>
+</section>
+<section id="sec-30" >
+
+<h2>Stateful Image</h2>
+<ul class="org-ul">
+<li>그저 이미지화 했을 뿐이고
+</li>
+</ul>
+</section>
+<section id="sec-31" >
+
+<h2>Stateful Image</h2>
+<ul class="org-ul">
+<li>복원 불가능
+</li>
+<li>검증 불가능
+</li>
+<li>일단 돌아는 감
+</li>
+<li>안전 불감증
+</li>
+</ul>
+</section>
+<section id="sec-32" >
+
+<h2>Stateful Image</h2>
+<ul class="org-ul">
+<li>Disposable Components
+</li>
+<li>from Recycled Image
+</li>
+</ul>
+
+</section>
+<section id="sec-32-1" >
+
+<h3>State</h3>
+<ul class="org-ul">
+<li>프로그래머의 원죄
+<ul class="org-ul">
+<li>전역변수를 사용하지 말라
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-33" >
+
+<h2></h2>
+
+</section>
+<section id="sec-34" >
+
+<h2>Configuration Management</h2>
+
+</section>
+<section id="sec-35"  data-background="./images/basic012.png">
+
+<h2></h2>
+
+<ul class="org-ul">
+<li>"상태 관리가 귀찮으면 관리 안하면 되잖아"
+<ul class="org-ul">
+<li>이토 나오야
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-35-1" >
+
+<h3></h3>
+<ul class="org-ul">
+<li><img src="./images/8994506896_1.jpg" alt="8994506896_1.jpg" />
+</li>
+<li>Infrastructure as Code
+<ul class="org-ul">
+<li>이토 나오야
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-36" >
+
+<h2>Configuration Management</h2>
+<ul class="org-ul">
+<li>Chef
+</li>
+<li>Puppet
+</li>
+<li>Ansible
+</li>
+</ul>
+</section>
+<section id="sec-37" >
+
+<h2>Configuration Management</h2>
+<ul class="org-ul">
+<li>Idempotence(멱등)
+</li>
+</ul>
+</section>
+<section id="sec-38" >
+
+<h2>Configuration Management</h2>
+<ul class="org-ul">
+<li>복원 가능
+<ul class="org-ul">
+<li>Build
+</li>
+</ul>
+</li>
+<li>검증 가능
+<ul class="org-ul">
+<li>Serverspec
+</li>
+</ul>
+</li>
+<li>이력 관리
+<ul class="org-ul">
+<li>Infrastructure as Code
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-38-1" >
+
+<h3>Build</h3>
+<div class="org-src-container">
+
+<pre class="src src-ruby"><span class="org-comment-delimiter"># </span><span class="org-comment">Chef Cookbook :: MyServer</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Recipe:: Install Apache</span>
+
+log <span class="org-string">'Install Apache'</span>
+package <span class="org-string">'httpd'</span> <span class="org-keyword">do</span>
+  action <span class="org-constant">:install</span>
+<span class="org-keyword">end</span>
+</pre>
+</div>
+</section>
+<section id="sec-38-2" >
+
+<h3>ServerSpec</h3>
+<div class="org-src-container">
+
+<pre class="src src-ruby">require <span class="org-string">'spec_helper'</span>
+
+describe package(<span class="org-string">'httpd'</span>) <span class="org-keyword">do</span>
+  it { should be_installed }
+<span class="org-keyword">end</span>
+
+describe service(<span class="org-string">'httpd'</span>) <span class="org-keyword">do</span>
+  it { should be_enabled   }
+  it { should be_running   }
+<span class="org-keyword">end</span>
+
+describe port(80) <span class="org-keyword">do</span>
+  it { should be_listening }
+<span class="org-keyword">end</span>
+</pre>
+</div>
+</section>
+<section id="sec-38-3" >
+
+<h3><img src="./images/infrastructure_as_code.png" alt="infrastructure_as_code.png" /></h3>
+</section>
+<section id="sec-39" >
+
+<h2>Configuration Management</h2>
+<ul class="org-ul">
+<li>Deployment
+</li>
+</ul>
+
+</section>
+<section id="sec-39-1" >
+
+<h3>Vagrant</h3>
+<ul class="org-ul">
+<li>Provisioner
+</li>
+<li>Provider
+</li>
+</ul>
+</section>
+<section id="sec-39-2" >
+
+<h3>Vagrant</h3>
+<ul class="org-ul">
+<li>Provisioner = Chef
+</li>
+<li>Provider = Vmware
+</li>
+</ul>
+</section>
+<section id="sec-39-3" >
+
+<h3>Vagrant</h3>
+<ul class="org-ul">
+<li>Provisioner = Chef
+</li>
+<li>Provider = AWS EC2
+</li>
+</ul>
+</section>
+<section id="sec-39-4" >
+
+<h3>Vagrant</h3>
+<ul class="org-ul">
+<li>Provisioning = Chef
+</li>
+<li>Provider = Digital Ocean
+</li>
+</ul>
+</section>
+<section id="sec-39-5" >
+
+<h3>Vagrant</h3>
+<ul class="org-ul">
+<li>HashiCorp의 야망
+</li>
+</ul>
+</section>
+<section id="sec-39-6" >
+
+<h3>Vagrant</h3>
+<ul class="org-ul">
+<li>뒤에서 다시
+</li>
+</ul>
+</section>
+<section id="sec-40" >
+
+<h2></h2>
+<ul class="org-ul">
+<li>Server Image
+</li>
+<li>Stateless
+</li>
+<li>Configuration Management
+</li>
+</ul>
+</section>
+<section id="sec-41" >
+
+<h2>Immutable Infrastructure</h2>
+</section>
+<section id="sec-41-1" >
+
+<h3>Immutable?</h3>
+<ul class="org-ul">
+<li>변경 불가능
+</li>
+<li>in Java
+<ul class="org-ul">
+<li>String vs StringBuffer
+</li>
+</ul>
+</li>
+<li>함수형 프로그래밍 언어
+</li>
+</ul>
+</section>
+<section id="sec-41-2" >
+
+<h3>Immutable == Stateless</h3>
+
+</section>
+<section id="sec-41-3" >
+
+<h3></h3>
+<ul class="org-ul">
+<li>Travis CI
+<ul class="org-ul">
+<li>커밋 할 때마다
+</li>
+<li>새로운 빌드 환경 구축
+</li>
+</ul>
+</li>
+
+<li>Heroku
+<ul class="org-ul">
+<li>푸쉬 할 때마다
+</li>
+<li>새로운 어플리케이션 이미지 생성
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-42" >
+
+<h2>Immutable Infrastructure</h2>
+<ul class="org-ul">
+<li>관리가능하고
+<ul class="org-ul">
+<li>Configuration Management
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-43" >
+
+<h2>Immutable Infrastructure</h2>
+<ul class="org-ul">
+<li>테스트 가능한
+<ul class="org-ul">
+<li>ServerSpec
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-44" >
+
+<h2>Immutable Infrastructure</h2>
+<ul class="org-ul">
+<li>Stateless하고
+<ul class="org-ul">
+<li>Build
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-45" >
+
+<h2>Immutable Infrastructure</h2>
+<ul class="org-ul">
+<li>Scalable한
+<ul class="org-ul">
+<li>Stamp Pattern
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-46" >
+
+<h2>Immutable Infrastructure</h2>
+<ul class="org-ul">
+<li>이미지 기반의
+<ul class="org-ul">
+<li>Lightweight, Portable
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-47" >
+
+<h2>Immutable Infrastructure</h2>
+<ul class="org-ul">
+<li>관리가능하고  
+</li>
+<li>테스트 가능하며
+</li>
+<li>Stateless하고
+</li>
+<li>Scalable한
+</li>
+<li>이미지 기반의
+</li>
+<li>어플리케이션 배포
+</li>
+</ul>
+</section>
+<section id="sec-48"  data-background="./images/docker-1920-1080.png">
+
+<h2></h2>
+</section>
+<section id="sec-49" >
+
+<h2>Docker</h2>
+<ul class="org-ul">
+<li>"Docker is an open-source engine that automates the deployment of any application as a lightweight, portable, self-sufficient container that will run virtually anywhere"
+</li>
+</ul>
+</section>
+<section id="sec-50" >
+
+<h2>Docker</h2>
+<ul class="org-ul">
+<li>한마디로
+<ul class="org-ul">
+<li>Build Once, Run Anywhere
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-51" >
+
+<h2>Docker</h2>
+<ul class="org-ul">
+<li><img src="./images/docker_container.jpg" alt="docker_container.jpg" />
+</li>
+</ul>
+</section>
+<section id="sec-52" >
+
+<h2>Docker</h2>
+<ul class="org-ul">
+<li>Image
+</li>
+<li>Container
+</li>
+<li>Dockerfile
+</li>
+</ul>
+
+</section>
+<section id="sec-52-1" >
+
+<h3>Docker Image</h3>
+<ul class="org-ul">
+<li>Build
+</li>
+</ul>
+</section>
+<section id="sec-52-2" >
+
+<h3>Dockerfile</h3>
+<div class="org-src-container">
+
+<pre class="src src-sh">FROM ubuntu:12.04
+MAINTAINER Daekwon Kim <a href="mailto:propellerheaven%40gmail.com">&lt;propellerheaven@gmail.com&gt;</a>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Run upgrade</span>
+RUN echo <span class="org-string">"deb http://archive.ubuntu.com/ubuntu precise main universe"</span> &gt; /etc/apt/sources.list
+RUN apt-get update
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Install basic packages</span>
+RUN apt-get -qq -y install git curl build-essential
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Install apache2</span>
+RUN apt-get -qq -y install apache2
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+RUN a2enmod rewrite
+</pre>
+</div>
+</section>
+<section id="sec-52-3" >
+
+<h3>Docker Container</h3>
+<ul class="org-ul">
+<li>Run
+</li>
+</ul>
+</section>
+<section id="sec-52-4" >
+
+<h3>Docker-registry</h3>
+<ul class="org-ul">
+<li>Image Archive
+</li>
+</ul>
+</section>
+<section id="sec-52-5" >
+
+<h3>예제) Remotty 공동가계부 빌드/배포 구상도</h3>
+<ul class="org-ul">
+<li>Github Hook
+</li>
+<li>Jenkins
+<ul class="org-ul">
+<li>Local 
+</li>
+<li>Push Image to Docker Registry
+</li>
+<li>Remote(Stage Server)
+</li>
+</ul>
+</li>
+<li>Notify
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-52-5-1" >
+
+<h4>Local(Build Serve)</h4>
+<ul class="org-ul">
+<li>Docker Build(test)
+</li>
+<li>Docker Build(application)
+</li>
+<li>Push Image to Docker Registry
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-52-5-2" >
+
+<h4>Dockerfile</h4>
+<div class="org-src-container">
+
+<pre class="src src-sh">FROM nacyot-bbapi
+MAINTAINER Daekwon Kim <a href="mailto:propellerheaven%40gmail.com">&lt;propellerheaven@gmail.com&gt;</a>
+
+ADD . /workspace
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">ENV</span>
+ENV RAILS_ENV test
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Build</span>
+RUN cd /workspace; <span class="org-builtin">echo</span> <span class="org-string">'gem: --no-ri --no-rdoc'</span> &gt; ~/.gemrc
+RUN cd /workspace; bundle install --without development
+RUN cd /workspace; bundle exec rake db:migrate <span class="org-variable-name">RAILS_ENV</span>=test
+RUN cd /workspace; bundle exec rspec
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="sec-52-5-3" >
+
+<h4>Dockerfile.production</h4>
+<div class="org-src-container">
+
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">Install bbapi</span>
+ADD . /app
+ADD Procfile /app/Procfile
+ENV RAILS_ENV production
+RUN cd /app; bundle install --without development test
+RUN cd /app; bundle exec rake db:create
+RUN cd /app; bundle exec rake db:migrate
+RUN cd /app; bundle exec rake db:seed
+RUN cd /app/angular; npm install
+RUN cd /app/angular; mkdir tasks
+RUN cd /app/angular; npm install grunt-contrib-nodeunit
+RUN mv /app/angular/config/config.default.json /app/angular/config/config.json
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Run bbapi</span>
+EXPOSE 3000
+EXPOSE 9000
+WORKDIR /app
+CMD foreman start -f Procfile
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="sec-52-5-4" >
+
+<h4>Push Image to Dokcer Registry</h4>
+<div class="org-src-container">
+
+<pre class="src src-sh">mv Dockerfile.production Dockerfile 
+<span class="org-builtin">export</span> <span class="org-variable-name">HASH</span>=$(git show-ref --head | grep -h HEAD | cut -d<span class="org-string">':'</span> -f2 | head -n 1 | head -c 10)
+docker build -rm -t nacyot-bbapi:${<span class="org-variable-name">HASH</span>} .
+docker tag nacyot-bbapi:${<span class="org-variable-name">HASH</span>} docker-registry.remotty.com/nacyot-bbapi:${<span class="org-variable-name">HASH</span>}
+docker tag nacyot-bbapi:${<span class="org-variable-name">HASH</span>} docker-registry.remotty.com/nacyot-bbapi:latest
+docker docker-registry.remotty/nacyot-bbapi
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>커밋마다 빌드되어 이미지로 Registry 저장소(S3)에 저장됨.
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-52-5-5" >
+
+<h4>Remote(Stage Server)</h4>
+<div class="org-src-container">
+
+<pre class="src src-sh">docker pull docker-registry.remotty.com/nacyot-bbapi:latest
+docker run -d docker-registry.remotty.com/nacyot-bbapi:latest
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>${HASH}.stage.bbapi.remotty.com
+<ul class="org-ul">
+<li>커밋별 스테이지 서버
+</li>
+<li>E2E Test
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-52-5-6" >
+
+<h4>Remote(Stage Server)</h4>
+<ul class="org-ul">
+<li><img src="./images/bbapi-images.png" alt="bbapi-images.png" />
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-52-5-7" >
+
+<h4>참고 : 도커 이미지 용량?</h4>
+<ul class="org-ul">
+<li><img src="./images/bbapi-images.png" alt="bbapi-images.png" />
+<ul class="org-ul">
+<li>(1 + 1 + 1 + 1 + 1 + 1 + 1) GB = 7GB?
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-52-5-8" >
+
+<h4>참고 : 도커 이미지 용량?</h4>
+<ul class="org-ul">
+<li><img src="./images/bbapi-images.png" alt="bbapi-images.png" />
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ s3cmd du -H                                             
+1241M    s3://remotty-docker-registry/
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="sec-52-5-9" >
+
+<h4>참고 : 도커 이미지 용량?</h4>
+<ul class="org-ul">
+<li><img src="./images/viz.png" alt="viz.png" />
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-52-5-10" >
+
+<h4>Notify</h4>
+<ul class="org-ul">
+<li>Slack
+</li>
+<li>Github
+</li>
+</ul>
+</section>
+</section>
+<section id="sec-52-6" >
+
+<h3>Deployment based on Docker</h3>
+<ul class="org-ul">
+<li>== Runing Container
+</li>
+<li>!= Managing Server 
+</li>
+</ul>
+</section>
+<section id="sec-52-7" >
+
+<h3>Docker 장점</h3>
+<ul class="org-ul">
+<li>컨테이너를 싣는 플랫폼
+</li>
+</ul>
+</section>
+<section id="sec-52-8" >
+
+<h3>Docker 단점</h3>
+<ul class="org-ul">
+<li>컨테이너를 싣는 플랫폼
+</li>
+</ul>
+</section>
+<section id="sec-53" >
+
+<h2>HashiCorp</h2>
+<ul class="org-ul">
+<li>Vagrant
+</li>
+<li>Packer
+</li>
+<li>Serf
+</li>
+</ul>
+
+</section>
+<section id="sec-53-1" >
+
+<h3>Packer</h3>
+<ul class="org-ul">
+<li>"Packer is lightweight, runs on every major operating system, and is highly performant, creating machine images for multiple platforms in parallel."
+<ul class="org-ul">
+<li><a href="http://www.packer.io/intro">Introduction to Packer</a>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-53-2" >
+
+<h3>Packer</h3>
+<ul class="org-ul">
+<li>한마디로 
+<ul class="org-ul">
+<li>범용적 이미지 생성기
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-53-3" >
+
+<h3>Packer</h3>
+<ul class="org-ul">
+<li>Provisioners
+<ul class="org-ul">
+<li>Chef Solo
+</li>
+<li>Ansible
+</li>
+<li>Puppet
+</li>
+<li>Shell Scripts
+</li>
+</ul>
+</li>
+
+<li>Builders
+<ul class="org-ul">
+<li>Amazon EC2(AMI)
+</li>
+<li>Digital Ocean
+</li>
+<li>Docker
+</li>
+<li>Google Comput Engine
+</li>
+<li>VirtualBox
+</li>
+<li>VMware
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-53-4" >
+
+<h3>Vagrant and Packer</h3>
+<ul class="org-ul">
+<li>Development = Deployment = Image
+</li>
+</ul>
+</section>
+<section id="sec-53-5" >
+
+<h3>Serf</h3>
+<ul class="org-ul">
+<li><img src="./images/serf.png" alt="serf.png" />
+</li>
+<li>Orchestration
+</li>
+</ul>
+</section>
+<section id="sec-54"  data-background="#F3C13A">
+
+<h2></h2>
+
+<ul class="org-ul">
+<li>"The Future is Immutable"
+<ul class="org-ul">
+<li><a href="http://www.slideshare.net/profyclub_ru/8-mitchell-hashimoto-hashicorp">Mitchell Hashimoto</a>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-55" >
+
+<h2>감사합니다 :)</h2>
+</section>
+</div>
+</div>
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: false,
+        			center: true,
+        			rollingLinks: true,
+        			keyboard: true,
+        			overview: true,
+        			width: 1200, // slide width
+        			height: 800, // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: './reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: './reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: './reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

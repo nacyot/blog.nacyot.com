@@ -1,0 +1,95 @@
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    margin-bottom: 30px;
+}
+
+.reveal h1{
+    font-size: 2.0em;
+}
+
+.reveal table{
+    border: 1px solid #000;
+    margin: 0 auto;
+}
+
+.reveal table th{
+    padding: 15px;
+    border: 1px solid #000;
+    border-bottom: 3px solid #ffffff;
+}
+
+.reveal table td{
+    padding: 15px;
+    border: 1px solid #000;
+    border-bottom: 3px solid #ffffff;
+}
+
+.reveal img{
+    max-height: 540px;
+}
+
+.reveal li{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+pre.src {
+    with: 100%;
+    padding: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: #3f3f3f; color: #dcdccc; 
+    font-size: 0.75em;
+}
+
+/* from http://emacs-fu.blogspot.kr/2010/05/using-zenburn-for-org-mode-generated.html */
+.org-preprocessor {
+   color: #8cd0d3;
+}
+
+.org-preprocessor {
+   color: #8cd0d3;
+}
+
+.org-variable-name {
+   color: #f0dfaf;
+}
+
+.org-string {
+   color: #cc9393;
+}
+
+.org-type {
+   color: #dfdfbf;
+   font-weight: bold;
+}
+
+.org-function-name {
+   color: #8cd0d3;
+   font-weight: bold;
+}
+
+.org-keyword {
+   color: #f0dfaf;
+   font-weight: bold;
+}
+
+.org-comment {
+   color: #7f9f7f;
+}
+
+.org-doc {
+   color: #afd8af;
+}
+
+.org-comment-delimiter {
+   color: #708070;
+}
+
+.org-constant {
+   color: #dca3ac;
+   font-weight:bold;
+}
+
+.org-builtin {
+   color: #7f9f7f;
+}

@@ -5,16 +5,16 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-04-06T01:20:32Z</updated>
+  <updated>2014-04-06T17:57:32Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
   <entry>
     <title>루비 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-test-ipython/"/>
-    <id>http://blog.nacyot.com/articles/2014-04-06-test-ipython/</id>
-    <published>2014-04-06T01:20:32Z</published>
-    <updated>2014-04-06T17:52:36+00:00</updated>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
+    <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
+    <published>2014-04-06T17:57:32Z</published>
+    <updated>2014-04-06T17:59:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2068,7 +2068,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/</id>
     <published>2014-04-05T18:20:32Z</published>
-    <updated>2014-04-06T17:52:36+00:00</updated>
+    <updated>2014-04-06T17:59:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2164,7 +2164,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
     <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
     <published>2014-03-23T10:40:00Z</published>
-    <updated>2014-04-06T17:52:36+00:00</updated>
+    <updated>2014-04-06T17:59:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2867,7 +2867,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
     <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
     <published>2014-03-16T15:20:00Z</published>
-    <updated>2014-04-06T17:52:36+00:00</updated>
+    <updated>2014-04-06T17:59:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2950,7 +2950,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/"/>
     <id>http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/</id>
     <published>2014-03-11T16:15:32Z</published>
-    <updated>2014-04-06T17:52:36+00:00</updated>
+    <updated>2014-04-06T17:59:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -3081,7 +3081,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/"/>
     <id>http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/</id>
     <published>2014-02-10T15:16:00Z</published>
-    <updated>2014-04-06T17:52:36+00:00</updated>
+    <updated>2014-04-06T17:59:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

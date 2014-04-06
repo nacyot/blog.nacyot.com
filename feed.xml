@@ -10,15 +10,2057 @@
     <name>nacyot(Daekwon Kim)</name>
   </author>
   <entry>
-    <title>Iruby Test</title>
+    <title>루비 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-test-ipython/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-test-ipython/</id>
     <published>2014-04-06T01:20:32Z</published>
-    <updated>2014-04-06T11:11:52+00:00</updated>
+    <updated>2014-04-06T17:52:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;[[ipython:euler-032]]&lt;/p&gt;
+    <content type="html">&lt;p&gt;루비에서는 테스트를 하기 위해 minitest와 BDD 프레임워크인 RSpec이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;테스트 준비&lt;/h2&gt;
+&lt;p&gt;일반적으로 테스트 파일은 프로그램 파일과 별개로 작성됩니다. 여기서는 편의상 pry 위에서 바로 테스트를 진행합니다. 따라서 이 글의 내용은 irb나 pry를 통해서 따라해볼 수 있습니다. 필요한 경우 먼저 rspec과 pry 패키지를 설치합니다&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-sh"&gt;$ gem &lt;span class="keyword"&gt;install&lt;/span&gt; rspec pry
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;다음으로 pry를 실행합니다&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ pry
+[1] pry(main)&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;다음으로 Matecher를 사용하기 위해 &lt;code&gt;rspec&lt;/code&gt;과 &lt;code&gt;RSpec::Matchers&lt;/code&gt;를 읽어들입니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+184번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;rspec&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="n"&gt;RSpec&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Matchers&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    184번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+Object
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;테스트 기초&lt;/h2&gt;
+&lt;p&gt;테스트는 기본적으로 아래와 같은 형식으로 쓰여집니다&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-ruby"&gt;expect(actual).to be(expected)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;여기서 &lt;code&gt;actual&lt;/code&gt;에는 실제로 테스트하고자 하는 객체가 들어가며, &lt;code&gt;expected&lt;/code&gt;에는 예상하는 값이 들어갑니다. 그리고 &lt;code&gt;be&lt;/code&gt;는 &lt;code&gt;actual&lt;/code&gt;과 &lt;code&gt;expected&lt;/code&gt;를 비교하기 위한 매쳐를 지정합니다&lt;/p&gt;
+&lt;p&gt;또한 단언문과 마찬가지로 테스트가 실패하면 예외를 발생시킵니다. 즉, 리턴값이 true라고 해서 테스트가 성공을 의미하는 게 아니며, 거꾸로 false라고 해서 실패를 의미하는 게 아닙니다. 테스트가 실패하면 &lt;code&gt;RSpec::Expectations::ExpectationNotMetError&lt;/code&gt; 예외가 발생합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;동일값 테스트 매쳐&lt;/h2&gt;
+&lt;p&gt;가장 기본적이고 가장 많이 쓰이는 매쳐는 실제값과 예상되는 값이 같은 지를 비교하는 매쳐입니다&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+185번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Equivalence&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;eq&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    185번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+186번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;eql&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    186번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+187번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    187번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;동일성 테스트 매쳐&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;eq&lt;/code&gt;가 실제값과 예상값이 같은지를 평가하는 매쳐라면, &lt;code&gt;equal&lt;/code&gt;은 비교하는 두 객체가 같은 객체인지를 테스트합니다. 루비에선 같은 값을 가진 심볼은 항상 같은 객체입니다. 하지만 같은 값을 가지고 있더라도 별개로 생성된 문자열은 다른 문자열입니다. 따라서 같은 값을 가진 심볼은 동일성 테스트를 통과하지만, 아래 문자열 테스트는 실패합니다&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+188번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Identity&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;equal&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    188번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+189번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    189번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+190번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, World&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;equal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, World&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_text output_pyerr"&gt;
+&lt;pre&gt;
+&lt;span class="ansired"&gt;RSpec::Expectations::ExpectationNotMetError&lt;/span&gt;: 
+expected #&amp;lt;String:70158862817480&amp;gt; =&amp;gt; &amp;quot;Hello, World&amp;quot;
+     got #&amp;lt;String:70158862817540&amp;gt; =&amp;gt; &amp;quot;Hello, World&amp;quot;
+
+Compared using equal?, which compares object identity,
+but expected and actual are not the same object. Use
+&amp;#96;expect(actual).to eq(expected)&amp;#96; if you don&amp;apos;t care about
+object identity in this example.
+
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;연산자 매쳐&lt;/h2&gt;
+&lt;p&gt;동일값 테스트만큼 많이 사용되는 매쳐는 실제값과 예상값을 비교하는 연산자 매쳐입니다. 기본적으로 동일값을 비교하는 &lt;code&gt;==&lt;/code&gt;을 비롯해 &lt;code&gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;gt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;&lt;/code&gt; 등을 사용할 수 있습니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+191번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Comparisons&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    191번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+192번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    192번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;match&lt;/code&gt;와 &lt;code&gt;=~&lt;/code&gt;는 특정 문자열이 주어진 정규표현식에 매치되는 지 여부를 테스트합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+193번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;나랏말 싸미 듕국과 달라&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;듕국&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    193번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+#&amp;lt;MatchData &amp;quot;듕국&amp;quot;&amp;gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+194번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;나랏말 싸미 듕국과 달라&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;=~&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;듕국&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    194번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+7
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;숫자 범위 매쳐&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;be_within.of&lt;/code&gt; 매쳐는 실제값이 예상값 +- 특정 범위에 포함되는 지 여부를 테스트합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+195번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_within&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    195번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+196번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_within&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_text output_pyerr"&gt;
+&lt;pre&gt;
+&lt;span class="ansired"&gt;RSpec::Expectations::ExpectationNotMetError&lt;/span&gt;: expected 100 to be within 5 of 106
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;타입 매쳐&lt;/h2&gt;
+&lt;p&gt;어떤 객체가 어떤 클래스로부터 만들어졌는지 테스트할 수 있습니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+197번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Types and classes&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_instance_of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    197번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+198번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_an_instance_of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    198번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+199번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    199번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+200번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_kind_of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    200번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;참거짓 매쳐&lt;/h2&gt;
+&lt;p&gt;어떤 객체가 참인지 거짓인지 테스트할 수 있습니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+201번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Truthiness and existentialism&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    201번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+202번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_false&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    202번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-be-"&gt;존재(be) 매쳐&lt;/h2&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+203번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    203번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+204번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    204번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+205번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;not_to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    205번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+false
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+206번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_nil&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    206번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;변화 매쳐&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;change&lt;/code&gt; 매쳐는 &lt;code&gt;expect&lt;/code&gt;에 주어진 블록이 실행되었을 때 &lt;code&gt;change&lt;/code&gt;에 주어진 블록의 평가 결과가 변화하는 지를 테스트합니다. 변화했다면 테스트가 통과합니다. 필요에 따라서 얼마만큼 변화했는지를 테스트할 수 있는 &lt;code&gt;by&lt;/code&gt;나 &lt;code&gt;expect&lt;/code&gt; 블록을 실행시키기 전의 값을 테스트할 수 있는 &lt;code&gt;from&lt;/code&gt;, 평가한 이후의 값을 테스트 할 수 있는 &lt;code&gt;to&lt;/code&gt; 메소드와 함께 사용될 수 있습니다&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+207번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    207번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+208번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    208번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+209번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;str&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Hello, world.&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upcase&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, world.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;HELLO, WORLD.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    209번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;예외 메쳐&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;expect&lt;/code&gt;에 주어진 블록의 평가 결과가 예외를 일으키는 지 테스트합니다. expect가 블록을 받는다는 데 주의가 필요합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+210번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Expecting errors&lt;/span&gt;
+&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;raise_error&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    210번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+211번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;non_existance&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;raise_error&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    211번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+212번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;non_existance&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;raise_error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ne"&gt;NameError&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    212번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="have-"&gt;Have 매쳐&lt;/h2&gt;
+&lt;p&gt;컬렉션 객체가 몇 개의 항목을 가지고 있는 지 테스트합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+213번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    213번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+[&amp;quot;H&amp;quot;, &amp;quot;e&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;o&amp;quot;]
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+214번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    214번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+215번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_exactly&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    215번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+216번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_at_least&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    216번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+217번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_at_most&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    217번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="have_key-"&gt;have_key 매쳐&lt;/h2&gt;
+&lt;p&gt;해시에 특정 키가 포함되어있는 지 테스트합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+218번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;nacyot&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;blog.nacyot.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_key&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    218번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;포함 매쳐&lt;/h2&gt;
+&lt;p&gt;객체에 특정한 값이나 키가 포함되어있는 지 테스트합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+219번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    219번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+220번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;nacyot&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;blog.nacyot.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_include&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    220번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+221번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;H&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    221번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="start_with-end_with-"&gt;start_with / end_with 매쳐&lt;/h2&gt;
+&lt;p&gt;객체의 처음이나 끝이 특정 항목으로 시작하거나 끝나는지 테스트합니다&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+222번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, world&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;start_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    222번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+223번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, world&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;end_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;world&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    223번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+224번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;start_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    224번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+225번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;end_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    225번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;커버 매쳐&lt;/h2&gt;
+&lt;p&gt;범위 객체가 특정 값을 포함하는 지 테스트합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+226번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;100.&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;cover&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    226번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+227번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;100.&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;not_to&lt;/span&gt; &lt;span class="n"&gt;cover&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;99&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    227번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+false
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="respond_to-"&gt;respond_to 매쳐&lt;/h2&gt;
+&lt;p&gt;객체가 특정 메시지를 받을 수 있는 지 테스트 합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+228번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;respond_to&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;upcase&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    228번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="satisfy-"&gt;satisfy 매쳐&lt;/h2&gt;
+&lt;p&gt;블록의 평가 결과가 참인지를 평가합니다. 이 때 expect에 주어진 값이 평가 대상이 되며 satisfy 블록의 인자로 넘겨집니다. 이 블록이 참이면 테스트가 통과합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+229번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;false&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;satisfy&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="err"&gt;!&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    229번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="yielding"&gt;Yielding&lt;/h2&gt;
+&lt;p&gt;메소드 내에서 yield하는 부분에 대해서 테스트합니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+230번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_control&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    230번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+231번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_with_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    231번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+232번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_with_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Fixnum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    232번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+233번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;a string&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_with_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    233번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+234번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_successive_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    234번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+235번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_successive_args&lt;/span&gt;&lt;span class="p"&gt;([:&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    235번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+true
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="predicate-matchers"&gt;Predicate matchers&lt;/h2&gt;
+&lt;p&gt;참거짓을 리턴하는 메소드를 사용해 테스트합니다. 이 때 매쳐 이름은 &lt;code&gt;be_메소드이름&lt;/code&gt;이 됩니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;
+241번째 입력:
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;not_to&lt;/span&gt; &lt;span class="n"&gt;be_zero&lt;/span&gt; &lt;span class="c"&gt;# 7.zero?&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
+    241번째 평가:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_pyout"&gt;
+&lt;pre&gt;
+false
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="-"&gt;결론&lt;/h2&gt;
+&lt;p&gt;여기까지 소개한 매쳐들이 RSpec 빌트인 매쳐로 테스트하는데 가장 많이 사용됩니다. 조금 기교스러운 매쳐들도 있어서 익숙해지는데 시간이 걸릴지도 모르겠습니다만, 기본적인 원리만 이해하고 빌트인 매쳐들만 활용해도 대부분의 테스트를 하는 데는 크게 무리가 없습니다. 좀 더 자세한 사항은 &lt;a href="https://www.relishapp.com/rspec/rspec-expectations/v/2-14/docs/built-in-matchers"&gt;Relish의 Rspec 문서&lt;/a&gt;에서 확인하실 수 있습니다. 또한 아직 베타이지만 조만간 업데이트 예정인 메이저 버전 3에서 추가되는 매쳐도 확인할 필요가 있습니다. 역시 &lt;a href="https://www.relishapp.com/rspec/rspec-expectations/v/3-0/docs/built-in-matchers"&gt;공식문서&lt;/a&gt;에서 확인할 수 있습니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -26,7 +2068,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/</id>
     <published>2014-04-05T18:20:32Z</published>
-    <updated>2014-04-06T11:11:52+00:00</updated>
+    <updated>2014-04-06T17:52:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -36,7 +2078,7 @@
 &lt;li&gt;&lt;a href="/presentations/immutable_infrastructure"&gt;Immutable Infrastructure 발표 자료&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-
+&lt;!--more--&gt;
 
 &lt;h2&gt;Cloud&lt;/h2&gt;
 
@@ -45,7 +2087,7 @@
 &lt;li&gt;&lt;a href="http://heroku.com"&gt;Heroku&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://en.clouddesignpattern.org/index.php/Main_Page"&gt;Cloud Design Pattern Wiki&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.slideshare.net/kentamagawa/aws-cloud-design-pattenr-korean-cdp-seminar-in-korea"&gt;CDP 한국어 발표자료&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="[https://digitalocean.com/]"&gt;Digital Ocean&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="%5Bhttps://digitalocean.com/%5D"&gt;Digital Ocean&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/pearkes/tugboat"&gt;Tugboat Gem&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/cookpad/rrrspec"&gt;RRRSpec&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/cookpad/rrrspec"&gt;Cookpad Blog : RRRSpec 한글 번역&lt;/a&gt;&lt;/li&gt;
@@ -69,7 +2111,7 @@
 &lt;li&gt;&lt;a href="http://www.getchef.com/chef/"&gt;Chef&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://puppetlabs.com/"&gt;Puppet&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.ansible.com/home"&gt;Ansible&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://book.daum.net/detail/book.do?bookid=KOR9788994506890&amp;amp;amp;introCpID=YE"&gt;Chef Solo 입문 도서&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://book.daum.net/detail/book.do?bookid=KOR9788994506890&amp;amp;introCpID=YE"&gt;Chef Solo 입문 도서&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://matschaffer.github.io/knife-solo/"&gt;Knife Solo&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://berkshelf.com/"&gt;Berfshelf&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://serverspec.org/"&gt;ServerSpec&lt;/a&gt;&lt;/li&gt;
@@ -122,13 +2164,13 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
     <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
     <published>2014-03-23T10:40:00Z</published>
-    <updated>2014-04-06T11:11:52+00:00</updated>
+    <updated>2014-04-06T17:52:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;이 문서는 Cookpad의 &lt;a href="https://github.com/cookpad/styleguide"&gt;Ruby Style Guide&lt;/a&gt;를 &lt;a href="http://nacyot.com"&gt;nacyot&lt;/a&gt;이 한국어로 번역한 문서입니다. 번역된 문서는 &lt;a href="https://github.com/nacyot/styleguide"&gt;Github 저장소&lt;/a&gt;에서 관리되고 있으며 원본은 &lt;a href="https://github.com/cookpad/styleguide"&gt;여기&lt;/a&gt;에서 찾아볼 수 있습니다. 이 문서는 &lt;a href="http://creativecommons.org/licenses/by/3.0/"&gt;cc-by&lt;/a&gt; 라이센스를 따릅니다.&lt;/p&gt;
 
-
+&lt;!--more--&gt;
 
 &lt;h1&gt;목차&lt;/h1&gt;
 
@@ -175,44 +2217,34 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 한 단계 들여쓰기는 스페이스 두 번을 사용한다. 들여쓰기로 탭을 사용하지 않는다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드 체인이 졌을 때 마지막 메소드에 블록을 넘겨야한다면, 마지막 메소드를 받는 리시버를 별도의 로컬 변수에 대입하고 이 변수에 메소드를 호출하면서 블록을 넘겨준다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;posts = Post.joins(:user)
-  .merge(User.paid)
-  .where(created&lt;em&gt;at: target&lt;/em&gt;date)
-posts.each do |post|
-  next if stuff&lt;em&gt;ids.include?(post.user&lt;/em&gt;id)
-  comment_count += post.comments.size
-end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;posts = Post.joins(:user)
-  .merge(User.paid)
-  .where(created&lt;em&gt;at: target&lt;/em&gt;date).each do |post|
-    next if stuff&lt;em&gt;ids.include?(post.user&lt;/em&gt;id)
-    comment_count += post.comments.size
-  end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;posts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Post&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;joins&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:user&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;merge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;paid&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;where&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;created_at&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;target_date&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;posts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="k"&gt;next&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;stuff_ids&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="n"&gt;comment_count&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;comments&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="n"&gt;posts&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Post&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;joins&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:user&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;  &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;merge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;paid&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;  &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;where&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;created_at&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;target_date&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;    &lt;span class="k"&gt;next&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;stuff_ids&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;    &lt;span class="n"&gt;comment_count&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;post&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;comments&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 식이 완결되지 않고 줄바꿈이 이루어질 때 줄바꿈된 줄부터는 이전의 행보다 한 단계 더 들여쓴다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;User.active.
-  some&lt;em&gt;scope(foo).
-  other&lt;/em&gt;scope(bar)&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;User.active.
-some&lt;em&gt;scope(foo).
-other&lt;/em&gt;scope(bar)
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="no"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;active&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="n"&gt;some_scope&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;other_scope&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="no"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;active&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="n"&gt;some_scope&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;other_scope&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a name="whitespaces"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -239,12 +2271,8 @@ other&lt;/em&gt;scope(bar)
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 특별한 이유가 없다면 인코딩은 UTF-8을 사용한다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 루비 2.0 부터 기본 인코딩이 UTF-8이므로 인코딩 지정을 위한 별도의 매직 코멘트는 사용하지 않는다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 매직 코멘트를 사용해야 할 때는 아래 형식을 사용한다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;coding: utf-8&lt;/h1&gt;
-
-&lt;p&gt;```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# coding: utf-8&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a name="line-columns"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -298,10 +2326,8 @@ other&lt;/em&gt;scope(bar)
 &lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 특별한 이유가 없다면 &lt;code&gt;String.new&lt;/code&gt; 메소드로 문자열을 생성하지 않는다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문자열 안에서 이스케이프 시켄스가 최소화될 수 있도록 적절한 구분문자열을 선택한다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; &lt;code&gt;%&lt;/code&gt; 문법으로 문자열 리터럴을 사용할 때는 괄호를 구분 문자열로 사용한다.이 때 괄호의 종류는 어떤 걸 사용해도 무방하며, 아래와 같은 특별한 경우에는 다른 기호를 구분자로 사용해도 무방하다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;ruby
-OPEN_PARENTHESES = %!({[!    
-&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="no"&gt;OPEN_PARENTHESES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sx"&gt;%!({[!&lt;/span&gt;    
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;Object#to_s&lt;/code&gt;만 호출하는 용도로 위해 문자열 보간(interpolation)을 사용하지 않는다.예) &lt;code&gt;&amp;quot;#{obj.to_s}&amp;quot;&lt;/code&gt; -&amp;gt; &lt;code&gt;obj.to_s&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문자열 보간을 사용할 때 중괄호를 생략할 수 있는 경우가 있지만, 생략하지 않고 반드시 중괄호를 사용한다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; (Ruby 1.9+) Unicode 문자를 이스케이스 시켄스로 입력할 때는 &lt;code&gt;&amp;quot;\xE3\x8C\xB3&amp;quot;&lt;/code&gt; 방식이 아니라 &lt;code&gt;&amp;quot;\u{3333}&amp;quot;&lt;/code&gt;와 같이 &lt;code&gt;\u&lt;/code&gt;를 사용한다.루비 1.8 버전을 지원해야하는 스크립트라면 적용하지 않는다.&lt;/p&gt;&lt;/li&gt;
@@ -329,83 +2355,61 @@ OPEN_PARENTHESES = %!({[!
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 배열 리터럴을 여러 줄로 작성할 때는 &lt;code&gt;[&lt;/code&gt;와 첫번째 요소 사이에 하나의 공백을 두고 요소들의 들여쓰기를 맞춘다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;[ :foo,
-  :bar,
-  :baz
-]&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;[:foo,
-  :bar,
-  :baz
-]
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="ss"&gt;:foo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="ss"&gt;:baz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:foo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="ss"&gt;:baz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입식에서 배열 리터럴을 여러 줄에 걸쳐 작성할 때는 &lt;code&gt;[&lt;/code&gt; 뒤에서 줄바꿈하고 요소를 입력하는 줄들은 한단계씩 들여쓰기 하고 배열을 닫는 &lt;code&gt;]&lt;/code&gt;는 별도의 줄에 적는다. 이 때 &lt;code&gt;]&lt;/code&gt;는 &lt;code&gt;[&lt;/code&gt;이 있는 줄의 첫 부분과 들여쓰기를 맞춘다.&lt;/p&gt;
-
-&lt;p&gt;``` ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;array = [
-  :foo,
-  :bar,
-  :baz,
-]&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;array = [ :foo,
-          :bar,
-          :baz, ]&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;array = [ :foo,
-          :bar,
-          :baz,
-        ]&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;array = [
-  :foo,
-  :bar,
-  :baz, ]
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="ss"&gt;:foo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="ss"&gt;:baz&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="ss"&gt;:foo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;          &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;          &lt;span class="ss"&gt;:baz&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="ss"&gt;:foo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;          &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;          &lt;span class="ss"&gt;:baz&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;        &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="n"&gt;array&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;  &lt;span class="ss"&gt;:foo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;  &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;  &lt;span class="ss"&gt;:baz&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 여러줄로 된 배열 리터럴을 사용할 때는 마지막 요소 다음에도 &lt;code&gt;,&lt;/code&gt;를 입력한다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 문자열로만 구성된 배열을 만들 때는 &lt;code&gt;%w(...)&lt;/code&gt;이나 &lt;code&gt;%W(...)&lt;/code&gt; 문법을 사용한다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;words = %w(foo bar baz)&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;words = [&amp;#39;foo&amp;#39;, &amp;#39;bar&amp;#39;, &amp;#39;baz&amp;#39;]
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;words&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sx"&gt;%w(foo bar baz)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;words&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;baz&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 빈 배열은 &lt;code&gt;[]&lt;/code&gt;을 사용한다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 인수 없이 &lt;code&gt;Array.new&lt;/code&gt; 메소드를 사용하지 않는다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 같은 요소를 &lt;code&gt;n&lt;/code&gt; 개 가진 배열을 초기화할 때는 &lt;code&gt;Array.new(n, obj)&lt;/code&gt;을 사용한다.&lt;code&gt;[obj] * n&lt;/code&gt; 을 사용하지 않는다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 범위(Range) 리터럴을 배열로 변환할 때는 &lt;code&gt;Range#to_a&lt;/code&gt; 메소드를 사용하지 않고, &lt;code&gt;[*range]&lt;/code&gt; 표현을 사용한다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;[*1..10]  #=&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;(1..10).to_a  #=&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="o"&gt;[*&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;  &lt;span class="c1"&gt;#=&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_a&lt;/span&gt;  &lt;span class="c1"&gt;#=&amp;gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a name="hashes"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -414,121 +2418,86 @@ OPEN_PARENTHESES = %!({[!
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 해시 리터럴을 한 줄에 작성할 때는 &lt;code&gt;{&lt;/code&gt; 와 첫번째 요소 사이와 마지막 요소와 &lt;code&gt;}&lt;/code&gt; 사이에 각각 하나의 공백을 넣는다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;{ hoge: 1, fuga: 2 }&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;{hoge: 1, fuga: 2}
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;hoge&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;fuga&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="ss"&gt;hoge&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;fuga&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 해시 리터럴에서 Symbol을 key로 사용할 때 HashRocket(Ruby 1.8에서 사용되던 &lt;code&gt;=&amp;gt;&lt;/code&gt;을 사용한 표현. 예: &lt;code&gt;{ :foo =&amp;gt; 42 }&lt;/code&gt;)문법을 사용하지 않는다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;{ first: 42,
-  second: &amp;#39;foo&amp;#39;,
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;{ :first =&amp;gt; 42,
-  :second =&amp;gt; &amp;#39;foo&amp;#39;,
-}
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;:first&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="ss"&gt;:second&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 해시 리터럴의 key가 symbol이지만 &lt;code&gt;.&lt;/code&gt;, &lt;code&gt;-&lt;/code&gt;와 같은 기호를 사용할 때는 HashRokcet 문법만 사용한다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;{ :cookpad =&amp;gt; 42,
-  :&amp;#39;cookpad.com&amp;#39; =&amp;gt; &amp;#39;foo&amp;#39;,
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;{ cookpad: 42,
-  :&amp;#39;cookpad.com&amp;#39; =&amp;gt; &amp;#39;foo&amp;#39;,
-}
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;:cookpad&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="ss"&gt;:&amp;#39;cookpad.com&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;cookpad&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="ss"&gt;:&amp;#39;cookpad.com&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 빈 해시는 &lt;code&gt;{}&lt;/code&gt;를 사용한다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 해시만 따로 여러줄에 걸쳐서 작성할 때는 &lt;code&gt;{&lt;/code&gt; 다음에 바로 첫번째 요소를 입력하고, 두번째 요소부터는 한 단계 들여쓰기 한다. &lt;code&gt;}&lt;/code&gt;는 별도의 행에 작성하고, &lt;code&gt;{&lt;/code&gt;를 입력한 줄의 앞부분과 들여쓰기를 맞춘다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;{ first: 42,
-  second: &amp;#39;foo&amp;#39;,
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;{
-  first: 42,
-  second: &amp;#39;foo&amp;#39;,
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;{ first: 42,
-second: &amp;#39;foo&amp;#39;,
-}
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입식에서 해시 리터럴을 여러 줄에 걸쳐서 작성할 때는 &lt;code&gt;{&lt;/code&gt; 뒤에서 줄바꿈하고 각 요소들은 한단계 들여쓰기해서 작성한다. &lt;code&gt;}&lt;/code&gt;는 별도의 줄에 입력하고 &lt;code&gt;{&lt;/code&gt;을 입력한 줄의 앞부분과 들여쓰기를 맞춘다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;hash = {
-  first: 42,
-  second: &amp;#39;foo&amp;#39;,
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;hash = { first: 42,
-         second: &amp;#39;foo&amp;#39;,
-       }&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;hash = { first: 42,
-         second: &amp;#39;foo&amp;#39;,
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;hash = { first: 42,
-  second: &amp;#39;foo&amp;#39;,
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;hash = {
-first: 42,
-second: &amp;#39;foo&amp;#39;,
-}
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nb"&gt;hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="nb"&gt;hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;         &lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;       &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="nb"&gt;hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;         &lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="nb"&gt;hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;  &lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="nb"&gt;hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;&lt;span class="ss"&gt;first&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-25"&gt;&lt;span class="ss"&gt;second&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 여러 줄로 걸쳐 해시 리터럴을 작성할 때는 마지막 요소 다음에도 &lt;code&gt;,&lt;/code&gt;를 넣는다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 심볼이 문자열보다 검색 속도가 더 빠르므로, 해키 키로는 문자열보다 심볼을 사용한다.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;```ruby
-  # good
-  { foo: 1, bar: 2 }&lt;/p&gt;
-
-&lt;p&gt;# bad
-  { &amp;#39;foo&amp;#39; =&amp;gt; 1, &amp;#39;bar&amp;#39; =&amp;gt; 2 }
-  ```&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;  &lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;bar&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;foo&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;bar&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; (Ruby 1.9+) 해시 리터컬의 키가 전부 Symbol 리터럴이면 &lt;code&gt;{ key: value }&lt;/code&gt; 방식을 사용한다.이 때 &lt;code&gt;:&lt;/code&gt; 뒤에 공백을 넣을 것.&lt;/li&gt;
 &lt;/ul&gt;
@@ -544,26 +2513,20 @@ second: &amp;#39;foo&amp;#39;,
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 조건 연산자를 중첩적으로 사용하지 않는다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 조건 연산자를 여러줄에 작성하지 않는다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;fizzbuzz = if n % 3 == 0
-    n % 5 == 0 ?&amp;#39;fizzbuzz&amp;#39; : &amp;#39;fizz&amp;#39;
-  else
-    n % 5 == 0 ?&amp;#39;buzz&amp;#39; : &amp;quot;#{n}&amp;quot;
-  end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;fizzbuzz = n % 3 == 0 ?(n % 5 == 0 ?&amp;#39;fizzbuzz&amp;#39; : &amp;#39;fizz&amp;#39;) : (n % 5 == 0 ?&amp;#39;buzz&amp;#39; : &amp;quot;#{n}&amp;quot;)&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;fizzbuzz = n % 3 == 0 ?      (n % 5 == 0 ?&amp;#39;fizzbuzz&amp;#39; : &amp;#39;fizz&amp;#39;) :
-  (n % 5 == 0 ?&amp;#39;buzz&amp;#39; : &amp;quot;#{n}&amp;quot;)
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;fizzbuzz&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;fizzbuzz&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fizz&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;buzz&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;fizzbuzz&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;fizzbuzz&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fizz&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;buzz&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="n"&gt;fizzbuzz&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;fizzbuzz&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;fizz&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;buzz&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a name="assignments"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -591,34 +2554,27 @@ second: &amp;#39;foo&amp;#39;,
 &lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 조건식과 본문 코드가 짧으면 본문 코드 뒤에 조건 변경자를 사용할 것.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 조건식이 여러줄로 길어질 때는 조건을 별도의 메소드로 추출하고 적절한 이름을 붙여 사용한다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 대입식에서 제어구조를 사용해야할 때는 본문 코드를 2단계 들여쓰고 마지막 &lt;code&gt;end&lt;/code&gt;는 본문보다 한단계 덜 들여쓴다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;result = if condition
-    body_code
-  end&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;result =
-  if condition
-    body_code
-  end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;result = if condition
-  body_code
-end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;result = if condition
-           body_code
-         end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;condition&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="n"&gt;body_code&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;condition&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;    &lt;span class="n"&gt;body_code&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;condition&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;  &lt;span class="n"&gt;body_code&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;condition&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;           &lt;span class="n"&gt;body_code&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;         &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; return, next, break가  의미 있는 값을 리턴하지 않을 때는, 각 키워드 뒤에 어떤 식도 작성하지 않는다.&lt;/p&gt;
 
 &lt;ul&gt;
@@ -644,142 +2600,111 @@ end&lt;/p&gt;
 &lt;li&gt;메소드 호출 안에서 메소드를 호출하는 때는 다른 규칙에 위배되지 않는 한에서 가장 바깥의 메소드 호출에서 괄호를 생략해도 무방하다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드 이름과 메소드 호출을 의미하는 괄호 사이에는 공백을 넣지 않는다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 인자 마지막에 해시 리터럴을 사용할 때는 해시 리터럴 괄호를 생략한다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;foo(1, 2, foo: :bar, baz: 42)&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;foo(1, 2, { foo: :bar, baz: 42 })
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;baz&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="ss"&gt;:bar&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;baz&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;42&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 블록의 리턴값이 의미를 가지지 않는 메소드를 호출할 때는 &lt;code&gt;do&lt;/code&gt;/&lt;code&gt;end&lt;/code&gt; 방식으로 블록을 사용한다.예) 블록에서 부작용을 일으킬 때(변수 변환 등).&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 블록의 리턴값이 의미를 가지는 메소드를 호출할 때는 중괄호를 사용해 블록을 사용한다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;puts [1, 2, 3].map {|i|
-  i * i
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;puts [1, 2, 3].map do |i|
-  i * i
-end&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].map {|n|
-  n * n
-}.each {|n|
-  puts Math.sqrt(n)
-}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].map do |n|
-  n * n
-end.each do |n|
-  puts Math.sqrt(n)
-end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;  &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;  &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="no"&gt;Math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;  &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="k"&gt;end&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;  &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="no"&gt;Math&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 블록을 사용하는 메소드 호출을 한 줄로 작성할 때는 중괄호를 사용한다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;do&lt;/code&gt;/&lt;code&gt;end&lt;/code&gt;를 사용할 때는 &lt;code&gt;do 앞뒤로 공백을 넣으며, 블록 인자 뒤에 줄바꿈을 넣고&lt;/code&gt;end&lt;code&gt;는 독립된 행으로 작성한다.블록 본문은 한 단계 들여쓰며&lt;/code&gt;end`의 들여쓰기는 메소드를 호출하는 첫 행에 맞춘다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].each do |num|
-  puts num
-end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].each do |num|
-    puts num
-  end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].each do |num|
-                 puts num
-               end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].each do |num| puts num end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;    &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;                 &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;               &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 중괄호를 사용하는 블록은 &lt;code&gt;{&lt;/code&gt; 앞에 공백을 하나 사용한다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 중괄호를 사용하는 블록을 한 줄에 작성하는 경우 &lt;code&gt;{&lt;/code&gt;이나 블록 인자와 본문 코드, 본문 코드와 &lt;code&gt;}&lt;/code&gt; 사이에 공백을 하나씩 넣는다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].each {|num| puts num }
-[1, 2, 3].each { |num| puts num }&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].each {|num| puts num}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;[1, 2, 3].each { |num| puts num}&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;10.times { puts &amp;#39;Hello world&amp;#39; }&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;10.times {puts &amp;#39;Hello world&amp;#39; }&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;10.times {puts &amp;#39;Hello world&amp;#39;}&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;10.times { puts &amp;#39;Hello world&amp;#39;}
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;].&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;num&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;times&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello world&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;times&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello world&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;times&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello world&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;times&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello world&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 메소드를 호출할 때 인자가 길어지면 아래의 규칙에 따라 여러 줄에 나눠서 작성한다.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;인자가 길어지면 &lt;code&gt;(&lt;/code&gt; 바로 다음에 줄바꿈을 넣고 다음 행부터 들여쓰기를 한 단계 깊게 한 행에 하나의 인자를 작성한다. 메소드 호출을 닫을 때는 들여쓰기를 첫 줄과 마찬가지로 하고 &lt;code&gt;)&lt;/code&gt;를 별도의 줄에 작성한다.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;code&gt;ruby
-  Foo.new(
-    arg,
-    long_argument,
-    key: value,
-    long_key: long_value,
-    pretty_so_much_very_long_key:
-      pretty_so_much_very_tooooooooooooooooooooo_long_value,
-  )
-&lt;/code&gt;
-- 인자가 짧을 때는 &lt;code&gt;(&lt;/code&gt;에 이어서 첫번째 인자를 작성하고, 다음 줄부터는 들여쓰기을 첫번째 인자에 맞추서 인자들을 하나씩 작성한다. 메소드 호출을 마칠 때는 &lt;code&gt;)&lt;/code&gt;을 마지막 인자 바로 다음에 적는다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;ruby
-  Foo.new(arg,
-          long_argument,
-          key: value,
-          long_key: long_value)
-&lt;/code&gt;
-- DSL 메소드를 여러 줄에 걸쳐서 작성할 때는 첫번째 인수를 메소드 이름 바로 뒤에 적고, 다음 줄부터 들여쓰기를 한단계 깊게 인수를 한 줄에 하나씩 작성한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;ruby
-  ActionMailer::Base.delivery_method :smtp,
-      host: &amp;#39;localhost&amp;#39;,
-      port: 25
-&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;  &lt;span class="no"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;    &lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="n"&gt;long_argument&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;    &lt;span class="ss"&gt;key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;long_key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;long_value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;    &lt;span class="n"&gt;pretty_so_much_very_long_key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;      &lt;span class="n"&gt;pretty_so_much_very_tooooooooooooooooooooo_long_value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;인자가 짧을 때는 &lt;code&gt;(&lt;/code&gt;에 이어서 첫번째 인자를 작성하고, 다음 줄부터는 들여쓰기을 첫번째 인자에 맞추서 인자들을 하나씩 작성한다. 메소드 호출을 마칠 때는 &lt;code&gt;)&lt;/code&gt;을 마지막 인자 바로 다음에 적는다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;  &lt;span class="no"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;          &lt;span class="n"&gt;long_argument&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;          &lt;span class="ss"&gt;key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;          &lt;span class="n"&gt;long_key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;long_value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;DSL 메소드를 여러 줄에 걸쳐서 작성할 때는 첫번째 인수를 메소드 이름 바로 뒤에 적고, 다음 줄부터 들여쓰기를 한단계 깊게 인수를 한 줄에 하나씩 작성한다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;  &lt;span class="no"&gt;ActionMailer&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Base&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delivery_method&lt;/span&gt; &lt;span class="ss"&gt;:smtp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;      &lt;span class="ss"&gt;host&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;      &lt;span class="ss"&gt;port&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;25&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a name="begin-and-end"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -798,111 +2723,93 @@ end&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드에 별칭을 붙일 때는 &lt;code&gt;alias&lt;/code&gt;를 사용하지 말고 &lt;code&gt;alias_method&lt;/code&gt;를 사용한다.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;attr&lt;/code&gt;을 사용하지 말고 &lt;code&gt;attr_accessor&lt;/code&gt;, &lt;code&gt;attr_reader&lt;/code&gt;, &lt;code&gt;attr_writer&lt;/code&gt;을 사용한다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 클래스 메소드를 정의할 때는 의미없이 들여쓰기가 깊어지지 않도록 &lt;code&gt;self.&lt;/code&gt; 문법을 사용한다.하지만 private 메소드와 public 메소드를 모두 사용할 때는 &lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt; 를 사용해도 무방하다.&lt;/p&gt;
-
-&lt;p&gt;```ruby
-class Foo
-  # good
-  def self.foo
-  end&lt;/p&gt;
-
-&lt;p&gt;# bad
-  def Foo.foo
-  end
-end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nc"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; private와 protected 클래스 메소드를 정의할 때는 &lt;code&gt;class &amp;lt;&amp;lt; self&lt;/code&gt; / &lt;code&gt;end&lt;/code&gt; 안에서 메소드를 정의하고 가시성을 변경한다.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;```ruby
-    class Foo
-      # good
-      class &amp;lt;&amp;lt; self
-        def foo
-        end
-        private :foo
-      end&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;  # bad
-  def self.foo
-  end
-  class &amp;lt;&amp;lt;self
-    private :foo
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;```&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;    &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;      &lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;      &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="nb"&gt;self&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;        &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;        &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;        &lt;span class="kp"&gt;private&lt;/span&gt; &lt;span class="ss"&gt;:foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;      &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;      &lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;      &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nc"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;      &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;      &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;self&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;        &lt;span class="kp"&gt;private&lt;/span&gt; &lt;span class="ss"&gt;:foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;      &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;    &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 메소드가 정의되어있을 때 메소드 이름을 인수로 &lt;code&gt;private&lt;/code&gt;나 &lt;code&gt;protected&lt;/code&gt;나 &lt;code&gt;public&lt;/code&gt; 메소드를 호출해 메소드의 가시성을 변경할 때는 메소드 정의와 가시성 변경 메소드 사이에 빈 줄을 두지 않는다.&lt;/p&gt;
-
-&lt;p&gt;```ruby
-class Foo
-  # good
-  def foo
-  end
-  private :foo&lt;/p&gt;
-
-&lt;p&gt;# bad
-  def foo
-  end&lt;/p&gt;
-
-&lt;p&gt;private :foo
-end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="kp"&gt;private&lt;/span&gt; &lt;span class="ss"&gt;:foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;  &lt;span class="kp"&gt;private&lt;/span&gt; &lt;span class="ss"&gt;:foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; &lt;code&gt;private&lt;/code&gt;나 &lt;code&gt;protected&lt;/code&gt;나 &lt;code&gt;public&lt;/code&gt;을 인수 없이 사용할 때는 들여쓰기를 메소드 정의와 같게 하고 메소드 호출 앞뒤로 한 줄을 띄워준다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;class Foo
-  def foo
-  end&lt;/p&gt;
-
-&lt;p&gt;private&lt;/p&gt;
-
-&lt;p&gt;def bar
-  end
-end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;class Foo
-  def foo
-  end&lt;/p&gt;
-
-&lt;p&gt;private&lt;/p&gt;
-
-&lt;p&gt;def bar
-  end
-end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;class Foo
-  def foo
-  end&lt;/p&gt;
-
-&lt;p&gt;private&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def bar
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;class Foo
-  def foo
-  end&lt;/p&gt;
-
-&lt;p&gt;private
-  def bar
-  end
-end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="kp"&gt;private&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;bar&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="kp"&gt;private&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;bar&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-25"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-27"&gt;
+&lt;/span&gt;&lt;span id="line-28"&gt;  &lt;span class="kp"&gt;private&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-29"&gt;
+&lt;/span&gt;&lt;span id="line-30"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;bar&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-31"&gt;    &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-32"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-33"&gt;
+&lt;/span&gt;&lt;span id="line-34"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-35"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-36"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-37"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-38"&gt;
+&lt;/span&gt;&lt;span id="line-39"&gt;  &lt;span class="kp"&gt;private&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-40"&gt;  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;bar&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-41"&gt;  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-42"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[SHOULD]&lt;/strong&gt; 외부에 노출되는 클래스와 모듈의 메소드 및 변수에 대한 문서는 Markdown으로 작성한다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문서화를 위한 주석과 메소드 정의 사이에 빈 줄을 넣지 않는다.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 문서화는 &lt;a href="http://tomdoc.org/"&gt;TomDoc&lt;/a&gt; 포맷을 따른다.&lt;/p&gt;&lt;/li&gt;
@@ -924,21 +2831,16 @@ end
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 하나의 메소드로 여러가지 일을 하지 않는다.&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 인수를 삭제하지 않는다.&lt;/p&gt;
-
-&lt;p&gt;```ruby&lt;/p&gt;
-
-&lt;h1&gt;good&lt;/h1&gt;
-
-&lt;p&gt;def your&lt;em&gt;method(str)
-  new&lt;/em&gt;str = str.sub(&amp;#39;xxx&amp;#39;, &amp;#39;yyy&amp;#39;)
-end&lt;/p&gt;
-
-&lt;h1&gt;bad&lt;/h1&gt;
-
-&lt;p&gt;def your_method(str)
-  str.sub!(&amp;#39;xxx&amp;#39;, &amp;#39;yyy&amp;#39;)
-end
-```&lt;/p&gt;&lt;/li&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# good&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;your_method&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="n"&gt;new_str&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;xxx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;yyy&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# bad&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;your_method&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="n"&gt;str&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sub!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;xxx&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;yyy&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;a name="variables"&gt;&lt;/a&gt;&lt;/p&gt;
@@ -965,7 +2867,7 @@ end
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
     <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
     <published>2014-03-16T15:20:00Z</published>
-    <updated>2014-04-06T11:11:52+00:00</updated>
+    <updated>2014-04-06T17:52:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -975,7 +2877,7 @@ end
 
 &lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
 
-
+&lt;!--more--&gt;
 
 &lt;h2&gt;Github&lt;/h2&gt;
 
@@ -984,13 +2886,13 @@ end
 &lt;p&gt;하나는 번역 메모리 omegat의 프로젝트를 담은 &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;https://github.com/nacyot/omegat-emacs.sexy&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/nacyot/omegat-emacs.sexy"&gt;https://github.com/nacyot/omegat-emacs.sexy&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;이고, 또 하나는 omegat-emacs.sexy에서 번역한 결과를 travis로 빌드해서 자동으로 push 되도록 설정해둔 &lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;https://github.com/nacyot/sexy.emacs.kr&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/nacyot/sexy.emacs.kr"&gt;https://github.com/nacyot/sexy.emacs.kr&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;입니다.&lt;/p&gt;
@@ -1004,14 +2906,11 @@ end
 &lt;p&gt;이번에 한 가지 시도해본 건 Travis를 통해 OmegaT의 프로젝트를 빌드하는 일입니다. OmegaT에서는 원본 문서를 편집하지 않고 Segment 단위로 한 문장(혹은 한 문단) 씩 번역을 진행합니다. 따라서 여기서 빌드란 OmegaT를 통해서 번역한 결과물을 실제 파일로 출력하는 과정을 말합니다. 로컬에서 번역을 진행하고 빌드 후 저장소를 올리는 것도 어렵지 않습니다만 신경써야할 부분이 하나 더 느는 문제가 있고, 또 하나는 커밋 단위로 빌드를 하고 싶었기 때문입니다. 이는 이 블로그나 위키에서도 마찬가지로 문서를 작성하면 자동적으로 Travis에서 Middleman 어플리케이션을 빌드하고 깃허브 저장소에 올리는 것과 마찬가지입니다. 즉, 이를 통해 OmegaT를 통한 번역작업과 Github 페이지를 통한 배포 작업을 하나의 트랜젝션으로 묶을 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;전체 스크립트는 &lt;a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/.travis.yml"&gt;여기&lt;/a&gt;에 있습니다. 여기서 가장 중요한 두 명령어는 아래와 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;yaml
-before_install:
-  - sudo apt-get install -qq openjdk-6-jdk omegat
-script:
-  - /usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java -jar /usr/share/omegat/OmegaT.jar . --mode=console-translate
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="l-Scalar-Plain"&gt;before_install&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;sudo apt-get install -qq openjdk-6-jdk omegat&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="l-Scalar-Plain"&gt;script&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;/usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java -jar /usr/share/omegat/OmegaT.jar . --mode=console-translate&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;첫번째 명령어는 &lt;code&gt;apt-get&lt;/code&gt;으로 openjdk-6-jdk와 omegat를 설치합니다. 아래 명령어는 실제로 프로젝트를 빌드하는 명령어입니다. OmegaT를 설치하면 &lt;code&gt;omegat&lt;/code&gt; 명령어를 사용할 수 있기는 합니다만, 이 명령어는 자바 버전에 의존적이라 &lt;code&gt;java&lt;/code&gt;와 &lt;code&gt;omegat&lt;/code&gt; 모두 강제로 경로를 지정해서 실행하고 있습니다.&lt;/p&gt;
 
 &lt;p&gt;이러한 작업을 할 때 OmegaT의 프로젝트 구조를 로컬에서와 같도록 최대한 보장해줄 필요가 있습니다. 예를 들어 과거 프로젝트에서 생성한 번역 메모리를 재활용할 수 있게 도와주는 &lt;code&gt;/tm/auto&lt;/code&gt; 디렉토리는 실제론 필요가 없지만, 빌드 시에 없으면 프로젝트를 인식하지 못 합니다. &lt;code&gt;target&lt;/code&gt; 디렉토리는 빌드 결과가 출력되는 디렉토리인데 자동으로 생성해주지 않기 때문에, 빈 디렉토리라도 생성해두지 않으면 빌드에 실패합니다. 이 외에 &lt;code&gt;glossary&lt;/code&gt;, &lt;code&gt;dictionary&lt;/code&gt;, &lt;code&gt;source&lt;/code&gt;도 정상적으로 프로젝트 디렉토리 안에 생성되어 있어야합니다.&lt;/p&gt;
@@ -1025,11 +2924,8 @@ script:
 &lt;p&gt;이건 비밀입니다만(...) 처음에는 직접 OmegaT의 최신 버전을 프로젝트에 집어넣고 빌드 과정에서 압축을 풀어 사용하려고 했습니다. 하지만 Github 저장소에는 100mb 이상의 파일을 넣을 수 없다는 사실을 처음 알았습니다.&lt;/p&gt;
 
 &lt;p&gt;이렇게 100mb 넘는 파일을 추가하고 Github에 올리기 위해선 커밋 히스토리 자체를 삭제할 필요가 생기는데 아래 명령어를 사용할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-git filter-branch --tree-filter &amp;#39;rm -rf path/to/your/file&amp;#39; HEAD
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;tree&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rf&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;your&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;HEAD&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Rake&lt;/h2&gt;
 
 &lt;p&gt;빌드 과정에서 몇 가지 rake 작업이 이루어집니다. OmegaT를 사용한 번역에서는 원본 파일을 직접 수정하지 않고, 문장들만을 번역합니다. 따라서 원칙적으로 원본 파일은 건드리지 않고 작업을 하기 위해서 빌드된 결과물을 rake  스크립트를 통해서 편집해줍니다. &lt;code&gt;rewrite_cname&lt;/code&gt;은 CNAME 파일이 &lt;code&gt;sexy.emacs.kr&lt;/code&gt;(실제 배포될 URL)을 가리키도록 합니다.  &lt;code&gt;add_link&lt;/code&gt;는 별도로 관리중인 &lt;a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/data/sites.json"&gt;한국어 링크를 정리한 json 파일&lt;/a&gt;에서 링크를 가져와 문서의 아래 쪽에 추가해줍니다. 마지막으로 &lt;code&gt;add_link_to_translator&lt;/code&gt;는 번역자 정보를 문서에 추가해줍니다.&lt;/p&gt;
@@ -1054,13 +2950,13 @@ git filter-branch --tree-filter &amp;#39;rm -rf path/to/your/file&amp;#39; HEAD
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/"/>
     <id>http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/</id>
     <published>2014-03-11T16:15:32Z</published>
-    <updated>2014-04-06T11:11:52+00:00</updated>
+    <updated>2014-04-06T17:52:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 &lt;a href="http://ternjs.net/"&gt;Tern&lt;/a&gt;입니다.&lt;/p&gt;
 
-
+&lt;!--more--&gt;
 
 &lt;p&gt;Tern은 &lt;a href="https://github.com/marijnh/CodeMirror"&gt;코드미러&lt;/a&gt;라는 에디터를 만들었던 Marijn Haverbeke의 또다른 오픈소스 어플리케이션으로 기본적으로 자바스크립트 코드 분석기입니다. 지금 바로 &lt;a href="http://ternjs.net/doc/demo.html"&gt;데모 페이지&lt;/a&gt;에서 코드 미러 위에서 동작하는 Tern의 기능들을 확인해보시기 바랍니다. 이러한 정적 코드 분석의 결과는 질높은 문법 체크 및 자동완성을 비롯한 다양한 부가 기능을 제공하는데 이용될 수 있습니다. 특히 Tern은 특정 에디터에 종속되지 않는다는 점에서 봤을 때 마츠야마 토모히로 씨가 Emacs는 죽었다는 글에서 이야기했던 (이맥스 문화권에서 나오진 않았지만) &lt;strong&gt;&lt;em&gt;외부 프로그램에 의한 잠재적인 사회적 가치를 극대화&lt;/em&gt;&lt;/strong&gt;해야한다는 사상에 정말로 잘 들어맞는 프로그램입니다. Tern은 어떤 에디터에 종속적이지 않습니다. Tern은 독자적인 서버로 실행되고, 에디터에서 보내오는 결과에 대한 적절한 분석결과를 되돌려 줄 뿐입니다. 리눅스에서 명령어들의 결과를 파이프라인으로 보내는데 익숙하다면 이러한 개념이 얼마나 합리적이고 적절히 확장 가능한지 이해할 수 있을 것입니다. 분석 결과는 에디터의 플러그인들이 적절히 처리해줍니다. 실제 Tern의 저장소에는 Emacs, Vim, Sublime Text, eclipse를 플러그인으로 지원하고 있으면 Brackets과 Edge Code에서는 빌트인으로 지원하고 있다고 쓰여있습니다.&lt;/p&gt;
 
@@ -1069,73 +2965,55 @@ git filter-branch --tree-filter &amp;#39;rm -rf path/to/your/file&amp;#39; HEAD
 &lt;h2&gt;설치&lt;/h2&gt;
 
 &lt;p&gt;우선 Tern을 사용하기 위해서는 Tern을 설치해야할 필요가 있습니다. 먼저 npm을 사용해서 설치해보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ npm install -g tern
-npm http GET https://registry.npmjs.org/tern
-npm http 200 https://registry.npmjs.org/tern
-...
-tern@0.5.0 /home/myhome/.nvm/v0.10.24/lib/node_modules/tern
-├── acorn@0.4.2
-├── glob@3.2.9 (inherits@2.0.1)
-└── minimatch@0.2.14 (sigmund@1.0.0, lru-cache@2.5.0)
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;npm install -g tern
+&lt;/span&gt;&lt;span id="line-2"&gt;npm http GET https://registry.npmjs.org/tern
+&lt;/span&gt;&lt;span id="line-3"&gt;npm http 200 https://registry.npmjs.org/tern
+&lt;/span&gt;&lt;span id="line-4"&gt;...
+&lt;/span&gt;&lt;span id="line-5"&gt;tern@0.5.0 /home/myhome/.nvm/v0.10.24/lib/node_modules/tern
+&lt;/span&gt;&lt;span id="line-6"&gt;├── acorn@0.4.2
+&lt;/span&gt;&lt;span id="line-7"&gt;├── glob@3.2.9 &lt;span class="o"&gt;(&lt;/span&gt;inherits@2.0.1&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;└── minimatch@0.2.14 &lt;span class="o"&gt;(&lt;/span&gt;sigmund@1.0.0, lru-cache@2.5.0&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;npm을 사용하는 게 가장 간단합니다만, npm을 사용할 수 없는 경우엔,&lt;/p&gt;
 
 &lt;p&gt;nodejs와 npm을 설치해주세요(...). 그만 nodejs를 받아들이시기 바랍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ tern 
-Listening on port 60805
-^c(종료)
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tern 
+&lt;/span&gt;&lt;span id="line-2"&gt;Listening on port 60805
+&lt;/span&gt;&lt;span id="line-3"&gt;^c&lt;span class="o"&gt;(&lt;/span&gt;종료&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이제 tern을 실행해보면 랜덤한 포트에서 tern이 실행되는 것을 알 수 있습니다.&lt;/p&gt;
 
 &lt;h2&gt;Tern 이맥스 설정&lt;/h2&gt;
 
 &lt;p&gt;Tern 설치가 되었다면 이제 이맥스와 연동을 해야합니다. Tern은 기본적으로 이맥스 24 이상을 지원하고 있습니다. 먼저 설치된 이맥스 버전을 확인해주시고, 필요한 경우 버전을 올려줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ emacs --version
-GNU Emacs 24.3.1
-Copyright (C) 2013 Free Software Foundation, Inc.
-GNU Emacs comes with ABSOLUTELY NO WARRANTY.
-You may redistribute copies of Emacs
-under the terms of the GNU General Public License.
-For more information about these matters, see the file named COPYING.
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;emacs --version
+&lt;/span&gt;&lt;span id="line-2"&gt;GNU Emacs 24.3.1
+&lt;/span&gt;&lt;span id="line-3"&gt;Copyright &lt;span class="o"&gt;(&lt;/span&gt;C&lt;span class="o"&gt;)&lt;/span&gt; 2013 Free Software Foundation, Inc.
+&lt;/span&gt;&lt;span id="line-4"&gt;GNU Emacs comes with ABSOLUTELY NO WARRANTY.
+&lt;/span&gt;&lt;span id="line-5"&gt;You may redistribute copies of Emacs
+&lt;/span&gt;&lt;span id="line-6"&gt;under the terms of the GNU General Public License.
+&lt;/span&gt;&lt;span id="line-7"&gt;For more information about these matters, see the file named COPYING.
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;또한 이맥스 24에는 강력한 패키지 관리자가 기본으로 포함되어있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-M-x package-install &amp;lt;enter&amp;gt; tern &amp;lt;enter&amp;gt;
-M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;gt;
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nx"&gt;M&lt;/span&gt;&lt;span class="na"&gt;-x&lt;/span&gt; &lt;span class="nx"&gt;package&lt;/span&gt;&lt;span class="na"&gt;-install&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;enter&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;tern&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;enter&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nx"&gt;M&lt;/span&gt;&lt;span class="na"&gt;-x&lt;/span&gt; &lt;span class="nx"&gt;package&lt;/span&gt;&lt;span class="na"&gt;-install&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;enter&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;tern&lt;/span&gt;&lt;span class="na"&gt;-auto-complate&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;enter&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;만약 패키지를 찾을 수 없다면 &lt;code&gt;~/.emacs.d/init.el&lt;/code&gt;이나 이에 해당하는 사용하고 있는 이맥스 설정 파일에 다음 내용을 추가합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;lisp
-(add-to-list &amp;#39;package-archives
-             &amp;#39;(&amp;quot;melpa&amp;quot; . &amp;quot;http://melpa.milkbox.net/packages/&amp;quot;) t)
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;add-to-list&lt;/span&gt; &lt;span class="ss"&gt;&amp;#39;package-archives&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;             &lt;span class="o"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;melpa&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;http://melpa.milkbox.net/packages/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="no"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;다시 위로 돌아가 package-install을 하면 정상적으로 설치가 가능할 것입니다. 만약 이래도 패키지가 뜨지 않는다면 Tern 저장소의 내용을 클론해서 이맥스 디렉토리 아래의 &lt;code&gt;el&lt;/code&gt;들을 &lt;code&gt;.emacs.d&lt;/code&gt; 디렉토리 아래로 복사합니다. 복사한 후 자신의 설정 파일(기본적으로 &lt;code&gt;~/.emacs.d/init.el&lt;/code&gt;)에 아래 내용을 적절히 상황에 맞게 수정해서 추가해줍니다. &lt;code&gt;js2-mode-hook&lt;/code&gt;는 자신이 사용하는 Javascript major 모드로 바꿉니다. 그 아래 내용은 자동완성을 적용하는 부분입니다. &lt;code&gt;tern-ac-on-dot&lt;/code&gt; 설정을 통해서 emacs에서는 기본적으로  .을 입력할 때 tern 자동완성을 실행시킬 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;```lisp
-(add-to-list &amp;#39;load-path &amp;quot;~/.emacs.d/tern/&amp;quot;)
-(autoload &amp;#39;tern-mode &amp;quot;tern.el&amp;quot; nil t)&lt;/p&gt;
-
-&lt;p&gt;(add-hook &amp;#39;js2-mode-hook (lambda () (tern-mode t)))&lt;/p&gt;
-
-&lt;p&gt;(eval-after-load &amp;#39;tern
-  &amp;#39;(progn
-     (require &amp;#39;tern-auto-complete)
-     (setq tern-ac-on-dot t)
-     (tern-ac-setup)))
-```&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;add-to-list&lt;/span&gt; &lt;span class="ss"&gt;&amp;#39;load-path&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;~/.emacs.d/tern/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;autoload&lt;/span&gt; &lt;span class="ss"&gt;&amp;#39;tern-mode&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;tern.el&amp;quot;&lt;/span&gt; &lt;span class="no"&gt;nil&lt;/span&gt; &lt;span class="no"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;add-hook&lt;/span&gt; &lt;span class="ss"&gt;&amp;#39;js2-mode-hook&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;tern-mode&lt;/span&gt; &lt;span class="no"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;eval-after-load&lt;/span&gt; &lt;span class="ss"&gt;&amp;#39;tern&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="o"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;progn&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;     &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="ss"&gt;&amp;#39;tern-auto-complete&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;     &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;setq&lt;/span&gt; &lt;span class="nv"&gt;tern-ac-on-dot&lt;/span&gt; &lt;span class="no"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;     &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;tern-ac-setup&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이걸로 기본적인 설정은 끝났습니다. &lt;code&gt;M-x load-file&lt;/code&gt; 명령어나 emacs를 다시 실행시켜 설정을 적용시켜줍니다. 이제 js 파일을 편집할 때(좀 더 정확히는 javascript 메이져 모드일 때), tern 마이너 모드가 실행됩니다.&lt;/p&gt;
 
 &lt;h2&gt;자바스크립트 프로젝트 설정&lt;/h2&gt;
@@ -1143,45 +3021,39 @@ M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;g
 &lt;p&gt;tern 마이너 모드가 실행되면 자동적으로 tern 서버가 실행되고, 이 서버와 통신하면서 자동 완성을 비롯한 몇 가지 부가 기능들을 사용할 수 있게됩니다. 하지만 이 상태에선 자동완성이 될만한 표현식을 입력해봐도 거의 자동으로 완성되는 게 없습니다. 이는 tern 서버가 현재 javascript가 어떤 맥락에서 평가되는지 판단할 수 없기 때문입니다. 이를 위해서는 자바스크립트 프로젝트 단위로 &lt;code&gt;.tern-project&lt;/code&gt; 파일을 만들어야합니다.&lt;/p&gt;
 
 &lt;p&gt;프로젝트 설정 파일의 대략적인 구조는 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-{
-  &amp;quot;libs&amp;quot;: [
-    &amp;quot;browser&amp;quot;,
-    &amp;quot;jquery&amp;quot;
-  ],
-  &amp;quot;loadEagerly&amp;quot;: [
-  ],
-  &amp;quot;plugins&amp;quot;: {
-  }
-}
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="s"&gt;&amp;quot;libs&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="s"&gt;&amp;quot;browser&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;    &lt;span class="s"&gt;&amp;quot;jquery&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s"&gt;&amp;quot;loadEagerly&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s"&gt;&amp;quot;plugins&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;libs&lt;/code&gt;에는 tern에서 미리 정의해놓고 있는 &lt;a href="http://ternjs.net/doc/manual.html#typedef"&gt;JSON type definitions&lt;/a&gt; 형식을 따르는 라이브러리 정의 파일을 지정할 수 있습니다. &lt;a href="https://github.com/marijnh/tern/tree/master/defs"&gt;tern 저장소에서 확인할 수 있는 바&lt;/a&gt;로는 &lt;code&gt;browser&lt;/code&gt;, &lt;code&gt;chai&lt;/code&gt;, &lt;code&gt;ecma5&lt;/code&gt;,  &lt;code&gt;jquery&lt;/code&gt;, &lt;code&gt;underscore&lt;/code&gt; 다섯가지를 기본적으로 사용할 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;예를 들어 &lt;code&gt;underscore&lt;/code&gt;를 사용하면 다음과 같이 자동 완성이 되는 것을 볼 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="Underscore auto complate" src="images/2014-03-12-emacs-with-tern/underscore.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="/images/2014-03-12-emacs-with-tern/underscore.png" alt="Underscore auto complate"&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;loadEagerly&lt;/code&gt; 옵션을 통해 프로젝트 아래에서 미리 읽어둘 파일을 지정할 수 있습니다. 예를 들어 d3js를 bower로 설치하고 다음과 같이 프로젝트를 설정합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-{
-  &amp;quot;libs&amp;quot;: [
-    &amp;quot;browser&amp;quot;,
-    &amp;quot;jquery&amp;quot;
-  ],
-  &amp;quot;loadEagerly&amp;quot;: [
-    &amp;quot;bower_components/d3js/build/d3.v3.js&amp;quot;
-  ],
-  &amp;quot;plugins&amp;quot;: {
-  }
-}
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="s"&gt;&amp;quot;libs&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="s"&gt;&amp;quot;browser&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;    &lt;span class="s"&gt;&amp;quot;jquery&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s"&gt;&amp;quot;loadEagerly&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="s"&gt;&amp;quot;bower_components/d3js/build/d3.v3.js&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="p"&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s"&gt;&amp;quot;plugins&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이를 통해서 d3js 라이브러리에 관련된 자동 완성이나 &lt;code&gt;tern-find-definition&lt;/code&gt;과 같은 기능을 사용할 수 있게됩니다. &lt;code&gt;**&lt;/code&gt;와 같은 패턴 매치도 사용가능하니 자바스크립트를 모아놓는 디렉토리를 미리 불러오는 것도 가능합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="d3js auto complate" src="images/2014-03-12-emacs-with-tern/d3js.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="/images/2014-03-12-emacs-with-tern/d3js.png" alt="d3js auto complate"&gt;&lt;/p&gt;
 
 &lt;p&gt;이외에도 Node.js 플러그인, RequireJS 플러그인, Angular.js 플러그인 등 추가적인 확장을 사용할 수 있습니다. 이에 대한 자세한 설명은 공식 문서의 &lt;a href="http://ternjs.net/doc/manual.html#plugins"&gt;서버 플러그인 섹션&lt;/a&gt;을 참조하시기 바랍니다.&lt;/p&gt;
 
@@ -1209,13 +3081,13 @@ M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;g
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/"/>
     <id>http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/</id>
     <published>2014-02-10T15:16:00Z</published>
-    <updated>2014-04-06T11:11:52+00:00</updated>
+    <updated>2014-04-06T17:52:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;&lt;a href="http://docker.io"&gt;도커&lt;/a&gt;는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 &lt;a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"&gt;도커(Docker) 소개 글&lt;/a&gt;을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.&lt;/p&gt;
 
-
+&lt;!--more--&gt;
 
 &lt;h2&gt;TL;DR, 맥에서 바로 도커 시작하기&lt;/h2&gt;
 
@@ -1223,31 +3095,22 @@ M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;g
 &lt;li&gt;Virtual 박스 설치&lt;/li&gt;
 &lt;li&gt;docker, boot2docker 설치&lt;/li&gt;
 &lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ brew tap homebrew/binary
-$ brew install docker boot2docker
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew tap homebrew/binary
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew install docker boot2docker
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ol&gt;
 &lt;li&gt;boot2docker 실행&lt;/li&gt;
 &lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;
-export DOCKER_HOST=tcp://¶
-$ ./boot2docker init
-$ ./boot2docker up
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;DOCKER_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//¶&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot2docker&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot2docker&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ol&gt;
 &lt;li&gt;도커 컨테이너 실행&lt;/li&gt;
 &lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker pull ubuntu
-$ docker run -rm -i -t ubuntu:latest /bin/bash
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull ubuntu
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -rm -i -t ubuntu:latest /bin/bash
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;맥에서 도커를 실행하는 원리&lt;/h2&gt;
 
 &lt;p&gt;도커는 기본적으로 리눅스 컨테이너(이하 lxc)를 지원하는 운영체제만 사용할 수 있습니다. 처음에는 우분투만 지원을 했습니다만 현재는 좀 더 다양한 운영체제를 지원하도록 확장해나가는 과정에 있습니다. 하지만 원론적으로 lxc를 지원하고 있지 않은 윈도우나 맥에서는 도커를 사용할 수 없습니다. &lt;/p&gt;
@@ -1262,7 +3125,7 @@ $ docker run -rm -i -t ubuntu:latest /bin/bash
 
 &lt;p&gt;그렇다면 여기서 공식으로 지원한다는 얘기는 무슨 얘기일까요? 맥이 lxc를 지원하지 않는다면 네이티브에서 도커를 실행한다는 건 근본적으로 불가능합니다. 그렇다면 여전히 근본적인 해결책은 아닙니다만, 여기서 공식지원이 의미하는 바는 기존에 VM을 사용하는 부하를 극도로 줄인 환경을 도커가 직접 제공해준다는 걸 의미합니다. 가상 머신은 여전히 올라갑니다. 이 때 사용되는 운영체제가 &lt;a href="https://github.com/steeve/boot2docker"&gt;boot2docker&lt;/a&gt;라는 단지 도커만을 위한 초경량 리눅스 &lt;a href="http://tinycorelinux.net/"&gt;Tiny Core Linux&lt;/a&gt; 배포판 중 하나입니다. 이 운영체제는 RAM에서 작동하며 매우 적은 용량에 단 몇 초만에 부팅이 가능합니다(그렇다고 이야기하고 있습니다). 도커 컨테이너 만큼은 아니겠지만 매우 빠릅니다. 이러한 가상 머신 부분의 경량화와 맥 클라이언트에서 Docker 명령어를 직접 사용할 수 있게 함으로써, 맥에서 네이티브나 다름없는 도커 지원을 실현했습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt="docker2boot" src="https://github-camo.global.ssl.fastly.net/fd2fda3c0d55a0a63873f4221ddbe2f1dda145c5/687474703a2f2f692e696d6775722e636f6d2f68497775644b332e676966" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://github-camo.global.ssl.fastly.net/fd2fda3c0d55a0a63873f4221ddbe2f1dda145c5/687474703a2f2f692e696d6775722e636f6d2f68497775644b332e676966" alt="docker2boot"&gt;&lt;/p&gt;
 
 &lt;p&gt;네이티브 환경에 비하면 약간의 불만족은 남아있겠습니다만, 그럼에도 불구하고 개발환경을 구축하는 데는  손색이 없습니다. &lt;/p&gt;
 
@@ -1273,127 +3136,91 @@ $ docker run -rm -i -t ubuntu:latest /bin/bash
 &lt;p&gt;먼저 docker2boot를 사용하기 위해서는 &lt;a href="https://www.virtualbox.org/wiki/Downloads"&gt;VirtualBox&lt;/a&gt;를 설치해야합니다. 공식 사이트에서 MacOSX용 dmg 파일을 다운로드 받아 설치 과정을 진행해주시기 바랍니다.&lt;/p&gt;
 
 &lt;p&gt;도커 공식 사이트에서는 &lt;a href="http://docs.docker.io/en/latest/installation/mac/"&gt;맥에서 설치를 위한 문서&lt;/a&gt;를 제공하고 있으니 참조하시기 바랍니다. 먼저 boot2docker를 다운로드 받고 실행권한을 추가해줍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ mkdir ~/bin
-$ cd ~/bin
-$ curl https://raw.github.com/steeve/boot2docker/master/boot2docker &amp;gt; boot2docker
-$ chmod +x boot2docker
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkdir ~/bin
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/bin
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl https://raw.github.com/steeve/boot2docker/master/boot2docker &amp;gt; boot2docker
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;chmod +x boot2docker
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;다음으로 도커를 다운로드 받고 실행권한을 추가해줍니다. 이 때 DOCKER_HOST를 추가하는 가상 머신의 도커에 접속하기 위함입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ curl -o docker http://get.docker.io/builds/Darwin/x86_64/docker-latest
-$ chmod +x docker
-$ export DOCKER_HOST=tcp://
-$ sudo cp docker /usr/local/bin/
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -o docker http://get.docker.io/builds/Darwin/x86_64/docker-latest
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;chmod +x docker
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;DOCKER_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;tcp://
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo cp docker /usr/local/bin/
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;도커와 boot2docker 설치 과정은 homebrew를 통해서도 진행이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ brew tap homebrew/binary
-$ brew install docker boot2docker
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew tap homebrew/binary
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew install docker boot2docker
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;다음으로 boot2docker를 실행시킵니다. 이 과정을 거치기 전에 VirtualBox를 설치했는지 꼭 확인하시기 바랍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ ./boot2docker init
-$ ./boot2docker up
-[2014-02-10 23:40:41] Starting boot2docker-vm...
-[2014-02-10 23:41:01] Started.
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./boot2docker init
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./boot2docker up
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="o"&gt;[&lt;/span&gt;2014-02-10 23:40:41&lt;span class="o"&gt;]&lt;/span&gt; Starting boot2docker-vm...
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="o"&gt;[&lt;/span&gt;2014-02-10 23:41:01&lt;span class="o"&gt;]&lt;/span&gt; Started.
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;맥북 에어에서 실제로 걸린 시간은 이미지 다운로드하는데 30여초, 기동하는데 20여초가 걸렸습니다. 설치는 끝이났습니다. 이제 설치가 잘 되었는지 버전 출력을 해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker version
-Client version: 0.8.0
-Go version (client): go1.2
-Git commit (client): cc3a8c8
-Server version: 0.8.0
-Git commit (server): cc3a8c8
-Go version (server): go1.2
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker version
+&lt;/span&gt;&lt;span id="line-2"&gt;Client version: 0.8.0
+&lt;/span&gt;&lt;span id="line-3"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: go1.2
+&lt;/span&gt;&lt;span id="line-4"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: cc3a8c8
+&lt;/span&gt;&lt;span id="line-5"&gt;Server version: 0.8.0
+&lt;/span&gt;&lt;span id="line-6"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: cc3a8c8
+&lt;/span&gt;&lt;span id="line-7"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: go1.2
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;도커 실행 테스트&lt;/h2&gt;
 
 &lt;p&gt;그렇다면 정말로 가상머신이 잘 올라간 상태로 도커가 사용 가능한지 테스트해보도록 하겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker pull ubuntu
-Pulling repository ubuntu
-eb601b8965b8: Download complete
-9cc9ea5ea540: Download complete
-9f676bd305a4: Download complete
-9cd978db300e: Download complete
-5ac751e8d623: Download complete
-511136ea3c5a: Download complete
-f323cf34fd77: Download complete
-1c7f181e78b9: Download complete
-6170bb7b0ad1: Download complete
-321f7f4200f4: Download complete
-7a4f87241845: Download complete
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull ubuntu
+&lt;/span&gt;&lt;span id="line-2"&gt;Pulling repository ubuntu
+&lt;/span&gt;&lt;span id="line-3"&gt;eb601b8965b8: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;9cc9ea5ea540: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;9f676bd305a4: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;9cd978db300e: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;5ac751e8d623: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;511136ea3c5a: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;f323cf34fd77: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;1c7f181e78b9: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;6170bb7b0ad1: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;321f7f4200f4: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;7a4f87241845: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이미지 pull도 한 번 해보고,&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-ubuntu              13.10               9f676bd305a4        6 days ago          178 MB
-ubuntu              saucy               9f676bd305a4        6 days ago          178 MB
-ubuntu              13.04               eb601b8965b8        6 days ago          166.5 MB
-ubuntu              raring              eb601b8965b8        6 days ago          166.5 MB
-ubuntu              12.10               5ac751e8d623        6 days ago          161 MB
-ubuntu              quantal             5ac751e8d623        6 days ago          161 MB
-ubuntu              10.04               9cc9ea5ea540        6 days ago          180.8 MB
-ubuntu              lucid               9cc9ea5ea540        6 days ago          180.8 MB
-ubuntu              12.04               9cd978db300e        6 days ago          204.4 MB
-ubuntu              latest              9cd978db300e        6 days ago          204.4 MB
-ubuntu              precise             9cd978db300e        6 days ago          204.4 MB
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker images
+&lt;/span&gt;&lt;span id="line-2"&gt;REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+&lt;/span&gt;&lt;span id="line-3"&gt;ubuntu              13.10               9f676bd305a4        6 days ago          178 MB
+&lt;/span&gt;&lt;span id="line-4"&gt;ubuntu              saucy               9f676bd305a4        6 days ago          178 MB
+&lt;/span&gt;&lt;span id="line-5"&gt;ubuntu              13.04               eb601b8965b8        6 days ago          166.5 MB
+&lt;/span&gt;&lt;span id="line-6"&gt;ubuntu              raring              eb601b8965b8        6 days ago          166.5 MB
+&lt;/span&gt;&lt;span id="line-7"&gt;ubuntu              12.10               5ac751e8d623        6 days ago          161 MB
+&lt;/span&gt;&lt;span id="line-8"&gt;ubuntu              quantal             5ac751e8d623        6 days ago          161 MB
+&lt;/span&gt;&lt;span id="line-9"&gt;ubuntu              10.04               9cc9ea5ea540        6 days ago          180.8 MB
+&lt;/span&gt;&lt;span id="line-10"&gt;ubuntu              lucid               9cc9ea5ea540        6 days ago          180.8 MB
+&lt;/span&gt;&lt;span id="line-11"&gt;ubuntu              12.04               9cd978db300e        6 days ago          204.4 MB
+&lt;/span&gt;&lt;span id="line-12"&gt;ubuntu              latest              9cd978db300e        6 days ago          204.4 MB
+&lt;/span&gt;&lt;span id="line-13"&gt;ubuntu              precise             9cd978db300e        6 days ago          204.4 MB
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;pull 해온 이미지 리스트도 한 번 보고, 컨테이너 리스트도 출력해보죠.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS             PORTS               NAMES
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker ps
+&lt;/span&gt;&lt;span id="line-2"&gt;CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS             PORTS               NAMES
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;오오 pull도 되고 images 명령어도 먹는 걸 볼 수 있습니다. 아직 실행한 컨테이너는 없으니 아무것도 뜨지 않습니다. 일단 작동하고 있는 것 같습니다. 마지막으로 컨테이너를 올려보겠습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker run -rm -i -t ubuntu:latest /bin/bash
-root@e616c4c3fd53:/# 
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -rm -i -t ubuntu:latest /bin/bash
+&lt;/span&gt;&lt;span id="line-2"&gt;root@e616c4c3fd53:/# 
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;컨테이너 안의 쉘이 실행된 화면을 바로 확인하실 수 있습니다.&lt;/p&gt;
 
 &lt;h2&gt;트러블 슈팅&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;
-export DOCKER_HOST=tcp://¶
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;DOCKER_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//¶&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;명령어를 통해 DOCKER_HOST를 반드시 설정해줘야합니다. 이 설정을 하지 않으면&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ docker images
-2014/02/10 23:48:19 dial unix /var/run/docker.sock: no such file or directory
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker images
+&lt;/span&gt;&lt;span id="line-2"&gt;2014/02/10 23:48:19 dial unix /var/run/docker.sock: no such file or directory
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;와 같은 에러가 발생합니다. 이는 도커가 기본적으로 로컬 머신 상의 /var/run/docker.sock를 통해서 작동하기 때문입니다. 이를 가상 머신에서 가동중인 docker와 바로 연동할 수 있도록 &lt;code&gt;tcp://&lt;/code&gt;로 연결하도록 설정해주는 것입니다. 같은 의미로 &lt;code&gt;export DOCKER_HOST=localhost&lt;/code&gt;를 실행해도 됩니다.&lt;/p&gt;
 
 &lt;p&gt;또한 &lt;code&gt;./boot2docker&lt;/code&gt; 명령어를 통해서 &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-$ ./boot2docker
-Usage ./boot2docker {init|start|up|pause|stop|restart|status|info|delete|ssh|download}
-&lt;/code&gt;&lt;/p&gt;
-
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./boot2docker
+&lt;/span&gt;&lt;span id="line-2"&gt;Usage ./boot2docker &lt;span class="o"&gt;{&lt;/span&gt;init&lt;span class="p"&gt;|&lt;/span&gt;start&lt;span class="p"&gt;|&lt;/span&gt;up&lt;span class="p"&gt;|&lt;/span&gt;pause&lt;span class="p"&gt;|&lt;/span&gt;stop&lt;span class="p"&gt;|&lt;/span&gt;restart&lt;span class="p"&gt;|&lt;/span&gt;status&lt;span class="p"&gt;|&lt;/span&gt;info&lt;span class="p"&gt;|&lt;/span&gt;delete&lt;span class="p"&gt;|&lt;/span&gt;ssh&lt;span class="p"&gt;|&lt;/span&gt;download&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;boot2docker를 재실행하거나 멈추는 작업을 수행할 수 있습니다.&lt;/p&gt;
 
 &lt;h2&gt;정리&lt;/h2&gt;

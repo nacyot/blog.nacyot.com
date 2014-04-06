@@ -141,6 +141,10 @@
   font-family: "Inconsolata", Monaco, Courier, monospace;
 }
 
+.output_area pre .ansigrey{
+  display: none;
+}
+
 .code_cell{
   padding: 0.5em 1.5em;
   border: 1px solid #ddaaff;

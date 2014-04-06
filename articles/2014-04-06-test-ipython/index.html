@@ -48,10 +48,10 @@ Apr  6 2014
 <a href="./">Iruby Test</a>
 </h1>
 <div class='body'>
+<p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
-
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.</p>
@@ -59,29 +59,28 @@ Apr  6 2014
 <p>Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
 HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.</p>
 </div>
-
-<p></div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[4]:
+4번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="mi">39</span> <span class="o">*</span> <span class="mi">186</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[4]:</div>
+    4번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -90,32 +89,32 @@ In&nbsp;[4]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[5]:
+5번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="mf">12345.</span><span class="n">to_s</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[5]:</div>
+    5번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -124,32 +123,32 @@ In&nbsp;[5]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[6]:
+6번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="mf">12345.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[6]:</div>
+    6번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -158,32 +157,32 @@ In&nbsp;[6]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[7]:
+7번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="mf">123456789.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[7]:</div>
+    7번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -192,34 +191,34 @@ In&nbsp;[7]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[8]:
+8번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">target</span> <span class="o">=</span> <span class="mi">53241</span></p>
+<div class="highlight"><pre><span class="n">target</span> <span class="o">=</span> <span class="mi">53241</span>
 
-<p><span class="mf">123456789.</span><span class="n">to<em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">target</span><span class="o">.</span><span class="n">to</em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">}</span>
-</pre></div></p>
+<span class="mf">123456789.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">target</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">}</span>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[8]:</div>
+    8번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -228,32 +227,32 @@ In&nbsp;[8]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[9]:
+9번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="mf">123456789.</span><span class="n">to<em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="err">?</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">target</span><span class="o">.</span><span class="n">to</em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">}</span>
-</pre></div></p>
+<div class="highlight"><pre><span class="mf">123456789.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="err">?</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">target</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">}</span>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[9]:</div>
+    9번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -262,37 +261,37 @@ true
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[88]:
+88번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">pen<em>digital</span><span class="err">?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">false</span> <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">to</em>s</span> <span class="o">=~</span> <span class="o">/</span><span class="mi">0</span><span class="o">/</span>
-  <span class="k">return</span> <span class="mf">123456789.</span><span class="n">to<em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="err">?</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">target</span><span class="o">.</span><span class="n">to</em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">}</span>
-<span class="n">end</span></p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">pen_digital</span><span class="err">?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">false</span> <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">to_s</span> <span class="o">=~</span> <span class="o">/</span><span class="mi">0</span><span class="o">/</span>
+  <span class="k">return</span> <span class="mf">123456789.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="err">?</span> <span class="p">{</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">target</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">}</span>
+<span class="n">end</span>
 
-<p><span class="n">pen_digital</span><span class="err">?</span> <span class="mi">12345</span>
-</pre></div></p>
+<span class="n">pen_digital</span><span class="err">?</span> <span class="mi">12345</span>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[88]:</div>
+    88번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -301,32 +300,32 @@ true
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[89]:
+89번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="n">pen_digital</span><span class="err">?</span> <span class="mi">29382</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[89]:</div>
+    89번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -335,55 +334,55 @@ false
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[90]:
+90번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">pen<em>digital</em>string</span><span class="err">?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">pen_digital_string</span><span class="err">?</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">false</span> <span class="k">if</span> <span class="mf">123456789.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="err">?</span> <span class="n">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
     <span class="n">target</span><span class="o">.</span><span class="n">tr</span><span class="p">(</span><span class="s">&quot;*=&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
-  <span class="n">end</span> <span class="o">==</span> <span class="n">false</span></p>
+  <span class="n">end</span> <span class="o">==</span> <span class="n">false</span>
 
-<p><span class="n">target</span> <span class="o">=~</span> <span class="o">/</span><span class="p">(</span>&lt;span class=&quot;n&quot;&gt;d</span><span class="o"><em></span><span class="err">?</span><span class="p">)</span>&lt;span class=&quot;o&quot;&gt;</em></span><span class="p">(</span>&lt;span class=&quot;n&quot;&gt;d</span><span class="o"><em></span><span class="err">?</span><span class="p">)</span><span class="o">=</span><span class="p">(</span>&lt;span class=&quot;n&quot;&gt;d</span><span class="o"></em></span><span class="p">)</span><span class="err">$</span><span class="o">/</span>
-  <span class="k">return</span> <span class="n">true</span> <span class="k">if</span> <span class="p">((</span><span class="err">$</span><span class="mf">1.</span><span class="n">to<em>i</span> <span class="o">*</span> <span class="err">$</span><span class="mf">2.</span><span class="n">to</em>i</span><span class="p">)</span> <span class="o">==</span> <span class="err">$</span><span class="mf">3.</span><span class="n">to_i</span><span class="p">)</span>
+  <span class="n">target</span> <span class="o">=~</span> <span class="o">/</span><span class="p">(</span>\<span class="n">d</span><span class="o">*</span><span class="err">?</span><span class="p">)</span>\<span class="o">*</span><span class="p">(</span>\<span class="n">d</span><span class="o">*</span><span class="err">?</span><span class="p">)</span><span class="o">=</span><span class="p">(</span>\<span class="n">d</span><span class="o">*</span><span class="p">)</span><span class="err">$</span><span class="o">/</span>
+  <span class="k">return</span> <span class="n">true</span> <span class="k">if</span> <span class="p">((</span><span class="err">$</span><span class="mf">1.</span><span class="n">to_i</span> <span class="o">*</span> <span class="err">$</span><span class="mf">2.</span><span class="n">to_i</span><span class="p">)</span> <span class="o">==</span> <span class="err">$</span><span class="mf">3.</span><span class="n">to_i</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">false</span>
 <span class="n">end</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[91]:
+91번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">pen<em>digital</em>string</span><span class="err">?</span><span class="p">(</span><span class="s">&quot;123<em>123</em>1234&quot;</span><span class="p">)</span>
-</pre></div></p>
+<div class="highlight"><pre><span class="n">pen_digital_string</span><span class="err">?</span><span class="p">(</span><span class="s">&quot;123*123*1234&quot;</span><span class="p">)</span>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[91]:</div>
+    91번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -392,32 +391,32 @@ false
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[92]:
+92번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="mi">39</span> <span class="o">*</span> <span class="mi">186</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[92]:</div>
+    92번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -426,32 +425,32 @@ In&nbsp;[92]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[93]:
+93번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">pen<em>digital</em>string</span><span class="err">?</span><span class="p">(</span><span class="s">&quot;39*186=7254&quot;</span><span class="p">)</span>
-</pre></div></p>
+<div class="highlight"><pre><span class="n">pen_digital_string</span><span class="err">?</span><span class="p">(</span><span class="s">&quot;39*186=7254&quot;</span><span class="p">)</span>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[93]:</div>
+    93번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -460,32 +459,32 @@ true
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[16]:
+16번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">pen<em>digital</em>string</span><span class="err">?</span><span class="p">(</span><span class="s">&quot;123*456=789&quot;</span><span class="p">)</span>
-</pre></div></p>
+<div class="highlight"><pre><span class="n">pen_digital_string</span><span class="err">?</span><span class="p">(</span><span class="s">&quot;123*456=789&quot;</span><span class="p">)</span>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[16]:</div>
+    16번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -494,71 +493,71 @@ false
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[98]:
+98번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">find<em>pen</em>digit<em>string32</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">unless</span> <span class="n">pen</em>digital</span><span class="err">?</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">find_pen_digit_string32</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">unless</span> <span class="n">pen_digital</span><span class="err">?</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
 
-<p><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-  <span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">-</span> <span class="n">num</span><span class="o">.</span><span class="n">to<em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">to</em>i</span><span class="p">}</span></p>
+  <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">-</span> <span class="n">num</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">to_i</span><span class="p">}</span>
 
-<p><span class="n">multiplicand</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">combination</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="n">multiplicand</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">combination</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
   <span class="n">multiplicand</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">com</span><span class="o">|</span>
     <span class="n">multiplier</span> <span class="o">=</span> <span class="n">source</span> <span class="o">-</span> <span class="n">com</span>
     <span class="n">left</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="o">|</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">]}</span>
-    <span class="n">right</span> <span class="o">=</span> <span class="n">multiplier</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">|</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]}</span></p>
-<div class="highlight"><pre><span id="line-1"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>strings<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>=<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>left<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>product<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>(<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>right<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>)<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>map<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>do<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>arr<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-2">  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>arr<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>[<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;mi&quot;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>]<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>join<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;quot;</span>*<span class="ni">&amp;quot;</span><span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>arr<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>[<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;mi&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>]<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>join<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;quot;</span>=<span class="ni">&amp;quot;</span><span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>num<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>to_s<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-3"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>end<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-4">
-</span><span id="line-5"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>strings<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>each<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>do<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>string<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-6">  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;k&quot;</span><span class="nt">&gt;</span>return<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>num<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;k&quot;</span><span class="nt">&gt;</span>if<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>pen_digital_string<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;err&quot;</span><span class="nt">&gt;</span>?<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>(<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>string<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>)<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-7"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>end<span class="nt">&lt;/span&gt;</span>
-</span></pre></div>
-<p><span class="n">end</span></p>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">multiplier</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">|</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">]}</span>
 
-<p><span class="k">return</span> 
-<span class="n">end</span></p>
+    <span class="n">strings</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="n">do</span> <span class="o">|</span><span class="n">arr</span><span class="o">|</span>
+      <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">join</span> <span class="o">+</span> <span class="s">&quot;*&quot;</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">join</span> <span class="o">+</span> <span class="s">&quot;=&quot;</span> <span class="o">+</span> <span class="n">num</span><span class="o">.</span><span class="n">to_s</span>
+    <span class="n">end</span>
 
-<p><span class="n">find<em>pen</em>digit_string</span><span class="p">(</span><span class="s">&quot;1234&quot;</span><span class="p">)</span>
-</pre></div></p>
+    <span class="n">strings</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">string</span><span class="o">|</span>
+      <span class="k">return</span> <span class="n">num</span> <span class="k">if</span> <span class="n">pen_digital_string</span><span class="err">?</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="n">end</span>
+  <span class="n">end</span>
 
-<p></div>
+  <span class="k">return</span> 
+<span class="n">end</span>
+
+<span class="n">find_pen_digit_string</span><span class="p">(</span><span class="s">&quot;1234&quot;</span><span class="p">)</span>
+</pre></div>
+
 </div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[99]:
+99번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">find<em>pen</em>digit_string</span><span class="p">(</span><span class="mi">7254</span><span class="p">)</span>
-</pre></div></p>
+<div class="highlight"><pre><span class="n">find_pen_digit_string</span><span class="p">(</span><span class="mi">7254</span><span class="p">)</span>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[99]:</div>
+    99번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -567,37 +566,37 @@ In&nbsp;[99]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[117]:
+117번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span></p>
+<div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
 
-<p><span class="p">(</span><span class="mf">4140.</span><span class="o">.</span><span class="mi">9876</span><span class="p">)</span><span class="o">.</span><span class="n">lazy</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
-  <span class="n">temp</span> <span class="o">=</span> <span class="n">find<em>pen</em>digit_string</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">4140.</span><span class="o">.</span><span class="mi">9876</span><span class="p">)</span><span class="o">.</span><span class="n">lazy</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">find_pen_digit_string</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
   <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">temp</span> <span class="o">!=</span> <span class="n">nil</span>
 <span class="n">end</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[117]:</div>
+    117번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -606,32 +605,32 @@ In&nbsp;[117]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[118]:
+118번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="n">result</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[118]:</div>
+    118번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -640,32 +639,32 @@ In&nbsp;[118]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[119]:
+119번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="n">result</span><span class="o">.</span><span class="n">inject</span> <span class="o">&amp;</span><span class="p">:</span><span class="o">+</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[119]:</div>
+    119번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -674,76 +673,76 @@ In&nbsp;[119]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[145]:
+145번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">find<em>pen</em>digit<em>string41</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">unless</span> <span class="n">pen</em>digital</span><span class="err">?</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">find_pen_digit_string41</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">unless</span> <span class="n">pen_digital</span><span class="err">?</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
 
-<p><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-  <span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">-</span> <span class="n">num</span><span class="o">.</span><span class="n">to<em>s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">to</em>i</span><span class="p">}</span></p>
+  <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="o">-</span> <span class="n">num</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">to_i</span><span class="p">}</span>
 
-<p><span class="n">multiplicand</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">combination</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+  <span class="n">multiplicand</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">combination</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
   <span class="n">multiplicand</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">com</span><span class="o">|</span>
     <span class="n">multiplier</span> <span class="o">=</span> <span class="n">source</span> <span class="o">-</span> <span class="n">com</span>
     <span class="n">left</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="o">|</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">]}</span>
-    <span class="n">right</span> <span class="o">=</span> <span class="n">multiplier</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="p">[</span><span class="n">a</span><span class="p">]}</span></p>
-<div class="highlight"><pre><span id="line-1"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>strings<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>=<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>left<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>product<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>(<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>right<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>)<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>map<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>do<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>arr<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-2">  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>arr<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>[<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;mi&quot;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>]<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>join<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;quot;</span>*<span class="ni">&amp;quot;</span><span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>arr<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>[<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;mi&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>]<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>join<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;quot;</span>=<span class="ni">&amp;quot;</span><span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>+<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>num<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>to_s<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-3"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>end<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-4">
-</span><span id="line-5"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>strings<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>each<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>do<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>string<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;o&quot;</span><span class="nt">&gt;</span>|<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-6">  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;k&quot;</span><span class="nt">&gt;</span>return<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>num<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;k&quot;</span><span class="nt">&gt;</span>if<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>pen_digital_string<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;err&quot;</span><span class="nt">&gt;</span>?<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>(<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>string<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>)<span class="nt">&lt;/span&gt;</span>
-</span><span id="line-7"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;n&quot;</span><span class="nt">&gt;</span>end<span class="nt">&lt;/span&gt;</span>
-</span></pre></div>
-<p><span class="n">end</span></p>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">multiplier</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="p">[</span><span class="n">a</span><span class="p">]}</span>
 
-<p><span class="k">return</span> 
-<span class="n">end</span></p>
+    <span class="n">strings</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="n">do</span> <span class="o">|</span><span class="n">arr</span><span class="o">|</span>
+      <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">join</span> <span class="o">+</span> <span class="s">&quot;*&quot;</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">join</span> <span class="o">+</span> <span class="s">&quot;=&quot;</span> <span class="o">+</span> <span class="n">num</span><span class="o">.</span><span class="n">to_s</span>
+    <span class="n">end</span>
 
-<p><span class="n">find<em>pen</em>digit_string41</span><span class="p">(</span><span class="s">&quot;1234&quot;</span><span class="p">)</span>
-</pre></div></p>
+    <span class="n">strings</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">string</span><span class="o">|</span>
+      <span class="k">return</span> <span class="n">num</span> <span class="k">if</span> <span class="n">pen_digital_string</span><span class="err">?</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="n">end</span>
+  <span class="n">end</span>
 
-<p></div>
+  <span class="k">return</span> 
+<span class="n">end</span>
+
+<span class="n">find_pen_digit_string41</span><span class="p">(</span><span class="s">&quot;1234&quot;</span><span class="p">)</span>
+</pre></div>
+
 </div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[146]:
+146번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span></p>
+<div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
 
-<p><span class="p">(</span><span class="mf">1234.</span><span class="o">.</span><span class="mi">9876</span><span class="p">)</span><span class="o">.</span><span class="n">lazy</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
-  <span class="n">temp</span> <span class="o">=</span> <span class="n">find<em>pen</em>digit_string41</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">1234.</span><span class="o">.</span><span class="mi">9876</span><span class="p">)</span><span class="o">.</span><span class="n">lazy</span><span class="o">.</span><span class="n">each</span> <span class="n">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+  <span class="n">temp</span> <span class="o">=</span> <span class="n">find_pen_digit_string41</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
   <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">temp</span> <span class="k">if</span> <span class="n">temp</span> <span class="o">!=</span> <span class="n">nil</span>
 <span class="n">end</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[146]:</div>
+    146번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -752,32 +751,32 @@ In&nbsp;[146]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[147]:
+147번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="n">result</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[147]:</div>
+    147번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -786,32 +785,32 @@ In&nbsp;[147]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
-</div></p>
+</div>
+</div>
 
-<p></div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[148]:
+148번째 입력:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre><span class="mi">30424</span> <span class="o">+</span> <span class="mi">6952</span> <span class="o">+</span> <span class="mi">7852</span>
-</pre></div></p>
+</pre></div>
 
-<p></div>
 </div>
-</div></p>
+</div>
+</div>
 
 <div class="output_wrapper">
 <div class="output">
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[148]:</div>
+    148번째 평가:</div>
 
 
 <div class="output_text output_subarea output_pyout">
@@ -820,12 +819,12 @@ In&nbsp;[148]:
 </pre>
 </div>
 
-<p></div></p>
+</div>
 
-<p></div>
+</div>
+</div>
+
 </div></p>
-
-<p></div></p>
 
 </div>
 <div class='footer'>

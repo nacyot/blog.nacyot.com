@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-test-ipython/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-test-ipython/</id>
     <published>2014-04-06T01:20:32Z</published>
-    <updated>2014-04-06T06:47:00+00:00</updated>
+    <updated>2014-04-06T11:11:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -26,7 +26,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/</id>
     <published>2014-04-05T18:20:32Z</published>
-    <updated>2014-04-06T06:47:00+00:00</updated>
+    <updated>2014-04-06T11:11:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -122,7 +122,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
     <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
     <published>2014-03-23T10:40:00Z</published>
-    <updated>2014-04-06T06:47:00+00:00</updated>
+    <updated>2014-04-06T11:11:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -965,7 +965,7 @@ end
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
     <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
     <published>2014-03-16T15:20:00Z</published>
-    <updated>2014-04-06T06:47:00+00:00</updated>
+    <updated>2014-04-06T11:11:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1054,7 +1054,7 @@ git filter-branch --tree-filter &amp;#39;rm -rf path/to/your/file&amp;#39; HEAD
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/"/>
     <id>http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/</id>
     <published>2014-03-11T16:15:32Z</published>
-    <updated>2014-04-06T06:47:00+00:00</updated>
+    <updated>2014-04-06T11:11:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1209,7 +1209,7 @@ M-x package-install &amp;lt;enter&amp;gt; tern-auto-complate &amp;lt;enter&amp;g
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/"/>
     <id>http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/</id>
     <published>2014-02-10T15:16:00Z</published>
-    <updated>2014-04-06T06:47:00+00:00</updated>
+    <updated>2014-04-06T11:11:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

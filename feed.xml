@@ -5,16 +5,98 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-04-06T17:57:32Z</updated>
+  <updated>2014-04-18T15:15:32Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
   <entry>
+    <title>우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
+    <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
+    <published>2014-04-18T15:15:32Z</published>
+    <updated>2014-04-18T15:24:52+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이글에서는  테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. &lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;아래 리스트에서 확인할 수 있듯이 디지털 오션에서는 이미 우분투 14.04 이미지를 지원하고 있습니다. (이 외에도 디지털 오션에서는 도커나 도쿠가 설치된 이미지도 기본적으로 지원하고있습니다.)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tugboat images --global
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;Global Images:
+&lt;/span&gt;&lt;span id="line-4"&gt;...
+&lt;/span&gt;&lt;span id="line-5"&gt;Wordpress on Ubuntu 13.10 &lt;span class="o"&gt;(&lt;/span&gt;id: 3135725, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;Ruby on Rails on Ubuntu 12.10 &lt;span class="o"&gt;(&lt;/span&gt;Nginx + Unicorn&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;id: 3137635, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;Redmine on Ubuntu 12.04 &lt;span class="o"&gt;(&lt;/span&gt;id: 3137903, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;Dokku-v0.2.1 on Ubuntu 13.04 &lt;span class="o"&gt;(&lt;/span&gt;id: 3140202, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;Ubuntu 14.04 x32 &lt;span class="o"&gt;(&lt;/span&gt;id: 3229615, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;Ubuntu 14.04 x64 &lt;span class="o"&gt;(&lt;/span&gt;id: 3229624, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;디지털 오션 인스턴스를 실행합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tugboat create UbuntuDocker -s 66 -i 3229624 -r 6-k &amp;lt;ssh_key_id&amp;gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;각각의 인자는 &lt;code&gt;-s&lt;/code&gt; 인스턴스 종류(66은 제일 작은 인스턴스), &lt;code&gt;-i&lt;/code&gt; 이미지(3229624 = Ubuntu 14.04 x64), &lt;code&gt;-r&lt;/code&gt; 지역(6은 싱가폴)을 의미하면 마지막의 &lt;code&gt;-k&lt;/code&gt;에는 자신의 ssh_key id를 넣어줍니다.&lt;/p&gt;
+
+&lt;p&gt;우선 인스턴스가 정상적으로 실행됐는 지 확인합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tugboat droplets
+&lt;/span&gt;&lt;span id="line-2"&gt;UbuntuDocker &lt;span class="o"&gt;(&lt;/span&gt;ip: 111.222.211.112, status: active, region: 6, id: 100000&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;정상적으로 실행이 되면 인스턴스에 접속합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;ssh root@111.222.211.112
+&lt;/span&gt;&lt;span id="line-2"&gt;Welcome to Ubuntu 14.04 LTS &lt;span class="o"&gt;(&lt;/span&gt;GNU/Linux 3.13.0-24-generic x86_64&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;* Documentation:  https://help.ubuntu.com/
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;System information disabled due to load higher than 1.0
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;Last login: Fri Apr 18 07:12:05 2014 from 123.98.184.24
+&lt;/span&gt;&lt;span id="line-9"&gt;root@UbuntuDocker:~#
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ssh 접속 안내메시지를 통해서 우분투 14.04임을 확인할 수 있습니다. 우분투 14.04(Trusty)부터는 도커를 별다른 설정없이 패키지 관리자 &lt;code&gt;apt-get&lt;/code&gt;을 통해서 공식 저장소로부터 바로 설치할 수 있습니다. 먼저 패키지 정보를 확인해봅니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-cache show docker.io
+&lt;/span&gt;&lt;span id="line-2"&gt;Package: docker.io
+&lt;/span&gt;&lt;span id="line-3"&gt;Priority: optional
+&lt;/span&gt;&lt;span id="line-4"&gt;Section: universe/admin
+&lt;/span&gt;&lt;span id="line-5"&gt;Installed-Size: 21726
+&lt;/span&gt;&lt;span id="line-6"&gt;Maintainer: Ubuntu Developers &amp;lt;ubuntu-devel-discuss@lists.ubuntu.com&amp;gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;Original-Maintainer: Paul Tagliamonte &amp;lt;paultag@debian.org&amp;gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;Architecture: amd64
+&lt;/span&gt;&lt;span id="line-9"&gt;Version: 0.9.1~dfsg1-2
+&lt;/span&gt;&lt;span id="line-10"&gt;...
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;패키지명이 docker가 아니라는 점에 주의합니다. &lt;code&gt;apt-get&lt;/code&gt;으로 설치합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-get install dokcer.io
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;설치가 끝나면 정상적으로 설치되었는지 확인합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker.io version
+&lt;/span&gt;&lt;span id="line-2"&gt;docker.io version
+&lt;/span&gt;&lt;span id="line-3"&gt;Client version: 0.9.1
+&lt;/span&gt;&lt;span id="line-4"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: go1.2.1
+&lt;/span&gt;&lt;span id="line-5"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: 3600720
+&lt;/span&gt;&lt;span id="line-6"&gt;Server version: 0.9.1
+&lt;/span&gt;&lt;span id="line-7"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: 3600720
+&lt;/span&gt;&lt;span id="line-8"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: go1.2.1
+&lt;/span&gt;&lt;span id="line-9"&gt;Last stable version: 0.10.0, please update docker
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;정상적으로 설치된 것을 확인할 수 있습니다. 단 아래의 안내에서 확인할 수 있듯이 현재 Docker의 최신버전은 0.10입니다. 공식 저장소의 패키지는 시스템에 비교적 안정적인 버전이긴 합니다만 Docker의 경우 1.0을 계속 안정성 문제를 잡고 있는 상황이라 별도로 최신버전을 설치하는 게 좋을 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;또한 패키지 관리자로 설치한 도커의 서비스 명도 docker.io라는 점에 주의해야합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;service docker.io status
+&lt;/span&gt;&lt;span id="line-2"&gt;docker.io start/running, process 2841
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;공식적으로 지원되는 패키지가 있느냐 없느냐는 어떤 도구를 처음 사용할 때 큰 장벽 중 하나입니다. 우분투 14.04 LTS가 나오면서 도커의 접근성은 한층 더 높아졌다고 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;관심 있으신 분들은 꼭 시도해보세요 &amp;gt;_&amp;lt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <title>루비 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
     <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
-    <published>2014-04-06T17:57:32Z</published>
-    <updated>2014-04-06T17:59:28+00:00</updated>
+    <published>2014-04-06T17:00:32Z</published>
+    <updated>2014-04-18T15:24:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2068,7 +2150,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/</id>
     <published>2014-04-05T18:20:32Z</published>
-    <updated>2014-04-06T17:59:28+00:00</updated>
+    <updated>2014-04-18T15:24:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2164,7 +2246,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
     <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
     <published>2014-03-23T10:40:00Z</published>
-    <updated>2014-04-06T17:59:28+00:00</updated>
+    <updated>2014-04-18T15:24:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2867,7 +2949,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
     <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
     <published>2014-03-16T15:20:00Z</published>
-    <updated>2014-04-06T17:59:28+00:00</updated>
+    <updated>2014-04-18T15:24:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2950,7 +3032,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/"/>
     <id>http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/</id>
     <published>2014-03-11T16:15:32Z</published>
-    <updated>2014-04-06T17:59:28+00:00</updated>
+    <updated>2014-04-18T15:24:52+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -3074,158 +3156,6 @@ false
 &lt;h2&gt;결론&lt;/h2&gt;
 
 &lt;p&gt;Tern과 함께 Emacs에서도 즐거운 자바스크립트 코딩을 즐기시기바랍니다. 아듀~ :)&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/"/>
-    <id>http://blog.nacyot.com/articles/2014-02-11-dokcer-08-on-macosx/</id>
-    <published>2014-02-10T15:16:00Z</published>
-    <updated>2014-04-06T17:59:28+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;&lt;a href="http://docker.io"&gt;도커&lt;/a&gt;는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 &lt;a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/"&gt;도커(Docker) 소개 글&lt;/a&gt;을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2&gt;TL;DR, 맥에서 바로 도커 시작하기&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Virtual 박스 설치&lt;/li&gt;
-&lt;li&gt;docker, boot2docker 설치&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew tap homebrew/binary
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew install docker boot2docker
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ol&gt;
-&lt;li&gt;boot2docker 실행&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;DOCKER_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//¶&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot2docker&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot2docker&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ol&gt;
-&lt;li&gt;도커 컨테이너 실행&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull ubuntu
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -rm -i -t ubuntu:latest /bin/bash
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;맥에서 도커를 실행하는 원리&lt;/h2&gt;
-
-&lt;p&gt;도커는 기본적으로 리눅스 컨테이너(이하 lxc)를 지원하는 운영체제만 사용할 수 있습니다. 처음에는 우분투만 지원을 했습니다만 현재는 좀 더 다양한 운영체제를 지원하도록 확장해나가는 과정에 있습니다. 하지만 원론적으로 lxc를 지원하고 있지 않은 윈도우나 맥에서는 도커를 사용할 수 없습니다. &lt;/p&gt;
-
-&lt;p&gt;하지만 엄밀히 말하면 이전에도 맥이나 윈도우에서 도커를 사용하는 것이 불가능한 것은 아니었습니다. 그러면 어떻게 설치를 하는지, 간단히 말해 &lt;a href="http://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt;나 아예 별개의 가상화 어플리케이션을 통해서 리눅스 운영체제를 실행시키는 방식이었습니다. 이렇나 방식이 당연히 가능한 건, 아예 OS를 lxc를 지원하는 리눅스를 가상 머신으로 올려놓기 때문입니다. 물론 이렇게도 도커를 사용하는 것이 불가능한 것은 아닙니다만, VM의 성능도 성능이고 리눅스 운영체제에 비해서 &amp;#39;한 다리&amp;#39; 건너서 사용한다는 인상을 지우기는 어렵습니다.&lt;/p&gt;
-
-&lt;p&gt;그런데 &lt;a href="http://blog.docker.io/2014/02/docker-0-8-quality-new-builder-features-btrfs-storage-osx-support/"&gt;도커 블로그에선 0.8 발표&lt;/a&gt;와 함께 맥의 공식 지원을 언급하고 있습니다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Today we are happy to introduce Docker 0.8, with a focus on Quality and 3 notable features: new builder instructions, a new BTRFS storage driver, and official support for Mac OSX. You can see the full Changelog on the repository, and read below for details on each feature.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;그렇다면 여기서 공식으로 지원한다는 얘기는 무슨 얘기일까요? 맥이 lxc를 지원하지 않는다면 네이티브에서 도커를 실행한다는 건 근본적으로 불가능합니다. 그렇다면 여전히 근본적인 해결책은 아닙니다만, 여기서 공식지원이 의미하는 바는 기존에 VM을 사용하는 부하를 극도로 줄인 환경을 도커가 직접 제공해준다는 걸 의미합니다. 가상 머신은 여전히 올라갑니다. 이 때 사용되는 운영체제가 &lt;a href="https://github.com/steeve/boot2docker"&gt;boot2docker&lt;/a&gt;라는 단지 도커만을 위한 초경량 리눅스 &lt;a href="http://tinycorelinux.net/"&gt;Tiny Core Linux&lt;/a&gt; 배포판 중 하나입니다. 이 운영체제는 RAM에서 작동하며 매우 적은 용량에 단 몇 초만에 부팅이 가능합니다(그렇다고 이야기하고 있습니다). 도커 컨테이너 만큼은 아니겠지만 매우 빠릅니다. 이러한 가상 머신 부분의 경량화와 맥 클라이언트에서 Docker 명령어를 직접 사용할 수 있게 함으로써, 맥에서 네이티브나 다름없는 도커 지원을 실현했습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="https://github-camo.global.ssl.fastly.net/fd2fda3c0d55a0a63873f4221ddbe2f1dda145c5/687474703a2f2f692e696d6775722e636f6d2f68497775644b332e676966" alt="docker2boot"&gt;&lt;/p&gt;
-
-&lt;p&gt;네이티브 환경에 비하면 약간의 불만족은 남아있겠습니다만, 그럼에도 불구하고 개발환경을 구축하는 데는  손색이 없습니다. &lt;/p&gt;
-
-&lt;h2&gt;맥에서 boot2docker를 활용한 도커 설치&lt;/h2&gt;
-
-&lt;p&gt;네, 그렇다면 실제로 설치를 해보도록 하겠습니다. &lt;/p&gt;
-
-&lt;p&gt;먼저 docker2boot를 사용하기 위해서는 &lt;a href="https://www.virtualbox.org/wiki/Downloads"&gt;VirtualBox&lt;/a&gt;를 설치해야합니다. 공식 사이트에서 MacOSX용 dmg 파일을 다운로드 받아 설치 과정을 진행해주시기 바랍니다.&lt;/p&gt;
-
-&lt;p&gt;도커 공식 사이트에서는 &lt;a href="http://docs.docker.io/en/latest/installation/mac/"&gt;맥에서 설치를 위한 문서&lt;/a&gt;를 제공하고 있으니 참조하시기 바랍니다. 먼저 boot2docker를 다운로드 받고 실행권한을 추가해줍니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkdir ~/bin
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/bin
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl https://raw.github.com/steeve/boot2docker/master/boot2docker &amp;gt; boot2docker
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;chmod +x boot2docker
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;다음으로 도커를 다운로드 받고 실행권한을 추가해줍니다. 이 때 DOCKER_HOST를 추가하는 가상 머신의 도커에 접속하기 위함입니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -o docker http://get.docker.io/builds/Darwin/x86_64/docker-latest
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;chmod +x docker
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;DOCKER_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;tcp://
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo cp docker /usr/local/bin/
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;도커와 boot2docker 설치 과정은 homebrew를 통해서도 진행이 가능합니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew tap homebrew/binary
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew install docker boot2docker
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;다음으로 boot2docker를 실행시킵니다. 이 과정을 거치기 전에 VirtualBox를 설치했는지 꼭 확인하시기 바랍니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./boot2docker init
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./boot2docker up
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="o"&gt;[&lt;/span&gt;2014-02-10 23:40:41&lt;span class="o"&gt;]&lt;/span&gt; Starting boot2docker-vm...
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="o"&gt;[&lt;/span&gt;2014-02-10 23:41:01&lt;span class="o"&gt;]&lt;/span&gt; Started.
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;맥북 에어에서 실제로 걸린 시간은 이미지 다운로드하는데 30여초, 기동하는데 20여초가 걸렸습니다. 설치는 끝이났습니다. 이제 설치가 잘 되었는지 버전 출력을 해보도록 하겠습니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker version
-&lt;/span&gt;&lt;span id="line-2"&gt;Client version: 0.8.0
-&lt;/span&gt;&lt;span id="line-3"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: go1.2
-&lt;/span&gt;&lt;span id="line-4"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: cc3a8c8
-&lt;/span&gt;&lt;span id="line-5"&gt;Server version: 0.8.0
-&lt;/span&gt;&lt;span id="line-6"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: cc3a8c8
-&lt;/span&gt;&lt;span id="line-7"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: go1.2
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;도커 실행 테스트&lt;/h2&gt;
-
-&lt;p&gt;그렇다면 정말로 가상머신이 잘 올라간 상태로 도커가 사용 가능한지 테스트해보도록 하겠습니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull ubuntu
-&lt;/span&gt;&lt;span id="line-2"&gt;Pulling repository ubuntu
-&lt;/span&gt;&lt;span id="line-3"&gt;eb601b8965b8: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;9cc9ea5ea540: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;9f676bd305a4: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;9cd978db300e: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;5ac751e8d623: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;511136ea3c5a: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;f323cf34fd77: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;1c7f181e78b9: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;6170bb7b0ad1: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;321f7f4200f4: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-13"&gt;7a4f87241845: Download &lt;span class="nb"&gt;complete&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이미지 pull도 한 번 해보고,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker images
-&lt;/span&gt;&lt;span id="line-2"&gt;REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-&lt;/span&gt;&lt;span id="line-3"&gt;ubuntu              13.10               9f676bd305a4        6 days ago          178 MB
-&lt;/span&gt;&lt;span id="line-4"&gt;ubuntu              saucy               9f676bd305a4        6 days ago          178 MB
-&lt;/span&gt;&lt;span id="line-5"&gt;ubuntu              13.04               eb601b8965b8        6 days ago          166.5 MB
-&lt;/span&gt;&lt;span id="line-6"&gt;ubuntu              raring              eb601b8965b8        6 days ago          166.5 MB
-&lt;/span&gt;&lt;span id="line-7"&gt;ubuntu              12.10               5ac751e8d623        6 days ago          161 MB
-&lt;/span&gt;&lt;span id="line-8"&gt;ubuntu              quantal             5ac751e8d623        6 days ago          161 MB
-&lt;/span&gt;&lt;span id="line-9"&gt;ubuntu              10.04               9cc9ea5ea540        6 days ago          180.8 MB
-&lt;/span&gt;&lt;span id="line-10"&gt;ubuntu              lucid               9cc9ea5ea540        6 days ago          180.8 MB
-&lt;/span&gt;&lt;span id="line-11"&gt;ubuntu              12.04               9cd978db300e        6 days ago          204.4 MB
-&lt;/span&gt;&lt;span id="line-12"&gt;ubuntu              latest              9cd978db300e        6 days ago          204.4 MB
-&lt;/span&gt;&lt;span id="line-13"&gt;ubuntu              precise             9cd978db300e        6 days ago          204.4 MB
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;pull 해온 이미지 리스트도 한 번 보고, 컨테이너 리스트도 출력해보죠.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker ps
-&lt;/span&gt;&lt;span id="line-2"&gt;CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS             PORTS               NAMES
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;오오 pull도 되고 images 명령어도 먹는 걸 볼 수 있습니다. 아직 실행한 컨테이너는 없으니 아무것도 뜨지 않습니다. 일단 작동하고 있는 것 같습니다. 마지막으로 컨테이너를 올려보겠습니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -rm -i -t ubuntu:latest /bin/bash
-&lt;/span&gt;&lt;span id="line-2"&gt;root@e616c4c3fd53:/# 
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;컨테이너 안의 쉘이 실행된 화면을 바로 확인하실 수 있습니다.&lt;/p&gt;
-
-&lt;h2&gt;트러블 슈팅&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;DOCKER_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;tcp&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//¶&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;명령어를 통해 DOCKER_HOST를 반드시 설정해줘야합니다. 이 설정을 하지 않으면&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker images
-&lt;/span&gt;&lt;span id="line-2"&gt;2014/02/10 23:48:19 dial unix /var/run/docker.sock: no such file or directory
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;와 같은 에러가 발생합니다. 이는 도커가 기본적으로 로컬 머신 상의 /var/run/docker.sock를 통해서 작동하기 때문입니다. 이를 가상 머신에서 가동중인 docker와 바로 연동할 수 있도록 &lt;code&gt;tcp://&lt;/code&gt;로 연결하도록 설정해주는 것입니다. 같은 의미로 &lt;code&gt;export DOCKER_HOST=localhost&lt;/code&gt;를 실행해도 됩니다.&lt;/p&gt;
-
-&lt;p&gt;또한 &lt;code&gt;./boot2docker&lt;/code&gt; 명령어를 통해서 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./boot2docker
-&lt;/span&gt;&lt;span id="line-2"&gt;Usage ./boot2docker &lt;span class="o"&gt;{&lt;/span&gt;init&lt;span class="p"&gt;|&lt;/span&gt;start&lt;span class="p"&gt;|&lt;/span&gt;up&lt;span class="p"&gt;|&lt;/span&gt;pause&lt;span class="p"&gt;|&lt;/span&gt;stop&lt;span class="p"&gt;|&lt;/span&gt;restart&lt;span class="p"&gt;|&lt;/span&gt;status&lt;span class="p"&gt;|&lt;/span&gt;info&lt;span class="p"&gt;|&lt;/span&gt;delete&lt;span class="p"&gt;|&lt;/span&gt;ssh&lt;span class="p"&gt;|&lt;/span&gt;download&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;boot2docker를 재실행하거나 멈추는 작업을 수행할 수 있습니다.&lt;/p&gt;
-
-&lt;h2&gt;정리&lt;/h2&gt;
-
-&lt;p&gt;이제 무거운 가상 머신 없이도 맥에서 도커를 부담없이 설치하고 사용해볼 수 있습니다 &amp;gt;_&amp;lt;&lt;/p&gt;
 </content>
   </entry>
 </feed>

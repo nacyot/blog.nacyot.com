@@ -157,3 +157,7 @@
   font-size: 0.8em;
   font-weight: bold;
 }
+
+.output_stream pre{
+  background-color: lightblue;
+}

@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/"/>
     <id>http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/</id>
     <published>2014-04-19T09:53:32Z</published>
-    <updated>2014-04-19T10:13:02+00:00</updated>
+    <updated>2014-04-19T11:59:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -3948,7 +3948,7 @@ group_by {|obj| ... } -&amp;gt; Hash
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;group&lt;em&gt;by를 사용해서 얻은 결과는 key와 value에 모두 유의미한 정보가 포함되어있으므로, 이러한 접근법을 활용하면 유용합니다. 만약 어느 하나의 값을 사용하지 않는다면 `&lt;/em&gt;`와 같은 표현을 통해 사용하지 않는다는 의미를 전달할 수 있습니다&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;roup_by&lt;/code&gt;  사용해서 얻은 결과는 key와 value에 모두 유의미한 정보가 포함되어있으므로, 이러한 접근법을 활용하면 유용합니다. 만약 어느 하나의 값을 사용하지 않는다면 &lt;code&gt;_&lt;/code&gt;와 같은 표현을 통해 사용하지 않는다는 의미를 전달할 수 있습니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4714,7 +4714,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
     <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
     <published>2014-04-18T15:15:32Z</published>
-    <updated>2014-04-19T10:13:02+00:00</updated>
+    <updated>2014-04-19T11:59:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -4796,7 +4796,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
     <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
     <published>2014-04-06T17:00:32Z</published>
-    <updated>2014-04-19T10:13:02+00:00</updated>
+    <updated>2014-04-19T11:59:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -6850,7 +6850,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/</id>
     <published>2014-04-05T18:20:32Z</published>
-    <updated>2014-04-19T10:13:02+00:00</updated>
+    <updated>2014-04-19T11:59:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -6946,7 +6946,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
     <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
     <published>2014-03-23T10:40:00Z</published>
-    <updated>2014-04-19T10:13:02+00:00</updated>
+    <updated>2014-04-19T11:59:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -7649,7 +7649,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
     <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
     <published>2014-03-16T15:20:00Z</published>
-    <updated>2014-04-19T10:13:02+00:00</updated>
+    <updated>2014-04-19T11:59:00+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

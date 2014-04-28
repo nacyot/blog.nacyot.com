@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/"/>
     <id>http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/</id>
     <published>2014-04-28T01:00:00Z</published>
-    <updated>2014-04-28T01:14:39+00:00</updated>
+    <updated>2014-04-28T01:15:56+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -23,8 +23,9 @@
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;Emacs を使い始めてはや15年、ようやくまともな elisp 管理ができるようになった。
-Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 관리가 가능하게 되었다. &lt;/p&gt;
+&lt;p&gt;Emacs を使い始めてはや15年、ようやくまともな elisp 管理ができるようになった。&lt;/p&gt;
+
+&lt;p&gt;Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 관리가 가능하게 되었다. &lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;일본 프로그래머 Ito Naoya 씨가 &lt;a href="http://d.hatena.ne.jp/naoya/20140424/1398318293"&gt;Cask를 소개하는 글&lt;/a&gt;에서 이런 얘기를 하길래, 관심이 가서 &lt;a href="http://cask.github.io"&gt;Cask 공식 문서&lt;/a&gt;를 번역했습니다.&lt;/p&gt;
@@ -45,7 +46,7 @@ Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/"/>
     <id>http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/</id>
     <published>2014-04-19T09:53:32Z</published>
-    <updated>2014-04-28T01:14:39+00:00</updated>
+    <updated>2014-04-28T01:15:56+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -4745,7 +4746,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
     <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
     <published>2014-04-18T15:15:32Z</published>
-    <updated>2014-04-28T01:14:39+00:00</updated>
+    <updated>2014-04-28T01:15:56+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -4827,7 +4828,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
     <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
     <published>2014-04-06T17:00:32Z</published>
-    <updated>2014-04-28T01:14:39+00:00</updated>
+    <updated>2014-04-28T01:15:56+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -6881,7 +6882,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/</id>
     <published>2014-04-05T18:20:32Z</published>
-    <updated>2014-04-28T01:14:39+00:00</updated>
+    <updated>2014-04-28T01:15:56+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -6977,7 +6978,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
     <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
     <published>2014-03-23T10:40:00Z</published>
-    <updated>2014-04-28T01:14:39+00:00</updated>
+    <updated>2014-04-28T01:15:56+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

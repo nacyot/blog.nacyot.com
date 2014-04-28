@@ -1,5 +1,6 @@
 
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="개요">개요</h2>
 <p>앞서 이야기했듯이 루비에서는 아래 스타일의 반복문을 일부 지원하지만 별로 사용하지 않습니다</p>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
@@ -238,7 +239,7 @@ In&nbsp;[88]:
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>이와 같이 5가 계속 반복되는 것을 알 수 있습니다. 계속 <code>resume</code> 메시지를 보내면 계속 5가 출력됩니다. 이러한 부작용(side-effect)에 대해서는 명확히 알고 있을 필요가 있습니다</p>
 <p>루비의 Enumerable은 이러한 미묘한 단점을 내포하고 있기는 합니다만, 그럼에도 불구하고 강력합니다. 이렇듯 명시적으로 외부 변수에 부작용을 일으키지만 않는다면, 반복 과정에서 블럭을 통해 임시 변수나 내부 변수에 대해서는 부작용을 걱정할 필요가 없으며, 메서드 체인을 통해 유사한 컬렉션 처리를 자연스럽게 연속적으로 적용할 수 있습니다</p>
-<p>중요한 건 루비의 Enumerable이 제공하는 열거자는 <code>each</code>가 전부가 아니라는 점입니다. 여기서부터는 Enumerable 모듈에 포함된 블럭을 받는 컬렉션 처리 메서드들을 소개하도록 하겠습니다</p>
+<p>중요한 건 루비의 Enumerable이 제공하는 열거자는 <code>each</code>가 전부가 아니라는 점입니다. 여기서부터는 Enumerable 모듈에 포함된 블럭을 받는 컬렉션 처리 메서드들을 소개하도록 하겠습니다. 덧붙여 여기에 나온 모든 예제는 <code>irb</code>나 <code>pry</code>에서 직접 시도해볼 수 있습니다</p>
 </div>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="enumerablemap-enumerablecollect"><code>Enumerable#map</code>, <code>Enumerable#collect</code></h2>
@@ -3304,7 +3305,7 @@ In&nbsp;[171]:
 
 </div>
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>group_by를 사용해서 얻은 결과는 key와 value에 모두 유의미한 정보가 포함되어있으므로, 이러한 접근법을 활용하면 유용합니다. 만약 어느 하나의 값을 사용하지 않는다면 <code>_</code>와 같은 표현을 통해 사용하지 않는다는 의미를 전달할 수 있습니다</p>
+<p><code>group_by</code> 메서드를 사용해서 얻은 결과는 key와 value에 모두 유의미한 정보가 포함되어있으므로, 이러한 접근법을 활용하면 유용합니다. 만약 어느 하나의 값을 사용하지 않는다면 <code>_</code>와 같은 표현을 통해 블럭 내에서 해당하는 값을 사용하지 않음을 전달할 수 있습니다</p>
 </div>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">

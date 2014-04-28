@@ -5,16 +5,47 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-04-19T09:53:32Z</updated>
+  <updated>2014-04-28T01:00:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/"/>
+    <id>http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/</id>
+    <published>2014-04-28T01:00:00Z</published>
+    <updated>2014-04-28T01:14:39+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://cask.emacs.kr"&gt;http://cask.emacs.kr/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Emacs を使い始めてはや15年、ようやくまともな elisp 管理ができるようになった。
+Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 관리가 가능하게 되었다. &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;일본 프로그래머 Ito Naoya 씨가 &lt;a href="http://d.hatena.ne.jp/naoya/20140424/1398318293"&gt;Cask를 소개하는 글&lt;/a&gt;에서 이런 얘기를 하길래, 관심이 가서 &lt;a href="http://cask.github.io"&gt;Cask 공식 문서&lt;/a&gt;를 번역했습니다.&lt;/p&gt;
+
+&lt;p&gt;Emacs 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.&lt;/p&gt;
+
+&lt;p&gt;그만큼이나 Emacs 설정을 잘 하는 건 어렵습니다. 해본 사람은 알겠지만 이것저것 입맛대로 뜯어고치고 플러그인 설치하고 한 번 꼬이고 그러면 그냥 프로그래밍 하는 시간보다 설정하는 시간이 더 많이 드는 거 아닌가 하는 회의감이 들 정도니까요. 강력하지만 귀찮고 어렵습니다.&lt;/p&gt;
+
+&lt;p&gt;Cask는 이러한 문제를 Ruby의 번들러나 Nodejs의 npm처럼 &amp;#39;Cask&amp;#39;라는 파일을 통해 해결해줍니다. 이를 통해 Emacs Lisp 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;현재 틈틈히 Cask로 옮기는 작업을 하고 있으니, 조만간 Cask로 완전히 갈아타는 데 성공하면 사용법에 대해서도 소개하겠습니다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+</content>
+  </entry>
   <entry>
     <title>루비의 꽃, 열거자 Enumerable 모듈</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/"/>
     <id>http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/</id>
     <published>2014-04-19T09:53:32Z</published>
-    <updated>2014-04-19T12:10:08+00:00</updated>
+    <updated>2014-04-28T01:14:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -4714,7 +4745,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
     <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
     <published>2014-04-18T15:15:32Z</published>
-    <updated>2014-04-19T12:10:08+00:00</updated>
+    <updated>2014-04-28T01:14:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -4796,7 +4827,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
     <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
     <published>2014-04-06T17:00:32Z</published>
-    <updated>2014-04-19T12:10:08+00:00</updated>
+    <updated>2014-04-28T01:14:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -6850,7 +6881,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/"/>
     <id>http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/</id>
     <published>2014-04-05T18:20:32Z</published>
-    <updated>2014-04-19T12:10:08+00:00</updated>
+    <updated>2014-04-28T01:14:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -6946,7 +6977,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/"/>
     <id>http://blog.nacyot.com/articles/2014-03-23-cookpad-ruby-styleguide/</id>
     <published>2014-03-23T10:40:00Z</published>
-    <updated>2014-04-19T12:10:08+00:00</updated>
+    <updated>2014-04-28T01:14:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -7642,89 +7673,6 @@ false
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;[MUST]&lt;/strong&gt; 파괴적인 메소드를 사용할 때는 그 영향 범위를 최소한으로 한정한다.&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-  </entry>
-  <entry>
-    <title>emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/"/>
-    <id>http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/</id>
-    <published>2014-03-16T15:20:00Z</published>
-    <updated>2014-04-19T12:10:08+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;&lt;/p&gt;
-
-&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p&gt;&lt;a href="http://t.co/NrSRaEXMWO"&gt;http://t.co/NrSRaEXMWO&lt;/a&gt; &lt;a href="http://t.co/3YY2lCXkLd"&gt;http://t.co/3YY2lCXkLd&lt;/a&gt; 한국어 번역&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/statuses/445030787130200064"&gt;2014년 3월 16일&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2&gt;Github&lt;/h2&gt;
-
-&lt;p&gt;특별한 건 없습니다만, 번역과 번역 저장소 관리에 대해서 조금 이야기를 해보자면 현재 sexy.emacs.kr은 두 개의 저장소에서 관리되고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;하나는 번역 메모리 omegat의 프로젝트를 담은 &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/nacyot/omegat-emacs.sexy"&gt;https://github.com/nacyot/omegat-emacs.sexy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이고, 또 하나는 omegat-emacs.sexy에서 번역한 결과를 travis로 빌드해서 자동으로 push 되도록 설정해둔 &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/nacyot/sexy.emacs.kr"&gt;https://github.com/nacyot/sexy.emacs.kr&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;입니다.&lt;/p&gt;
-
-&lt;h2&gt;OmegaT&lt;/h2&gt;
-
-&lt;p&gt;개인적으로 번역 프로젝트에는 전부 OmegaT를 사용하고 있습니다.자바로 만들어진 번역 메모리로 기능적으론 굉장히 훌륭합니다. 특히 OmegaT는 문장 단위로 번역을 진행해서, 직접 원본 파일을 번역하는 것과 달리 원문의 업데이트에 비교적 쉽게 대응할 수 있습니다. 약간 번거롭고 저장소와 호환이 안 맞아서 한참 고생을 했는데, 최근에 활용 방향이 정리가 되서 베스트 프렉티스를 정리해보는 중입니다. 이에 대한 내용은 조만간 공유해 볼 예정입니다.&lt;/p&gt;
-
-&lt;h2&gt;Omegat + Travis&lt;/h2&gt;
-
-&lt;p&gt;이번에 한 가지 시도해본 건 Travis를 통해 OmegaT의 프로젝트를 빌드하는 일입니다. OmegaT에서는 원본 문서를 편집하지 않고 Segment 단위로 한 문장(혹은 한 문단) 씩 번역을 진행합니다. 따라서 여기서 빌드란 OmegaT를 통해서 번역한 결과물을 실제 파일로 출력하는 과정을 말합니다. 로컬에서 번역을 진행하고 빌드 후 저장소를 올리는 것도 어렵지 않습니다만 신경써야할 부분이 하나 더 느는 문제가 있고, 또 하나는 커밋 단위로 빌드를 하고 싶었기 때문입니다. 이는 이 블로그나 위키에서도 마찬가지로 문서를 작성하면 자동적으로 Travis에서 Middleman 어플리케이션을 빌드하고 깃허브 저장소에 올리는 것과 마찬가지입니다. 즉, 이를 통해 OmegaT를 통한 번역작업과 Github 페이지를 통한 배포 작업을 하나의 트랜젝션으로 묶을 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;전체 스크립트는 &lt;a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/.travis.yml"&gt;여기&lt;/a&gt;에 있습니다. 여기서 가장 중요한 두 명령어는 아래와 같습니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="l-Scalar-Plain"&gt;before_install&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;sudo apt-get install -qq openjdk-6-jdk omegat&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="l-Scalar-Plain"&gt;script&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;/usr/lib/jvm/java-6-openjdk-amd64/jre/bin/java -jar /usr/share/omegat/OmegaT.jar . --mode=console-translate&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;첫번째 명령어는 &lt;code&gt;apt-get&lt;/code&gt;으로 openjdk-6-jdk와 omegat를 설치합니다. 아래 명령어는 실제로 프로젝트를 빌드하는 명령어입니다. OmegaT를 설치하면 &lt;code&gt;omegat&lt;/code&gt; 명령어를 사용할 수 있기는 합니다만, 이 명령어는 자바 버전에 의존적이라 &lt;code&gt;java&lt;/code&gt;와 &lt;code&gt;omegat&lt;/code&gt; 모두 강제로 경로를 지정해서 실행하고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;이러한 작업을 할 때 OmegaT의 프로젝트 구조를 로컬에서와 같도록 최대한 보장해줄 필요가 있습니다. 예를 들어 과거 프로젝트에서 생성한 번역 메모리를 재활용할 수 있게 도와주는 &lt;code&gt;/tm/auto&lt;/code&gt; 디렉토리는 실제론 필요가 없지만, 빌드 시에 없으면 프로젝트를 인식하지 못 합니다. &lt;code&gt;target&lt;/code&gt; 디렉토리는 빌드 결과가 출력되는 디렉토리인데 자동으로 생성해주지 않기 때문에, 빈 디렉토리라도 생성해두지 않으면 빌드에 실패합니다. 이 외에 &lt;code&gt;glossary&lt;/code&gt;, &lt;code&gt;dictionary&lt;/code&gt;, &lt;code&gt;source&lt;/code&gt;도 정상적으로 프로젝트 디렉토리 안에 생성되어 있어야합니다.&lt;/p&gt;
-
-&lt;p&gt;OmegaT의 경우 &lt;code&gt;apt-get&lt;/code&gt;으로 설치하면 상당히 구버전이 설치됩니다. 저 같은 경우는 번역에 3버전을 사용하고 있는데, 빌드 과정에서 특별한 문제점은 없었습니다. 만약 &lt;code&gt;apt-get&lt;/code&gt;으로 설치하는 버전을 사용하기가 어렵다면 별도로 프로젝트에 OmegaT를 집어넣거나, wget으로 소스포지에서 다운로드해야합니다.&lt;/p&gt;
-
-&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p&gt;&lt;a href="https://twitter.com/marocchino"&gt;@marocchino&lt;/a&gt; 아... 빌드에서 사용할 파일 따로 가져올 방법이 없어서 압축해서 포함시키려고 했는데 100mb 넘는다고 안 들어가더군요 ㅎㅎ. 좋은 접근은 아니었죠 ㅜ&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/statuses/444838462277967873"&gt;2014년 3월 15일&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-
-&lt;p&gt;이건 비밀입니다만(...) 처음에는 직접 OmegaT의 최신 버전을 프로젝트에 집어넣고 빌드 과정에서 압축을 풀어 사용하려고 했습니다. 하지만 Github 저장소에는 100mb 이상의 파일을 넣을 수 없다는 사실을 처음 알았습니다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 100mb 넘는 파일을 추가하고 Github에 올리기 위해선 커밋 히스토리 자체를 삭제할 필요가 생기는데 아래 명령어를 사용할 수 있습니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;tree&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rf&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;your&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;HEAD&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Rake&lt;/h2&gt;
-
-&lt;p&gt;빌드 과정에서 몇 가지 rake 작업이 이루어집니다. OmegaT를 사용한 번역에서는 원본 파일을 직접 수정하지 않고, 문장들만을 번역합니다. 따라서 원칙적으로 원본 파일은 건드리지 않고 작업을 하기 위해서 빌드된 결과물을 rake  스크립트를 통해서 편집해줍니다. &lt;code&gt;rewrite_cname&lt;/code&gt;은 CNAME 파일이 &lt;code&gt;sexy.emacs.kr&lt;/code&gt;(실제 배포될 URL)을 가리키도록 합니다.  &lt;code&gt;add_link&lt;/code&gt;는 별도로 관리중인 &lt;a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/data/sites.json"&gt;한국어 링크를 정리한 json 파일&lt;/a&gt;에서 링크를 가져와 문서의 아래 쪽에 추가해줍니다. 마지막으로 &lt;code&gt;add_link_to_translator&lt;/code&gt;는 번역자 정보를 문서에 추가해줍니다.&lt;/p&gt;
-
-&lt;h2&gt;Github Pages&lt;/h2&gt;
-
-&lt;p&gt;빌드 과정의 마지막에는 이렇게 생성된 번역 결과를 sexy.emacs.kr 깃허브 저장소에 push하도록 되어있습니다. 깃허브에서는 gh-pages 브랜치를 이용해 저장소의 내용을 배포할 수 있습니다. 특별한 건 없습니다만, Github Pages에서 커스텀 도메인으로 배포 가능하도록 DNS A record를 지정해야하는 ip 주소가 최근에 바뀐 듯 합니다. &lt;a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages"&gt;깃허브 Help 사이트&lt;/a&gt;에서는 &lt;code&gt;192.30.252.153&lt;/code&gt;과 &lt;code&gt;192.30.252.154&lt;/code&gt;를 지정해야한다고 이야기하고 있으며, 예전 ip도 업데이트를 권장하고 있었습니다.&lt;/p&gt;
-
-&lt;h2&gt;Travis&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href="https://travis-ci.org/nacyot/omegat-emacs.sexy"&gt;Travis의 빌드 결과&lt;/a&gt;는 여기서 확인할 수 있습니다. 이를 통해서 빌드가 어떤 식으로 이루어지는지 감이 오실 거라고 생각합니다.&lt;/p&gt;
-
-&lt;p&gt;아시는 분은 이미 아시리라고 생가합니다만, 공개 프로젝트를 운영하신다면 tarvis는 둘도 없는 강력한 빌드 서비스입니다. 어떤 자원을 사용하건 자원에 대한 대가를 치루는 거는 꽤나 번거롭고 관리가 드는 일입니다만, 공개 프로젝트에 한해서 Travis는 이러한 부담이 전혀 없이 무료로 사용할 수 있습니다. 위에서 보셨다시피 커밋에 대응한 자동 빌드 및 심지어 빌드 성공시 깃헙 페이지에 자동 배포하는 역할까지 수행하고 있습니다.&lt;/p&gt;
-
-&lt;h2&gt;결론&lt;/h2&gt;
-
-&lt;p&gt;이 프로젝트의 경우는 번역할 절대 양이 많지도 않고 업데이트가 크게 많다고 생각되지 않기 때문에 조금 오버를 했다는 느낌도 없지 않습니다만, 예전부터 생각해오던 것을 직접 적용해서 작은 번역 프로젝트를 하나 진행해 보았습니다. 좀 더 큰 프로젝트에서라면 번역에만 집중할 수 있는 이러한 워크플로우가 꽤나 도움이 될 것이라고 기대하고 있습니다.&lt;/p&gt;
 </content>
   </entry>
 </feed>

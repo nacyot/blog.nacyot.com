@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>(도커(Docker)로 레일스(Rails) 배포하기)</title>
+<meta name="author" content="(Daekwon Kim)"/>
+<link rel="stylesheet" href="/presentations/reveal.js/css/reveal.min.css"/>
+<link rel="stylesheet" href="/presentations/reveal.js/css/theme/nacyot.css" id="theme"/>
+<link rel="stylesheet" href="/presentations/stylesheets/code.css"/>
+<link rel="stylesheet" href="/presentations/reveal.js/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Docker로 Rails 배포하기 (1)</h1>
+<h2>Daekwon Kim</h2>
+<h2><a href="mailto:propellerheaven@gmail.com">propellerheaven@gmail.com</a></h2>
+<h2></h2></section>
+
+<section id="sec-1" >
+
+<h2>nacyot</h2>
+<ul class="org-ul">
+<li><img src="/presentations/images/nacyot.jpeg" alt="nacyot.jpeg" />
+</li>
+<li><a href="http://nacyot.com">http://nacyot.com</a>
+</li>
+<li>@nacyot
+</li>
+</ul>
+</section>
+<section id="sec-2" >
+
+<h2>Leevi</h2>
+<ul class="org-ul">
+<li><img src="/presentations/images/leevi.png" alt="leevi.png" />
+</li>
+<li><a href="http://leevi.co.kr/">http://leevi.co.kr/</a>
+</li>
+<li>Ruby programmer
+</li>
+</ul>
+</section>
+<section id="sec-3" >
+
+<h2>오늘의 이야기</h2>
+</section>
+<section id="sec-3-1" >
+
+<h3>Docker</h3>
+
+</section>
+<section id="sec-3-2" >
+
+<h3>TOC</h3>
+<ul class="org-ul">
+<li>1장 도커가 필요한 배경
+</li>
+<li>2장 도커의 이해
+</li>
+<li>3장 데모
+</li>
+</ul>
+</section>
+<section id="sec-4" >
+
+<h2>1장 도커가 필요한 배경</h2>
+<ul class="org-ul">
+<li>Immutable Infrastructure
+</li>
+</ul>
+
+</section>
+<section id="sec-4-1" >
+
+<h3>웹 개발</h3>
+<ul class="org-ul">
+<li>기획
+</li>
+<li>구현
+</li>
+<li>배포
+</li>
+</ul>
+</section>
+<section id="sec-4-2" >
+
+<h3>구현(Dev)</h3>
+<ul class="org-ul">
+<li>Ruby on Rails
+</li>
+</ul>
+</section>
+<section id="sec-4-3" >
+
+<h3>배포(Ops) : 도커 x 레일스</h3>
+<ul class="org-ul">
+<li>Ruby on Rails
+</li>
+<li>Rails application on Docker 
+</li>
+</ul>
+</section>
+<section id="sec-4-4" >
+
+<h3>배포 환경 구성</h3>
+<ul class="org-ul">
+<li>서버 준비
+</li>
+<li>배포 환경
+</li>
+<li>의존성 설치 등 서버 구성
+</li>
+</ul>
+</section>
+<section id="sec-4-5" >
+
+<h3>문제점</h3>
+<ul class="org-ul">
+<li>시행 착오
+</li>
+<li>운용과 상태
+<ul class="org-ul">
+<li>하드웨어 업그레이드
+</li>
+<li>의존 라이브러리
+</li>
+<li>어플리케이션 버전
+</li>
+<li>로그 파일
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-4-6" >
+
+<h3>개인 컴퓨터와 다를 게 없음</h3>
+
+</section>
+<section id="sec-4-7" >
+
+<h3>PC의 흔한 사례</h3>
+<ul class="org-ul">
+<li>컴퓨터(윈도우)가 안 돼요
+<ul class="org-ul">
+<li>재부팅해보세요
+</li>
+<li>재설치해보세요
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-4-7-1" >
+
+<h4>그래도 안 되요</h4>
+<ul class="org-ul">
+<li>최근에 설치한 프로그램을 지워보세요
+</li>
+<li>시스템 복구해보세요
+</li>
+<li>윈도우를 다시 깔아보세요
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-4-7-2" >
+
+<h4>시스템 상태 초기화</h4>
+<ul class="org-ul">
+<li>재부팅
+</li>
+<li>재설치
+</li>
+<li>복구
+</li>
+<li>운영체제 재설치
+</li>
+</ul>
+</section>
+</section>
+<section id="sec-4-8" >
+
+<h3>PC는 상태 의존적</h3>
+
+</section>
+<section id="sec-4-9" >
+
+<h3>서버 운용</h3>
+<ul class="org-ul">
+<li>서버도 상태(state) 의존적
+<ul class="org-ul">
+<li>하드웨어 / 상태
+</li>
+<li>운영체제 버전 / 상태
+</li>
+<li>시스템 의존 라이브러리
+</li>
+<li>어플리케이션 의존 라이브러리
+</li>
+<li>어플리케이션 버전
+</li>
+<li>어플리케이션 설정
+</li>
+<li>네트워크 환경
+</li>
+<li>기타 등등등&#x2026;.
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-4-9-1" >
+
+<h4>서버 운용은 오케스트라</h4>
+<ul class="org-ul">
+<li><img src="/presentations/images/invisible_orchestra.png" alt="invisible_orchestra.png" />
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-4-9-2" >
+
+<h4>서버 운용은 오케스트라</h4>
+<ul class="org-ul">
+<li>불행히도&#x2026;
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-4-9-3" >
+
+<h4>서버 운용이 어려운 이유</h4>
+<ul class="org-ul">
+<li>서버의 상태는 
+<ul class="org-ul">
+<li>비가역적으로 변해나감
+</li>
+<li>재현 불가능(재설치는 능사가 아님)
+</li>
+</ul>
+</li>
+<li>낯선 운영체제(리눅스)는 사소한 문제
+</li>
+<li>왜 되는 지 이해하기 어려움
+</li>
+<li>왜 안 되는 지 이해하기 어려움
+</li>
+</ul>
+</section>
+</section>
+<section id="sec-4-10"  data-background="#F3C13A">
+
+<h3></h3>
+
+<ul class="org-ul">
+<li>The system becomes a house of cards. You fear any change and you fear replacing it since you don’t know everything about how it works.
+<ul class="org-ul">
+<li>Trash Your Servers and Burn Your Code: Immutable Infrastructure and Disposable Components, Chad Fowler
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-4-11" >
+
+<h3>새로운 패러다임</h3>
+<ul class="org-ul">
+<li>Immutable Infrastructure
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-4-11-1" >
+
+<h4>Immutable Infrastructure</h4>
+<ul class="org-ul">
+<li>관리가능하고  
+</li>
+<li>테스트 가능하며
+</li>
+<li>Stateless하고
+</li>
+<li>Scalable한
+</li>
+<li>이미지 기반의
+</li>
+<li>어플리케이션 배포
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-4-11-2" >
+
+<h4>서버는 쓰고 버리는 Disposable Component</h4>
+<ul class="org-ul">
+<li>(개발 =&gt; 이미지 빌드 =&gt; 이미지 실행) 반복
+<ul class="org-ul">
+<li>이미지 빌드 = 배포 환경 구축
+</li>
+</ul>
+</li>
+<li>서버 운용은 하지 않음
+</li>
+</ul>
+</section>
+</section>
+<section>
+<section id="sec-4-11-3" >
+
+<h4>참조</h4>
+<ul class="org-ul">
+<li>사례
+<ul class="org-ul">
+<li><a href="http://heroku.com/">Heroku | Cloud Application Platform</a>
+</li>
+<li><a href="https://travis-ci.org/">Travis - Continuous Integration and Deployment That Just Works</a>
+</li>
+<li><a href="http://www.centurylinklabs.com/top-10-startups-built-on-docker/">Top 10 Startups Built on Docker</a>
+</li>
+</ul>
+</li>
+<li>문서
+<ul class="org-ul">
+<li><a href="http://12factor.net/">Twelve Factor Apps</a>
+</li>
+<li><a href="http://chadfowler.com/blog/2013/06/23/immutable-deployments/">Immutable Infrastructure and Disposable Components, Chad Fowler</a>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="sec-5" >
+
+<h2>2장 도커의 이해</h2>
+</section>
+<section id="sec-5-1" >
+
+<h3>도커(Docker)</h3>
+<ul class="org-ul">
+<li>Immutable Infrastructure을 구현하는 대표적인 도구
+</li>
+</ul>
+</section>
+<section id="sec-5-2" >
+
+<h3>도커(Docker)</h3>
+<ul class="org-ul">
+<li>가상화 도구
+</li>
+<li>이미지 기반
+<ul class="org-ul">
+<li>컨테이너를 통한 배포
+</li>
+<li>Build once, Run everywhere
+</li>
+</ul>
+</li>
+<li>프로그래밍 언어 Go
+</li>
+</ul>
+</section>
+<section id="sec-5-3" >
+
+<h3>이미지</h3>
+<ul class="org-ul">
+<li>프로그래밍에서 클래스
+</li>
+<li>VMware나 VirtualBox에서 이미지
+</li>
+<li>기반 이미지에 레이어를 더해 생성
+</li>
+<li>AUFS를 통해 Git처럼 버전 관리 가능
+<ul class="org-ul">
+<li>용량이 크지 않음
+</li>
+</ul>
+</li>
+<li>특정 상태가 그대로 저장되어있음
+</li>
+<li>실체 없음(!)
+</li>
+</ul>
+</section>
+<section id="sec-5-4" >
+
+<h3>컨테이너 1</h3>
+<ul class="org-ul">
+<li>프로그래밍에서 객체
+</li>
+<li>VMware나 VirtualBox에서 가상머신
+</li>
+<li>하나의 이미지를 기반으로 생성
+</li>
+<li>하나의 프로세스만 실행
+</li>
+<li>실체 있음(!)
+</li>
+</ul>
+</section>
+<section id="sec-5-5" >
+
+<h3>컨테이너 2</h3>
+<ul class="org-ul">
+<li>모든 작업은 컨테이너 위에서만 가능(!)
+</li>
+<li>1 컨테이너 = 1 프로세스
+</li>
+<li>성능 손실 거의 없음
+<ul class="org-ul">
+<li>커널 공유
+</li>
+<li>격리된 프로세스, 격리된 네트워크
+</li>
+<li>하드웨어 에뮬레이션 없음
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="sec-5-6" >
+
+<h3>도커의 가상화</h3>
+<img src="/presentations/images/Screenshot_from_docker.io_about.png" alt="Screenshot_from_docker.io_about.png" />
+</section>
+<section id="sec-5-7" >
+
+<h3>하나의 프로세스에서 다수의 프로세스 띄우기</h3>
+<ul class="org-ul">
+<li>foreman (Ruby)
+</li>
+<li>supervisor (Python)
+</li>
+</ul>
+</section>
+<section id="sec-6" >
+
+<h2>2장 데모</h2>
+<ul class="org-ul">
+<li>설치
+</li>
+<li>기본 명령어
+</li>
+<li>레일스 어플리케이션(예정)
+</li>
+<li>도커 레지스트리(예정)
+</li>
+</ul>
+</section>
+</div>
+</div>
+<script src="/presentations/reveal.js/lib/js/head.min.js"></script>
+<script src="/presentations/reveal.js/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: false,
+        			center: true,
+        			rollingLinks: true,
+        			keyboard: true,
+        			overview: true,
+        			width: 1200, // slide width
+        			height: 800, // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: './reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: './reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: './reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

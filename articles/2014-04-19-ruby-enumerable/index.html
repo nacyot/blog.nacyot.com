@@ -34,12 +34,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -60,11 +76,23 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Apr 19 2014
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">루비의 꽃, 열거자 Enumerable 모듈</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#결론">결론</a>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 <code>each</code>와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 <code>each</code> 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.</p>
 
@@ -76,7 +104,7 @@ Apr 19 2014
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">개요</h2>
+<h2><a name='-'>개요</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>앞서 이야기했듯이 루비에서는 아래 스타일의 반복문을 일부 지원하지만 별로 사용하지 않습니다</p>
 </div>
 </div>
@@ -350,7 +378,7 @@ arr.map{|i| arr &lt;&lt; <span class="number">5</span>; puts i}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-enumerable-map-enumerable-collect-"><code>Enumerable#map</code>, <code>Enumerable#collect</code></h2>
+<h2><a name='-enumerable-map-enumerable-collect-'><code>Enumerable#map</code>, <code>Enumerable#collect</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <pre><code>collect -&gt; Enumerator
 map -&gt; Enumerator
 collect {|item| ... } -&gt; [object]
@@ -583,7 +611,7 @@ O
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-method-chain-">메서드 체인(Method Chain)</h2>
+<h2><a name='-method-chain-'>메서드 체인(Method Chain)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>여기서 잠깐 다른 메서드를 소개하기 전에 다른 얘기를 하고 넘어가겠습니다. <code>map</code> 메서드를 통해서 컬렉션을 조작하는 일은 매우 흥미로운 일입니다. <code>map</code>은 컬렉션의 요소들을 하나하나 변경합니다. 즉 리시버 컬렉션의 모든 요소들은 넘겨받은 블럭의 로직에 의해서 하나하나 변경됩니다. 중요한 건 이렇게 변경되어 리턴되는 것은 리시버와 마찬가지로 컬렉션이라는 사실입니다. 따라서 배열에 map을 사용하면 다른 배열이 리턴됩니다. 아래 예에서는 배열을 절대값으로 변경해보겠습니다</p>
 </div>
 </div>
@@ -909,7 +937,7 @@ O
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">블럭 축약 표현</h2>
+<h2><a name='-'>블럭 축약 표현</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>블럭에서 컬렉션의 요소에 대해서 특정한 메서드를 인자없이 호출할 때는 축약표현을 사용할 수 있습니다. 예를 들어 아래 두 표현은 같습니다. <code>&amp;</code>는 블럭을 의미합니다.</p>
 </div>
 </div>
@@ -987,7 +1015,7 @@ O
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="enumerable-">Enumerable 메서드</h2>
+<h2><a name='enumerable-'>Enumerable 메서드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 </div>
 </div>
 </div>
@@ -996,7 +1024,7 @@ O
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-each_with_index-"><code>Enumerable#each_with_index</code></h3>
+<h3><a name='-enumerable-each_with_index-'><code>Enumerable#each_with_index</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>each_with_index -&gt; Enumerator
 each_with_index {|item, index| ... } -&gt; self
 </code></pre><p><code>each</code>를 처음 사용할 때 가장 어려운 부분 중 하나가 <code>for</code>나 <code>while</code> 문을 사용할 때와 달리 현재 몇 번째 요소를 처리하는 지 index를 사용할 수 없다는 점입니다. 분명 루비에서도 이러한 처리는 순차적으로 이루어집니다. 이럴 때 사용할 수 있는 메서드가 <code>each_with_index</code>입니다. 이 메서드는 <code>each</code>와 비슷하나 item(각 요소)과 함께 요소의 순서 index를 넘겨줄 수 있습니다. 따라서 요소 순서에 따른 로직을 처리해야할 때 사용할 수 있습니다</p>
@@ -1101,7 +1129,7 @@ each_with_index {|item, index| ... } -&gt; self
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-each_with_object-"><code>Enumerable#each_with_object</code></h3>
+<h3><a name='-enumerable-each_with_object-'><code>Enumerable#each_with_object</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>each_with_object(obj) -&gt; Enumerator
 each_with_object(obj) {|(*args), memo_obj| ... } -&gt; object
 </code></pre><p><code>each_with_object</code>는 각 요소를 반복할 때 특정한 객체를 넘겨줄 수 있습니다</p>
@@ -1193,7 +1221,7 @@ each_with_object(obj) {|(*args), memo_obj| ... } -&gt; object
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-each_slice-"><code>Enumerable#each_slice</code></h3>
+<h3><a name='-enumerable-each_slice-'><code>Enumerable#each_slice</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>each_slice(n) -&gt; Enumerator
 each_slice(n) {|list| ... } -&gt; nil
 </code></pre><p><code>each_slice</code>은 컬렉션을 특정한 길이만큼 잘라서 반복합니다. 예를 들어 길이가 10인 컬렉션을 3씩 자르면, 3개의 요소, 3개의 요소, 3개의 요소, 1개의 요소가 되고 이 4개의 컬렉션을 반복합니다</p>
@@ -1362,7 +1390,7 @@ each_slice(n) {|list| ... } -&gt; nil
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-each_cons-"><code>Enumerable#each_cons</code></h3>
+<h3><a name='-enumerable-each_cons-'><code>Enumerable#each_cons</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>each_cons(n) -&gt; Enumerator
 each_cons(n) {|list| ... } -&gt; nil
 </code></pre><p><code>each_cons</code>는 <code>each_slice</code>와 비슷하지만 특정한 길이만큼 자를 때 길이를 겹쳐서 자릅니다. 백문이불여일견, 직접 보면 이해가 바로 될 것입니다. 아래 예제에서 두 메서드를 비교해보겠습니다.</p>
@@ -1442,7 +1470,7 @@ each_cons(n) {|list| ... } -&gt; nil
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-reverse_each-"><code>Enumerable#reverse_each</code></h3>
+<h3><a name='-enumerable-reverse_each-'><code>Enumerable#reverse_each</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>reverse_each -&gt; Enumerator
 reverse_each {|element| ... } -&gt; self
 </code></pre><p><code>reverse_each</code>는 <code>each</code>와 마찬가지로 각 요소를 반복하되, 순서를 거꾸로 합니다</p>
@@ -1546,7 +1574,7 @@ H
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-cycle-"><code>Enumerable#cycle</code></h3>
+<h3><a name='-enumerable-cycle-'><code>Enumerable#cycle</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <p>cycle(n=nil) -&gt; Enumerator
 cycle(n=nil) {|obj| ... } -&gt; object | nil</p>
 <p>cycle는 리시버를 특정한 횟수(인자)만큼 반복합니다. 인자가 없으면 무한히 반복합니다</p>
@@ -1593,7 +1621,7 @@ cycle(n=nil) {|obj| ... } -&gt; object | nil</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-flat_map-enumerable-collect_concat-"><code>Enumerable#flat_map</code> / <code>Enumerable#collect_concat</code></h3>
+<h3><a name='-enumerable-flat_map-enumerable-collect_concat-'><code>Enumerable#flat_map</code> / <code>Enumerable#collect_concat</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>flat_map -&gt; Enumerator
 collect_concat -&gt; Enumerator
 flat_map {| obj | block } -&gt; Array
@@ -1684,7 +1712,7 @@ collect_concat {| obj | block } -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-inject-enumerable-reduce-"><code>Enumerable#inject</code> / <code>Enumerable#reduce</code></h3>
+<h3><a name='-enumerable-inject-enumerable-reduce-'><code>Enumerable#inject</code> / <code>Enumerable#reduce</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <p><code>inject</code>와 <code>reduce</code>는 컬렉션에 연속적으로 함수를 적용한 결과를 리턴합니다. 아래 예제는 리시버 컬렉션을 전부 더한 결과를 리턴합니다</p>
 </div>
 </div>
@@ -2103,7 +2131,7 @@ collect_concat {| obj | block } -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-count-"><code>Enumerable#count</code></h3>
+<h3><a name='-enumerable-count-'><code>Enumerable#count</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>count -&gt; Integer
 count(item) -&gt; Integer
 count {|obj| ... } -&gt; Integer
@@ -2230,7 +2258,7 @@ count {|obj| ... } -&gt; Integer
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-grep-"><code>Enumerable#grep</code></h3>
+<h3><a name='-enumerable-grep-'><code>Enumerable#grep</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>grep(pattern) -&gt; [object]
 grep(pattern) {|item| ... } -&gt; [object]
 </code></pre><p><code>grep</code> 메서드는 주어진 패턴에 매칭되는 결과를 찾습니다. 패턴은 <code>===</code> 연산자로 평가됩니다</p>
@@ -2320,7 +2348,7 @@ grep(pattern) {|item| ... } -&gt; [object]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-find-enumerable-detect-"><code>Enumerable#find</code> / <code>Enumerable#detect</code></h3>
+<h3><a name='-enumerable-find-enumerable-detect-'><code>Enumerable#find</code> / <code>Enumerable#detect</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>find(ifnone = nil) -&gt; Enumerator
 detect(ifnone = nil) -&gt; Enumerator
 find(ifnone = nil) {|item| ... } -&gt; object
@@ -2409,7 +2437,7 @@ item not found
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-find_all-enumerable-select-"><code>Enumerable#find_all</code> / <code>Enumerable#select</code></h3>
+<h3><a name='-enumerable-find_all-enumerable-select-'><code>Enumerable#find_all</code> / <code>Enumerable#select</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>find_all -&gt; Enumerator
 select -&gt; Enumerator
 find_all {|item| ... } -&gt; [object]
@@ -2535,7 +2563,7 @@ select {|item| ... } -&gt; [object]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-reject-"><code>Enumerable#reject</code></h3>
+<h3><a name='-enumerable-reject-'><code>Enumerable#reject</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>reject -&gt; Enumerator
 reject {|item| ... } -&gt; [object]
 </code></pre><p><code>reject</code>는 <code>select</code>와 반대 메서드로 각 요소를 평가한 결과가 참인 결과를 제외한 컬렉션을 리턴합니다.</p>
@@ -2582,7 +2610,7 @@ reject {|item| ... } -&gt; [object]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-find_index-"><code>Enumerable#find_index</code></h3>
+<h3><a name='-enumerable-find_index-'><code>Enumerable#find_index</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>find_index(val) -&gt; Integer | nil
 find_index {|obj| ... } -&gt; Integer | nil
 find_index -&gt; Enumerator
@@ -2673,7 +2701,7 @@ find_index -&gt; Enumerator
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-first-"><code>Enumerable#first</code></h3>
+<h3><a name='-enumerable-first-'><code>Enumerable#first</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>first -&gt; object | nil
 first(n) -&gt; Array
 </code></pre><p><code>first</code>는 리시버에서 첫번째 요소를 리턴합니다. 인자로 n을 넘겨주면 앞에서부터 n개의 요소를 리턴합니다. 단, 하나의 요소도 없을 때 n값이 없으면 <code>nil</code>을 리턴하고, n값이 있으면 빈 배열을 리턴합니다</p>
@@ -2812,7 +2840,7 @@ first(n) -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-take-"><code>Enumerable#take</code></h3>
+<h3><a name='-enumerable-take-'><code>Enumerable#take</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>take(n) -&gt; Array
 </code></pre><p><code>take</code>는 앞선 <code>first</code>와 마찬가지로 앞에서부터 n개의 요소를 리턴합니다. 단, <code>first</code>와 달리 항상 배열을 리턴합니다</p>
 </div>
@@ -2951,7 +2979,7 @@ first(n) -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-drop-"><code>Enumerable#drop</code></h3>
+<h3><a name='-enumerable-drop-'><code>Enumerable#drop</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>drop(n) -&gt; Array
 </code></pre><p><code>drop</code> 메서드는 앞에서부터 n개의 요소를 제외한 배열을 리턴합니다.</p>
 </div>
@@ -2997,7 +3025,7 @@ first(n) -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-take_while-"><code>Enumerable#take_while</code></h3>
+<h3><a name='-enumerable-take_while-'><code>Enumerable#take_while</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>take_while -&gt; Enumerator
 take_while {|element| ... } -&gt; Array
 </code></pre><p><code>take_while</code> 메서드는 리시버 컬렉션을 반복하면서 특정 요소로 넘겨진 블럭을 평가했을 때 처음 거짓이 되는 요소까지의 모든 요소를 리턴합니다</p>
@@ -3044,7 +3072,7 @@ take_while {|element| ... } -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-drop_while-"><code>Enumerable#drop_while</code></h3>
+<h3><a name='-enumerable-drop_while-'><code>Enumerable#drop_while</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>drop_while -&gt; Enumerator
 drop_while {|element| ... } -&gt; Array
 </code></pre><p><code>drop_while</code> 메서드는 리시버 컬렉션을 반복하면서 특정 요소로 넘겨진 블럭을 평가했을 때 처음 거짓이 되는 요소부터 모든 요소를 리턴합니다.</p>
@@ -3091,7 +3119,7 @@ drop_while {|element| ... } -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">비교 메서드</h2>
+<h2><a name='-'>비교 메서드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 </div>
 </div>
 </div>
@@ -3100,7 +3128,7 @@ drop_while {|element| ... } -&gt; Array
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="-enumerable-sort-"><code>Enumerable#sort</code></h4>
+<h4><a name='-enumerable-sort-'><code>Enumerable#sort</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
 <pre><code>sort -&gt; [object]
 sort {|a, b| ... } -&gt; [object]
 </code></pre><p><code>sort</code>는 리시버 컬렉션을 정렬해서 정렬된 컬렉션을 리턴합니다.</p>
@@ -3243,7 +3271,7 @@ sort {|a, b| ... } -&gt; [object]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-sort_by-"><code>Enumerable#sort_by</code></h3>
+<h3><a name='-enumerable-sort_by-'><code>Enumerable#sort_by</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>sort_by -&gt; Enumerator
 sort_by {|item| ... } -&gt; [object]
 </code></pre><p><code>sort_by</code> 역시 <code>sort</code>와 마찬가지로 리시버 컬렉션의 요소를 정렬하기 위해서 사용합니다. <code>sort_by</code>와 <code>sort</code>의 차이점은 <code>sort_by</code>는 항상 블럭을 받으며 블럭을 평가한 결과를 값에 대해서 정렬을 수행하며, <code>sort</code>는 블럭에서 직접 비교함수를 정의한다는 점입니다. 위에서 <code>length</code>를 사용한 <code>sort</code>의 예제를 다시 사용해서 두 메서드를 비교를 해보면 아래와 같습니다.</p>
@@ -3332,7 +3360,7 @@ sort_by {|item| ... } -&gt; [object]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-max-enumerable-max_by-"><code>Enumerable#max</code> / <code>Enumerable#max_by</code></h3>
+<h3><a name='-enumerable-max-enumerable-max_by-'><code>Enumerable#max</code> / <code>Enumerable#max_by</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>max -&gt; object | nil
 </code></pre><p><code>max</code>는 리시버 컬렉션에서 가장 큰 요소(최대값)를 리턴합니다</p>
 </div>
@@ -3467,7 +3495,7 @@ max_by {|item| ... } -&gt; object | nil
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-min-enumerable-min_by-"><code>Enumerable#min</code> / <code>Enumerable#min_by</code></h3>
+<h3><a name='-enumerable-min-enumerable-min_by-'><code>Enumerable#min</code> / <code>Enumerable#min_by</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>min -&gt; object | nil
 min {|a, b| ... } -&gt; object | nil
 min_by -&gt; Enumerator
@@ -3481,7 +3509,7 @@ min_by {|item| ... } -&gt; object | nil
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-minmax-enumerable-minmax_by-"><code>Enumerable#minmax</code> / <code>Enumerable#minmax_by</code></h3>
+<h3><a name='-enumerable-minmax-enumerable-minmax_by-'><code>Enumerable#minmax</code> / <code>Enumerable#minmax_by</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>minmax -&gt; [object, object]
 minmax {|a, b| ... } -&gt; [object, object]
 minmax_by -&gt; Enumerator
@@ -3608,7 +3636,7 @@ minmax_by {|obj| ... } -&gt; [object, object]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">그룹 / 조합 함수들</h2>
+<h2><a name='-'>그룹 / 조합 함수들</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 </div>
 </div>
 </div>
@@ -3617,7 +3645,7 @@ minmax_by {|obj| ... } -&gt; [object, object]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-slice_before-"><code>Enumerable#slice_before</code></h3>
+<h3><a name='-enumerable-slice_before-'><code>Enumerable#slice_before</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>slice_before(pattern) -&gt; Enumerator
 slice_before {|elt| bool } -&gt; Enumerator
 slice_before(initial_state) {|elt, state| bool } -&gt; Enumerator
@@ -3751,7 +3779,7 @@ slice_before(initial_state) {|elt, state| bool } -&gt; Enumerator
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-partition-"><code>Enumerable#partition</code></h3>
+<h3><a name='-enumerable-partition-'><code>Enumerable#partition</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>partition -&gt; Enumerator
 partition {|item| ... } -&gt; [[object], [object]]
 </code></pre><p><code>partition</code> 함수는 특정 조건으로 리시버 컬렉션을 분할합니다. 좀 더 정확히는 각 요소를 블럭에 넘겨 평가 한 후 참을 리턴하는 요소들과 거짓을 리턴하는 요소들로 나눕니다. 아래는 1부터 15까지의 숫자를 소수와 수소가 아닌 수로 나누는 예제입니다</p>
@@ -3798,7 +3826,7 @@ partition {|item| ... } -&gt; [[object], [object]]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-chunk-"><code>Enumerable#chunk</code></h3>
+<h3><a name='-enumerable-chunk-'><code>Enumerable#chunk</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>chunk {|elt| ... } -&gt; Enumerator
 chunk(initial_state) {|elt, state| ... } -&gt; Enumerator
 </code></pre><p>chunk는 블럭을 평가한 결과가 같은 것끼리 모아줍니다. 좀 더 정확히는 리시버 컬렉션의 요소를 하나하나 블럭으로 평가해나가면서 평가 결과가 같은 것들을 하나로 뭉치고 평가 결과가 달라면 새로운 덩어리로 만듭니다. 즉 덩어리를 만다는 방식이 <code>group_by</code>와는 차이가 납니다.</p>
@@ -3844,7 +3872,7 @@ chunk(initial_state) {|elt, state| ... } -&gt; Enumerator
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-group_by-"><code>Enumerable#group_by</code></h3>
+<h3><a name='-enumerable-group_by-'><code>Enumerable#group_by</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>group_by -&gt; Enumerator
 group_by {|obj| ... } -&gt; Hash
 </code></pre><p><code>group_by</code>는 블럭을 평가한 결과가 같은 값들을 해시로 묶어서 리턴합니다</p>
@@ -4126,7 +4154,7 @@ group_by {|obj| ... } -&gt; Hash
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-zip-"><code>Enumerable#zip</code></h3>
+<h3><a name='-enumerable-zip-'><code>Enumerable#zip</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>zip(*lists) -&gt; [[object]]
 zip(*lists) {|v1, v2, ...| ...} -&gt; nil
 </code></pre><p><code>zip</code> 메서드는 여러 컬렉션을 교차해서 조합해줍니다. 예를 들어 두 배열이 있으면 같은 위치의 요소들을 조합해줍니다.</p>
@@ -4301,7 +4329,7 @@ zip(*lists) {|v1, v2, ...| ...} -&gt; nil
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">참거짓 판단 메서드</h2>
+<h2><a name='-'>참거짓 판단 메서드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 </div>
 </div>
 </div>
@@ -4310,7 +4338,7 @@ zip(*lists) {|v1, v2, ...| ...} -&gt; nil
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-all-"><code>Enumerable#all?</code></h3>
+<h3><a name='-enumerable-all-'><code>Enumerable#all?</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>all? -&gt; bool
 all? {|item| ... } -&gt; bool
 </code></pre><p><code>all?</code> 메서드는 리시버 컬렉션의 모든 요소가 블럭을 평가했을 때 참을 리턴하는지 결과를 리턴합니다.</p>
@@ -4391,7 +4419,7 @@ false
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-any-"><code>Enumerable#any?</code></h3>
+<h3><a name='-enumerable-any-'><code>Enumerable#any?</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>any? -&gt; bool
 any? {|item| ... } -&gt; bool
 </code></pre><p><code>any?</code> 메서드는 리시버 컬렉션의 요소 중 하나라도 블럭을 평가했을 때 참을 리턴하는지 결과를 리턴합니다.</p>
@@ -4472,7 +4500,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-include-enumerable-member-"><code>Enumerable#include?</code> / <code>Enumerable#member?</code></h3>
+<h3><a name='-enumerable-include-enumerable-member-'><code>Enumerable#include?</code> / <code>Enumerable#member?</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>member?(val) -&gt; bool
 include?(val) -&gt; bool
 </code></pre><p><code>include?</code>(<code>member?</code>) 메서드는 인자로 넘긴 객체가 리시버 객체에 있는지 확인합니다.</p>
@@ -4552,7 +4580,7 @@ false
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-none-"><code>Enumerable#none?</code></h3>
+<h3><a name='-enumerable-none-'><code>Enumerable#none?</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>none? -&gt; bool
 none? {|obj| ... } -&gt; bool
 </code></pre><p><code>none?</code> 메서드는 모든 요소에 대해서 블럭을 평가했을 때 참이 하나도 없으면 참이 됩니다.</p>
@@ -4676,7 +4704,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="-enumerable-one-"><code>Enumerable#one?</code></h3>
+<h3><a name='-enumerable-one-'><code>Enumerable#one?</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <pre><code>one? -&gt; bool
 one? {|obj| ... } -&gt; bool
 </code></pre><p><code>one?</code>는 리시버 컬렉션의 평가 결과가 단 하나만 참인지 확인합니다. 블럭이 넘겨지면 블럭을 평가한 결과로 판단합니다.</p>
@@ -4752,7 +4780,7 @@ false
 
 </div></p>
 
-<h2>결론</h2>
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>이걸로 Enumerable 모듈의 거의 모든 메서드를 다뤘습니다. 좀 더 이야기해 볼 주제가 있다면 Enumerable 확장 클래스 만들기, Lazy, Enumerabtor와 외부 반복자, Enumerable 모듈을 일부 확장하는 gem인 powerpack과 메소드 체인 활용 예제 정도가 있을 것 같은데 기회가 되면 이런 이야기들도 정리해보도록하겠습니다. 아듀~</p>
 

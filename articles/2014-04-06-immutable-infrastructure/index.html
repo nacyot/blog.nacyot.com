@@ -34,12 +34,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -60,11 +76,43 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Apr  5 2014
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#cloud">Cloud</a>
+</li>
+<li>
+<a href="#immutable-infrastructure">Immutable Infrastructure</a>
+</li>
+<li>
+<a href="#configuration-management">Configuration Management</a>
+</li>
+<li>
+<a href="#docker">Docker</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#vagrant">Vagrant</a>
+<ul>
+<li>
+<a href="#packer">Packer</a>
+</li>
+<li>
+<a href="#serf">Serf</a>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 Immutable Infrastructure을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 AWS AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, Heroku, Travis 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 Chef, Puppet, Docker, Vagrant, Packer, Serf와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
 
@@ -74,7 +122,7 @@ Apr  5 2014
 
 
 
-<h2>Cloud</h2>
+<h2><a name='cloud'>Cloud</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="http://aws.amazon.com/">Amazon Web Service</a></li>
@@ -88,7 +136,7 @@ Apr  5 2014
 <li><a href="http://aws.amazon.com/cli/">AWS Command Line Interface</a></li>
 </ul>
 
-<h2>Immutable Infrastructure</h2>
+<h2><a name='immutable-infrastructure'>Immutable Infrastructure</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="http://12factor.net/">The Twelve-Factor App</a></li>
@@ -99,7 +147,7 @@ Apr  5 2014
 <li><a href="http://shop.oreilly.com/product/0636920026358.do">BlueGreeDeployment</a></li>
 </ul>
 
-<h2>Configuration Management</h2>
+<h2><a name='configuration-management'>Configuration Management</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.getchef.com/chef/">Chef</a></li>
@@ -113,7 +161,7 @@ Apr  5 2014
 <li><a href="http://www.youtube.com/watch?v=ruAdx8-1a5s">H3 2012 - Just Do IT, Chef 언제까지 손으로 일일이 할텐가?</a></li>
 </ul>
 
-<h2>Docker</h2>
+<h2><a name='docker'>Docker</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="https://www.docker.io/">Docker</a></li>
@@ -128,7 +176,7 @@ Apr  5 2014
 <li><a href="http://deview.kr/2013/detail.nhn?topicSeq=45">Deview Lightweight Linux Container Docker</a></li>
 </ul>
 
-<h1>Vagrant</h1>
+<h1><a name='vagrant'>Vagrant</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li><a href="http://www.vagrantup.com/">Vagrant</a></li>
@@ -140,13 +188,13 @@ Apr  5 2014
 <li><a href="http://shop.oreilly.com/product/0636920026358.do">Book Vagrant: Up and Running</a></li>
 </ul>
 
-<h2>Packer</h2>
+<h2><a name='packer'>Packer</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.packer.io/">Packer</a></li>
 </ul>
 
-<h2>Serf</h2>
+<h2><a name='serf'>Serf</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.serfdom.io/">Serf</a></li>

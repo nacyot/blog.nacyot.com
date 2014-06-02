@@ -34,12 +34,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -60,17 +76,94 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Mar 23 2014
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#목차">목차</a>
+</li>
+<li>
+<a href="#루비(ruby)-스타일-가이드">루비(Ruby) 스타일 가이드</a>
+<ul>
+<li>
+<a href="#시작하며">시작하며</a>
+</li>
+<li>
+<a href="#루비(ruby)-버전">루비(Ruby) 버전</a>
+</li>
+<li>
+<a href="#들여쓰기">들여쓰기</a>
+</li>
+<li>
+<a href="#공백">공백</a>
+</li>
+<li>
+<a href="#빈-행">빈 행</a>
+</li>
+<li>
+<a href="#문자-인코딩과-매직-코멘트">문자 인코딩과 매직 코멘트</a>
+</li>
+<li>
+<a href="#한-줄의-글자수-제한">한 줄의 글자수 제한</a>
+</li>
+<li>
+<a href="#숫자">숫자</a>
+</li>
+<li>
+<a href="#문자열">문자열</a>
+</li>
+<li>
+<a href="#정규표현식">정규표현식</a>
+</li>
+<li>
+<a href="#배열">배열</a>
+</li>
+<li>
+<a href="#해시">해시</a>
+</li>
+<li>
+<a href="#대입식">대입식</a>
+</li>
+<li>
+<a href="#제어구조">제어구조</a>
+</li>
+<li>
+<a href="#메소드-호출">메소드 호출</a>
+</li>
+<li>
+<a href="#begin과-end">BEGIN과 END</a>
+</li>
+<li>
+<a href="#모듈과-클래스-정의">모듈과 클래스 정의</a>
+</li>
+<li>
+<a href="#메소드-정의">메소드 정의</a>
+</li>
+<li>
+<a href="#변수">변수</a>
+</li>
+<li>
+<a href="#이-외(분류하기-어려운-규칙)">이 외(분류하기 어려운 규칙)</a>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>이 문서는 Cookpad의 <a href="https://github.com/cookpad/styleguide">Ruby Style Guide</a>를 <a href="http://nacyot.com">nacyot</a>이 한국어로 번역한 문서입니다. 번역된 문서는 <a href="https://github.com/nacyot/styleguide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/cookpad/styleguide">여기</a>에서 찾아볼 수 있습니다. 이 문서는 <a href="http://creativecommons.org/licenses/by/3.0/">cc-by</a> 라이센스를 따릅니다.</p>
 
 
 
-<h1>목차</h1>
+<h1><a name='목차'>목차</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li><a href="#ruby-version">루비(Ruby) 버전</a></li>
@@ -93,16 +186,16 @@ Mar 23 2014
 <li><a href="#variables">변수</a></li>
 </ul>
 
-<h1>루비(Ruby) 스타일 가이드</h1>
+<h1><a name='루비(ruby)-스타일-가이드'>루비(Ruby) 스타일 가이드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
-<h2>시작하며</h2>
+<h2><a name='시작하며'>시작하며</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>이 문서는 주식회사 쿡패드(Cookpad)의 루비 코드 표준 스타일을 정의한 문서입니다.
 이 문서에서는 최소한 실력을 갖춘 Ruby 프로그래머라면 누구라도 읽기 쉬운 코드가 되도록 가독성과 일관성에 무게를 둔 스타일을 정의하고 있습니다. &#39;bad&#39;가 붙어있는 예제는 사용해서는 안 되는 표현이란 의미보다 일관성을 위해 지양해야할 표현들입니다.</p>
 
 <p><a name="ruby-version"></a></p>
 
-<h2>루비(Ruby) 버전</h2>
+<h2><a name='루비(ruby)-버전'>루비(Ruby) 버전</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[SHOULD]</strong> 루비 2.0 이상의 버전을 사용하는 프로젝트에서는 키워드 인수, 심볼 리터럴(<code>%i</code>)을 비롯한 루비 2.0에서 추가된 기능을 적극 활용한다.</li>
@@ -110,7 +203,7 @@ Mar 23 2014
 
 <p><a name="indentation"></a></p>
 
-<h2>들여쓰기</h2>
+<h2><a name='들여쓰기'>들여쓰기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 한 단계 들여쓰기는 스페이스 두 번을 사용한다. 들여쓰기로 탭을 사용하지 않는다.</li>
@@ -147,7 +240,7 @@ Mar 23 2014
 
 <p><a name="whitespaces"></a></p>
 
-<h2>공백</h2>
+<h2><a name='공백'>공백</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 줄 마지막에 공백을 넣지 않는다.</li>
@@ -155,7 +248,7 @@ Mar 23 2014
 
 <p><a name="empty-lines"></a></p>
 
-<h2>빈 행</h2>
+<h2><a name='빈-행'>빈 행</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 파일 마지막에 빈 행을 넣지 않는다.</li>
@@ -163,7 +256,7 @@ Mar 23 2014
 
 <p><a name="character-encoding-and-magic-comments"></a></p>
 
-<h2>문자 인코딩과 매직 코멘트</h2>
+<h2><a name='문자-인코딩과-매직-코멘트'>문자 인코딩과 매직 코멘트</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 특별한 이유가 없다면 인코딩은 UTF-8을 사용한다.</li>
@@ -175,7 +268,7 @@ Mar 23 2014
 
 <p><a name="line-columns"></a></p>
 
-<h2>한 줄의 글자수 제한</h2>
+<h2><a name='한-줄의-글자수-제한'>한 줄의 글자수 제한</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[SHOULD]</strong> 특별한 이유가 없다면 한 줄은 80자 이하로 작성한다. 이 때 전각 문자는 2글자로 취급한다.</li>
@@ -184,7 +277,7 @@ Mar 23 2014
 
 <p><a name="numbers"></a></p>
 
-<h2>숫자</h2>
+<h2><a name='숫자'>숫자</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[SHOULD]</strong> 자리수가 큰 10진수 숫자 리터럴을 사용할 때는 읽기 좋게 3자리마다 밑줄을 넣는다.
@@ -217,7 +310,7 @@ Mar 23 2014
 
 <p><a name="strings"></a></p>
 
-<h2>문자열</h2>
+<h2><a name='문자열'>문자열</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[SHOULD]</strong> 빈문자열은 <code>&#39;&#39;</code>을 사용한다.</li>
@@ -236,7 +329,7 @@ Mar 23 2014
 
 <p><a name="regular-expressions"></a></p>
 
-<h2>정규표현식</h2>
+<h2><a name='정규표현식'>정규표현식</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[SHOULD]</strong> 역참조하지 않는 그룹은 사용하지 않는다.<code>(?:...)</code>을 대신 사용.</li>
@@ -249,7 +342,7 @@ Mar 23 2014
 
 <p><a name="arrays"></a></p>
 
-<h2>배열</h2>
+<h2><a name='배열'>배열</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><p><strong>[MUST]</strong> 배열 리터럴을 여러 줄로 작성할 때는 <code>[</code>와 첫번째 요소 사이에 하나의 공백을 두고 요소들의 들여쓰기를 맞춘다.</p>
@@ -312,7 +405,7 @@ Mar 23 2014
 
 <p><a name="hashes"></a></p>
 
-<h2>해시</h2>
+<h2><a name='해시'>해시</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><p><strong>[MUST]</strong> 해시 리터럴을 한 줄에 작성할 때는 <code>{</code> 와 첫번째 요소 사이와 마지막 요소와 <code>}</code> 사이에 각각 하나의 공백을 넣는다.</p>
@@ -429,7 +522,7 @@ Mar 23 2014
 
 <p><a name="assignments"></a></p>
 
-<h2>대입식</h2>
+<h2><a name='대입식'>대입식</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 대입 기호(=) 양쪽에는 공백을 넣는다.</li>
@@ -438,7 +531,7 @@ Mar 23 2014
 
 <p><a name="control-structures"></a></p>
 
-<h2>제어구조</h2>
+<h2><a name='제어구조'>제어구조</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[SHOULD]</strong> <code>if !condition</code> 대신 <code>unless condition</code>을 사용한다.</li>
@@ -482,7 +575,7 @@ Mar 23 2014
 
 <p><a name="method-calls"></a></p>
 
-<h2>메소드 호출</h2>
+<h2><a name='메소드-호출'>메소드 호출</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 메소드 호출 시 괄호는  경우를 제외하고는 생략하지 않는다.</li>
@@ -607,7 +700,7 @@ Mar 23 2014
 
 <p><a name="begin-and-end"></a></p>
 
-<h2>BEGIN과 END</h2>
+<h2><a name='begin과-end'>BEGIN과 END</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> <code>BEGIN</code> 블록과 <code>END</code> 블록은 사용하지 않는다.</li>
@@ -615,7 +708,7 @@ Mar 23 2014
 
 <p><a name="module-and-class-definitions"></a></p>
 
-<h2>모듈과 클래스 정의</h2>
+<h2><a name='모듈과-클래스-정의'>모듈과 클래스 정의</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 메소드에 별칭을 붙일 때는 <code>alias</code>를 사용하지 말고 <code>alias_method</code>를 사용한다.</li>
@@ -716,7 +809,7 @@ Mar 23 2014
 
 <p><a name="method-definitions"></a></p>
 
-<h2>메소드 정의</h2>
+<h2><a name='메소드-정의'>메소드 정의</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 메소드를 정의할 때 인수 리스트의 괄호는 생략하지 않는다.인수가 없는 메소드를 정의할 때는 괄호를 사용하지 않는다.</li>
@@ -743,7 +836,7 @@ Mar 23 2014
 
 <p><a name="variables"></a></p>
 
-<h2>변수</h2>
+<h2><a name='변수'>변수</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 글로별 변수를 (<code>$foo</code>) 임의로 정의하지 않는다.</li>
@@ -753,7 +846,7 @@ Mar 23 2014
 <li><strong>[SHOULD]</strong> 지역 변수 스코프(유효범위)를 가능하면 작게 만든다.지역 변수가 존재하지 않는 메소드가 좋은 메소드이다.</li>
 </ul>
 
-<h2>이 외(분류하기 어려운 규칙)</h2>
+<h2><a name='이-외(분류하기-어려운-규칙)'>이 외(분류하기 어려운 규칙)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><strong>[MUST]</strong> 파괴적인 메소드를 사용할 때는 그 영향 범위를 최소한으로 한정한다.</li>

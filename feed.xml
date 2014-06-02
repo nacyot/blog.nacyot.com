@@ -14,31 +14,31 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-06-02T08:27:35+00:00</updated>
+    <updated>2014-06-02T23:14:48+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
     <content type="html">&lt;p&gt;얼마 전 &lt;a href="http://cask.emacs.kr/"&gt;Cask 공식 문서를 한국어로 번역&lt;/a&gt;해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.&lt;/p&gt;
 
-&lt;p&gt;Emacs24부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 루비와 비교하면 Gem에 해당한다. 루비에서 Cask의 역할은 Gem이 아니라 Bundler의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 Emacs를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/emacs24' rel='noindex,nofollow'&gt;Emacs24&lt;/a&gt;&lt;/span&gt;부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ruby'&gt;루비&lt;/a&gt;&lt;/span&gt;와 비교하면 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/gem' rel='noindex,nofollow'&gt;Gem&lt;/a&gt;&lt;/span&gt;에 해당한다. 루비에서 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/cask' rel='noindex,nofollow'&gt;Cask&lt;/a&gt;&lt;/span&gt;의 역할은 Gem이 아니라 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/bundler' rel='noindex,nofollow'&gt;Bundler&lt;/a&gt;&lt;/span&gt;의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/emacs'&gt;Emacs&lt;/a&gt;&lt;/span&gt;를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.&lt;/p&gt;
 
 &lt;!--more--&gt;
 
 &lt;p&gt;Cask는 이러한 의존성 관리를 크게 두 방향에서 사용할 수 있도록 해준다. 먼저 하나는 Bundler와 같이 프로젝트 단위로 자신의 의존성을 정의하고 프로젝트를 개발할 수 있는 환경을 만들어주는 역할이다. 두번째는 Emacs를 에디터로 사용하는 사람들의 입장에서 패키지들을 체계적으로 관리할 수 있게 도와준다. 이 글에서는 Cask를 통해서 Emacs 환경 설정을 관리하는 방법에 대해서 다룬다.&lt;/p&gt;
 
-&lt;h2&gt;Cask 설치&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='cask-설치'&gt;Cask 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;(참고: Cask는 Emacs24 이상에서만 사용가능하다) Cask는 아래 명령어로 설치할 수 있다. 시스템에 파이썬이 설치되어있어야한다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -fsSkL https://raw.github.com/cask/cask/master/go &lt;span class="p"&gt;|&lt;/span&gt; python
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Mac에서 Homebrew를 사용하고 있다면 brew 명령어를 사용해서 설치하는 방법도 있다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/mac' rel='noindex,nofollow'&gt;Mac&lt;/a&gt;&lt;/span&gt;에서 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/homebrew' rel='noindex,nofollow'&gt;Homebrew&lt;/a&gt;&lt;/span&gt;를 사용하고 있다면 brew 명령어를 사용해서 설치하는 방법도 있다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew install cask
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;정상적으로 설치되었는지 확인해본다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cask --version
 &lt;/span&gt;&lt;span id="line-2"&gt;0.7.0
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Cask 사용해보기&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='cask-사용해보기'&gt;Cask 사용해보기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;본적적인 &lt;code&gt;.emacs.d&lt;/code&gt; 환경설정에 앞서 cask를 간단히 사용해보자. 임의의 위치에 cask를 테스트해볼 디렉터리를 만든다. 여기서는 &lt;code&gt;~/tmp/cask&lt;/code&gt;를 사용한다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/tmp/cask
@@ -84,17 +84,17 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이렇게 Emacs를 실행하면 기존의 설정에 추가적으로 현재 Cask 파일의 의존성이 로드된다.&lt;/p&gt;
 
-&lt;h2&gt;Cask를 활용한 Emacs 환경설정&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='cask를-활용한-emacs-환경설정'&gt;Cask를 활용한 Emacs 환경설정&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;여기까지 이야기한 내용은 실질적으로 특정 프로젝트에서 의존성을 관리하는 방법에 가깝다. 지금부터는 전역적인 Emacs 사용자 설정을 다룰 것이다.&lt;/p&gt;
 
-&lt;p&gt;Emacs23 이후 버전의 환경설정은 기본적으로 &lt;code&gt;~/.emacs.d/init.el&lt;/code&gt; 파일을 거쳐서 실행된다. 따라서 먼저 Cask 초기화 코드를 이 파일에 추가해준다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/emacs23' rel='noindex,nofollow'&gt;Emacs23&lt;/a&gt;&lt;/span&gt; 이후 버전의 환경설정은 기본적으로 &lt;code&gt;~/.emacs.d/init.el&lt;/code&gt; 파일을 거쳐서 실행된다. 따라서 먼저 Cask 초기화 코드를 이 파일에 추가해준다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;cask&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;~/.cask/cask.el&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cask&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;먼저 첫번째 줄에서는 앞서 설치한 &lt;code&gt;cask.el&lt;/code&gt;을 로드한다. 로드 경로에서도 알 수 있듯이 cask는 기본적으로 홈 디렉터리 바로 아래의 &lt;code&gt;.cask&lt;/code&gt;에 설치된다(다른 위치에 설치했다면 물론 해당하는 경로를 지정한다). 다음 줄에서는 &lt;code&gt;cask-initialize&lt;/code&gt; 함수를 호출해 cask를 초기화한다. 이 때 cask를 환경설정에 대해서 초기화하기 위한 Cask 파일이 필요하다. 이 파일은 &lt;code&gt;~/.emacs.d/Cask&lt;/code&gt;에 위치해야한다.&lt;/p&gt;
 
-&lt;h2&gt;Caskfile 살펴보기&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='caskfile-살펴보기'&gt;Caskfile 살펴보기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;여기서는 Cask 파일을 정의한다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;gnu&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -110,7 +110,7 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;앞서도 이야기했지만 Caskfile에서 사용할 수 있는 기본적인 함수는 &lt;code&gt;source&lt;/code&gt;와 &lt;code&gt;depends-on&lt;/code&gt;이다. 다른 함수들도 있지만 일반적으로 환경설정을 위한 용도에서는 사용하지 않는다.&lt;/p&gt;
 
-&lt;h3&gt;source&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='source'&gt;source&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;먼저, source 함수는 패키지를 가져올 저장소를 지정하는 명령어로 아래와 같이 사용할 수 있다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="n"&gt;ALIAS&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -129,7 +129,7 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;gnu, melpa, marmalade는 주로 사용하므로 지정해두는 게 좋다.&lt;/p&gt;
 
-&lt;h3&gt;depends-on&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='depends-on'&gt;depends-on&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;depends-on&lt;/code&gt;은 사용하고자 하는 패키지를 지정하는 함수이다. 예를 들어 &lt;code&gt;ruby-mode&lt;/code&gt; 패키지를 사용하고자 하면 아래와 같이 사용한다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;ruby-mode&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -137,33 +137,33 @@
 &lt;p&gt;위와 같이 &lt;code&gt;ruby-mode&lt;/code&gt;를 지정하면 위에서 source에서 지정한 저장소에서 해당하는 패키지를 찾아 설치한다. 이 때 필요한 경우 아래와 같이 특정 버전을 강제할 수 있다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;magit&amp;quot;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;0.8.1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;기본 패키지 관리자에 비해서 가장 큰 장점 중 하나는 git로 관리되는 패키지를 직접 지정할 수 있다는 점이다. 아래는는 공식 문서에서 제공하는 예시이다. Git 저장소를 지정했을 때 특정한 커밋이나 브랜치, 혹은 특정 파일들만 로드할 수 있도록 하는 법을 알 수 있다.&lt;/p&gt;
+&lt;p&gt;기본 패키지 관리자에 비해서 가장 큰 장점 중 하나는 git로 관리되는 패키지를 직접 지정할 수 있다는 점이다. 아래는는 공식 문서에서 제공하는 예시이다. &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'&gt;Git&lt;/a&gt;&lt;/span&gt; 저장소를 지정했을 때 특정한 커밋이나 브랜치, 혹은 특정 파일들만 로드할 수 있도록 하는 법을 알 수 있다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;magit&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://github.com/magit/magit.git&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;magit&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://github.com/magit/magit.git&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;ref&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;7j3bj4d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;magit&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://github.com/magit/magit.git&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;branch&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;next&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;magit&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://github.com/magit/magit.git&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;*.el&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;exclude&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;magit-svn.el&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;cask&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='cask'&gt;cask&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;필요한 패키지 설정이 모두 끝났으면 작업 디렉토리를 &lt;code&gt;~/.emacs.d&lt;/code&gt;로 옮겨서 &lt;code&gt;cask&lt;/code&gt; 명령을 실행한다. 이를 통해서 지정한 패키지들을 모두 설치할 수 있다. 하나 알아둬야할 점은 명시적으로 cask 명령을 emacs 외부에서 실행하지 않으면 Emacs 실행 시 해당하는 패키지가 적용되지 않는다는 점이다.&lt;/p&gt;
 
 &lt;p&gt;추가적으로 모든 패키지를 업데이트하고자 할 때는 &lt;code&gt;cask update&lt;/code&gt; 명령어를 사용한다.&lt;/p&gt;
 
-&lt;h2&gt;기타&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='기타'&gt;기타&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
-&lt;h3&gt;pallet 패키지(Emacs 안에서 패키지 관리)&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='pallet-패키지(emacs-안에서-패키지-관리)'&gt;pallet 패키지(Emacs 안에서 패키지 관리)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;주의&lt;/strong&gt; : pallet 명령어 사용시 Cask 파일이 변경되는 경우가 있다. 이 때 git 저장소를 지정해둔 정보가 삭제될 가능성이 있다. &lt;a href="https://gist.github.com/nacyot/2387fd61e203b30e5f57"&gt;Cask.diff&lt;/a&gt; 참조.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;pallet 패키지와 함께 사용하면 좀 더 편리하게 사용할 수 있다. 예를 들어 &lt;code&gt;M-x pallet init&lt;/code&gt; 명령어를 실행하면 현재 &lt;code&gt;package.el&lt;/code&gt;로 설치된 패키지들을 Cask 파일에 입력해준다. 앞서 Cask 파일은 &lt;code&gt;cask install&lt;/code&gt; 명령을 실행하지 않으면 바로 반영이 되지 않는다고 하였는데, pallet 패키지를 사용하면 Cask 파일을 수정하고, &lt;code&gt;M-x pallet-install&lt;/code&gt; 명령어를 실행하면 바로 패키지가 설치된다. 또한 &lt;code&gt;M-x package-install&lt;/code&gt;이나 &lt;code&gt;M-x list-packages&lt;/code&gt; 명령어로 설치한 패키지들을 자동을 Cask 파일로 옮겨준다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/pallet' rel='noindex,nofollow'&gt;pallet&lt;/a&gt;&lt;/span&gt; 패키지와 함께 사용하면 좀 더 편리하게 사용할 수 있다. 예를 들어 &lt;code&gt;M-x pallet init&lt;/code&gt; 명령어를 실행하면 현재 &lt;code&gt;package.el&lt;/code&gt;로 설치된 패키지들을 Cask 파일에 입력해준다. 앞서 Cask 파일은 &lt;code&gt;cask install&lt;/code&gt; 명령을 실행하지 않으면 바로 반영이 되지 않는다고 하였는데, pallet 패키지를 사용하면 Cask 파일을 수정하고, &lt;code&gt;M-x pallet-install&lt;/code&gt; 명령어를 실행하면 바로 패키지가 설치된다. 또한 &lt;code&gt;M-x package-install&lt;/code&gt;이나 &lt;code&gt;M-x list-packages&lt;/code&gt; 명령어로 설치한 패키지들을 자동을 Cask 파일로 옮겨준다.&lt;/p&gt;
 
-&lt;h3&gt;init-loader를 활용한 Emacs 초기화&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='init-loader를-활용한-emacs-초기화'&gt;init-loader를 활용한 Emacs 초기화&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;앞서 이야기한 바와 같이 Emacs 초기화는 기본적으로 &lt;code&gt;init.el&lt;/code&gt;을 거쳐가며 대부분의 설정파일은 여기에서 이루어진다. Cask 사용 시에도 Cask를 초기화하고, Cask를 통해 읽어들인 각 패키지에 대한 설정은 &lt;code&gt;init.el&lt;/code&gt;파일에서 하면 된다. 하지만 이 역시 설정할 내용이 많을 때는 &lt;code&gt;init.el&lt;/code&gt; 파일이 매우 복잡해지기 때문에 init-loader를 사용해 좀 더 편리하게 관리할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;init-loader 패키지를 사용하려면 먼저 Cask 파일에 추가해준다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/init-loader' rel='noindex,nofollow'&gt;init-loader&lt;/a&gt;&lt;/span&gt; 패키지를 사용하려면 먼저 Cask 파일에 추가해준다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;depends&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;init-loader&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;init.el&lt;/code&gt;에는 아래 내용을 추가한다.&lt;/p&gt;
@@ -177,23 +177,23 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;위와 같이 적절히 초기화 설정을 분리하면 된다. 일반적으로는 패키지 단위로 설정을 관리하는 게 좋다.&lt;/p&gt;
 
-&lt;h3&gt;설정 파일 컴파일 하기&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='설정-파일-컴파일-하기'&gt;설정 파일 컴파일 하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;일반적으로 패키지는 설치과정에서 컴파일된다. 하지만 다른 설정 파일이 많아질 수록 Emacs 시작시간도 길어진다. 필요하다면 init-loader 폴더나 설정 파일을 보관하는 다른 폴더는 아래 명령어로 컴파일 해두는 게 좋다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;byte&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;recompile&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;directory&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;결론&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
-&lt;p&gt;Emacs를 사용하기 어렵게 만드는 것 중 하나는 언제나 환경설정이었다. Emacs는 정말 방대한 툴이고, 그만큼 사람에 따라서 수십에서 심지어는 수백개 패키지를 사용하는 것도 이상하지 않다. 일반적으로 Emacs를 잘 사용한다는 데는 단순히 단축키를 수십개 더 외우고 있느냐 보다 이런 다양한 패키지들을 얼마나 잘 정리하고 활용하는 지가 중요하다. Cask 공식 문서를 보면 아마 대부분의 Emacs 사용자가 겪어왔을 기존의 패키지 관련 툴들에 관한 이야기가 나온다. El-get이 있었고, Emacs24에서 공식으로 포함된 package.el 같은 툴도 있었고, 그리고 저장소의 서브 모듈을 사용하는 방법이나 의존 패키지를 통째로 패키지에 포함해서 의존성을 정의하는 방법도 사용해왔다. 필자도 대부분의 방법을 경험했지만 결국엔 두손두발 다 놓게 만드는 게 Emacs 설정이다. elisp도 잘 모르고, 한 번 아무리 공을 들여서 설정해봤자, 시간이 지나면 역시 관리는 안 된다.&lt;/p&gt;
+&lt;p&gt;Emacs를 사용하기 어렵게 만드는 것 중 하나는 언제나 환경설정이었다. Emacs는 정말 방대한 툴이고, 그만큼 사람에 따라서 수십에서 심지어는 수백개 패키지를 사용하는 것도 이상하지 않다. 일반적으로 Emacs를 잘 사용한다는 데는 단순히 단축키를 수십개 더 외우고 있느냐 보다 이런 다양한 패키지들을 얼마나 잘 정리하고 활용하는 지가 중요하다. Cask 공식 문서를 보면 아마 대부분의 Emacs 사용자가 겪어왔을 기존의 패키지 관련 툴들에 관한 이야기가 나온다. &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/el-get' rel='noindex,nofollow'&gt;El-get&lt;/a&gt;&lt;/span&gt;이 있었고, Emacs24에서 공식으로 포함된 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/package.el' rel='noindex,nofollow'&gt;package.el&lt;/a&gt;&lt;/span&gt; 같은 툴도 있었고, 그리고 저장소의 서브 모듈을 사용하는 방법이나 의존 패키지를 통째로 패키지에 포함해서 의존성을 정의하는 방법도 사용해왔다. 필자도 대부분의 방법을 경험했지만 결국엔 두손두발 다 놓게 만드는 게 Emacs 설정이다. &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/elisp' rel='noindex,nofollow'&gt;elisp&lt;/a&gt;&lt;/span&gt;도 잘 모르고, 한 번 아무리 공을 들여서 설정해봤자, 시간이 지나면 역시 관리는 안 된다.&lt;/p&gt;
 
 &lt;p&gt;그런 와중에 Cask는 Emacs 사용자에게 단비와 같은 패키지이다. 아마.&lt;/p&gt;
 
-&lt;h2&gt;참고자료&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='참고자료'&gt;참고자료&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://cask.emacs.kr/"&gt;Cask 공식 문서&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="http://d.hatena.ne.jp/naoya/20140424/1398318293"&gt;Cask - naoyaのはてなダイアリー&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;[Pallet][pallet]&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/rdallasgray/pallet"&gt;Pallet&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/netpyoung/netpyoung.emacs.d"&gt;netpyoung/.emacs.d&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/nacyot/.emacs.d"&gt;nacyot/.emacs.d&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -204,28 +204,29 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/"/>
     <id>http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/</id>
     <published>2014-05-08T01:00:03Z</published>
-    <updated>2014-06-02T08:27:35+00:00</updated>
+    <updated>2014-06-02T23:14:48+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;도커의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 &lt;a href="http://index.docker.io"&gt;공식 저장소&lt;/a&gt;를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 Dockerfile을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/docker'&gt;도커&lt;/a&gt;&lt;/span&gt;의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 &lt;a href="http://index.docker.io"&gt;공식 저장소&lt;/a&gt;를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/dockerfile' rel='noindex,nofollow'&gt;Dockerfile&lt;/a&gt;&lt;/span&gt;을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.&lt;/p&gt;
 
 &lt;!--more--&gt;
 
-&lt;p&gt;개인적으로는 이미 개발용으로 오픈소스 어플리케이션을 설치할 때는 거의 전면적으로 도커를 활용하고 있습니다. 일견 납득하기 어려울 지도 모릅니다만, 어떤 어플리케이션을 설치하기 위해 서버를 어떤 상태로 만드는 것보다, 서버의 상태와 무관하게 특정 어플리케이션의 컨테이너를 실행시키는 게 훨씬 쉽고 신뢰높은 전략입니다. 예를 들어서 설치하기 어려운 오픈소스 어플리케이션으로 프라이빗 Git 저장소인 Gitlab이 유명합니다만, 도커에서는 명령어 하나면 됩니다. 물론 구체적인 설정이나 실 배포환경에서 사용하는 건 각자의 선택에 달렸겠습니다만.&lt;/p&gt;
+&lt;p&gt;개인적으로는 이미 개발용으로 오픈소스 어플리케이션을 설치할 때는 거의 전면적으로 도커를 활용하고 있습니다. 일견 납득하기 어려울 지도 모릅니다만, 어떤 어플리케이션을 설치하기 위해 서버를 어떤 상태로 만드는 것보다, 서버의 상태와 무관하게 특정 어플리케이션의 컨테이너를 실행시키는 게 훨씬 쉽고 신뢰높은 전략입니다. 예를 들어서 설치하기 어려운 오픈소스 어플리케이션으로 프라이빗 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'&gt;Git&lt;/a&gt;&lt;/span&gt; 저장소인 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/gitlab' rel='noindex,nofollow'&gt;Gitlab&lt;/a&gt;&lt;/span&gt;이 유명합니다만, 도커에서는 명령어 하나면 됩니다. 물론 구체적인 설정이나 실 배포환경에서 사용하는 건 각자의 선택에 달렸겠습니다만.&lt;/p&gt;
 
-&lt;h2&gt;설치&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='설치'&gt;설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;도커 이미지의 공적인 공유에 대한 자세한 얘기는 언젠가 기회가 되면 하기로 하고...&lt;/p&gt;
 
-&lt;p&gt;공개된 이미지를 활용해보신 분들이라면 사적인 자신만의 이미지를 공유하는 공간을 가지고 싶어질 것입니다. 이 글에서는 사적인 이미지 공유를 위한 도커 레지스트리에 대해서 소개하고자 합니다. 위에서 이야기한 바의 연장입니다만, 도커 레지스트리 역시 빌드를 위한 Dockerfile을 Github 저장소에서 제공하고 있으며, 도커 공식 저장소에서 빌드된 이미지도 제공되고 있습니다. 여기서는 공식 저장소에서 제공하는 이미지를 통해서 도커 레지스트리를 실행하도록 하겠습니다.&lt;/p&gt;
+&lt;p&gt;공개된 이미지를 활용해보신 분들이라면 사적인 자신만의 이미지를 공유하는 공간을 가지고 싶어질
+것입니다. 이 글에서는 사적인 이미지 공유를 위한 [[도커 레지스트리|docker_registry]]에 대해서 소개하고자 합니다. 위에서 이야기한 바의 연장입니다만, 도커 레지스트리 역시 빌드를 위한 Dockerfile을 Github 저장소에서 제공하고 있으며, 도커 공식 저장소에서 빌드된 이미지도 제공되고 있습니다. 여기서는 공식 저장소에서 제공하는 이미지를 통해서 도커 레지스트리를 실행하도록 하겠습니다.&lt;/p&gt;
 
-&lt;h3&gt;도커 설치&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='도커-설치'&gt;도커 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
-&lt;p&gt;여기서는 도커가 이미 설치되어있다고 가정하겠습니다. 설치되어있지 않다면, Ubuntu 14.04 LTS 기준으로 아래 명령어로 도커를 설치해주세요.&lt;/p&gt;
+&lt;p&gt;여기서는 도커가 이미 설치되어있다고 가정하겠습니다. 설치되어있지 않다면, &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'&gt;Ubuntu&lt;/a&gt;&lt;/span&gt; 14.04 LTS 기준으로 아래 명령어로 도커를 설치해주세요.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-get install docker.io
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;도커 레지스트리 설치&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='도커-레지스트리-설치'&gt;도커 레지스트리 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;먼저 &lt;code&gt;docker pull&lt;/code&gt; 명령어로 공식 저장소에서 registy 이미지의 최신 버전을 받아옵니다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull registry:latest
@@ -240,9 +241,9 @@
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker images &lt;span class="p"&gt;|&lt;/span&gt; grep &lt;span class="s2"&gt;&amp;quot;registry.*latest&amp;quot;&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="o"&gt;(&lt;/span&gt;표준 입력&lt;span class="o"&gt;)&lt;/span&gt;:3:registry             latest              2930bc3d8f1e        12 days ago         454.8 MB
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;실행&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='실행'&gt;실행&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
-&lt;p&gt;이미지가 정상적으로 받아졌으면 실행은 간단합니다. 여기서 &lt;code&gt;--name&lt;/code&gt;은 이름을 지정하는 플래그이며, &lt;code&gt;-d&lt;/code&gt;는 백그라운드에서 실행, &lt;code&gt;-p {host_port}:{container_port}&lt;/code&gt;는 포트 노출을 위한 맵핑을 의미합니다. 마지막 &lt;code&gt;registry&lt;/code&gt;는 실행하고자하는 이미지의 이름입니다. 좀 더 정확히는 &lt;code&gt;registry&lt;/code&gt; 다음에 컨테이너에 대해서 실행하고자 하는 명령어를 입력합니다만, 이미지 내부에 기본 실행 명령이 지정되어 있으므로 생략해도 무방합니다.&lt;/p&gt;
+&lt;p&gt;이미지가 정상적으로 받아졌으면 실행은 간단합니다. 여기서 &lt;code&gt;--name&lt;/code&gt;은 이름을 지정하는 플래그이며, &lt;code&gt;-d&lt;/code&gt;는 백그라운드에서 실행, &lt;code&gt;-p {host_port}:{container_port}&lt;/code&gt;는 포트 노출을 위한 맵핑을 의미합니다. 마지막 &lt;code&gt;registry&lt;/code&gt;는 실행하고자하는 이미지의 이름입니다. 좀 더 정확히는 &lt;code&gt;registry&lt;/code&gt; 다음에 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/컨테이너' rel='noindex,nofollow'&gt;컨테이너&lt;/a&gt;&lt;/span&gt;에 대해서 실행하고자 하는 명령어를 입력합니다만, &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/이미지' rel='noindex,nofollow'&gt;이미지&lt;/a&gt;&lt;/span&gt; 내부에 기본 실행 명령이 지정되어 있으므로 생략해도 무방합니다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --name personal-registry -d -p 5000:5000 registry
 &lt;/span&gt;&lt;span id="line-2"&gt;8fa28faf47f3cacce64aeb63b5a6c7e1388b5470340f6feb342b03d4fad4352c
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -259,11 +260,11 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이를 통해 도커 레지스트리(Docker registry)의 실행환경과 버전을 확인할 수 있습니다. 이걸로 도커 레지스트리가 정상적으로 설치되었습니다.&lt;/p&gt;
 
-&lt;h2&gt;사용하기&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='사용하기'&gt;사용하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;아무것도 설정하지 않았다면 도커 레지스트리는 기본적으로 로컬에 데이터를 저장합니다. &lt;a href="https://github.com/dotcloud/docker-registry/blob/master/config/config_sample.yml"&gt;&lt;code&gt;config_sample.yml&lt;/code&gt;&lt;/a&gt;을 참조해주세요.&lt;/p&gt;
 
-&lt;h3&gt;사용자 도커 이미지 만들기&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='사용자-도커-이미지-만들기'&gt;사용자 도커 이미지 만들기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;기본적으로 사적인 저장소는 자신이 직접 빌드한 이미지를 저장하기 위해서 사용합니다. 이미 가지고 있는 이미지를 사용해도 무방합니다만 여기서는 간단한 이미지를 하나 생성하겠습니다. 임의의 디렉토리에 아래 내용을 복사해 &lt;code&gt;Dockerfile&lt;/code&gt;을 만듭니다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;ubuntu&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;12.04&lt;/span&gt;
@@ -304,7 +305,7 @@
 &lt;/span&gt;&lt;span id="line-2"&gt;CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS                     PORTS                    NAMES
 &lt;/span&gt;&lt;span id="line-3"&gt;d01aea6f8332        nacyot/hello_docker:latest   /bin/sh -c &lt;span class="s1"&gt;&amp;#39;echo &amp;#39;&lt;/span&gt;He   2 minutes ago       Exited &lt;span class="o"&gt;(&lt;/span&gt;0&lt;span class="o"&gt;)&lt;/span&gt; 2minutes ago                            prickly_fermat
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;도커 레지스트리에 푸시(Push)하기&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='도커-레지스트리에-푸시(push)하기'&gt;도커 레지스트리에 푸시(Push)하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;이미지가 정상적으로 작동하는 것을 확인했으니 이제 이미지를 도커 레지스트리에 집어넣어보겠습니다. 먼저 이미지를 도커 레지스트리에 넣기 위해서는 이미지에 적당한 이름을 붙여줄 필요가 있습니다. &lt;code&gt;docker tag&lt;/code&gt; 명령어로 이미지에 새로운 이름을 부여하겠습니다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker tag nacyot/hello_docker 0.0.0.0:5000/hello_docker
@@ -335,7 +336,7 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이미지 ID에서 확인할 수 있듯이 로컬의 &lt;code&gt;0.0.0.0:5000/hello_docker:latest&lt;/code&gt;(&lt;code&gt;nacyot/hello_docker:latest&lt;/code&gt;)와 도커 레지스트리의 &lt;code&gt;hello_docker:latest&lt;/code&gt;는 같은 이미지입니다.&lt;/p&gt;
 
-&lt;h3&gt;도커 레지스트리에서 풀(Pull) 받아 실행하기&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='도커-레지스트리에서-풀(pull)-받아-실행하기'&gt;도커 레지스트리에서 풀(Pull) 받아 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;이제 가장 중요한 부분입니다. 도커 레지스트리에 이미지를 업로드했으니 거꾸로 이 도커 레지스트르에서 이미지를 &lt;code&gt;pull&lt;/code&gt; 받아 실행해보도록 하겠습니다. 로컬 도커 서버에 같은 이미지가 있으면 정확한 확인이 안 되니, 로컬에서 실행했던 컨테이너와 이미지를 삭제하겠습니다.&lt;/p&gt;
 
@@ -370,7 +371,7 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;명령어는 위에서 로컬에 있던 이미지를 실행하는 것과 같습니다. 하지만 실행 과정의 출력을 보면 알 수 있듯이 로컬에 이미지가 없으니 &lt;code&gt;0.0.0.0:5000&lt;/code&gt;의 도커 레지스트리에서 이미지를 다운 받는 것을 확인할 수 있습니다. 그리고 마지막에는 정상적으로 이미지가 실행되어 &lt;code&gt;Hello, Docker!&lt;/code&gt;가 출력되었습니다!&lt;/p&gt;
 
-&lt;h3&gt;원격에서 도커 레지스트리 사용하기&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='원격에서-도커-레지스트리-사용하기'&gt;원격에서 도커 레지스트리 사용하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;이 예제에서는 로컬에서 도커 레지스트리와 도커 실행 서버를 둘 다 운영하고 있어서 실제로 제대로 작동하는 건지 잘 와닿지 않을지도 모릅니다. 가능하면 자신의 로컬(도커 레지스트리를 설치한 서버)을 외부에 노출시켜서 다른 도커 서버에서 실행시켜봅니다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl http://17.231.14.21:5000/
@@ -388,13 +389,13 @@
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;실제 IP는 공개할 수 없지만 :) 도커 레지스트리 서버(여기선 &lt;code&gt;17.231.14.21:5000&lt;/code&gt;)에 접속 가능한 도커 서버에서도 로컬에서와 같은 결과를 볼 수 있습니다. 직접 테스트해보시기 바랍니다.&lt;/p&gt;
 
-&lt;h2&gt;S3와 연동하기&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='s3와-연동하기'&gt;S3와 연동하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;AWS빠라면 응당 도커 이미지를 S3에 저장하고 싶다고 느낄 것입니다. 속도나 추가적인 비용이 발생하는 데서, S3에 저장하는데 따른 부담이 없는 것은 아닙니다만 가장 쉽게 이미지를 안전하게 저장하는 방법이라고 할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;하지만 도커 레지스트리는 파이썬의 flask에 기반한 웹 어플리케이션입니다. 따라서 S3에서는 도커 레지스트리를 구동할 수 없습니다. 즉,  도커 레지스트리는 EC2나 로컬 서버를 이용해서 별도로 실행해야합니다. 이 레지스트리 설정에 이미지 저장 공간으로 로컬 드라이브가 아닌 S3 버킷을 지정해두면 해당하는 버킷에 이미지를 저장합니다. 이렇게 설정하면 도커 레지스트리에 이미지를 푸시할 때 도커 레지스트리는 이 이미지를 S3로 복사합니다. S3에 복사되면 아마존은 이 이미지를 안전하게 보관해줍니다.&lt;/p&gt;
+&lt;p&gt;하지만 도커 레지스트리는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/python' rel='noindex,nofollow'&gt;파이썬&lt;/a&gt;&lt;/span&gt;의 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/flask' rel='noindex,nofollow'&gt;flask&lt;/a&gt;&lt;/span&gt;에 기반한 웹 어플리케이션입니다. 따라서 S3에서는 도커 레지스트리를 구동할 수 없습니다. 즉,  도커 레지스트리는 EC2나 로컬 서버를 이용해서 별도로 실행해야합니다. 이 레지스트리 설정에 이미지 저장 공간으로 로컬 드라이브가 아닌 S3 버킷을 지정해두면 해당하는 버킷에 이미지를 저장합니다. 이렇게 설정하면 도커 레지스트리에 이미지를 푸시할 때 도커 레지스트리는 이 이미지를 S3로 복사합니다. S3에 복사되면 아마존은 이 이미지를 안전하게 보관해줍니다.&lt;/p&gt;
 
-&lt;h3&gt;도커 레지스트리 저장공간으로 S3 설정하기&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='도커-레지스트리-저장공간으로-s3-설정하기'&gt;도커 레지스트리 저장공간으로 S3 설정하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;S3 가입과 버킷 생성법은 별도로 다루지 않습니다.&lt;/p&gt;
 
@@ -445,21 +446,21 @@
 
 &lt;p&gt;S3 설정을 사용하는 경우 어디에 저장하는 지만 차이가 나기 때문에, 앞서 다룬 풀(Pull)과 실행(Run)은 로컬에서 했던 것과 마찬가지입니다.&lt;/p&gt;
 
-&lt;h2&gt;기타 주제&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='기타-주제'&gt;기타 주제&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
-&lt;h3&gt;비용 문제&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='비용-문제'&gt;비용 문제&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;아직 헤비 유저는 아니라 단언은 불가하지만 비용 문제가 그렇게 부담은 아닐 거라고 생각하고 있습니다. 얼핏 생각해봐도 이미지의 용량이 상당히 크지 않을까 하는 생각이 듭니다만 도커에서는 이미지를 레이어 단위로 저장한다는 사실을 떠올릴 필요가 있습니다. 도커의 이미지는 부모 레이어에 대한 차분만을 저장합니다. 따라서 특정한 어플리케이션에 대한 이미지를 만들고 변경사항들을 계속 누적해가도 용량은 생각보다 크지 않습니다. 즉 10번의 변경이 누적된 이미지가 있다고 할 때 각각의 이미지가 최종적으로 1GB라고 해도 &lt;code&gt;1GB * 10 = 10GB&lt;/code&gt;가 되는 것이 아니라 &lt;code&gt;1GB + 0GB + 0GB ... = 1.xxxGB&lt;/code&gt; 정도가 됩니다. 물론 전혀 다른 이미지의 경우는 그만큼 용량을 차지합니다만, 사용하기에 따라서 절대적으로 부담스러운 용량은 아닐지도 모릅니다. 참고로 S3 프리티어는 5GB이고 이후 1GB당 1달에 $0.033 정도가 과금됩니다.&lt;/p&gt;
 
-&lt;h3&gt;보안&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='보안'&gt;보안&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;이 예제에서는 사용자 인증을 다루고 있지 않습니다. 따라서 예제대로 따라하면 개인적인 이미지 저장소이지만 네트워크가 열려있으면 공개되어있는 거나 마찬가지입니다. 실제로 사용하려면 보안 설정은 필수입니다. 더 자세한 사항은 &lt;a href="https://github.com/dotcloud/docker-registry"&gt;Github 저장소&lt;/a&gt;를 참조해주세요.&lt;/p&gt;
 
-&lt;h3&gt;API&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='api'&gt;API&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href="http://docs.docker.io/reference/api/registry_api/"&gt;Docker Registry API&lt;/a&gt;를 참조하세요. 아직 레지스트리에 올라간 모든 이미지를 가져오는 API가 없습니다만, 아마 다음 버전에 추가될 것으로 보입니다.&lt;/p&gt;
 
-&lt;h2&gt;결론&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;앞서 이야기했듯이 이미지를 쉽게 공유할 수 있다는 건 도커의 큰 장점 중 하나입니다. 공적 공유뿐 아니라 내부 네트워크에서 이미지의 사적 공유를 실현하는 건 도커를 실제 운용하는데 아마 필수적인 부분일 것입니다. 이를 통해 도커 레지스트리에서 커스텀 이미지를 일괄적으로 관리할 수 있고, 분산된 도커 서버들에서 이를 사용할 수 있습니다.&lt;/p&gt;
 </content>
@@ -469,7 +470,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/"/>
     <id>http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/</id>
     <published>2014-04-28T01:00:00Z</published>
-    <updated>2014-06-02T08:27:35+00:00</updated>
+    <updated>2014-06-02T23:14:48+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -501,7 +502,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/"/>
     <id>http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/</id>
     <published>2014-04-19T09:53:32Z</published>
-    <updated>2014-06-02T08:27:35+00:00</updated>
+    <updated>2014-06-02T23:14:48+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -515,7 +516,7 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;개요&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;개요&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;앞서 이야기했듯이 루비에서는 아래 스타일의 반복문을 일부 지원하지만 별로 사용하지 않습니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -789,7 +790,7 @@ arr.map{|i| arr &amp;lt;&amp;lt; &lt;span class="number"&gt;5&lt;/span&gt;; puts
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-enumerable-map-enumerable-collect-"&gt;&lt;code&gt;Enumerable#map&lt;/code&gt;, &lt;code&gt;Enumerable#collect&lt;/code&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-enumerable-map-enumerable-collect-'&gt;&lt;code&gt;Enumerable#map&lt;/code&gt;, &lt;code&gt;Enumerable#collect&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;collect -&amp;gt; Enumerator
 map -&amp;gt; Enumerator
 collect {|item| ... } -&amp;gt; [object]
@@ -1022,7 +1023,7 @@ O
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-method-chain-"&gt;메서드 체인(Method Chain)&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-method-chain-'&gt;메서드 체인(Method Chain)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;여기서 잠깐 다른 메서드를 소개하기 전에 다른 얘기를 하고 넘어가겠습니다. &lt;code&gt;map&lt;/code&gt; 메서드를 통해서 컬렉션을 조작하는 일은 매우 흥미로운 일입니다. &lt;code&gt;map&lt;/code&gt;은 컬렉션의 요소들을 하나하나 변경합니다. 즉 리시버 컬렉션의 모든 요소들은 넘겨받은 블럭의 로직에 의해서 하나하나 변경됩니다. 중요한 건 이렇게 변경되어 리턴되는 것은 리시버와 마찬가지로 컬렉션이라는 사실입니다. 따라서 배열에 map을 사용하면 다른 배열이 리턴됩니다. 아래 예에서는 배열을 절대값으로 변경해보겠습니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1348,7 +1349,7 @@ O
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;블럭 축약 표현&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;블럭 축약 표현&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;블럭에서 컬렉션의 요소에 대해서 특정한 메서드를 인자없이 호출할 때는 축약표현을 사용할 수 있습니다. 예를 들어 아래 두 표현은 같습니다. &lt;code&gt;&amp;amp;&lt;/code&gt;는 블럭을 의미합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1426,7 +1427,7 @@ O
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="enumerable-"&gt;Enumerable 메서드&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='enumerable-'&gt;Enumerable 메서드&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1435,7 +1436,7 @@ O
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-each_with_index-"&gt;&lt;code&gt;Enumerable#each_with_index&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-each_with_index-'&gt;&lt;code&gt;Enumerable#each_with_index&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;each_with_index -&amp;gt; Enumerator
 each_with_index {|item, index| ... } -&amp;gt; self
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;each&lt;/code&gt;를 처음 사용할 때 가장 어려운 부분 중 하나가 &lt;code&gt;for&lt;/code&gt;나 &lt;code&gt;while&lt;/code&gt; 문을 사용할 때와 달리 현재 몇 번째 요소를 처리하는 지 index를 사용할 수 없다는 점입니다. 분명 루비에서도 이러한 처리는 순차적으로 이루어집니다. 이럴 때 사용할 수 있는 메서드가 &lt;code&gt;each_with_index&lt;/code&gt;입니다. 이 메서드는 &lt;code&gt;each&lt;/code&gt;와 비슷하나 item(각 요소)과 함께 요소의 순서 index를 넘겨줄 수 있습니다. 따라서 요소 순서에 따른 로직을 처리해야할 때 사용할 수 있습니다&lt;/p&gt;
@@ -1540,7 +1541,7 @@ each_with_index {|item, index| ... } -&amp;gt; self
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-each_with_object-"&gt;&lt;code&gt;Enumerable#each_with_object&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-each_with_object-'&gt;&lt;code&gt;Enumerable#each_with_object&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;each_with_object(obj) -&amp;gt; Enumerator
 each_with_object(obj) {|(*args), memo_obj| ... } -&amp;gt; object
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;each_with_object&lt;/code&gt;는 각 요소를 반복할 때 특정한 객체를 넘겨줄 수 있습니다&lt;/p&gt;
@@ -1632,7 +1633,7 @@ each_with_object(obj) {|(*args), memo_obj| ... } -&amp;gt; object
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-each_slice-"&gt;&lt;code&gt;Enumerable#each_slice&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-each_slice-'&gt;&lt;code&gt;Enumerable#each_slice&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;each_slice(n) -&amp;gt; Enumerator
 each_slice(n) {|list| ... } -&amp;gt; nil
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;each_slice&lt;/code&gt;은 컬렉션을 특정한 길이만큼 잘라서 반복합니다. 예를 들어 길이가 10인 컬렉션을 3씩 자르면, 3개의 요소, 3개의 요소, 3개의 요소, 1개의 요소가 되고 이 4개의 컬렉션을 반복합니다&lt;/p&gt;
@@ -1801,7 +1802,7 @@ each_slice(n) {|list| ... } -&amp;gt; nil
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-each_cons-"&gt;&lt;code&gt;Enumerable#each_cons&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-each_cons-'&gt;&lt;code&gt;Enumerable#each_cons&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;each_cons(n) -&amp;gt; Enumerator
 each_cons(n) {|list| ... } -&amp;gt; nil
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;each_cons&lt;/code&gt;는 &lt;code&gt;each_slice&lt;/code&gt;와 비슷하지만 특정한 길이만큼 자를 때 길이를 겹쳐서 자릅니다. 백문이불여일견, 직접 보면 이해가 바로 될 것입니다. 아래 예제에서 두 메서드를 비교해보겠습니다.&lt;/p&gt;
@@ -1881,7 +1882,7 @@ each_cons(n) {|list| ... } -&amp;gt; nil
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-reverse_each-"&gt;&lt;code&gt;Enumerable#reverse_each&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-reverse_each-'&gt;&lt;code&gt;Enumerable#reverse_each&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;reverse_each -&amp;gt; Enumerator
 reverse_each {|element| ... } -&amp;gt; self
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;reverse_each&lt;/code&gt;는 &lt;code&gt;each&lt;/code&gt;와 마찬가지로 각 요소를 반복하되, 순서를 거꾸로 합니다&lt;/p&gt;
@@ -1985,7 +1986,7 @@ H
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-cycle-"&gt;&lt;code&gt;Enumerable#cycle&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-cycle-'&gt;&lt;code&gt;Enumerable#cycle&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;p&gt;cycle(n=nil) -&amp;gt; Enumerator
 cycle(n=nil) {|obj| ... } -&amp;gt; object | nil&lt;/p&gt;
 &lt;p&gt;cycle는 리시버를 특정한 횟수(인자)만큼 반복합니다. 인자가 없으면 무한히 반복합니다&lt;/p&gt;
@@ -2032,7 +2033,7 @@ cycle(n=nil) {|obj| ... } -&amp;gt; object | nil&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-flat_map-enumerable-collect_concat-"&gt;&lt;code&gt;Enumerable#flat_map&lt;/code&gt; / &lt;code&gt;Enumerable#collect_concat&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-flat_map-enumerable-collect_concat-'&gt;&lt;code&gt;Enumerable#flat_map&lt;/code&gt; / &lt;code&gt;Enumerable#collect_concat&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;flat_map -&amp;gt; Enumerator
 collect_concat -&amp;gt; Enumerator
 flat_map {| obj | block } -&amp;gt; Array
@@ -2123,7 +2124,7 @@ collect_concat {| obj | block } -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-inject-enumerable-reduce-"&gt;&lt;code&gt;Enumerable#inject&lt;/code&gt; / &lt;code&gt;Enumerable#reduce&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-inject-enumerable-reduce-'&gt;&lt;code&gt;Enumerable#inject&lt;/code&gt; / &lt;code&gt;Enumerable#reduce&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;inject&lt;/code&gt;와 &lt;code&gt;reduce&lt;/code&gt;는 컬렉션에 연속적으로 함수를 적용한 결과를 리턴합니다. 아래 예제는 리시버 컬렉션을 전부 더한 결과를 리턴합니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2542,7 +2543,7 @@ collect_concat {| obj | block } -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-count-"&gt;&lt;code&gt;Enumerable#count&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-count-'&gt;&lt;code&gt;Enumerable#count&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;count -&amp;gt; Integer
 count(item) -&amp;gt; Integer
 count {|obj| ... } -&amp;gt; Integer
@@ -2669,7 +2670,7 @@ count {|obj| ... } -&amp;gt; Integer
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-grep-"&gt;&lt;code&gt;Enumerable#grep&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-grep-'&gt;&lt;code&gt;Enumerable#grep&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;grep(pattern) -&amp;gt; [object]
 grep(pattern) {|item| ... } -&amp;gt; [object]
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;grep&lt;/code&gt; 메서드는 주어진 패턴에 매칭되는 결과를 찾습니다. 패턴은 &lt;code&gt;===&lt;/code&gt; 연산자로 평가됩니다&lt;/p&gt;
@@ -2759,7 +2760,7 @@ grep(pattern) {|item| ... } -&amp;gt; [object]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-find-enumerable-detect-"&gt;&lt;code&gt;Enumerable#find&lt;/code&gt; / &lt;code&gt;Enumerable#detect&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-find-enumerable-detect-'&gt;&lt;code&gt;Enumerable#find&lt;/code&gt; / &lt;code&gt;Enumerable#detect&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;find(ifnone = nil) -&amp;gt; Enumerator
 detect(ifnone = nil) -&amp;gt; Enumerator
 find(ifnone = nil) {|item| ... } -&amp;gt; object
@@ -2848,7 +2849,7 @@ item not found
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-find_all-enumerable-select-"&gt;&lt;code&gt;Enumerable#find_all&lt;/code&gt; / &lt;code&gt;Enumerable#select&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-find_all-enumerable-select-'&gt;&lt;code&gt;Enumerable#find_all&lt;/code&gt; / &lt;code&gt;Enumerable#select&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;find_all -&amp;gt; Enumerator
 select -&amp;gt; Enumerator
 find_all {|item| ... } -&amp;gt; [object]
@@ -2974,7 +2975,7 @@ select {|item| ... } -&amp;gt; [object]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-reject-"&gt;&lt;code&gt;Enumerable#reject&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-reject-'&gt;&lt;code&gt;Enumerable#reject&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;reject -&amp;gt; Enumerator
 reject {|item| ... } -&amp;gt; [object]
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;reject&lt;/code&gt;는 &lt;code&gt;select&lt;/code&gt;와 반대 메서드로 각 요소를 평가한 결과가 참인 결과를 제외한 컬렉션을 리턴합니다.&lt;/p&gt;
@@ -3021,7 +3022,7 @@ reject {|item| ... } -&amp;gt; [object]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-find_index-"&gt;&lt;code&gt;Enumerable#find_index&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-find_index-'&gt;&lt;code&gt;Enumerable#find_index&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;find_index(val) -&amp;gt; Integer | nil
 find_index {|obj| ... } -&amp;gt; Integer | nil
 find_index -&amp;gt; Enumerator
@@ -3112,7 +3113,7 @@ find_index -&amp;gt; Enumerator
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-first-"&gt;&lt;code&gt;Enumerable#first&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-first-'&gt;&lt;code&gt;Enumerable#first&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;first -&amp;gt; object | nil
 first(n) -&amp;gt; Array
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;first&lt;/code&gt;는 리시버에서 첫번째 요소를 리턴합니다. 인자로 n을 넘겨주면 앞에서부터 n개의 요소를 리턴합니다. 단, 하나의 요소도 없을 때 n값이 없으면 &lt;code&gt;nil&lt;/code&gt;을 리턴하고, n값이 있으면 빈 배열을 리턴합니다&lt;/p&gt;
@@ -3251,7 +3252,7 @@ first(n) -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-take-"&gt;&lt;code&gt;Enumerable#take&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-take-'&gt;&lt;code&gt;Enumerable#take&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;take(n) -&amp;gt; Array
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;take&lt;/code&gt;는 앞선 &lt;code&gt;first&lt;/code&gt;와 마찬가지로 앞에서부터 n개의 요소를 리턴합니다. 단, &lt;code&gt;first&lt;/code&gt;와 달리 항상 배열을 리턴합니다&lt;/p&gt;
 &lt;/div&gt;
@@ -3390,7 +3391,7 @@ first(n) -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-drop-"&gt;&lt;code&gt;Enumerable#drop&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-drop-'&gt;&lt;code&gt;Enumerable#drop&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;drop(n) -&amp;gt; Array
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;drop&lt;/code&gt; 메서드는 앞에서부터 n개의 요소를 제외한 배열을 리턴합니다.&lt;/p&gt;
 &lt;/div&gt;
@@ -3436,7 +3437,7 @@ first(n) -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-take_while-"&gt;&lt;code&gt;Enumerable#take_while&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-take_while-'&gt;&lt;code&gt;Enumerable#take_while&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;take_while -&amp;gt; Enumerator
 take_while {|element| ... } -&amp;gt; Array
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;take_while&lt;/code&gt; 메서드는 리시버 컬렉션을 반복하면서 특정 요소로 넘겨진 블럭을 평가했을 때 처음 거짓이 되는 요소까지의 모든 요소를 리턴합니다&lt;/p&gt;
@@ -3483,7 +3484,7 @@ take_while {|element| ... } -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-drop_while-"&gt;&lt;code&gt;Enumerable#drop_while&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-drop_while-'&gt;&lt;code&gt;Enumerable#drop_while&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;drop_while -&amp;gt; Enumerator
 drop_while {|element| ... } -&amp;gt; Array
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;drop_while&lt;/code&gt; 메서드는 리시버 컬렉션을 반복하면서 특정 요소로 넘겨진 블럭을 평가했을 때 처음 거짓이 되는 요소부터 모든 요소를 리턴합니다.&lt;/p&gt;
@@ -3530,7 +3531,7 @@ drop_while {|element| ... } -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;비교 메서드&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;비교 메서드&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -3539,7 +3540,7 @@ drop_while {|element| ... } -&amp;gt; Array
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h4 id="-enumerable-sort-"&gt;&lt;code&gt;Enumerable#sort&lt;/code&gt;&lt;/h4&gt;
+&lt;h4&gt;&lt;a name='-enumerable-sort-'&gt;&lt;code&gt;Enumerable#sort&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h4&gt;
 &lt;pre&gt;&lt;code&gt;sort -&amp;gt; [object]
 sort {|a, b| ... } -&amp;gt; [object]
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;sort&lt;/code&gt;는 리시버 컬렉션을 정렬해서 정렬된 컬렉션을 리턴합니다.&lt;/p&gt;
@@ -3682,7 +3683,7 @@ sort {|a, b| ... } -&amp;gt; [object]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-sort_by-"&gt;&lt;code&gt;Enumerable#sort_by&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-sort_by-'&gt;&lt;code&gt;Enumerable#sort_by&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;sort_by -&amp;gt; Enumerator
 sort_by {|item| ... } -&amp;gt; [object]
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;sort_by&lt;/code&gt; 역시 &lt;code&gt;sort&lt;/code&gt;와 마찬가지로 리시버 컬렉션의 요소를 정렬하기 위해서 사용합니다. &lt;code&gt;sort_by&lt;/code&gt;와 &lt;code&gt;sort&lt;/code&gt;의 차이점은 &lt;code&gt;sort_by&lt;/code&gt;는 항상 블럭을 받으며 블럭을 평가한 결과를 값에 대해서 정렬을 수행하며, &lt;code&gt;sort&lt;/code&gt;는 블럭에서 직접 비교함수를 정의한다는 점입니다. 위에서 &lt;code&gt;length&lt;/code&gt;를 사용한 &lt;code&gt;sort&lt;/code&gt;의 예제를 다시 사용해서 두 메서드를 비교를 해보면 아래와 같습니다.&lt;/p&gt;
@@ -3771,7 +3772,7 @@ sort_by {|item| ... } -&amp;gt; [object]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-max-enumerable-max_by-"&gt;&lt;code&gt;Enumerable#max&lt;/code&gt; / &lt;code&gt;Enumerable#max_by&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-max-enumerable-max_by-'&gt;&lt;code&gt;Enumerable#max&lt;/code&gt; / &lt;code&gt;Enumerable#max_by&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;max -&amp;gt; object | nil
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;max&lt;/code&gt;는 리시버 컬렉션에서 가장 큰 요소(최대값)를 리턴합니다&lt;/p&gt;
 &lt;/div&gt;
@@ -3906,7 +3907,7 @@ max_by {|item| ... } -&amp;gt; object | nil
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-min-enumerable-min_by-"&gt;&lt;code&gt;Enumerable#min&lt;/code&gt; / &lt;code&gt;Enumerable#min_by&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-min-enumerable-min_by-'&gt;&lt;code&gt;Enumerable#min&lt;/code&gt; / &lt;code&gt;Enumerable#min_by&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;min -&amp;gt; object | nil
 min {|a, b| ... } -&amp;gt; object | nil
 min_by -&amp;gt; Enumerator
@@ -3920,7 +3921,7 @@ min_by {|item| ... } -&amp;gt; object | nil
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-minmax-enumerable-minmax_by-"&gt;&lt;code&gt;Enumerable#minmax&lt;/code&gt; / &lt;code&gt;Enumerable#minmax_by&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-minmax-enumerable-minmax_by-'&gt;&lt;code&gt;Enumerable#minmax&lt;/code&gt; / &lt;code&gt;Enumerable#minmax_by&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;minmax -&amp;gt; [object, object]
 minmax {|a, b| ... } -&amp;gt; [object, object]
 minmax_by -&amp;gt; Enumerator
@@ -4047,7 +4048,7 @@ minmax_by {|obj| ... } -&amp;gt; [object, object]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;그룹 / 조합 함수들&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;그룹 / 조합 함수들&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4056,7 +4057,7 @@ minmax_by {|obj| ... } -&amp;gt; [object, object]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-slice_before-"&gt;&lt;code&gt;Enumerable#slice_before&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-slice_before-'&gt;&lt;code&gt;Enumerable#slice_before&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;slice_before(pattern) -&amp;gt; Enumerator
 slice_before {|elt| bool } -&amp;gt; Enumerator
 slice_before(initial_state) {|elt, state| bool } -&amp;gt; Enumerator
@@ -4190,7 +4191,7 @@ slice_before(initial_state) {|elt, state| bool } -&amp;gt; Enumerator
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-partition-"&gt;&lt;code&gt;Enumerable#partition&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-partition-'&gt;&lt;code&gt;Enumerable#partition&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;partition -&amp;gt; Enumerator
 partition {|item| ... } -&amp;gt; [[object], [object]]
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;partition&lt;/code&gt; 함수는 특정 조건으로 리시버 컬렉션을 분할합니다. 좀 더 정확히는 각 요소를 블럭에 넘겨 평가 한 후 참을 리턴하는 요소들과 거짓을 리턴하는 요소들로 나눕니다. 아래는 1부터 15까지의 숫자를 소수와 수소가 아닌 수로 나누는 예제입니다&lt;/p&gt;
@@ -4237,7 +4238,7 @@ partition {|item| ... } -&amp;gt; [[object], [object]]
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-chunk-"&gt;&lt;code&gt;Enumerable#chunk&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-chunk-'&gt;&lt;code&gt;Enumerable#chunk&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;chunk {|elt| ... } -&amp;gt; Enumerator
 chunk(initial_state) {|elt, state| ... } -&amp;gt; Enumerator
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;chunk는 블럭을 평가한 결과가 같은 것끼리 모아줍니다. 좀 더 정확히는 리시버 컬렉션의 요소를 하나하나 블럭으로 평가해나가면서 평가 결과가 같은 것들을 하나로 뭉치고 평가 결과가 달라면 새로운 덩어리로 만듭니다. 즉 덩어리를 만다는 방식이 &lt;code&gt;group_by&lt;/code&gt;와는 차이가 납니다.&lt;/p&gt;
@@ -4283,7 +4284,7 @@ chunk(initial_state) {|elt, state| ... } -&amp;gt; Enumerator
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-group_by-"&gt;&lt;code&gt;Enumerable#group_by&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-group_by-'&gt;&lt;code&gt;Enumerable#group_by&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;group_by -&amp;gt; Enumerator
 group_by {|obj| ... } -&amp;gt; Hash
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;group_by&lt;/code&gt;는 블럭을 평가한 결과가 같은 값들을 해시로 묶어서 리턴합니다&lt;/p&gt;
@@ -4565,7 +4566,7 @@ group_by {|obj| ... } -&amp;gt; Hash
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-zip-"&gt;&lt;code&gt;Enumerable#zip&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-zip-'&gt;&lt;code&gt;Enumerable#zip&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;zip(*lists) -&amp;gt; [[object]]
 zip(*lists) {|v1, v2, ...| ...} -&amp;gt; nil
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;zip&lt;/code&gt; 메서드는 여러 컬렉션을 교차해서 조합해줍니다. 예를 들어 두 배열이 있으면 같은 위치의 요소들을 조합해줍니다.&lt;/p&gt;
@@ -4740,7 +4741,7 @@ zip(*lists) {|v1, v2, ...| ...} -&amp;gt; nil
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;참거짓 판단 메서드&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;참거짓 판단 메서드&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -4749,7 +4750,7 @@ zip(*lists) {|v1, v2, ...| ...} -&amp;gt; nil
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-all-"&gt;&lt;code&gt;Enumerable#all?&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-all-'&gt;&lt;code&gt;Enumerable#all?&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;all? -&amp;gt; bool
 all? {|item| ... } -&amp;gt; bool
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;all?&lt;/code&gt; 메서드는 리시버 컬렉션의 모든 요소가 블럭을 평가했을 때 참을 리턴하는지 결과를 리턴합니다.&lt;/p&gt;
@@ -4830,7 +4831,7 @@ false
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-any-"&gt;&lt;code&gt;Enumerable#any?&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-any-'&gt;&lt;code&gt;Enumerable#any?&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;any? -&amp;gt; bool
 any? {|item| ... } -&amp;gt; bool
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;any?&lt;/code&gt; 메서드는 리시버 컬렉션의 요소 중 하나라도 블럭을 평가했을 때 참을 리턴하는지 결과를 리턴합니다.&lt;/p&gt;
@@ -4911,7 +4912,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-include-enumerable-member-"&gt;&lt;code&gt;Enumerable#include?&lt;/code&gt; / &lt;code&gt;Enumerable#member?&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-include-enumerable-member-'&gt;&lt;code&gt;Enumerable#include?&lt;/code&gt; / &lt;code&gt;Enumerable#member?&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;member?(val) -&amp;gt; bool
 include?(val) -&amp;gt; bool
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;include?&lt;/code&gt;(&lt;code&gt;member?&lt;/code&gt;) 메서드는 인자로 넘긴 객체가 리시버 객체에 있는지 확인합니다.&lt;/p&gt;
@@ -4991,7 +4992,7 @@ false
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-none-"&gt;&lt;code&gt;Enumerable#none?&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-none-'&gt;&lt;code&gt;Enumerable#none?&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;none? -&amp;gt; bool
 none? {|obj| ... } -&amp;gt; bool
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;none?&lt;/code&gt; 메서드는 모든 요소에 대해서 블럭을 평가했을 때 참이 하나도 없으면 참이 됩니다.&lt;/p&gt;
@@ -5115,7 +5116,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="-enumerable-one-"&gt;&lt;code&gt;Enumerable#one?&lt;/code&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a name='-enumerable-one-'&gt;&lt;code&gt;Enumerable#one?&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;one? -&amp;gt; bool
 one? {|obj| ... } -&amp;gt; bool
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;one?&lt;/code&gt;는 리시버 컬렉션의 평가 결과가 단 하나만 참인지 확인합니다. 블럭이 넘겨지면 블럭을 평가한 결과로 판단합니다.&lt;/p&gt;
@@ -5191,7 +5192,7 @@ false
 
 &lt;/div&gt;&lt;/p&gt;
 
-&lt;h2&gt;결론&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;이걸로 Enumerable 모듈의 거의 모든 메서드를 다뤘습니다. 좀 더 이야기해 볼 주제가 있다면 Enumerable 확장 클래스 만들기, Lazy, Enumerabtor와 외부 반복자, Enumerable 모듈을 일부 확장하는 gem인 powerpack과 메소드 체인 활용 예제 정도가 있을 것 같은데 기회가 되면 이런 이야기들도 정리해보도록하겠습니다. 아듀~&lt;/p&gt;
 </content>
@@ -5201,7 +5202,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
     <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
     <published>2014-04-18T15:15:32Z</published>
-    <updated>2014-06-02T08:27:35+00:00</updated>
+    <updated>2014-06-02T23:14:48+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -5283,7 +5284,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
     <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
     <published>2014-04-06T17:00:32Z</published>
-    <updated>2014-06-02T08:27:35+00:00</updated>
+    <updated>2014-06-02T23:14:48+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -5297,7 +5298,7 @@ false
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;테스트 준비&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;테스트 준비&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;일반적으로 테스트 파일은 프로그램 파일과 별개로 작성됩니다. 여기서는 편의상 pry 위에서 바로 테스트를 진행합니다. 따라서 이 글의 내용은 irb나 pry를 통해서 따라해볼 수 있습니다. 필요한 경우 먼저 rspec과 pry 패키지를 설치합니다&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-sh"&gt;$ gem &lt;span class="keyword"&gt;install&lt;/span&gt; rspec pry
 &lt;/code&gt;&lt;/pre&gt;
@@ -5348,7 +5349,7 @@ Object
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;테스트 기초&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;테스트 기초&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;테스트는 기본적으로 아래와 같은 형식으로 쓰여집니다&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-ruby"&gt;expect(actual).to be(expected)
 &lt;/code&gt;&lt;/pre&gt;
@@ -5362,7 +5363,7 @@ Object
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;동일값 테스트 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;동일값 테스트 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;가장 기본적이고 가장 많이 쓰이는 매쳐는 실제값과 예상되는 값이 같은 지를 비교하는 매쳐입니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5475,7 +5476,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;동일성 테스트 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;동일성 테스트 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;eq&lt;/code&gt;가 실제값과 예상값이 같은지를 평가하는 매쳐라면, &lt;code&gt;equal&lt;/code&gt;은 비교하는 두 객체가 같은 객체인지를 테스트합니다. 루비에선 같은 값을 가진 심볼은 항상 같은 객체입니다. 하지만 같은 값을 가지고 있더라도 별개로 생성된 문자열은 다른 문자열입니다. 따라서 같은 값을 가진 심볼은 동일성 테스트를 통과하지만, 아래 문자열 테스트는 실패합니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5592,7 +5593,7 @@ object identity in this example.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;연산자 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;연산자 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;동일값 테스트만큼 많이 사용되는 매쳐는 실제값과 예상값을 비교하는 연산자 매쳐입니다. 기본적으로 동일값을 비교하는 &lt;code&gt;==&lt;/code&gt;을 비롯해 &lt;code&gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;gt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;&lt;/code&gt; 등을 사용할 수 있습니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5748,7 +5749,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;숫자 범위 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;숫자 범위 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;be_within.of&lt;/code&gt; 매쳐는 실제값이 예상값 +- 특정 범위에 포함되는 지 여부를 테스트합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5821,7 +5822,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;타입 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;타입 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;어떤 객체가 어떤 클래스로부터 만들어졌는지 테스트할 수 있습니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -5968,7 +5969,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;참거짓 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;참거짓 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;어떤 객체가 참인지 거짓인지 테스트할 수 있습니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6047,7 +6048,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-be-"&gt;존재(be) 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-be-'&gt;존재(be) 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6192,7 +6193,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;변화 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;변화 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;change&lt;/code&gt; 매쳐는 &lt;code&gt;expect&lt;/code&gt;에 주어진 블록이 실행되었을 때 &lt;code&gt;change&lt;/code&gt;에 주어진 블록의 평가 결과가 변화하는 지를 테스트합니다. 변화했다면 테스트가 통과합니다. 필요에 따라서 얼마만큼 변화했는지를 테스트할 수 있는 &lt;code&gt;by&lt;/code&gt;나 &lt;code&gt;expect&lt;/code&gt; 블록을 실행시키기 전의 값을 테스트할 수 있는 &lt;code&gt;from&lt;/code&gt;, 평가한 이후의 값을 테스트 할 수 있는 &lt;code&gt;to&lt;/code&gt; 메소드와 함께 사용될 수 있습니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6306,7 +6307,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;예외 메쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;예외 메쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;expect&lt;/code&gt;에 주어진 블록의 평가 결과가 예외를 일으키는 지 테스트합니다. expect가 블록을 받는다는 데 주의가 필요합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6419,7 +6420,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="have-"&gt;Have 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='have-'&gt;Have 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;컬렉션 객체가 몇 개의 항목을 가지고 있는 지 테스트합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6599,7 +6600,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="have_key-"&gt;have_key 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='have_key-'&gt;have_key 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;해시에 특정 키가 포함되어있는 지 테스트합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6643,7 +6644,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;포함 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;포함 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;객체에 특정한 값이나 키가 포함되어있는 지 테스트합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6755,7 +6756,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="start_with-end_with-"&gt;start_with / end_with 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='start_with-end_with-'&gt;start_with / end_with 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;객체의 처음이나 끝이 특정 항목으로 시작하거나 끝나는지 테스트합니다&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6901,7 +6902,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;커버 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;커버 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;범위 객체가 특정 값을 포함하는 지 테스트합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -6979,7 +6980,7 @@ false
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="respond_to-"&gt;respond_to 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='respond_to-'&gt;respond_to 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;객체가 특정 메시지를 받을 수 있는 지 테스트 합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7023,7 +7024,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="satisfy-"&gt;satisfy 매쳐&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='satisfy-'&gt;satisfy 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;블록의 평가 결과가 참인지를 평가합니다. 이 때 expect에 주어진 값이 평가 대상이 되며 satisfy 블록의 인자로 넘겨집니다. 이 블록이 참이면 테스트가 통과합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7067,7 +7068,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="yielding"&gt;Yielding&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='yielding'&gt;Yielding&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;메소드 내에서 yield하는 부분에 대해서 테스트합니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7281,7 +7282,7 @@ true
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="predicate-matchers"&gt;Predicate matchers&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='predicate-matchers'&gt;Predicate matchers&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;참거짓을 리턴하는 메소드를 사용해 테스트합니다. 이 때 매쳐 이름은 &lt;code&gt;be_메소드이름&lt;/code&gt;이 됩니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -7325,7 +7326,7 @@ false
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="-"&gt;결론&lt;/h2&gt;
+&lt;h2&gt;&lt;a name='-'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;여기까지 소개한 매쳐들이 RSpec 빌트인 매쳐로 테스트하는데 가장 많이 사용됩니다. 조금 기교스러운 매쳐들도 있어서 익숙해지는데 시간이 걸릴지도 모르겠습니다만, 기본적인 원리만 이해하고 빌트인 매쳐들만 활용해도 대부분의 테스트를 하는 데는 크게 무리가 없습니다. 좀 더 자세한 사항은 &lt;a href="https://www.relishapp.com/rspec/rspec-expectations/v/2-14/docs/built-in-matchers"&gt;Relish의 Rspec 문서&lt;/a&gt;에서 확인하실 수 있습니다. 또한 아직 베타이지만 조만간 업데이트 예정인 메이저 버전 3에서 추가되는 매쳐도 확인할 필요가 있습니다. 역시 &lt;a href="https://www.relishapp.com/rspec/rspec-expectations/v/3-0/docs/built-in-matchers"&gt;공식문서&lt;/a&gt;에서 확인할 수 있습니다.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;

@@ -11,7 +11,7 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
 <link href='http://blog.nacyot.com/articles/2013-10-30-angularjs-style-guide/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='prev' title='Rspec과 Guard를 활용한 루비 테스트 자동화'>
+<link href='/articles/2013-10-02-github-ecosystem/' rel='prev' title='Github을 둘러싼 유용한 서비스들'>
 <link href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='next' title='알아두면 도움이 되는 55가지 루비 기법'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
@@ -34,12 +34,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -60,17 +76,77 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Oct 30 2013
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">AngularJs 스타일 가이드</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#소개">소개</a>
+</li>
+<li>
+<a href="#차례">차례</a>
+</li>
+<li>
+<a href="#일반">일반</a>
+<ul>
+<li>
+<ul>
+<li>
+<a href="#디렉토리-구조">디렉토리 구조</a>
+</li>
+<li>
+<a href="#digest-cycle-최적화">Digest cycle 최적화</a>
+</li>
+<li>
+<a href="#기타">기타</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#모듈">모듈</a>
+</li>
+<li>
+<a href="#컨트롤러">컨트롤러</a>
+</li>
+<li>
+<a href="#디렉티브">디렉티브</a>
+</li>
+<li>
+<a href="#필터">필터</a>
+</li>
+<li>
+<a href="#서비스">서비스</a>
+</li>
+<li>
+<a href="#템플릿">템플릿</a>
+</li>
+<li>
+<a href="#라우팅">라우팅</a>
+</li>
+<li>
+<a href="#테스트">테스트</a>
+</li>
+<li>
+<a href="#기여">기여</a>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>이 글은 Minko Gechev 씨의 <a href="https://github.com/mgechev/angularjs-style-guide">AngularJS Style Guide</a> 문서를 <a href="http://nacyot.com">nacyot</a>이 변역한 글입니다. 번역된 문서는 <a href="https://github.com/nacyot/angularjs-style-guide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/mgechev/angularjs-style-guide">여기</a>에서 찾아볼 수 있습니다. 관련된 질문은 <a href="http://nacyot.com/guestbook">GuestBook</a>이나 <a href="mailto:propellerheaven@gmail.com">Email</a>으로 해주시기합니다.</p>
 
 
 
-<h1>소개</h1>
+<h1><a name='소개'>소개</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <p>이 스타일 가이드의 목표는 AngularJS 어플리케이션을 제작하는 데 있어서 현재의 베스트 프렉티스를 알려드리는 일입니다.</p>
 
@@ -97,7 +173,7 @@ Oct 30 2013
 
 <p>AngularJS GitHub 위키에는 <a href="https://github.com/ProLoser">ProLoser</a>가 작성한 관련된 부분이 있습니다. <a href="https://github.com/angular/angular.js/wiki">여기</a>에서 확인하실 수 있습니다..</p>
 
-<h1>차례</h1>
+<h1><a name='차례'>차례</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li><a href="#general">일반</a>
@@ -118,9 +194,9 @@ Oct 30 2013
 <li><a href="#contribution">기여</a></li>
 </ul>
 
-<h1>일반</h1>
+<h1><a name='일반'>일반</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
-<h3>디렉토리 구조</h3>
+<h3><a name='디렉토리-구조'>디렉토리 구조</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>규모가 큰 AngularJS 어플리케이션엔 다수의 컴포넌트가 있으므로 디렉토리 계층 구조를 만드는 것이 좋습니다.</p>
 
@@ -234,14 +310,14 @@ Oct 30 2013
 
 <p>각 컴포넌트의 명명 규칙은 각 컴포넌트 절에서 설명합니다.</p>
 
-<h3>Digest cycle 최적화</h3>
+<h3><a name='digest-cycle-최적화'>Digest cycle 최적화</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <ul>
 <li>가장 중요한 변수만 감시합니다(예를 들어 실시간 통신이 필요한 경우 각각의 메시지를 받을 때 digest loop를 일으키지 않아야합니다).</li>
 <li><code>$watch</code>는 가능한한 간단하게 작성합니다. 무겁과 느린 처리를 하나의 <code>$watch</code>에 집어넣으면 어플리케이션 전체를 느리게 만듭니다. (자바스크립트는 싱글 쓰레드에서 작동하므로 $digest 루프 또한 싱글 쓰레드로 작동합니다.)</li>
 </ul>
 
-<h3>기타</h3>
+<h3><a name='기타'>기타</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <ul>
 <li>사용해야 함.
@@ -273,7 +349,7 @@ Oct 30 2013
 <li><p>변수명, 프로퍼티명, 메소드명 앞에 <code>$</code>를 사용하지 않습니다. <code>$</code>를 앞에 붙이는 명명법은 AngularJS와 관련되어 특별한 의미로 사용됩니다.</p></li>
 </ul>
 
-<h1>모듈</h1>
+<h1><a name='모듈'>모듈</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <p>모듈의 구성은 일반적으로 두 가지 기준이 사용됩니다.</p>
 
@@ -284,7 +360,7 @@ Oct 30 2013
 
 <p>두 접근법에 큰 차이는 없지만 첫번째 방법이 좀 더 깔끔합니다. 또한 (아직 AngularJS 로드맵에는 없습니다만) 모듈의 지연 로딩이 지원된다면 어플리케이션의 성능도 좋아질 것입니다.</p>
 
-<h1>컨트롤러</h1>
+<h1><a name='컨트롤러'>컨트롤러</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li>컨트롤러에서 DOM을 조작하지 마세요. 컨트롤러 대신 디렉티브를 사용하시기 바랍니다.</li>
@@ -327,7 +403,7 @@ Oct 30 2013
 </span></pre></div></li>
 </ul>
 
-<h1>디렉티브</h1>
+<h1><a name='디렉티브'>디렉티브</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li>디렉티브의 이름은 lowerCamelCase를 사용하세요.</li>
@@ -340,14 +416,14 @@ Oct 30 2013
 <li>범위(scope)를 없앨 때는 <code>$scope.$on(&#39;$destroy&#39;, fn)</code>를 사용하세요. 이러한 접근은 특히 third-party 플러그인을 디렉티브로 감싸서 사용할 때 유용합니다.</li>
 </ul>
 
-<h1>필터</h1>
+<h1><a name='필터'>필터</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li>이름은 lowerCamelCase를 사용하세요</li>
 <li>필터는 가능한 한 가볍게 만들어주세요. 필터는 간혹 <code>$digest</code> 루프 내에서 호출될 수 있기 때문에 느린 필터는 어플리케이션 전체를 느리게 만들 수 있습니다.</li>
 </ul>
 
-<h1>서비스</h1>
+<h1><a name='서비스'>서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li>서비스명은 camelCase나 CamelCase로 작성.</li>
@@ -356,7 +432,7 @@ Oct 30 2013
 <li>세션 수준의 캐시는 <code>$cacheFactory</code>를 사용하세요. 이는 요청(request)나 무거운 처리를 캐시하고 싶을 때 사용합니다.</li>
 </ul>
 
-<h1>템플릿</h1>
+<h1><a name='템플릿'>템플릿</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li>문서가 반짝이는 현상을 방지하기 위해서 <code>{{}}</code> 대신에 <code>ng-bind</code>나 <code>ng-cloak</code>를 사용하세요.</li>
@@ -374,17 +450,17 @@ Oct 30 2013
 </span></pre></div></li>
 </ul>
 
-<h1>라우팅</h1>
+<h1><a name='라우팅'>라우팅</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <ul>
 <li>view가 보여지기 전에 <code>resolve</code>를 사용해 의존관계를 해결해주세요.</li>
 </ul>
 
-<h1>테스트</h1>
+<h1><a name='테스트'>테스트</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <p>TBD</p>
 
-<h1>기여</h1>
+<h1><a name='기여'>기여</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
 <p>이 문서는 communty-driven을 지향하며, 문서에 대한 기여는 언제든 대환영입니다.
 부족한 부분을 보충해주시거나 여러분이 사용하는 모국어로 문서를 번역해주셔도 좋습니다.</p>
@@ -433,7 +509,7 @@ Oct 30 2013
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
 이전 글
-<a href='/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='prev'>Rspec과 Guard를 활용한 루비 테스트 자동화</a>
+<a href='/articles/2013-10-02-github-ecosystem/' rel='prev'>Github을 둘러싼 유용한 서비스들</a>
 </div>
 <div class='nextnav'>
 <div class='fa fa-chevron-right'></div>

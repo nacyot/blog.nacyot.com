@@ -33,12 +33,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -59,17 +75,35 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Oct  2 2013
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">Rspec과 Guard를 활용한 루비 테스트 자동화</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#spring">Spring</a>
+</li>
+<li>
+<a href="#guard">Guard</a>
+</li>
+<li>
+<a href="#rspec-setting">Rspec setting</a>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>루비 테스트로는 minitest와 Rspec이 많이 사용됩니다.. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.</p>
 
 
 
-<h2>Spring</h2>
+<h2><a name='spring'>Spring</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>먼저 테스트 속도 향상을 위해 Rails preloader인
 <a href="https://github.com/jonleighton/spring">spring</a>을 설정해 두었습니다.
@@ -91,7 +125,7 @@ Oct  2 2013
 </span></pre></div>
 <p>을 실항해서 spring을 종료하시고 다시 명령어를 실행시켜주시면됩니다.</p>
 
-<h2>Guard</h2>
+<h2><a name='guard'>Guard</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>단순히 spec 폴더의 파일들을 테스트 하는 것은 rake면 충분합니다만,
 작업과정의 변경사항에 대한 자동적인 테스트를 실행시키기 위해서는
@@ -130,7 +164,7 @@ gem은 아니라, cucumber나 서버 재실행 등 다른 작업을 실행시키
 사용하는 게 보통입니다. 다양한 notification 지원에 대해서는 Guard
 github 페이지에 좀 더 자세히 나와있으니 참조하시면 될 것 같습니다.</p>
 
-<h2>Rspec setting</h2>
+<h2><a name='rspec-setting'>Rspec setting</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>rspec을 실행하는 데 기본 옵션 설정은 HOME 디렉토리의 .rspec 파일이나,
 Rails 어플리케이션 루트의 .rspec 파일에 기록합니다.</p>

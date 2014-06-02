@@ -34,12 +34,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -60,8 +76,12 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Apr  6 2014
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">루비 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</a>
 </h1>
@@ -76,7 +96,7 @@ Apr  6 2014
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">테스트 준비</h2>
+<h2><a name='-'>테스트 준비</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>일반적으로 테스트 파일은 프로그램 파일과 별개로 작성됩니다. 여기서는 편의상 pry 위에서 바로 테스트를 진행합니다. 따라서 이 글의 내용은 irb나 pry를 통해서 따라해볼 수 있습니다. 필요한 경우 먼저 rspec과 pry 패키지를 설치합니다</p>
 <pre><code class="language-sh">$ gem <span class="keyword">install</span> rspec pry
 </code></pre>
@@ -127,7 +147,7 @@ Object
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">테스트 기초</h2>
+<h2><a name='-'>테스트 기초</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>테스트는 기본적으로 아래와 같은 형식으로 쓰여집니다</p>
 <pre><code class="language-ruby">expect(actual).to be(expected)
 </code></pre>
@@ -141,7 +161,7 @@ Object
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">동일값 테스트 매쳐</h2>
+<h2><a name='-'>동일값 테스트 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>가장 기본적이고 가장 많이 쓰이는 매쳐는 실제값과 예상되는 값이 같은 지를 비교하는 매쳐입니다</p>
 </div>
 </div>
@@ -254,7 +274,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">동일성 테스트 매쳐</h2>
+<h2><a name='-'>동일성 테스트 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p><code>eq</code>가 실제값과 예상값이 같은지를 평가하는 매쳐라면, <code>equal</code>은 비교하는 두 객체가 같은 객체인지를 테스트합니다. 루비에선 같은 값을 가진 심볼은 항상 같은 객체입니다. 하지만 같은 값을 가지고 있더라도 별개로 생성된 문자열은 다른 문자열입니다. 따라서 같은 값을 가진 심볼은 동일성 테스트를 통과하지만, 아래 문자열 테스트는 실패합니다</p>
 </div>
 </div>
@@ -371,7 +391,7 @@ object identity in this example.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">연산자 매쳐</h2>
+<h2><a name='-'>연산자 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>동일값 테스트만큼 많이 사용되는 매쳐는 실제값과 예상값을 비교하는 연산자 매쳐입니다. 기본적으로 동일값을 비교하는 <code>==</code>을 비롯해 <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&lt;</code> 등을 사용할 수 있습니다.</p>
 </div>
 </div>
@@ -527,7 +547,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">숫자 범위 매쳐</h2>
+<h2><a name='-'>숫자 범위 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p><code>be_within.of</code> 매쳐는 실제값이 예상값 +- 특정 범위에 포함되는 지 여부를 테스트합니다.</p>
 </div>
 </div>
@@ -600,7 +620,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">타입 매쳐</h2>
+<h2><a name='-'>타입 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>어떤 객체가 어떤 클래스로부터 만들어졌는지 테스트할 수 있습니다.</p>
 </div>
 </div>
@@ -747,7 +767,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">참거짓 매쳐</h2>
+<h2><a name='-'>참거짓 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>어떤 객체가 참인지 거짓인지 테스트할 수 있습니다.</p>
 </div>
 </div>
@@ -826,7 +846,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-be-">존재(be) 매쳐</h2>
+<h2><a name='-be-'>존재(be) 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 </div>
 </div>
 </div>
@@ -971,7 +991,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">변화 매쳐</h2>
+<h2><a name='-'>변화 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p><code>change</code> 매쳐는 <code>expect</code>에 주어진 블록이 실행되었을 때 <code>change</code>에 주어진 블록의 평가 결과가 변화하는 지를 테스트합니다. 변화했다면 테스트가 통과합니다. 필요에 따라서 얼마만큼 변화했는지를 테스트할 수 있는 <code>by</code>나 <code>expect</code> 블록을 실행시키기 전의 값을 테스트할 수 있는 <code>from</code>, 평가한 이후의 값을 테스트 할 수 있는 <code>to</code> 메소드와 함께 사용될 수 있습니다</p>
 </div>
 </div>
@@ -1085,7 +1105,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">예외 메쳐</h2>
+<h2><a name='-'>예외 메쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p><code>expect</code>에 주어진 블록의 평가 결과가 예외를 일으키는 지 테스트합니다. expect가 블록을 받는다는 데 주의가 필요합니다.</p>
 </div>
 </div>
@@ -1198,7 +1218,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="have-">Have 매쳐</h2>
+<h2><a name='have-'>Have 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>컬렉션 객체가 몇 개의 항목을 가지고 있는 지 테스트합니다.</p>
 </div>
 </div>
@@ -1378,7 +1398,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="have_key-">have_key 매쳐</h2>
+<h2><a name='have_key-'>have_key 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>해시에 특정 키가 포함되어있는 지 테스트합니다.</p>
 </div>
 </div>
@@ -1422,7 +1442,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">포함 매쳐</h2>
+<h2><a name='-'>포함 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>객체에 특정한 값이나 키가 포함되어있는 지 테스트합니다.</p>
 </div>
 </div>
@@ -1534,7 +1554,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="start_with-end_with-">start_with / end_with 매쳐</h2>
+<h2><a name='start_with-end_with-'>start_with / end_with 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>객체의 처음이나 끝이 특정 항목으로 시작하거나 끝나는지 테스트합니다</p>
 </div>
 </div>
@@ -1680,7 +1700,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">커버 매쳐</h2>
+<h2><a name='-'>커버 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>범위 객체가 특정 값을 포함하는 지 테스트합니다.</p>
 </div>
 </div>
@@ -1758,7 +1778,7 @@ false
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="respond_to-">respond_to 매쳐</h2>
+<h2><a name='respond_to-'>respond_to 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>객체가 특정 메시지를 받을 수 있는 지 테스트 합니다.</p>
 </div>
 </div>
@@ -1802,7 +1822,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="satisfy-">satisfy 매쳐</h2>
+<h2><a name='satisfy-'>satisfy 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>블록의 평가 결과가 참인지를 평가합니다. 이 때 expect에 주어진 값이 평가 대상이 되며 satisfy 블록의 인자로 넘겨집니다. 이 블록이 참이면 테스트가 통과합니다.</p>
 </div>
 </div>
@@ -1846,7 +1866,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="yielding">Yielding</h2>
+<h2><a name='yielding'>Yielding</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>메소드 내에서 yield하는 부분에 대해서 테스트합니다.</p>
 </div>
 </div>
@@ -2060,7 +2080,7 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="predicate-matchers">Predicate matchers</h2>
+<h2><a name='predicate-matchers'>Predicate matchers</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>참거짓을 리턴하는 메소드를 사용해 테스트합니다. 이 때 매쳐 이름은 <code>be_메소드이름</code>이 됩니다.</p>
 </div>
 </div>
@@ -2104,7 +2124,7 @@ false
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="-">결론</h2>
+<h2><a name='-'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <p>여기까지 소개한 매쳐들이 RSpec 빌트인 매쳐로 테스트하는데 가장 많이 사용됩니다. 조금 기교스러운 매쳐들도 있어서 익숙해지는데 시간이 걸릴지도 모르겠습니다만, 기본적인 원리만 이해하고 빌트인 매쳐들만 활용해도 대부분의 테스트를 하는 데는 크게 무리가 없습니다. 좀 더 자세한 사항은 <a href="https://www.relishapp.com/rspec/rspec-expectations/v/2-14/docs/built-in-matchers">Relish의 Rspec 문서</a>에서 확인하실 수 있습니다. 또한 아직 베타이지만 조만간 업데이트 예정인 메이저 버전 3에서 추가되는 매쳐도 확인할 필요가 있습니다. 역시 <a href="https://www.relishapp.com/rspec/rspec-expectations/v/3-0/docs/built-in-matchers">공식문서</a>에서 확인할 수 있습니다.</p>
 </div>
 </div>

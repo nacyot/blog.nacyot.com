@@ -34,12 +34,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -60,11 +76,41 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Mar 16 2014
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#github">Github</a>
+</li>
+<li>
+<a href="#omegat">OmegaT</a>
+</li>
+<li>
+<a href="#omegat-+-travis">Omegat + Travis</a>
+</li>
+<li>
+<a href="#rake">Rake</a>
+</li>
+<li>
+<a href="#github-pages">Github Pages</a>
+</li>
+<li>
+<a href="#travis">Travis</a>
+</li>
+<li>
+<a href="#결론">결론</a>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &gt;_&lt;</p>
 
@@ -74,7 +120,7 @@ Mar 16 2014
 
 
 
-<h2>Github</h2>
+<h2><a name='github'>Github</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>특별한 건 없습니다만, 번역과 번역 저장소 관리에 대해서 조금 이야기를 해보자면 현재 sexy.emacs.kr은 두 개의 저장소에서 관리되고 있습니다.</p>
 
@@ -92,11 +138,11 @@ Mar 16 2014
 
 <p>입니다.</p>
 
-<h2>OmegaT</h2>
+<h2><a name='omegat'>OmegaT</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>개인적으로 번역 프로젝트에는 전부 OmegaT를 사용하고 있습니다.자바로 만들어진 번역 메모리로 기능적으론 굉장히 훌륭합니다. 특히 OmegaT는 문장 단위로 번역을 진행해서, 직접 원본 파일을 번역하는 것과 달리 원문의 업데이트에 비교적 쉽게 대응할 수 있습니다. 약간 번거롭고 저장소와 호환이 안 맞아서 한참 고생을 했는데, 최근에 활용 방향이 정리가 되서 베스트 프렉티스를 정리해보는 중입니다. 이에 대한 내용은 조만간 공유해 볼 예정입니다.</p>
 
-<h2>Omegat + Travis</h2>
+<h2><a name='omegat-+-travis'>Omegat + Travis</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>이번에 한 가지 시도해본 건 Travis를 통해 OmegaT의 프로젝트를 빌드하는 일입니다. OmegaT에서는 원본 문서를 편집하지 않고 Segment 단위로 한 문장(혹은 한 문단) 씩 번역을 진행합니다. 따라서 여기서 빌드란 OmegaT를 통해서 번역한 결과물을 실제 파일로 출력하는 과정을 말합니다. 로컬에서 번역을 진행하고 빌드 후 저장소를 올리는 것도 어렵지 않습니다만 신경써야할 부분이 하나 더 느는 문제가 있고, 또 하나는 커밋 단위로 빌드를 하고 싶었기 때문입니다. 이는 이 블로그나 위키에서도 마찬가지로 문서를 작성하면 자동적으로 Travis에서 Middleman 어플리케이션을 빌드하고 깃허브 저장소에 올리는 것과 마찬가지입니다. 즉, 이를 통해 OmegaT를 통한 번역작업과 Github 페이지를 통한 배포 작업을 하나의 트랜젝션으로 묶을 수 있습니다.</p>
 
@@ -121,21 +167,21 @@ Mar 16 2014
 <p>이렇게 100mb 넘는 파일을 추가하고 Github에 올리기 위해선 커밋 히스토리 자체를 삭제할 필요가 생기는데 아래 명령어를 사용할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">filter</span><span class="o">-</span><span class="n">branch</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">filter</span> <span class="err">&#39;</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">file</span><span class="err">&#39;</span> <span class="n">HEAD</span>
 </span></pre></div>
-<h2>Rake</h2>
+<h2><a name='rake'>Rake</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>빌드 과정에서 몇 가지 rake 작업이 이루어집니다. OmegaT를 사용한 번역에서는 원본 파일을 직접 수정하지 않고, 문장들만을 번역합니다. 따라서 원칙적으로 원본 파일은 건드리지 않고 작업을 하기 위해서 빌드된 결과물을 rake  스크립트를 통해서 편집해줍니다. <code>rewrite_cname</code>은 CNAME 파일이 <code>sexy.emacs.kr</code>(실제 배포될 URL)을 가리키도록 합니다.  <code>add_link</code>는 별도로 관리중인 <a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/data/sites.json">한국어 링크를 정리한 json 파일</a>에서 링크를 가져와 문서의 아래 쪽에 추가해줍니다. 마지막으로 <code>add_link_to_translator</code>는 번역자 정보를 문서에 추가해줍니다.</p>
 
-<h2>Github Pages</h2>
+<h2><a name='github-pages'>Github Pages</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>빌드 과정의 마지막에는 이렇게 생성된 번역 결과를 sexy.emacs.kr 깃허브 저장소에 push하도록 되어있습니다. 깃허브에서는 gh-pages 브랜치를 이용해 저장소의 내용을 배포할 수 있습니다. 특별한 건 없습니다만, Github Pages에서 커스텀 도메인으로 배포 가능하도록 DNS A record를 지정해야하는 ip 주소가 최근에 바뀐 듯 합니다. <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">깃허브 Help 사이트</a>에서는 <code>192.30.252.153</code>과 <code>192.30.252.154</code>를 지정해야한다고 이야기하고 있으며, 예전 ip도 업데이트를 권장하고 있었습니다.</p>
 
-<h2>Travis</h2>
+<h2><a name='travis'>Travis</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p><a href="https://travis-ci.org/nacyot/omegat-emacs.sexy">Travis의 빌드 결과</a>는 여기서 확인할 수 있습니다. 이를 통해서 빌드가 어떤 식으로 이루어지는지 감이 오실 거라고 생각합니다.</p>
 
 <p>아시는 분은 이미 아시리라고 생가합니다만, 공개 프로젝트를 운영하신다면 tarvis는 둘도 없는 강력한 빌드 서비스입니다. 어떤 자원을 사용하건 자원에 대한 대가를 치루는 거는 꽤나 번거롭고 관리가 드는 일입니다만, 공개 프로젝트에 한해서 Travis는 이러한 부담이 전혀 없이 무료로 사용할 수 있습니다. 위에서 보셨다시피 커밋에 대응한 자동 빌드 및 심지어 빌드 성공시 깃헙 페이지에 자동 배포하는 역할까지 수행하고 있습니다.</p>
 
-<h2>결론</h2>
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>이 프로젝트의 경우는 번역할 절대 양이 많지도 않고 업데이트가 크게 많다고 생각되지 않기 때문에 조금 오버를 했다는 느낌도 없지 않습니다만, 예전부터 생각해오던 것을 직접 적용해서 작은 번역 프로젝트를 하나 진행해 보았습니다. 좀 더 큰 프로젝트에서라면 번역에만 집중할 수 있는 이러한 워크플로우가 꽤나 도움이 될 것이라고 기대하고 있습니다.</p>
 

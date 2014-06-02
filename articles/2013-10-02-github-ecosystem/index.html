@@ -33,12 +33,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -59,11 +75,62 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Oct  2 2013
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">Github을 둘러싼 유용한 서비스들</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#code-climate">Code climate</a>
+</li>
+<li>
+<a href="#gemnasium">Gemnasium</a>
+</li>
+<li>
+<a href="#rubydoc.info">Rubydoc.info</a>
+</li>
+<li>
+<a href="#travis">Travis</a>
+<ul>
+<li>
+<a href="#travis-연동">Travis 연동</a>
+</li>
+<li>
+<a href="#.travis.yml-예제">.travis.yml 예제</a>
+</li>
+<li>
+<a href="#travis-gem">travis gem</a>
+<ul>
+<li>
+<a href="#환경변수-암호화">환경변수 암호화</a>
+</li>
+<li>
+<a href="#전체-명령어">전체 명령어</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#travis-lint-gem">travis-lint gem</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#coveralls">Coveralls</a>
+<ul>
+<li>
+<a href="#저장소와-연동(ruby-예제)">저장소와 연동(Ruby 예제)</a>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은
 서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수
@@ -75,7 +142,7 @@ Oct  2 2013
 
 
 
-<h2><a href="https://codeclimate.com/">Code climate</a></h2>
+<h2><a name='code-climate'><a href="https://codeclimate.com/">Code climate</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : Ruby</p>
 
@@ -98,7 +165,7 @@ Oct  2 2013
 분석됩니다. 또한 오픈소스 프로젝트를 대상으로 하는 관계로 레포트
 내용은 전부 공개됩니다.</p>
 
-<h2><a href="https://gemnasium.com/">Gemnasium</a></h2>
+<h2><a name='gemnasium'><a href="https://gemnasium.com/">Gemnasium</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : Ruby</p>
 
@@ -115,7 +182,7 @@ Oct  2 2013
 <p>위 url로 접근하시면 github에 올라와있는 어떤 프로젝트든지 등록이
 가능합니다.</p>
 
-<h2><a href="http://rubydoc.info/">Rubydoc.info</a></h2>
+<h2><a name='rubydoc.info'><a href="http://rubydoc.info/">Rubydoc.info</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : Ruby</p>
 
@@ -124,7 +191,7 @@ Oct  2 2013
 문서가 자동적으로 생성됩니다. 대부분의 오픈소스 프로젝트에 있어
 로컬에서 문서를 만들어 사용하기보다는 이 사이트를 이용하고 있습니다.</p>
 
-<h2><a href="https://travis-ci.org/">Travis</a></h2>
+<h2><a name='travis'><a href="https://travis-ci.org/">Travis</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : -</p>
 
@@ -136,7 +203,7 @@ apt-get을 통한 프로그램 설치도 할 수 있어 매우 다양한 일들�
 <a href="http://about.travis-ci.org/docs/user/ci-environment/">CI Environment</a>
 문서를 참조해주시기 바랍니다.</p>
 
-<h3>Travis 연동</h3>
+<h3><a name='travis-연동'>Travis 연동</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>Github의 저장소를 Travis와 연동하기 위해서는 repository 설정에서
 Travis hook를 설정해줄 필요가 있습니다. 하지만 이 문제는 Travis 쪽에서
@@ -147,7 +214,7 @@ Github 아이디로 로그인을 하고 연동하려는 저장소를 on으로 �
 파일을 어플리케이션 루트 폴더에 만들어서 기술하고, 저장소에
 push해줍니다.</p>
 
-<h3>.travis.yml 예제</h3>
+<h3><a name='.travis.yml-예제'>.travis.yml 예제</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>현재 bbapi 저장소에 등록된 .travis.yml 예제입니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ruby</span>
@@ -195,7 +262,7 @@ push해줍니다.</p>
 <p>실제로 실행될 스크립트를 작성합니다. 여기서는 우선 before_script가
 실행되고, script가 작동됩니다.</p>
 
-<h3>travis gem</h3>
+<h3><a name='travis-gem'>travis gem</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>gem install travis
 </span></pre></div>
 <p>travis gem을 통해서 콘솔 상에서 travis의 빌드를 관리하거나 빌드 결과를
@@ -208,7 +275,7 @@ push해줍니다.</p>
 </span></pre></div>
 <p>와 같이 현재 저장소의 빌드 상황을 확인해 볼 수 있습니다.</p>
 
-<h4>환경변수 암호화</h4>
+<h4><a name='환경변수-암호화'>환경변수 암호화</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
 
 <p>다음은 환경변수를 암호화하는 예입니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>travis encrypt -r &lt;github_id&gt;/&lt;repository_name&gt;
@@ -218,7 +285,7 @@ push해줍니다.</p>
  플래그는 이 결과를 바로 .travis.yml에 추가하라는 의미를 가집니다.
  이러한 방식을 통해 API_KEY를 공개하지 않고 사용할 수 있습니다.</p>
 
-<h4>전체 명령어</h4>
+<h4><a name='전체-명령어'>전체 명령어</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
 
 <blockquote>
 <div class="highlight"><pre><span id="line-1">   <span class="n">accounts</span>     <span class="n">displays</span> <span class="n">accounts</span> <span class="n">and</span> <span class="n">their</span> <span class="n">subscription</span> <span class="n">status</span>
@@ -249,14 +316,14 @@ push해줍니다.</p>
 </span><span id="line-26">   <span class="n">whoami</span>       <span class="n">outputs</span> <span class="n">the</span> <span class="n">current</span> <span class="n">user</span>
 </span></pre></div></blockquote>
 
-<h3>travis-lint gem</h3>
+<h3><a name='travis-lint-gem'>travis-lint gem</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>gem install travis-lint
 </span></pre></div>
 <p>travis-lint 프로그램을 사용해 설정파일이 정상적인지를 확인해볼 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>travis-lint                                                                                            
 </span><span id="line-2">Hooray, /home/hsin/prog/_working/bbapi/.travis.yml seems to be solid!
 </span></pre></div>
-<h2><a href="https://coveralls.io/">Coveralls</a></h2>
+<h2><a name='coveralls'><a href="https://coveralls.io/">Coveralls</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : -</p>
 
@@ -271,7 +338,7 @@ push해줍니다.</p>
 보내도록 되어있습니다. 따라서 반드시 Travis를 사용해야하고, 빌드
 과정에서 Test(spec)을 실행해줄 필요가 있습니다.</p>
 
-<h3>저장소와 연동(Ruby 예제)</h3>
+<h3><a name='저장소와-연동(ruby-예제)'>저장소와 연동(Ruby 예제)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>Travis 설정 외에도 coveralls를 실제 프로젝트에 적용시키기 위해서는
 저장소에서 몇가지 설정을 해줄 필요가 있습니다. 먼저 Gemfile에

@@ -34,12 +34,28 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <ul class='nav navbar-nav'>
 <li>
 <a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'>프로그래밍 이야기</i>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'>낰욧[nacyot] 위키</i>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
 </a>
 </li>
 </ul>
@@ -60,11 +76,107 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <div class='articles'>
 <div class='article'>
 <span class='date'>
+<i class='fa fa-calendar'></i>
 Jan 17 2014
 </span>
+<span class='tags'>
+</span>
+<a name='toc'></a>
 <h1 class='title'>
 <a href="./">우분투 13.10 개발환경 세팅</a>
 </h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#ubuntu-13.10-설치">Ubuntu 13.10 설치</a>
+</li>
+<li>
+<a href="#apt-다운로드-서버-설정">APT 다운로드 서버 설정</a>
+</li>
+<li>
+<a href="#그래픽-카드-설치">그래픽 카드 설치</a>
+<ul>
+<li>
+<a href="#amd-a10-5800k(apu)">AMD A10 5800K(APU)</a>
+<ul>
+<li>
+<a href="#듀얼-모니터-설정">듀얼 모니터 설정</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#nvidia-gtx-560ti">NVidia GTX 560Ti</a>
+<ul>
+<li>
+<a href="#qhd270">QHD270</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#참고">참고</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#nabi-설정">Nabi 설정</a>
+<ul>
+<li>
+<a href="#한글-입력기-nabi-설치[^1]">한글 입력기 Nabi 설치[^1]</a>
+</li>
+<li>
+<a href="#system-tray-whitelist-등록[^2]">System Tray Whitelist 등록[^2]</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#방화병-설정-및-ssh-서버-설치">방화병 설정 및 ssh 서버 설치</a>
+</li>
+<li>
+<a href="#ssh-key-생성">ssh key 생성</a>
+</li>
+<li>
+<a href="#openvpn-세팅">OpenVPN 세팅</a>
+</li>
+<li>
+<a href="#unix-설정-파일-clone">Unix 설정 파일 Clone</a>
+</li>
+<li>
+<a href="#terminator-설치">Terminator 설치</a>
+</li>
+<li>
+<a href="#eamcs-설치">Eamcs 설치</a>
+<ul>
+<li>
+<a href="#the-silver-seacher-설치">the silver seacher 설치</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#워크스페이스-활성화">워크스페이스 활성화</a>
+<ul>
+<li>
+<a href="#워크스페이스-간-창-이동-단축키-변경">워크스페이스 간 창 이동 단축키 변경</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#ruby-설치">Ruby 설치</a>
+</li>
+<li>
+<a href="#hub-설치">Hub 설치</a>
+</li>
+<li>
+<a href="#wine-카카오톡-설치">Wine 카카오톡 설치</a>
+</li>
+<li>
+<a href="#개발용-docker-설치">개발용 Docker 설치</a>
+</li>
+<li>
+<a href="#정리">정리</a>
+</li>
+</ul>
+
+</div>
 <div class='body'>
 <p>Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.</p>
 
@@ -72,7 +184,7 @@ Jan 17 2014
 
 
 
-<h2>Ubuntu 13.10 설치</h2>
+<h2><a name='ubuntu-13.10-설치'>Ubuntu 13.10 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.ubuntu.com/download/desktop">우분투 공식 홈페이지</a></li>
@@ -80,7 +192,7 @@ Jan 17 2014
 
 <p>우분투 13.10 설치. 우분투에는 기본적으로 setup disk creator이라는 어플이 들어가서 있어서 이걸로 usb에 옮겨담을 수 있는데 조금 문제가 있어서 윈도우에서 <a href="http://www.linuxliveusb.com/">Linux Live USB Driver</a>로 USB에 설치.</p>
 
-<h2>APT 다운로드 서버 설정</h2>
+<h2><a name='apt-다운로드-서버-설정'>APT 다운로드 서버 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>처음에 자동으로 업데이트를 실시하지만 패키지도 많고 상당히 시간이 오래걸린다. 이 때 미러 서버를 바꿔주면 속도가 많이 개선된다.</p>
 
@@ -99,9 +211,9 @@ Jan 17 2014
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
 </span></pre></div>
-<h2>그래픽 카드 설치</h2>
+<h2><a name='그래픽-카드-설치'>그래픽 카드 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<h3>AMD A10 5800K(APU)</h3>
+<h3><a name='amd-a10-5800k(apu)'>AMD A10 5800K(APU)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>일단 Ubuntu에서 기본적으로 지원하는 드라이버 Xorg로는 화면이 깨지는 현상이 있어서 AMD 쪽에서 나오는 서드파티 드라이버를 설치해야한다. <code>fglrx</code>를 설치하면 화면이 깨지는 현상은 사라지는데 마우스 커서가 없어지는 문제가 있어서 <code>fglrx-update</code>를 설치.</p>
 
@@ -111,7 +223,7 @@ Jan 17 2014
 
 <p><code>sudo apt-get install fglrx fglrx-dev</code></p>
 
-<h4>듀얼 모니터 설정</h4>
+<h4><a name='듀얼-모니터-설정'>듀얼 모니터 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
 
 <p>단 <code>fglrx-update</code>를 설치하니 듀얼모니터가 해상도 제한이 걸린다며 지정이 안 되는 문제가 발생했다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">aticonfig</span> <span class="o">--</span><span class="n">initial</span> <span class="err">#</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">X11</span><span class="o">/</span><span class="n">xorg</span><span class="p">.</span><span class="n">conf</span> <span class="err">생성</span><span class="p">.</span>
@@ -119,7 +231,7 @@ Jan 17 2014
 </span></pre></div>
 <p>설정을 알고 있다면 직접 xorg.conf 생성 후 직접 편집해도 되지만, 잘 모른다면 AMD 드라이버 설정 관리자(amdcccle)를 열어서 듀얼 모니터를 잡아주면 된다. 여기서 화면 회전이나 추가적인 설정 가능.</p>
 
-<h3>NVidia GTX 560Ti</h3>
+<h3><a name='nvidia-gtx-560ti'>NVidia GTX 560Ti</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">add</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">xorg</span><span class="o">-</span><span class="n">edgers</span><span class="o">/</span><span class="n">ppa</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">add</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">x</span><span class="o">-</span><span class="n">swat</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">updates</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
@@ -129,7 +241,7 @@ Jan 17 2014
 
 <p>이 과정에서 드라이버가 제대로 작동하지 않아 화면이 먹통이 될 수 있는데, 이런 경우네 Alt + Ctrl + F1 을 눌러 가상 콘솔로 넘어가 터미널 환경에서 드라이버를 삭제하거나 다른 드라이버를 설치 후 재부팅하는 게 좋다. 이 외에도 공식 홈페이지에서 <code>.run</code> 확장자를 가진 드라이버를 제공하기도 하는데 이 드라이버를 설치하고자 할 때는 해당파일에 실행 권한을 주고 관리자 권한으로 실행하면 된다.</p>
 
-<h4>QHD270</h4>
+<h4><a name='qhd270'>QHD270</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
 
 <ul>
 <li><a href="http://learnitwithme.com/wordpress/?p=342">http://learnitwithme.com/wordpress/?p=342</a></li>
@@ -137,13 +249,13 @@ Jan 17 2014
 
 <p>개인적으로 이 과정에서 공식 드라이버 설치시 화면이 먹통이 되는 문제로 한참을 방황했는데 이는 그래픽 드라이버가 아니라 모니터 문제였다. 한국에서 생산된 27인치 모니터 중 2560 * 1440에 최적화된 모니터의 경우 제대로 출력이 되지 않는 경우가 있다. 이런 경우엔 위 링크를 참조해 문제를 해결하면 된다.</p>
 
-<h3>참고</h3>
+<h3><a name='참고'>참고</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>일반적으로 어떤 그래픽 카드건 Software &amp; Updates의 Additianal Drivers에서 사용가능한 드라이버를 확인할 수 있다. 일반적으로 하드웨어 벤더에서 제공하는 독점 드라이버를 선택하는 게 안정성이나 성능 면에서 월등하다. 문제가 있으면 여기에 뜨는 것들을 바꿔가며 테스트 해보고 구글링으로 해당하는 문제를 찾아보는 게 좋다. </p>
 
-<h2>Nabi 설정</h2>
+<h2><a name='nabi-설정'>Nabi 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<h3>한글 입력기 Nabi 설치<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup></h3>
+<h3><a name='한글-입력기-nabi-설치1'>한글 입력기 Nabi 설치<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">createsc</span><span class="o">/</span><span class="n">copy4</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nabi</span>
@@ -156,56 +268,56 @@ Jan 17 2014
 <li>드보락 설정(필요시, 링크 참조)</li>
 </ol>
 
-<h3>System Tray Whitelist 등록<sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup></h3>
+<h3><a name='system-tray-whitelist-등록2'>System Tray Whitelist 등록<sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">mc3man</span><span class="o">/</span><span class="n">systray</span><span class="o">-</span><span class="n">white</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
 </span><span id="line-4"><span class="n">gsettings</span> <span class="n">set</span> <span class="n">com</span><span class="p">.</span><span class="n">canonical</span><span class="p">.</span><span class="n">Unity</span><span class="p">.</span><span class="n">Panel</span> <span class="n">systray</span><span class="o">-</span><span class="n">whitelist</span> <span class="s">&quot;[&#39;all&#39;]&quot;</span>
 </span><span id="line-5"><span class="n">sudo</span> <span class="n">reboot</span>
 </span></pre></div>
-<h2>방화병 설정 및 ssh 서버 설치</h2>
+<h2><a name='방화병-설정-및-ssh-서버-설치'>방화병 설정 및 ssh 서버 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">enable</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="mi">22</span><span class="o">/</span><span class="n">tcp</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">ssh</span>
 </span></pre></div>
 <p>외부 접속 위해서 ssh-server 설치해줘야 되는 건지 원래 되는 건지(설치 되어있는지) 정확히 기억이 안난다. <code>uft</code>은 방화벽 설정인데 기본적으로 포트가 다 열려있으므로, 사용하지 않는다면 생략해도 무방.</p>
 
-<h2>ssh key 생성</h2>
+<h2><a name='ssh-key-생성'>ssh key 생성</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="nx">ssh</span><span class="na">-keygen</span> <span class="na">-t</span> <span class="nx">rsa</span> <span class="na">-C</span> <span class="s2">&quot;&lt;EmailAddress&gt;</span>
 </span></pre></div>
 <p>ssh key 생성 후, <code>~/.ssh/id_rsa.pub</code> 파일 출력해서 github, bitbucket, gitlab에 등록 해 줌.</p>
 
-<h2>OpenVPN 세팅</h2>
+<h2><a name='openvpn-세팅'>OpenVPN 세팅</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">openvpn</span>
 </span><span id="line-2"><span class="cp"># /etc/openvpn vpn 환경 설정 파일 설정</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="n">service</span> <span class="n">openvpn</span> <span class="n">restart</span>
 </span></pre></div>
 <p>개인적으로는 로컬 서버에서 돌리는 것들이 있어서 openvpn 열어서 사용중. 필요하면 /etc/openvpn디렉토리에서 설정.</p>
 
-<h2>Unix 설정 파일 Clone</h2>
+<h2><a name='unix-설정-파일-clone'>Unix 설정 파일 Clone</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="nx">sudo</span> <span class="nx">apt</span><span class="na">-get</span> <span class="nx">install</span> <span class="nx">zsh</span> <span class="nx">tmux</span> <span class="nx">git</span>
 </span><span id="line-2"><span class="nx">chsh</span> <span class="err">#</span> <span class="p">/</span><span class="nx">bin</span><span class="p">/</span><span class="nx">zsh</span>
 </span><span id="line-3"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">git</span><span class="p">@</span><span class="o">&lt;</span><span class="nx">GIT_SERVER</span><span class="o">&gt;</span><span class="p">:</span><span class="nx">configuration</span><span class="p">/</span><span class="nx">unix</span><span class="na">-config.git</span> <span class="nx">conf</span>
 </span></pre></div>
 <p>환경설정 파일들은 마찬가지로 기존에 사용하는 것들 그대로 가져와서 사용. 개인적으로 private repository에서 관리중이고 클론해서 <code>~</code>에서 <code>conf</code> 디렉토리의 폴더로 심볼릭 링크 걸어서 사용. 필요한 게 추가로 있으면 scp로 기존 작업 환경에서 복사해서 사용. </p>
 
-<h2>Terminator 설치</h2>
+<h2><a name='terminator-설치'>Terminator 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">terminator</span>
 </span></pre></div>
 <p>터미네이터 설정 파일은 <code>.config/terminator/config</code>. 보통은 scp로 원래 쓰던 거 가져다가 세팅했는데,이번엔 <a href="https://github.com/ghuntley/terminator-solarized">terminator-solarized</a> 테마도 같이사용해봤다.사용해보진 않았는데 Mac 쓰던 경우엔 <a href="https://gist.github.com/olistik/3894072">이 gist</a>도좋을 듯.</p>
 
-<h2>Eamcs 설치</h2>
+<h2><a name='eamcs-설치'>Eamcs 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="nx">sudo</span> <span class="nx">apt</span><span class="na">-get</span> <span class="nx">install</span> <span class="nx">emacs24</span> <span class="nx">emacs24</span><span class="na">-common</span>
 </span><span id="line-2"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">git</span><span class="p">@</span><span class="o">&lt;</span><span class="nx">GIT_SERVER</span><span class="o">&gt;</span><span class="p">:</span><span class="nx">configuration</span><span class="p">/</span><span class="nx">emacs</span><span class="na">-config.git</span> <span class="bp">.</span><span class="nx-Member">emacs.d</span>
 </span></pre></div>
 <p>ubuntu 13.10에서는 emacs24를 바로 설치해서 사용 가능. 환경 설정에 기존에 사용하던 거 그대로 가져와서 사용.</p>
 
-<h3>the silver seacher 설치</h3>
+<h3><a name='the-silver-seacher-설치'>the silver seacher 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>ubuntu 13.10에서는 apt-get으로 바로 silver seacher 설치할 수 있다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">silversearcher</span><span class="o">-</span><span class="n">ag</span>
 </span></pre></div>
-<h2>워크스페이스 활성화</h2>
+<h2><a name='워크스페이스-활성화'>워크스페이스 활성화</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">compizconfig</span><span class="o">-</span><span class="n">settings</span><span class="o">-</span><span class="n">manager</span>
 </span></pre></div>
 <ol>
@@ -214,7 +326,7 @@ Jan 17 2014
 <li>데스크탑 크기 탭에서 <code>가로 가상 크기</code>와 <code>세로 가상 크기</code> 지정.</li>
 </ol>
 
-<h3>워크스페이스 간 창 이동 단축키 변경</h3>
+<h3><a name='워크스페이스-간-창-이동-단축키-변경'>워크스페이스 간 창 이동 단축키 변경</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>Ubuntu Unity에서는 워크스페이스간에 창 이동을 시킬때 컨트롤 + 쉬프트 + 알트 화살표를 사용하는데 Ubuntu 13.10에서는 기본적으로 양 옆 이동은 가능하나 위 아래 이동은 안 먹히는 문제가 있다. 이를 해결하기 위해서는,</p>
 
@@ -225,7 +337,7 @@ Jan 17 2014
 <li>단축키 다시 설정 해줌(연필 아이콘)</li>
 </ol>
 
-<h2>Ruby 설치</h2>
+<h2><a name='ruby-설치'>Ruby 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/sstephenson/rbenv.git ~/.rbenv</span>
 </span><span id="line-2"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s">&quot;$HOME/.rbenv/bin:$PATH&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
 </span><span id="line-3"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">eval</span> <span class="s">&quot;$(rbenv init -)&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
@@ -243,7 +355,7 @@ Jan 17 2014
 </span></pre></div>
 <p>중요한 gem들 설치... 별로 중요해보이지 않지만 패스.</p>
 
-<h2>Hub 설치</h2>
+<h2><a name='hub-설치'>Hub 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/github/hub.git</span>
 </span><span id="line-2"><span class="n">cd</span> <span class="n">hub</span><span class="o">/</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="p">.</span><span class="n">rbenv</span><span class="o">/</span><span class="n">shims</span><span class="o">/</span><span class="n">rake</span> <span class="n">install</span>
@@ -256,7 +368,7 @@ Jan 17 2014
 <div class="highlight"><pre><span id="line-1"><span class="n">eval</span> <span class="s">&quot;$(hub alias -s)&quot;</span>
 </span><span id="line-2"><span class="n">compdef</span> <span class="n">git</span><span class="o">=</span><span class="n">hub</span>
 </span></pre></div>
-<h2>Wine 카카오톡 설치</h2>
+<h2><a name='wine-카카오톡-설치'>Wine 카카오톡 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>현재 팀에서 사용하고 있는 메신저가 카카오톡이라 Wine로 카카오톡 설치 시도. </p>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">wine</span><span class="o">/</span><span class="n">ppa</span>
@@ -292,12 +404,12 @@ Jan 17 2014
 </span></pre></div>
 <p>한글이 조금 구려보이긴 하지만 잘 되는 것은 확인.</p>
 
-<h2>개발용 <a href="http://docker.io/">Docker</a> 설치</h2>
+<h2><a name='개발용-docker-설치'>개발용 <a href="http://docker.io/">Docker</a> 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="o">:</span><span class="c1">//get.docker.io/ubuntu/ | sudo sh</span>
 </span></pre></div>
 <p>요새 서버에 도입하려고 궁리중인 Docker. 공식 사이트에서 제공해주는 스크립트 하나면 정말 간단히 설치할 수 있다. 자세항 내용은 <a href="http://docs.docker.io/en/latest/installation/ubuntulinux/">공식 문서</a> 확인.</p>
 
-<h2>정리</h2>
+<h2><a name='정리'>정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>일단 중요한 부분은 다 정리한 듯. 이외에도 VirtualBox, Vagrant, Pandoc, Tex, python, 등등 설치해야되지만, 필요해지면 설치할 예정.</p>
 

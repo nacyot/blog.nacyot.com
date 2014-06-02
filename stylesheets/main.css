@@ -1,5 +1,5 @@
 body {
-  padding-top: 35px;
+  padding-top: 60px;
 }
 h1,
 h2,
@@ -9,18 +9,30 @@ h5,
 h6 {
   font-weight: 900;
 }
+a[name] {
+  padding-top: 100px;
+  margin-top: -100px;
+}
 .row {
   margin-left: 0;
   margin-right: 0;
 }
 .main {
   margin: auto;
-  margin-top: 60px;
+  margin-top: 80px;
   text-align: left;
+}
+nav {
+  padding-right: 25px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+nav a {
+  font-size: 1.3em;
 }
 .navbar {
   background-color: white;
-  border-bottom: 2px dashed gray;
+  border-bottom: 1px solid lightgray;
 }
 .mini-wall {
   height: 200px;
@@ -67,6 +79,21 @@ h6 {
 .articles .article img {
   max-width: 100%;
 }
+.articles .article .toc {
+  font-size: 1.3em;
+  padding: 15px 25px;
+  margin: 35px auto;
+  width: 90%;
+  line-height: 1.7em;
+}
+.articles .article .toc ul {
+  list-style-type: upper-roman;
+}
+.articles .article .toc ul ul,
+.articles .article .toc ul ul ul,
+.articles .article .toc ul ul ul ul {
+  list-style-type: lower-alpha;
+}
 .articles .article .body {
   font-size: 1.3em;
   line-height: 2em;
@@ -80,6 +107,9 @@ h6 {
   margin-top: 45px;
   margin-bottom: 15px;
 }
+.articles .article .body .to_toc {
+  font-size: 0.5em;
+}
 .articles .article .body p {
   margin-bottom: 25px;
 }
@@ -89,6 +119,16 @@ h6 {
 }
 .articles .article .body .footnotes p {
   margin-bottom: 10px;
+}
+.articles .article .body .live_link a {
+  color: blue;
+  text-decoration: underline;
+}
+.articles .article .body .dead_link a {
+  color: black;
+  text-decoration: underline;
+  pointer-events: none;
+  cursor: default;
 }
 .articles .article .more {
   font-size: 0.9em;

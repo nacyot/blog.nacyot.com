@@ -75,12 +75,34 @@ nacyot
 <div class='main'>
 <div class='articles'>
 <div class='article'>
+<div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Jan 27 2014
 </span>
+</div>
+<div>
 <span class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/centos'>centos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dockerfile'>dockerfile</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/lxc'>lxc</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/moniwiki'>moniwiki</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/도커'>도커</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/모니위키'>모니위키</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/튜토리얼'>튜토리얼</a>
 </span>
+</div>
 <a name='toc'></a>
 <h1 class='title'>
 <a href="./">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>
@@ -111,9 +133,9 @@ Jan 27 2014
 <div class='body'>
 <p>클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.</p>
 
-<p>이런 가운데 가상 머신의 단점은 극복하면서 장점만을 극대화하기 위한 최적화가 계속해서 이루어지고 있습니다. 도커 역시 이런 단점을 극복하기 위해서 나온 가상화 어플리케이션입니다. 도커는 단순한 가상 머신을 넘어서 어느 플랫폼에서나 재현가능한 어플리케이션 컨테이너를 만들어주는 걸 목표로 합니다. LXC(리눅스 컨테이너)라는 독특한 개념에서 출발하는 Docker의 가상화는 기존에 운영체제를 통째로 가상화하는 것과는 접근 자체를 달리합니다. 가상 머신이라고 하기에는 격리된 환경을 만들어주는 도구라고 하는 게 맞을 지도 모릅니다.</p>
+<p>이런 가운데 가상 머신의 단점은 극복하면서 장점만을 극대화하기 위한 최적화가 계속해서 이루어지고 있습니다. 도커 역시 이런 단점을 극복하기 위해서 나온 가상화 어플리케이션입니다. <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>는 단순한 가상 머신을 넘어서 어느 플랫폼에서나 재현가능한 어플리케이션 컨테이너를 만들어주는 걸 목표로 합니다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/lxc' rel='noindex,nofollow'>LXC</a></span>(리눅스 컨테이너)라는 독특한 개념에서 출발하는 Docker의 가상화는 기존에 운영체제를 통째로 가상화하는 것과는 접근 자체를 달리합니다. 가상 머신이라고 하기에는 격리된 환경을 만들어주는 도구라고 하는 게 맞을 지도 모릅니다.</p>
 
-<p>예를 들어 보죠. 우분투에서 CentOS라는 Docker를 통해 가상 환경을 구축하는데 얼마만큼의 시간이 걸릴까요? 먼저 여기서는 Ubuntu 상에서 작업을 한다고 가정하겠습니다.</p>
+<p>예를 들어 보죠. 우분투에서 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/centos' rel='noindex,nofollow'>CentOS</a></span>라는 Docker를 통해 가상 환경을 구축하는데 얼마만큼의 시간이 걸릴까요? 먼저 여기서는 Ubuntu 상에서 작업을 한다고 가정하겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>cat /etc/issue
 </span><span id="line-2">Ubuntu 13.10 <span class="se">\n</span> <span class="se">\l</span>
 </span></pre></div>
@@ -122,13 +144,12 @@ Jan 27 2014
 </span><span id="line-2"><span class="nv">$ </span>docker run -rm -i -t centos:6.4 /bin/bash
 </span><span id="line-3">bash-4.1#
 </span></pre></div>
-<p>먼저 위의 pull 명령어를 통해서 centos 이미지를 다운로드 받습니다. 그리고 이 이미지에 쉘 명령어를 실행시킵니다. 이걸로 끝입니다. 먼저 첫번째 명령어를 실행시키는데 제 컴퓨터에서 12초 정도가
-걸렸습니다. 아래 명령어를 실행시키는데 0.3초가 걸리지 않았습니다. 쉘이 실행되면 bash 쉘로 바뀐 것을 알 수 있습니다. 실제로 CentOS인지 확인해보도록 하겠습니다.</p>
+<p>먼저 위의 pull 명령어를 통해서 centos 이미지를 다운로드 받습니다. 그리고 이 이미지에 쉘 명령어를 실행시킵니다. 이걸로 끝입니다. 먼저 첫번째 명령어를 실행시키는데 제 컴퓨터에서 12초 정도가 걸렸습니다. 아래 명령어를 실행시키는데 0.3초가 걸리지 않았습니다. 쉘이 실행되면 bash 쉘로 바뀐 것을 알 수 있습니다. 실제로 CentOS인지 확인해보도록 하겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">bash</span><span class="o">-</span><span class="mf">4.1</span><span class="err">#</span> <span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">issue</span>
 </span><span id="line-2"><span class="n">CentOS</span> <span class="n">release</span> <span class="mf">6.4</span> <span class="p">(</span><span class="n">Final</span><span class="p">)</span>
 </span><span id="line-3"><span class="n">Kernel</span> <span class="err">\</span><span class="n">r</span> <span class="n">on</span> <span class="n">an</span> <span class="err">\</span><span class="n">m</span>
 </span></pre></div>
-<p>어떻게 이런 일이 가능할까요? 원리적인 부분은 이미 좋은 문서들이 있습니다. 한국어로 된 좋은 자료로는 Deview 2013에서 김영찬 님이 발표하신 <a href="http://deview.kr/2013/detail.nhn?topicSeq=45">이렇게 배포해야 할까? - Lightweight Linux Container Docker 를 활용하여 어플리케이션 배포하기</a> 세션과 xym 님이 쓴 <a href="http://spoqa.github.io/2013/11/22/docker-the-cloud.html">docker the cloud</a>를 추천합니다. 하지만 분명한 건 VMWare를 사용한다고 해서 가상화 기술에 빠삭해야하는 것이 아니듯이, Docker 역시 기본적으로는 툴이라는 사실을 이해해야합니다. 제 생각에 도커의 원리를 이해하는 것도 중요하지만, 막상 이 도구를 사용하는 동안엔 컨테이너와 이미지의 차이를 이해하는 게 더 중요하고, Dockerfile을 만들어 자신만의 배포 프로세스를 저장하는 법을 익히는 게 더 중요합니다.</p>
+<p>어떻게 이런 일이 가능할까요? 원리적인 부분은 이미 좋은 문서들이 있습니다. 한국어로 된 좋은 자료로는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/deview' rel='noindex,nofollow'>Deview</a></span> 2013에서 김영찬 님이 발표하신 <a href="http://deview.kr/2013/detail.nhn?topicSeq=45">이렇게 배포해야 할까? - Lightweight Linux Container Docker 를 활용하여 어플리케이션 배포하기</a> 세션과 xym 님이 쓴 <a href="http://spoqa.github.io/2013/11/22/docker-the-cloud.html">docker the cloud</a>를 추천합니다. 하지만 분명한 건 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vmware' rel='noindex,nofollow'>VMWare</a></span>를 사용한다고 해서 가상화 기술에 빠삭해야하는 것이 아니듯이, Docker 역시 기본적으로는 툴이라는 사실을 이해해야합니다. 제 생각에 도커의 원리를 이해하는 것도 중요하지만, 막상 이 도구를 사용하는 동안엔 컨테이너와 이미지의 차이를 이해하는 게 더 중요하고, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/dockerfile' rel='noindex,nofollow'>Dockerfile</a></span>을 만들어 자신만의 배포 프로세스를 저장하는 법을 익히는 게 더 중요합니다.</p>
 
 <p>이 글에서는 바로 이러한 시점에서 개발 환경이자 배포 툴로써의 도커를 이해하기 위한 개념들을 소개하고 모니위키 어플리케이션을 도커로 설치하는 부분까지 다뤄보도록 하겠습니다. 각 부분에 대한 좀 더 자세한 이야기는 기회가 된다면 따로 다뤄보도록 하죠.</p>
 
@@ -141,7 +162,7 @@ Jan 27 2014
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker -v
 </span><span id="line-2">Docker version 0.7.6, build bc3b2ec
 </span></pre></div>
-<p>Wow! 훌륭합니다. 필요하다면 ufw(방화벽) 설정을 통해서 도커가 사용하는 4243/tcp 포트도 열어줍니다.</p>
+<p>Wow! 훌륭합니다. 필요하다면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ufw' rel='noindex,nofollow'>ufw</a></span>(방화벽) 설정을 통해서 도커가 사용하는 4243/tcp 포트도 열어줍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="mi">4243</span><span class="o">/</span><span class="n">tcp</span>
 </span></pre></div>
 <p>기본적으로 docker의 대부분의 명령어를 실행 시 root 권한이 필요합니다. 따라서 sudo를 사용해야하는 번거로움이 따라오는데, 이를 위해 현재 유저를 docker 그룹에 포함시켜 줍니다. </p>
@@ -161,11 +182,11 @@ Jan 27 2014
 </span></pre></div>
 <p>docker images 명령어는 현재 시스템에서 사용가능한 이미지 일람을 보여줍니다. 이미지가 어디서 오는지 궁금하게 느껴지실지도 모릅니다. 이미지는 크게 세 가지 방법을 통해서 추가할 수 있습니다.</p>
 
-<p>하나는 처음 예제에서와 마찬가지로 <code>docker pull &lt;이미지 이름&gt;</code>을 통해서 가져오는 방법입니다. 바로 이 명령어를 사용하면 docker.io의 공식 저장소에서 이미지를 다운로드 받아옵니다. 쉘을 활용하는 개발자라면 이런 개념이 낯설지는 않을 것입니다. 리눅스에서 <code>apt-get</code>이나 <code>yum</code> 혹은 <code>gem</code>이나 <code>pip</code>, <code>cpan</code>, <code>npm</code> 같은 명령어를 사용해보셨다면 바로 이해하실 수 있을 겁니다. 이런 유틸리티를 사용해본 적이 없다고 하더라도 마찬가지 개념으로 docker 이미지 파일들을 관리하는 중앙 저장소가 있다고 이해하셔도 무방합니다. 독특한 점은 <code>intsall</code>이 아닌 <code>pull</code> 명령어를 사용한다는 점입니다. 이에 대해서는 개념적으로 VCS(버전 관리 시스템)을 알고 계신다면 추가적인 설명이 필요없겠습니다만, 어쨌거나 단순히 다운로드라고 이해하셔도 현재 단계에서는 무방합니다.</p>
+<p>하나는 처음 예제에서와 마찬가지로 <code>docker pull &lt;이미지 이름&gt;</code>을 통해서 가져오는 방법입니다. 바로 이 명령어를 사용하면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker.io' rel='noindex,nofollow'>docker.io</a></span>의 공식 저장소에서 이미지를 다운로드 받아옵니다. 쉘을 활용하는 개발자라면 이런 개념이 낯설지는 않을 것입니다. 리눅스에서 <code>apt-get</code>이나 <code>yum</code> 혹은 <code>gem</code>이나 <code>pip</code>, <code>cpan</code>, <code>npm</code> 같은 명령어를 사용해보셨다면 바로 이해하실 수 있을 겁니다. 이런 유틸리티를 사용해본 적이 없다고 하더라도 마찬가지 개념으로 docker 이미지 파일들을 관리하는 중앙 저장소가 있다고 이해하셔도 무방합니다. 독특한 점은 <code>intsall</code>이 아닌 <code>pull</code> 명령어를 사용한다는 점입니다. 이에 대해서는 개념적으로 VCS(버전 관리 시스템)을 알고 계신다면 추가적인 설명이 필요없겠습니다만, 어쨌거나 단순히 다운로드라고 이해하셔도 현재 단계에서는 무방합니다.</p>
 
 <p>(두 번째 방법 커밋을 하는 방법입니다. 아래에서 설명합니다. 또 다른 방법은 Dockerfile을 통해서 기술된 과정을 거쳐 도커 이미지를 생성하는 방법입니다. 이에 대해서는 맨 마지막에 자세히 다룹니다.)</p>
 
-<p>여기서는 편의상 ubuntu 이미지를 다운로드 받아오겠습니다. 이 이미지에 대한 정보는 웹을 통해서 확인하실 수 있습니다. 공식 저장소에 있는 이미지 정보들은 <a href="https://index.docker.io%EC%97%90%EC%84%9C">https://index.docker.io에서</a> 확인할 수 있으며 우분투 이미지에 관해서는 <a href="https://index.docker.io/_/ubuntu/">이 페이지</a>에서 찾을 수 있습니다.</p>
+<p>여기서는 편의상 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>ubuntu</a></span> 이미지를 다운로드 받아오겠습니다. 이 이미지에 대한 정보는 웹을 통해서 확인하실 수 있습니다. 공식 저장소에 있는 이미지 정보들은 <a href="https://index.docker.io%EC%97%90%EC%84%9C">https://index.docker.io에서</a> 확인할 수 있으며 우분투 이미지에 관해서는 <a href="https://index.docker.io/_/ubuntu/">이 페이지</a>에서 찾을 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker pull ubuntu
 </span><span id="line-2">Pulling repository ubuntu
 </span><span id="line-3">04180f9bd8a6: Download <span class="nb">complete</span>
@@ -228,7 +249,7 @@ Jan 27 2014
 
 <p>유난처럼 느껴질지도 모릅니다만, 이미지와 컨테이너를 정확하게 짚고 넘어갈 필요가 있습니다. 하지만 그렇다고 이미지와 컨테이너 개념은 아주 헷갈리는 개념인 것은 아닙니다. 단지 이미지는 추상적인 존재라는 것을 이해하실 필요가 있습니다.</p>
 
-<p>또한 위의 예제에서는 직접 명령어를 넘겨서 이미지를 컨테이너로 실행시켰습니다만, 보통 이미지들은 자신이 실행할 명령어들을 가지고 있습니다. 예를 들어 레디스, 마리아DB, 루비 온 레일즈 어플리케이션을 담고 있는 이미지라면, 각각의 어플리케이션을 실행하는 스크립트를 실행하게되겠죠. 컨테이너는 독립된 환경에서 실행됩니다만, 컨테이너의 기본적인 역할은 이 미리 규정된 명령어를 실행하는 일입니다. 이 명령어가 종료되면 컨테이너도 종료 상태(Exit)에 들어갑니다. 이러한 죽은 컨테이너의 목록까지 확인하려면 <code>docker ps -a</code> 명령어를 사용하면 됩니다. 실제로 쉘을 종료하고 컨테이너 목록을 확인해보겠습니다.</p>
+<p>또한 위의 예제에서는 직접 명령어를 넘겨서 이미지를 컨테이너로 실행시켰습니다만, 보통 이미지들은 자신이 실행할 명령어들을 가지고 있습니다. 예를 들어 <span class='live_link'><a href='http://wiki.nacyot.com/documents/redis'>레디스</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/maria_db' rel='noindex,nofollow'>마리아db</a></span>, [[루비 온 레일즈|ruby<em>on</em>rails]] 어플리케이션을 담고 있는 이미지라면, 각각의 어플리케이션을 실행하는 스크립트를 실행하게되겠죠. 컨테이너는 독립된 환경에서 실행됩니다만, 컨테이너의 기본적인 역할은 이 미리 규정된 명령어를 실행하는 일입니다. 이 명령어가 종료되면 컨테이너도 종료 상태(Exit)에 들어갑니다. 이러한 죽은 컨테이너의 목록까지 확인하려면 <code>docker ps -a</code> 명령어를 사용하면 됩니다. 실제로 쉘을 종료하고 컨테이너 목록을 확인해보겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">root</span><span class="err">@</span><span class="n">d02cd092f62d</span><span class="o">:/</span><span class="err">#</span> <span class="n">exit</span>
 </span><span id="line-2"><span class="n">exit</span>
 </span><span id="line-3"><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span>
@@ -248,7 +269,7 @@ Jan 27 2014
 </span></pre></div>
 <p>다시 docker 컨테이너 안으로 들어왔습니다! WoW! 부활의 기적을 여기서 만나는군요. 여기까지 도커 컨테이너의 생명 주기를 보았습니다. 도커 컨테이너를 실행시키는 <code>run</code>부터 실행이 종료되었을 때 다시 실행하는 <code>restart</code>를 배웠습니다. 이 외에도 실행을 강제로 종료시키는 <code>stop</code> 명령어도 있으며, 종료된 컨테이너를 영면으로 이끌어주는 <code>rm</code> 명령어도 있습니다. 잠시 기억을 더듬어 올라가 이 글의 아주 처음에 <code>run</code> 명령어와 함께 사용한 <code>-rm</code> 플래그는 컨테이너가 종료 상태로 들어가면 자동으로 삭제를 해주는 옵션입니다.</p>
 
-<p>네, 다시 한 번 이야기합니다. 이미지에는 접속한다는 개념이 없습니다. 실제로 실행되는 <strong>가상 머신</strong>은 항상 컨테이너입니다. 분명 저는 &#39;명령어&#39;를 실행시킨다고 했습니다만, 컨테이너란 격리된 환경에서 특정한 명령을 실행시켜주는 가상 머신과 같은 무언가입니다. 그렇다면 쉘을 실행시키지 않았을 때 이 가상 머신을 조작할 수 있는 방법이 있을까요? 원론적으로 불가능한 것은 아닙니다. 이 부분에 대해서 여기선 다루지 않습니다만, 직접 파일 시스템을 조작할 수도 있고, 리눅스 컨테이너를 조작해 특정 컨테이너에 대해 쉘을 실행시킬 수도 있습니다. 하지만 좀 더 정상적인 방법은 조작이 필요한 컨테이너에 ssh 서비스를 올려서 ssh 프로토콜로 접근하는 방법입니다. 실제 도커로 서비스를 운영하면 이런 부분이 절실할 날이 오겠지만, 일단은 그렇구나 하고 넘어가셔도 무방합니다.</p>
+<p>네, 다시 한 번 이야기합니다. 이미지에는 접속한다는 개념이 없습니다. 실제로 실행되는 <strong>가상 머신</strong>은 항상 컨테이너입니다. 분명 저는 &#39;명령어&#39;를 실행시킨다고 했습니다만, 컨테이너란 격리된 환경에서 특정한 명령을 실행시켜주는 가상 머신과 같은 무언가입니다. 그렇다면 쉘을 실행시키지 않았을 때 이 가상 머신을 조작할 수 있는 방법이 있을까요? 원론적으로 불가능한 것은 아닙니다. 이 부분에 대해서 여기선 다루지 않습니다만, 직접 파일 시스템을 조작할 수도 있고, 리눅스 컨테이너를 조작해 특정 컨테이너에 대해 쉘을 실행시킬 수도 있습니다. 하지만 좀 더 정상적인 방법은 조작이 필요한 컨테이너에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ssh' rel='noindex,nofollow'>ssh</a></span> 서비스를 올려서 ssh 프로토콜로 접근하는 방법입니다. 실제 도커로 서비스를 운영하면 이런 부분이 절실할 날이 오겠지만, 일단은 그렇구나 하고 넘어가셔도 무방합니다.</p>
 
 <h2><a name='버전-관리-시스템과-도커'>버전 관리 시스템과 도커</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
@@ -256,13 +277,13 @@ Jan 27 2014
 
 <p>당연히 이미지에는 아무런 변화도 생기지 않습니다. 아주 세속적인 예를 들어보면 윈도우 CD로 윈도우를 설치해서 사용한다고 해서 설치한 윈도우 CD에 어떤 변화가 생기지는 않는 것과 같은 이치입니다. 이미지는 어디까지나 고정된 이미지입니다. 도커에서 이미지는 불변(Immutable)하는 저장 매체입니다. 그런데 도커에서 이미지는 불변이지만 이 이미지 위에 무언가를 더해서 새로운 이미지를 만들어내는 일이 가능합니다. 좀 더 정확히 말하면 컨테이너는 변경가능(Mutabe)합니다. 특정한 이미지로부터 생성된 컨테이너에 어떤 변경사항을 더하고, 이 변경된 상태를 이미지로 만들어내는 것이 가능합니다.</p>
 
-<p>앞서 실행한 컨테이너에 Git을 설치해보겠습니다. 위에서 실행한 쉘에 다음과 같은 명령어를 입력합니다.</p>
+<p>앞서 실행한 컨테이너에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'>Git</a></span>을 설치해보겠습니다. 위에서 실행한 쉘에 다음과 같은 명령어를 입력합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">root</span><span class="err">@</span><span class="n">e2af61348652</span><span class="o">:/</span><span class="err">#</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">git</span>
 </span><span id="line-2"><span class="p">...</span>
 </span><span id="line-3"><span class="n">root</span><span class="err">@</span><span class="n">e2af61348652</span><span class="o">:/</span><span class="err">#</span> <span class="n">git</span> <span class="o">--</span><span class="n">version</span>
 </span><span id="line-4"><span class="n">git</span> <span class="n">version</span> <span class="mf">1.7.9.5</span>
 </span></pre></div>
-<p>우분투의 패키지 관리자인 apt-get을 통해서 버전 관리 시스템인 <code>Git</code>을 설치했습니다. 여기서 도커는 마치 자신이 VCS인양, 어떤 컨테이너와 이 컨테이너의 부모 이미지 간의 파일의 변경사항을 확인할 수 있는 명령어를 제공합니다. 마치 <code>git diff</code> 명령어로 프로젝트의 변경사항을 확인하듯이, <code>docker diff</code> 명령어로 부모 이미지와 여기서 파생된 컨테이너의 파일 시스템 간의 변경사항을 확인할 수 있습니다. </p>
+<p>우분투의 패키지 관리자인 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/apt-get' rel='noindex,nofollow'>apt-get</a></span>을 통해서 버전 관리 시스템인 <code>Git</code>을 설치했습니다. 여기서 도커는 마치 자신이 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vcs' rel='noindex,nofollow'>VCS</a></span>인양, 어떤 컨테이너와 이 컨테이너의 부모 이미지 간의 파일의 변경사항을 확인할 수 있는 명령어를 제공합니다. 마치 <code>git diff</code> 명령어로 프로젝트의 변경사항을 확인하듯이, <code>docker diff</code> 명령어로 부모 이미지와 여기서 파생된 컨테이너의 파일 시스템 간의 변경사항을 확인할 수 있습니다. </p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker diff e2af61
 </span><span id="line-2">A /.bash_history
 </span><span id="line-3">A /.wh..wh.plnk/310.4862541
@@ -311,7 +332,7 @@ Jan 27 2014
 
 <p>멀리 돌아왔습니다. 앞서서 도커 이미지를 추가하는 방법은 크게 세 가지가 있다고 이야기했습니다. 먼저 <code>pull</code>을 사용하는 방법은 이미 앞에서 다룬 바 있습니다. 그리고 컨테이너의 변경사항으로부터 이미지를 만드는 법에 대해서도 소개했습니다. 이러한 방법들은 매우 좋기는 하지만, 어딘가 2% 부족합니다. 이를 보완해주는 Dockerfile이라고 불리는 도커 이미지 생성용 배치 파일이 있습니다.</p>
 
-<p>Dockerfile은 특정한 이미지를 출발점으로 새로운 이미지 구성에 필요한 일련의 명령어들을 저장해놓는 파일입니다. 미리 만들어둔 docker-moniwiki라는 프로젝트를 통해서 간단히 Dockerfile을 설명하고, 실제로 모니위키 어플리케이션을 가진 이미지를 생성하고 컨테이너를 통해서 실행시켜보도록하겠습니다. 먼저 프로젝트를 clone 받습니다.</p>
+<p>Dockerfile은 특정한 이미지를 출발점으로 새로운 이미지 구성에 필요한 일련의 명령어들을 저장해놓는 파일입니다. 미리 만들어둔 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker-moniwiki' rel='noindex,nofollow'>docker-moniwiki</a></span>라는 프로젝트를 통해서 간단히 Dockerfile을 설명하고, 실제로 모니위키 어플리케이션을 가진 이미지를 생성하고 컨테이너를 통해서 실행시켜보도록하겠습니다. 먼저 프로젝트를 clone 받습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/nacyot/docker-moniwiki.git</span>
 </span></pre></div>
 <p>이 프로젝트에는 3개의 파일이 있습니다만, 실질적으로 Dockerfile 하나밖에 없다고 보셔도 무방합니다. 전체 파일 내용은 다음과 같습니다.</p>
@@ -372,7 +393,7 @@ Jan 27 2014
 </span><span id="line-12"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">qq</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">php5</span>
 </span><span id="line-13"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">-</span><span class="n">qq</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">libapache2</span><span class="o">-</span><span class="n">mod</span><span class="o">-</span><span class="n">php5</span>
 </span></pre></div>
-<p>다음 부분에서는 모니위키 설치에 필요한 패키지들과 apache2 서버, php 프로그램을 설치 및 설정해줍니다. 아파치 설치 과정에서 나오는 <code>ENV</code>를 통해 환경 변수를 지정할 수 있습니다.</p>
+<p>다음 부분에서는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/moniwiki' rel='noindex,nofollow'>모니위키</a></span> 설치에 필요한 패키지들과 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/apache' rel='noindex,nofollow'>apache2</a></span> 서버, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/php' rel='noindex,nofollow'>php</a></span> 프로그램을 설치 및 설정해줍니다. 아파치 설치 과정에서 나오는 <code>ENV</code>를 통해 환경 변수를 지정할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># Install Moniwiki</span>
 </span><span id="line-2"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">rcs</span>
 </span><span id="line-3"><span class="n">RUN</span> <span class="n">cd</span> <span class="o">/</span><span class="n">tmp</span><span class="p">;</span> <span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="o">-</span><span class="n">O</span> <span class="n">http</span><span class="o">:</span><span class="c1">//dev.naver.com/frs/download.php/8193/moniwiki-1.2.1.tgz</span>
@@ -439,9 +460,9 @@ Jan 27 2014
 </span></pre></div>
 <p>이미지 아이디가 빌드 과정에서 출력되는 아이디와 같은 것을 알 수있습니다. 필요한 경우 중간 이미지에 접근하거나 직접 중간 이미지로부터 다른 이미지를 생성하는 것도 가능합니다. 정말 좋은 소식은 도커는 이러한 빌드 순서를 기억하고 각 이미지를 보존하기 때문에 같은 빌드 과정에 대해서는 캐시를 사용해 매우 빠르게 빌드가 가능하다는 점입니다. 실제로 Docker 파일을 만드는 과정에서는 많은 시행 착오를 겪게되는데, 중간에 빌드가 실패하더라도 성공했던 명령어까지는 거의 시간 소모 없이 빠르게 진행되도록 설계되어있습니다.</p>
 
-<p>빌드 자체는 꽤나 번거로운 일입니다. 도커의 가상화가 굉장히 빠르다고 해도 어플리케이션 실행환경을 구축하는 일은 상당히 시간도 많이 걸립니다. 더욱이 빌드 자체는 완벽히 &#39;재현 가능&#39;하지 않습니다. 하지만 이렇게 Dockerfile을 통해서 배치화를 시켜두면 Dockerfile이라는 정말 작은 파일 하나로 어플리케이션 배포 환경을 구축할 수 있다는 장점이 있으며, 또한 쉽게 유연하게 사용할 수 있습니다. 아주 흥미로운 이야기를 하나 해드리자면 Docker 생태계에 있는 오픈소스 어플리케이션들은 아예 Dockerfile을 프로젝트에 포함하고 있습니다. 대표적으로 도커 모니터링 툴인 <a href="https://github.com/shipyard/shipyard">Shipyard</a>가 있습니다. 여기서 제공하는 Dockerfile을 빌드해서 이미지를 만들고, 이 이미지로 컨테이너를 가동하면 바로 shipyard 어플리케이션을 사용할 수 있습니다. 전율이 느껴지시나요?</p>
+<p>빌드 자체는 꽤나 번거로운 일입니다. 도커의 가상화가 굉장히 빠르다고 해도 어플리케이션 실행환경을 구축하는 일은 상당히 시간도 많이 걸립니다. 더욱이 빌드 자체는 완벽히 &#39;재현 가능&#39;하지 않습니다. 하지만 이렇게 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/dockerfile' rel='noindex,nofollow'>Dockerfile</a></span>을 통해서 배치화를 시켜두면 Dockerfile이라는 정말 작은 파일 하나로 어플리케이션 배포 환경을 구축할 수 있다는 장점이 있으며, 또한 쉽게 유연하게 사용할 수 있습니다. 아주 흥미로운 이야기를 하나 해드리자면 Docker 생태계에 있는 오픈소스 어플리케이션들은 아예 Dockerfile을 프로젝트에 포함하고 있습니다. 대표적으로 도커 모니터링 툴인 <a href="https://github.com/shipyard/shipyard">Shipyard</a>가 있습니다. 여기서 제공하는 Dockerfile을 빌드해서 이미지를 만들고, 이 이미지로 컨테이너를 가동하면 바로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/shipyard' rel='noindex,nofollow'>shipyard</a></span> 어플리케이션을 사용할 수 있습니다. 전율이 느껴지시나요?</p>
 
-<p>Dockerfile은 단순히 어플리케이션 설치를 스크립트로 만들어주는 게 아니라, 배포환경 구축까지 한꺼번에 해주는 역할을 합니다. 오래전 제로보드나 테터툴즈 한 번 설치해보겠다고 <code>&lt;? phpinfo() ?&gt;</code> 찍어가며 php랑 aphche랑 잘 붙었나 안 붙었나 확인해보고 안 되면 이유도 못 찾아 혼자 서러워했던 적이 있는 분이라면(어라?) 이해하리라 믿습니다. 다른 예를 들어볼까요? 설치가 까다로운 걸로 악명높은 오픈소스 웹 어플리케이션 중에 <a href="http://gitlab.org/">Gitlab</a>이라는 어플리케이션이 있습니다. <a href="https://github.com/crashsystems/gitlab-docker">gitlab-docker</a>에서 제공하는 <code>Dockerfile</code> 하나면 이제 Gitlab도 두렵지 않습니다. 그저 <code>Build</code>하고 <code>Run</code>하면 Gitlab이 뜹니다.</p>
+<p>Dockerfile은 단순히 어플리케이션 설치를 스크립트로 만들어주는 게 아니라, 배포환경 구축까지 한꺼번에 해주는 역할을 합니다. 오래전 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/zeroboard' rel='noindex,nofollow'>제로보드</a></span>나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/tattertools' rel='noindex,nofollow'>테터툴즈</a></span> 한 번 설치해보겠다고 <code>&lt;? phpinfo() ?&gt;</code> 찍어가며 php랑 aphche랑 잘 붙었나 안 붙었나 확인해보고 안 되면 이유도 못 찾아 혼자 서러워했던 적이 있는 분이라면(어라?) 이해하리라 믿습니다. 다른 예를 들어볼까요? 설치가 까다로운 걸로 악명높은 오픈소스 웹 어플리케이션 중에 <a href="http://gitlab.org/">Gitlab</a>이라는 어플리케이션이 있습니다. <a href="https://github.com/crashsystems/gitlab-docker">gitlab-docker</a>에서 제공하는 <code>Dockerfile</code> 하나면 이제 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gitlab' rel='noindex,nofollow'>Gitlab</a></span>도 두렵지 않습니다. 그저 <code>Build</code>하고 <code>Run</code>하면 Gitlab이 뜹니다.</p>
 
 <p>네, 얘기가 길어졌네요. 다시 모니위키로 돌아갑니다. 빌드가 끝났으니 실행을 해보겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -d -p 9999:80 nacyot/moniwiki
@@ -458,7 +479,7 @@ Jan 27 2014
 
 <h2><a name='정리'>정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>도커의 활용가능성은 무궁무진합니다. 당연히 실제 배포에도 사용할 수 있고, 유연하고 날렵한 격리된 환경을 활용해 실험적인 개발을 진행할 수도 있습니다. Vagrant보다도 훨씬 빠른 가상 환경을 활용할 수 있으며 접근 방법은 다르지만 서버환경을 자동적으로 구성할 수도 있습니다. 미리 만든 이미지를 자신의 저장소(registry)에 등록해 여러대의 머신에 컨테이너들을 자동적으로 배포할 수도 있고, 오픈소스 프로젝트에서 Dockerfile을 제공해 설치를 색다른 방법으로(?) 지원할 수도 있습니다. <a href="https://github.com/progrium/dokku">Dokku</a>를 사용하면 정말 쉽게 mini-heroku와 같은 PaaS 플랫폼을 구축해 볼 수도 있습니다.</p>
+<p>도커의 활용가능성은 무궁무진합니다. 당연히 실제 배포에도 사용할 수 있고, 유연하고 날렵한 격리된 환경을 활용해 실험적인 개발을 진행할 수도 있습니다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vagrant' rel='noindex,nofollow'>Vagrant</a></span>보다도 훨씬 빠른 가상 환경을 활용할 수 있으며 접근 방법은 다르지만 서버환경을 자동적으로 구성할 수도 있습니다. 미리 만든 이미지를 자신의 저장소(registry)에 등록해 여러대의 머신에 컨테이너들을 자동적으로 배포할 수도 있고, 오픈소스 프로젝트에서 Dockerfile을 제공해 설치를 색다른 방법으로(?) 지원할 수도 있습니다. <a href="https://github.com/progrium/dokku">Dokku</a>를 사용하면 정말 쉽게 mini-heroku와 같은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/paas' rel='noindex,nofollow'>PaaS</a></span> 플랫폼을 구축해 볼 수도 있습니다.</p>
 
 <p>단순히 생산성을 넘어, 도커의 매력은 상상력을 자극한다는 점입니다. 특히나 서버 자동화가 화두인 요즘에 인프라스트럭쳐가 <strong>코드</strong>로 변해버리는 묘한 체험을 하게 해줍니다. 인프라스트럭쳐가 코드가 되면 뭔가 신기한 일들이 벌어집니다. 이런 상황에서 아직까지 낯설게 느껴질지도 모르는 개념이고 툴입니다만 직접 설치하고  이것저것 해보다보면 저처럼 분명 반하실 거라 생각합니다 :)</p>
 

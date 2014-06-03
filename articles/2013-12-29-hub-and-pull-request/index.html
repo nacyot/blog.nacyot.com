@@ -75,12 +75,32 @@ nacyot
 <div class='main'>
 <div class='articles'>
 <div class='article'>
+<div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Dec 29 2013
 </span>
+</div>
+<div>
 <span class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/git'>git</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>github</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/hub'>hub</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/pull-request'>pull request</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/zsh'>zsh</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/루비'>루비</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/풀리퀘스트'>풀리퀘스트</a>
 </span>
+</div>
 <a name='toc'></a>
 <h1 class='title'>
 <a href="./">hub로 명령행에서 Github 풀리퀘스트 보내기</a>
@@ -103,17 +123,17 @@ Dec 29 2013
 
 </div>
 <div class='body'>
-<p>오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/open_source' rel='noindex,nofollow'>오픈소스</a></span>를 비롯해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'>git</a></span>를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/github' rel='noindex,nofollow'>Github</a></span>를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.</p>
 
 
 
 <p>예를 들어서 다른 사람이 만든 저장소를 자신의 계정에 fork해서 별도로 관리할 수 있고, 이렇게 fork해서 수정한 저장소의 브랜치를 pull-request를 통해서 원래의 저장소에 통합하도록 요청할 수도 있습니다. 이외에도 이슈 관리와 위키를 비롯한 매우 다양한 기능들이 지원됩니다. 이러한 Github의 장점들은 단순히 git을 활용한 좋은 버전관리 시스템이라는 것을 넘어서 프로젝트 관리를 위한 도구로서 Github 서비스를 차별화 시켜줍니다.</p>
 
-<p>하지만 대부분의 기능들은 기본적으로 웹인터페이스로만 사용할 수 있다는 단점이 있습니다. Git의 가장 기본적인 클라이언트 프로그램은 git 명령어로 커맨드라인에서 사용할 수 있습니다. 하지만 Github는 일차적으로 웹서비스로서 부가적인 기능들을 웹을 통해서 제공합니다. GUI나 화면에 익숙한 분들에게는 이러한 면은 또다른 장점이 될 수도 있겠지만, 커맨드 라인에서 직접 git 명령어를 입력하고, 저장소의 상태를 확인하는 사람들에게는 워크 플로우가 웹과 커맨드라인으로 나눠진다는 게 영 장점이지만은 않습니다.</p>
+<p>하지만 대부분의 기능들은 기본적으로 웹인터페이스로만 사용할 수 있다는 단점이 있습니다. Git의 가장 기본적인 클라이언트 프로그램은 git 명령어로 커맨드라인에서 사용할 수 있습니다. 하지만 Github는 일차적으로 웹서비스로서 부가적인 기능들을 웹을 통해서 제공합니다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gui' rel='noindex,nofollow'>GUI</a></span>나 화면에 익숙한 분들에게는 이러한 면은 또다른 장점이 될 수도 있겠지만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cli' rel='noindex,nofollow'>커맨드라인</a></span>에서 직접 git 명령어를 입력하고, 저장소의 상태를 확인하는 사람들에게는 워크 플로우가 웹과 커맨드라인으로 나눠진다는 게 영 장점이지만은 않습니다.</p>
 
 <p>물론 Github에서 제공하는 API를 직접 이용하는 방법도 있긴있겠습니다만, 매우 번거로운 작업입니다. Github에서는 이러한 문제를 해결하기 위해서 저장소 생성, 포크 및 풀리퀘스트 등 주요한 기능을 커맨드라인 인터페이스로 제공해주는 Hub라는 git 명령어의 확장 인터페이스를 제공하고 있습니다. <a href="https://github.com/github/hub">Hub</a>라는 이름은 git + hub = Github 라는 공식에서 나온 이름도 참 앙증맞습니다.</p>
 
-<p>이 글은 Hub를 설치하고 실제 커맨드라인에서 풀리퀘스트를 보내는 과정을 다룹니다. 기본적으로 Github의 풀리퀘스트 기능 정도는 익숙하다는 걸 전제로(최소한 개념 정도는 이해하고 있다는 전제로) 이야기합니다.</p>
+<p>이 글은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/hub' rel='noindex,nofollow'>Hub</a></span>를 설치하고 실제 커맨드라인에서 풀리퀘스트를 보내는 과정을 다룹니다. 기본적으로 Github의 풀리퀘스트 기능 정도는 익숙하다는 걸 전제로(최소한 개념 정도는 이해하고 있다는 전제로) 이야기합니다.</p>
 
 <h1><a name='hub-설치'>Hub 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
 
@@ -134,7 +154,7 @@ Dec 29 2013
 </span><span id="line-2"><span class="nv">$ </span><span class="nb">cd </span>hub
 </span><span id="line-3"><span class="nv">$ </span>rake install
 </span></pre></div>
-<p>설치 시 ruby의 <code>rake</code> 명령어가 지원되어야합니다. <code>rake</code> 명령어가 없다면 <code>gem install rake</code>로 먼저 rake를 설치해주시기 바랍니다. 또한 <code>rake install</code> 명령어 실행시 기본적으로 메인 시스템 상에 프로그램을 설치하므로 <code>sudo</code> 등을 붙여 관리자 권한으로 설치해야할 수도 있습니다.</p>
+<p>설치 시 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>ruby</a></span>의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rake' rel='noindex,nofollow'>rake</a></span> 명령어가 지원되어야합니다. <code>rake</code> 명령어가 없다면 <code>gem install rake</code>로 먼저 rake를 설치해주시기 바랍니다. 또한 <code>rake install</code> 명령어 실행시 기본적으로 메인 시스템 상에 프로그램을 설치하므로 <code>sudo</code> 등을 붙여 관리자 권한으로 설치해야할 수도 있습니다.</p>
 
 <p>설치가 정상적으로 끝났다면 아래와 같이 <code>hub</code> 명령어를 사용할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>hub --version
@@ -145,7 +165,7 @@ Dec 29 2013
 <div class="highlight"><pre><span id="line-1"><span class="cp"># Wrap git automatically by adding the following to ~/.zshrc:</span>
 </span><span id="line-2"><span class="n">eval</span> <span class="s">&quot;$(hub alias -s)&quot;</span>
 </span></pre></div>
-<p>예를 들어 zsh 사용하고 있다면 <code>~/.zshrc</code> 파일에, bash를 사용하고 있다면 <code>~/.bash_profile</code> 파일에 <code>eval &quot;$(hub alias -s)&quot;</code>을 추가해주면 쉘 초기화 시에 git와 hub 명령어를 통합시켜줍니다. git와 hub 명령어는 기능적으로는 겹치지 않으며, hub가 git를 보완하는 역할을 하고 있으므로 이렇게 사용하더라도 별다른 문제가 되지 않습니다.</p>
+<p>예를 들어 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/zsh' rel='noindex,nofollow'>zsh</a></span> 사용하고 있다면 <code>~/.zshrc</code> 파일에, bash를 사용하고 있다면 <code>~/.bash_profile</code> 파일에 <code>eval &quot;$(hub alias -s)&quot;</code>을 추가해주면 쉘 초기화 시에 git와 hub 명령어를 통합시켜줍니다. git와 hub 명령어는 기능적으로는 겹치지 않으며, hub가 git를 보완하는 역할을 하고 있으므로 이렇게 사용하더라도 별다른 문제가 되지 않습니다.</p>
 
 <p>이제 설치가 끝났으니 쉘을 재실행 시켜줍니다. git 명령어를 통해서 제대로 alias 되었는지 확인합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>git --version

@@ -75,12 +75,42 @@ nacyot
 <div class='main'>
 <div class='articles'>
 <div class='article'>
+<div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Jan 29 2014
 </span>
+</div>
+<div>
 <span class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/buildpack'>buildpack</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/buildstep'>buildstep</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dokku'>dokku</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/heroku'>heroku</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/heroku'>heroku</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/iaas'>iaas</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/nginx'>nginx</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/paas'>paas</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/도커'>도커</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/도쿠'>도쿠</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/튜토리얼'>튜토리얼</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/히로쿠'>히로쿠</a>
 </span>
+</div>
 <a name='toc'></a>
 <h1 class='title'>
 <a href="./">도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)</a>
@@ -117,29 +147,29 @@ Jan 29 2014
 
 </div>
 <div class='body'>
-<p>지난 번 <a href="http://docker.io/">도커</a> 시리즈의 첫번째 글에서는 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a> 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 도커를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 <a href="https://github.com/progrium/dokku/blob/master/dokku">도쿠</a>(Dokku)를 다루도록 하겠습니다.</p>
+<p>지난 번 <a href="http://docker.io/">도커</a> 시리즈의 첫번째 글에서는 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a> 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 <a href="https://github.com/progrium/dokku/blob/master/dokku">도쿠</a>(Dokku)를 다루도록 하겠습니다.</p>
 
 
 
 <h2><a name='도쿠(dokku)-소개'>도쿠(Dokku) 소개</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>Jeff Lindsay이 개발한 도쿠는 도커(Docker)를 활용해 100줄 남짓한 쉘스크립트 본체와 도쿠를 둘러싼 몇 가지 모듈들을 활용해 미니 <a href="https://heroku.com">히로쿠</a>(Heroku)와 같은 PaaS 환경을 구축할 수 있도록 해줍니다. 도쿠 스스로가 미니 히로쿠라고 표현하고 있습니다만, 사용해보시면 아시겠지만 정말 히로쿠와 비슷합니다. 실제로 내부적으로 도쿠는 히로쿠에서 공개한 각 언어별 빌드팩들을 그대로 사용하고 있습니다. 히로쿠를 통해서 서비스를 배포해보셨거나 <a href="http://ruby.railstutorial.org/">Rails Tutorial</a>을 따라하면서 배포를 연습해보셨던 분들이라면 꽤나 반갑게 느껴지실 겁니다. 실제로 활용을 하건 안하건, 이런 훌륭한 시스템(생태계)을 직접 구축해볼 수 있다니!</p>
+<p>Jeff Lindsay이 개발한 도쿠는 도커(Docker)를 활용해 100줄 남짓한 쉘스크립트 본체와 도쿠를 둘러싼 몇 가지 모듈들을 활용해 미니 <a href="https://heroku.com">히로쿠</a>(Heroku)와 같은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/paas' rel='noindex,nofollow'>PaaS</a></span> 환경을 구축할 수 있도록 해줍니다. 도쿠 스스로가 미니 히로쿠라고 표현하고 있습니다만, 사용해보시면 아시겠지만 정말 히로쿠와 비슷합니다. 실제로 내부적으로 도쿠는 히로쿠에서 공개한 각 언어별 빌드팩들을 그대로 사용하고 있습니다. 히로쿠를 통해서 서비스를 배포해보셨거나 <a href="http://ruby.railstutorial.org/">Rails Tutorial</a>을 따라하면서 배포를 연습해보셨던 분들이라면 꽤나 반갑게 느껴지실 겁니다. 실제로 활용을 하건 안하건, 이런 훌륭한 시스템(생태계)을 직접 구축해볼 수 있다니!</p>
 
-<p>도커도 도쿠도 매력적이지 않을 수 없습니다.</p>
+<p>도커도 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/dokku' rel='noindex,nofollow'>도쿠</a></span>도 매력적이지 않을 수 없습니다.</p>
 
-<p>히로쿠나 PaaS에 대해서 잘 모르는 분들은 이런 개념이 낯설게 느껴지실 지도 모릅니다. 히로쿠나 PaaS 역시 클라우드 생태계의 한 축을 구성하고 있는 단어들입니다. 클라우드하면 가상화입니다. 클라우드의 본질적인 가치는 하드웨어 추상화에 있습니다. 하드웨어를 추상화하기 위해서는 다양한 기술과 관리를 위한 기술들이 필요합니다만, 이렇게 추상화된 하드웨어를 이용하는 입장에서는 &#39;더 이상&#39; 하드웨어라는 물리적인 영역을 신경쓰지 않아도 됩니다. 개발과는 거리가 있습니다만, 이런 종류의 추상화를 가장 잘 보여주는 게 <strong>구글 검색창</strong>입니다. 그 안에서 어떠한 로직과 방법으로 데이터를 분석하는지는 전혀 알 필요없이, 우리는 구글의 엄청나게 거대한 시스템을 사용할 수 있습니다. 그렇게 보자면 서비스는 가장 높은 단계의 추상화라고 할 수 있습니다. </p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/heroku' rel='noindex,nofollow'>히로쿠</a></span>나 PaaS에 대해서 잘 모르는 분들은 이런 개념이 낯설게 느껴지실 지도 모릅니다. 히로쿠나 PaaS 역시 클라우드 생태계의 한 축을 구성하고 있는 단어들입니다. 클라우드하면 가상화입니다. 클라우드의 본질적인 가치는 하드웨어 추상화에 있습니다. 하드웨어를 추상화하기 위해서는 다양한 기술과 관리를 위한 기술들이 필요합니다만, 이렇게 추상화된 하드웨어를 이용하는 입장에서는 &#39;더 이상&#39; 하드웨어라는 물리적인 영역을 신경쓰지 않아도 됩니다. 개발과는 거리가 있습니다만, 이런 종류의 추상화를 가장 잘 보여주는 게 <strong><span class='dead_link'><a href='http://wiki.nacyot.com/documents/google' rel='noindex,nofollow'>구글</a></span> 검색창</strong>입니다. 그 안에서 어떠한 로직과 방법으로 데이터를 분석하는지는 전혀 알 필요없이, 우리는 구글의 엄청나게 거대한 시스템을 사용할 수 있습니다. 그렇게 보자면 서비스는 가장 높은 단계의 추상화라고 할 수 있습니다. </p>
 
-<p>IaaS나 Paas는 이보다 좀 더 낮은 단계의 추상화를 제공합니다. 서비스를 이용하는 사람은 서버가 어떤 하드웨어로 구성되어있고, 램은 몇 기가고 CPU는 뭘 쓰고 있고 신경쓸 필요가 없을 뿐더러, 어떤 운영체게 위에서 돌아가는지, 어플리케이션이 어떤 언어를 사용하고, 어떤 구조로 만들어져있고 데이터베이스가 어떻게 분산되어있는지도 신경쓸 필요가 없습니다. 앞의 문장을 <strong>어디까지 신경써야 하는가</strong>를 가지고 단계를 나눌 수 있습니다. 앞서 이야기했듯이 서비스는 위에서 아무것도 신경쓰지 않습니다. 여기서 한단계 내려가면 사용하는 언어와 어플리케이션만 신경써야하는 단계가 있습니다. 이 아래에 있는 것들은 서비스로 지원합니다. 여기가 PaaS가 위치한 곳입니다. 여기서 더 아래로 내려가면 CPU의 성능과 램의 용량을 따지고 어떤 운영체제를 사용하고  각각의 시스템들을 어떻게 연동시켜야하는지 하는 부분이 나옵니다. 심지어 시스템의 크기까지 제어할 수 있습니다. 여기가 바로 IaaS가 위치한 곳입니다. 더 아래로 내려가면 네, 실제 서버 구성부터 이것저것 모든 것을 다 해야합니다. 해보신 분들은 아시겠지만 이런 일은 한 마디로 말해서 고역입니다. 운영체제도 하드웨어도 같지 않은 같지 않은 수십대의 시스템을 효과적으로 관리한다는 건 거의 불가능에 가깝습니다. 거기다가 고장까지 고려하면 더더욱 쉽지 않은 일입니다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/iaas' rel='noindex,nofollow'>IaaS</a></span>나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/paas' rel='noindex,nofollow'>Paas</a></span>는 이보다 좀 더 낮은 단계의 추상화를 제공합니다. 서비스를 이용하는 사람은 서버가 어떤 하드웨어로 구성되어있고, 램은 몇 기가고 CPU는 뭘 쓰고 있고 신경쓸 필요가 없을 뿐더러, 어떤 운영체게 위에서 돌아가는지, 어플리케이션이 어떤 언어를 사용하고, 어떤 구조로 만들어져있고 데이터베이스가 어떻게 분산되어있는지도 신경쓸 필요가 없습니다. 앞의 문장을 <strong>어디까지 신경써야 하는가</strong>를 가지고 단계를 나눌 수 있습니다. 앞서 이야기했듯이 서비스는 위에서 아무것도 신경쓰지 않습니다. 여기서 한단계 내려가면 사용하는 언어와 어플리케이션만 신경써야하는 단계가 있습니다. 이 아래에 있는 것들은 서비스로 지원합니다. 여기가 PaaS가 위치한 곳입니다. 여기서 더 아래로 내려가면 CPU의 성능과 램의 용량을 따지고 어떤 운영체제를 사용하고  각각의 시스템들을 어떻게 연동시켜야하는지 하는 부분이 나옵니다. 심지어 시스템의 크기까지 제어할 수 있습니다. 여기가 바로 IaaS가 위치한 곳입니다. 더 아래로 내려가면 네, 실제 서버 구성부터 이것저것 모든 것을 다 해야합니다. 해보신 분들은 아시겠지만 이런 일은 한 마디로 말해서 고역입니다. 운영체제도 하드웨어도 같지 않은 같지 않은 수십대의 시스템을 효과적으로 관리한다는 건 거의 불가능에 가깝습니다. 거기다가 고장까지 고려하면 더더욱 쉽지 않은 일입니다.</p>
 
 <p>다시 클라우드입니다만, 클라우드의 본질적인 가치는 어플리케이션을 개발하는데 있어서 우리가 어디까지 신경서야하는 지 그 위치를 <strong>선택가능한 옵션</strong>으로 떨어뜨려줬다는 데 있습니다. 그건 내가 해줄게 하는 겁니다. AWS가 나오기 전에 서비스를 만드는 사람들에게 그런 종류의 선택권은 존재하지 않았습니다. 구체적이 서비스를 예를 들면 <a href="http://aws.amazon.com/en/ec2/">AmazonWS EC2</a>가 IaaS라면 히로쿠나 구글 앱 엔진은 대표적인 PaaS 서비스입니다. 더욱 재미있는 건 Heroku가 다름 아닌 AWS 위에서 돌아가고 있다는 사실입니다. </p>
 
-<p>특히 히로쿠는 <a href="http://rubyonrails.org/">루비 온 레일즈</a>를 시작으로 현재는 자바, Nodejs, 파이썬 어플리케이션까지 지원하고 있습니다. 히로쿠를 사용하면 회사나 개발자는 딱 <strong>어플리케이션</strong>만 만들어내면 됩니다. 거짓말 조금 보태서 어디서 어떻게 관리하고 배포할 지 일절 고민할 필요가 없습니다. 어플리케이션을 만들고 Heroku에 있는 Git 서버에 푸쉬하기만 하면 어플리케이션을 자동으로 빌드하고 연결한 도메인으로 배포해줍니다. 이건 그저 감탄만 나올 정도로 너무 훌륭합니다만(!) 같은 크기에 있어서 IaaS 서비스보다 PaaS가 일반적으로 더 비싼 편이기 때문에 가격 정책이나 여러가지를 고려해서 맞는 서비스를 이용한 게 현명한 일입니다.</p>
+<p>특히 히로쿠는 <a href="http://rubyonrails.org/">루비 온 레일즈</a>를 시작으로 현재는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/java' rel='noindex,nofollow'>자바</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='noindex,nofollow'>Node.js</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/python' rel='noindex,nofollow'>파이썬</a></span> 어플리케이션까지 지원하고 있습니다. 히로쿠를 사용하면 회사나 개발자는 딱 <strong>어플리케이션</strong>만 만들어내면 됩니다. 거짓말 조금 보태서 어디서 어떻게 관리하고 배포할 지 일절 고민할 필요가 없습니다. 어플리케이션을 만들고 Heroku에 있는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'>Git</a></span> 서버에 푸쉬하기만 하면 어플리케이션을 자동으로 빌드하고 연결한 도메인으로 배포해줍니다. 이건 그저 감탄만 나올 정도로 너무 훌륭합니다만(!) 같은 크기에 있어서 IaaS 서비스보다 PaaS가 일반적으로 더 비싼 편이기 때문에 가격 정책이나 여러가지를 고려해서 맞는 서비스를 이용한 게 현명한 일입니다.</p>
 
 <p>네, 본 주제로 돌아가죠. 다시 도쿠입니다. 도쿠는 바로 Docker라는 가상화 기술을 활용해 이러한 PaaS를 직접 구축하게 도와주는 절대로 <strong>크지 않은</strong> 어플리케이션입니다. 절대로 많은 것을 요구하지도 않고 어렵지도 않습니다. 도커에 대해서 조금 아시면 좋고, 우분투를 사용하고 계신다면 당장 사용해볼 수 있습니다.</p>
 
 <h2><a name='도쿠-설치하기'>도쿠 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>당연한 이야기입니다. 도쿠를 사용하기 위해서는 먼저 설치를 해야합니다. Dokku는 현재 우분투 12나 13.04를 사용할 것을 권장하고 있습니다. 우분투 13.10에서도 사용한 바 정상적으로 사용이 가능했습니다만 몇 가지 이슈가 있어서 13.10에서 사용하는 것은 권장하지 않고 있는 상황입니다.<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup><sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup> 먼저 Docker는 설치가 되어있다고 가정하겠습니다. 아직 설치가 되어있지 않다면 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>나 도커 공식 홈페이지를 참조해 설치해주시기 바랍니다.</p>
+<p>당연한 이야기입니다. 도쿠를 사용하기 위해서는 먼저 설치를 해야합니다. Dokku는 현재 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>우분투</a></span> 12나 13.04를 사용할 것을 권장하고 있습니다. 우분투 13.10에서도 사용한 바 정상적으로 사용이 가능했습니다만 몇 가지 이슈가 있어서 13.10에서 사용하는 것은 권장하지 않고 있는 상황입니다.<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup><sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup> 먼저 Docker는 설치가 되어있다고 가정하겠습니다. 아직 설치가 되어있지 않다면 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>나 도커 공식 홈페이지를 참조해 설치해주시기 바랍니다.</p>
 
 <p>하나 주의해야하는 점은 도쿠 서버는 어디까지나 배포 서버입니다. 불가능한 건 아니지만, 가능하면 개발 서버와 분리된 환경이나 서버가 따로 없다면 가상 머신 상에서 테스트 해보기를 권장합니다. 또한 도메인 설정이 되어있어야 정상적으로 사용가능합니다(없이도 테스트나 사용은 가능합니다만 권장하지 않습니다). 자세한 내용은 각 설정에 대해서 얘기하는 부분에서 자세히 다룹니다.</p>
 
@@ -187,7 +217,7 @@ Jan 29 2014
 
 <h2><a name='첫-어플리케이션-배포'>첫 어플리케이션 배포</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>이제 끝나갑니다. 여기서는 도쿠의 README 문서를 따라 샘플 어플리케이션을 배포해보도록 하겠습니다. 샘플 어플리케이션으로는 히로쿠에서 제공하는 <code>node-js-sample</code>을 사용합니다. 참고로(!) 이 작업들은 개발 머신에서 진행합니다. </p>
+<p>이제 끝나갑니다. 여기서는 도쿠의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/readme' rel='noindex,nofollow'>README</a></span> 문서를 따라 샘플 어플리케이션을 배포해보도록 하겠습니다. 샘플 어플리케이션으로는 히로쿠에서 제공하는 <code>node-js-sample</code>을 사용합니다. 참고로(!) 이 작업들은 개발 머신에서 진행합니다. </p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>git clone https://github.com/heroku/node-js-sample.git
 </span></pre></div>
 <p>먼저 git 저장소에서 어플리케이션을 클론합니다. 이제 <code>node-js-sample</code> 폴더로 이동해 원격 저장소로 도쿠 서버를 등록하고 푸쉬해줍니다.</p>
@@ -225,7 +255,7 @@ Jan 29 2014
 
 <h2><a name='빌드스텝(buildstep)'><a href="https://github.com/progrium/buildstep">빌드스텝</a>(Buildstep)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>히로쿠를 써보신 분들이라면 눈치 까셨겠지만 빌드 과정에서 나오는 메시지들이 히로쿠에서 어플리케이션을 푸시할 때 나오는 메시지들과 매우 닮아있습니다. 실제로 도쿠 어플리케이션을 빌드하는 방법은 히로쿠에서 제공하는 빌드팩이라는 오픈소스를 통해서 이루어집니다. 사실 도쿠가 어떻게 도커를 사용하고 빌드팩을 사용하는지 이렇게 봐서는 이해가 어려울지도 모릅니다.</p>
+<p>히로쿠를 써보신 분들이라면 눈치 까셨겠지만 빌드 과정에서 나오는 메시지들이 히로쿠에서 어플리케이션을 푸시할 때 나오는 메시지들과 매우 닮아있습니다. 실제로 도쿠 어플리케이션을 빌드하는 방법은 히로쿠에서 제공하는 빌드팩이라는 오픈소스를 통해서 이루어집니다. 사실 도쿠가 어떻게 도커를 사용하고 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/buildpack' rel='noindex,nofollow'>빌드팩</a></span>을 사용하는지 이렇게 봐서는 이해가 어려울지도 모릅니다.</p>
 
 <p>도쿠는 분명 도커 기반으로 작동합니다. 하지만 이번 글에서는 아직 도커에 관련된 부분이 아직 나오지 않았습니다. 이제 도커가 나설 차례입니다. 도쿠를 설치하면 도커에서는 어떤일이 일어났을까요. 도쿠를 설치한 상태에서(위의 과정을 따라오셨다면, 설치가 되어있겠죠) 도커의 이미지를 확인해보겠습니다. 도쿠 서버에서 아래 명령어를 실행시켜주세요.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker images
@@ -262,7 +292,7 @@ Jan 29 2014
 </span><span id="line-7">builder  buildpacks  buildpacks.txt  packages.txt  prepare
 </span><span id="line-8">root@3a6b0a823acb:/build# 
 </span></pre></div>
-<p>빌드스탭 이미지에 쉘을 띄웁니다. 안에는 일반적인 리눅스 시스템에서는 보기 힘든 build라는 디렉토리가 있습니다. 들어가 봅니다. 들어가 보니 build와 관련된 파일들이 나옵니다. buildpakcs 디렉토리에 들어가보면 다음과 같은 디렉토리들이 있습니다.</p>
+<p>빌드스탭 이미지에 쉘을 띄웁니다. 안에는 일반적인 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/linux' rel='noindex,nofollow'>리눅스</a></span> 시스템에서는 보기 힘든 build라는 디렉토리가 있습니다. 들어가 봅니다. 들어가 보니 build와 관련된 파일들이 나옵니다. buildpakcs 디렉토리에 들어가보면 다음과 같은 디렉토리들이 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">root</span><span class="err">@</span><span class="mi">3</span><span class="n">a6b0a823acb</span><span class="o">:/</span><span class="n">build</span><span class="o">/</span><span class="n">buildpacks</span><span class="err">#</span> <span class="n">ls</span> <span class="o">-</span><span class="n">al</span>
 </span><span id="line-2"><span class="n">total</span> <span class="mi">64</span>
 </span><span id="line-3"><span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span> <span class="mi">16</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">4096</span> <span class="n">Jan</span> <span class="mi">29</span> <span class="mo">07</span><span class="o">:</span><span class="mi">16</span> <span class="p">.</span>
@@ -284,7 +314,7 @@ Jan 29 2014
 </span></pre></div>
 <p>오, 뭔가 노다지를 찾은 기분입니다. heroku-buildpack 들이 우글우글대고 있습니다. 실제 빌드스텝이 어떻게 구성되어 있는지는 <a href="https://github.com/progrium/buildstep">빌드스텝 저장소</a>를 참조해보시면 도움이 되실 거라고 생각합니다. 정말 단순합니다. 여기는 어플리케이션 빌드가 가능하도록 각 언어별 heroku-buildpack들을 clone해두었다고 보시면 됩니다.</p>
 
-<p>눈치채셨을 지도 모르겠지만, 빌드스탭 이미지 역시 커스터마이징이 가능합니다. 도쿠에서 빌드스탭이미지를 기반으로 빌드를 할 때는 단순히 <code>progrium/buildstep:latest</code>라는 이름을 가진 이미지를 기반으로 빌드를 합니다. 물론 기본적으로 내부에 위에서 간략히 보여드린 빌드팩들이 포함되어있어야하겠습니다만, 어쨌거나 원한다면 이미지를 수정하거나 필요한 패키지들을 더 집어넣을 수도 있습니다. 이미지 이름만 같으면 됩니다. 별도의 글에서 다룰 예정입니다만, 저 같은 경우는 [heroku-buildpack-ruby][buildpack-ruby]를 간단히 커스터마이징해서 쓰고 있고 그래서 이미지 안의 heroku-buildpack-ruby만 제 저장소에 있는 걸 클론해서 쓰고 있습니다. 위의 <code>ls</code> 출력 결과를 보시면 ruby만 수정 날짜가 다른 걸 알 수 있습니다.</p>
+<p>눈치채셨을 지도 모르겠지만, 빌드스탭 이미지 역시 커스터마이징이 가능합니다. 도쿠에서 빌드스탭이미지를 기반으로 빌드를 할 때는 단순히 <code>progrium/buildstep:latest</code>라는 이름을 가진 이미지를 기반으로 빌드를 합니다. 물론 기본적으로 내부에 위에서 간략히 보여드린 빌드팩들이 포함되어있어야하겠습니다만, 어쨌거나 원한다면 이미지를 수정하거나 필요한 패키지들을 더 집어넣을 수도 있습니다. 이미지 이름만 같으면 됩니다. 별도의 글에서 다룰 예정입니다만, 저 같은 경우는 [heroku-buildpack-ruby][buildpack-ruby]를 간단히 커스터마이징해서 쓰고 있고 그래서 이미지 안의 heroku-buildpack-ruby만 제 저장소에 있는 걸 클론해서 쓰고 있습니다. 위의 <code>ls</code> 출력 결과를 보시면 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>ruby</a></span>만 수정 날짜가 다른 걸 알 수 있습니다.</p>
 
 <h2><a name='도커-컨테이너와-도메인-연결'>도커 컨테이너와 도메인 연결</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
@@ -415,11 +445,11 @@ Jan 29 2014
 
 <p>이로써 <code>git push</code>를 하면 일어나는 마술을 정말 간략히만 파헤쳐봤습니다.</p>
 
-<p>다시 한 번 정리하자면 도쿠 서버에 푸시를 해서 실제로 일어나는 일이란, 이 빌드스텝(buildstep이라는 이미지를 기반으로, <code>/build</code> 폴더에 있는 히로쿠 빌드팩을 통해 어플리케이션을 빌드하고, nginx 설정 파일을 동적으로 만들고 재실행해서 원하는 도메인으로 서비스를 연결시켜주는 일입니다. </p>
+<p>다시 한 번 정리하자면 도쿠 서버에 푸시를 해서 실제로 일어나는 일이란, 이 빌드스텝(buildstep이라는 이미지를 기반으로, <code>/build</code> 폴더에 있는 히로쿠 빌드팩을 통해 어플리케이션을 빌드하고, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/nginx' rel='noindex,nofollow'>nginx</a></span> 설정 파일을 동적으로 만들고 재실행해서 원하는 도메인으로 서비스를 연결시켜주는 일입니다. </p>
 
 <h2><a name='정리'>정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>지금까지 도쿠를 통해 샘플 어플리케이션을 배포해보고, 배포가 어떻게 이루어지는 지 간략하게 살펴보았습니다. 이제 도쿠가 어떻게 돌아가는지 감이 좀 잡히시나요? 실제 서비스 운용을 위한 용도는 아닙니다만, 도커와 도쿠를 개인 서버는 물론 KT cloud와 SKT T developes VM, Amazon EC2 마이크로 인스턴스에도 올려봤습니다만 신기할 정도로 잘 돌아갑니다. 이렇게 쉽게(?) 내 손 안에 히로쿠가 올라오다니 신기할 따름입니다.</p>
+<p>지금까지 도쿠를 통해 샘플 어플리케이션을 배포해보고, 배포가 어떻게 이루어지는 지 간략하게 살펴보았습니다. 이제 도쿠가 어떻게 돌아가는지 감이 좀 잡히시나요? 실제 서비스 운용을 위한 용도는 아닙니다만, 도커와 도쿠를 개인 서버는 물론 [[KT cloud|kt<em>ucloud]]와 SKT T developes VM, [[Amazon EC2|aws</em>ec2]] 마이크로 인스턴스에도 올려봤습니다만 신기할 정도로 잘 돌아갑니다. 이렇게 쉽게(?) 내 손 안에 히로쿠가 올라오다니 신기할 따름입니다.</p>
 
 <p>이번에는 도쿠의 원리를 가볍게 보여드리고자 샘플 어플리케이션을 배포해보았습니다만, (언제가 될 지 기약은 없습니다만) 다음 글에서는 레일즈4 어플리케이션을 도쿠를 통해 배포하면서 데이터베이스를 연동하고 빌드 과정에서 생길 수 있는 문제와 이를 해결하기 위해 buildstep과 buildpack을 간단히 커스터마이징 해보겠습니다.</p>
 

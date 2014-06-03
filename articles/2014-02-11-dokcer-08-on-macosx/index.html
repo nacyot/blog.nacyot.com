@@ -75,12 +75,38 @@ nacyot
 <div class='main'>
 <div class='articles'>
 <div class='article'>
+<div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Feb 10 2014
 </span>
+</div>
+<div>
 <span class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/boot2docker'>boot2docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/coreos'>coreos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/lxc'>lxc</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/macosx'>macosx</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/virtual-machine'>virtual machine</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/가상머신'>가상머신</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/도커'>도커</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/맥'>맥</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/우분투'>우분투</a>
 </span>
+</div>
 <a name='toc'></a>
 <h1 class='title'>
 <a href="./">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
@@ -109,7 +135,7 @@ Feb 10 2014
 
 </div>
 <div class='body'>
-<p><a href="http://docker.io">도커</a>는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 소개 글</a>을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
+<p><a href="http://docker.io">도커</a>는 리눅스 위에서 격리된 또 다른 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/linux' rel='noindex,nofollow'>리눅스</a></span> 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 소개 글</a>을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/macosx' rel='noindex,nofollow'>맥</a></span>을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
 
 
 
@@ -137,7 +163,7 @@ Feb 10 2014
 </span></pre></div>
 <h2><a name='맥에서-도커를-실행하는-원리'>맥에서 도커를 실행하는 원리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>도커는 기본적으로 리눅스 컨테이너(이하 lxc)를 지원하는 운영체제만 사용할 수 있습니다. 처음에는 우분투만 지원을 했습니다만 현재는 좀 더 다양한 운영체제를 지원하도록 확장해나가는 과정에 있습니다. 하지만 원론적으로 lxc를 지원하고 있지 않은 윈도우나 맥에서는 도커를 사용할 수 없습니다. </p>
+<p>도커는 기본적으로 리눅스 컨테이너(이하 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/lxc' rel='noindex,nofollow'>lxc</a></span>)를 지원하는 운영체제만 사용할 수 있습니다. 처음에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>우분투</a></span>만 지원을 했습니다만 현재는 좀 더 다양한 운영체제를 지원하도록 확장해나가는 과정에 있습니다. 하지만 원론적으로 lxc를 지원하고 있지 않은 윈도우나 맥에서는 도커를 사용할 수 없습니다. </p>
 
 <p>하지만 엄밀히 말하면 이전에도 맥이나 윈도우에서 도커를 사용하는 것이 불가능한 것은 아니었습니다. 그러면 어떻게 설치를 하는지, 간단히 말해 <a href="http://www.vagrantup.com/">Vagrant</a>나 아예 별개의 가상화 어플리케이션을 통해서 리눅스 운영체제를 실행시키는 방식이었습니다. 이렇나 방식이 당연히 가능한 건, 아예 OS를 lxc를 지원하는 리눅스를 가상 머신으로 올려놓기 때문입니다. 물론 이렇게도 도커를 사용하는 것이 불가능한 것은 아닙니다만, VM의 성능도 성능이고 리눅스 운영체제에 비해서 &#39;한 다리&#39; 건너서 사용한다는 인상을 지우기는 어렵습니다.</p>
 
@@ -159,7 +185,7 @@ Feb 10 2014
 
 <p>먼저 docker2boot를 사용하기 위해서는 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>를 설치해야합니다. 공식 사이트에서 MacOSX용 dmg 파일을 다운로드 받아 설치 과정을 진행해주시기 바랍니다.</p>
 
-<p>도커 공식 사이트에서는 <a href="http://docs.docker.io/en/latest/installation/mac/">맥에서 설치를 위한 문서</a>를 제공하고 있으니 참조하시기 바랍니다. 먼저 boot2docker를 다운로드 받고 실행권한을 추가해줍니다.</p>
+<p>도커 공식 사이트에서는 <a href="http://docs.docker.io/en/latest/installation/mac/">맥에서 설치를 위한 문서</a>를 제공하고 있으니 참조하시기 바랍니다. 먼저 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/boot2docker' rel='noindex,nofollow'>boot2docker</a></span>를 다운로드 받고 실행권한을 추가해줍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>mkdir ~/bin
 </span><span id="line-2"><span class="nv">$ </span><span class="nb">cd</span> ~/bin
 </span><span id="line-3"><span class="nv">$ </span>curl https://raw.github.com/steeve/boot2docker/master/boot2docker &gt; boot2docker
@@ -171,11 +197,11 @@ Feb 10 2014
 </span><span id="line-3"><span class="nv">$ </span><span class="nb">export </span><span class="nv">DOCKER_HOST</span><span class="o">=</span>tcp://
 </span><span id="line-4"><span class="nv">$ </span>sudo cp docker /usr/local/bin/
 </span></pre></div>
-<p>도커와 boot2docker 설치 과정은 homebrew를 통해서도 진행이 가능합니다.</p>
+<p>도커와 boot2docker 설치 과정은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/homebrew' rel='noindex,nofollow'>homebrew</a></span>를 통해서도 진행이 가능합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>brew tap homebrew/binary
 </span><span id="line-2"><span class="nv">$ </span>brew install docker boot2docker
 </span></pre></div>
-<p>다음으로 boot2docker를 실행시킵니다. 이 과정을 거치기 전에 VirtualBox를 설치했는지 꼭 확인하시기 바랍니다.</p>
+<p>다음으로 boot2docker를 실행시킵니다. 이 과정을 거치기 전에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/virtualbox' rel='noindex,nofollow'>VirtualBox</a></span>를 설치했는지 꼭 확인하시기 바랍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>./boot2docker init
 </span><span id="line-2"><span class="nv">$ </span>./boot2docker up
 </span><span id="line-3"><span class="o">[</span>2014-02-10 23:40:41<span class="o">]</span> Starting boot2docker-vm...

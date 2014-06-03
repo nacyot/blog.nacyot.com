@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<!--
+⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
+⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
+
+Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+-->
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<link href='http://blog.nacyot.com/tags/qd270/' rel='canonical'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='https://plus.google.com/+KimDaekwon' rel='author'>
+<link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
+<meta content='summary' name='twitter:card'>
+<meta content='nacyot의 프로그래밍 이야기' name='twitter:title'>
+<meta content='' name='twitter:description'>
+<meta content='@nacyo_t' name='twitter:site'>
+<meta content='@nacyo_t' name='twitter:creator'>
+<meta content='' name='twitter:image'>
+<title>nacyot의 프로그래밍 이야기</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+</head>
+<body>
+<nav class='navbar navbar-fixed-top' role='navigation'>
+<div class='navbar-header'>
+<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+</div>
+<div class='collapse navbar-collapse'>
+<ul class='nav navbar-nav'>
+<li>
+<a href='http://blog.nacyot.com'>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
+</a>
+</li>
+<li>
+<a href='http://wiki.nacyot.com'>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<li>
+<a>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a>
+<i class='fa fa-github github'></i>
+nacyot
+</a>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div class='wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+</a>
+</div>
+<h1 class='title'>태그 > QD270</h1>
+<div class='description'></div>
+</div>
+<div class='row'>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<div>
+<span class='date'>
+<i class='fa fa-calendar'></i>
+Jan 17 2014
+</span>
+</div>
+<div>
+<span class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/QD270'>QD270</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/bash'>bash</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/hub'>hub</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/nabi'>nabi</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/nvidia'>nvidia</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/openvpn'>openvpn</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/terminator'>terminator</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/wine'>wine</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/zsh'>zsh</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/나비'>나비</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/우분투'>우분투</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/카카오톡'>카카오톡</a>
+</span>
+</div>
+<h2 class='title'>
+<a href="../../articles/2014-01-18-ubuntu-setting/">우분투 13.10 개발환경 세팅</a>
+</h2>
+<div class='summary'>
+<p>Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.</p>
+
+<p>참고로 본인은 Ubuntu / <a href="터미널%20프로그램">Terminator</a> / <a href="에디터">Emacs</a> / <a href="키보드%20레이아웃">Dvorak</a> 사용자.</p>
+
+
+</div>
+<span class='more'><a href="../../articles/2014-01-18-ubuntu-setting/">전문 읽기</a></span>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+</div>
+
+<div class='row'>
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2014 • All rights reserved.
+&nbsp;&nbsp;&nbsp;
+<a class='icon' href='http://nacyot.com'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

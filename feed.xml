@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-06-02T23:14:48+00:00</updated>
+    <updated>2014-06-03T14:49:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -204,7 +204,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/"/>
     <id>http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/</id>
     <published>2014-05-08T01:00:03Z</published>
-    <updated>2014-06-02T23:14:48+00:00</updated>
+    <updated>2014-06-03T14:49:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -470,7 +470,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/"/>
     <id>http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/</id>
     <published>2014-04-28T01:00:00Z</published>
-    <updated>2014-06-02T23:14:48+00:00</updated>
+    <updated>2014-06-03T14:49:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -486,11 +486,11 @@
 
 &lt;p&gt;일본 프로그래머 Ito Naoya 씨가 &lt;a href="http://d.hatena.ne.jp/naoya/20140424/1398318293"&gt;Cask를 소개하는 글&lt;/a&gt;에서 이런 얘기를 하길래, 관심이 가서 &lt;a href="http://cask.github.io"&gt;Cask 공식 문서&lt;/a&gt;를 번역했습니다.&lt;/p&gt;
 
-&lt;p&gt;Emacs 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/emacs'&gt;Emacs&lt;/a&gt;&lt;/span&gt; 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.&lt;/p&gt;
 
 &lt;p&gt;그만큼이나 Emacs 설정을 잘 하는 건 어렵습니다. 해본 사람은 알겠지만 이것저것 입맛대로 뜯어고치고 플러그인 설치하고 한 번 꼬이고 그러면 그냥 프로그래밍 하는 시간보다 설정하는 시간이 더 많이 드는 거 아닌가 하는 회의감이 들 정도니까요. 강력하지만 귀찮고 어렵습니다.&lt;/p&gt;
 
-&lt;p&gt;Cask는 이러한 문제를 Ruby의 번들러나 Nodejs의 npm처럼 &amp;#39;Cask&amp;#39;라는 파일을 통해 해결해줍니다. 이를 통해 Emacs Lisp 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/cask' rel='noindex,nofollow'&gt;Cask&lt;/a&gt;&lt;/span&gt;는 이러한 문제를 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ruby'&gt;Ruby&lt;/a&gt;&lt;/span&gt;의 번들러나 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/node.js' rel='noindex,nofollow'&gt;Node.js&lt;/a&gt;&lt;/span&gt;의 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/npm'&gt;npm&lt;/a&gt;&lt;/span&gt;처럼 &amp;#39;Cask&amp;#39;라는 파일을 통해 해결해줍니다. 이를 통해 [[Emacs Lisp|emacs_lisp]] 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;현재 틈틈히 Cask로 옮기는 작업을 하고 있으니, 조만간 Cask로 완전히 갈아타는 데 성공하면 사용법에 대해서도 소개하겠습니다.&lt;/p&gt;
 
@@ -502,11 +502,11 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/"/>
     <id>http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/</id>
     <published>2014-04-19T09:53:32Z</published>
-    <updated>2014-06-02T23:14:48+00:00</updated>
+    <updated>2014-06-03T14:49:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 &lt;code&gt;each&lt;/code&gt;와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 &lt;code&gt;each&lt;/code&gt; 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ruby'&gt;루비&lt;/a&gt;&lt;/span&gt;에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 &lt;code&gt;each&lt;/code&gt;와 같은 열거자(&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/enumerable' rel='noindex,nofollow'&gt;Enumerable&lt;/a&gt;&lt;/span&gt;) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 &lt;code&gt;each&lt;/code&gt; 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -5194,7 +5194,7 @@ false
 
 &lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
-&lt;p&gt;이걸로 Enumerable 모듈의 거의 모든 메서드를 다뤘습니다. 좀 더 이야기해 볼 주제가 있다면 Enumerable 확장 클래스 만들기, Lazy, Enumerabtor와 외부 반복자, Enumerable 모듈을 일부 확장하는 gem인 powerpack과 메소드 체인 활용 예제 정도가 있을 것 같은데 기회가 되면 이런 이야기들도 정리해보도록하겠습니다. 아듀~&lt;/p&gt;
+&lt;p&gt;이걸로 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/enumerable' rel='noindex,nofollow'&gt;Enumerable&lt;/a&gt;&lt;/span&gt; 모듈의 거의 모든 메서드를 다뤘습니다. 좀 더 이야기해 볼 주제가 있다면 Enumerable 확장 클래스 만들기, Lazy, Enumerabtor와 외부 반복자, Enumerable 모듈을 일부 확장하는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/gem' rel='noindex,nofollow'&gt;gem&lt;/a&gt;&lt;/span&gt;인 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/powerpack' rel='noindex,nofollow'&gt;powerpack&lt;/a&gt;&lt;/span&gt;과 메소드 체인 활용 예제 정도가 있을 것 같은데 기회가 되면 이런 이야기들도 정리해보도록하겠습니다. 아듀~&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -5202,7 +5202,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
     <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
     <published>2014-04-18T15:15:32Z</published>
-    <updated>2014-06-02T23:14:48+00:00</updated>
+    <updated>2014-06-03T14:49:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -5284,11 +5284,11 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
     <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
     <published>2014-04-06T17:00:32Z</published>
-    <updated>2014-06-02T23:14:48+00:00</updated>
+    <updated>2014-06-03T14:49:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;루비에서는 테스트를 하기 위해 minitest와 BDD 프레임워크인 RSpec이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ruby'&gt;루비&lt;/a&gt;&lt;/span&gt;에서는 테스트를 하기 위해 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/minitest' rel='noindex,nofollow'&gt;minitest&lt;/a&gt;&lt;/span&gt;와 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/bdd' rel='noindex,nofollow'&gt;BDD&lt;/a&gt;&lt;/span&gt; 프레임워크인 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/rspec' rel='noindex,nofollow'&gt;RSpec&lt;/a&gt;&lt;/span&gt;이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.&lt;/p&gt;
 
 &lt;!--more--&gt;
 

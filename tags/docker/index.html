@@ -73,16 +73,24 @@ nacyot
 <div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
 <div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
 <div class='main'>
-<div class='articles'>
-<div class='article'>
+<div class='js-masonry' data-masonry-options='{ "isFitWidth": true, "gutter": 10,"itemSelector": ".summary_card"}' id='container'>
+<div class='summary_card'>
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 May  8 2014
 </span>
 </div>
-<div>
-<span class='tags'>
+<h2 class='title'>
+<a href="../../articles/2014-05-08-docker-registry-introduction/">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
+</h2>
+<div class='summary'>
+<p>도커의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 Dockerfile을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
+
+
+</div>
+<span class='more'><a href="../../articles/2014-05-08-docker-registry-introduction/">전문 읽기</a></span>
+<div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/aws'>aws</a>
 <i class='fa fa-tag'></i>
@@ -97,28 +105,26 @@ May  8 2014
 <a href='/tags/도커-레지스트리'>도커 레지스트리</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/아마존-웹서비스'>아마존 웹서비스</a>
-</span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-05-08-docker-registry-introduction/">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
-</h2>
-<div class='summary'>
-<p>도커의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 Dockerfile을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
-
-
-</div>
-<span class='more'><a href="../../articles/2014-05-08-docker-registry-introduction/">전문 읽기</a></span>
 </div>
 
-<div class='article'>
+<div class='summary_card'>
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Apr 18 2014
 </span>
 </div>
-<div>
-<span class='tags'>
+<h2 class='title'>
+<a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기</a>
+</h2>
+<div class='summary'>
+<p>드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이글에서는  테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. </p>
+
+
+</div>
+<span class='more'><a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">전문 읽기</a></span>
+<div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/apt-get'>apt-get</a>
 <i class='fa fa-tag'></i>
@@ -137,36 +143,14 @@ Apr 18 2014
 <a href='/tags/디지털-오션'>디지털 오션</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/우분투'>우분투</a>
-</span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기</a>
-</h2>
-<div class='summary'>
-<p>드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이글에서는  테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. </p>
-
-
-</div>
-<span class='more'><a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">전문 읽기</a></span>
 </div>
 
-<div class='article'>
+<div class='summary_card'>
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Apr  5 2014
-</span>
-</div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/immutable-infrastructure'>immutable infrastructure</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/programer'>programer</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
 </span>
 </div>
 <h2 class='title'>
@@ -182,17 +166,35 @@ Apr  5 2014
 
 </div>
 <span class='more'><a href="../../articles/2014-04-06-immutable-infrastructure/">전문 읽기</a></span>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/immutable-infrastructure'>immutable infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programer'>programer</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/도커'>도커</a>
+</div>
 </div>
 
-<div class='article'>
+<div class='summary_card'>
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Feb 10 2014
 </span>
 </div>
-<div>
-<span class='tags'>
+<h2 class='title'>
+<a href="../../articles/2014-02-11-dokcer-08-on-macosx/">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
+</h2>
+<div class='summary'>
+<p><a href="http://docker.io">도커</a>는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 소개 글</a>을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
+
+
+</div>
+<span class='more'><a href="../../articles/2014-02-11-dokcer-08-on-macosx/">전문 읽기</a></span>
+<div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/boot2docker'>boot2docker</a>
 <i class='fa fa-tag'></i>
@@ -215,28 +217,28 @@ Feb 10 2014
 <a href='/tags/맥'>맥</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/우분투'>우분투</a>
-</span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-02-11-dokcer-08-on-macosx/">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
-</h2>
-<div class='summary'>
-<p><a href="http://docker.io">도커</a>는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 소개 글</a>을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
-
-
-</div>
-<span class='more'><a href="../../articles/2014-02-11-dokcer-08-on-macosx/">전문 읽기</a></span>
 </div>
 
-<div class='article'>
+<div class='summary_card'>
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Jan 30 2014
 </span>
 </div>
-<div>
-<span class='tags'>
+<h2 class='title'>
+<a href="../../articles/2014-01-30-github-hook-api-slack-sample/">깃허브(Github) 후크 API와 Slack에 알림 전달하기</a>
+</h2>
+<div class='summary'>
+<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
+
+<p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
+
+
+</div>
+<span class='more'><a href="../../articles/2014-01-30-github-hook-api-slack-sample/">전문 읽기</a></span>
+<div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/api'>api</a>
 <i class='fa fa-tag'></i>
@@ -259,30 +261,26 @@ Jan 30 2014
 <a href='/tags/슬랙'>슬랙</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/힙챗'>힙챗</a>
-</span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-01-30-github-hook-api-slack-sample/">깃허브(Github) 후크 API와 Slack에 알림 전달하기</a>
-</h2>
-<div class='summary'>
-<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
-
-<p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
-
-
-</div>
-<span class='more'><a href="../../articles/2014-01-30-github-hook-api-slack-sample/">전문 읽기</a></span>
 </div>
 
-<div class='article'>
+<div class='summary_card'>
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Jan 29 2014
 </span>
 </div>
-<div>
-<span class='tags'>
+<h2 class='title'>
+<a href="../../articles/2014-01-30-deploying-application-with-dokku/">도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)</a>
+</h2>
+<div class='summary'>
+<p>지난 번 <a href="http://docker.io/">도커</a> 시리즈의 첫번째 글에서는 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a> 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 도커를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 <a href="https://github.com/progrium/dokku/blob/master/dokku">도쿠</a>(Dokku)를 다루도록 하겠습니다.</p>
+
+
+</div>
+<span class='more'><a href="../../articles/2014-01-30-deploying-application-with-dokku/">전문 읽기</a></span>
+<div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/buildpack'>buildpack</a>
 <i class='fa fa-tag'></i>
@@ -309,28 +307,26 @@ Jan 29 2014
 <a href='/tags/튜토리얼'>튜토리얼</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/히로쿠'>히로쿠</a>
-</span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-01-30-deploying-application-with-dokku/">도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)</a>
-</h2>
-<div class='summary'>
-<p>지난 번 <a href="http://docker.io/">도커</a> 시리즈의 첫번째 글에서는 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a> 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 도커를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 <a href="https://github.com/progrium/dokku/blob/master/dokku">도쿠</a>(Dokku)를 다루도록 하겠습니다.</p>
-
-
-</div>
-<span class='more'><a href="../../articles/2014-01-30-deploying-application-with-dokku/">전문 읽기</a></span>
 </div>
 
-<div class='article'>
+<div class='summary_card'>
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
 Jan 27 2014
 </span>
 </div>
-<div>
-<span class='tags'>
+<h2 class='title'>
+<a href="../../articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>
+</h2>
+<div class='summary'>
+<p>클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.</p>
+
+<p>이런 가운데 가상 머신의 단점...</p>
+</div>
+<span class='more'><a href="../../articles/2014-01-27-easy-deploy-with-docker/">전문 읽기</a></span>
+<div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/centos'>centos</a>
 <i class='fa fa-tag'></i>
@@ -349,17 +345,7 @@ Jan 27 2014
 <a href='/tags/모니위키'>모니위키</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/튜토리얼'>튜토리얼</a>
-</span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>
-</h2>
-<div class='summary'>
-<p>클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.</p>
-
-<p>이런 가운데 가상 머신의 단점...</p>
-</div>
-<span class='more'><a href="../../articles/2014-01-27-easy-deploy-with-docker/">전문 읽기</a></span>
 </div>
 
 </div>

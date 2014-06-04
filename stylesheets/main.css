@@ -22,6 +22,19 @@ a[name] {
   margin-top: 80px;
   text-align: left;
 }
+a {
+  color: #2A603B;
+}
+.live_link a {
+  color: #976E9A;
+  text-decoration: underline;
+}
+.dead_link a {
+  color: #52593B;
+  color: black;
+  pointer-events: none;
+  cursor: default;
+}
 nav {
   padding-right: 25px;
   padding-top: 8px;
@@ -48,7 +61,7 @@ nav a {
   height: 100px;
 }
 .wall {
-  height: 250px;
+  height: 215px;
   padding-top: 65px;
 }
 .wall .profile {
@@ -64,6 +77,35 @@ nav a {
   margin-top: 25px;
   text-align: center;
   font-size: 2em;
+}
+#container {
+  padding: 0;
+  margin: 0 auto;
+}
+#container .summary_card {
+  overflow: hidden;
+  border-radius: 10px;
+  width: 380px;
+  border: 1px solid #9C8A4D;
+  margin: 0 0 1em 0;
+  padding: 2.5em 1.5em;
+}
+#container .summary_card h2.title {
+  font-size: 1.7em;
+}
+#container .summary_card .summary {
+  font-size: 1.15em;
+  line-height: 1.6em;
+  text-align: justify;
+}
+#container .summary_card .tags {
+  border-top: 1px solid black;
+  padding-top: 1em;
+  margin-top: 2em;
+}
+.articles {
+  margin: 0;
+  padding: 0;
 }
 .articles .article {
   margin-bottom: 55px;
@@ -119,16 +161,6 @@ nav a {
 }
 .articles .article .body .footnotes p {
   margin-bottom: 10px;
-}
-.articles .article .body .live_link a {
-  color: blue;
-  text-decoration: underline;
-}
-.articles .article .body .dead_link a {
-  color: black;
-  text-decoration: underline;
-  pointer-events: none;
-  cursor: default;
 }
 .articles .article .more {
   font-size: 0.9em;

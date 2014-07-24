@@ -46,6 +46,14 @@ nacyot wiki
 </li>
 </ul>
 <ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
 <li>
 <a href='https://twitter.com/nacyo_t'>
 <i class='fa fa-twitter twitter'></i>
@@ -53,7 +61,7 @@ nacyot wiki
 </a>
 </li>
 <li>
-<a href='https://github.com/nacyot'>
+<a href='https://github.com/nacyot/blog.nacyot.com-source'>
 <i class='fa fa-github github'></i>
 nacyot
 </a>
@@ -163,7 +171,7 @@ Feb 10 2014
 </span></pre></div>
 <h2><a name='맥에서-도커를-실행하는-원리'>맥에서 도커를 실행하는 원리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>도커는 기본적으로 리눅스 컨테이너(이하 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/lxc' rel='noindex,nofollow'>lxc</a></span>)를 지원하는 운영체제만 사용할 수 있습니다. 처음에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>우분투</a></span>만 지원을 했습니다만 현재는 좀 더 다양한 운영체제를 지원하도록 확장해나가는 과정에 있습니다. 하지만 원론적으로 lxc를 지원하고 있지 않은 윈도우나 맥에서는 도커를 사용할 수 없습니다. </p>
+<p>도커는 기본적으로 리눅스 컨테이너(이하 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/lxc' rel='noindex,nofollow'>lxc</a></span>)를 지원하는 운영체제만 사용할 수 있습니다. 처음에는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>우분투</a></span>만 지원을 했습니다만 현재는 좀 더 다양한 운영체제를 지원하도록 확장해나가는 과정에 있습니다. 하지만 원론적으로 lxc를 지원하고 있지 않은 윈도우나 맥에서는 도커를 사용할 수 없습니다. </p>
 
 <p>하지만 엄밀히 말하면 이전에도 맥이나 윈도우에서 도커를 사용하는 것이 불가능한 것은 아니었습니다. 그러면 어떻게 설치를 하는지, 간단히 말해 <a href="http://www.vagrantup.com/">Vagrant</a>나 아예 별개의 가상화 어플리케이션을 통해서 리눅스 운영체제를 실행시키는 방식이었습니다. 이렇나 방식이 당연히 가능한 건, 아예 OS를 lxc를 지원하는 리눅스를 가상 머신으로 올려놓기 때문입니다. 물론 이렇게도 도커를 사용하는 것이 불가능한 것은 아닙니다만, VM의 성능도 성능이고 리눅스 운영체제에 비해서 &#39;한 다리&#39; 건너서 사용한다는 인상을 지우기는 어렵습니다.</p>
 

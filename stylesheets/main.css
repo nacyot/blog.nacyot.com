@@ -85,10 +85,15 @@ nav a {
 #container .summary_card {
   overflow: hidden;
   border-radius: 10px;
-  width: 380px;
+  width: 800px;
   border: 1px solid #9C8A4D;
-  margin: 0 0 1em 0;
+  margin: 0 auto 2em;
   padding: 2.5em 1.5em;
+}
+#container .summary_card img {
+  display: block;
+  margin: 1.5em auto;
+  max-width: 100%;
 }
 #container .summary_card h2.title {
   font-size: 1.7em;
@@ -119,7 +124,15 @@ nav a {
   line-height: 2em;
 }
 .articles .article img {
+  display: block;
+  margin: 0em auto 0em;
+  padding: 0;
   max-width: 100%;
+}
+.articles .article p.shape-title {
+  font-size: 0.75em;
+  text-align: center;
+  font-weight: bold;
 }
 .articles .article .toc {
   font-size: 1.3em;

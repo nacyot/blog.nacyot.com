@@ -12,6 +12,7 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
 <link href='/articles/2014-05-08-docker-registry-introduction/' rel='prev' title='도커 레지스트리(Docker Registry) 설치하기 + S3 연동'>
+<link href='/articles/2014-07-24-incremental-searc-on-everywhere-with-peco/' rel='next' title='페코(Peco)로 어디서나 셸 어디서나 증분 검색하기'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
@@ -45,6 +46,14 @@ nacyot wiki
 </li>
 </ul>
 <ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
 <li>
 <a href='https://twitter.com/nacyo_t'>
 <i class='fa fa-twitter twitter'></i>
@@ -52,7 +61,7 @@ nacyot wiki
 </a>
 </li>
 <li>
-<a href='https://github.com/nacyot'>
+<a href='https://github.com/nacyot/blog.nacyot.com-source'>
 <i class='fa fa-github github'></i>
 nacyot
 </a>
@@ -151,7 +160,7 @@ Jun  1 2014
 <div class='body'>
 <p>얼마 전 <a href="http://cask.emacs.kr/">Cask 공식 문서를 한국어로 번역</a>해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.</p>
 
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs24' rel='noindex,nofollow'>Emacs24</a></span>부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>와 비교하면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gem' rel='noindex,nofollow'>Gem</a></span>에 해당한다. 루비에서 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='noindex,nofollow'>Cask</a></span>의 역할은 Gem이 아니라 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bundler' rel='noindex,nofollow'>Bundler</a></span>의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs24' rel='noindex,nofollow'>Emacs24</a></span>부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>와 비교하면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gem' rel='noindex,nofollow'>Gem</a></span>에 해당한다. 루비에서 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='noindex,nofollow'>Cask</a></span>의 역할은 Gem이 아니라 <span class='live_link'><a href='http://wiki.nacyot.com/documents/bundler'>Bundler</a></span>의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.</p>
 
 
 
@@ -268,7 +277,7 @@ Jun  1 2014
 <p>위와 같이 <code>ruby-mode</code>를 지정하면 위에서 source에서 지정한 저장소에서 해당하는 패키지를 찾아 설치한다. 이 때 필요한 경우 아래와 같이 특정 버전을 강제할 수 있다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="s">&quot;0.8.1&quot;</span><span class="p">)</span>
 </span></pre></div>
-<p>기본 패키지 관리자에 비해서 가장 큰 장점 중 하나는 git로 관리되는 패키지를 직접 지정할 수 있다는 점이다. 아래는는 공식 문서에서 제공하는 예시이다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'>Git</a></span> 저장소를 지정했을 때 특정한 커밋이나 브랜치, 혹은 특정 파일들만 로드할 수 있도록 하는 법을 알 수 있다.</p>
+<p>기본 패키지 관리자에 비해서 가장 큰 장점 중 하나는 git로 관리되는 패키지를 직접 지정할 수 있다는 점이다. 아래는는 공식 문서에서 제공하는 예시이다. <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>Git</a></span> 저장소를 지정했을 때 특정한 커밋이나 브랜치, 혹은 특정 파일들만 로드할 수 있도록 하는 법을 알 수 있다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;https://github.com/magit/magit.git&quot;</span><span class="p">)</span>
 </span><span id="line-2"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;https://github.com/magit/magit.git&quot;</span> <span class="o">:</span><span class="n">ref</span> <span class="s">&quot;7j3bj4d&quot;</span><span class="p">)</span>
 </span><span id="line-3"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;https://github.com/magit/magit.git&quot;</span> <span class="o">:</span><span class="n">branch</span> <span class="s">&quot;next&quot;</span><span class="p">)</span>
@@ -294,7 +303,7 @@ Jun  1 2014
 
 <p>앞서 이야기한 바와 같이 Emacs 초기화는 기본적으로 <code>init.el</code>을 거쳐가며 대부분의 설정파일은 여기에서 이루어진다. Cask 사용 시에도 Cask를 초기화하고, Cask를 통해 읽어들인 각 패키지에 대한 설정은 <code>init.el</code>파일에서 하면 된다. 하지만 이 역시 설정할 내용이 많을 때는 <code>init.el</code> 파일이 매우 복잡해지기 때문에 init-loader를 사용해 좀 더 편리하게 관리할 수 있다.</p>
 
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/init-loader' rel='noindex,nofollow'>init-loader</a></span> 패키지를 사용하려면 먼저 Cask 파일에 추가해준다.</p>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/init-loader'>init-loader</a></span> 패키지를 사용하려면 먼저 Cask 파일에 추가해준다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;init-loader&quot;</span><span class="p">)</span>
 </span></pre></div>
 <p><code>init.el</code>에는 아래 내용을 추가한다.</p>
@@ -376,6 +385,9 @@ Jun  1 2014
 <a href='/articles/2014-05-08-docker-registry-introduction/' rel='prev'>도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
 </div>
 <div class='nextnav'>
+<div class='fa fa-chevron-right'></div>
+다음 글:
+<a href='/articles/2014-07-24-incremental-searc-on-everywhere-with-peco/' rel='next'>페코(Peco)로 어디서나 셸 어디서나 증분 검색하기</a>
 </div>
 <br style='clear:both'>
 </div>

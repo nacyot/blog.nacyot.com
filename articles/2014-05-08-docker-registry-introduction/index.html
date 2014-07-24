@@ -46,6 +46,14 @@ nacyot wiki
 </li>
 </ul>
 <ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
 <li>
 <a href='https://twitter.com/nacyo_t'>
 <i class='fa fa-twitter twitter'></i>
@@ -53,7 +61,7 @@ nacyot wiki
 </a>
 </li>
 <li>
-<a href='https://github.com/nacyot'>
+<a href='https://github.com/nacyot/blog.nacyot.com-source'>
 <i class='fa fa-github github'></i>
 nacyot
 </a>
@@ -165,11 +173,11 @@ May  8 2014
 
 </div>
 <div class='body'>
-<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/dockerfile' rel='noindex,nofollow'>Dockerfile</a></span>을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 <span class='live_link'><a href='http://wiki.nacyot.com/documents/dockerfile'>Dockerfile</a></span>을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
 
 
 
-<p>개인적으로는 이미 개발용으로 오픈소스 어플리케이션을 설치할 때는 거의 전면적으로 도커를 활용하고 있습니다. 일견 납득하기 어려울 지도 모릅니다만, 어떤 어플리케이션을 설치하기 위해 서버를 어떤 상태로 만드는 것보다, 서버의 상태와 무관하게 특정 어플리케이션의 컨테이너를 실행시키는 게 훨씬 쉽고 신뢰높은 전략입니다. 예를 들어서 설치하기 어려운 오픈소스 어플리케이션으로 프라이빗 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'>Git</a></span> 저장소인 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gitlab' rel='noindex,nofollow'>Gitlab</a></span>이 유명합니다만, 도커에서는 명령어 하나면 됩니다. 물론 구체적인 설정이나 실 배포환경에서 사용하는 건 각자의 선택에 달렸겠습니다만.</p>
+<p>개인적으로는 이미 개발용으로 오픈소스 어플리케이션을 설치할 때는 거의 전면적으로 도커를 활용하고 있습니다. 일견 납득하기 어려울 지도 모릅니다만, 어떤 어플리케이션을 설치하기 위해 서버를 어떤 상태로 만드는 것보다, 서버의 상태와 무관하게 특정 어플리케이션의 컨테이너를 실행시키는 게 훨씬 쉽고 신뢰높은 전략입니다. 예를 들어서 설치하기 어려운 오픈소스 어플리케이션으로 프라이빗 <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>Git</a></span> 저장소인 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gitlab' rel='noindex,nofollow'>Gitlab</a></span>이 유명합니다만, 도커에서는 명령어 하나면 됩니다. 물론 구체적인 설정이나 실 배포환경에서 사용하는 건 각자의 선택에 달렸겠습니다만.</p>
 
 <h2><a name='설치'>설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
@@ -180,7 +188,7 @@ May  8 2014
 
 <h3><a name='도커-설치'>도커 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
-<p>여기서는 도커가 이미 설치되어있다고 가정하겠습니다. 설치되어있지 않다면, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>Ubuntu</a></span> 14.04 LTS 기준으로 아래 명령어로 도커를 설치해주세요.</p>
+<p>여기서는 도커가 이미 설치되어있다고 가정하겠습니다. 설치되어있지 않다면, <span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>Ubuntu</a></span> 14.04 LTS 기준으로 아래 명령어로 도커를 설치해주세요.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>apt-get install docker.io
 </span></pre></div>
 <h3><a name='도커-레지스트리-설치'>도커 레지스트리 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
@@ -350,7 +358,7 @@ May  8 2014
 
 <p>AWS빠라면 응당 도커 이미지를 S3에 저장하고 싶다고 느낄 것입니다. 속도나 추가적인 비용이 발생하는 데서, S3에 저장하는데 따른 부담이 없는 것은 아닙니다만 가장 쉽게 이미지를 안전하게 저장하는 방법이라고 할 수 있습니다.</p>
 
-<p>하지만 도커 레지스트리는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/python' rel='noindex,nofollow'>파이썬</a></span>의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/flask' rel='noindex,nofollow'>flask</a></span>에 기반한 웹 어플리케이션입니다. 따라서 S3에서는 도커 레지스트리를 구동할 수 없습니다. 즉,  도커 레지스트리는 EC2나 로컬 서버를 이용해서 별도로 실행해야합니다. 이 레지스트리 설정에 이미지 저장 공간으로 로컬 드라이브가 아닌 S3 버킷을 지정해두면 해당하는 버킷에 이미지를 저장합니다. 이렇게 설정하면 도커 레지스트리에 이미지를 푸시할 때 도커 레지스트리는 이 이미지를 S3로 복사합니다. S3에 복사되면 아마존은 이 이미지를 안전하게 보관해줍니다.</p>
+<p>하지만 도커 레지스트리는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/python'>파이썬</a></span>의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/flask' rel='noindex,nofollow'>flask</a></span>에 기반한 웹 어플리케이션입니다. 따라서 S3에서는 도커 레지스트리를 구동할 수 없습니다. 즉,  도커 레지스트리는 EC2나 로컬 서버를 이용해서 별도로 실행해야합니다. 이 레지스트리 설정에 이미지 저장 공간으로 로컬 드라이브가 아닌 S3 버킷을 지정해두면 해당하는 버킷에 이미지를 저장합니다. 이렇게 설정하면 도커 레지스트리에 이미지를 푸시할 때 도커 레지스트리는 이 이미지를 S3로 복사합니다. S3에 복사되면 아마존은 이 이미지를 안전하게 보관해줍니다.</p>
 
 <h3><a name='도커-레지스트리-저장공간으로-s3-설정하기'>도커 레지스트리 저장공간으로 S3 설정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 

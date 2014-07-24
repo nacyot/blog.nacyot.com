@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<!--
+⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
+⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
+
+Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+-->
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<link href='http://blog.nacyot.com/articles/2014-07-24-incremental-searc-on-everywhere-with-peco/' rel='canonical'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='/articles/2014-06-01-emacs-with-cask/' rel='prev' title='캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기'>
+<link href='https://plus.google.com/+KimDaekwon' rel='author'>
+<link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
+<meta content='summary' name='twitter:card'>
+<meta content='nacyot의 프로그래밍 이야기 :: 페코(Peco)로 어디서나 셸 어디서나 증분 검색하기' name='twitter:title'>
+<meta content='' name='twitter:description'>
+<meta content='@nacyo_t' name='twitter:site'>
+<meta content='@nacyo_t' name='twitter:creator'>
+<meta content='' name='twitter:image'>
+<title>nacyot의 프로그래밍 이야기 :: 페코(Peco)로 어디서나 셸 어디서나 증분 검색하기</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+</head>
+<body>
+<nav class='navbar navbar-fixed-top' role='navigation'>
+<div class='navbar-header'>
+<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+</div>
+<div class='collapse navbar-collapse'>
+<ul class='nav navbar-nav'>
+<li>
+<a href='http://blog.nacyot.com'>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
+</a>
+</li>
+<li>
+<a href='http://wiki.nacyot.com'>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
+<li>
+<a href='https://twitter.com/nacyo_t'>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a href='https://github.com/nacyot/blog.nacyot.com-source'>
+<i class='fa fa-github github'></i>
+nacyot
+</a>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div class='mini-wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+</a>
+</div>
+</div>
+<div class='row'>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<div>
+<span class='date'>
+<i class='fa fa-calendar'></i>
+Jul 23 2014
+</span>
+</div>
+<div>
+<span class='tags'>
+</span>
+</div>
+<a name='toc'></a>
+<h1 class='title'>
+<a href="./">페코(Peco)로 어디서나 셸 어디서나 증분 검색하기</a>
+</h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#개요">개요</a>
+</li>
+<li>
+<a href="#history-검색">History 검색</a>
+</li>
+<li>
+<a href="#peco">Peco</a>
+<ul>
+<li>
+<a href="#ps로-peco-시작하기">ps로 peco 시작하기</a>
+</li>
+<li>
+<a href="#matcher">Matcher</a>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<div class='body'>
+<p>셸은 매력적인 도구입니다만, 많은 사람들에게 원시적이라고 오해받는 도구 중 하나입니다. 이렇나 특징은 프로그래머에게도 예외는 아닙니다. 셸은 프로그래머(특히 일부 서버 운영)에게도 피할 수 없는 도구이면서, 익숙하지 않으면 피하고 싶기만 한 대상이기 때문입니다. 하지만 셸에는 분명 원시적으로 보이는 부분들이 있습니다만, 때때로 그런 특징은 양면성을 띄기도 하고, 적절한 도구를 통해서 오히려 GUI보다 강력할 수도 있습니다.</p>
+
+<p>이 글에서 셸의 주로 Histroy 검색과 Peco라는 툴의 간단한 활용에 대해서 소개합니다.</p>
+
+
+
+<h1><a name='개요'>개요</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+
+<h1><a name='history-검색'>History 검색</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+
+<h1><a name='peco'>Peco</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+
+<h2><a name='ps로-peco-시작하기'>ps로 peco 시작하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<h2><a name='matcher'>Matcher</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+</div>
+<div class='footer'>
+<hr>
+<div class='author'>
+<h1>nacyot</h1>
+프로그래머(29)
+</div>
+<div class='share'>
+<h1>Share this post</h1>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_pocket"></a>
+<a class="addthis_button_print"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
+<!-- AddThis Button END -->
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</div>
+<div class='navigation'>
+<div class='prevnav'>
+<div class='fa fa-chevron-left'></div>
+이전 글
+<a href='/articles/2014-06-01-emacs-with-cask/' rel='prev'>캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기</a>
+</div>
+<div class='nextnav'>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+</div>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+</div>
+
+<div class='row'>
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2014 • All rights reserved.
+&nbsp;&nbsp;&nbsp;
+<a class='icon' href='http://nacyot.com'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
+

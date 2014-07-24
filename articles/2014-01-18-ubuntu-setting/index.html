@@ -46,6 +46,14 @@ nacyot wiki
 </li>
 </ul>
 <ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
 <li>
 <a href='https://twitter.com/nacyo_t'>
 <i class='fa fa-twitter twitter'></i>
@@ -53,7 +61,7 @@ nacyot wiki
 </a>
 </li>
 <li>
-<a href='https://github.com/nacyot'>
+<a href='https://github.com/nacyot/blog.nacyot.com-source'>
 <i class='fa fa-github github'></i>
 nacyot
 </a>
@@ -212,9 +220,9 @@ Jan 17 2014
 
 </div>
 <div class='body'>
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>Ubuntu</a></span> 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.</p>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>Ubuntu</a></span> 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.</p>
 
-<p>참고로 본인은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>Ubuntu</a></span> / <span class='dead_link'><a href='http://wiki.nacyot.com/documents/terminator' rel='noindex,nofollow'>Terminator</a></span>(터미널 프로그램) / <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>(에디터) / <span class='dead_link'><a href='http://wiki.nacyot.com/documents/dvorak' rel='noindex,nofollow'>Dvorak</a></span>(키보드 레이아웃) 사용자.</p>
+<p>참고로 본인은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>Ubuntu</a></span> / <span class='dead_link'><a href='http://wiki.nacyot.com/documents/terminator' rel='noindex,nofollow'>Terminator</a></span>(터미널 프로그램) / <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>(에디터) / <span class='dead_link'><a href='http://wiki.nacyot.com/documents/dvorak' rel='noindex,nofollow'>Dvorak</a></span>(키보드 레이아웃) 사용자.</p>
 
 
 
@@ -376,7 +384,7 @@ Jan 17 2014
 </span><span id="line-2"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s">&quot;$HOME/.rbenv/bin:$PATH&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
 </span><span id="line-3"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">eval</span> <span class="s">&quot;$(rbenv init -)&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
 </span></pre></div>
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/rbenv' rel='noindex,nofollow'>rbenv</a></span> 설치. 기본적으로 README에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bash' rel='noindex,nofollow'>bash</a></span> 기준으로 설정이 되어있는데, 자신이 사용하는 쉘 설정 파일에 집어넣어준다(여기선 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/zsh' rel='noindex,nofollow'>zsh</a></span>). 필요하면 설정하고 쉘을 다시 실행시켜준다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/rbenv' rel='noindex,nofollow'>rbenv</a></span> 설치. 기본적으로 README에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bash' rel='noindex,nofollow'>bash</a></span> 기준으로 설정이 되어있는데, 자신이 사용하는 쉘 설정 파일에 집어넣어준다(여기선 <span class='live_link'><a href='http://wiki.nacyot.com/documents/zsh'>zsh</a></span>). 필요하면 설정하고 쉘을 다시 실행시켜준다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">qy</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">libyaml</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">devlibgdbm</span><span class="o">-</span><span class="n">devlibreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libncurses5</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">curl</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxslt</span><span class="o">-</span><span class="n">devlibcurl4</span><span class="o">-</span><span class="n">openssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libicu</span><span class="o">-</span><span class="n">dev</span>
 </span><span id="line-3"><span class="n">rbenv</span> <span class="n">install</span> <span class="mf">2.1.0</span>
@@ -445,7 +453,7 @@ Jan 17 2014
 
 <h2><a name='정리'>정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>일단 중요한 부분은 다 정리한 듯. 이외에도 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/virtualbox' rel='noindex,nofollow'>VirtualBox</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vagrant' rel='noindex,nofollow'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/pandoc' rel='noindex,nofollow'>Pandoc</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/tex' rel='noindex,nofollow'>Tex</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/python' rel='noindex,nofollow'>python</a></span>, 등등 설치해야되지만, 필요해지면 설치할 예정.</p>
+<p>일단 중요한 부분은 다 정리한 듯. 이외에도 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/virtualbox' rel='noindex,nofollow'>VirtualBox</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vagrant' rel='noindex,nofollow'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/pandoc' rel='noindex,nofollow'>Pandoc</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/tex' rel='noindex,nofollow'>Tex</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/python'>python</a></span>, 등등 설치해야되지만, 필요해지면 설치할 예정.</p>
 
 <div class="footnotes">
 <hr>

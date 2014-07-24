@@ -46,6 +46,14 @@ nacyot wiki
 </li>
 </ul>
 <ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
 <li>
 <a href='https://twitter.com/nacyo_t'>
 <i class='fa fa-twitter twitter'></i>
@@ -53,7 +61,7 @@ nacyot wiki
 </a>
 </li>
 <li>
-<a href='https://github.com/nacyot'>
+<a href='https://github.com/nacyot/blog.nacyot.com-source'>
 <i class='fa fa-github github'></i>
 nacyot
 </a>
@@ -139,13 +147,13 @@ Jan 30 2014
 
 </div>
 <div class='body'>
-<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/git' rel='noindex,nofollow'>Git</a></span>)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
+<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(<span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>Git</a></span>)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
 
 <p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
 
 
 
-<p>후크란 일반적인 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/api' rel='noindex,nofollow'>API</a></span>와는 반대 방향으로 작동합니다. 예를 들어 보통 API를 호출하면 어떤 정보를 되돌려줍니다만, 후크는 등록이 되어있으면 어떤 이벤트가 발생할 때 거꾸로 깃허브에서 내가 등록한 Webhook URL로 정보를 보내줍니다. 여기서는 깃허브 Hook API를 조작하는 방법에 대해서 간략히 살펴보고 하나의 예제로 깃헙에서 보내주는 웹후크 알림을 처리할 수 있는 간단한 <a href="http://www.padrinorb.com/">Padrino</a> 서버를 만들어 <a href="https://slack.com/">슬랙(Slack)</a>라는 협엄&amp;채팅 서비스로 알림을 보내는 과정을 다뤄보겠습니다.</p>
+<p>후크란 일반적인 <span class='live_link'><a href='http://wiki.nacyot.com/documents/api'>API</a></span>와는 반대 방향으로 작동합니다. 예를 들어 보통 API를 호출하면 어떤 정보를 되돌려줍니다만, 후크는 등록이 되어있으면 어떤 이벤트가 발생할 때 거꾸로 깃허브에서 내가 등록한 Webhook URL로 정보를 보내줍니다. 여기서는 깃허브 Hook API를 조작하는 방법에 대해서 간략히 살펴보고 하나의 예제로 깃헙에서 보내주는 웹후크 알림을 처리할 수 있는 간단한 <a href="http://www.padrinorb.com/">Padrino</a> 서버를 만들어 <a href="https://slack.com/">슬랙(Slack)</a>라는 협엄&amp;채팅 서비스로 알림을 보내는 과정을 다뤄보겠습니다.</p>
 
 <h2><a name='깃허브(githbu)-후크-api'>깃허브(Githbu) 후크 API</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
@@ -246,7 +254,7 @@ Jan 30 2014
 <div class="highlight"><pre><span id="line-1"><span class="mi">07</span><span class="o">:</span><span class="mi">15</span><span class="o">:</span><span class="mi">35</span> <span class="n">web</span><span class="o">.</span><span class="mi">1</span>  <span class="o">|</span>   <span class="n">DEBUG</span> <span class="o">-</span>      <span class="n">POST</span> <span class="o">(</span><span class="mf">1.6938</span><span class="n">s</span><span class="o">)</span> <span class="o">/</span> <span class="o">-</span> <span class="mi">200</span> <span class="n">OK</span>
 </span><span id="line-2"><span class="mi">07</span><span class="o">:</span><span class="mi">15</span><span class="o">:</span><span class="mi">35</span> <span class="n">web</span><span class="o">.</span><span class="mi">1</span>  <span class="o">|</span> <span class="mf">192.30</span><span class="o">.</span><span class="mf">252.54</span> <span class="o">-</span> <span class="o">-</span> <span class="o">[</span><span class="mi">30</span><span class="sr">/Jan/2014 07:15:35] &quot;POST / HTTP/</span><span class="mf">1.1</span><span class="err">&quot;</span> <span class="mi">200</span> <span class="o">-</span> <span class="mf">1.6956</span>
 </span></pre></div>
-<p>정상적으로 들어오네요. 네, 앞서서 이야기했듯이 이 서버가 해주는 역할은 깃허브로부터 후크를 받고 이를 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/slack' rel='noindex,nofollow'>Slack</a></span>이라는 채팅 서비스에 연결해주는 역할을 합니다.</p>
+<p>정상적으로 들어오네요. 네, 앞서서 이야기했듯이 이 서버가 해주는 역할은 깃허브로부터 후크를 받고 이를 <span class='live_link'><a href='http://wiki.nacyot.com/documents/slack'>Slack</a></span>이라는 채팅 서비스에 연결해주는 역할을 합니다.</p>
 
 <p><img src="/images/2014-01-30-github-hook-api-slack-sample/github_slack.png" alt="Slack Room"></p>
 
@@ -278,7 +286,7 @@ Jan 30 2014
 
 <p>루비 서버를 올리는 게 어려운 일은 아닙니다만, 부가적인 처리 과정이나 설명해질 부분이 많아지므로 해당하는 부분에 대해서는 다루지 않도록 하겠습니다. 여기서는 이러한 과정을 생략하기 위해 이전 포스트에서 이야기했던 [도커(Docker)]를 출동시키겠습니다. 빠밤.</p>
 
-<p>먼저 <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>를 설치합니다. (여기서는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ubuntu' rel='noindex,nofollow'>우분투</a></span>를 가정합니다. 필요한 경우 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/virtual_machine' rel='noindex,nofollow'>가상머신</a></span>이나 클라우드 서비스를 사용하시기 바랍니다. Remotty 팀에서도 SKT에서 지원받고 있는 VM을 활용해 개발 지원 서비스들을 운영중에 있습니다)</p>
+<p>먼저 <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>를 설치합니다. (여기서는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>우분투</a></span>를 가정합니다. 필요한 경우 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/virtual_machine' rel='noindex,nofollow'>가상머신</a></span>이나 클라우드 서비스를 사용하시기 바랍니다. Remotty 팀에서도 SKT에서 지원받고 있는 VM을 활용해 개발 지원 서비스들을 운영중에 있습니다)</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>curl -s https://get.docker.io/ubuntu/ <span class="p">|</span> sudo sh
 </span><span id="line-2">...
 </span><span id="line-3"><span class="nv">$ </span>docker --version

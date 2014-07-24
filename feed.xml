@@ -5,16 +5,568 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-06-01T14:30:03Z</updated>
+  <updated>2014-07-24T15:55:03Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
+    <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
+    <published>2014-07-24T15:55:03Z</published>
+    <updated>2014-07-24T15:59:53+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;시스템 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/monitoring' rel='noindex,nofollow'&gt;모니터링&lt;/a&gt;&lt;/span&gt;에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/rrdtool' rel='noindex,nofollow'&gt;rrdtool&lt;/a&gt;&lt;/span&gt;로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/metrics' rel='noindex,nofollow'&gt;metrics&lt;/a&gt;&lt;/span&gt;) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/egJIriw.png" alt="rrdtool"&gt;
+&lt;p class="shape-title"&gt;rrdtool&lt;/p&gt;&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/graphite'&gt;Graphite&lt;/a&gt;&lt;/span&gt;는 기본적으로 특정한 네임스페이스에 시간과 데이터를 계속해서 쌓아가는 특수한 데이터 저장소입니다. 이것만으로는 그래프까지 그려주는 rrdtool에 비해서 그다지 메리트가 없어보입니다만, Graphite는 프로젝트 중에는 Graphite-Web이라는 모듈이 있어 API 형태로 그래프 파일을 제공하거나, 수치 데이터를 제공해줍니다. 기본적인 그래프 생성기가 그렇게 훌륭하진 않습니다만, 수치 데이터를 받을 수 잇는 API를 기반으로 다양한 대시보드 어플리케이션들이 만들어져 있습니다. 물론 오픈소스로. 사용자는 먼저 Grahpite에 데이터를 쌓아놓기만 하면, 자신의 취향에 맞는 대시보드를 골라서 자신만의 대시보드를 만들어나가면 됩니다. 그 중에서도 이 글에서 소개할 대시보드는 Grafana라는 툴입니다. &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/elasticsearch'&gt;ElasticSearch&lt;/a&gt;&lt;/span&gt;의 대시보드 툴로 유명한 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/kibana'&gt;Kibana&lt;/a&gt;&lt;/span&gt; 라는 프로젝트가 있습니다만, &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/grafana' rel='noindex,nofollow'&gt;Grafana&lt;/a&gt;&lt;/span&gt;는 이 Kibana에서 영감을 받아 만들어진 Graphite판 Kibana라고 이해하시면 좀 더 쉽습니다.&lt;/p&gt;
+
+&lt;p&gt;이 글에서는 Grahphite에 대한 전반적인 소개에 걸쳐 Graphite를 구성하는 하나하나의 요소들을 시작으로 Grafana까지 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/docker'&gt;Docker&lt;/a&gt;&lt;/span&gt;를 사용해 모니터링 시스템 전체를 구축해보도록하겠습니다.&lt;/p&gt;
+
+&lt;h1&gt;&lt;a name='tl;dr'&gt;Tl;dr&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h1&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --name whisper nacyot/whisper
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 2003:2003 -p 2004:2004 -p 7002:7002 --volumes-from whisper -e &lt;span class="nv"&gt;NODE_NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;cache nacyot/carbon-cache
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 8000:80 -e &lt;span class="nv"&gt;CARBONLINK_HOSTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;172.17.42.1:7002&amp;quot;&lt;/span&gt; --volumes-from whisper nacyot/graphite-web
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 9200:9200 -p 9300:9300 dockerfile/elasticsearch
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 8001:8000 nacyot/grafana
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src="http://imgur.com/UYDytKS.png" alt="Grafana"&gt;
+&lt;p class="shape-title"&gt;Grafana&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;예이! 참 쉽죠잉?&lt;/p&gt;
+
+&lt;h1&gt;&lt;a name='graphite'&gt;Graphite&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src="https://googledrive.com/host/0B5YqfYBpS__8b1pIVnNVbFNGc0U/Graphite" alt="Graphite의 모듈 구성"&gt;
+&lt;p class="shape-title"&gt;Graphite 구성도&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;앞서 Graphite를 단순히 시계열 데이터 저장소라고 소개했습니다만, 이를 사용하기 위해서는 기본적으로 Garphite의 각 구성 요소가 어떻게 이루어지는 지를 이해할 필요가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;위의 그림을 기준으로 간단히 설명하도록 하겠습니다. 먼저 Collector는 Graphite에 어떠한 데이터를 쌓기 위한 모듈입니다. 여기에 대한 특별한 제한은 없습니다만, 시계열 데이터베이스의 특성상 기본적으로 데이터가 저장될 &lt;strong&gt;네임스페이스와 시간, 데이터&lt;/strong&gt; 이렇게 3가지 데이터가 필요합니다. 이러한 정보를 Graphite의 모듈인 Carbon-Cache에 보냅니다. Carbon-Cache는 Collector가 보낸 데이터를 받아 Whisper에 저장합니다. Carbon-Cache가 데이터 수집기라면 Whisper는 실제로 데이터를 파일시스템에 저장하고 읽어오는 모듈입니다. 자 이제 Whisper를 통해 데이터가 파일 시스템에 저장되었습니다. 그렇다면 이 데이터를 어떻게 가져올 수 있을까요. 이 시점에서 등장하는 게 Graphite-Web입니다. Graphite-Web은 http 프로토콜을 통해서 Whisper에 저장된 데이터를 읽어와 이미지 파일이나, 데이터 형식으로 출력합니다. Graphite-Web은 기본적으로 데이터를 제공하는 API와 대시보드 기능 두 가지를 제공하고 있습니다. 여기서 제공하는 대시보드 기능을 그냥 사용해도 무방합니다만, 기본적으로 그렇게 편리하지는 않습니다. 직접적인 Graphite 프로젝트는 아닙니다만, 이 Graphite-Web에서 대시보드를 제외하고 API 기능만을 따로 구현해둔 Graphite-api라는 모듈도 있습니다. 다른 대시보드를 사용한다면 Grahpite-Web이나 Graphite-api 어느 툴을 사용해도 무방합니다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 보면 정말 간단하죠? 정말 간단합니다만, 이 관계를 모르고 무턱대고 Graphite를 사용해보겠다고 덤비면 Carbon은 모고 Whisper는 모고, Graphite-Web이 있는데 또 Graphite-api는 모고, 가벼운 현기증을 시작으로 멘붕을 겪을 지도 모릅니다. Graphite 하나 설치하면 마법 같이 작동하는 그런 아름다운 세계는 없습니다. 간단히 보이지만 이 기본 구성을 이해해두는 건 많은 도움이 될 것입니다. 특히 Graphite 이야기를 쫓아가다보며 statsd며, carban-relay며, diamond며, 나아가 스케일 아웃 얘기까지 나오면 이것저것 알쏭달쏭한 단어와 개념들이 쏟아져나오기 때문에 여기서 이해의 끈을 놓쳐서는 안 됩니다. &lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='graphite-시작하기'&gt;Graphite 시작하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;기본적을 Graphite 구성에 대해서 살펴보았으니 이제 실제로 설치해보도록 하겠습니다. 제목에서 이야기한 바대로 Docker를 기반으로 진행해나갑니다. 조금 번거로울 수도 있지만 이 글은 기본적으로 Graphite 이야기와 Docker 이야기가 혼재되어있습니다. Docker에 전혀 관심이 없으시다면 &lt;a href="https://graphite.readthedocs.org/en/latest/index.html"&gt;Graphite 문서&lt;/a&gt;를 직접 읽으실 것을 추천해드립니다.&lt;/p&gt;
+
+&lt;p&gt;기본적으로 Ubuntu를 사용한다고 전제하고 이야기를 진행하도록 하겠습니다. (Docker와 연결만 되어있다면 사실 다른 운영체제라도 무방합니다.)&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='whisper'&gt;Whisper&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;우선은 데이터가 저장될 Whisper 이야기부터 시작하도록 하겠습니다. 아래 명령어를 실행합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull nacyot/whisper
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --name whisper nacyot/whisper
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='nacyot/whisper-dockerfile'&gt;nacyot/whisper Dockerfile&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;사실 &lt;code&gt;nacyot/whisper&lt;/code&gt; 이미지에는 아무것도 없습니다. &lt;a href="https://github.com/nacyot/docker-graphite/blob/master/whisper/Dockerfile"&gt;Dockerfile&lt;/a&gt;을 열어보면 아래와 같이 실행되는 명령어는 전혀 없습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;busybox&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;MAINTAINER&lt;/span&gt; &lt;span class="n"&gt;Daekwon&lt;/span&gt; &lt;span class="n"&gt;Kim&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;propellerheaven&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;VOLUME&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;whisper&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;CMD&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/bin/sh&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;자세히 보면 &lt;code&gt;busybox&lt;/code&gt;라는 이미지를 기반으로 단지 &lt;code&gt;/opt/graphite/storage/whisper&lt;/code&gt; 디렉토리를 마운트 시키는 역할을 하고 있습니다. 정말 이것뿐입니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='볼륨-컨테이너'&gt;볼륨 컨테이너&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Docker의 볼륨 컨테이너라는 개념을 이해하고 계신다면 바로 이해하실 수 있겠지만, 별안간 등장한 busybox라는 이미지가 낯설어보일지도 모릅니다. 잠깐 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/busybox' rel='noindex,nofollow'&gt;busybox&lt;/a&gt;&lt;/span&gt;의 정체를 짚고 넘어가죠.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker images busybox
+&lt;/span&gt;&lt;span id="line-2"&gt;REPOSITORY          TAG                   IMAGE ID            CREATED             VIRTUAL SIZE
+&lt;/span&gt;&lt;span id="line-3"&gt;busybox             latest                a9eb17255234        6 weeks ago         2.433 MB
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;imagse&lt;/code&gt;를 명령어를 실행해보면 busybox 이미지가 놀라울 정도로 &lt;strong&gt;작은&lt;/strong&gt; 이미지라는 것을 알 수 있습니다. busybox의 정체는 초경량 임베디드 리눅스의 일종입니다. 실제로 &lt;code&gt;naycot/whisper&lt;/code&gt;가 하는 역할은 &lt;code&gt;/opt/graphite/storage/whisper&lt;/code&gt;라는 디렉토리를 마운트해놓고, 관련된 모듈이 여기에 데이터를 저장하거나 읽어들이기 위한 역할만을 하는 정말로 &lt;strong&gt;데이터만을 위한&lt;/strong&gt; 이미지입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --name whisper nacyot/whisper
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;눈치가 빠르신 분들은 이미 알아채셨겠지만, 이 &lt;code&gt;docker run&lt;/code&gt; 명령어는 심상치 않습니다. 보통 셸을 사용하는 경우처럼 컨테이너에 직접 접속하고자 할 때는 &lt;code&gt;-it&lt;/code&gt; 옵션을 사용하고, 반대로 백그라운드에서 실행시킬 때는 &lt;code&gt;-d&lt;/code&gt; 옵션을 사용하는데, 여기에는 아무런 옵션이 보이질 않습니다. 실제로 이 명령어를 통해서 컨테이너는 생성되지만 실행되진 않습니다. 이렇게 &lt;strong&gt;데이터만을 위한&lt;/strong&gt; 이미지는, &lt;strong&gt;데이터만을 위한&lt;/strong&gt; 컨테이너로 탈바꿈합니다.&lt;/p&gt;
+
+&lt;p&gt;사실 이러한 볼륨 컨테이너를 사용하지 않아도 어플리케이션을 사용하는 데는 아무런 문제가 없습니다만, 볼륨 컨테이너를 사용하면 좋은 점이 있습니다. 먼저 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/aufs' rel='noindex,nofollow'&gt;AUFS&lt;/a&gt;&lt;/span&gt;와 같은 도커 파일 시스템 자체에 데이터를 기록하는 일은 성능 면에서 손해가 많은 편입니다. 다른 파일 시스템을 사용하는 방법도 있기는 합니다만 Volume 기능을 사용해 특정한 디렉토리를 마운트 시키면 호스트와 같은 파일 시스템으로 데이터가 기록됩니다. 이를 통해 성능 손실을 막을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;또한 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/volume_container' rel='noindex,nofollow'&gt;볼륨 컨테이너&lt;/a&gt;&lt;/span&gt;를 통해서 실제로 작동되는 프로세스의 실행 종료와 완전히 무관하게, 볼륨 컨테이너가 삭제되지 않는 한 해당하는 컨테이너에 마운트된 데이터도 사라지지 않도록 영속성을 보장할 수 있게 해줍니다. 이를 통해 부가적으로 프로세스와 데이터의 논리적 분리를 통해서 좀 더 깔끔한 관리가 가능하게 해주며, 특히 다수의 프로세스에서 데이터를 공유할 때 특정 프로세스 컨테이너나 특정 Host의 폴더에 의존하지 않는 구조를 만들 수 있게 해줍니다.&lt;/p&gt;
+
+&lt;p&gt;앞서 실행한 볼륨 컨테이너를 확인해보죠. 컨테이너는 실행중인 상태가 아니므로 &lt;code&gt;-a&lt;/code&gt; 옵션을 통해서 확인합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker ps -al
+&lt;/span&gt;&lt;span id="line-2"&gt;CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS                           PORTS
+&lt;/span&gt;&lt;span id="line-3"&gt;45b4afcb4be2        nacyot/whisper:latest        /bin/sh                About an hour ago   Exited &lt;span class="o"&gt;(&lt;/span&gt;0&lt;span class="o"&gt;)&lt;/span&gt; About an hour ago                                                                              whisper
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;뭔가 아무것도 없는데 설명이 길었습니다만, 이걸로 데이터를 저장할 준비가 되었습니다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='carbon-cache'&gt;carbon-cache&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;다음은 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/carbon' rel='noindex,nofollow'&gt;Carbon&lt;/a&gt;&lt;/span&gt;입니다. 실질적으로 데이터를 수집해서 파일 시스템에 기록하는 모듈이 바로 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/carbon-cache' rel='noindex,nofollow'&gt;Carbon-Cache&lt;/a&gt;&lt;/span&gt;입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull nacyot/carbon-cache
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 2003:2003 -p 2004:2004 -p 7002:7002 --volumes-from whisper -e &lt;span class="nv"&gt;NODE_NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;cache nacyot/carbon-cache
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이것도 간단하죠? 이제 바로 데이터 수집이 가능합니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='nacyot/carbon-base-dockerfile'&gt;nacyot/carbon-base Dockerfile&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;먼저 carbon-cache 이미지를 살펴보기 전에 carbon-cache 이미지의 베이스가 되는 carbon-base를 살펴보겠습니다. carbon-base 실제 모듈이 아니라 carbon-cache와 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/carbon-relay' rel='noindex,nofollow'&gt;carbon-relay&lt;/a&gt;&lt;/span&gt;를 위해 만들어진 중간 이미지입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ubuntu&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;MAINTAINER&lt;/span&gt; &lt;span class="n"&gt;Daekwon&lt;/span&gt; &lt;span class="n"&gt;Kim&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;propellerheaven&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;twisted&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;WORKDIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/graphite-project/carbon.git&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/graphite-project/whisper.git&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;whisper&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;carbon&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="mf"&gt;0.9.12&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;carbon-base 이미지에도 특별한 건 없습니다. &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/python'&gt;python&lt;/a&gt;&lt;/span&gt;을 설치하고 carbon과 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/whisper' rel='noindex,nofollow'&gt;whisper&lt;/a&gt;&lt;/span&gt;를 설치해줍니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='nacyot/carbon-cache-dockerfile'&gt;nacyot/carbon-cache Dockerfile&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;다음으로 carbon-cache의 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/dockerfile'&gt;Dockerfile&lt;/a&gt;&lt;/span&gt;을 살펴보도록 하겠습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;carbon&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;base&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;MAINTAINER&lt;/span&gt; &lt;span class="n"&gt;Daekwon&lt;/span&gt; &lt;span class="n"&gt;Kim&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;propellerheaven&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;NODE_NAME&lt;/span&gt; &lt;span class="n"&gt;cache&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;LOCAL_DATA_DIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;whisper&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;MAX_CACHE_SIZE&lt;/span&gt; &lt;span class="n"&gt;inf&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;MAX_UPDATES_PER_SECOND&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;MAX_CREATES_PER_MINUTE&lt;/span&gt; &lt;span class="n"&gt;inf&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;LOG_UPDATES&lt;/span&gt; &lt;span class="n"&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;LINE_RECEIVER_INTERFACE&lt;/span&gt; &lt;span class="mf"&gt;0.0.0.0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;PICKLE_RECEIVER_INTERFACE&lt;/span&gt; &lt;span class="mf"&gt;0.0.0.0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;CACHE_QUERY_INTERFACE&lt;/span&gt; &lt;span class="mf"&gt;0.0.0.0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;LINE_RECEIVER_PORT&lt;/span&gt; &lt;span class="mi"&gt;2003&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;PICKLE_RECEIVER_PORT&lt;/span&gt; &lt;span class="mi"&gt;2004&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;CACHE_QUERY_PORT&lt;/span&gt; &lt;span class="mi"&gt;7002&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;setup_configs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;setup_configs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="n"&gt;EXPOSE&lt;/span&gt; &lt;span class="mi"&gt;2003&lt;/span&gt; &lt;span class="mi"&gt;2004&lt;/span&gt; &lt;span class="mi"&gt;7002&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="n"&gt;WORKDIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="n"&gt;CMD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;setup_configs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;사실 carbon은 이미 carbon-base에서 설치가 되었기 때문에 여기서 무언가를 설치하거나 실행하는 부분은 없습니다. 여기서는 우선 ENV를 통해서 기본 환경변수값들을 설정합니다. 이 환경변수들은 &lt;code&gt;carbon.conf&lt;/code&gt; 파일에서 사용됩니다.&lt;/p&gt;
+
+&lt;p&gt;다음으로 &lt;code&gt;/config&lt;/code&gt; 디렉토리를 이미지 내의 carbon 설정 디렉토리로 복사합니다. 이 디렉토리에는 &lt;code&gt;carbon.conf&lt;/code&gt;와 &lt;code&gt;storage-aggregation.conf&lt;/code&gt;, &lt;code&gt;storage-schemas.conf&lt;/code&gt; 파일이 포함되어있습니다. 따로 만든 설정 파일을 사용한다면 이미지 실행시 &lt;code&gt;-v&lt;/code&gt; 옵션으로 설정 파일이 포함된 폴더를 컨테이너에 마운트시키면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;그리고 &lt;code&gt;setup_configs.sh&lt;/code&gt;와 &lt;code&gt;run.sh&lt;/code&gt;를 이미지 내부로 복사합니다. 2003 2004 7002 포트를 열어주고 WORKDIR을 설정해주고, 초기 명령어(CMD)를 설정합니다. 여기서부터는 설정파일과 복사한 쉘스크립트의 용도에 대해서 간략히 설명합니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='carbon.conf'&gt;carbon.conf&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;먼저 &lt;code&gt;carbon.conf&lt;/code&gt;를 살펴보겠습니다. 이 파일은 데이터를 수집하는 carbon 데몬에 관한 설정을 담고 있습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;[cache]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="na"&gt;LOCAL_DATA_DIR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="na"&gt;MAX_CACHE_SIZE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="na"&gt;MAX_UPDATES_PER_SECOND&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="na"&gt;MAX_CREATES_PER_MINUTE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="na"&gt;LOG_UPDATES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="na"&gt;LINE_RECEIVER_INTERFACE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="na"&gt;PICKLE_RECEIVER_INTERFACE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="na"&gt;CACHE_QUERY_INTERFACE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="na"&gt;LINE_RECEIVER_PORT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="na"&gt;PICKLE_RECEIVER_PORT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="na"&gt;CACHE_QUERY_PORT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;여기서는 기본적으로 사용하는 설정들을 나열해놓았습니다. 실제로는 아무런 값도 들어가 있지않습니다. 이렇게도 실행이 가능할까요? 불가능하겠죠. 이 설정은 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/shell_script'&gt;셸스크립트&lt;/a&gt;&lt;/span&gt;를 통해서 환경변수로부터 자동적으로 입력됩니다. 이를 수행하는 게 &lt;code&gt;setup_configs.sh&lt;/code&gt; 파일입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\[cache\]/\[${NODE_NAME}\]/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-4"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(LOCAL_DATA_DIR\).*$/\1 = $(printf &amp;quot;&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;LOCAL_DATA_DIR&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot; | sed -e &amp;#39;s/\//\\\//g&amp;#39;)/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-5"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(MAX_CACHE_SIZE\).*$/\1 = ${MAX_CACHE_SIZE}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-6"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(MAX_UPDATES_PER_SECOND\).*$/\1 = ${MAX_UPDATES_PER_SECOND}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-7"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(MAX_CREATES_PER_MINUTE\).*$/\1 = ${MAX_CREATES_PER_MINUTE}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-8"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(LOG_UPDATES\).*$/\1 = ${LOG_UPDATES}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-9"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(LINE_RECEIVER_INTERFACE\).*$/\1 = ${LINE_RECEIVER_INTERFACE}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-10"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(PICKLE_RECEIVER_INTERFACE\).*$/\1 = ${PICKLE_RECEIVER_INTERFACE}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-11"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(CACHE_QUERY_INTERFACE\).*$/\1 = ${CACHE_QUERY_INTERFACE}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-12"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(LINE_RECEIVER_PORT\).*$/\1 = ${LINE_RECEIVER_PORT}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-13"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(PICKLE_RECEIVER_PORT\).*$/\1 = ${PICKLE_RECEIVER_PORT}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;span id="line-14"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/\(CACHE_QUERY_PORT\).*$/\1 = ${CACHE_QUERY_PORT}/g&amp;quot;&lt;/span&gt; ./conf/carbon.conf
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;단순 무식한 스크립트이므로 설명은 생략하겠습니다. 이를 통해서 기본적인 설정들에 대해서는 실행시에 동적으로 환경 변수를 지정해 사용할 수 있습니다. &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/environment_variable' rel='noindex,nofollow'&gt;환경변수&lt;/a&gt;&lt;/span&gt;를 덮어쓰지 않으면 위에서 살펴본 carbon-cache Dockerfile의 ENV 값들이 사용됩니다. 단순히 하나의 노드로 실행시키고자 할 때는 기본 설정을 사용해도 무방할 것입니다. 각 설정에 대한 자세한 사항은 &lt;a href="https://graphite.readthedocs.org/en/latest/index.html"&gt;Graphite 문서&lt;/a&gt;를 참조하시기바랍니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='carbon에서-사용하는-3개의-포트-:-2003,-2004,-7002'&gt;Carbon에서 사용하는 3개의 포트 : 2003, 2004, 7002&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;조금만 더 설명을 보태겠습니다. 위에서 EXPOSE 지시자를 통해서 2003, 2004, 7002, 이렇게 3개의 포트를 열었습니다. 데이터 수집 데몬이라고 했는데, 은근히 포트가 많죠. 각각의 포트가 어떤 용도로 사용되는 지 정도는 알아둘 필요가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;2003과 2004는 데이터를 받아서 저장하는 포트입니다. 먼저 2003은 plaintext protocol을 사용해 데이터를 받아들이며, 설정에서는 &lt;code&gt;LINE_RECEIVER&lt;/code&gt;로 표현합니다. 한 줄 한 줄 아래와 같은 포맷을 사용합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;metric&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;metric&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;metric&lt;/span&gt; &lt;span class="n"&gt;timestamp&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;실제로는 아래와 같습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt; &lt;span class="mf"&gt;3.5&lt;/span&gt; &lt;span class="mi"&gt;1405608517&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;다음으로 2004는 pickle protocol입니다. 설정에서는 &lt;code&gt;PICKLE_RECEIVER&lt;/code&gt;라고 표현합니다. 아래와 같은 형식을 사용합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;[(path, (timestamp, value)), ...]&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;하나의 네임스페이스에 대해서 다량의 정보를 수집할 때 유용합니다. 어쨌거나 대개는 라이브러리나 이미 만들어져있는 수집기를 통해서 metric을 수집하기 때문에 프로토콜까지 이해하고 직접 작성할 일은 별로 없습니다. 포트의 용도 정도만 이해하셔도 충분하다고 생각합니다.&lt;/p&gt;
+
+&lt;p&gt;마지막으로 7002는 쿼리 포트입니다. 실제로 이 포트는 graphite-web에서 연결합니다. 그런데 사실 graphite-web은 whisper 데이터베이스(파일)에서 직접 데이터를 읽어옵니다. 그렇다면 조금 의문이 들 지도 모릅니다. 이 carbon daemon에 쿼리를 하는 건 어떤 용도로 쓰일까요? 사실 carbon에서 받은 데이터는 whisper 데이터베이스에 실시간으로 저장되지 않습니다. carbon에서 받은 데이터는 기본적으로 메모리에 저장되고 whisper 라이브러리에 의해서 적절히 flush되어 파일에 저장됩니다. carbon-cache는 최근에 들어온 아직 파일에 쓰여지지 않은 데이터를 쿼리하는데 사용됩니다.&lt;/p&gt;
+
+&lt;p&gt;이것으로 3가지 포트의 수수께끼는 풀렸습니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='storage-aggregation.conf-&amp;amp;-storage-schemas.conf'&gt;storage-aggregation.conf &amp;amp; storage-schemas.conf&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;이외에도 carbon에는 데이터를 저장할 whisper 데이터베이스의 저장방식을 지정하기 위한 설정 파일들이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;whisper 라이브러리는 데이터값을 받는 모든 네임스페이스에 대해서 해당하는 네임스페이스의 데이터가 저장되는 &lt;code&gt;.wsp&lt;/code&gt; 파일을 생성합니다. &lt;code&gt;storage-schemas.conf&lt;/code&gt;는 패턴을 통해서 특정한 패턴에 해당하는 네임스페이스의 데이터베이스를 만들 때 그 구조(retention)를 정의합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;[carbon]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;^carbon\..*&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="na"&gt;retentions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;1m:31d,10m:1y,1h:5y&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="k"&gt;[highres]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;^highres.*&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="na"&gt;retentions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;1s:1d,1m:7d&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="k"&gt;[statsd]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;^statsd.*&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="na"&gt;retentions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;1m:7d,10m:1y&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="k"&gt;[default]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;.*&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="na"&gt;retentions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;10s:1d,1m:7d,10m:1y&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;설정값이 &lt;code&gt;retentions = 15s:7d,1m:21d,15m:5y&lt;/code&gt;이면 해당하는 네임스페이스의 데이터는 15초 간격의 데이터는 7일, 1분 간격의 데이터는 21일, 15분 간격의 데이터는 5년 치를 저장하게 됩니다. 좀 더 구체적으로 설명하면 데이터를 저장하고 8일이 지나면 이 데이터는 1분 간격으로 저장되고, 1분보다 짧은 간격의 데이터들은 소실됩니다.&lt;/p&gt;
+
+&lt;p&gt;그런데 이렇게 더 짧은 간격의 &lt;strong&gt;데이터들&lt;/strong&gt;이 일부가 소실되어 긴 간격의 포인트가 된다고 한다면 여기에는 분명 어떠한 조작이 일어날 것입니다. 이를 정의하는 게 storage-aggregation.conf 파일입니다. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;[min]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;\.min$&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="na"&gt;xFilesFactor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;0.1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="na"&gt;aggregationMethod&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;min&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="k"&gt;[max]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;\.max$&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="na"&gt;xFilesFactor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;0.1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="na"&gt;aggregationMethod&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;max&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="k"&gt;[sum]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;\.count$&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="na"&gt;xFilesFactor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="na"&gt;aggregationMethod&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;sum&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="k"&gt;[default_average]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="na"&gt;pattern&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;.*&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="na"&gt;xFilesFactor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;0.5&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="na"&gt;aggregationMethod&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;average&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 설정도 마찬가지로 특정한 패턴에 해당하는 네임스페이스에 대해서 적용됩니다. 기본은 &lt;code&gt;average&lt;/code&gt; 통해서 데이터가 집계됩니다. 쉽게 말해 15초 간격의 데이터가 10 20 10 20 이었다면 1분 간격의 데이터는 15가 됩니다. 단 여기서 굉장히 주의해야할 부분이 하나 있습니다. 15초 간격의 데이터인데, 실제로는 데이터가 이 사이에 하나밖에 없다고 해보죠. Whisper에서는 시간과 데이터만 있으면 어떠한 데이터도 저장이 되기 때문이 이런 종류의 제약은 걸려있지 않습니다만, 이 데이터를 average로 집계하면 데이터가 소실되어 버립니다. 이렇게 데이터가 소실되어 버리면 실제로는 데이터가 존재하는 데도 api에서 호출될 때는 사라지는 현상이 발생하게됩니다. 이러한 상황을 방지하기 위해서는 데이터를 간격에 맞춰(혹은 더 자주) 충실히 넣어주거나, average 대신 다른 집계 방법을 사용할 필요가 있습니다. 이는 Graphite를 처음 사용할 때 빠지기 쉬운 함정이므로 알아두면 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;참고로 패턴 적용은 위에서부터 이루어진다는데 유의가 필요합니다. 즉 이 설정 파일들에서는 순서가 중요합니다. 예를 들어 &lt;code&gt;[default]&lt;/code&gt;의 패턴 &lt;code&gt;.*&lt;/code&gt;이 모든 네임스페이스에 들어맞기 때문에 이후에 어떤 설정을 넣어도 적용되지 않을 것입니다.&lt;/p&gt;
+
+&lt;p&gt;더 자세한 내용은 &lt;a href="https://graphite.readthedocs.org/en/latest/index.html"&gt;Graphite 문서&lt;/a&gt;를 참조해주시기바랍니다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='graphite-web'&gt;Graphite-Web&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;이것으로 무사히 &lt;code&gt;carbon-cache&lt;/code&gt;까지 실행했습니다. 데이터를 받을 준비는 끝났습니다. 다음은 저장된 데이터를 읽어오는 Garphite-Web 모듈의 차례입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull naycot/graphite-web
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 8000:8000 -e &lt;span class="nv"&gt;CARBONLINK_HOSTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;172.17.42.1:7002&amp;quot;&lt;/span&gt; --volumes-from whisper nacyot/graphite-web
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;역시나 도커를 사용하면 간단합니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='nacyot/graphite-web-dockrefile'&gt;nacyot/graphite-web Dockrefile&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;여기서부터는 좀 더 자세히 graphite-web 이미지가 어떻게 만들어졌는지 살펴보겠습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ubuntu&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;MAINTAINER&lt;/span&gt; &lt;span class="n"&gt;Daekwon&lt;/span&gt; &lt;span class="n"&gt;Kim&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;propellerheaven&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# Install Base Packages&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;supervisor&lt;/span&gt; &lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;light&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;simplejson&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;memcache&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ldap&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cairo&lt;/span&gt; \
+&lt;/span&gt;&lt;span id="line-8"&gt;                       &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;twisted&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pysqlite2&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;support&lt;/span&gt; \
+&lt;/span&gt;&lt;span id="line-9"&gt;                       &lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;gunicorn&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="cp"&gt;# Install python packages&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pytz&lt;/span&gt; &lt;span class="n"&gt;pyparsing&lt;/span&gt; &lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt; &lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;tagging&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mf"&gt;0.3.1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="cp"&gt;# Install whisper and graphite-web&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="n"&gt;WORKDIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/graphite-project/whisper.git&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;whisper&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="mf"&gt;0.9.12&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/graphite-project/graphite-web.git&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; \
+&lt;/span&gt;&lt;span id="line-20"&gt;      &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="mf"&gt;0.9.12&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; \
+&lt;/span&gt;&lt;span id="line-21"&gt;      &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;check&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dependencies&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="cp"&gt;# Setup graphite directories and environment variables&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;GRAPHITE_STORAGE_DIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-25"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;GRAPHITE_CONF_DIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;PYTHONPATH&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;webapp&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-27"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;LOG_DIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-28"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;DEFAULT_INDEX_TABLESPACE&lt;/span&gt; &lt;span class="n"&gt;graphite&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-29"&gt;
+&lt;/span&gt;&lt;span id="line-30"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;webapp&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-31"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-32"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;touch&lt;/span&gt; &lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-33"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;whisper&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-34"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;touch&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;index&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-35"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;chown&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt; &lt;span class="n"&gt;www&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-36"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;chmod&lt;/span&gt; &lt;span class="mo"&gt;0775&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;whisper&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-37"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;chmod&lt;/span&gt; &lt;span class="mo"&gt;0664&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-38"&gt;
+&lt;/span&gt;&lt;span id="line-39"&gt;&lt;span class="cp"&gt;# Copy configuration files&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-40"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local_settings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;webapp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local_settings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-41"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;initial_data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;webapp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;initial_data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-42"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nginx&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-43"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;supervisord&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;supervisor&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;supervisord&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-44"&gt;
+&lt;/span&gt;&lt;span id="line-45"&gt;&lt;span class="cp"&gt;# Initialize database(sqlite3)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-46"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;webapp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;syncdb&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;noinput&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-47"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;webapp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;loaddata&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt; &lt;span class="n"&gt;initial_data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-48"&gt;
+&lt;/span&gt;&lt;span id="line-49"&gt;&lt;span class="cp"&gt;# Set CMD&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-50"&gt;&lt;span class="n"&gt;WORKDIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;webapp&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-51"&gt;&lt;span class="n"&gt;EXPOSE&lt;/span&gt; &lt;span class="mi"&gt;80&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-52"&gt;&lt;span class="n"&gt;CMD&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/usr/bin/supervisord&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;-n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번엔 꽤나 많은 명령어들이 늘어져있습니다만, 사실 자세히 보면 python과 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/django' rel='noindex,nofollow'&gt;django&lt;/a&gt;&lt;/span&gt; 관련 패키지 설치, 관련 폴더/파일 생성, 필요한 ENV 지정, django 앱인 graphite-web을 설치하는 과정에 불과합니다. 내용만 길 뿐이지, 읽어나가는 데 큰 어려움은 없을 것이라 생각합니다.&lt;/p&gt;
+
+&lt;p&gt;마지막 CMD 지시자를 통해서 &lt;code&gt;supervisord&lt;/code&gt;로 &lt;code&gt;gunicorn_django&lt;/code&gt;와 &lt;code&gt;nginx&lt;/code&gt;를 사용해 graphite-web을 실행합니다.&lt;/p&gt;
+
+&lt;p&gt;supervisord.conf는 아래와 같이 구성됩니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;[supervisord]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="na"&gt;nodaemon&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;[program:nginx]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="na"&gt;command&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/usr/sbin/nginx&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="na"&gt;stdout_logfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/var/log/supervisor/%(program_name)s.log&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="na"&gt;stderr_logfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/var/log/supervisor/%(program_name)s.log&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="na"&gt;autorestart&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="k"&gt;[program:graphite-webapp]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="na"&gt;directory&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/opt/graphite/webapp&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="na"&gt;command&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/usr/bin/gunicorn_django -b0.0.0.0:8000 -w2 graphite/settings.py&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="na"&gt;stdout_logfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/var/log/supervisor/%(program_name)s.log&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="na"&gt;stderr_logfile&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/var/log/supervisor/%(program_name)s.log&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="na"&gt;autorestart&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;실제 graphite-web 어플리케이션은 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/gunicorn' rel='noindex,nofollow'&gt;gunicorn&lt;/a&gt;&lt;/span&gt;을 통해서 실행시키고, &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/nginx' rel='noindex,nofollow'&gt;nginx&lt;/a&gt;&lt;/span&gt;의 프록시 기능을 통해서 외부에 노출시킵니다. &lt;code&gt;nginx.conf&lt;/code&gt; 일부를 살펴보면 아래와 같이 proxy하고 있는 걸 알 수 있습니다. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;proxy_pass&lt;/span&gt;                 &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//127.0.0.1:8000;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;proxy_set_header&lt;/span&gt;           &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Real&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;IP&lt;/span&gt;   &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;remote_addr&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;proxy_set_header&lt;/span&gt;           &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Forwarded&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;For&lt;/span&gt;  &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;proxy_add_x_forwarded_for&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;proxy_set_header&lt;/span&gt;           &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Forwarded&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Proto&lt;/span&gt;  &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;scheme&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;proxy_set_header&lt;/span&gt;           &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Forwarded&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Server&lt;/span&gt;  &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;proxy_set_header&lt;/span&gt;           &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Forwarded&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Host&lt;/span&gt;  &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;proxy_set_header&lt;/span&gt;           &lt;span class="n"&gt;Host&lt;/span&gt;  &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이외에도 nginx를 사용하는 이유는 한 가지가 더 있습니다. 바로 외부 호스트에서 호출시 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/cors' rel='noindex,nofollow'&gt;cors&lt;/a&gt;&lt;/span&gt;를 사용하기 위함입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;add_header&lt;/span&gt; &lt;span class="n"&gt;Access&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Control&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Allow&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Origin&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;*&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;add_header&lt;/span&gt; &lt;span class="n"&gt;Access&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Control&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Allow&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Methods&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;GET, OPTIONS&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;add_header&lt;/span&gt; &lt;span class="n"&gt;Access&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Control&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Allow&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Headers&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;origin, authorization, accept&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;참고로 graphite-web는 단순히 데이터를 전달하는 용도 뿐만 아니라, 웹사이트 기능을 포함하고 있어서 자체 정보를 저장하는 데이터베이스를 사용합니다. 이 데이터베이스에는 사이트 설정 및 관리자 정보 같은 것들이 저장됩니다. 여기서는 편의상 sqlite을 사용해서 컨테이너 내부에서만 사용합니다. 이 예제에서는 graphite-web 대시보드를 사용하지 않습니다. grafana를 사용할 것이므로 별로 중요하지 않습니다. (참고로 기본 관리자 계정은 admin/admin 입니다)&lt;/p&gt;
+
+&lt;p&gt;local&lt;em&gt;settings.py에는 graphite-web 설정이 들어갑니다만, 실제 파이썬 코드를 사용하므로 바로 환경변수를 사용할 수 있습니다. 앞에서 사용한 `setup&lt;/em&gt;configs.sh`처럼 쉘 스크립트를 사용할 필요가 없습니다. 파이썬 코드를 바로 사용해서 환경변수를 통해 설정을 적용할 수 있습니다. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;LOG_DIR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/var/log/graphite&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;CARBONLINK_HOSTS&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;CARBONLINK_HOSTS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;CARBONLINK_HOSTS&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;CLUSTER_SERVERS&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;    &lt;span class="n"&gt;CLUSTER_SERVERS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;CLUSTER_SERVERS&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MEMCACHE_HOSTS&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;    &lt;span class="n"&gt;CLUSTER_SERVERS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MEMCACHE_HOSTS&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;현재 중요한 옵션은 &lt;code&gt;CARBONLINK_HOSTS&lt;/code&gt;입니다. 위에서 설명한 대로 carbon에 직접 연결해서 아직 whisper에 저장되지 않은 데이터를 읽어오기 위한 용도입니다. 다시 앞선 graphite-web 실행 명령어를 살펴봅니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 8000:8000 -e &lt;span class="nv"&gt;CARBONLINK_HOSTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;172.17.42.1:7002&amp;quot;&lt;/span&gt; --volumes-from whisper nacyot/graphite-web
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이를 통해 &lt;code&gt;CARBONLINK_HOSTS&lt;/code&gt;를 통해 carbon에서 직접 최신 데이터를 받아오며 &lt;code&gt;--volumes-from&lt;/code&gt;을 통해서 whisper 데이터를 읽어오는 것을 알 수 있습니다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='graphite-정리'&gt;Graphite 정리&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;현재 상황을 확인해보겠습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker ps -a
+&lt;/span&gt;&lt;span id="line-2"&gt;CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS                      PORTS                                                                    NAMES
+&lt;/span&gt;&lt;span id="line-3"&gt;3acf95727292        nacyot/graphite-web:latest   /usr/bin/gunicorn_dj   10 minutes ago      Up 10 minutes               0.0.0.0:8000-&amp;gt;8000/tcp                                                   thirsty_ritchie
+&lt;/span&gt;&lt;span id="line-4"&gt;5ec8670bef73        nacyot/carbon-cache:latest   /bin/sh -c &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;./setup_   10 minutes ago      Up 10 minutes               0.0.0.0:2003-&amp;gt;2003/tcp, 0.0.0.0:2004-&amp;gt;2004/tcp, 0.0.0.0:7002-&amp;gt;7002/tcp   tender_newton
+&lt;/span&gt;&lt;span id="line-5"&gt;48a012d30afb        nacyot/whisper:latest        /bin/sh                12 minutes ago      Exited &lt;span class="o"&gt;(&lt;/span&gt;0&lt;span class="o"&gt;)&lt;/span&gt; 12 minutes ago                                                                            whisper
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;앞서 설명했듯이 whisper는 실제로 실행중인 컨테이너가 아니므로 &lt;code&gt;-a&lt;/code&gt; 옵션을 사용하지 않으면 보이지 않습니다. carbon-cache를 사용해서 whisper에 데이터를 저장하고 graphite-web에서 저장된 데이터와 carbon-cache에서 최신 데이터를 가져오도록 완벽히 세팅되었습니다.&lt;/p&gt;
+
+&lt;p&gt;여기까지 잘 따라오셨다면 &lt;code&gt;http://0.0.0.0:8000&lt;/code&gt;에 접속해봅니다. 몇 번인가 언급했다시피 graphite-web은 api 서버이자, 대시보드 어플리케이션 역할을 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/BiV7oAE.png" alt="Grphite-Web Dashboard"&gt;
+&lt;p class="shape-title"&gt;Graphite-Web 대시보드&lt;/p&gt;r&lt;/p&gt;
+
+&lt;p&gt;오오, 뭔가 나오네요 &amp;gt;_&amp;lt;&lt;/p&gt;
+
+&lt;p&gt;아직 어떠한 데이터도 집어넣은 기억이 없으실 지도 모릅니다만, carbon은 기본적으로 데몬으로부터 간단한 데이터를 수집합니다.&lt;/p&gt;
+
+&lt;h1&gt;&lt;a name='grafana'&gt;Grafana&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;p&gt;Grafana는 Graphite나 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/influxdb'&gt;influxDB&lt;/a&gt;&lt;/span&gt;를 백엔드로 사용하는 대시보드 툴입니다. 처음 Graphite + Grafana 조합을 보면, ElasticSearch + Kibana 조합과 뭐가 다른 건지, 대체 가능한 건지 의문이 들 지도 모릅니다. 차이가 있다고 하면 있고, 없다고 하면 없기는 합니다. 그런 알쏭달쏭한 면이 있기는 하지만,  하나 분명한 차이는 Graphite는 단지 시간과 데이터를 받는 시계열 데이터베이스고, ElasticSearch를 사용한 모니터링은 로그 수집에 가깝다는 점입니다. 결론적으로 ElasticSearch가 Graphite의 기능을 대개 커버할 수 있을지는 모르지만, 단순 시계열 데이터를 저장하는데 최적화된 플랫폼은 아닙니다. 결국에 시스템 모니터링 + 로그 시스템을 구축할 때는 Graphite + Grafana와 ElasticSearch + Kibana 두 조합 모두 사용하는 게 답이 아닌가 하고, 필요하다면 각각에 대한 대체툴을 찾아야겠죠.&lt;/p&gt;
+
+&lt;p&gt;어쨌건 약간 주제에서 빗겨난 이야기를 했습니다만, 다시 한 번 정리하면 Graphite는 시계열 데이터를 저장하는데 최적화되어있고, Grafana는 시계열 데이터를 보여주는데 최적화된 대시보드라고 할 수 있습니다. 아, 물론 Graphite를 기반으로 하는 대시보다 툴은 더 많이 있습니다. Garafana는 그 중에서 최근에 가장 잘 나가는 도구라고 보시면 됩니다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='grafana-실행하기'&gt;Grafana 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;먼저 grafana를 실행시키기 위해서는 elasticsearch가 필요합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull dockerfile/elasticsearch
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 9200:9200 -p 9300:9300 dockerfile/elasticsearch
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;다음 명령어로 grafana를 실행합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull nacyot/grafana
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 8001:8000 nacyot/grafana
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='dockerfile'&gt;Dockerfile&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Grafana는 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/angularjs'&gt;Angularjs&lt;/a&gt;&lt;/span&gt;를 기반으로 만들어진 앱어플리케이션으로 자바스크립트 프로젝트입니다. 따라서 레일스나 장고와 같은 서버 계층을 가지고 있지 않습니다. 갑자기 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/centos' rel='noindex,nofollow'&gt;Centos&lt;/a&gt;&lt;/span&gt;를 사용하고 있습니다만, 이전에 작업하던 걸 기반으로 한 거라 별다른 의미이는 없습니다. 설치과정은 grafana 어플리케이션을 가져와서 적절한 위치에 설치하고 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/apache' rel='noindex,nofollow'&gt;apache&lt;/a&gt;&lt;/span&gt;를 기반으로 실행합니다. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;centos&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;centos6&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;MAINTAINER&lt;/span&gt; &lt;span class="n"&gt;Daekwon&lt;/span&gt; &lt;span class="n"&gt;Kim&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;propellerheaven&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;gmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;rpm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;iUvh&lt;/span&gt; &lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;httpd&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/grafana/grafana.git&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;checkout&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;tags&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;rev&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;tags&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;rm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;localtime&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;cp&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;share&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;zoneinfo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Japan&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;localtime&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;js&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;httpd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;setup_configs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;setup_configs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;ADD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;ES_API_HOST&lt;/span&gt; &lt;span class="mf"&gt;172.17.42.1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;ES_API_PORT&lt;/span&gt; &lt;span class="mi"&gt;9200&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;GRAPHITE_API_HOST&lt;/span&gt; &lt;span class="mf"&gt;172.17.42.1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="n"&gt;ENV&lt;/span&gt; &lt;span class="n"&gt;GRAPHITE_API_PORT&lt;/span&gt; &lt;span class="mi"&gt;8000&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;
+&lt;/span&gt;&lt;span id="line-25"&gt;&lt;span class="n"&gt;WORKDIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grafana&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;
+&lt;/span&gt;&lt;span id="line-27"&gt;&lt;span class="n"&gt;EXPOSE&lt;/span&gt; &lt;span class="mi"&gt;8000&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-28"&gt;&lt;span class="n"&gt;CMD&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;setup_configs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;일단 다른 부분들은 대체로 비슷한데, 로컬 타임 설정하는 부분이 있습니다. 기본적으로 도커 컨테이너에서는 시간이 UTC로 설정된다는 걸 이해하고 있어야합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -i -t ubuntu bash
+&lt;/span&gt;&lt;span id="line-2"&gt;root@1f27c50b400d:/# date
+&lt;/span&gt;&lt;span id="line-3"&gt;Fri Jul 18 01:05:48 UTC 2014
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이는 여러모로 귀찮은 문제들을 발생시키곤 합니다. 어플리케이션 단에서 이 문제를 명시적으로 설정해서 푸는 방법도 있습니다만, 해당하는 설정이 작동하지 않는 경우 시스템 시간 설정을 바꾸는 것도 방법입니다. 여기서 시스템 시간 설정을 하는 이유는 아마 해당하는 이슈가 있었기 때문이라고 어렴풋이 떠올려봅니다만, 사실 정확히 기억나진 않습니다. 일단 여기서는 시스템 시간 설정을 바꿔줍니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='config.js-&amp;amp;-setup_configs.js'&gt;config.js &amp;amp; &lt;code&gt;setup_configs.js&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;다음으로 config.js를 살펴봅니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nx"&gt;define&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;settings&amp;#39;&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;       &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;Settings&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;           &lt;span class="s2"&gt;&amp;quot;use strict&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;           &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Settings&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;               &lt;span class="nx"&gt;elasticsearch&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;ES_API_HOST:ES_API_PORT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;               &lt;span class="nx"&gt;datasources&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;                 &lt;span class="nx"&gt;graphite&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;                   &lt;span class="nx"&gt;type&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;graphite&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;                   &lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;GRAPHITE_API_HOST:GRAPHITE_API_PORT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;                   &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;                   &lt;span class="nx"&gt;render_method&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;GET&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;                 &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;               &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;               &lt;span class="nx"&gt;default_route&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/dashboard/file/default.json&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;               &lt;span class="nx"&gt;timezoneOffset&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;               &lt;span class="nx"&gt;grafana_index&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;grafana-dash&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;               &lt;span class="nx"&gt;panel_names&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;                   &lt;span class="s1"&gt;&amp;#39;text&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;                   &lt;span class="s1"&gt;&amp;#39;graphite&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;               &lt;span class="cp"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;           &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;       &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Dockerfile의 아래쪼을 보면 ENV로 ElasticSearch 서버와 Garphite 서버를 설정합니다. 여기서 ElasticSerach를 사용하는 게 의아하실 지도 모릅니다만, Grafana는 기본적으로 Kibana를 베이스로 하고 있으며 대시보드 설정을 ElasticSearch에 저장하고 있습니다. 네, 단지 그 용도로 사용합니다. 데이터는 Graphite에서 가져옵니다. 환경 변수에 저장된 서버 정보는 config.js에서 치환됩니다. 이는 carbon-cache 에서 사용했던 것과 같은 기법입니다. &lt;code&gt;setup_configs.conf&lt;/code&gt;를 살펴보죠.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="o"&gt;[&lt;/span&gt; -f /opt/grafana/src/config/config.js &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; cp /opt/grafana/src/config/config.js /opt/grafana/src/config.js
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/ES_API_HOST/${ES_API_HOST}/g&amp;quot;&lt;/span&gt; ./src/config.js
+&lt;/span&gt;&lt;span id="line-6"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/ES_API_PORT/${ES_API_PORT}/g&amp;quot;&lt;/span&gt; ./src/config.js
+&lt;/span&gt;&lt;span id="line-7"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/GRAPHITE_API_HOST/${GRAPHITE_API_HOST}/g&amp;quot;&lt;/span&gt; ./src/config.js
+&lt;/span&gt;&lt;span id="line-8"&gt;sed -i -e &lt;span class="s2"&gt;&amp;quot;s/GRAPHITE_API_PORT/${GRAPHITE_API_PORT}/g&amp;quot;&lt;/span&gt; ./src/config.js
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;우선 별도의 설정 파일을 마운트했을 경우 해당하는 config.js를 우선적으로 사용할 수 있도록 했습니다. 기본적으로 이 이미지는 ElasticSearch와 Graphite 서버에 연결할 것을 전제하고 있습니다만, Grafana는 데이터 백엔드로 여러 서버를 지정할 수도 있고 InfluxDB를 지정할 수 있습니다. 물론 다른 설정들도 필요한 경우 수정할 수 있어야하니까요. 설정에 관한 자세한 사항 &lt;a href="http://grafana.org/docs/"&gt;Grafana 문서&lt;/a&gt;를 참조해주세요.&lt;/p&gt;
+
+&lt;p&gt;나머지 부분은 서버 설정을 치환하는 부분입니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='grafana.conf-&amp;amp;-run.sh'&gt;grafana.conf &amp;amp; run.sh&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Apache 설정입니다. Grafana는 자체적인 웹 서버를 가지지 않으므로 nginx나 apache를 사용해서 실행해야합니다. 별 다른 내용은 없습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;Listen 80
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nt"&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span class="err"&gt;*:80&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    ServerName grafana
+&lt;/span&gt;&lt;span id="line-4"&gt;    DocumentRoot &amp;quot;/opt/grafana/src&amp;quot;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nt"&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;run.sh는 아파치를 실제로 실행시키는 파일입니다. &lt;code&gt;-DFOREGROUND&lt;/code&gt; 옵션은 아파치를 데몬이 아니라 포그라운드에서 띄워줍니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;/usr/sbin/httpd -d . -f /etc/httpd/conf/httpd.conf -e info -DFOREGROUND
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='grafana-사용하기'&gt;Grafana 사용하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;네, 여기까지 Grafana 실행 및 내부적으로 어떻게 실행하는 지에 대해서 설명했습니다. 앞서 실행시에 8001번 포트로 내부를 연결했습니다. 웹브라우저로 &lt;code&gt;0.0.0.0:8001&lt;/code&gt;에 접속해주세요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://imgur.com/UYDytKS.png" alt="Grafana"&gt;
+&lt;p class="shape-title"&gt;Grafana Randomwalk&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;첫 페이지에 생성되는 데이터는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/randomwalk' rel='noindex,nofollow'&gt;RandomWalk&lt;/a&gt;&lt;/span&gt;로 생성된 시계열 그래프입니다.&lt;/p&gt;
+
+&lt;p&gt;앞서 Graphite-Web 에서 본 그래프는 아래와 Grafana에서는 아래와 같이 보입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/yY0Uoa9.png" alt="Grafana"&gt;
+&lt;p class="shape-title"&gt;Grafana Graph(Carbon 데몬이 수집한 데이터)&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;이 글에서는 Grafana의 사용법은 기본적인 개념만 익히면 어렵지 않습니다만, 그 얘기는 또 다음 기회에...&lt;/p&gt;
+
+&lt;h1&gt;&lt;a name='소스코드'&gt;소스코드&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/nacyot/docker-graphite"&gt;https://github.com/nacyot/docker-graphite&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이 글에서 다룬 Dockerfile의 최신 코드는 위 저장소에 있습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://registry.hub.docker.com/u/nacyot/whisper/"&gt;https://registry.hub.docker.com/u/nacyot/whisper/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://registry.hub.docker.com/u/nacyot/carbon-cache/"&gt;https://registry.hub.docker.com/u/nacyot/carbon-cache/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://registry.hub.docker.com/u/nacyot/graphite-web/"&gt;https://registry.hub.docker.com/u/nacyot/graphite-web/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://registry.hub.docker.com/u/nacyot/grafana/"&gt;https://registry.hub.docker.com/u/nacyot/grafana/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;각각의 이미지는 Docker Hub에서 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;h1&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h1&gt;
+
+&lt;p&gt;먼 길을 돌아왔습니다. 하지만 시작에서 이야기한 대로 실행하는 것은 간단합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run --name whisper nacyot/whisper
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 2003:2003 -p 2004:2004 -p 7002:7002 --volumes-from whisper -e &lt;span class="nv"&gt;NODE_NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;cache nacyot/carbon-cache
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 8000:80 -e &lt;span class="nv"&gt;CARBONLINK_HOSTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;172.17.42.1:7002&amp;quot;&lt;/span&gt; --volumes-from whisper nacyot/graphite-web
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 9200:9200 -p 9300:9300 dockerfile/elasticsearch
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -d -p 8001:8000 nacyot/grafana
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;실제로 사용하시고자 할 때는 커스터마이징이 필요할 것 같긴합니다만, 테스트 용도로 사용하는 동안에는 이 이미지들을 바로 사용해도 큰 문제는 없을 것입니다. Docker를 사용하면 위에서 설명한 모든 내용이 이 명령어 5개로 압축됩니다.&lt;/p&gt;
+
+&lt;p&gt;사실 이 전부를 다 가지고 있는 이미지 하나를 만드는 것도 가능합니다. 실제로 Docker Hub를 뒤져보면 굉장히 많은 하나로된 Grahpite 이미지들이 있습니다. 오히려 여기서 소개한 방식으로 쪼개져있는 경우를 찾아보기 힘듭니다. 이렇게 쪼개놓은 데는 이유가 있습니다. 이 글에서는 아직 소개하지 않았습니다만, Grahpite는 기본적으로 스케일 아웃 가능하도록 설계되어있습니다. 즉 각 모듈을 조립할 수 있도록 구성해야 좀 더 쉽게 스케일 아웃이 가능해집니다. 고작 숫자라고 생각하실지도 모릅니다만, 다량의 숫자를 다수의 서버에서 동시다발적으로 수집한다면 서버에 금방 과부하가 걸릴 가능성은 매우 큽니다. 이럴 때 스케일 아웃을 통해 생각보다 훨씬 견고한 수치 수집 시스템을 만들 수 있겠죠.(이 이야기가 다음 포스트가 되면 좋겠다고 생각은 하고 있습니다만, 기약은 없습니다.)&lt;/p&gt;
+
+&lt;p&gt;여기서 다룬 내용은 Graphite 시작에 불과합니다. Graphite 자체에 대해서도 이해해야할 주제들이 꽤 있습니다만, Graphite는 무엇보다도 생태계가 상당히 잘 갖춰져있는 오픈소스 모니터링 툴입니다. &lt;a href="https://collectd.org/"&gt;Collected&lt;/a&gt;, &lt;a href="https://github.com/BrightcoveOS/Diamond"&gt;Diamond&lt;/a&gt;, &lt;a href="https://github.com/mojodna/metricsd"&gt;Metricsd&lt;/a&gt;, &lt;a href="http://sensuapp.org/"&gt;Sensu&lt;/a&gt; 같은 툴을 통해서 관리중인 모든 서버의 수치 데이터를 수집할 수도 있고, 부하가 커질 경우 위에서 말한 것처럼 스케일 아웃도 가능하고 &lt;a href="https://github.com/etsy/statsd/"&gt;Statsd&lt;/a&gt;를 써서 버퍼 서버로 사용할 수도 있습니다. 또한 여기서는 Grafana만을 다뤘지만 앞서 언급한대로 다양한 대시보드 툴을 사용해 자신만의 대시보드를 만들 수도 있습니다. 나아가 &lt;a href="https://github.com/arachnys/cabot"&gt;Cabot&lt;/a&gt; 같은 툴을 이용해 수치를 감시하다가 특정 조건에 의해 경고를 보낼 수도 있습니다.&lt;/p&gt;
+
+&lt;p&gt;Graphite와 함께 즐거운 모니터링의 생활화를 도모해보시길!&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-07-24T15:58:22+00:00</updated>
+    <updated>2014-07-24T15:59:53+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -204,7 +756,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/"/>
     <id>http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/</id>
     <published>2014-05-08T01:00:03Z</published>
-    <updated>2014-07-24T15:58:22+00:00</updated>
+    <updated>2014-07-24T15:59:53+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -470,7 +1022,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/"/>
     <id>http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/</id>
     <published>2014-04-28T01:00:00Z</published>
-    <updated>2014-07-24T15:58:22+00:00</updated>
+    <updated>2014-07-24T15:59:53+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -502,7 +1054,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/"/>
     <id>http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/</id>
     <published>2014-04-19T09:53:32Z</published>
-    <updated>2014-07-24T15:58:22+00:00</updated>
+    <updated>2014-07-24T15:59:53+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -5202,7 +5754,7 @@ false
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
     <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
     <published>2014-04-18T15:15:32Z</published>
-    <updated>2014-07-24T15:58:22+00:00</updated>
+    <updated>2014-07-24T15:59:53+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -5277,2060 +5829,6 @@ false
 &lt;p&gt;공식적으로 지원되는 패키지가 있느냐 없느냐는 어떤 도구를 처음 사용할 때 큰 장벽 중 하나입니다. 우분투 14.04 LTS가 나오면서 도커의 접근성은 한층 더 높아졌다고 할 수 있습니다.&lt;/p&gt;
 
 &lt;p&gt;관심 있으신 분들은 꼭 시도해보세요 &amp;gt;_&amp;lt;&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>루비 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"/>
-    <id>http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/</id>
-    <published>2014-04-06T17:00:32Z</published>
-    <updated>2014-07-24T15:58:22+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;&lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ruby'&gt;루비&lt;/a&gt;&lt;/span&gt;에서는 테스트를 하기 위해 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/minitest' rel='noindex,nofollow'&gt;minitest&lt;/a&gt;&lt;/span&gt;와 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/bdd' rel='noindex,nofollow'&gt;BDD&lt;/a&gt;&lt;/span&gt; 프레임워크인 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/rspec'&gt;RSpec&lt;/a&gt;&lt;/span&gt;이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;테스트 준비&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;일반적으로 테스트 파일은 프로그램 파일과 별개로 작성됩니다. 여기서는 편의상 pry 위에서 바로 테스트를 진행합니다. 따라서 이 글의 내용은 irb나 pry를 통해서 따라해볼 수 있습니다. 필요한 경우 먼저 rspec과 pry 패키지를 설치합니다&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-sh"&gt;$ gem &lt;span class="keyword"&gt;install&lt;/span&gt; rspec pry
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;다음으로 pry를 실행합니다&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;$ pry
-[1] pry(main)&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;다음으로 Matecher를 사용하기 위해 &lt;code&gt;rspec&lt;/code&gt;과 &lt;code&gt;RSpec::Matchers&lt;/code&gt;를 읽어들입니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-184번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;rspec&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="n"&gt;RSpec&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Matchers&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    184번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-Object
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;테스트 기초&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;테스트는 기본적으로 아래와 같은 형식으로 쓰여집니다&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-ruby"&gt;expect(actual).to be(expected)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;여기서 &lt;code&gt;actual&lt;/code&gt;에는 실제로 테스트하고자 하는 객체가 들어가며, &lt;code&gt;expected&lt;/code&gt;에는 예상하는 값이 들어갑니다. 그리고 &lt;code&gt;be&lt;/code&gt;는 &lt;code&gt;actual&lt;/code&gt;과 &lt;code&gt;expected&lt;/code&gt;를 비교하기 위한 매쳐를 지정합니다&lt;/p&gt;
-&lt;p&gt;또한 단언문과 마찬가지로 테스트가 실패하면 예외를 발생시킵니다. 즉, 리턴값이 true라고 해서 테스트가 성공을 의미하는 게 아니며, 거꾸로 false라고 해서 실패를 의미하는 게 아닙니다. 테스트가 실패하면 &lt;code&gt;RSpec::Expectations::ExpectationNotMetError&lt;/code&gt; 예외가 발생합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;동일값 테스트 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;가장 기본적이고 가장 많이 쓰이는 매쳐는 실제값과 예상되는 값이 같은 지를 비교하는 매쳐입니다&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-185번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Equivalence&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;eq&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    185번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-186번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;eql&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    186번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-187번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;프로그래밍 언어 루비&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    187번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;동일성 테스트 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;eq&lt;/code&gt;가 실제값과 예상값이 같은지를 평가하는 매쳐라면, &lt;code&gt;equal&lt;/code&gt;은 비교하는 두 객체가 같은 객체인지를 테스트합니다. 루비에선 같은 값을 가진 심볼은 항상 같은 객체입니다. 하지만 같은 값을 가지고 있더라도 별개로 생성된 문자열은 다른 문자열입니다. 따라서 같은 값을 가진 심볼은 동일성 테스트를 통과하지만, 아래 문자열 테스트는 실패합니다&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-188번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Identity&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;equal&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    188번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-189번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;Hello_world&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    189번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-190번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, World&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;equal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, World&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
-&lt;div class="output_subarea output_text output_pyerr"&gt;
-&lt;pre&gt;
-&lt;span class="ansired"&gt;RSpec::Expectations::ExpectationNotMetError&lt;/span&gt;: 
-expected #&amp;lt;String:70158862817480&amp;gt; =&amp;gt; &amp;quot;Hello, World&amp;quot;
-     got #&amp;lt;String:70158862817540&amp;gt; =&amp;gt; &amp;quot;Hello, World&amp;quot;
-
-Compared using equal?, which compares object identity,
-but expected and actual are not the same object. Use
-&amp;#96;expect(actual).to eq(expected)&amp;#96; if you don&amp;apos;t care about
-object identity in this example.
-
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;연산자 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;동일값 테스트만큼 많이 사용되는 매쳐는 실제값과 예상값을 비교하는 연산자 매쳐입니다. 기본적으로 동일값을 비교하는 &lt;code&gt;==&lt;/code&gt;을 비롯해 &lt;code&gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;gt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;=&lt;/code&gt;, &lt;code&gt;&amp;lt;&lt;/code&gt; 등을 사용할 수 있습니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-191번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Comparisons&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    191번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-192번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    192번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;code&gt;match&lt;/code&gt;와 &lt;code&gt;=~&lt;/code&gt;는 특정 문자열이 주어진 정규표현식에 매치되는 지 여부를 테스트합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-193번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;나랏말 싸미 듕국과 달라&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;듕국&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    193번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-#&amp;lt;MatchData &amp;quot;듕국&amp;quot;&amp;gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-194번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;나랏말 싸미 듕국과 달라&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="o"&gt;=~&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;듕국&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    194번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-7
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;숫자 범위 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;be_within.of&lt;/code&gt; 매쳐는 실제값이 예상값 +- 특정 범위에 포함되는 지 여부를 테스트합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-195번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_within&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    195번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-196번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_within&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
-&lt;div class="output_subarea output_text output_pyerr"&gt;
-&lt;pre&gt;
-&lt;span class="ansired"&gt;RSpec::Expectations::ExpectationNotMetError&lt;/span&gt;: expected 100 to be within 5 of 106
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;타입 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;어떤 객체가 어떤 클래스로부터 만들어졌는지 테스트할 수 있습니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-197번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Types and classes&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_instance_of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    197번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-198번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_an_instance_of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    198번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-199번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_a&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    199번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-200번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_kind_of&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    200번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;참거짓 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;어떤 객체가 참인지 거짓인지 테스트할 수 있습니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-201번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Truthiness and existentialism&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_true&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    201번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-202번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_false&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    202번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-be-'&gt;존재(be) 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-203번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    203번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-204번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    204번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-205번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;not_to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    205번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-false
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-206번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_nil&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    206번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;변화 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;change&lt;/code&gt; 매쳐는 &lt;code&gt;expect&lt;/code&gt;에 주어진 블록이 실행되었을 때 &lt;code&gt;change&lt;/code&gt;에 주어진 블록의 평가 결과가 변화하는 지를 테스트합니다. 변화했다면 테스트가 통과합니다. 필요에 따라서 얼마만큼 변화했는지를 테스트할 수 있는 &lt;code&gt;by&lt;/code&gt;나 &lt;code&gt;expect&lt;/code&gt; 블록을 실행시키기 전의 값을 테스트할 수 있는 &lt;code&gt;from&lt;/code&gt;, 평가한 이후의 값을 테스트 할 수 있는 &lt;code&gt;to&lt;/code&gt; 메소드와 함께 사용될 수 있습니다&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-207번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    207번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-208번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    208번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-209번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;str&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Hello, world.&amp;quot;&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upcase&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, world.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;HELLO, WORLD.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    209번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;예외 메쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;expect&lt;/code&gt;에 주어진 블록의 평가 결과가 예외를 일으키는 지 테스트합니다. expect가 블록을 받는다는 데 주의가 필요합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-210번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Expecting errors&lt;/span&gt;
-&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;raise_error&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    210번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-211번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;non_existance&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;raise_error&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    211번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-212번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;non_existance&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;raise_error&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ne"&gt;NameError&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    212번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='have-'&gt;Have 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;컬렉션 객체가 몇 개의 항목을 가지고 있는 지 테스트합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-213번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;arr&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    213번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-[&amp;quot;H&amp;quot;, &amp;quot;e&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;l&amp;quot;, &amp;quot;o&amp;quot;]
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-214번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    214번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-215번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_exactly&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    215번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-216번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_at_least&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    216번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-217번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_at_most&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;items&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    217번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='have_key-'&gt;have_key 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;해시에 특정 키가 포함되어있는 지 테스트합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-218번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;nacyot&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;blog.nacyot.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;have_key&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    218번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;포함 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;객체에 특정한 값이나 키가 포함되어있는 지 테스트합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-219번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    219번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-220번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;nacyot&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;blog.nacyot.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_include&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    220번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-221번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be_include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;H&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    221번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='start_with-end_with-'&gt;start_with / end_with 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;객체의 처음이나 끝이 특정 항목으로 시작하거나 끝나는지 테스트합니다&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-222번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, world&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;start_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    222번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-223번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello, world&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;end_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;world&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    223번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-224번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;start_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    224번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-225번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;end_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    225번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;커버 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;범위 객체가 특정 값을 포함하는 지 테스트합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-226번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;100.&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;cover&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;101&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    226번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-227번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;100.&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;not_to&lt;/span&gt; &lt;span class="n"&gt;cover&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;99&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    227번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-false
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='respond_to-'&gt;respond_to 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;객체가 특정 메시지를 받을 수 있는 지 테스트 합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-228번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;respond_to&lt;/span&gt;&lt;span class="p"&gt;(:&lt;/span&gt;&lt;span class="n"&gt;upcase&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    228번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='satisfy-'&gt;satisfy 매쳐&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;블록의 평가 결과가 참인지를 평가합니다. 이 때 expect에 주어진 값이 평가 대상이 되며 satisfy 블록의 인자로 넘겨집니다. 이 블록이 참이면 테스트가 통과합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-229번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;false&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;satisfy&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="err"&gt;!&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    229번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='yielding'&gt;Yielding&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;메소드 내에서 yield하는 부분에 대해서 테스트합니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-230번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_control&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    230번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-231번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_with_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    231번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-232번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mf"&gt;5.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_with_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Fixnum&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    232번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-233번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;a string&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_with_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    233번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-234번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_successive_args&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    234번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-235번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;each&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;yield_successive_args&lt;/span&gt;&lt;span class="p"&gt;([:&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    235번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-true
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='predicate-matchers'&gt;Predicate matchers&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;참거짓을 리턴하는 메소드를 사용해 테스트합니다. 이 때 매쳐 이름은 &lt;code&gt;be_메소드이름&lt;/code&gt;이 됩니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;
-241번째 입력:
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;expect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;not_to&lt;/span&gt; &lt;span class="n"&gt;be_zero&lt;/span&gt; &lt;span class="c"&gt;# 7.zero?&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;
-    241번째 평가:&lt;/div&gt;
-
-
-&lt;div class="output_text output_subarea output_pyout"&gt;
-&lt;pre&gt;
-false
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;
-&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2&gt;&lt;a name='-'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;여기까지 소개한 매쳐들이 RSpec 빌트인 매쳐로 테스트하는데 가장 많이 사용됩니다. 조금 기교스러운 매쳐들도 있어서 익숙해지는데 시간이 걸릴지도 모르겠습니다만, 기본적인 원리만 이해하고 빌트인 매쳐들만 활용해도 대부분의 테스트를 하는 데는 크게 무리가 없습니다. 좀 더 자세한 사항은 &lt;a href="https://www.relishapp.com/rspec/rspec-expectations/v/2-14/docs/built-in-matchers"&gt;Relish의 Rspec 문서&lt;/a&gt;에서 확인하실 수 있습니다. 또한 아직 베타이지만 조만간 업데이트 예정인 메이저 버전 3에서 추가되는 매쳐도 확인할 필요가 있습니다. 역시 &lt;a href="https://www.relishapp.com/rspec/rspec-expectations/v/3-0/docs/built-in-matchers"&gt;공식문서&lt;/a&gt;에서 확인할 수 있습니다.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>

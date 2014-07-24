@@ -108,6 +108,11 @@ nav a {
   padding-top: 1em;
   margin-top: 2em;
 }
+p.shape-title {
+  font-size: 0.75em;
+  text-align: center;
+  font-weight: bold;
+}
 .articles {
   margin: 0;
   padding: 0;
@@ -128,11 +133,6 @@ nav a {
   margin: 0em auto 0em;
   padding: 0;
   max-width: 100%;
-}
-.articles .article p.shape-title {
-  font-size: 0.75em;
-  text-align: center;
-  font-weight: bold;
 }
 .articles .article .toc {
   font-size: 1.3em;

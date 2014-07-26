@@ -85,7 +85,51 @@ nacyot의 프로그래밍 이야기
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Jul 24 2014
+Jul 26 2014
+</span>
+</div>
+<h2 class='title'>
+<a href="articles/2014-07-26-docker-korea/">Docker Korea 스터디 그룹</a>
+</h2>
+<div class='summary'>
+<ul>
+<li><a href="http://www.shomney.com">함께 쓰는 가계부 Shomney</a></li>
+</ul>
+
+<p>현재 저는 <a href="http://blog.remotty.com/about/">Remotty</a>라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.</p>
+
+<p>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 스페이스 노아에서 첫 모임을 가졌습니다.</p>
+
+
+</div>
+<span class='more'><a href="articles/2014-07-26-docker-korea/">전문 읽기</a> -&gt;</span>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/Docker-Korea'>Docker Korea</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Remotty'>Remotty</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Shomney'>Shomney</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/immutable-infrastructure'>immutable infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/도커'>도커</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/스터디'>스터디</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/스페이스-노아'>스페이스 노아</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/포럼'>포럼</a>
+</div>
+</div>
+
+<div class='summary_card'>
+<div>
+<span class='date'>
+<i class='fa fa-calendar'></i>
+Jul 25 2014
 </span>
 </div>
 <h2 class='title'>
@@ -288,7 +332,7 @@ Apr 19 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Apr 18 2014
+Apr 19 2014
 </span>
 </div>
 <h2 class='title'>
@@ -326,7 +370,7 @@ Apr 18 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Apr  6 2014
+Apr  7 2014
 </span>
 </div>
 <h2 class='title'>
@@ -358,7 +402,7 @@ Apr  6 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Apr  5 2014
+Apr  6 2014
 </span>
 </div>
 <h2 class='title'>
@@ -424,7 +468,7 @@ Mar 23 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Mar 16 2014
+Mar 17 2014
 </span>
 </div>
 <h2 class='title'>
@@ -464,7 +508,7 @@ Mar 16 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Mar 11 2014
+Mar 12 2014
 </span>
 </div>
 <h2 class='title'>
@@ -500,7 +544,7 @@ Mar 11 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Feb 10 2014
+Feb 11 2014
 </span>
 </div>
 <h2 class='title'>
@@ -586,7 +630,7 @@ Jan 30 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Jan 29 2014
+Jan 30 2014
 </span>
 </div>
 <h2 class='title'>
@@ -670,7 +714,7 @@ Jan 27 2014
 <div>
 <span class='date'>
 <i class='fa fa-calendar'></i>
-Jan 17 2014
+Jan 18 2014
 </span>
 </div>
 <h2 class='title'>
@@ -846,6 +890,40 @@ Oct  2 2013
 </span>
 </div>
 <h2 class='title'>
+<a href="articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/">Rspec과 Guard를 활용한 루비 테스트 자동화</a>
+</h2>
+<div class='summary'>
+<p>루비 테스트로는 minitest와 Rspec이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.</p>
+
+
+</div>
+<span class='more'><a href="articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/">전문 읽기</a> -&gt;</span>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/autotest'>autotest</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/guard'>guard</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/minitest'>minitest</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/rspec'>rspec</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/루비'>루비</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/테스트'>테스트</a>
+</div>
+</div>
+
+<div class='summary_card'>
+<div>
+<span class='date'>
+<i class='fa fa-calendar'></i>
+Oct  2 2013
+</span>
+</div>
+<h2 class='title'>
 <a href="articles/2013-10-02-github-ecosystem/">Github을 둘러싼 유용한 서비스들</a>
 </h2>
 <div class='summary'>
@@ -877,40 +955,6 @@ Oct  2 2013
 <a href='/tags/travis'>travis</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/루비'>루비</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Oct  2 2013
-</span>
-</div>
-<h2 class='title'>
-<a href="articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/">Rspec과 Guard를 활용한 루비 테스트 자동화</a>
-</h2>
-<div class='summary'>
-<p>루비 테스트로는 minitest와 Rspec이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.</p>
-
-
-</div>
-<span class='more'><a href="articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/">전문 읽기</a> -&gt;</span>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/autotest'>autotest</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/guard'>guard</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/minitest'>minitest</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/rspec'>rspec</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ruby'>ruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/루비'>루비</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/테스트'>테스트</a>
 </div>
 </div>
 

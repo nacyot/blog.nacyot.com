@@ -5,16 +5,76 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2014-07-24T15:55:03Z</updated>
+  <updated>2014-07-26T06:47:03Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>Docker Korea 스터디 그룹</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
+    <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
+    <published>2014-07-26T06:47:03Z</published>
+    <updated>2014-07-26T06:48:18+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.shomney.com"&gt;함께 쓰는 가계부 Shomney&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;현재 저는 &lt;a href="http://blog.remotty.com/about/"&gt;Remotty&lt;/a&gt;라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.&lt;/p&gt;
+
+&lt;p&gt;Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/space_noah' rel='noindex,nofollow'&gt;스페이스 노아&lt;/a&gt;&lt;/span&gt;에서 첫 모임을 가졌습니다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/kngLZ3Y.png" alt="Docker Korea 1회 모임"&gt;&lt;/p&gt;
+
+&lt;p&gt;첫번째 모임에서는 2가지 주제 발표가 이루어졌습니다.&lt;/p&gt;
+
+&lt;p&gt;먼저 &lt;a href="https://twitter.com/subicura"&gt;subicura&lt;/a&gt; 님이
+&amp;#39;Docker - 배포할때 알면 좋은 tip&amp;#39;에 대해서 발표해주셨습니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;iframe src="//slides.com/chungsubkim/docker-tip/embed" width="680" height="480" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.youtube.com/watch?v=ix1E8YBOTeA"&gt;http://www.youtube.com/watch?v=ix1E8YBOTeA&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;다음으로는 제가 &amp;#39;Immutable Infrastructure&amp;#39;라는 주제로 도커와 맞물린 서버 운영의 패러다임 변화에 대해서 발표했습니다. 이 주제는 이전 Programer 세미나에서 발표했던 주제로, &lt;a href="http://localhost:5004/articles/2014-04-06-immutable-infrastructure/"&gt;이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure&lt;/a&gt;도 참조해주세요.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;iframe src="//www.slideshare.net/slideshow/embed_code/33063863" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/ext/immutable-infrastructure123123123" title="이미지 기반의 배포 패러다임 Immutable infrastructure" target="_blank"&gt;이미지 기반의 배포 패러다임 Immutable infrastructure&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/ext" target="_blank"&gt;Daekwon Kim&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.youtube.com/watch?v=PdI88QNF-1w"&gt;http://www.youtube.com/watch?v=PdI88QNF-1w&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그리고 앞으로 스터디 모임을 어떻게 진행할 지에 대해서 논의를 했습니다. 논의 결과, 격주로 돌아가며 주제발표를 진행하고 스터디에서 공유한 자료는 부족하더라도 웹 상에서 공유하기로 결정을 했습니다.&lt;/p&gt;
+
+&lt;p&gt;여기서도 발표 자료를 공개해두었습니다만, 아마 이후 스터디에서 공유되는 자료는 작은 포럼 게시판과 유튜브 채널을 통해서 공개될 것입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://forum.docker.co.kr/"&gt;Docker Korea 포럼 게시판&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.youtube.com/channel/UC-TpdzGorF3igglmjCWQhMA"&gt;유튜브 Docker Korea Study 채널&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;아직 확정되진 않았습니다만, 스터디에서 여력이 된다면 공개적으로 운영할 계획도 가지고 있으니 관심이 있으시거나 특히 도커에 관해서 발표나 하고싶은 얘기가 있으시다면 꼭 포럼 게시판을 들러주시기 바랍니다.&lt;/p&gt;
+
+&lt;p&gt;다음 모임의 발표주제는 아직 확정은 아닙니다만, &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Docker로 Ghost 배포하기&lt;/li&gt;
+&lt;li&gt;도커를 이용한 파이썬 모듈 배포시 의존성 해결&lt;/li&gt;
+&lt;li&gt;도커 모니터링 및 로그 수집 시스템 구축하기&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위 주제에 대해서 공유할 예정입니다. 다음에 또 스터디 그룹에 대한 새로운 소식 전달하겠습니다~&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
     <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
     <published>2014-07-24T15:55:03Z</published>
-    <updated>2014-07-24T15:59:53+00:00</updated>
+    <updated>2014-07-26T06:48:18+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -566,7 +626,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-07-24T15:59:53+00:00</updated>
+    <updated>2014-07-26T06:48:18+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -756,7 +816,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/"/>
     <id>http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/</id>
     <published>2014-05-08T01:00:03Z</published>
-    <updated>2014-07-24T15:59:53+00:00</updated>
+    <updated>2014-07-26T06:48:18+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1022,7 +1082,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/"/>
     <id>http://blog.nacyot.com/articles/2014-04-28-translate-emacs-cask-documenation/</id>
     <published>2014-04-28T01:00:00Z</published>
-    <updated>2014-07-24T15:59:53+00:00</updated>
+    <updated>2014-07-26T06:48:18+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1054,7 +1114,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/"/>
     <id>http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/</id>
     <published>2014-04-19T09:53:32Z</published>
-    <updated>2014-07-24T15:59:53+00:00</updated>
+    <updated>2014-07-26T06:48:18+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -5747,88 +5807,6 @@ false
 &lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;이걸로 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/enumerable' rel='noindex,nofollow'&gt;Enumerable&lt;/a&gt;&lt;/span&gt; 모듈의 거의 모든 메서드를 다뤘습니다. 좀 더 이야기해 볼 주제가 있다면 Enumerable 확장 클래스 만들기, Lazy, Enumerabtor와 외부 반복자, Enumerable 모듈을 일부 확장하는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/gem' rel='noindex,nofollow'&gt;gem&lt;/a&gt;&lt;/span&gt;인 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/powerpack' rel='noindex,nofollow'&gt;powerpack&lt;/a&gt;&lt;/span&gt;과 메소드 체인 활용 예제 정도가 있을 것 같은데 기회가 되면 이런 이야기들도 정리해보도록하겠습니다. 아듀~&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/"/>
-    <id>http://blog.nacyot.com/articles/2014-04-18-docker-on-ubuntu-14-04/</id>
-    <published>2014-04-18T15:15:32Z</published>
-    <updated>2014-07-24T15:59:53+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이글에서는  테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. &lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;아래 리스트에서 확인할 수 있듯이 디지털 오션에서는 이미 우분투 14.04 이미지를 지원하고 있습니다. (이 외에도 디지털 오션에서는 도커나 도쿠가 설치된 이미지도 기본적으로 지원하고있습니다.)&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tugboat images --global
-&lt;/span&gt;&lt;span id="line-2"&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;Global Images:
-&lt;/span&gt;&lt;span id="line-4"&gt;...
-&lt;/span&gt;&lt;span id="line-5"&gt;Wordpress on Ubuntu 13.10 &lt;span class="o"&gt;(&lt;/span&gt;id: 3135725, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;Ruby on Rails on Ubuntu 12.10 &lt;span class="o"&gt;(&lt;/span&gt;Nginx + Unicorn&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;id: 3137635, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;Redmine on Ubuntu 12.04 &lt;span class="o"&gt;(&lt;/span&gt;id: 3137903, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;Dokku-v0.2.1 on Ubuntu 13.04 &lt;span class="o"&gt;(&lt;/span&gt;id: 3140202, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;Ubuntu 14.04 x32 &lt;span class="o"&gt;(&lt;/span&gt;id: 3229615, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;Ubuntu 14.04 x64 &lt;span class="o"&gt;(&lt;/span&gt;id: 3229624, distro: Ubuntu&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;디지털 오션 인스턴스를 실행합니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tugboat create UbuntuDocker -s 66 -i 3229624 -r 6-k &amp;lt;ssh_key_id&amp;gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;각각의 인자는 &lt;code&gt;-s&lt;/code&gt; 인스턴스 종류(66은 제일 작은 인스턴스), &lt;code&gt;-i&lt;/code&gt; 이미지(3229624 = Ubuntu 14.04 x64), &lt;code&gt;-r&lt;/code&gt; 지역(6은 싱가폴)을 의미하면 마지막의 &lt;code&gt;-k&lt;/code&gt;에는 자신의 ssh_key id를 넣어줍니다.&lt;/p&gt;
-
-&lt;p&gt;우선 인스턴스가 정상적으로 실행됐는 지 확인합니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tugboat droplets
-&lt;/span&gt;&lt;span id="line-2"&gt;UbuntuDocker &lt;span class="o"&gt;(&lt;/span&gt;ip: 111.222.211.112, status: active, region: 6, id: 100000&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;정상적으로 실행이 되면 인스턴스에 접속합니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;ssh root@111.222.211.112
-&lt;/span&gt;&lt;span id="line-2"&gt;Welcome to Ubuntu 14.04 LTS &lt;span class="o"&gt;(&lt;/span&gt;GNU/Linux 3.13.0-24-generic x86_64&lt;span class="o"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;* Documentation:  https://help.ubuntu.com/
-&lt;/span&gt;&lt;span id="line-5"&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;System information disabled due to load higher than 1.0
-&lt;/span&gt;&lt;span id="line-7"&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;Last login: Fri Apr 18 07:12:05 2014 from 123.98.184.24
-&lt;/span&gt;&lt;span id="line-9"&gt;root@UbuntuDocker:~#
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;ssh 접속 안내메시지를 통해서 우분투 14.04임을 확인할 수 있습니다. 우분투 14.04(Trusty)부터는 도커를 별다른 설정없이 패키지 관리자 &lt;code&gt;apt-get&lt;/code&gt;을 통해서 공식 저장소로부터 바로 설치할 수 있습니다. 먼저 패키지 정보를 확인해봅니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-cache show docker.io
-&lt;/span&gt;&lt;span id="line-2"&gt;Package: docker.io
-&lt;/span&gt;&lt;span id="line-3"&gt;Priority: optional
-&lt;/span&gt;&lt;span id="line-4"&gt;Section: universe/admin
-&lt;/span&gt;&lt;span id="line-5"&gt;Installed-Size: 21726
-&lt;/span&gt;&lt;span id="line-6"&gt;Maintainer: Ubuntu Developers &amp;lt;ubuntu-devel-discuss@lists.ubuntu.com&amp;gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;Original-Maintainer: Paul Tagliamonte &amp;lt;paultag@debian.org&amp;gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;Architecture: amd64
-&lt;/span&gt;&lt;span id="line-9"&gt;Version: 0.9.1~dfsg1-2
-&lt;/span&gt;&lt;span id="line-10"&gt;...
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;패키지명이 docker가 아니라는 점에 주의합니다. &lt;code&gt;apt-get&lt;/code&gt;으로 설치합니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-get install dokcer.io
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;설치가 끝나면 정상적으로 설치되었는지 확인합니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker.io version
-&lt;/span&gt;&lt;span id="line-2"&gt;docker.io version
-&lt;/span&gt;&lt;span id="line-3"&gt;Client version: 0.9.1
-&lt;/span&gt;&lt;span id="line-4"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: go1.2.1
-&lt;/span&gt;&lt;span id="line-5"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;client&lt;span class="o"&gt;)&lt;/span&gt;: 3600720
-&lt;/span&gt;&lt;span id="line-6"&gt;Server version: 0.9.1
-&lt;/span&gt;&lt;span id="line-7"&gt;Git commit &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: 3600720
-&lt;/span&gt;&lt;span id="line-8"&gt;Go version &lt;span class="o"&gt;(&lt;/span&gt;server&lt;span class="o"&gt;)&lt;/span&gt;: go1.2.1
-&lt;/span&gt;&lt;span id="line-9"&gt;Last stable version: 0.10.0, please update docker
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;정상적으로 설치된 것을 확인할 수 있습니다. 단 아래의 안내에서 확인할 수 있듯이 현재 Docker의 최신버전은 0.10입니다. 공식 저장소의 패키지는 시스템에 비교적 안정적인 버전이긴 합니다만 Docker의 경우 1.0을 계속 안정성 문제를 잡고 있는 상황이라 별도로 최신버전을 설치하는 게 좋을 수도 있습니다.&lt;/p&gt;
-
-&lt;p&gt;또한 패키지 관리자로 설치한 도커의 서비스 명도 docker.io라는 점에 주의해야합니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;service docker.io status
-&lt;/span&gt;&lt;span id="line-2"&gt;docker.io start/running, process 2841
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;공식적으로 지원되는 패키지가 있느냐 없느냐는 어떤 도구를 처음 사용할 때 큰 장벽 중 하나입니다. 우분투 14.04 LTS가 나오면서 도커의 접근성은 한층 더 높아졌다고 할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;관심 있으신 분들은 꼭 시도해보세요 &amp;gt;_&amp;lt;&lt;/p&gt;
 </content>
   </entry>
 </feed>

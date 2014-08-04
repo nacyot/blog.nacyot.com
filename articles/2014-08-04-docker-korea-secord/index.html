@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<!--
+⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
+⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
+
+Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+-->
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<link href='http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/' rel='canonical'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='/articles/2014-07-29-linux-terminal-and-copy-integration/' rel='prev' title='리눅스에서 터미널과 클립보드 연동하기 - Xclip과 Tmux'>
+<link href='https://plus.google.com/+KimDaekwon' rel='author'>
+<link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
+<meta content='summary' name='twitter:card'>
+<meta content='nacyot의 프로그래밍 이야기 :: Docker Korea 스터디 그룹 두번째 모임' name='twitter:title'>
+<meta content='' name='twitter:description'>
+<meta content='@nacyo_t' name='twitter:site'>
+<meta content='@nacyo_t' name='twitter:creator'>
+<meta content='' name='twitter:image'>
+<title>nacyot의 프로그래밍 이야기 :: Docker Korea 스터디 그룹 두번째 모임</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+</head>
+<body>
+<nav class='navbar navbar-fixed-top' role='navigation'>
+<div class='navbar-header'>
+<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+</div>
+<div class='collapse navbar-collapse'>
+<ul class='nav navbar-nav'>
+<li>
+<a href='http://blog.nacyot.com'>
+<i class='fa fa-comment'></i>
+프로그래밍 이야기
+</a>
+</li>
+<li>
+<a href='http://wiki.nacyot.com'>
+<i class='fa fa-comment'></i>
+nacyot wiki
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
+<li>
+<a href='https://twitter.com/nacyo_t'>
+<i class='fa fa-twitter twitter'></i>
+@nacyo_t
+</a>
+</li>
+<li>
+<a href='https://github.com/nacyot/blog.nacyot.com-source'>
+<i class='fa fa-github github'></i>
+nacyot
+</a>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div class='mini-wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+</a>
+</div>
+</div>
+<div class='row'>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<div>
+<span class='date'>
+<i class='fa fa-calendar'></i>
+Aug  5 2014
+</span>
+</div>
+<div>
+<span class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/CoreOS'>CoreOS</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Docker'>Docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Docker-Korea'>Docker Korea</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Elasticsearch'>Elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Fleet'>Fleet</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Ghost'>Ghost</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Grafana'>Grafana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Graphite'>Graphite</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Kibana'>Kibana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Remotty'>Remotty</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Service-Discovery'>Service Discovery</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/consul'>consul</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/etcd'>etcd</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/고스트'>고스트</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/도커'>도커</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/로그'>로그</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/리모티'>리모티</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/메트릭스'>메트릭스</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/스터디'>스터디</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/스페이스-노아'>스페이스 노아</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/토즈'>토즈</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/파이썬'>파이썬</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/포럼'>포럼</a>
+</span>
+</div>
+<a name='toc'></a>
+<h1 class='title'>
+<a href="./">Docker Korea 스터디 그룹 두번째 모임</a>
+</h1>
+<div class='toc'>
+<ul>
+<li>
+<a href="#도커를-이용한-파이썬-모듈-배포하기">도커를 이용한 파이썬 모듈 배포하기</a>
+</li>
+<li>
+<a href="#도커로-고스트-블로그-플랫폼-5분만에-설치하기">도커로 고스트 블로그 플랫폼 5분만에 설치하기</a>
+</li>
+<li>
+<a href="#도커(docker)-메트릭스-&-로그-수집">도커(Docker) 메트릭스 &amp; 로그 수집</a>
+</li>
+<li>
+<a href="#service-discovery-행아웃">Service Discovery 행아웃</a>
+</li>
+<li>
+<a href="#정리">정리</a>
+</li>
+</ul>
+
+</div>
+<div class='body'>
+<p>얼마 전 &#39;도커 코리아&#39;라는 이름으로 스터디를 진행한다는 이야기를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 도커 코리아 두번째 모임을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 리모티 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)</p>
+
+
+
+<p>이 글에서는 스터디 그룹에서 공유한 내용들을 간략히 정리합니다.</p>
+
+<h2><a name='도커를-이용한-파이썬-모듈-배포하기'>도커를 이용한 파이썬 모듈 배포하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/37580971" width="600" height="440" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/litiblue/ss-37580971" title="도커를 이용한 파이썬 모듈 배포하기" target="_blank">도커를 이용한 파이썬 모듈 배포하기</a> </strong> from <strong><a href="http://www.slideshare.net/litiblue" target="_blank">JunSeok Seo</a></strong> </div>
+
+<iframe width="600" height="440" src="//www.youtube.com/embed/RRT58hbDXNs" frameborder="0" allowfullscreen></iframe>
+
+<p>먼저 Litiblue 님이 Docker를 이용해 파이썬 모듈을 배포한 경험에 대해서 발표해주셨습니다. 이 발표에서는 도커에 대한 전반적인 소개와 일반적인 서버에 직접 어플리케이션을 배포하는 것과 그로 인해 생기는 문제점을 도커를 통해서 어떻게 해결할 수 있는 지에 대해서 이야기해주셨습니다. 예를 들어 Litiblue 님이 배포하고자 했던 파이선 어플리케이션에는 APScheduler와 RPyC라는 라이브러리에 의존성이 있는데, 이러한 라이브러리들이 파이썬의 버전에 따라서 사용법이나 실행경로가 바뀌면서 생길 수 있는 있다고 합니다. 이러한 문제들을 도커를 통해서 어떻게 해결할 수 있는지 보여주셨습니다.</p>
+
+<h2><a name='도커로-고스트-블로그-플랫폼-5분만에-설치하기'>도커로 고스트 블로그 플랫폼 5분만에 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<iframe src="//slides.com/meoooh/setup-ghost-via-docker/embed" width="600" height="440" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<iframe width="600" height="445" src="//www.youtube.com/embed/MGXMRJP4LhQ" frameborder="0" allowfullscreen></iframe>
+
+<p>다음으로 Han 님께서 &#39;도커로 고스트 블로그 플랫폼 5분만에 설치하기&#39;를 발표해주셨습니다. 최근에 유행하는 Ghost라고 하는 유명한 블로그 플랫폼이 있습니다만, 이 블로그 플랫폼을 도커를 써서 어떻게 배포할 수 있는 지에 대해서 다루고있습니다. 5분만에 배포하기라고 쓰고, 고스프 플랫폼 도커로 배포하면서 겪은 삽질기로 내용이 변모한 감이 없지 않아있었습니다만 :) 도커 파일 최적화, 이미지간 연결, .dokcerignore 파일의 사용법 등 도커를 사용하면서 필연적으로 궁금하게 되고, 활용해야만한 하는 많은 이야기들을 담고 있습니다.</p>
+
+<h2><a name='도커(docker)-메트릭스-&amp;-로그-수집'>도커(Docker) 메트릭스 &amp; 로그 수집</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/37592250" width="600" height="440" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/ext/docker-37592250" title="도커(Docker) 메트릭스 &amp; 로그 수집" target="_blank">도커(Docker) 메트릭스 &amp; 로그 수집</a> </strong> from <strong><a href="http://www.slideshare.net/ext" target="_blank">Daekwon Kim</a></strong> </div>
+
+<iframe width="600" height="440" src="//www.youtube.com/embed/eFPsz0oCLSs" frameborder="0" allowfullscreen></iframe>
+
+<p>마지막 발표는 제가 &#39;Docker와 로그 &amp; 메트릭스 수집&#39;이라는 주제로 발표를 했습니다. 로그 &amp; 메트릭스 수집은 사실 새삼스럽게 나온 문제는 아닙니다만, 이러한 &#39;기존의 문제&#39;가 도커가 나오면서 어떻게 변해야하고, 어떤 방향으로 나아갈 것인지에 대해서 이야기했습니다. ElasticSearch와 Kibana, Graphite와 Grafana를 설치하고 로그 수집을 시연하는 거창한 데모를 준비했습니다만, 훌륭하게 실패하고 다행히 미리 준비해둔 이미지로 대체했습니다 ㅜ</p>
+
+<p>로그 수집과 메트릭스에 관한 이야기는 지금 제일 관심있는 주제인 관계로 이 블로그에서도 자주 이야기해나갈 생각입니다. 기회가 되면 더 보충해나가도록 하죠.</p>
+
+<p>Docker Korea 두번째 모임에서는 이와 같이 3가지 주제에 대해서 공유했습니다.</p>
+
+<h2><a name='service-discovery-행아웃'>Service Discovery 행아웃</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<p>오프라인 모임과 더불어 7월 30일에는 온라인 행아웃으로 Service Discovery 도구들에 대해서 이야기했습니다. Docker가 어플리케이션 배포의 복잡도를 확 낮춰주는 어플리케이션이라면 이렇게 배포가 되는 수많은 노드와 서비스들을 관리하는 게 그 다음으로 다뤄야할 주제입니다. 그런 이유로 Service Discovery는 현재 Docker와 함께 뜨거운 화두가 되고 있는 주제 중 하나입니다. 다들 아직 이러한 도구들에 대한 이해가 부족하다는 공감이 있어서 각자 한가지 씩 Service Discovery 도구들을 리뷰하는 시간을 가졌습니다.</p>
+
+<p><a href="https://gist.github.com/nacyot/514b904f7ae569e801e4">https://gist.github.com/nacyot/514b904f7ae569e801e4</a></p>
+
+<iframe src="//slides.com/subicura/coreos-study/embed" width="600" height="440" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<iframe src="//slides.com/changhoonjeong/docker-ambassador/embed" width="600" height="440" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<iframe width="600" height="440" src="//www.youtube.com/embed/jBK3T1-1QdI" frameborder="0" allowfullscreen></iframe>
+
+<p>이 행아웃에서는 Seapy 님이 Docker ambassador 패턴에 대해서 발표해주셨고, 그 다음으로 제가 Consul에 대해서 발표했습니다. 마지막으로 Subicura 님이 CoreOS와 etcd와 fleet를 활용한 간단한 사용 예제를 보여주셨습니다.</p>
+
+<p>아직 확정된 바는 없습니다만, 아마 여기서 논의한 이야기를 각자 좀 더 발전 시켜 다음 모임에서 발표를 하게 되지 않을까 생각하고 있습니다.</p>
+
+<h2><a name='정리'>정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<p>지난 번 모임이후 진행된 사항을 정리해보았습니다.</p>
+
+<p>다다음주가 황금연휴(?)고, 격주 진행시 pycon과 겹치는 관계로 아마 다음 모임은 23일이 될 것으로 생각하고 있습니다. 아직 스터디 지원 문제나 고정된 장소가 확정되지 않은 상태이긴 한데, 아마 확정되는대로 조만간 세번째 모임도 공지를 할 예정입니다.</p>
+
+<p>모임에 참여해주신 모든 분들 다시 한 번 감사드립니다. 다들 어디 숨어계셨나 했더니 :) Docker Korea는 도커를 비롯해 클라우드나 서버 운영 전반에 관심있으신 분들 모두에게 열려있습니다. 특히 경험 공유나 주제 발표하시고 싶으신 분은 더더욱 우대합니다! 관심있으신 분들은 포럼에 들러주시고 대화방에도 참여해주세요.</p>
+
+</div>
+<div class='footer'>
+<hr>
+<div class='author'>
+<h1>nacyot</h1>
+프로그래머(29)
+</div>
+<div class='share'>
+<h1>Share this post</h1>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_pocket"></a>
+<a class="addthis_button_print"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
+<!-- AddThis Button END -->
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</div>
+<div class='navigation'>
+<div class='prevnav'>
+<div class='fa fa-chevron-left'></div>
+이전 글
+<a href='/articles/2014-07-29-linux-terminal-and-copy-integration/' rel='prev'>리눅스에서 터미널과 클립보드 연동하기 - Xclip과 Tmux</a>
+</div>
+<div class='nextnav'>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+</div>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+</div>
+
+<div class='row'>
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2014 • All rights reserved.
+&nbsp;&nbsp;&nbsp;
+<a class='icon' href='http://nacyot.com'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
+

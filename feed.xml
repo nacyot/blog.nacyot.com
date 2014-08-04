@@ -14,11 +14,11 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03Z</published>
-    <updated>2014-08-04T15:57:01+00:00</updated>
+    <updated>2014-08-04T16:03:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;얼마 전 &amp;#39;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/docker_korea' rel='noindex,nofollow'&gt;도커 코리아&lt;/a&gt;&lt;/span&gt;&amp;#39;라는 이름으로 &lt;a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"&gt;스터디를 진행한다는 이야기&lt;/a&gt;를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 &lt;a href="http://onoffmix.com/event/31354"&gt;도커 코리아 두번째 모임&lt;/a&gt;을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/remotty'&gt;리모티&lt;/a&gt;&lt;/span&gt; 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)&lt;/p&gt;
+    <content type="html">&lt;p&gt;얼마 전 &amp;#39;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/docker-korea' rel='noindex,nofollow'&gt;도커 코리아&lt;/a&gt;&lt;/span&gt;&amp;#39;라는 이름으로 &lt;a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"&gt;스터디를 진행한다는 이야기&lt;/a&gt;를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 &lt;a href="http://onoffmix.com/event/31354"&gt;도커 코리아 두번째 모임&lt;/a&gt;을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/remotty'&gt;리모티&lt;/a&gt;&lt;/span&gt; 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -82,7 +82,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00Z</published>
-    <updated>2014-08-04T15:57:01+00:00</updated>
+    <updated>2014-08-04T16:03:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -210,7 +210,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
     <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
     <published>2014-07-26T06:47:03Z</published>
-    <updated>2014-08-04T15:57:01+00:00</updated>
+    <updated>2014-08-04T16:03:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -270,7 +270,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
     <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
     <published>2014-07-24T15:55:03Z</published>
-    <updated>2014-08-04T15:57:01+00:00</updated>
+    <updated>2014-08-04T16:03:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -822,7 +822,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-08-04T15:57:01+00:00</updated>
+    <updated>2014-08-04T16:03:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1012,7 +1012,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/"/>
     <id>http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/</id>
     <published>2014-05-08T01:00:03Z</published>
-    <updated>2014-08-04T15:57:01+00:00</updated>
+    <updated>2014-08-04T16:03:46+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

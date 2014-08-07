@@ -11,10 +11,10 @@
   </author>
   <entry>
     <title>도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-16-rails-on-docker/"/>
-    <id>http://blog.nacyot.com/articles/2014-06-16-rails-on-docker/</id>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
+    <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00Z</published>
-    <updated>2014-08-07T20:26:06+00:00</updated>
+    <updated>2014-08-07T20:55:42+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -650,7 +650,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03Z</published>
-    <updated>2014-08-07T20:26:06+00:00</updated>
+    <updated>2014-08-07T20:55:42+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -718,7 +718,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00Z</published>
-    <updated>2014-08-07T20:26:06+00:00</updated>
+    <updated>2014-08-07T20:55:42+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -846,7 +846,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
     <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
     <published>2014-07-26T06:47:03Z</published>
-    <updated>2014-08-07T20:26:06+00:00</updated>
+    <updated>2014-08-07T20:55:42+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -906,7 +906,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
     <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
     <published>2014-07-24T15:55:03Z</published>
-    <updated>2014-08-07T20:26:06+00:00</updated>
+    <updated>2014-08-07T20:55:42+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1458,7 +1458,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-08-07T20:26:06+00:00</updated>
+    <updated>2014-08-07T20:55:42+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

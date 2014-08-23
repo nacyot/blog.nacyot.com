@@ -16,7 +16,7 @@
 }
 
 body {
-	font-size: 18pt;
+	font-size: 14pt;
 	width: 297mm;
 	height: 229mm;
 	margin: 0 auto !important;
@@ -52,7 +52,7 @@ html {
 /* SECTION 3: Set body font face, size, and color.
    Consider using a serif font for readability. */
 body, p, td, li, div {
-	font-size: 18pt;
+	font-size: 14pt;
 }
 
 /* SECTION 4: Set heading font face, sizes, and color.
@@ -127,7 +127,7 @@ ul, ol, div, p {
 	height: 229mm !important;
 	min-height: 229mm !important;
 	display: block !important;
-	overflow: hidden !important;
+  overflow: hidden !important;
 
 	left: 0 !important;
 	top: 0 !important;

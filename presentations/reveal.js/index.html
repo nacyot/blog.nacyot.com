@@ -281,7 +281,7 @@ function linkify( selector ) {
 				</section>
 
 				<section>
-					<section>
+					<section id="fragments">
 						<h2>Fragmented Views</h2>
 						<p>Hit the next arrow...</p>
 						<p class="fragment">... to step through ...</p>
@@ -305,6 +305,8 @@ function linkify( selector ) {
 						<p class="fragment highlight-red">highlight-red</p>
 						<p class="fragment highlight-green">highlight-green</p>
 						<p class="fragment highlight-blue">highlight-blue</p>
+						<p class="fragment current-visible">current-visible</p>
+						<p class="fragment highlight-current-blue">highlight-current-blue</p>
 					</section>
 				</section>
 
@@ -365,6 +367,10 @@ function linkify( selector ) {
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [

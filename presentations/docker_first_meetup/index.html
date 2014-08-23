@@ -1,0 +1,1153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Docker History &amp; Ecosystem</title>
+<meta name="author" content="(Daekwon Kim)"/>
+<link rel="stylesheet" href="/presentations/reveal.js/css/reveal.min.css"/>
+<link rel="stylesheet" href="/presentations/reveal.js/css/theme/nacyot2.css" id="theme"/>
+<link rel="stylesheet" href="/presentations/stylesheets/code.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Docker History &amp; Ecosystem</h1>
+<h2>Daekwon Kim</h2>
+<h2><a href="mailto:propellerheaven@gmail.com">propellerheaven@gmail.com</a></h2>
+<h2></h2></section>
+
+<section id="sec-1" >
+
+<h2>naycot</h2>
+<img src="/presentations/images/nacyot.jpeg" alt="nacyot.jpeg" />
+<br style="clear:both;"/>
+<br style="clear:both;"/>
+<ul class="org-ul">
+<li><a href="http://nacyot.com">http://nacyot.com</a>
+</li>
+<li>@nacyot
+</li>
+<li>Leevi Inc.
+</li>
+<li>Ruby programmer
+</li>
+</ul>
+
+</section>
+<section id="sec-2" >
+
+<h2>Shomney(Remotty)</h2>
+<img src="http://i.imgur.com/pTWEwMw.png" alt="pTWEwMw.png" />  
+
+</section>
+<section id="sec-3" >
+
+<h2>Docker Seoul Meetup 지원</h2>
+<img src="http://i.imgur.com/C2qgTng.png" alt="C2qgTng.png" />
+<br style="clear:both;"/>
+
+</section>
+<section id="sec-4" >
+
+<h2>Toc</h2>
+<ul class="org-ul">
+<li>Docker History
+<ul class="org-ul">
+<li>History
+</li>
+<li>Roadmap
+</li>
+</ul>
+</li>
+<li>Docker Ecosystem
+<ul class="org-ul">
+<li>Registry
+</li>
+<li>Docker Server
+</li>
+<li>Docker Client
+</li>
+<li>Monitoring
+</li>
+<li>Clustering
+</li>
+<li>PaaS
+</li>
+<li>Service Discovery
+</li>
+<li>Dynamic Configuration
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-5" >
+
+<h2><img src="http://i.imgur.com/Z25RDZ3.png" alt="Z25RDZ3.png" /></h2>
+
+</section>
+<section id="sec-6" >
+
+<h2>Docker</h2>
+<ul class="org-ul">
+<li>격리된 프로세스 실행(공간, 자원)
+<ul class="org-ul">
+<li>컨테이너
+</li>
+<li>LXC, libcontainer, cgroup
+</li>
+<li>가상화 기술 / 빠름
+</li>
+</ul>
+</li>
+<li>계층화된(Layered) 저장장치
+<ul class="org-ul">
+<li>AUFS, devicemapper, BTRFS
+</li>
+<li>모든 레이어는 이미지이자 공유 가능
+</li>
+<li>Dockerfile로 관리 가능
+</li>
+</ul>
+</li>
+<li>이미지 이동성(portability)
+<ul class="org-ul">
+<li>어떠한 데이터나 어플리케이션도 이미지로 추상화
+</li>
+<li>도커 수준에서 이미지/컨테이너 조작 가능
+</li>
+<li>Dokcer Hub / Private Docker Registry 지원
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-6-1" >
+
+<h3></h3>
+<img src="http://i.imgur.com/ALEg1bj.png" alt="ALEg1bj.png" />
+
+</section>
+<section id="sec-6-2" >
+
+<h3>History(1)</h3>
+<ul class="org-ul">
+<li>0.1.0 (2013-03-23)
+</li>
+<li><img src="http://i.imgur.com/W4xFMMC.png" alt="W4xFMMC.png" />
+</li>
+</ul>
+
+</section>
+<section id="sec-6-3" >
+
+<h3>History(2)</h3>
+<ul class="org-ul">
+<li>0.1.0 (2013-03-23)
+</li>
+<li><img src="http://i.imgur.com/76nTYha.png" alt="76nTYha.png" />
+</li>
+</ul>
+
+</section>
+<section id="sec-6-4" >
+
+<h3>History(3)</h3>
+<ul class="org-ul">
+<li>0.1.0 (2013-03-23)
+</li>
+<li>0.2.0 (2013-04-23)
+</li>
+<li>0.3.0 (2013-05-06)
+</li>
+<li>0.4.0 (2013-06-03)
+</li>
+<li>0.5.0 (2013-07-17) 
+</li>
+<li>0.6.0 (2013-08-22) 
+</li>
+</ul>
+
+</section>
+<section id="sec-6-5" >
+
+<h3>History(4)</h3>
+<ul class="org-ul">
+<li>0.7.0 (2013-11-25)
+<ul class="org-ul">
+<li>Device Mapper 지원
+</li>
+<li>컨테이너 간 링크 기능 도입
+</li>
+<li>리다이렉트 기능 확장
+</li>
+<li>컨테이너 이름 도입  
+</li>
+</ul>
+</li>
+<li>0.8.0 (2014-02-04)
+<ul class="org-ul">
+<li>Dockerfile Add 캐시
+</li>
+<li>Dockerfile Onbuild 지시자
+</li>
+<li>BTRFS 지원
+</li>
+<li>MacOSX 공식 지원(boot2docker)
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-6-5-1" >
+
+<h4>Device Mapper</h4>
+<ul class="org-ul">
+<li>CentOS / RHEL 지원!
+</li>
+</ul>
+</section>
+
+</section>
+<section id="sec-6-6" >
+
+<h3>History(5)</h3>
+<ul class="org-ul">
+<li>0.9.0 (2014-03-10)
+<ul class="org-ul">
+<li>LibContainer 도입(기본 드라이버)
+</li>
+</ul>
+</li>
+<li>0.10.0 (2014-04-08)
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-6-6-1" >
+
+<h4>LibContainer</h4>
+<img src="http://i.imgur.com/5Ylb4Q2.png" alt="5Ylb4Q2.png" />
+<ul class="org-ul">
+<li>더 이상 LXC 의존적이지 않음
+<ul class="org-ul">
+<li><code>docker -d -e lxc</code>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+
+</section>
+<section id="sec-6-7" >
+
+<h3>History(5)</h3>
+<ul class="org-ul">
+<li>1.0.0 (2014-06-09)
+<ul class="org-ul">
+<li>DockerCon에서 발표
+</li>
+<li>Docker Hub
+</li>
+<li>Enterprise Support, Training, Consulting
+</li>
+<li>안정화(문서에서 경고 문구 사라짐)
+</li>
+<li>pause / unpause
+</li>
+<li><code>docker images</code> filter 옵션 추가(dangling=true)
+</li>
+</ul>
+</li>
+<li>1.1.0 (2014-07-03)
+<ul class="org-ul">
+<li>로그 tail 기능
+</li>
+<li>Commit 시 컨테이너 Pause 기능
+</li>
+<li>전체 파일 시스템 마운트
+</li>
+<li>.dockerignore
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-6-8" >
+
+<h3>History(6)</h3>
+<ul class="org-ul">
+<li>1.1.2 (2014-07-23)
+<ul class="org-ul">
+<li>&lt;&lt;&lt;&#x2014; 지금 여기
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-6-9" >
+
+<h3>Histroy(7)</h3>
+<ul class="org-ul">
+<li><a href="https://github.com/docker/docker/blob/master/CHANGELOG.md">Changelog</a>
+</li>
+<li><a href="https://blog.docker.com/category/docker-releases/">Docker Blog : Release</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-7" >
+
+<h2><img src="http://i.imgur.com/Z25RDZ3.png" alt="Z25RDZ3.png" /></h2>
+
+</section>
+<section id="sec-8" >
+
+<h2><img src="http://i.imgur.com/T7KaCcF.png" alt="T7KaCcF.png" /></h2>
+
+</section>
+<section id="sec-9" >
+
+<h2>Roadmap</h2>
+<ul class="org-ul">
+<li>권한
+<ul class="org-ul">
+<li>권한 세부 정의
+</li>
+<li>장치 권한
+</li>
+</ul>
+</li>
+<li>로그
+<ul class="org-ul">
+<li>지원 로그 디바이스 추가
+</li>
+<li>로그 옵션 추가
+</li>
+</ul>
+</li>
+<li>리스타트 기능
+</li>
+<li>리모트 볼륨
+</li>
+</ul>
+
+</section>
+<section id="sec-9-1" >
+
+<h3>Roadmap(1)</h3>
+<ul class="org-ul">
+<li><code>--cad-add</code>, <code>--cap-drop</code> 특정 권한 부여
+<ul class="org-ul">
+<li><code>--privileged</code> 옵션은 모든 권한 부여
+</li>
+</ul>
+</li>
+<li><code>--device</code> 옵션 추가
+<ul class="org-ul">
+<li>Host의 장비를 연동하려면 <code>--privilegde</code> 옵션이 필요했음
+</li>
+<li><code>--device</code> 옵션으로 특정 장비 연동 가능
+</li>
+</ul>
+</li>
+<li><code>--restart</code> 컨테이너 자동 재시작 지원
+<ul class="org-ul">
+<li><code>--restart=always</code> 종료되면 무조건 재시작
+</li>
+<li><code>--restart=on-failure:5</code> 종료되면 5번까지 재시도
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-9-2" >
+
+<h3>Roadmap(2)</h3>
+<ul class="org-ul">
+<li>리모트 볼륨 지원
+<ul class="org-ul">
+<li>boot2docker와 같은 환경에서 <code>-v</code> 옵션 사용 가능
+</li>
+</ul>
+</li>
+<li>다중 명령어 지원(Spawning Multiple Commands)
+<ul class="org-ul">
+<li><code>docker exec ...</code> 실행중인 컨테이너에 대해서 실행 가능
+</li>
+</ul>
+</li>
+<li>새로운 로그 드라이버 추가
+<ul class="org-ul">
+<li>none, default, syslog
+</li>
+</ul>
+</li>
+<li>로그 옵션 추가
+<ul class="org-ul">
+<li><code>--logging-opt truncation=20mb</code>
+</li>
+<li><code>--logging-opt rotation=1gb</code>
+</li>
+</ul>
+</li>
+<li>다이나믹 링크
+</li>
+<li>멀티 호스트 링크
+</li>
+<li>컨테이너 오케스트레이션
+</li>
+</ul>
+
+</section>
+<section id="sec-9-3" >
+
+<h3>Docker 1.2 (2014-08-23)</h3>
+<ul class="org-ul">
+<li><code>--restart</code>
+</li>
+<li><code>--cap-add</code>, <code>--cap-drop</code>
+</li>
+<li><code>--device</code>
+</li>
+<li><code>/etc/hosts</code>, <code>/etc/hostname</code>, <code>/etc/resolve.conf</code> 수정가능
+</li>
+</ul>
+
+</section>
+<section id="sec-10" >
+
+<h2>Docker Ecosystem</h2>
+</section>
+<section id="sec-10-1" >
+
+<h3>Github Ecosystem</h3>
+<img src="http://i.imgur.com/CbXbIMJ.png" alt="CbXbIMJ.png" />
+
+</section>
+<section id="sec-10-2" >
+
+<h3>Docker 성장</h3>
+<img src="http://i.imgur.com/HTh66VU.png" alt="HTh66VU.png" />
+
+</section>
+<section id="sec-10-3" >
+
+<h3>특징</h3>
+<ul class="org-ul">
+<li>Docker Ecosystem 역시 급성장중
+<ul class="org-ul">
+<li>Docker 지원(확장)
+</li>
+<li>Docker WebUI / 모니터링
+</li>
+<li>이미지 / 컨테이너 지원
+</li>
+<li>Platform as a Service(PaaS)
+</li>
+<li>Service Discovery
+</li>
+<li>Ochestration
+</li>
+<li>&#x2026;
+</li>
+</ul>
+</li>
+<li>Docker 툴들은 Docker를 사용
+</li>
+</ul>
+
+</section>
+<section id="sec-10-4"  data-background="http://i.imgur.com/9c75zA5.png" data-background-transition="slide">
+
+<h3></h3>
+
+</section>
+<section id="sec-11" >
+
+<h2>Docker Image</h2>
+<ul class="org-ul">
+<li>Image Server
+<ul class="org-ul">
+<li>Docker Hub
+</li>
+<li>Private Registry
+</li>
+<li>Quay.io
+</li>
+</ul>
+</li>
+<li>Image Build
+<ul class="org-ul">
+<li>Packer
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-11-1" >
+
+<h3>Docker Hub</h3>
+<ul class="org-ul">
+<li>Docker 공식 서비스
+</li>
+<li>이미지 공유
+<ul class="org-ul">
+<li>Public / Private
+</li>
+<li>도커 공식 이미지 지원
+</li>
+<li>다양한 오픈 소스 이미지
+</li>
+</ul>
+</li>
+<li>Github 지원
+<ul class="org-ul">
+<li>Dockerfile
+</li>
+<li>커밋에 따른 자동 빌드
+</li>
+</ul>
+</li>
+<li>Docker 클라이언트에 기본 연동
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-11-1-1" >
+
+<h4>Docker Hub Process</h4>
+<p>
+<img src="http://blog.docker.com/wp-content/uploads/2014/06/build_ship_run.gif" alt="build_ship_run.gif" />
+<a href="https://blog.docker.com/2014/06/announcing-docker-hub-and-official-repositories/">Announcing Docker Hub and Official Repositories</a>
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-11-1-2" >
+
+<h4>Docker Hub Usage(1)</h4>
+<p>
+<a href="http://hub.docker.co.kr">http://hub.docker.co.kr</a> 가입 후 저장소 생성
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ docker login
+$ docker push &lt;id&gt;/&lt;repo_name&gt;
+</pre>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-11-1-3" >
+
+<h4>Docker Hub Usage(2)</h4>
+<img src="http://i.imgur.com/okxxQxp.png" alt="okxxQxp.png" />
+</section>
+
+</section>
+<section id="sec-11-2" >
+
+<h3>Private Registry</h3>
+<ul class="org-ul">
+<li>Self-hosted Docker Image Server
+</li>
+<li><a href="https://github.com/docker/docker-registry">Docker Registry</a>
+</li>
+<li>파이썬 기반 / 도커 이미지 지원
+</li>
+<li>SSL 지원
+</li>
+<li>Storage Driver
+<ul class="org-ul">
+<li>s3
+</li>
+<li>file
+</li>
+<li>elliptics / gcs / glance
+</li>
+</ul>
+</li>
+<li>이미지 검색 지원
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-11-2-1" >
+
+<h4>Docker Registry Usage(1)</h4>
+<p>
+Registry Server(1.1.1.1)
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ docker run <span class="org-sh-escaped-newline">\</span>
+         -e <span class="org-variable-name">SETTINGS_FLAVOR</span>=s3 <span class="org-sh-escaped-newline">\</span>
+         -e <span class="org-variable-name">AWS_BUCKET</span>=acme-docker <span class="org-sh-escaped-newline">\</span>
+         -e <span class="org-variable-name">STORAGE_PATH</span>=/registry <span class="org-sh-escaped-newline">\</span>
+         -e <span class="org-variable-name">AWS_KEY</span>=AKIAHSHB43HS3J92MXZ <span class="org-sh-escaped-newline">\</span>
+         -e <span class="org-variable-name">AWS_SECRET</span>=xdDowwlK7TJajV1Y7EoOZrmuPEJlHYcNP2k4j49T <span class="org-sh-escaped-newline">\</span>
+         -e <span class="org-variable-name">SEARCH_BACKEND</span>=sqlalchemy <span class="org-sh-escaped-newline">\</span>
+         -p 5000:5000 <span class="org-sh-escaped-newline">\</span>
+         registry
+</pre>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-11-2-2" >
+
+<h4>Docker Registry Usage(2)</h4>
+<p>
+Client
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ docker login 1.1.1.1
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">push</span>
+$ docker rename ubuntu 1.1.1.1/ubuntu
+$ docker push 1.1.1.1/ubuntu
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">pull</span>
+$ docker rmi 1.1.1.1/ubuntu
+$ docker pull 1.1.1.1/ubuntu
+</pre>
+</div>
+</section>
+
+</section>
+<section id="sec-11-3" >
+
+<h3>Packer</h3>
+
+</section>
+<section id="sec-12" >
+
+<h2>Docker Server</h2>
+<ul class="org-ul">
+<li>Virtual Machine
+<ul class="org-ul">
+<li>Boot2Docker
+</li>
+<li>Vagrant
+</li>
+</ul>
+</li>
+<li>Cloud
+<ul class="org-ul">
+<li>Digital Ocean
+</li>
+<li>Google Computer Engine
+</li>
+<li>Google App Engine
+</li>
+<li>Aws Beanstalk
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-12-1" >
+
+<h3>Boot2Docker</h3>
+<ul class="org-ul">
+<li>경량화된 리눅스 배포판
+</li>
+<li>VirtualBox 기반
+</li>
+<li>VM을 통해 Mac / Windows 지원
+<ul class="org-ul">
+<li>VM에서 Boot2Docker를 실행하고, Docker Server 실행
+</li>
+<li>이 때 Server는 http를 통해 api 조작 가능하도록 설정
+</li>
+<li>Mac/Windows에서는 Docker Client로 VM의 서버 조작
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-12-1-1" >
+
+<h4>Boot2Docker Usage</h4>
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ brew install docker boot2docker
+$ export <span class="org-variable-name">DOCKER_HOST</span>=tcp://
+$ boot2docker init
+$ boot2docker up
+</pre>
+</div>
+</section>
+
+</section>
+<section id="sec-13" >
+
+<h2>Docker Client</h2>
+<ul class="org-ul">
+<li>WebUI
+<ul class="org-ul">
+<li>DockerUI
+</li>
+<li>Shipyard
+</li>
+<li>Docland
+</li>
+</ul>
+</li>
+<li>Client Extention
+<ul class="org-ul">
+<li>Fig
+</li>
+<li>Centurium
+</li>
+<li>Decking.io
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-13-1" >
+
+<h3>DockerUI</h3>
+<ul class="org-ul">
+<li>Javascript 기반 / 도커 이미지 지원
+</li>
+<li>Docker Image / Container 관리를 위한 WebUI
+</li>
+<li>단일 호스트 지원
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ docker run -d -p 9000:9000 <span class="org-sh-escaped-newline">\</span>
+             -v /var/run/docker.sock:/docker.sock <span class="org-sh-escaped-newline">\</span>
+             crosbymichael/dockerui -e /docker.sock
+<span class="org-comment-delimiter"># </span><span class="org-comment">Open http://0.0.0.0:9000</span>
+</pre>
+</div>
+
+</section>
+<section>
+<section id="sec-13-1-1" >
+
+<h4>DockerUI</h4>
+<img src="http://i.imgur.com/3XfB6C7.png" alt="3XfB6C7.png" />
+</section>
+
+</section>
+<section id="sec-13-2" >
+
+<h3>Fig</h3>
+<ul class="org-ul">
+<li>yml로 Docker 실행 명령 지원
+</li>
+<li>단일 호스트 내에서 여러 컨테이너 설정 가능
+<ul class="org-ul">
+<li>의존 관계에 따라서 실행 순서 조절
+</li>
+</ul>
+</li>
+<li>Orchestration 지원?
+</li>
+</ul>
+
+</section>
+<section id="sec-13-3" >
+
+<h3>Usage(1) fig.yml</h3>
+<p>
+<a href="https://gist.github.com/nacyot/f0dc7d9e05238ffd0f2f">Graphite fig.yml</a>
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-yml">whisper:
+  image: nacyot/whisper
+
+carboncache:
+  image: nacyot/carbon-cache
+  ports: 
+    - "2003:2003"
+    - "2004:2004"
+    - "7002:7002"
+  volumes_from:
+    - whisper
+  environment:
+    - NOME_NAME=cache
+
+graphiteweb:
+  image: nacyot/graphite-web
+  ports:
+    - "8000:80"
+  environment:
+    - CARBONLINK_HOSTS=172.17.42.1:7002
+  volumes_from:
+    - whisper
+</pre>
+</div>
+
+</section>
+<section id="sec-13-4" >
+
+<h3>Usage(2)</h3>
+<p>
+Fig 설치
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ curl -L https://github.com/docker/fig/releases/download/0.5.2/linux &gt; /usr/local/bin/fig
+$ chmod +x /usr/local/bin/fig
+</pre>
+</div>
+
+<p>
+Fig 실행하기
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">fig.yml&#51060; &#51080;&#45716; &#46356;&#47113;&#53664;&#47532;&#50640;&#49436;</span>
+$ fig up
+</pre>
+</div>
+
+</section>
+<section id="sec-14" >
+
+<h2>Monitoring</h2>
+<ul class="org-ul">
+<li>Logspout
+</li>
+<li>cAdvisor
+</li>
+<li>Datadog
+</li>
+<li>Diamond(Cgroup)
+<ul class="org-ul">
+<li>Graphite / Grafana
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-14-1" >
+
+<h3>Logspout</h3>
+<ul class="org-ul">
+<li>Docker Log Routing
+</li>
+<li>Syslog 지원
+<ul class="org-ul">
+<li>외부 로그 서비스 연동 용이(papertrail 등)
+</li>
+<li>fluentd syslog plugin
+</li>
+</ul>
+</li>
+<li>HTTP api 지원 / 세부 조작 가능
+</li>
+<li>STDOUT / STDERR만 처리 가능(Docker Spec)
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-14-1-1" >
+
+<h4>Logspout Usage</h4>
+<p>
+http api로 로그 확인
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ docker run -d -p 8000:8000 <span class="org-sh-escaped-newline">\</span>
+    -v=/var/run/docker.sock:/tmp/docker.sock <span class="org-sh-escaped-newline">\</span>
+    progrium/logspout
+$ curl 0.0.0.0:8000/logs
+</pre>
+</div>
+
+<p>
+syslog 연동
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">b$ docker run -v=/var/run/docker.sock:/tmp/docker.sock <span class="org-sh-escaped-newline">\</span>
+    progrium/logspout syslog://logs.papertrailapp.com:55555
+</pre>
+</div>
+</section>
+
+</section>
+<section>
+<section id="sec-14-1-2" >
+
+<h4></h4>
+<img src="http://i.imgur.com/ITbBbOK.png" alt="ITbBbOK.png" />
+</section>
+
+</section>
+<section id="sec-14-2" >
+
+<h3>cAdvisor</h3>
+<ul class="org-ul">
+<li>구글이 만든 lmctfy 모니터링 툴
+</li>
+<li>Docker 지원
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ docker run <span class="org-sh-escaped-newline">\</span>
+    --volume=/var/run:/var/run:rw <span class="org-sh-escaped-newline">\</span>
+    --volume=/sys:/sys:ro <span class="org-sh-escaped-newline">\</span>
+    --volume=/var/lib/docker/:/var/lib/docker:ro <span class="org-sh-escaped-newline">\</span>
+    --publish=8080:8080 <span class="org-sh-escaped-newline">\</span>
+    --detach=true <span class="org-sh-escaped-newline">\</span>
+    --name=cadvisor <span class="org-sh-escaped-newline">\</span>
+    google/cadvisor:latest
+</pre>
+</div>
+
+</section>
+<section>
+<section id="sec-14-2-1" >
+
+<h4>cAdvisor 화면</h4>
+<img src="http://i.imgur.com/JevY1Mt.png" alt="JevY1Mt.png" />
+</section>
+
+</section>
+<section id="sec-15" >
+
+<h2>Clustering</h2>
+<ul class="org-ul">
+<li>Ambassadord
+</li>
+<li>CoreOS
+</li>
+<li>Kubernates
+</li>
+<li>Mesosphere
+</li>
+</ul>
+
+</section>
+<section id="sec-15-1" >
+
+<h3>CoreOS</h3>
+<ul class="org-ul">
+<li>Docker 전용 OS
+<ul class="org-ul">
+<li>메모리 114MB
+</li>
+</ul>
+</li>
+<li>systemd
+</li>
+<li>etcd
+<ul class="org-ul">
+<li>Service Discovery
+</li>
+<li>Docker 클러스터링
+</li>
+</ul>
+</li>
+<li>fleet
+</li>
+<li>toolbox
+</li>
+</ul>
+
+</section>
+<section>
+<section id="sec-15-1-1" >
+
+<h4>CoreOs Usage</h4>
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ git clone git@github.com:coreos/coreos-vagrant.git
+$ cd coreos-vagrant
+$ vagrant up
+$ vagrant ssh core-01
+Last login: Sat Aug  9 09:30:27 2014 from 10.0.2.2
+<span class="org-function-name">CoreOS</span> (alpha)
+core@core-01 ~ $
+</pre>
+</div>
+</section>
+
+</section>
+<section id="sec-16" >
+
+<h2>PaaS</h2>
+<ul class="org-ul">
+<li>Dokku
+<ul class="org-ul">
+<li>sh 스크립트로 구현한 mini-heroku
+</li>
+<li>작동 가능하지만, 실사용은 어려움
+</li>
+<li>단일 호스트 지원
+</li>
+</ul>
+</li>
+<li>Flynn
+<ul class="org-ul">
+<li>Docker 기반의 오픈소스 Heroku
+</li>
+<li>Jeff Lindsay(Dokku), Jonathan Rudenberg 주도
+</li>
+<li>다중 호스트 지원
+</li>
+<li>(거의) 모든 구현도 Docker 이미지/컨테이너로 모듈화
+</li>
+</ul>
+</li>
+<li>Deis
+<ul class="org-ul">
+<li>CoreOS 기반의 오픈소스 PaaS
+</li>
+<li>멀티 호트스 지원
+</li>
+</ul>
+</li>
+<li>Tsuru
+</li>
+<li>Octohost
+</li>
+</ul>
+
+</section>
+<section id="sec-17" >
+
+<h2>Service Discovery</h2>
+<ul class="org-ul">
+<li>SkyDock
+</li>
+<li>Consul
+</li>
+<li>etcd
+</li>
+</ul>
+
+</section>
+<section id="sec-17-1"  data-background="http://i.imgur.com/WhpMFFa.png" data-background-transition="slide">
+
+<h3></h3>
+
+</section>
+<section id="sec-18" >
+
+<h2>Dynamic Configuration</h2>
+<ul class="org-ul">
+<li>Confd
+<ul class="org-ul">
+<li>etcd/consul의 데이터 스토어 기반
+</li>
+<li>환경 설정 템플릿
+</li>
+<li>sh 실행 및 환경 설정 파일 재작성
+</li>
+</ul>
+</li>
+<li>(configurator)
+</li>
+<li>(envconsul)
+<ul class="org-ul">
+<li>Consul의 데이터 스토어 기반 환경변수 설정
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-19" >
+
+<h2>감사합니다.</h2>
+</section>
+</div>
+</div>
+<script src="/presentations/reveal.js/lib/js/head.min.js"></script>
+<script src="/presentations/reveal.js/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: false,
+        			center: true,
+                                slideNumber: true,
+        			rollingLinks: true,
+        			keyboard: true,
+        			overview: true,
+        			width: 1200, // slide width
+        			height: 800, // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: './reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: './reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: './reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

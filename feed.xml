@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00Z</published>
-    <updated>2014-08-23T12:03:05+00:00</updated>
+    <updated>2014-09-27T06:26:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -650,7 +650,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03Z</published>
-    <updated>2014-08-23T12:03:05+00:00</updated>
+    <updated>2014-09-27T06:26:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -718,11 +718,11 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00Z</published>
-    <updated>2014-08-23T12:03:05+00:00</updated>
+    <updated>2014-09-27T06:26:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/terminal' rel='noindex,nofollow'&gt;터미널&lt;/a&gt;&lt;/span&gt; 환경과 GUI 환경은 대개 상당히 동떨어진 환경으로 이 둘을 스무스하게 연동하는 것은 작업환경을 갖추는 데 있어서 중요한 주제 중에 하나이다. 이 연결고리가 잘 연결되어있어야 작업 효율도 올라간다. 이 글에서는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/xclip' rel='noindex,nofollow'&gt;Xclip&lt;/a&gt;&lt;/span&gt;를 통해서 터미널 환경의 문자열을 리눅스 GUI 환경의 클립보드로 복사하는 법과 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/tmux' rel='noindex,nofollow'&gt;Tmux&lt;/a&gt;&lt;/span&gt;의 복사 모드와 Xclip을 연동하는 법을 알아본다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/terminal' rel='noindex,nofollow'&gt;터미널&lt;/a&gt;&lt;/span&gt; 환경과 GUI 환경은 대개 상당히 동떨어진 환경으로 이 둘을 스무스하게 연동하는 것은 작업환경을 갖추는 데 있어서 중요한 주제 중에 하나이다. 이 연결고리가 잘 연결되어있어야 작업 효율도 올라간다. 이 글에서는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/xclip' rel='noindex,nofollow'&gt;Xclip&lt;/a&gt;&lt;/span&gt;를 통해서 터미널 환경의 문자열을 리눅스 GUI 환경의 클립보드로 복사하는 법과 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/tmux'&gt;Tmux&lt;/a&gt;&lt;/span&gt;의 복사 모드와 Xclip을 연동하는 법을 알아본다.&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -846,7 +846,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
     <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
     <published>2014-07-26T06:47:03Z</published>
-    <updated>2014-08-23T12:03:05+00:00</updated>
+    <updated>2014-09-27T06:26:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -906,11 +906,11 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
     <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
     <published>2014-07-24T15:55:03Z</published>
-    <updated>2014-08-23T12:03:05+00:00</updated>
+    <updated>2014-09-27T06:26:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;시스템 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/monitoring' rel='noindex,nofollow'&gt;모니터링&lt;/a&gt;&lt;/span&gt;에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/rrdtool' rel='noindex,nofollow'&gt;rrdtool&lt;/a&gt;&lt;/span&gt;로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/metrics' rel='noindex,nofollow'&gt;metrics&lt;/a&gt;&lt;/span&gt;) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;시스템 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/monitoring'&gt;모니터링&lt;/a&gt;&lt;/span&gt;에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/rrdtool' rel='noindex,nofollow'&gt;rrdtool&lt;/a&gt;&lt;/span&gt;로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/metrics' rel='noindex,nofollow'&gt;metrics&lt;/a&gt;&lt;/span&gt;) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="http://i.imgur.com/egJIriw.png" alt="rrdtool"&gt;
 &lt;p class="shape-title"&gt;rrdtool&lt;/p&gt;&lt;/p&gt;
@@ -1458,7 +1458,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-08-23T12:03:05+00:00</updated>
+    <updated>2014-09-27T06:26:36+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

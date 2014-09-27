@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>컨테이너에서 호스트 메트릭스 수집</title>
+<meta name="author" content="(김대권(nacyot))"/>
+
+<link rel="stylesheet" href="/presentations/reveal.js/css/reveal.min.css"/>
+<link rel="stylesheet" href="/presentations/reveal.js/css/theme/nacyot2.css" id="theme"/>
+<link rel="stylesheet" href="/presentations/stylesheets/code.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '/presentations/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>컨테이너에서 호스트 메트릭스 수집</h1>
+<h2>김대권(nacyot)</h2>
+<h2><a href="mailto:"></a></h2>
+<h2></h2></section>
+
+<section id="sec-1" >
+
+<h2></h2>
+<table>
+<tr>
+<td style="text-align:center;">
+<img src="http://i.imgur.com/uHzrLBH.png" height="255px" >
+<br style="clear:both;"/><br style="clear:both;"/><br style="clear:both;"/>
+<ul class="org-ul">
+<li><a href="http://leevi.co.kr">http://leevi.co.kr</a>
+</li>
+<li>Leevi
+</li>
+</ul>
+</td>
+<td style="text-align:center;">
+<img src="http://i.imgur.com/gmVCfyp.png" alt="gmVCfyp.png" />
+<br style="clear:both;"/><br style="clear:both;"/><br style="clear:both;"/>
+<ul class="org-ul">
+<li><a href="http://nacyot.com">http://nacyot.com</a>
+</li>
+<li>@nacyot
+</li>
+<li>Ruby programmer
+</li>
+<li>Docker Korea
+</li>
+</ul>
+</td>
+</tr>
+</table>
+
+</section>
+<section id="sec-2" >
+
+<h2>Monitoring</h2>
+<ul class="org-ul">
+<li>Metrics
+<ul class="org-ul">
+<li>시스템 자원 정보
+</li>
+<li>수치로 된 모든 정보
+</li>
+</ul>
+</li>
+<li>Log
+<ul class="org-ul">
+<li>(한줄로 완결되는) 이벤트 정보의 스트림
+</li>
+<li>파일 / STDOUT 등등
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-3" >
+
+<h2>로그 수집 (2*2)</h2>
+<ul class="org-ul">
+<li>컨테이너 로그
+</li>
+<li>컨테이너 메트릭스
+</li>
+<li>호스트 로그
+</li>
+<li>호스트 매트릭스
+</li>
+</ul>
+
+</section>
+<section id="sec-4" >
+
+<h2>Docker와 모니터링</h2>
+<p>
+<a href="http://www.slideshare.net/ext/docker-37592250">http://www.slideshare.net/ext/docker-37592250</a>
+</p>
+
+<img src="http://i.imgur.com/GcuIoLo.png" alt="GcuIoLo.png" />
+
+</section>
+<section id="sec-5" >
+
+<h2>Dockerize?</h2>
+<ul class="org-ul">
+<li>모든 모니터링을 컨테이너로 할 수 있지 않을까?
+</li>
+</ul>
+
+</section>
+<section id="sec-6" >
+
+<h2>Dockerize의 장점</h2>
+<img src="https://www.lucidchart.com/publicSegments/view/54264a67-fa78-4b55-83f1-78320a0099df/image.png" alt="image.png" />
+
+</section>
+<section id="sec-7" >
+
+<h2>Dockerize 구상도</h2>
+<img src="http://i.imgur.com/cpysQdX.png" alt="cpysQdX.png" />
+
+</section>
+<section id="sec-8" >
+
+<h2>Host Metrics 수집</h2>
+<ul class="org-ul">
+<li>수집 대상
+<ul class="org-ul">
+<li>/proc
+</li>
+<li>/system/fs/cgroup
+</li>
+</ul>
+</li>
+<li>수집 도구
+<ul class="org-ul">
+<li>Diamond
+</li>
+<li>Sensu
+</li>
+<li>Munin &#x2026;
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-9" >
+
+<h2>문제</h2>
+<ul class="org-ul">
+<li>컨테이너 안에서 호스트 정보에 어떻게 접근할까?
+</li>
+</ul>
+
+</section>
+<section id="sec-10" >
+
+<h2>Solution 1 - Mount?</h2>
+<p>
+<a href="http://blogs.nuxeo.com/development/2014/03/coreos-monitoring-diamond-graphite/s">Nuxeo Blog - CoreOS Monitoring with Diamond and Graphite</a>
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ sudo docker run -t -i -v /proc:/var/host_proc:ro ubuntu bash
+</pre>
+</div>
+
+</section>
+<section id="sec-10-1" >
+
+<h3>Diamond Colletor의 수집 경로 문제</h3>
+<ul class="org-ul">
+<li><code>/proc</code> -&gt; <code>/host_proc</code>
+</li>
+<li>대부분의 경로가 하드 코딩 되어있음
+</li>
+</ul>
+
+</section>
+<section id="sec-11" >
+
+<h2>Solution 2 - mount &amp; chroot</h2>
+</section>
+<section id="sec-11-1" >
+
+<h3>chroot</h3>
+<ul class="org-ul">
+<li>pivot root 기능
+</li>
+<li>파일, 라이브러리는 직접 준비
+</li>
+<li>사용이 까다로움
+</li>
+</ul>
+
+</section>
+<section id="sec-11-2" >
+
+<h3>nacyot/docker-logs</h3>
+<p>
+<a href="https://github.com/nacyot/docker-logs/tree/master/diamond">https://github.com/nacyot/docker-logs/tree/master/diamond</a>
+</p>
+
+</section>
+<section id="sec-11-3" >
+
+<h3>Dockerfile</h3>
+<div class="org-src-container">
+
+<pre  class="src src-dockerfile"><span class="org-keyword">FROM</span> nacyot/ubuntu:14.04
+<span class="org-keyword">MAINTAINER</span> Daekwon Kim <a href="mailto:propellerheaven%40gmail.com">&lt;propellerheaven@gmail.com&gt;</a>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Install diamond</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">...</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Initialize chroot</span>
+<span class="org-keyword">RUN</span> bash -c <span class="org-string">"mkdir -p /chroot/{root,tmp,opt}"</span>
+<span class="org-keyword">RUN</span> wget -O /chroot/opt/diamond.conf https://gist.githubusercontent.com/nacyot/d0f9c491f8aa8ff42f16/raw/
+<span class="org-keyword">RUN</span> bash -c <span class="org-string">"cp -r /{lib,lib64,bin,usr,etc,var} /chroot/"</span>
+
+<span class="org-keyword">CMD</span> chroot /chroot /usr/bin/diamond -f -c /opt/diamond.conf --skip-pidfile --skip-change-user -l
+</pre>
+</div>
+
+</section>
+<section id="sec-11-4" >
+
+<h3>Diamond Collector &amp; Handler</h3>
+<ul class="org-ul">
+<li>Collector : 메트릭스 수집기
+</li>
+<li>Handler : 데이터 처리 / 저장
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">[[GraphiteHandler]]
+<span class="org-variable-name">host</span> = 172.17.42.1
+<span class="org-variable-name">port</span> = 2003
+<span class="org-variable-name">timeout</span> = 15
+<span class="org-variable-name">batch</span> = 1
+</pre>
+</div>
+
+</section>
+<section id="sec-11-5" >
+
+<h3>Graphite</h3>
+<ul class="org-ul">
+<li>메트릭스(수치) 정보 수집 도구
+</li>
+<li><a href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/">그라파이트 + 그라파나 모니터링 시스템 구축 with Docker</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-11-6" >
+
+<h3>Run Container</h3>
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ docker run -it<span class="org-sh-escaped-newline">\</span>
+           -v /proc:/chroot/proc:ro <span class="org-sh-escaped-newline">\</span>
+           -v /sys:/chroot/sys:ro <span class="org-sh-escaped-newline">\</span>
+           -v /dev:/chroot/dev:ro <span class="org-sh-escaped-newline">\</span>
+           -v /run:/chroot/run:ro <span class="org-sh-escaped-newline">\</span>
+           nacyot/diamond
+</pre>
+</div>
+
+</section>
+<section id="sec-11-7" >
+
+<h3>문제</h3>
+<ul class="org-ul">
+<li>정말 Host의 정보를 가져오는 걸까?
+</li>
+</ul>
+
+</section>
+<section id="sec-11-8" >
+
+<h3>결과(Grafana)</h3>
+<p>
+호스트에서 수집한 정보와 비교
+</p>
+
+<img src="http://i.imgur.com/zSkSpyd.png" alt="zSkSpyd.png" />
+
+</section>
+<section id="sec-12" >
+
+<h2>Q / A</h2>
+</section>
+</div>
+</div>
+
+<script src="/presentations/reveal.js/lib/js/head.min.js"></script>
+<script src="/presentations/reveal.js/js/reveal.min.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: true,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '/presentations/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '/presentations/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/presentations/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/presentations/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: '/presentations/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '/presentations/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>

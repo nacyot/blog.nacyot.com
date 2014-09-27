@@ -23,12 +23,12 @@ section .present{
   font-weight: bold;
 }
 
-.reveal h1{ font-size: 2.8em; line-height: 2em; }
-.reveal h2{ font-size: 2.6em }
-.reveal h3{ font-size: 2.4em }
-.reveal h4{ font-size: 2.2em }
-.reveal h5{ font-size: 2em }
-.reveal h6{ font-size: 1.8em }
+.reveal h1{ font-size: 3.2em; line-height: 2em; }
+.reveal h2{ font-size: 2.8em }
+.reveal h3{ font-size: 2.6em }
+.reveal h4{ font-size: 2.4em }
+.reveal h5{ font-size: 2.2em }
+.reveal h6{ font-size: 2em }
 
 .reveal p{
   font-size: 1.8em;
@@ -48,10 +48,11 @@ section .present{
 }
 
 .reveal li{
-  line-height: 1.2em;
+  list-style: none;
+  line-height: 1.4em;
   margin: 5px;
   padding: 3px 0px;
-  font-size: 1.8em;
+  font-size: 2em;
   font-weight: bold;
 }
 
@@ -71,11 +72,12 @@ section .present{
 
 .reveal img, .reveal video, .reveal iframe {
     max-width: 1000px;
-    max-height: 800px;
+    max-height: 550px;
 }
 
-.reveal table{
-  width: 100%;
+.reveal table{  
+  margin: auto;
+  width: 70%;
 }
 
 .reveal table tr{
@@ -97,3 +99,13 @@ section .present{
   padding-left: 2em;
 }
 
+
+.reveal blockquote{
+  text-align: left;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.reveal blockquote .who{
+  text-align: right;
+}

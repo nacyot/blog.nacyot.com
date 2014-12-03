@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00Z</published>
-    <updated>2014-09-27T06:26:36+00:00</updated>
+    <updated>2014-12-03T04:06:02+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -650,7 +650,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03Z</published>
-    <updated>2014-09-27T06:26:36+00:00</updated>
+    <updated>2014-12-03T04:06:02+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -718,7 +718,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00Z</published>
-    <updated>2014-09-27T06:26:36+00:00</updated>
+    <updated>2014-12-03T04:06:02+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -846,7 +846,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
     <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
     <published>2014-07-26T06:47:03Z</published>
-    <updated>2014-09-27T06:26:36+00:00</updated>
+    <updated>2014-12-03T04:06:02+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -906,7 +906,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
     <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
     <published>2014-07-24T15:55:03Z</published>
-    <updated>2014-09-27T06:26:36+00:00</updated>
+    <updated>2014-12-03T04:06:02+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1458,7 +1458,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/"/>
     <id>http://blog.nacyot.com/articles/2014-06-01-emacs-with-cask/</id>
     <published>2014-06-01T14:30:03Z</published>
-    <updated>2014-09-27T06:26:36+00:00</updated>
+    <updated>2014-12-03T04:06:02+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1475,7 +1475,7 @@
 &lt;p&gt;(참고: Cask는 Emacs24 이상에서만 사용가능하다) Cask는 아래 명령어로 설치할 수 있다. 시스템에 파이썬이 설치되어있어야한다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -fsSkL https://raw.github.com/cask/cask/master/go &lt;span class="p"&gt;|&lt;/span&gt; python
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/mac' rel='noindex,nofollow'&gt;Mac&lt;/a&gt;&lt;/span&gt;에서 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/homebrew' rel='noindex,nofollow'&gt;Homebrew&lt;/a&gt;&lt;/span&gt;를 사용하고 있다면 brew 명령어를 사용해서 설치하는 방법도 있다.&lt;/p&gt;
+&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/mac' rel='noindex,nofollow'&gt;Mac&lt;/a&gt;&lt;/span&gt;에서 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/homebrew'&gt;Homebrew&lt;/a&gt;&lt;/span&gt;를 사용하고 있다면 brew 명령어를 사용해서 설치하는 방법도 있다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew install cask
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;정상적으로 설치되었는지 확인해본다.&lt;/p&gt;

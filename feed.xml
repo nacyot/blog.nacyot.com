@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2014-12-16T16:39:54+00:00</updated>
+    <updated>2014-12-16T16:45:04+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -73,6 +73,8 @@
 &lt;p&gt;루비와 파이썬은 생각보다 다르다, 는 걸로.&lt;/p&gt;
 
 &lt;p&gt;이런 시각 차이는 두 가지 점에서 기인하는 듯 합니다. 하나는 단순한 문법 차이고, 하나는 언어 디자인 자체에 있습니다. 파이썬에서는 함수 정의와 다른 객체들에 대해 실질적인 차이 없이 접근할 수 있습니다만, 그런데 루비에서는 그렇지 않습니다. 루비에서 &lt;code&gt;self.method(:a)&lt;/code&gt;와 같이 메서드 객체를 참조하는 방법이 있긴합니다만, 다른 객체처럼 동등한 방법으로 접근할 방법은 없습니다. 오히려 그렇게 하면 메서드가 호출되어 버립니다. 심지어 &lt;code&gt;self.method(:a)&lt;/code&gt;와 같이 참조한 메서드를 호출하는 방법도 그냥 호출하면 안되고 &lt;code&gt;.call&lt;/code&gt; 메서드를 통해서 호출해야합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://www.facebook.com/ahastudio/posts/10152981560200929"&gt;아샬 님의 글&lt;/a&gt;도 참조해주세요.&lt;/p&gt;
 
 &lt;h2&gt;&lt;a name='이-코드에-대해-나눈-대화-전문'&gt;이 코드에 대해 나눈 대화 전문&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
@@ -212,7 +214,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2014-12-16T16:39:54+00:00</updated>
+    <updated>2014-12-16T16:45:04+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -848,7 +850,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2014-12-16T16:39:54+00:00</updated>
+    <updated>2014-12-16T16:45:04+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -916,7 +918,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00+00:00</published>
-    <updated>2014-12-16T16:39:54+00:00</updated>
+    <updated>2014-12-16T16:45:04+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1044,7 +1046,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
     <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
     <published>2014-07-26T06:47:03+00:00</published>
-    <updated>2014-12-16T16:39:54+00:00</updated>
+    <updated>2014-12-16T16:45:04+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1104,7 +1106,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
     <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
     <published>2014-07-24T15:55:03+00:00</published>
-    <updated>2014-12-16T16:39:54+00:00</updated>
+    <updated>2014-12-16T16:45:04+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

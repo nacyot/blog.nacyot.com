@@ -14,13 +14,11 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2014-12-16T16:45:04+00:00</updated>
+    <updated>2014-12-16T16:51:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;h2&gt;&lt;a name='발단이-된-트윗'&gt;발단이 된 트윗&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p&gt;파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/status/544497910436466689"&gt;2014년 12월 15일&lt;/a&gt;&lt;/blockquote&gt;
+    <content type="html">&lt;blockquote class="twitter-tweet" data-conversation="none" lang="ko"&gt;&lt;p&gt;파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/status/544497910436466689"&gt;2014년 12월 15일&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
 
@@ -214,7 +212,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2014-12-16T16:45:04+00:00</updated>
+    <updated>2014-12-16T16:51:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -850,7 +848,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2014-12-16T16:45:04+00:00</updated>
+    <updated>2014-12-16T16:51:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -918,7 +916,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00+00:00</published>
-    <updated>2014-12-16T16:45:04+00:00</updated>
+    <updated>2014-12-16T16:51:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1046,7 +1044,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
     <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
     <published>2014-07-26T06:47:03+00:00</published>
-    <updated>2014-12-16T16:45:04+00:00</updated>
+    <updated>2014-12-16T16:51:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1106,7 +1104,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/"/>
     <id>http://blog.nacyot.com/articles/2014-07-17-graphite-with-dokcer/</id>
     <published>2014-07-24T15:55:03+00:00</published>
-    <updated>2014-12-16T16:45:04+00:00</updated>
+    <updated>2014-12-16T16:51:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

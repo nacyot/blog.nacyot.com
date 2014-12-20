@@ -8,21 +8,36 @@
 Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
 <link href='/articles/2014-08-08-rails-on-docker/' rel='prev' title='도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기'>
+<meta content="파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...— nacyot (@nacyo_t) 2014년 12월 15일반응이 있어서(?) 조금 정리해봅니다.rubydef a  print 'a'enddef b  print 'b'enddef f(arg1, arg2)  arg1endf(a,b)실제로 저 코드를 보시면 무엇이 출력될 것이라고 예상되..." name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
+<meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기 :: 루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이' name='twitter:title'>
-<meta content='' name='twitter:description'>
+<meta content='nacyot의 프로그래밍 이야기 :: 루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이' property='og:title'>
+<meta content="파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...— nacyot (@nacyo_t) 2014년 12월 15일반응이 있어서(?) 조금 정리해봅니다.rubydef a  print 'a'enddef b  print 'b'enddef f(arg1, arg2)  arg1endf(a,b)실제로 저 코드를 보시면 무엇이 출력될 것이라고 예상되..." name='twitter:description'>
+<meta content="파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...— nacyot (@nacyo_t) 2014년 12월 15일반응이 있어서(?) 조금 정리해봅니다.rubydef a  print 'a'enddef b  print 'b'enddef f(arg1, arg2)  arg1endf(a,b)실제로 저 코드를 보시면 무엇이 출력될 것이라고 예상되..." property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
-<meta content='@nacyo_t' name='twitter:creator'>
-<meta content='' name='twitter:image'>
+<meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
+<meta content='http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/' name='twitter:url'>
+<meta content='http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/' property='og:url'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
 <title>nacyot의 프로그래밍 이야기 :: 루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
 </head>
 <body>
 <nav class='navbar navbar-fixed-top' role='navigation'>
@@ -110,17 +125,9 @@ Dec 17 2014
 <h1 class='title'>
 <a href="./">루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이</a>
 </h1>
-<div class='toc'>
-<ul>
-<li>
-<a href="#결론">결론</a>
-</li>
-<li>
-<a href="#이-코드에-대해-나눈-대화-전문">이 코드에 대해 나눈 대화 전문</a>
-</li>
-</ul>
-
+<div class='body'>
 </div>
+<div class='toc'></div>
 <div class='body'>
 <blockquote class="twitter-tweet" data-conversation="none" lang="ko"><p>파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...</p>&mdash; nacyot (@nacyo_t) <a href="https://twitter.com/nacyo_t/status/544497910436466689">2014년 12월 15일</a></blockquote>
 
@@ -392,14 +399,12 @@ All content copyright
 </div>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-46785477-2', 'nacyot.com');
-  ga('send', 'pageview');
-</script>
 </body>
 </html>
 
+<script>
+  $('.toc').toc({
+    'selectors': 'h2,h3,h4,h5',
+    'container': '.article'
+  });
+</script>

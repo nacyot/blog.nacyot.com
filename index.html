@@ -8,20 +8,35 @@
 Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<meta content='blog.nacyot.com은 루비 프로그래머 nacyot이 프로그래밍을 주제로 운영하고 있는 블로그입니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
+<meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기' name='twitter:title'>
-<meta content='' name='twitter:description'>
+<meta content='nacyot의 프로그래밍 이야기' property='og:title'>
+<meta content='blog.nacyot.com은 루비 프로그래머 nacyot이 프로그래밍을 주제로 운영하고 있는 블로그입니다.' name='twitter:description'>
+<meta content='blog.nacyot.com은 루비 프로그래머 nacyot이 프로그래밍을 주제로 운영하고 있는 블로그입니다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
-<meta content='@nacyo_t' name='twitter:creator'>
+<meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
+<meta content='http://blog.nacyot.com/' name='twitter:url'>
+<meta content='http://blog.nacyot.com/' property='og:url'>
 <meta content='' name='twitter:image'>
+<meta content='' property='og:image'>
 <title>nacyot의 프로그래밍 이야기</title>
 <link href="stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="javascripts/all.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
 </head>
 <body>
 <nav class='navbar navbar-fixed-top' role='navigation'>
@@ -92,29 +107,17 @@ Dec 17 2014
 <a href="articles/2014-12-17-diffrence-of-ruby-and-python/">루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이</a>
 </h2>
 <div class='summary'>
-<blockquote class="twitter-tweet" data-conversation="none" lang="ko">
-<p>파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...</p>— nacyot (@nacyo_t) <a href="https://twitter.com/nacyo_t/status/544497910436466689">2014년 12월 15일</a>
-</blockquote>
 
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script><p>반응이 있어서(?) 조금 정리해봅니다.</p>
-
-<p>```ruby
+파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...— nacyot (@nacyo_t) 2014년 12월 15일<br/>
+반응이 있어서(?) 조금 정리해봅니다.<br/>ruby
 def a
   print 'a'
-end</p>
-
-<p>def b
+end<br/>def b
   print 'b'
-end</p>
-
-<p>def f(arg1, arg2)
+end<br/>def f(arg1, arg2)
   arg1
-end</p>
-
-<p>f(a,b)
-```</p>
-
-<p>실제로 저 코드를 보시면 무엇이 출력될 것이라고 예상되...</p>
+end<br/>f(a,b)<br/>
+실제로 저 코드를 보시면 무엇이 출력될 것이라고 예상되...
 </div>
 <span class='more'><a href="articles/2014-12-17-diffrence-of-ruby-and-python/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -146,11 +149,7 @@ Aug  8 2014
 <a href="articles/2014-08-08-rails-on-docker/">도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기</a>
 </h2>
 <div class='summary'>
-<p>이 글은 지난 6월 10일 RORLab에서 발표한 &#39;도커(Docker)로 루비 온 레일스 어플리케이션 배포하기&#39;를 정리한 문서입니다. 발표 자료는 <a href="https://www.facebook.com/naverd2/posts/505653179563380">페이스북 페이지</a>를 참조해주세요. 먼저 이미지와 컨테이너 소개 및 이미지 생성에 대해서 다룬 앞 부분은 이전에 작성했던 문서 &#39;<a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>&#39;로 대체합니다.</p>
-
-<p>이 글은 두 편으로 나눠서 공개할 예정입니다. 먼저 이 글에서는 Docker를 사용해 Ruby on Rails 어플리케이션을 도커 이미지화하는 법에 대해서 다룹니다. 그리고 다음 글에서는 이미지화한 어플리케이션을 실제로 어떻게 배포하는 지와 간단한 스케일 아웃 예제를 소개합니다.</p>
-
-
+이 글은 지난 6월 10일 RORLab에서 발표한 &#39;도커(Docker)로 루비 온 레일스 어플리케이션 배포하기&#39;를 정리한 문서입니다. 발표 자료는 페이스북 페이지를 참조해주세요. 먼저 이미지와 컨테이너 소개 및 이미지 생성에 대해서 다룬 앞 부분은 이전에 작성했던 문서 &#39;도커(Docker) 튜토리얼 : 깐 김에 배포까지&#39;로 대체합니다.<br/>이 글은 두 편으로 나눠서 공개할 예정입니다. 먼저 이 글에서는 Docker를 사용해 Ruby on Rails 어플리케이션을 도커 이미지화하는 법에 대해서 다룹니다. 그리고 다음 글에서는 이미지화한 어플리케이션을 실제로 어떻게 배포하는 지와 간단한 스케일 아웃 예제를 소개합니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-08-08-rails-on-docker/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -194,9 +193,7 @@ Aug  5 2014
 <a href="articles/2014-08-04-docker-korea-secord/">Docker Korea 스터디 그룹 두번째 모임</a>
 </h2>
 <div class='summary'>
-<p>얼마 전 &#39;도커 코리아&#39;라는 이름으로 <a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/">스터디를 진행한다는 이야기</a>를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 <a href="http://onoffmix.com/event/31354">도커 코리아 두번째 모임</a>을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 리모티 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)</p>
-
-
+얼마 전 &#39;도커 코리아&#39;라는 이름으로 스터디를 진행한다는 이야기를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 도커 코리아 두번째 모임을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 리모티 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)<br/>
 </div>
 <span class='more'><a href="articles/2014-08-04-docker-korea-secord/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -260,9 +257,7 @@ Jul 30 2014
 <a href="articles/2014-07-29-linux-terminal-and-copy-integration/">리눅스에서 터미널과 클립보드 연동하기 - Xclip과 Tmux</a>
 </h2>
 <div class='summary'>
-<p>터미널 환경과 GUI 환경은 대개 상당히 동떨어진 환경으로 이 둘을 스무스하게 연동하는 것은 작업환경을 갖추는 데 있어서 중요한 주제 중에 하나이다. 이 연결고리가 잘 연결되어있어야 작업 효율도 올라간다. 이 글에서는 Xclip를 통해서 터미널 환경의 문자열을 리눅스 GUI 환경의 클립보드로 복사하는 법과 Tmux의 복사 모드와 Xclip을 연동하는 법을 알아본다.</p>
-
-
+터미널 환경과 GUI 환경은 대개 상당히 동떨어진 환경으로 이 둘을 스무스하게 연동하는 것은 작업환경을 갖추는 데 있어서 중요한 주제 중에 하나이다. 이 연결고리가 잘 연결되어있어야 작업 효율도 올라간다. 이 글에서는 Xclip를 통해서 터미널 환경의 문자열을 리눅스 GUI 환경의 클립보드로 복사하는 법과 Tmux의 복사 모드와 Xclip을 연동하는 법을 알아본다.<br/>
 </div>
 <span class='more'><a href="articles/2014-07-29-linux-terminal-and-copy-integration/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -296,15 +291,9 @@ Jul 26 2014
 <a href="articles/2014-07-26-docker-korea/">Docker Korea 스터디 그룹</a>
 </h2>
 <div class='summary'>
-<ul>
-<li><a href="http://www.shomney.com">함께 쓰는 가계부 Shomney</a></li>
-</ul>
 
-<p>현재 저는 <a href="http://blog.remotty.com/about/">Remotty</a>라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.</p>
-
-<p>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 스페이스 노아에서 첫 모임을 가졌습니다.</p>
-
-
+함께 쓰는 가계부 Shomney<br/>
+현재 저는 Remotty라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.<br/>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 스페이스 노아에서 첫 모임을 가졌습니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-07-26-docker-korea/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -340,12 +329,8 @@ Jul 25 2014
 <a href="articles/2014-07-17-graphite-with-dokcer/">그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</a>
 </h2>
 <div class='summary'>
-<p>시스템 모니터링에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 rrdtool로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(metrics) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.</p>
-
-<p><img alt="rrdtool" src="http://i.imgur.com/egJIriw.png" />
-<p class="shape-title">rrdtool</p></p>
-
-
+시스템 모니터링에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 rrdtool로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(metrics) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.<br/>
+rrdtool<br/>
 </div>
 <span class='more'><a href="articles/2014-07-17-graphite-with-dokcer/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -391,11 +376,7 @@ Jun  1 2014
 <a href="articles/2014-06-01-emacs-with-cask/">캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기</a>
 </h2>
 <div class='summary'>
-<p>얼마 전 <a href="http://cask.emacs.kr/">Cask 공식 문서를 한국어로 번역</a>해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.</p>
-
-<p>Emacs24부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 루비와 비교하면 Gem에 해당한다. 루비에서 <a href="http://cask.emacs.kr/">Cask</a>의 역할은 Gem이 아니라 Bundler의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 Emacs를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.</p>
-
-
+얼마 전 Cask 공식 문서를 한국어로 번역해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.<br/>Emacs24부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 루비와 비교하면 Gem에 해당한다. 루비에서 Cask의 역할은 Gem이 아니라 Bundler의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 Emacs를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.<br/>
 </div>
 <span class='more'><a href="articles/2014-06-01-emacs-with-cask/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -425,9 +406,7 @@ May  8 2014
 <a href="articles/2014-05-08-docker-registry-introduction/">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
 </h2>
 <div class='summary'>
-<p>도커의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 Dockerfile을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
-
-
+도커의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 공식 저장소를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 Dockerfile을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-05-08-docker-registry-introduction/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -459,27 +438,9 @@ Apr 28 2014
 <a href="articles/2014-04-28-translate-emacs-cask-documenation/">이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역</a>
 </h2>
 <div class='summary'>
-<ul>
-<li><a href="http://cask.emacs.kr">http://cask.emacs.kr/</a></li>
-</ul>
 
-<blockquote>
-<p>Emacs を使い始めてはや15年、ようやくまともな elisp 管理ができるようになった。</p>
-
-<p>Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 관리가 가능하게 되었다. </p>
-</blockquote>
-
-<p>일본 프로그래머 Ito Naoya 씨가 <a href="http://d.hatena.ne.jp/naoya/20140424/1398318293">Cask를 소개하는 글</a>에서 이런 얘기를 하길래, 관심이 가서 <a href="http://cask.github.io">Cask 공식 문서</a>를 번역했습니다.</p>
-
-<p>Emacs 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.</p>
-
-<p>그만큼이나 Emacs 설정을 잘 하는 건 어렵습니다. 해본 사람은 알겠지만 이것저것 입맛대로 뜯어고치고 플러그인 설치하고 한 번 꼬이고 그러면 그냥 프로그래밍 하는 시간보다 설정하는 시간이 더 많이 드는 거 아닌가 하는 회의감이 들 정도니까요. 강력하지만 귀찮고 어렵습니다.</p>
-
-<p><a href="http://cask.emacs.kr">Cask</a>는 이러한 문제를 Ruby의 번들러나 Node.js의 npm처럼 &#39;Cask&#39;라는 파일을 통해 해결해줍니다. 이를 통해 Emacs Lisp 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.</p>
-
-<p>현재 틈틈히 Cask로 옮기는 작업을 하고 있으니, 조만간 Cask로 완전히 갈아타는 데 성공하면 사용법에 대해서도 소개하겠습니다.</p>
-
-
+http://cask.emacs.kr/<br/><br/>Emacs を使い始めてはや15年、ようやくまともな elisp 管理ができるようになった。<br/>Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 관리가 가능하게 되었다. <br/>
+일본 프로그래머 Ito Naoya 씨가 Cask를 소개하는 글에서 이런 얘기를 하길래, 관심이 가서 Cask 공식 문서를 번역했습니다.<br/>Emacs 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.<br/>그만큼이나 Emacs 설정을 잘 하는 건 어렵습니다. 해본 사람은 알겠지만 이것저것 입맛대로 뜯어고치고 플러그인 설치하고 한 번 꼬이고 그러면 그냥 프로그래밍 하는 시간보다 설정하는 시간이 더 많이 드는 거 아닌가 하는 회의감이 들 정도니까요. 강력하지만 귀찮고 어렵습니다.<br/>Cask는 이러한 문제를 Ruby의 번들러나 Node.js의 npm처럼 &#39;Cask&#39;라는 파일을 통해 해결해줍니다. 이를 통해 Emacs Lisp 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.<br/>현재 틈틈히 Cask로 옮기는 작업을 하고 있으니, 조만간 Cask로 완전히 갈아타는 데 성공하면 사용법에 대해서도 소개하겠습니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-04-28-translate-emacs-cask-documenation/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -507,9 +468,7 @@ Apr 19 2014
 <a href="articles/2014-04-19-ruby-enumerable/">루비의 꽃, 열거자 Enumerable 모듈</a>
 </h2>
 <div class='summary'>
-<p>프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 <code>each</code>와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 <code>each</code> 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.</p>
-
-
+프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 each와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 each 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-04-19-ruby-enumerable/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -543,9 +502,7 @@ Apr 19 2014
 <a href="articles/2014-04-18-docker-on-ubuntu-14-04/">우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기</a>
 </h2>
 <div class='summary'>
-<p>드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이글에서는  테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. </p>
-
-
+드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이글에서는  테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. <br/>
 </div>
 <span class='more'><a href="articles/2014-04-18-docker-on-ubuntu-14-04/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -581,9 +538,7 @@ Apr  7 2014
 <a href="articles/2014-04-07-rspec-matchers/">루비 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</a>
 </h2>
 <div class='summary'>
-<p>루비에서는 테스트를 하기 위해 minitest와 BDD 프레임워크인 RSpec이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.</p>
-
-
+루비에서는 테스트를 하기 위해 minitest와 BDD 프레임워크인 RSpec이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-04-07-rspec-matchers/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -613,12 +568,8 @@ Apr  6 2014
 <a href="articles/2014-04-06-immutable-infrastructure/">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
 </h2>
 <div class='summary'>
-<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 Immutable Infrastructure을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 <a href="http://aws.amazon.com/">AWS</a> AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, <a href="http://heroku.com">Heroku</a>, <a href="http://travis-ci.org">Travis</a> 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 <a href="http://www.getchef.com/chef/">Chef</a>, <a href="http://puppetlabs.com/">Puppet</a>, <a href="https://www.docker.io/">Docker</a>, <a href="http://www.vagrantup.com/">Vagrant</a>, <a href="http://www.packer.io/">Packer</a>, <a href="http://www.serfdom.io/">Serf</a>와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
-
-<ul>
-<li><a href="/presentations/immutable_infrastructure">Immutable Infrastructure 발표 자료</a></li>
-</ul>
-
+얼마 전 4월 2일에 프로그래머 그룹에서 Immutable Infrastructure을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 AWS AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, Heroku, Travis 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 Chef, Puppet, Docker, Vagrant, Packer, Serf와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.<br/>
+Immutable Infrastructure 발표 자료<br/>
 
 </div>
 <span class='more'><a href="articles/2014-04-06-immutable-infrastructure/">전문 읽기</a> -&gt;</span>
@@ -645,9 +596,7 @@ Mar 23 2014
 <a href="articles/2014-03-23-cookpad-ruby-styleguide/">쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
 </h2>
 <div class='summary'>
-<p>이 문서는 Cookpad의 <a href="https://github.com/cookpad/styleguide">Ruby Style Guide</a>를 <a href="http://nacyot.com">nacyot</a>이 한국어로 번역한 문서입니다. 번역된 문서는 <a href="https://github.com/nacyot/styleguide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/cookpad/styleguide">여기</a>에서 찾아볼 수 있습니다. 이 문서는 <a href="http://creativecommons.org/licenses/by/3.0/">cc-by</a> 라이센스를 따릅니다.</p>
-
-
+이 문서는 Cookpad의 Ruby Style Guide를 nacyot이 한국어로 번역한 문서입니다. 번역된 문서는 Github 저장소에서 관리되고 있으며 원본은 여기에서 찾아볼 수 있습니다. 이 문서는 cc-by 라이센스를 따릅니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-03-23-cookpad-ruby-styleguide/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -679,13 +628,7 @@ Mar 17 2014
 <a href="articles/2014-03-17-sexy-emacs-kr/">emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</a>
 </h2>
 <div class='summary'>
-<p>vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &gt;_&lt;</p>
-
-<blockquote class="twitter-tweet" lang="ko"><p><a href="http://t.co/NrSRaEXMWO">http://t.co/NrSRaEXMWO</a> <a href="http://t.co/3YY2lCXkLd">http://t.co/3YY2lCXkLd</a> 한국어 번역</p>&mdash; nacyot (@nacyo_t) <a href="https://twitter.com/nacyo_t/statuses/445030787130200064">2014년 3월 16일</a></blockquote>
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
+vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &gt;_&lt;<br/>http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&mdash; nacyot (@nacyo_t) 2014년 3월 16일<br/><br/>
 </div>
 <span class='more'><a href="articles/2014-03-17-sexy-emacs-kr/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -719,9 +662,7 @@ Mar 12 2014
 <a href="articles/2014-03-12-emacs-with-tern/">이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</a>
 </h2>
 <div class='summary'>
-<p>텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 <a href="http://ternjs.net/">Tern</a>입니다.</p>
-
-
+텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 Tern입니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-03-12-emacs-with-tern/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -755,9 +696,7 @@ Feb 11 2014
 <a href="articles/2014-02-11-dokcer-08-on-macosx/">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
 </h2>
 <div class='summary'>
-<p><a href="http://docker.io">도커</a>는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 소개 글</a>을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
-
-
+도커는 리눅스 위에서 격리된 또 다른 리눅스 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 도커(Docker) 소개 글을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 맥을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-02-11-dokcer-08-on-macosx/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -797,11 +736,7 @@ Jan 30 2014
 <a href="articles/2014-01-30-github-hook-api-slack-sample/">깃허브(Github) 후크 API와 Slack에 알림 전달하기</a>
 </h2>
 <div class='summary'>
-<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
-
-<p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
-
-
+후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 .git/hooks에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.<br/>깃허브(Github)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 실제 코드를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-01-30-github-hook-api-slack-sample/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -841,9 +776,7 @@ Jan 30 2014
 <a href="articles/2014-01-30-deploying-application-with-dokku/">도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)</a>
 </h2>
 <div class='summary'>
-<p>지난 번 <a href="http://docker.io/">도커</a> 시리즈의 첫번째 글에서는 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a> 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 도커를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 <a href="https://github.com/progrium/dokku/blob/master/dokku">도쿠</a>(Dokku)를 다루도록 하겠습니다.</p>
-
-
+지난 번 도커 시리즈의 첫번째 글에서는 도커(Docker) 튜토리얼 : 깐 김에 배포까지 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 도커를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 도쿠(Dokku)를 다루도록 하겠습니다.<br/>
 </div>
 <span class='more'><a href="articles/2014-01-30-deploying-application-with-dokku/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -887,9 +820,7 @@ Jan 27 2014
 <a href="articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>
 </h2>
 <div class='summary'>
-<p>클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.</p>
-
-<p>이런 가운데 가상 머신의 단점...</p>
+클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.<br/>이런 가운데 가상 머신의 단점...
 </div>
 <span class='more'><a href="articles/2014-01-27-easy-deploy-with-docker/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -925,11 +856,7 @@ Jan 18 2014
 <a href="articles/2014-01-18-ubuntu-setting/">우분투 13.10 개발환경 세팅</a>
 </h2>
 <div class='summary'>
-<p>Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.</p>
-
-<p>참고로 본인은 Ubuntu / <a href="터미널%20프로그램">Terminator</a> / <a href="에디터">Emacs</a> / <a href="키보드%20레이아웃">Dvorak</a> 사용자.</p>
-
-
+Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.<br/>참고로 본인은 Ubuntu / Terminator / Emacs / Dvorak 사용자.<br/>
 </div>
 <span class='more'><a href="articles/2014-01-18-ubuntu-setting/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -977,9 +904,7 @@ Jan  5 2014
 <a href="articles/2014-01-15-static-site-generator/">정적 웹사이트 생성기의 유혹</a>
 </h2>
 <div class='summary'>
-<p>개인적으로 요새 화두인 주제가 바로 정적 웹사이트 생성기입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만 여기에 대해서는 약간 배경에 대해서 이해할 필요가 있습니다.</p>
-
-<p>분명히 <strong>정적</strong>이라는 단어는 그 동안에 웹 어플리케이션이 발전해 온 데 있어서 정반대의 위치에 있는 단어입니다. <strong>정적</strong>인 페이지란 말그대로 이미 완성된 HTML이고, 클라이언트의 요청을 받는 서버의 ...</p>
+개인적으로 요새 화두인 주제가 바로 정적 웹사이트 생성기입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만 여기에 대해서는 약간 배경에 대해서 이해할 필요가 있습니다.<br/>분명히 정적이라는 단어는 그 동안에 웹 어플리케이션이 발전해 온 데 있어서 정반대의 위치에 있는 단어입니다. 정적인 페이지란 말그대로 이미 완성된 HTML이고, 클라이언트의 요청을 받는 서버의 ...
 </div>
 <span class='more'><a href="articles/2014-01-15-static-site-generator/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -997,9 +922,7 @@ Dec 29 2013
 <a href="articles/2013-12-29-hub-and-pull-request/">hub로 명령행에서 Github 풀리퀘스트 보내기</a>
 </h2>
 <div class='summary'>
-<p>오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.</p>
-
-
+오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.<br/>
 </div>
 <span class='more'><a href="articles/2013-12-29-hub-and-pull-request/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -1033,9 +956,7 @@ Nov 24 2013
 <a href="articles/2013-11-24-ruby-trivias-you-should-know-4/">알아두면 도움이 되는 55가지 루비 기법</a>
 </h2>
 <div class='summary'>
-<p>이 글은 <a href="http://melborne.github.io/">kyoendo</a> 씨의 55 Trivia Notations you should know in Ruby 문서를 <a href="http://nacyot.com">nacyot</a>이 번역한 글입니다. 번역된 문서는 <a href="https://gist.github.com/nacyot/7624036">gist</a>에서 관리되고 있습니다. 원본은 <a href="http://melborne.github.io/2013/03/04/ruby-trivias-you-should-know-4/">여기</a>에서 찾아볼 수 있으며 <a href="http://creativecommons.org/licenses/by-nc/2.1/jp/">cc-by-nc</a> 라이센스에 따라 공개되어있습니다. 번역본 또한 같은 라이센스를 따릅니다. 관련된 질문은 <a href="http://nacyot.com/guestbook">GuestBook</a>이나 <a href="mailto:propellerheaven@gmail.com">Email</a>으로 해주시기합니다.</p>
-
-
+이 글은 kyoendo 씨의 55 Trivia Notations you should know in Ruby 문서를 nacyot이 번역한 글입니다. 번역된 문서는 gist에서 관리되고 있습니다. 원본은 여기에서 찾아볼 수 있으며 cc-by-nc 라이센스에 따라 공개되어있습니다. 번역본 또한 같은 라이센스를 따릅니다. 관련된 질문은 GuestBook이나 Email으로 해주시기합니다.<br/>
 </div>
 <span class='more'><a href="articles/2013-11-24-ruby-trivias-you-should-know-4/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -1063,9 +984,7 @@ Oct 30 2013
 <a href="articles/2013-10-30-angularjs-style-guide/">AngularJs 스타일 가이드 번역</a>
 </h2>
 <div class='summary'>
-<p>이 글은 Minko Gechev 씨의 <a href="https://github.com/mgechev/angularjs-style-guide">AngularJS Style Guide</a> 문서를 <a href="http://nacyot.com">nacyot</a>이 변역한 글입니다. 번역된 문서는 <a href="https://github.com/nacyot/angularjs-style-guide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/mgechev/angularjs-style-guide">여기</a>에서 찾아볼 수 있습니다. 관련된 질문은 <a href="http://nacyot.com/guestbook">GuestBook</a>이나 <a href="mailto:propellerheaven@gmail.com">Email</a>으로 해주시기합니다.</p>
-
-
+이 글은 Minko Gechev 씨의 AngularJS Style Guide 문서를 nacyot이 변역한 글입니다. 번역된 문서는 Github 저장소에서 관리되고 있으며 원본은 여기에서 찾아볼 수 있습니다. 관련된 질문은 GuestBook이나 Email으로 해주시기합니다.<br/>
 </div>
 <span class='more'><a href="articles/2013-10-30-angularjs-style-guide/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -1097,9 +1016,7 @@ Oct  2 2013
 <a href="articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/">Rspec과 Guard를 활용한 루비 테스트 자동화</a>
 </h2>
 <div class='summary'>
-<p>루비 테스트로는 minitest와 Rspec이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.</p>
-
-
+루비 테스트로는 minitest와 Rspec이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.<br/>
 </div>
 <span class='more'><a href="articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -1131,15 +1048,13 @@ Oct  2 2013
 <a href="articles/2013-10-02-github-ecosystem/">Github을 둘러싼 유용한 서비스들</a>
 </h2>
 <div class='summary'>
-<p>소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은
+소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은
 서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수
 있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이
 서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는
 기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을
 검토해보셔도 좋을 듯 합니다. 적용이 쉬운 것부터 차례대로 소개하도록
-하겠습니다.</p>
-
-
+하겠습니다.<br/>
 </div>
 <span class='more'><a href="articles/2013-10-02-github-ecosystem/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
@@ -1192,13 +1107,5 @@ All content copyright
 </div>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-46785477-2', 'nacyot.com');
-  ga('send', 'pageview');
-</script>
 </body>
 </html>

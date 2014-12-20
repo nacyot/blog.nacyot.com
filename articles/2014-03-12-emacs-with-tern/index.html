@@ -8,22 +8,37 @@
 Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
 <link href='/articles/2014-02-11-dokcer-08-on-macosx/' rel='prev' title='도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기'>
 <link href='/articles/2014-03-17-sexy-emacs-kr/' rel='next' title='emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역'>
+<meta content='텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 Tern입니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
+<meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기 :: 이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern' name='twitter:title'>
-<meta content='' name='twitter:description'>
+<meta content='nacyot의 프로그래밍 이야기 :: 이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern' property='og:title'>
+<meta content='텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 Tern입니다.' name='twitter:description'>
+<meta content='텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 Tern입니다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
-<meta content='@nacyo_t' name='twitter:creator'>
-<meta content='' name='twitter:image'>
+<meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
+<meta content='http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/' name='twitter:url'>
+<meta content='http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/' property='og:url'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
 <title>nacyot의 프로그래밍 이야기 :: 이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
 </head>
 <body>
 <nav class='navbar navbar-fixed-top' role='navigation'>
@@ -113,26 +128,9 @@ Mar 12 2014
 <h1 class='title'>
 <a href="./">이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</a>
 </h1>
-<div class='toc'>
-<ul>
-<li>
-<a href="#설치">설치</a>
-</li>
-<li>
-<a href="#tern-이맥스-설정">Tern 이맥스 설정</a>
-</li>
-<li>
-<a href="#자바스크립트-프로젝트-설정">자바스크립트 프로젝트 설정</a>
-</li>
-<li>
-<a href="#tern-사용하기-:-m-x-명령어-및-단축키">Tern 사용하기 : M-x 명령어 및 단축키</a>
-</li>
-<li>
-<a href="#결론">결론</a>
-</li>
-</ul>
-
+<div class='body'>
 </div>
+<div class='toc'></div>
 <div class='body'>
 <p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/text_editor' rel='noindex,nofollow'>텍스트 에디터</a></span>는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ide' rel='noindex,nofollow'>IDE</a></span>에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/javascript'>자바스크립트</a></span> 코드 분석기 <a href="http://ternjs.net/">Tern</a>입니다.</p>
 
@@ -340,14 +338,12 @@ All content copyright
 </div>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-46785477-2', 'nacyot.com');
-  ga('send', 'pageview');
-</script>
 </body>
 </html>
 
+<script>
+  $('.toc').toc({
+    'selectors': 'h2,h3,h4,h5',
+    'container': '.article'
+  });
+</script>

@@ -124,6 +124,11 @@ p.shape-title {
   font-weight: 900;
   margin-bottom: 32px;
 }
+.articles .article .description {
+  background-color: #eedeee;
+  margin: 0.5em 0.1em 2em;
+  padding: 1em;
+}
 .articles .article .summary {
   font-size: 1.3em;
   line-height: 2em;
@@ -136,18 +141,33 @@ p.shape-title {
 }
 .articles .article .toc {
   font-size: 1.3em;
-  padding: 15px 25px;
+  padding: 15px 15px;
   margin: 35px auto;
-  width: 90%;
+  width: 95%;
   line-height: 1.7em;
 }
 .articles .article .toc ul {
-  list-style-type: upper-roman;
+  list-style-type: none;
 }
 .articles .article .toc ul ul,
 .articles .article .toc ul ul ul,
 .articles .article .toc ul ul ul ul {
   list-style-type: lower-alpha;
+}
+.articles .article .toc .toc-h2 {
+  padding-left: 0px;
+}
+.articles .article .toc .toc-h3 {
+  padding-left: 20px;
+}
+.articles .article .toc .toc-h4 {
+  padding-left: 40px;
+}
+.articles .article .toc .toc-h5 {
+  padding-left: 60px;
+}
+.articles .article .toc .toc-h6 {
+  padding-left: 80px;
 }
 .articles .article .body {
   font-size: 1.3em;

@@ -8,22 +8,37 @@
 Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='83PoUYOY-K48booDuuM95hVy0Mboaaw6yBbJJTzGGSk' name='google-site-verification'>
+<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
 <link href='/articles/2014-03-12-emacs-with-tern/' rel='prev' title='이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern'>
 <link href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='next' title='쿡패드(Cookpad) 루비(ruby) 스타일 가이드'>
+<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
+<meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기 :: emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역' name='twitter:title'>
-<meta content='' name='twitter:description'>
+<meta content='nacyot의 프로그래밍 이야기 :: emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역' property='og:title'>
+<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일' name='twitter:description'>
+<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
-<meta content='@nacyo_t' name='twitter:creator'>
-<meta content='' name='twitter:image'>
+<meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
+<meta content='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' name='twitter:url'>
+<meta content='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' property='og:url'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
 <title>nacyot의 프로그래밍 이야기 :: emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'nacyot.com');
+  ga('send', 'pageview');
+</script>
 </head>
 <body>
 <nav class='navbar navbar-fixed-top' role='navigation'>
@@ -113,32 +128,9 @@ Mar 17 2014
 <h1 class='title'>
 <a href="./">emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</a>
 </h1>
-<div class='toc'>
-<ul>
-<li>
-<a href="#github">Github</a>
-</li>
-<li>
-<a href="#omegat">OmegaT</a>
-</li>
-<li>
-<a href="#omegat-+-travis">Omegat + Travis</a>
-</li>
-<li>
-<a href="#rake">Rake</a>
-</li>
-<li>
-<a href="#github-pages">Github Pages</a>
-</li>
-<li>
-<a href="#travis">Travis</a>
-</li>
-<li>
-<a href="#결론">결론</a>
-</li>
-</ul>
-
+<div class='body'>
 </div>
+<div class='toc'></div>
 <div class='body'>
 <p>vim.sexy의 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>emacs</a></span>판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &gt;_&lt;</p>
 
@@ -298,14 +290,12 @@ All content copyright
 </div>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-46785477-2', 'nacyot.com');
-  ga('send', 'pageview');
-</script>
 </body>
 </html>
 
+<script>
+  $('.toc').toc({
+    'selectors': 'h2,h3,h4,h5',
+    'container': '.article'
+  });
+</script>

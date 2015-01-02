@@ -25,6 +25,7 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='http://blog.nacyot.com/tags/python/' property='og:url'>
 <meta content='' name='twitter:image'>
 <meta content='' property='og:image'>
+<meta content='' name='keywords'>
 <title>nacyot의 프로그래밍 이야기</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
@@ -96,7 +97,6 @@ nacyot
 <div class='summary_card'>
 <div>
 <span class='date'>
-<i class='fa fa-calendar'></i>
 Dec 17 2014
 </span>
 </div>
@@ -104,19 +104,9 @@ Dec 17 2014
 <a href="../../articles/2014-12-17-diffrence-of-ruby-and-python/">루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이</a>
 </h2>
 <div class='summary'>
+<p>루비에서는 메서드를 괄호 없이 호출할 수 있습니다. 반면에 파이썬에서는 함수를 괄호 없이 사용하면, 함수 호출이 아니라 해당하는 이름을 가진 함수를 참조하게 됩니다. 이는 루비와 파이썬에서 변수와 함수가 존재하는 공간의 차이에서 비롯되는 차이로, 이 글에서는 루비와 파이썬의 함수(메서드) 호출과 함수 참조에 대한 문법 차이를 다룹니다. </p>
 
-파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...— nacyot (@nacyo_t) 2014년 12월 15일<br/>
-반응이 있어서(?) 조금 정리해봅니다.<br/>ruby
-def a
-  print 'a'
-end<br/>def b
-  print 'b'
-end<br/>def f(arg1, arg2)
-  arg1
-end<br/>f(a,b)<br/>
-실제로 저 코드를 보시면 무엇이 출력될 것이라고 예상되...
 </div>
-<span class='more'><a href="../../articles/2014-12-17-diffrence-of-ruby-and-python/">전문 읽기</a> -&gt;</span>
 <div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/python'>python</a>

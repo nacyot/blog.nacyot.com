@@ -8,6 +8,7 @@
 Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
 <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2013-10-02-github-ecosystem/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
@@ -50,13 +51,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <li>
 <a href='http://blog.nacyot.com'>
 <i class='fa fa-comment'></i>
-프로그래밍 이야기
+블로그
 </a>
 </li>
 <li>
 <a href='http://wiki.nacyot.com'>
 <i class='fa fa-comment'></i>
-nacyot wiki
+위키
 </a>
 </li>
 </ul>
@@ -72,13 +73,11 @@ nacyot wiki
 <li>
 <a href='https://twitter.com/nacyo_t'>
 <i class='fa fa-twitter twitter'></i>
-@nacyo_t
 </a>
 </li>
 <li>
-<a href='https://github.com/nacyot/blog.nacyot.com-source'>
+<a href='https://github.com/nacyot/'>
 <i class='fa fa-github github'></i>
-nacyot
 </a>
 </li>
 </ul>
@@ -419,6 +418,12 @@ coveralls를 추가해줍니다.</p>
 </div>
 <div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
 </div>
+<script>
+  $('.toc').toc({
+    'selectors': 'h2,h3,h4,h5',
+    'container': '.article'
+  });
+</script>
 
 <div class='row'>
 <div class='col-lg-12'>
@@ -449,9 +454,3 @@ All content copyright
 </body>
 </html>
 
-<script>
-  $('.toc').toc({
-    'selectors': 'h2,h3,h4,h5',
-    'container': '.article'
-  });
-</script>

@@ -3676,6 +3676,7 @@ fieldset[disabled] .radio,
 
 body {
   padding-top: 60px;
+  -webkit-text-size-adjust: 70%;
 }
 h1,
 h2,
@@ -3717,7 +3718,7 @@ nav {
   padding-bottom: 8px;
 }
 nav a {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 .navbar {
   background-color: white;
@@ -3752,7 +3753,7 @@ nav a {
 .wall .title {
   margin-top: 25px;
   text-align: center;
-  font-size: 2em;
+  font-size: 2.5em;
 }
 #container {
   padding: 0;
@@ -3760,7 +3761,8 @@ nav a {
 }
 #container .summary_card {
   overflow: hidden;
-  width: 800px;
+  width: 80%;
+  min-width: 60%;
   margin: 0 auto 1em;
   padding: 1.5em 1.5em;
 }
@@ -3774,7 +3776,7 @@ nav a {
 }
 #container .summary_card .summary {
   padding: 1em;
-  font-size: 1.15em;
+  font-size: 1.2em;
   line-height: 1.6em;
   text-align: justify;
 }
@@ -3796,6 +3798,24 @@ p.shape-title {
 .articles .article {
   margin-bottom: 55px;
 }
+.articles .article h1 {
+  font-size: 2.3em;
+}
+.articles .article h2 {
+  font-size: 1.8em;
+}
+.articles .article h3 {
+  font-size: 1.7em;
+}
+.articles .article h4 {
+  font-size: 1.6eem;
+}
+.articles .article h5 {
+  font-size: 1.5em;
+}
+.articles .article h6 {
+  font-size: 1.4em;
+}
 .articles .article .title {
   font-weight: 900;
   margin-bottom: 32px;
@@ -3806,7 +3826,7 @@ p.shape-title {
   padding: 1em;
 }
 .articles .article .summary {
-  font-size: 1.3em;
+  font-size: 1.2em;
   line-height: 2em;
 }
 .articles .article img {
@@ -3816,7 +3836,7 @@ p.shape-title {
   max-width: 100%;
 }
 .articles .article .toc {
-  font-size: 1.3em;
+  font-size: 1.2em;
   padding: 15px 15px;
   margin: 35px auto;
   width: 95%;
@@ -3846,8 +3866,8 @@ p.shape-title {
   padding-left: 80px;
 }
 .articles .article .body {
-  font-size: 1.3em;
-  line-height: 2em;
+  font-size: 1.2em;
+  line-height: 1.7em;
 }
 .articles .article .body h1,
 .articles .article .body h2,
@@ -3885,7 +3905,7 @@ p.shape-title {
 }
 .articles .article .footer .author h1 {
   margin-top: 0;
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight: 900;
 }
 .articles .article .footer .share {
@@ -3898,7 +3918,7 @@ p.shape-title {
   font-weight: 900;
 }
 .articles .navigation {
-  font-size: 1.5em;
+  font-size: 1.2em;
   line-height: 2em;
 }
 .site-footer {

@@ -104,9 +104,9 @@ Jun  1 2014
 <a href="../../articles/2014-06-01-emacs-with-cask/">캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기</a>
 </h2>
 <div class='summary'>
-<p>얼마 전 <a href="http://cask.emacs.kr/">Cask 공식 문서를 한국어로 번역</a>해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.</p>
+<p>얼마 전 [Cask 공식 문서를 한국어로 번역][cask]해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.</p>
 
-<p>부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 와 비교하면 에 해당한다. 루비에서 [<a href="http://cask.emacs.kr/">Cask</a>]의 역할은 Gem이 아니라 의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs24' rel='noindex,nofollow'>Emacs24</a></span>부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>와 비교하면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gem' rel='noindex,nofollow'>Gem</a></span>에 해당한다. 루비에서 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='noindex,nofollow'>Cask</a></span>의 역할은 Gem이 아니라 <span class='live_link'><a href='http://wiki.nacyot.com/documents/bundler'>Bundler</a></span>의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.</p>
 
 </div>
 <div class='tags'>
@@ -147,11 +147,11 @@ Apr 28 2014
 
 <p>일본 프로그래머 Ito Naoya 씨가 <a href="http://d.hatena.ne.jp/naoya/20140424/1398318293">Cask를 소개하는 글</a>에서 이런 얘기를 하길래, 관심이 가서 <a href="http://cask.github.io">Cask 공식 문서</a>를 번역했습니다.</p>
 
-<p> 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.</p>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span> 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.</p>
 
 <p>그만큼이나 Emacs 설정을 잘 하는 건 어렵습니다. 해본 사람은 알겠지만 이것저것 입맛대로 뜯어고치고 플러그인 설치하고 한 번 꼬이고 그러면 그냥 프로그래밍 하는 시간보다 설정하는 시간이 더 많이 드는 거 아닌가 하는 회의감이 들 정도니까요. 강력하지만 귀찮고 어렵습니다.</p>
 
-<p>[<a href="http://cask.emacs.kr">Cask</a>]는 이러한 문제를 의 번들러나 의 처럼 &#39;Cask&#39;라는 파일을 통해 해결해줍니다. 이를 통해  개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='noindex,nofollow'>Cask</a></span>는 이러한 문제를 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>Ruby</a></span>의 번들러나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='noindex,nofollow'>Node.js</a></span>의 <span class='live_link'><a href='http://wiki.nacyot.com/documents/npm'>npm</a></span>처럼 &#39;Cask&#39;라는 파일을 통해 해결해줍니다. 이를 통해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs_lisp' rel='noindex,nofollow'>emacs lisp</a></span> 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.</p>
 
 <p>현재 틈틈히 Cask로 옮기는 작업을 하고 있으니, 조만간 Cask로 완전히 갈아타는 데 성공하면 사용법에 대해서도 소개하겠습니다.</p>
 

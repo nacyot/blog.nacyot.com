@@ -11,17 +11,17 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='/articles/2014-04-18-docker-on-ubuntu-14-04/' rel='prev' title='우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기'>
+<link href='/articles/2014-04-18-docker-on-ubuntu-14-04/' rel='prev' title='우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기'>
 <link href='/articles/2014-04-28-translate-emacs-cask-documenation/' rel='next' title='이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역'>
-<meta content='프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 each와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 each 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.' name='description'>
+<meta content='프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 each와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 each 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다. 이 글에서는 Enumerable 모듈에 포함된 다양한 열거자 메서드들을 소개합니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기 :: 루비의 꽃, 열거자 Enumerable 모듈' name='twitter:title'>
 <meta content='nacyot의 프로그래밍 이야기 :: 루비의 꽃, 열거자 Enumerable 모듈' property='og:title'>
-<meta content='프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 each와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 each 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.' name='twitter:description'>
-<meta content='프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 each와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 each 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.' property='og:description'>
+<meta content='프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 each와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 each 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다. 이 글에서는 Enumerable 모듈에 포함된 다양한 열거자 메서드들을 소개합니다.' name='twitter:description'>
+<meta content='프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 루비에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 each와 같은 열거자(Enumerable) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 each 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다. 이 글에서는 Enumerable 모듈에 포함된 다양한 열거자 메서드들을 소개합니다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/' name='twitter:url'>
@@ -133,7 +133,7 @@ Apr 19 2014
 </div>
 <div class='toc'></div>
 <div class='body'>
-<p>프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 <code>each</code>와 같은 열거자(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/enumerable' rel='noindex,nofollow'>Enumerable</a></span>) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 <code>each</code> 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다.</p>
+<p>프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 <code>each</code>와 같은 열거자(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/enumerable' rel='noindex,nofollow'>Enumerable</a></span>) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 <code>each</code> 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다. 이 글에서는 Enumerable 모듈에 포함된 다양한 열거자 메서드들을 소개합니다.</p>
 
 
 
@@ -4867,7 +4867,7 @@ false
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
 이전 글
-<a href='/articles/2014-04-18-docker-on-ubuntu-14-04/' rel='prev'>우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기</a>
+<a href='/articles/2014-04-18-docker-on-ubuntu-14-04/' rel='prev'>우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기</a>
 </div>
 <div class='nextnav'>
 <div class='fa fa-chevron-right'></div>

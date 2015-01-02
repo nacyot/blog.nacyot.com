@@ -11,17 +11,17 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='/articles/2014-01-18-ubuntu-setting/' rel='prev' title='우분투 13.10 개발환경 세팅'>
+<link href='/articles/2014-01-18-ubuntu-setting/' rel='prev' title='우분투(ubuntu) 13.10 개발환경 준비하기'>
 <link href='/articles/2014-01-30-deploying-application-with-dokku/' rel='next' title='도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)'>
-<meta content='클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.이런 가운데 가상 머신의 단점...' name='description'>
+<meta content='도커(Docker)는 2013년에 등장한 새로운 컨테이너 기반 가상화 도구입니다. 도커는 계층화된 파일시스템(AUFS, BTRFS 등)을 사용해 가상화된 컨테이너의 변경사항을 모두 추적하고 관리합니다. 이를 통해서 컨테이너의 특정 상태를 항상 보존해두고, 필요할 때 언제 어디서나(단, Docker가 설치만 되어있다면) 이를 실행할 수 있도록 도와주는 도구입니다. 이 글은 Docker 입문자를 위한 튜토리얼로, 도커의 기본 개념들과 사용법에 대해서 소개합니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기 :: 도커(Docker) 튜토리얼 : 깐 김에 배포까지' name='twitter:title'>
 <meta content='nacyot의 프로그래밍 이야기 :: 도커(Docker) 튜토리얼 : 깐 김에 배포까지' property='og:title'>
-<meta content='클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.이런 가운데 가상 머신의 단점...' name='twitter:description'>
-<meta content='클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.이런 가운데 가상 머신의 단점...' property='og:description'>
+<meta content='도커(Docker)는 2013년에 등장한 새로운 컨테이너 기반 가상화 도구입니다. 도커는 계층화된 파일시스템(AUFS, BTRFS 등)을 사용해 가상화된 컨테이너의 변경사항을 모두 추적하고 관리합니다. 이를 통해서 컨테이너의 특정 상태를 항상 보존해두고, 필요할 때 언제 어디서나(단, Docker가 설치만 되어있다면) 이를 실행할 수 있도록 도와주는 도구입니다. 이 글은 Docker 입문자를 위한 튜토리얼로, 도커의 기본 개념들과 사용법에 대해서 소개합니다.' name='twitter:description'>
+<meta content='도커(Docker)는 2013년에 등장한 새로운 컨테이너 기반 가상화 도구입니다. 도커는 계층화된 파일시스템(AUFS, BTRFS 등)을 사용해 가상화된 컨테이너의 변경사항을 모두 추적하고 관리합니다. 이를 통해서 컨테이너의 특정 상태를 항상 보존해두고, 필요할 때 언제 어디서나(단, Docker가 설치만 되어있다면) 이를 실행할 수 있도록 도와주는 도구입니다. 이 글은 Docker 입문자를 위한 튜토리얼로, 도커의 기본 개념들과 사용법에 대해서 소개합니다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/' name='twitter:url'>
@@ -135,6 +135,12 @@ Jan 27 2014
 </div>
 <div class='toc'></div>
 <div class='body'>
+<p>도커(Docker)는 2013년에 등장한 새로운 컨테이너 기반 가상화 도구입니다. 도커는 계층화된 파일시스템(AUFS, BTRFS 등)을 사용해 가상화된 컨테이너의 변경사항을 모두 추적하고 관리합니다. 이를 통해서 컨테이너의 특정 상태를 항상 보존해두고, 필요할 때 언제 어디서나(단, Docker가 설치만 되어있다면) 이를 실행할 수 있도록 도와주는 도구입니다. 이 글은 Docker 입문자를 위한 튜토리얼로, 도커의 기본 개념들과 사용법에 대해서 소개합니다.</p>
+
+
+
+<h2><a name='도커(docker)-소개'>도커(Docker) 소개</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
 <p>클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.</p>
 
 <p>이런 가운데 가상 머신의 단점은 극복하면서 장점만을 극대화하기 위한 최적화가 계속해서 이루어지고 있습니다. 도커 역시 이런 단점을 극복하기 위해서 나온 가상화 어플리케이션입니다. <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>는 단순한 가상 머신을 넘어서 어느 플랫폼에서나 재현가능한 어플리케이션 컨테이너를 만들어주는 걸 목표로 합니다. <span class='live_link'><a href='http://wiki.nacyot.com/documents/lxc'>LXC</a></span>(리눅스 컨테이너)라는 독특한 개념에서 출발하는 Docker의 가상화는 기존에 운영체제를 통째로 가상화하는 것과는 접근 자체를 달리합니다. 가상 머신이라고 하기에는 격리된 환경을 만들어주는 도구라고 하는 게 맞을 지도 모릅니다.</p>
@@ -157,7 +163,7 @@ Jan 27 2014
 
 <p>이 글에서는 바로 이러한 시점에서 개발 환경이자 배포 툴로써의 도커를 이해하기 위한 개념들을 소개하고 모니위키 어플리케이션을 도커로 설치하는 부분까지 다뤄보도록 하겠습니다. 각 부분에 대한 좀 더 자세한 이야기는 기회가 된다면 따로 다뤄보도록 하죠.</p>
 
-<h2><a name='설치'>설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='도커(docker)-설치하기'>도커(Docker) 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>각 운영체제 별 Docker의 설치 방법은 공식 홈페이지에 잘 정리되어 있습니다. 제가 사용하는 Ubuntu의 경우에는 Docker에서 제공하는 스크립트 파일 하나를 통해서 원큐에 정말 쉽게 Docker를 설치할 수 있습니다. 가상 머신에서도 설치가 가능하니, 가능하다면 Ubuntu 환경을 사용하길 권장합니다. 네, 글을 쓰는 편의상.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="o">:</span><span class="c1">//get.docker.io/ubuntu/ | sudo sh</span>
@@ -176,7 +182,7 @@ Jan 27 2014
 </span></pre></div>
 <p>명령어들을 실행하고 재로그인을 하게 되면 더 이상 sudo 명령어를 앞에 붙이지 않아도 docker 명령을 사용할 수 있습니다. 단, 이 방법을 사용할 경우엔, 공식 문서에서도 경고하고 있듯이 docker group은 root와 같은 권한 가지고 있다는 사실을 인지하고 있어야합니다.</p>
 
-<h2><a name='이미지(image)'>이미지(Image)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='이미지(image)-이해하기'>이미지(Image) 이해하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>설치만 끝났다면, 이제 끝이 보입니다. 대단해보이지만 정말 별 게 없습니다. 먼저 도커를 시작하면 이미지 개념을 이해할 필요가 있습니다. 처음에 보여드린 예제를 보면 centos 이미지를 다운로드 받고, 이 이미지에 shell을 실행시킵니다. 그런데 여기에 약간의 함정이 있습니다. Docker에서 실제로 실행되는 건 이미지가 아닙니다! 이미지는 추상적인 개념입니다. 실행되는 건 이미지를 기반으로 생성된 컨테이너입니다. 먼저 어떤 일이 일어나는지 확인해보도록 하겠습니다.</p>
 
@@ -239,7 +245,7 @@ Jan 27 2014
 </span></pre></div>
 <p><code>-a</code>(<code>-a=false: show all images</code>) 플래그는 이미지를 빌드하는 과정에서 생성되는 모든 이미지를 보여줍니다. 자세히 보시면 저장소(Repository)가 <code>&lt;none&gt;</code>인 이미지들이 존재하는 것을 알 수 있습니다. <code>-a</code> 플러그의 설명에서 알 수 있듯이 이 이미지들은 최종적인 이미지를 생성하는 과정에서 생성되는 중간 이미지들입니다. 나머지 다수의 우분투 이미지들은 TAG에서 보시듯이 다양한 버전의 이미지가 등록된 것을 알 수 있습니다.</p>
 
-<h2><a name='컨테이너(container)'>컨테이너(Container)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='컨테이너(container)-이해하기'>컨테이너(Container) 이해하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>다시 한 번 특정 이미지의 쉘에 접근해보겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -i -t ubuntu:12.04 /bin/bash
@@ -542,7 +548,7 @@ Jan 27 2014
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
 이전 글
-<a href='/articles/2014-01-18-ubuntu-setting/' rel='prev'>우분투 13.10 개발환경 세팅</a>
+<a href='/articles/2014-01-18-ubuntu-setting/' rel='prev'>우분투(ubuntu) 13.10 개발환경 준비하기</a>
 </div>
 <div class='nextnav'>
 <div class='fa fa-chevron-right'></div>

@@ -89,7 +89,7 @@ nacyot
 <a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
 </a>
 </div>
-<h1 class='title'>태그 > docker</h1>
+<h1 class='title'>태그 > Docker</h1>
 <div class='description'></div>
 </div>
 <div class='main'>
@@ -97,389 +97,63 @@ nacyot
 <div class='summary_card'>
 <div>
 <span class='date'>
-Aug  8 2014
+Aug  5 2014
 </span>
 </div>
 <h2 class='title'>
-<a href="../../articles/2014-08-08-rails-on-docker/">도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기</a>
+<a href="../../articles/2014-08-04-docker-korea-secord/">Docker Korea 스터디 그룹 두번째 모임</a>
 </h2>
 <div class='summary'>
-<p>이 글은 지난 6월 10일 에서 발표한 &#39;도커(Docker)로 루비 온 레일스 어플리케이션 배포하기&#39;를 정리한 문서입니다. 발표 자료는 <a href="https://www.facebook.com/naverd2/posts/505653179563380">페이스북 페이지</a>를 참조해주세요. 먼저 이미지와 컨테이너 소개 및 이미지 생성에 대해서 다룬 앞 부분은 이전에 작성했던 문서 &#39;<a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>&#39;로 대체합니다.</p>
-
-<p>이 글은 두 편으로 나눠서 공개할 예정입니다. 먼저 이 글에서는 Docker를 사용해 Ruby on Rails 어플리케이션을 도커 이미지화하는 법에 대해서 다룹니다. 그리고 다음 글에서는 이미지화한 어플리케이션을 실제로 어떻게 배포하는 지와 간단한 스케일 아웃 예제를 소개합니다.</p>
+<p>얼마 전 &#39;<span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker_korea' rel='noindex,nofollow'>도커 코리아</a></span>&#39;라는 이름으로 <a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/">스터디를 진행한다는 이야기</a>를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 <a href="http://onoffmix.com/event/31354">도커 코리아 두번째 모임</a>을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/remotty'>리모티</a></span> 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)</p>
 
 </div>
 <div class='tags'>
 <i class='fa fa-tag'></i>
-<a href='/tags/The-Twelve-Factor-App'>The Twelve Factor App</a>
+<a href='/tags/CoreOS'>CoreOS</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/deploy'>deploy</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/devops'>devops</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/dockerfile'>dockerfile</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/rails'>rails</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ruby'>ruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/레일스'>레일스</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/루비'>루비</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/배포'>배포</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/서버'>서버</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/서버-운영'>서버 운영</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Jul 26 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-07-26-docker-korea/">Docker Korea 스터디 그룹</a>
-</h2>
-<div class='summary'>
-<ul>
-<li><a href="http://www.shomney.com">함께 쓰는 가계부 Shomney</a></li>
-</ul>
-
-<p>현재 저는 <a href="http://blog.remotty.com/about/">Remotty</a>라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.</p>
-
-<p>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 에서 첫 모임을 가졌습니다.</p>
-
-</div>
-<div class='tags'>
+<a href='/tags/Docker'>Docker</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/Docker-Korea'>Docker Korea</a>
 <i class='fa fa-tag'></i>
+<a href='/tags/Elasticsearch'>Elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Fleet'>Fleet</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Ghost'>Ghost</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Grafana'>Grafana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Graphite'>Graphite</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/Kibana'>Kibana</a>
+<i class='fa fa-tag'></i>
 <a href='/tags/Remotty'>Remotty</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Shomney'>Shomney</a>
+<a href='/tags/Service-Discovery'>Service Discovery</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
+<a href='/tags/consul'>consul</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/immutable-infrastructure'>immutable infrastructure</a>
+<a href='/tags/etcd'>etcd</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/고스트'>고스트</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/도커'>도커</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/로그'>로그</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/리모티'>리모티</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/메트릭스'>메트릭스</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/스터디'>스터디</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/스페이스-노아'>스페이스 노아</a>
 <i class='fa fa-tag'></i>
+<a href='/tags/토즈'>토즈</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/파이썬'>파이썬</a>
+<i class='fa fa-tag'></i>
 <a href='/tags/포럼'>포럼</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Jul 25 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-07-17-graphite-with-dokcer/">그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</a>
-</h2>
-<div class='summary'>
-<p>시스템 에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보() 수집에 있어 꽤나 매력적인 도구 중 하나입니다.</p>
-
-<p><img alt="rrdtool" src="http://i.imgur.com/egJIriw.png" />
-<p class="shape-title">rrdtool</p></p>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/carbon'>carbon</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/elasticsearch'>elasticsearch</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/grafana'>grafana</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/graphite'>graphite</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/kibana'>kibana</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/whisper'>whisper</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/그라파나'>그라파나</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/그라파이트'>그라파이트</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/대시보드'>대시보드</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/모니터링'>모니터링</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/볼륨-컨테이너'>볼륨 컨테이너</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/시계열-데이터베이스'>시계열 데이터베이스</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-May  8 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-05-08-docker-registry-introduction/">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
-</h2>
-<div class='summary'>
-<p>의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/aws'>aws</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker-registry'>docker registry</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/s3'>s3</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커-레지스트리'>도커 레지스트리</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/아마존-웹서비스'>아마존 웹서비스</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Apr 19 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">우분투 14.04(Trusty Tahr)에서 도커(Docker) 설치 및 사용하기</a>
-</h2>
-<div class='summary'>
-<p>드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이글에서는  테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. </p>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/apt-get'>apt-get</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/digital-ocean'>digital ocean</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/tugboat'>tugboat</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ubuntu'>ubuntu</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ubuntu-14.04'>ubuntu 14.04</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/디지털-오션'>디지털 오션</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/우분투'>우분투</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Apr  6 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-04-06-immutable-infrastructure/">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
-</h2>
-<div class='summary'>
-<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 [<a href="http://aws.amazon.com/">AWS</a>] AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, [<a href="http://heroku.com">Heroku</a>], [<a href="http://travis-ci.org">Travis</a>] 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 [<a href="http://www.getchef.com/chef/">Chef</a>], [<a href="http://puppetlabs.com/">Puppet</a>], [<a href="https://www.docker.io/">Docker</a>], [<a href="http://www.vagrantup.com/">Vagrant</a>], [<a href="http://www.packer.io/">Packer</a>], [<a href="http://www.serfdom.io/">Serf</a>]와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
-
-<ul>
-<li><a href="/presentations/immutable_infrastructure">Immutable Infrastructure 발표 자료</a></li>
-</ul>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/immutable-infrastructure'>immutable infrastructure</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/programer'>programer</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Feb 11 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-02-11-dokcer-08-on-macosx/">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
-</h2>
-<div class='summary'>
-<p><a href="http://docker.io">도커</a>는 리눅스 위에서 격리된 또 다른  환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 소개 글</a>을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/boot2docker'>boot2docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/coreos'>coreos</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/lxc'>lxc</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/macosx'>macosx</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ubuntu'>ubuntu</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/virtual-machine'>virtual machine</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/가상머신'>가상머신</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/맥'>맥</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/우분투'>우분투</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Jan 30 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-01-30-github-hook-api-slack-sample/">깃허브(Github) 후크 API와 Slack에 알림 전달하기</a>
-</h2>
-<div class='summary'>
-<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃()에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
-
-<p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/api'>api</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/git'>git</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/github'>github</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/gollum'>gollum</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/hipchat'>hipchat</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/padrino'>padrino</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/slack'>slack</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/슬랙'>슬랙</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/힙챗'>힙챗</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Jan 30 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-01-30-deploying-application-with-dokku/">도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)</a>
-</h2>
-<div class='summary'>
-<p>지난 번 <a href="http://docker.io/">도커</a> 시리즈의 첫번째 글에서는 <a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a> 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 <a href="https://github.com/progrium/dokku/blob/master/dokku">도쿠</a>(Dokku)를 다루도록 하겠습니다.</p>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/buildpack'>buildpack</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/buildstep'>buildstep</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/dokku'>dokku</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/heroku'>heroku</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/heroku'>heroku</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/iaas'>iaas</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/nginx'>nginx</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/paas'>paas</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도쿠'>도쿠</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/튜토리얼'>튜토리얼</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/히로쿠'>히로쿠</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Jan 27 2014
-</span>
-</div>
-<h2 class='title'>
-<a href="../../articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>
-</h2>
-<div class='summary'>
-<p>클라우드와 같이 잘 짜여지고, 잘 나뉘어진 거대한 시스템에서야 그렇다 치더라도 가상 머신은 여러모로 손실이 많은 수단 중 하나입니다. 가상 머신은 격리된 환경을 구축해준다는 데서 매력적이긴 하지만, 실제 배포용으로 쓰기에는 성능 면에서 매우 불리한 도구라고 할 수 있습니다. 당연한 이야기입니다만 일단 운영체제 위에서 또 다른 운영체제를 통째로 돌린다는 것 자체가 리소스를 비효율적으로 활용할 수밖에 없습니다.</p>
-
-<p>이런 가운데 가상 머신의 단점...</p>
-
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/centos'>centos</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/dockerfile'>dockerfile</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/lxc'>lxc</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/moniwiki'>moniwiki</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ubuntu'>ubuntu</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/모니위키'>모니위키</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/튜토리얼'>튜토리얼</a>
 </div>
 </div>
 

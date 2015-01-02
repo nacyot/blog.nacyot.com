@@ -11,14 +11,14 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='/articles/2013-10-30-angularjs-style-guide/' rel='next' title='AngularJs 스타일 가이드 번역'>
+<link href='/articles/2013-10-30-angularjs-style-guide/' rel='next' title='앵귤러js(AngularJs) 스타일 가이드 번역'>
 <meta content='루비 테스트로는 minitest와 Rspec이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
-<meta content='nacyot의 프로그래밍 이야기 :: Rspec과 Guard를 활용한 루비 테스트 자동화' name='twitter:title'>
-<meta content='nacyot의 프로그래밍 이야기 :: Rspec과 Guard를 활용한 루비 테스트 자동화' property='og:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화' name='twitter:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화' property='og:title'>
 <meta content='루비 테스트로는 minitest와 Rspec이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.' name='twitter:description'>
 <meta content='루비 테스트로는 minitest와 Rspec이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 Autotest 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 Guard를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
@@ -28,7 +28,7 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
 <meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
 <meta content='테스트, rspec, minitest, guard, autotest, ruby, 루비' name='keywords'>
-<title>nacyot의 프로그래밍 이야기 :: Rspec과 Guard를 활용한 루비 테스트 자동화</title>
+<title>nacyot의 프로그래밍 이야기 :: Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
 <script>
@@ -124,7 +124,7 @@ Oct  2 2013
 </div>
 <a name='toc'></a>
 <h1 class='title'>
-<a href="./">Rspec과 Guard를 활용한 루비 테스트 자동화</a>
+<a href="./">Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화</a>
 </h1>
 <div class='body'>
 </div>
@@ -134,7 +134,7 @@ Oct  2 2013
 
 
 
-<h2><a name='spring'>Spring</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='스프링(spring)---루비-온-레일스-프로로더'>스프링(spring) - 루비 온 레일스 프로로더</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>먼저 테스트 속도 향상을 위해 Rails preloader인
 <a href="https://github.com/jonleighton/spring">spring</a>을 설정해 두었습니다.
@@ -156,7 +156,7 @@ Oct  2 2013
 </span></pre></div>
 <p>을 실항해서 spring을 종료하시고 다시 명령어를 실행시켜주시면됩니다.</p>
 
-<h2><a name='guard'>Guard</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='guard---파일-변화-감시-도구'>Guard - 파일 변화 감시 도구</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>단순히 spec 폴더의 파일들을 테스트 하는 것은 rake면 충분합니다만,
 작업과정의 변경사항에 대한 자동적인 테스트를 실행시키기 위해서는
@@ -195,7 +195,7 @@ Guardfile에 들어가 있으며 현재는 rspec(+spring)에 대해 기본설정
 사용하는 게 보통입니다. 다양한 notification 지원에 대해서는 Guard
 github 페이지에 좀 더 자세히 나와있으니 참조하시면 될 것 같습니다.</p>
 
-<h2><a name='rspec-setting'>Rspec setting</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='rspec-설정하기'>Rspec 설정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>rspec을 실행하는 데 기본 옵션 설정은 HOME 디렉토리의 .rspec 파일이나,
 Rails 어플리케이션 루트의 .rspec 파일에 기록합니다.</p>
@@ -253,7 +253,7 @@ Rails 어플리케이션 루트의 .rspec 파일에 기록합니다.</p>
 <div class='nextnav'>
 <div class='fa fa-chevron-right'></div>
 다음 글:
-<a href='/articles/2013-10-30-angularjs-style-guide/' rel='next'>AngularJs 스타일 가이드 번역</a>
+<a href='/articles/2013-10-30-angularjs-style-guide/' rel='next'>앵귤러js(AngularJs) 스타일 가이드 번역</a>
 </div>
 <br style='clear:both'>
 </div>

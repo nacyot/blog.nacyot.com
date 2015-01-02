@@ -11,17 +11,17 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='/articles/2014-03-12-emacs-with-tern/' rel='prev' title='이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern'>
+<link href='/articles/2014-03-12-emacs-with-tern/' rel='prev' title='이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern'>
 <link href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='next' title='쿡패드(Cookpad) 루비(ruby) 스타일 가이드'>
-<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일' name='description'>
+<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일이 글에서는 emacs.sexy를 번역하는 과정에서 사용했던 번역 메모리 OmegaT, 지속적 통합 서비스 Travis, 루비 태스크 관리 Rake, 깃허브 호스팅 서비스 Github Pages를 간단히 소개합니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기 :: emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역' name='twitter:title'>
 <meta content='nacyot의 프로그래밍 이야기 :: emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역' property='og:title'>
-<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일' name='twitter:description'>
-<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일' property='og:description'>
+<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일이 글에서는 emacs.sexy를 번역하는 과정에서 사용했던 번역 메모리 OmegaT, 지속적 통합 서비스 Travis, 루비 태스크 관리 Rake, 깃허브 호스팅 서비스 Github Pages를 간단히 소개합니다.' name='twitter:description'>
+<meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일이 글에서는 emacs.sexy를 번역하는 과정에서 사용했던 번역 메모리 OmegaT, 지속적 통합 서비스 Travis, 루비 태스크 관리 Rake, 깃허브 호스팅 서비스 Github Pages를 간단히 소개합니다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' name='twitter:url'>
@@ -139,9 +139,11 @@ Mar 17 2014
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<p>이 글에서는 emacs.sexy를 번역하는 과정에서 사용했던 번역 메모리 OmegaT, 지속적 통합 서비스 Travis, 루비 태스크 관리 Rake, 깃허브 호스팅 서비스 Github Pages를 간단히 소개합니다.</p>
 
 
-<h2><a name='github'>Github</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<h2><a name='깃허브(github)---번역-저장소-관리'>깃허브(Github) - 번역 저장소 관리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>특별한 건 없습니다만, 번역과 번역 저장소 관리에 대해서 조금 이야기를 해보자면 현재 sexy.emacs.kr은 두 개의 저장소에서 관리되고 있습니다.</p>
 
@@ -159,11 +161,11 @@ Mar 17 2014
 
 <p>입니다.</p>
 
-<h2><a name='omegat'>OmegaT</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='오메가t(omegat)---번역-메모리'>오메가T(OmegaT) - 번역 메모리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>개인적으로 번역 프로젝트에는 전부 OmegaT를 사용하고 있습니다.자바로 만들어진 번역 메모리로 기능적으론 굉장히 훌륭합니다. 특히 OmegaT는 문장 단위로 번역을 진행해서, 직접 원본 파일을 번역하는 것과 달리 원문의 업데이트에 비교적 쉽게 대응할 수 있습니다. 약간 번거롭고 저장소와 호환이 안 맞아서 한참 고생을 했는데, 최근에 활용 방향이 정리가 되서 베스트 프렉티스를 정리해보는 중입니다. 이에 대한 내용은 조만간 공유해 볼 예정입니다.</p>
 
-<h2><a name='omegat-+-travis'>Omegat + Travis</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='트래비스(travis)를-통한-오메가t-자동-빌드'>트래비스(Travis)를 통한 오메가T 자동 빌드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>이번에 한 가지 시도해본 건 Travis를 통해 OmegaT의 프로젝트를 빌드하는 일입니다. OmegaT에서는 원본 문서를 편집하지 않고 Segment 단위로 한 문장(혹은 한 문단) 씩 번역을 진행합니다. 따라서 여기서 빌드란 OmegaT를 통해서 번역한 결과물을 실제 파일로 출력하는 과정을 말합니다. 로컬에서 번역을 진행하고 빌드 후 저장소를 올리는 것도 어렵지 않습니다만 신경써야할 부분이 하나 더 느는 문제가 있고, 또 하나는 커밋 단위로 빌드를 하고 싶었기 때문입니다. 이는 이 블로그나 위키에서도 마찬가지로 문서를 작성하면 자동적으로 Travis에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/middleman'>Middleman</a></span> 어플리케이션을 빌드하고 깃허브 저장소에 올리는 것과 마찬가지입니다. 즉, 이를 통해 OmegaT를 통한 번역작업과 Github 페이지를 통한 배포 작업을 하나의 트랜젝션으로 묶을 수 있습니다.</p>
 
@@ -188,15 +190,17 @@ Mar 17 2014
 <p>이렇게 100mb 넘는 파일을 추가하고 Github에 올리기 위해선 커밋 히스토리 자체를 삭제할 필요가 생기는데 아래 명령어를 사용할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">filter</span><span class="o">-</span><span class="n">branch</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">filter</span> <span class="err">&#39;</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">file</span><span class="err">&#39;</span> <span class="n">HEAD</span>
 </span></pre></div>
-<h2><a name='rake'>Rake</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='루비-태스크-관리-도구---레이크(rake)'>루비 태스크 관리 도구 - 레이크(Rake)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>빌드 과정에서 몇 가지 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rake' rel='noindex,nofollow'>rake</a></span> 작업이 이루어집니다. OmegaT를 사용한 번역에서는 원본 파일을 직접 수정하지 않고, 문장들만을 번역합니다. 따라서 원칙적으로 원본 파일은 건드리지 않고 작업을 하기 위해서 빌드된 결과물을 rake  스크립트를 통해서 편집해줍니다. <code>rewrite_cname</code>은 CNAME 파일이 <code>sexy.emacs.kr</code>(실제 배포될 URL)을 가리키도록 합니다.  <code>add_link</code>는 별도로 관리중인 <a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/data/sites.json">한국어 링크를 정리한 json 파일</a>에서 링크를 가져와 문서의 아래 쪽에 추가해줍니다. 마지막으로 <code>add_link_to_translator</code>는 번역자 정보를 문서에 추가해줍니다.</p>
 
-<h2><a name='github-pages'>Github Pages</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='깃허브-페이지(github-pages)---정적-컨텐츠-호스팅-서비스'>깃허브 페이지(Github Pages) - 정적 컨텐츠 호스팅 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>빌드 과정의 마지막에는 이렇게 생성된 번역 결과를 sexy.emacs.kr 깃허브 저장소에 push하도록 되어있습니다. 깃허브에서는 gh-pages 브랜치를 이용해 저장소의 내용을 배포할 수 있습니다. 특별한 건 없습니다만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/github_pages' rel='noindex,nofollow'>github pages</a></span>에서 커스텀 도메인으로 배포 가능하도록 DNS A record를 지정해야하는 ip 주소가 최근에 바뀐 듯 합니다. <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">깃허브 Help 사이트</a>에서는 <code>192.30.252.153</code>과 <code>192.30.252.154</code>를 지정해야한다고 이야기하고 있으며, 예전 ip도 업데이트를 권장하고 있었습니다.</p>
 
-<h2><a name='travis'>Travis</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<p>10A</p>
+
+<h2><a name='트래비스(travis)---지속적-통합을-통한-지속적-번역'>트래비스(Travis) - 지속적 통합을 통한 지속적 번역</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p><a href="https://travis-ci.org/nacyot/omegat-emacs.sexy">Travis의 빌드 결과</a>는 여기서 확인할 수 있습니다. 이를 통해서 빌드가 어떤 식으로 이루어지는지 감이 오실 거라고 생각합니다.</p>
 
@@ -250,7 +254,7 @@ Mar 17 2014
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
 이전 글
-<a href='/articles/2014-03-12-emacs-with-tern/' rel='prev'>이맥스(emacs)와 자바스크립트 코드 분석 툴 Tern</a>
+<a href='/articles/2014-03-12-emacs-with-tern/' rel='prev'>이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern</a>
 </div>
 <div class='nextnav'>
 <div class='fa fa-chevron-right'></div>

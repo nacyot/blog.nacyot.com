@@ -11,15 +11,15 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-01-18-ubuntu-setting/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='/articles/2014-01-15-static-site-generator/' rel='prev' title='정적 웹사이트 생성기의 유혹'>
+<link href='/articles/2014-01-15-static-site-generator/' rel='prev' title='정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로'>
 <link href='/articles/2014-01-27-easy-deploy-with-docker/' rel='next' title='도커(Docker) 튜토리얼 : 깐 김에 배포까지'>
 <meta content='Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.참고로 본인은 Ubuntu / Terminator / Emacs / Dvorak 사용자.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
-<meta content='nacyot의 프로그래밍 이야기 :: 우분투 13.10 개발환경 세팅' name='twitter:title'>
-<meta content='nacyot의 프로그래밍 이야기 :: 우분투 13.10 개발환경 세팅' property='og:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: 우분투(ubuntu) 13.10 개발환경 준비하기' name='twitter:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: 우분투(ubuntu) 13.10 개발환경 준비하기' property='og:title'>
 <meta content='Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.참고로 본인은 Ubuntu / Terminator / Emacs / Dvorak 사용자.' name='twitter:description'>
 <meta content='Ubuntu 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.참고로 본인은 Ubuntu / Terminator / Emacs / Dvorak 사용자.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
@@ -29,7 +29,7 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
 <meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
 <meta content='우분투, ubuntu, ruby, terminator, nabi, nvidia, 나비, emacs, zsh, bash, QD270, openvpn, hub, wine, 카카오톡' name='keywords'>
-<title>nacyot의 프로그래밍 이야기 :: 우분투 13.10 개발환경 세팅</title>
+<title>nacyot의 프로그래밍 이야기 :: 우분투(ubuntu) 13.10 개발환경 준비하기</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
 <script>
@@ -141,7 +141,7 @@ Jan 18 2014
 </div>
 <a name='toc'></a>
 <h1 class='title'>
-<a href="./">우분투 13.10 개발환경 세팅</a>
+<a href="./">우분투(ubuntu) 13.10 개발환경 준비하기</a>
 </h1>
 <div class='body'>
 </div>
@@ -153,7 +153,7 @@ Jan 18 2014
 
 
 
-<h2><a name='ubuntu-13.10-설치'>Ubuntu 13.10 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='우분투(ubuntu)-13.10-설치'>우분투(Ubuntu) 13.10 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.ubuntu.com/download/desktop">우분투 공식 홈페이지</a></li>
@@ -161,7 +161,7 @@ Jan 18 2014
 
 <p>우분투 13.10 설치. 우분투에는 기본적으로 setup disk creator이라는 어플이 들어가서 있어서 이걸로 usb에 옮겨담을 수 있는데 조금 문제가 있어서 윈도우에서 <a href="http://www.linuxliveusb.com/">Linux Live USB Driver</a>로 USB에 설치.</p>
 
-<h2><a name='apt-다운로드-서버-설정'>APT 다운로드 서버 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='패키지-관리자-apt-다운로드-서버-설정'>패키지 관리자 APT 다운로드 서버 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>처음에 자동으로 업데이트를 실시하지만 패키지도 많고 상당히 시간이 오래걸린다. 이 때 미러 서버를 바꿔주면 속도가 많이 개선된다.</p>
 
@@ -180,7 +180,7 @@ Jan 18 2014
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
 </span></pre></div>
-<h2><a name='그래픽-카드-설치'>그래픽 카드 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='그래픽-카드-드라이버-설치'>그래픽 카드 드라이버 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <h3><a name='amd-a10-5800k(apu)'>AMD A10 5800K(APU)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
@@ -218,13 +218,11 @@ Jan 18 2014
 
 <p>개인적으로 이 과정에서 공식 드라이버 설치시 화면이 먹통이 되는 문제로 한참을 방황했는데 이는 그래픽 드라이버가 아니라 모니터 문제였다. 한국에서 생산된 27인치 모니터 중 2560 * 1440에 최적화된 모니터의 경우 제대로 출력이 되지 않는 경우가 있다. 이런 경우엔 위 링크를 참조해 문제를 해결하면 된다.</p>
 
-<h3><a name='참고'>참고</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='드라이버-설정-참고'>드라이버 설정 참고</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>일반적으로 어떤 그래픽 카드건 Software &amp; Updates의 Additianal Drivers에서 사용가능한 드라이버를 확인할 수 있다. 일반적으로 하드웨어 벤더에서 제공하는 독점 드라이버를 선택하는 게 안정성이나 성능 면에서 월등하다. 문제가 있으면 여기에 뜨는 것들을 바꿔가며 테스트 해보고 구글링으로 해당하는 문제를 찾아보는 게 좋다. </p>
 
-<h2><a name='nabi-설정'>Nabi 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-
-<h3><a name='한글-입력기-nabi-설치1'>한글 입력기 Nabi 설치<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h2><a name='한글-입력기-nabi-설치'>한글 입력기 Nabi 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">createsc</span><span class="o">/</span><span class="n">copy4</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nabi</span>
@@ -237,7 +235,7 @@ Jan 18 2014
 <li>드보락 설정(필요시, 링크 참조)</li>
 </ol>
 
-<h3><a name='system-tray-whitelist-등록2'>System Tray Whitelist 등록<sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='system-tray-whitelist-등록1'>System Tray Whitelist 등록<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">mc3man</span><span class="o">/</span><span class="n">systray</span><span class="o">-</span><span class="n">white</span>
 </span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
@@ -270,18 +268,18 @@ Jan 18 2014
 </span></pre></div>
 <p>환경설정 파일들은 마찬가지로 기존에 사용하는 것들 그대로 가져와서 사용. 개인적으로 private repository에서 관리중이고 클론해서 <code>~</code>에서 <code>conf</code> 디렉토리의 폴더로 심볼릭 링크 걸어서 사용. 필요한 게 추가로 있으면 scp로 기존 작업 환경에서 복사해서 사용. </p>
 
-<h2><a name='terminator-설치'>Terminator 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='터미널-terminator-설치'>터미널 Terminator 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">terminator</span>
 </span></pre></div>
 <p>터미네이터 설정 파일은 <code>.config/terminator/config</code>. 보통은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/scp' rel='noindex,nofollow'>scp</a></span>로 원래 쓰던 거 가져다가 세팅했는데,이번엔 <a href="https://github.com/ghuntley/terminator-solarized">terminator-solarized</a> 테마도 같이사용해봤다.사용해보진 않았는데 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/mac' rel='noindex,nofollow'>Mac</a></span> 쓰던 경우엔 <a href="https://gist.github.com/olistik/3894072">이 gist</a>도좋을 듯.</p>
 
-<h2><a name='eamcs-설치'>Eamcs 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='텍스트-에디터-eamcs-설치'>텍스트 에디터 Eamcs 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="nx">sudo</span> <span class="nx">apt</span><span class="na">-get</span> <span class="nx">install</span> <span class="nx">emacs24</span> <span class="nx">emacs24</span><span class="na">-common</span>
 </span><span id="line-2"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">git</span><span class="p">@</span><span class="o">&lt;</span><span class="nx">GIT_SERVER</span><span class="o">&gt;</span><span class="p">:</span><span class="nx">configuration</span><span class="p">/</span><span class="nx">emacs</span><span class="na">-config.git</span> <span class="bp">.</span><span class="nx-Member">emacs.d</span>
 </span></pre></div>
 <p>ubuntu 13.10에서는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs24' rel='noindex,nofollow'>emacs24</a></span>를 바로 설치해서 사용 가능. 환경 설정에 기존에 사용하던 거 그대로 가져와서 사용.</p>
 
-<h3><a name='the-silver-seacher-설치'>the silver seacher 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='파일-검색기-the-silver-seacher-설치'>파일 검색기 the silver seacher 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>ubuntu 13.10에서는 apt-get으로 바로 silver seacher 설치할 수 있다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">silversearcher</span><span class="o">-</span><span class="n">ag</span>
@@ -306,7 +304,7 @@ Jan 18 2014
 <li>단축키 다시 설정 해줌(연필 아이콘)</li>
 </ol>
 
-<h2><a name='ruby-설치'>Ruby 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='루비(ruby)-설치'>루비(Ruby) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/sstephenson/rbenv.git ~/.rbenv</span>
 </span><span id="line-2"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s">&quot;$HOME/.rbenv/bin:$PATH&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
 </span><span id="line-3"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">eval</span> <span class="s">&quot;$(rbenv init -)&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
@@ -324,7 +322,7 @@ Jan 18 2014
 </span></pre></div>
 <p>중요한 gem들 설치... 별로 중요해보이지 않지만 패스.</p>
 
-<h2><a name='hub-설치'>Hub 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='깃허브(github)-명령행-클라이언트-허브(hub)-설치'>깃허브(Github) 명령행 클라이언트 허브(Hub) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/github/hub.git</span>
 </span><span id="line-2"><span class="n">cd</span> <span class="n">hub</span><span class="o">/</span>
 </span><span id="line-3"><span class="n">sudo</span> <span class="p">.</span><span class="n">rbenv</span><span class="o">/</span><span class="n">shims</span><span class="o">/</span><span class="n">rake</span> <span class="n">install</span>
@@ -337,7 +335,7 @@ Jan 18 2014
 <div class="highlight"><pre><span id="line-1"><span class="n">eval</span> <span class="s">&quot;$(hub alias -s)&quot;</span>
 </span><span id="line-2"><span class="n">compdef</span> <span class="n">git</span><span class="o">=</span><span class="n">hub</span>
 </span></pre></div>
-<h2><a name='wine-카카오톡-설치'>Wine 카카오톡 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='와인(wine)-카카오톡-설치'>와인(Wine) 카카오톡 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>현재 팀에서 사용하고 있는 메신저가 카카오톡이라 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/wine' rel='noindex,nofollow'>Wine</a></span>로 카카오톡 설치 시도. </p>
 <div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">wine</span><span class="o">/</span><span class="n">ppa</span>
@@ -373,7 +371,7 @@ Jan 18 2014
 </span></pre></div>
 <p>한글이 조금 구려보이긴 하지만 잘 되는 것은 확인.</p>
 
-<h2><a name='개발용-docker-설치'>개발용 <a href="http://docker.io/">Docker</a> 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='개발용-도커(docker)-설치'>개발용 도커(<a href="http://docker.io/">Docker</a>) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 <div class="highlight"><pre><span id="line-1"><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="o">:</span><span class="c1">//get.docker.io/ubuntu/ | sudo sh</span>
 </span></pre></div>
 <p>요새 서버에 도입하려고 궁리중인 Docker. 공식 사이트에서 제공해주는 스크립트 하나면 정말 간단히 설치할 수 있다. 자세항 내용은 <a href="http://docs.docker.io/en/latest/installation/ubuntulinux/">공식 문서</a> 확인.</p>
@@ -387,11 +385,7 @@ Jan 18 2014
 <ol>
 
 <li id="fn1">
-<p>참고 <a href="http://www.ubuntu.or.kr/viewtopic.php?p=62810">http://www.ubuntu.or.kr/viewtopic.php?p=62810</a>&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
-</li>
-
-<li id="fn2">
-<p>참조 <a href="http://www.ubuntu.or.kr/viewtopic.php?p=112275">http://www.ubuntu.or.kr/viewtopic.php?p=112275</a>&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a></p>
+<p>참조 <a href="http://www.ubuntu.or.kr/viewtopic.php?p=112275">http://www.ubuntu.or.kr/viewtopic.php?p=112275</a>&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a></p>
 </li>
 
 </ol>
@@ -402,7 +396,7 @@ Jan 18 2014
 <hr>
 <div class='author'>
 <h1>nacyot</h1>
-우분투 쓰는 루비 프로그래머(29)
+프로그래머(29)
 </div>
 <div class='share'>
 <h1>Share this post</h1>
@@ -441,7 +435,7 @@ Jan 18 2014
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
 이전 글
-<a href='/articles/2014-01-15-static-site-generator/' rel='prev'>정적 웹사이트 생성기의 유혹</a>
+<a href='/articles/2014-01-15-static-site-generator/' rel='prev'>정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로</a>
 </div>
 <div class='nextnav'>
 <div class='fa fa-chevron-right'></div>

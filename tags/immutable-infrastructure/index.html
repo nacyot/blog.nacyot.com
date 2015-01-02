@@ -110,7 +110,7 @@ Jul 26 2014
 
 <p>현재 저는 <a href="http://blog.remotty.com/about/">Remotty</a>라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.</p>
 
-<p>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 에서 첫 모임을 가졌습니다.</p>
+<p>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/space_noah' rel='noindex,nofollow'>스페이스 노아</a></span>에서 첫 모임을 가졌습니다.</p>
 
 </div>
 <div class='tags'>
@@ -145,7 +145,7 @@ Apr  6 2014
 <a href="../../articles/2014-04-06-immutable-infrastructure/">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
 </h2>
 <div class='summary'>
-<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 [<a href="http://aws.amazon.com/">AWS</a>] AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, [<a href="http://heroku.com">Heroku</a>], [<a href="http://travis-ci.org">Travis</a>] 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 [<a href="http://www.getchef.com/chef/">Chef</a>], [<a href="http://puppetlabs.com/">Puppet</a>], [<a href="https://www.docker.io/">Docker</a>], [<a href="http://www.vagrantup.com/">Vagrant</a>], [<a href="http://www.packer.io/">Packer</a>], [<a href="http://www.serfdom.io/">Serf</a>]와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
+<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/immutable_infrastructure'>immutable infrastructure</a></span>을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/aws' rel='noindex,nofollow'>AWS</a></span> AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/heroku' rel='noindex,nofollow'>Heroku</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/travis'>Travis</a></span> 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/chef' rel='noindex,nofollow'>Chef</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/puppet' rel='noindex,nofollow'>Puppet</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>Docker</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/vagrant'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/packer' rel='noindex,nofollow'>Packer</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/serf' rel='noindex,nofollow'>Serf</a></span>와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
 
 <ul>
 <li><a href="/presentations/immutable_infrastructure">Immutable Infrastructure 발표 자료</a></li>

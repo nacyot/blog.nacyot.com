@@ -11,16 +11,16 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2013-10-02-github-ecosystem/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='/articles/2013-10-30-angularjs-style-guide/' rel='next' title='AngularJs 스타일 가이드 번역'>
-<meta content='소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을검토해보셔도 좋을 듯 합니다. 적용이 쉬운 것부터 차례대로 소개하도록하겠습니다.' name='description'>
+<link href='/articles/2013-10-30-angularjs-style-guide/' rel='next' title='앵귤러js(AngularJs) 스타일 가이드 번역'>
+<meta content='소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을검토해보셔도 좋을 듯 합니다. 여기서는 코드 퀄리티 관리 서비스 Code Climate,의존성 버전 관리 Gemnasium, 루비 문서 서비스 rubydoc.info, CI 서비스 Trivas,테스트 커버리지 관리 서비스 Coveralls를 간락히 소개합니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
-<meta content='nacyot의 프로그래밍 이야기 :: Github을 둘러싼 유용한 서비스들' name='twitter:title'>
-<meta content='nacyot의 프로그래밍 이야기 :: Github을 둘러싼 유용한 서비스들' property='og:title'>
-<meta content='소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을검토해보셔도 좋을 듯 합니다. 적용이 쉬운 것부터 차례대로 소개하도록하겠습니다.' name='twitter:description'>
-<meta content='소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을검토해보셔도 좋을 듯 합니다. 적용이 쉬운 것부터 차례대로 소개하도록하겠습니다.' property='og:description'>
+<meta content='nacyot의 프로그래밍 이야기 :: Github 에코시스템 - Git을 둘러싼 유용한 서비스들' name='twitter:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: Github 에코시스템 - Git을 둘러싼 유용한 서비스들' property='og:title'>
+<meta content='소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을검토해보셔도 좋을 듯 합니다. 여기서는 코드 퀄리티 관리 서비스 Code Climate,의존성 버전 관리 Gemnasium, 루비 문서 서비스 rubydoc.info, CI 서비스 Trivas,테스트 커버리지 관리 서비스 Coveralls를 간락히 소개합니다.' name='twitter:description'>
+<meta content='소스 관리를 위해 사용하는 Github와 바로 연동해서 사용할 수 있는 많은 좋은서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을검토해보셔도 좋을 듯 합니다. 여기서는 코드 퀄리티 관리 서비스 Code Climate,의존성 버전 관리 Gemnasium, 루비 문서 서비스 rubydoc.info, CI 서비스 Trivas,테스트 커버리지 관리 서비스 Coveralls를 간락히 소개합니다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2013-10-02-github-ecosystem/' name='twitter:url'>
@@ -28,7 +28,7 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
 <meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
 <meta content='github, travis, ruby, code climate, gemnasium, rubydoc.info, coveralls, 루비' name='keywords'>
-<title>nacyot의 프로그래밍 이야기 :: Github을 둘러싼 유용한 서비스들</title>
+<title>nacyot의 프로그래밍 이야기 :: Github 에코시스템 - Git을 둘러싼 유용한 서비스들</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
 <script>
@@ -126,7 +126,7 @@ Oct  2 2013
 </div>
 <a name='toc'></a>
 <h1 class='title'>
-<a href="./">Github을 둘러싼 유용한 서비스들</a>
+<a href="./">Github 에코시스템 - Git을 둘러싼 유용한 서비스들</a>
 </h1>
 <div class='body'>
 </div>
@@ -137,12 +137,13 @@ Oct  2 2013
 있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이
 서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는
 기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을
-검토해보셔도 좋을 듯 합니다. 적용이 쉬운 것부터 차례대로 소개하도록
-하겠습니다.</p>
+검토해보셔도 좋을 듯 합니다. 여기서는 코드 퀄리티 관리 서비스 Code Climate,
+의존성 버전 관리 Gemnasium, 루비 문서 서비스 rubydoc.info, CI 서비스 Trivas,
+테스트 커버리지 관리 서비스 Coveralls를 간락히 소개합니다.</p>
 
 
 
-<h2><a name='code-climate'><a href="https://codeclimate.com/">Code climate</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='code-climate---지속적-코드-퀄리티-관리-서비스'><a href="https://codeclimate.com/">Code climate</a> - 지속적 코드 퀄리티 관리 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : Ruby</p>
 
@@ -165,7 +166,7 @@ Oct  2 2013
 분석됩니다. 또한 오픈소스 프로젝트를 대상으로 하는 관계로 레포트
 내용은 전부 공개됩니다.</p>
 
-<h2><a name='gemnasium'><a href="https://gemnasium.com/">Gemnasium</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='gemnasium---의존성-버전-관리-서비스'><a href="https://gemnasium.com/">Gemnasium</a> - 의존성 버전 관리 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : Ruby</p>
 
@@ -182,7 +183,7 @@ Oct  2 2013
 <p>위 url로 접근하시면 github에 올라와있는 어떤 프로젝트든지 등록이
 가능합니다.</p>
 
-<h2><a name='rubydoc.info'><a href="http://rubydoc.info/">Rubydoc.info</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='rubydoc.info---루비-문서화-서비스'><a href="http://rubydoc.info/">Rubydoc.info</a> - 루비 문서화 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : Ruby</p>
 
@@ -191,7 +192,7 @@ Oct  2 2013
 문서가 자동적으로 생성됩니다. 대부분의 오픈소스 프로젝트에 있어
 로컬에서 문서를 만들어 사용하기보다는 이 사이트를 이용하고 있습니다.</p>
 
-<h2><a name='travis'><a href="https://travis-ci.org/">Travis</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='travis---지속적-통합-서비스'><a href="https://travis-ci.org/">Travis</a> - 지속적 통합 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : -</p>
 
@@ -203,7 +204,7 @@ apt-get을 통한 프로그램 설치도 할 수 있어 매우 다양한 일들�
 <a href="http://about.travis-ci.org/docs/user/ci-environment/">CI Environment</a>
 문서를 참조해주시기 바랍니다.</p>
 
-<h3><a name='travis-연동'>Travis 연동</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='github와-travis-연동'>Github와 Travis 연동</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>Github의 저장소를 <span class='live_link'><a href='http://wiki.nacyot.com/documents/travis'>Travis</a></span>와 연동하기 위해서는 repository 설정에서
 Travis hook를 설정해줄 필요가 있습니다. 하지만 이 문제는 Travis 쪽에서
@@ -214,7 +215,7 @@ Github 아이디로 로그인을 하고 연동하려는 저장소를 on으로 �
 파일을 어플리케이션 루트 폴더에 만들어서 기술하고, 저장소에
 push해줍니다.</p>
 
-<h3><a name='.travis.yml-예제'>.travis.yml 예제</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='travis-설정-파일---.travis.yml-예제'>Travis 설정 파일 - .travis.yml 예제</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>현재 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bbapi' rel='noindex,nofollow'>bbapi</a></span> 저장소에 등록된 .travis.yml 예제입니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ruby</span>
@@ -262,7 +263,7 @@ push해줍니다.</p>
 <p>실제로 실행될 스크립트를 작성합니다. 여기서는 우선 before_script가
 실행되고, script가 작동됩니다.</p>
 
-<h3><a name='travis-gem'>travis gem</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='travis-gem---지원-라이브러리'>travis gem - 지원 라이브러리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>gem install travis
 </span></pre></div>
 <p>travis gem을 통해서 콘솔 상에서 travis의 빌드를 관리하거나 빌드 결과를
@@ -285,7 +286,7 @@ push해줍니다.</p>
  플래그는 이 결과를 바로 .travis.yml에 추가하라는 의미를 가집니다.
  이러한 방식을 통해 API_KEY를 공개하지 않고 사용할 수 있습니다.</p>
 
-<h4><a name='전체-명령어'>전체 명령어</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='travis-전체-지원-명령어'>travis 전체 지원 명령어</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
 
 <blockquote>
 <div class="highlight"><pre><span id="line-1">   <span class="n">accounts</span>     <span class="n">displays</span> <span class="n">accounts</span> <span class="n">and</span> <span class="n">their</span> <span class="n">subscription</span> <span class="n">status</span>
@@ -316,14 +317,14 @@ push해줍니다.</p>
 </span><span id="line-26">   <span class="n">whoami</span>       <span class="n">outputs</span> <span class="n">the</span> <span class="n">current</span> <span class="n">user</span>
 </span></pre></div></blockquote>
 
-<h3><a name='travis-lint-gem'>travis-lint gem</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='travis-lint-gem---.travis.yml-문법-검사-라이브러리'>travis-lint gem - .travis.yml 문법 검사 라이브러리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>gem install travis-lint
 </span></pre></div>
 <p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/travis-lint' rel='noindex,nofollow'>travis-lint</a></span> 프로그램을 사용해 설정파일이 정상적인지를 확인해볼 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>travis-lint                                                                                            
 </span><span id="line-2">Hooray, /home/hsin/prog/_working/bbapi/.travis.yml seems to be solid!
 </span></pre></div>
-<h2><a name='coveralls'><a href="https://coveralls.io/">Coveralls</a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='coveralls---테스트-커버리지-관리-서비스'><a href="https://coveralls.io/">Coveralls</a> - 테스트 커버리지 관리 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Target : -</p>
 
@@ -338,7 +339,7 @@ push해줍니다.</p>
 보내도록 되어있습니다. 따라서 반드시 Travis를 사용해야하고, 빌드
 과정에서 Test(spec)을 실행해줄 필요가 있습니다.</p>
 
-<h3><a name='저장소와-연동(ruby-예제)'>저장소와 연동(Ruby 예제)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='github-저장소와-연동(ruby-예제)'>Github 저장소와 연동(Ruby 예제)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 
 <p>Travis 설정 외에도 coveralls를 실제 프로젝트에 적용시키기 위해서는
 저장소에서 몇가지 설정을 해줄 필요가 있습니다. 먼저 Gemfile에
@@ -409,7 +410,7 @@ coveralls를 추가해줍니다.</p>
 <div class='nextnav'>
 <div class='fa fa-chevron-right'></div>
 다음 글:
-<a href='/articles/2013-10-30-angularjs-style-guide/' rel='next'>AngularJs 스타일 가이드 번역</a>
+<a href='/articles/2013-10-30-angularjs-style-guide/' rel='next'>앵귤러js(AngularJs) 스타일 가이드 번역</a>
 </div>
 <br style='clear:both'>
 </div>

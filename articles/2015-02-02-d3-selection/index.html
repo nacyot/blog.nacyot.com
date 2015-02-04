@@ -215,7 +215,7 @@ Feb  4 2015
 </span><span id="line-5">  <span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">)</span>             <span class="c1">// 5</span>
 </span><span id="line-6">  <span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;New paragraph!&quot;</span><span class="p">);</span> <span class="c1">// 6</span>
 </span></pre></div>
-<p>여기서 (1)~(2)의 과정에서 반드시 <code>selectAll(&quot;p&quot;)</code>를 사용할 필요는 없다. 여기까지 과정에서 실제로 선택되는 문서 요소는 존재하지 않기 때문에 사실은 빈 d3 selection 을 반환하면 어떤 표현이라도 이를 대체할 수 있다. 따라서, 아래 네 표현은 모두 같다.</p>
+<p>여기서 (1)~(2)의 과정에서 반드시 <code>selectAll(&quot;p&quot;)</code>를 사용할 필요는 없다. 여기까지 과정에서 실제로 선택되는 문서 요소는 존재하지 않기 때문에 사실은 빈 d3 selection 을 반환하며 어떤 표현이라도 이를 대체할 수 있다. 따라서, 아래 네 표현은 모두 같다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">d3</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">)</span>
 </span><span id="line-2">  <span class="p">.</span><span class="n">selectAll</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">)</span>
 </span></pre></div><div class="highlight"><pre><span id="line-1"><span class="n">d3</span><span class="p">.</span><span class="n">selectAll</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">)</span>

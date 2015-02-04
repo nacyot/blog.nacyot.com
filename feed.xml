@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-02-04T09:54:19+00:00</updated>
+    <updated>2015-02-04T09:56:13+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -104,7 +104,7 @@
 &lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;p&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;             &lt;span class="c1"&gt;// 5&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;New paragraph!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// 6&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;여기서 (1)~(2)의 과정에서 반드시 &lt;code&gt;selectAll(&amp;quot;p&amp;quot;)&lt;/code&gt;를 사용할 필요는 없다. 여기까지 과정에서 실제로 선택되는 문서 요소는 존재하지 않기 때문에 사실은 빈 d3 selection 을 반환하면 어떤 표현이라도 이를 대체할 수 있다. 따라서, 아래 네 표현은 모두 같다.&lt;/p&gt;
+&lt;p&gt;여기서 (1)~(2)의 과정에서 반드시 &lt;code&gt;selectAll(&amp;quot;p&amp;quot;)&lt;/code&gt;를 사용할 필요는 없다. 여기까지 과정에서 실제로 선택되는 문서 요소는 존재하지 않기 때문에 사실은 빈 d3 selection 을 반환하며 어떤 표현이라도 이를 대체할 수 있다. 따라서, 아래 네 표현은 모두 같다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;select&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;body&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;selectAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;p&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;d3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;selectAll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;p&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -195,7 +195,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-02-04T09:54:19+00:00</updated>
+    <updated>2015-02-04T09:56:13+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -399,7 +399,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2015-02-04T09:54:19+00:00</updated>
+    <updated>2015-02-04T09:56:13+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1035,7 +1035,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2015-02-04T09:54:19+00:00</updated>
+    <updated>2015-02-04T09:56:13+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1103,7 +1103,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00+00:00</published>
-    <updated>2015-02-04T09:54:19+00:00</updated>
+    <updated>2015-02-04T09:56:13+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1231,7 +1231,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
     <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
     <published>2014-07-26T06:47:03+00:00</published>
-    <updated>2015-02-04T09:54:19+00:00</updated>
+    <updated>2015-02-04T09:56:13+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

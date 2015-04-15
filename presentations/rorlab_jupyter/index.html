@@ -1,0 +1,1074 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Jupyter - IRuby Notebook</title>
+<meta name="author" content="(nacyot)"/>
+
+<link rel="stylesheet" href="/presentations/reveal.js/css/reveal.min.css"/>
+<link rel="stylesheet" href="/presentations/reveal.js/css/theme/nacyot2.css" id="theme"/>
+<link rel="stylesheet" href="/presentations/stylesheets/code.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '/presentations/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>Jupyter - IRuby Notebook</h1>
+<h2>nacyot</h2>
+<h2><a href="mailto:"></a></h2>
+<h2></h2></section>
+
+<section id="sec-1" >
+
+<h2>nacyot</h2>
+<img src="https://avatars2.githubusercontent.com/u/148919?v=3&amp;s=460.png" alt="148919?v=3&amp;s=460.png" />
+
+</section>
+<section id="sec-2" >
+
+<h2>Smartstudy</h2>
+<img src="http://i.imgur.com/bLligMG.png" alt="bLligMG.png" />
+
+</section>
+<section id="sec-3" >
+
+<h2>REPL of Ruby</h2>
+<ul class="org-ul">
+<li>루비 내장 REPL - irb
+</li>
+<li><a href="http://pryrepl.org/">PRY</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-3-1" >
+
+<h3>PRY</h3>
+<img src="http://i.imgur.com/qMuvBjd.png" alt="qMuvBjd.png" />
+
+</section>
+<section id="sec-4" >
+
+<h2><a href="https://github.com/SciRuby/iruby">IRuby Notebook(sciruby/iruby)</a></h2>
+<img src="http://i.imgur.com/XdRZBBQ.png" alt="XdRZBBQ.png" />
+
+</section>
+<section id="sec-5" >
+
+<h2>Demo 1</h2>
+<ul class="org-ul">
+<li>Executing IRuby Notebook server
+</li>
+<li><a href="https://github.com/SciRuby/iruby">IRuby Notebook interface</a>
+</li>
+<li>Evaluating simple Ruby expressions
+</li>
+</ul>
+
+</section>
+<section id="sec-6" >
+
+<h2>REPL</h2>
+<p>
+Read–eval–print loop
+</p>
+
+</section>
+<section id="sec-6-1" >
+
+<h3>Lisp</h3>
+
+</section>
+<section id="sec-7" >
+
+<h2>IRuby Notebook</h2>
+<p>
+2012년 3월 25일~
+</p>
+
+</section>
+<section id="sec-8" >
+
+<h2>IPython</h2>
+<p>
+2001년부터 만들어진 Python REPL의 확장
+</p>
+
+</section>
+<section id="sec-8-1" >
+
+<h3>IPython 0.0.1</h3>
+<p>
+<a href="https://gist.github.com/fperez/1579699">https://gist.github.com/fperez/1579699</a>
+<img src="http://i.imgur.com/XDYv7v7.png" alt="XDYv7v7.png" />
+</p>
+
+</section>
+<section id="sec-8-2" >
+
+<h3>Python의 REPL 구현</h3>
+<ul class="org-ul">
+<li>기본 REPL
+<ul class="org-ul">
+<li>python
+</li>
+</ul>
+</li>
+<li>확장 REPL
+<ul class="org-ul">
+<li>ipython
+</li>
+<li>bpython
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-8-3" >
+
+<h3>왜 Python REPL의 확장을 만들었을까?</h3>
+
+</section>
+<section id="sec-8-4"  data-background="#8DB255">
+
+<h3></h3>
+
+<blockquote>
+<p>
+"I started using Python in 2001 and liked the language, but its interactive prompt felt like a crippled toy compared to the systems mentioned(maple, mathematica, etc) above or to a Unix shell."
+</p>
+<div class="who">
+<p>
+<a href="http://blog.fperez.org/2012/01/ipython-notebook-historical.html">Fernando Perez</a>
+</p>
+</div>
+</blockquote>
+
+</section>
+<section id="sec-8-5" >
+
+<h3>루비에서의 pry</h3>
+<img src="http://i.imgur.com/fuyEC08.png" alt="fuyEC08.png" />
+
+</section>
+<section id="sec-9" >
+
+<h2>IPython 0.12</h2>
+
+</section>
+<section id="sec-10"  data-background="#8DB255">
+
+<h2></h2>
+
+<blockquote>
+<p>
+"The major new feature with this release is the IPython Notebook, an interactive Python interface running in the browser. Download it now, or read more about what’s new."
+</p>
+<div class="who">
+<p>
+<a href="http://ipython.org/ipython-doc/rel-0.12/whatsnew/version0.12.html">IPython 0.12 Release Note</a>
+</p>
+</div>
+</blockquote>
+
+</section>
+<section id="sec-10-1" >
+
+<h3>IPython Notebook(2011~)</h3>
+<img src="http://ipython.org/ipython-doc/rel-0.12/_images/notebook_specgram.png" alt="notebook_specgram.png" />
+
+</section>
+<section id="sec-11" >
+
+<h2>IPython 0.11</h2>
+</section>
+<section id="sec-11-1" >
+
+<h3>IPython 0.11 - qtconsole</h3>
+<p>
+Rich GUI IPython client
+</p>
+
+<img src="http://i.imgur.com/msxxc1P.png" alt="msxxc1P.png" />
+
+</section>
+<section id="sec-11-2" >
+
+<h3>IPython 0.11 - ZeroMQ</h3>
+<ul class="org-ul">
+<li>ZeroMQ 기반 메시지 시스템 도입
+</li>
+<li>성능 문제 해결 및 qtconsole 백엔드
+</li>
+<li>ipython notebook
+</li>
+</ul>
+
+</section>
+<section id="sec-11-3" >
+
+<h3>기존의 REPL</h3>
+<ul class="org-ul">
+<li>해당하는 실행기 언어로 구현
+<ul class="org-ul">
+<li>lisp -&gt; lisp
+</li>
+<li>irb -&gt; ruby
+</li>
+<li>python -&gt; python
+</li>
+</ul>
+</li>
+<li>클라이언트(셸)와 백엔드(실행기)의 강한 결합
+<ul class="org-ul">
+<li>분리하기 어려움
+</li>
+<li>REPL이 가지는 근본적인 제약
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-11-4" >
+
+<h3>ZeroMQ가 도입된 이유 - 성능</h3>
+
+</section>
+<section id="sec-11-5"  data-background="#8DB255">
+
+<h3></h3>
+
+<blockquote>
+<p>
+"ZeroMQ provides us with much tighter control over memory, higher performance, and its communications are impervious to the Python Global Interpreter Lock because they take place in a system-level C++ thread."
+</p>
+<div class="who">
+<p>
+<a href="http://ipython.org/ipython-doc/rel-0.11/whatsnew/version0.11.html#high-level-parallel-computing-with-zeromq">IPython 0.11 Release Note</a>
+</p>
+</div>
+</blockquote>
+
+</section>
+<section id="sec-11-6" >
+
+<h3>ZeroMQ 도입에 주목해야 하는 이유</h3>
+<img src="http://i.imgur.com/a23rZms.png" alt="a23rZms.png" />
+
+</section>
+<section id="sec-11-6-1" >
+
+<h4>ZeroMQ 이전</h4>
+<p>
+단일 프로그램
+</p>
+
+<img src="http://i.imgur.com/jaCwVre.png" alt="jaCwVre.png" />
+
+</section>
+<section id="sec-11-6-2" >
+
+<h4>ZeroMQ 이후</h4>
+<p>
+클라이언트와 백엔드의 약한 결합
+</p>
+
+<img src="http://i.imgur.com/6HV1Vq4.png" alt="6HV1Vq4.png" />
+
+</section>
+<section id="sec-11-6-3" >
+
+<h4>다양한 클라이언트 지원</h4>
+<ul class="org-ul">
+<li>Notebook(client) - IPython Server
+<ul class="org-ul">
+<li>qtconsole
+</li>
+<li>IPython Notebook
+</li>
+<li>IPython
+</li>
+<li>BIPython
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-11-6-4" >
+
+<h4>다양한 클라이언트 지원(2)</h4>
+<img src="http://i.imgur.com/hOluhlk.png" alt="hOluhlk.png" />
+
+</section>
+<section id="sec-11-6-5" >
+
+<h4>Message Protocol</h4>
+<ul class="org-ul">
+<li><a href="https://ipython.org/ipython-doc/dev/development/messaging.html">Messaging in IPython</a>
+<ul class="org-ul">
+<li>0.11에서 공개
+</li>
+<li>자체 버전을 가지고 있으며 현재 5.0
+</li>
+</ul>
+</li>
+<li>ZeroMQ 기반
+</li>
+</ul>
+
+</section>
+<section id="sec-11-6-6" >
+
+<h4>실행기(커널)의 분리</h4>
+<ul class="org-ul">
+<li>Message Protocol에 따르는 Kernel 개념 도입
+</li>
+<li>Python 실행기가 Python Kernel로 분리됨
+</li>
+</ul>
+
+</section>
+<section id="sec-11-7" >
+
+<h3>IRuby의 정의</h3>
+</section>
+<section id="sec-11-7-1" >
+
+<h4>IRuby = Interactive Ruby?</h4>
+
+</section>
+<section id="sec-11-7-2" >
+
+<h4>IRuby = IPython Kernel for Ruby</h4>
+<img src="http://i.imgur.com/x794HK9.png" alt="x794HK9.png" />
+
+</section>
+<section id="sec-11-8" >
+
+<h3>IPython은 언어에 비종속적인 REPL</h3>
+<ul class="org-ul">
+<li>커널이 분리되면서 다양한 커널이 개발됨
+</li>
+<li>기존의 도구/생태계를 그대로 이용 가능
+</li>
+</ul>
+
+</section>
+<section id="sec-11-8-1" >
+
+<h4>Ipython Kernels</h4>
+<ul class="org-ul">
+<li><a href="https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages">IPython kernels for other languages</a>
+<ul class="org-ul">
+<li>Julia, Haskell, FSharp, Ruby, Go
+</li>
+<li>Scala, Mathics, Aldor, Calico, Erlang
+</li>
+<li>Lua, R, OCaml, Forth, Perl, Perl6
+</li>
+<li>Octave, Scilab, MathLab, Bash, CSahrp
+</li>
+<li>Clojure, Hy, Redis, Javascript, Calysto
+</li>
+<li>&#x2026;
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-11-8-2" >
+
+<h4>IPython Kerenl for Elixir</h4>
+<p>
+Google Summer Code 2015 <a href="http://i.imgur.com/g7ugo0j.png">link</a>
+</p>
+
+<img src="http://i.imgur.com/g7ugo0j.png" alt="g7ugo0j.png" />
+
+</section>
+<section id="sec-12" >
+
+<h2>IPython 3.0 = Jupyter</h2>
+<ul class="org-ul">
+<li><a href="https://jupyter.org/">Project Jupyter</a>
+</li>
+<li>IPython이 더 이상 Python만을 위한 도구가 아님을 인정
+<ul class="org-ul">
+<li>파이썬에 관련된 프로젝트 -&gt; IPython
+</li>
+<li>다언어 지원을 위한 프로젝트 -&gt; Jupyter
+<ul class="org-ul">
+<li>Jupyter Protocol
+</li>
+<li>Jupyter Notebook(HTML + Javascript 파트 분리)
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-13" >
+
+<h2>Jupiter</h2>
+<p>
+갈릴레오 갈릴레이 - 오래된 훌륭한 시각화 사례 <a href="http://www4.ncsu.edu/~kimler/hi322/galmoons.html">link</a>
+</p>
+
+<img src="http://www4.ncsu.edu/~kimler/hi322/galileo_notebook.gif" alt="galileo_notebook.gif" />
+
+</section>
+<section id="sec-13-1" >
+
+<h3>Jupyter = Julia + Python + R</h3>
+
+</section>
+<section id="sec-13-2" >
+
+<h3>Jupyter = Julia + Python + R</h3>
+<img src="http://curezone.com/upload/Members/new03/omg_wtf_cat.jpg" alt="omg_wtf_cat.jpg" />
+
+</section>
+<section id="sec-13-2-1" >
+
+<h4>Jupyter 이전 - 타언어 커널 사용법</h4>
+<ul class="org-ul">
+<li>IPython은 커널에 의존적으로 실행
+</li>
+<li><code>$ ipython notebook --kernel &lt;language&gt;</code>
+</li>
+</ul>
+
+</section>
+<section id="sec-13-2-2" >
+
+<h4>Jupyter 이후 - Kernelspec</h4>
+<p>
+특정 커널에 비의존적으로 실행
+</p>
+
+</section>
+<section id="sec-13-2-3" >
+
+<h4>설정 디렉터리 구조</h4>
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ tree -d -L 1 ~/.ipython
+~/.ipython
+&#9500;&#9472;&#9472; db
+&#9500;&#9472;&#9472; extensions
+&#9500;&#9472;&#9472; kernels         <span class="org-comment-delimiter"># </span><span class="org-comment">&lt;- &#50668;&#44592;</span>
+&#9500;&#9472;&#9472; log
+&#9500;&#9472;&#9472; nbextensions
+&#9500;&#9472;&#9472; pid
+&#9500;&#9472;&#9472; profile_default
+&#9500;&#9472;&#9472; security
+&#9500;&#9472;&#9472; startup
+&#9492;&#9472;&#9472; static
+</pre>
+</div>
+
+</section>
+<section id="sec-13-2-4" >
+
+<h4>타언어 커널 사용 -&gt; 다언어 커널 사용</h4>
+<p>
+IRuby, IBash 설치 이후
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-sh">$ tree -d -L 1 ~/.ipython/kernels
+~/.ipython/kernels
+&#9500;&#9472;&#9472; ruby
+&#9492;&#9472;&#9472; bash
+</pre>
+</div>
+
+</section>
+<section id="sec-13-2-5" >
+
+<h4>Jupyter Interface</h4>
+<p>
+하나의 Jupyter Instance에서 다언어 커널 실행가능
+</p>
+
+<img src="http://i.imgur.com/9Av7MxP.png" alt="9Av7MxP.png" />
+
+</section>
+<section id="sec-13-3" >
+
+<h3>Demo 2</h3>
+<ul class="org-ul">
+<li>Ruby
+</li>
+<li>Haskell
+</li>
+<li>Bash
+</li>
+</ul>
+
+</section>
+<section id="sec-14" >
+
+<h2>IPython Notebook</h2>
+<ul class="org-ul">
+<li>IPython 0.11~ (2011년~)
+</li>
+</ul>
+
+</section>
+<section id="sec-14-1" >
+
+<h3></h3>
+<p>
+<a href="http://www.reddit.com/r/Python/comments/1q9tq7/what_is_the_big_deal_about_ipython_notebooks/">What is the big deal about IPython Notebooks?</a>
+</p>
+
+</section>
+<section id="sec-14-2" >
+
+<h3>웹 애플리케이션</h3>
+<ul class="org-ul">
+<li>범용적인 유저 인터페이스
+</li>
+<li>비선형적 코드 실행
+</li>
+<li>CodeMirror 에디터
+</li>
+<li>Javascript 환경
+</li>
+</ul>
+
+</section>
+<section id="sec-14-2-1" >
+
+<h4>범용적인 유저 인터페이스</h4>
+<ul class="org-ul">
+<li>웹에서 가능한 모든 것
+<ul class="org-ul">
+<li>HTML, CSS, Image, Canvas, SVG, &#x2026;
+</li>
+</ul>
+</li>
+</ul>
+
+<img src="http://i.imgur.com/DsFq0kl.png" alt="DsFq0kl.png" />
+
+</section>
+<section id="sec-14-2-2" >
+
+<h4>비선형적 코드 실행 (1)</h4>
+<p>
+선형적인 실행 - REPL의 본질적인 한계
+</p>
+
+<img src="http://i.imgur.com/7XwpCau.png" alt="7XwpCau.png" />
+
+</section>
+<section id="sec-14-2-3" >
+
+<h4>비선형적 코드 실행 (2)</h4>
+<p>
+코드는 셀 단위로 편집하고, 실행되고, 재실행
+</p>
+
+<img src="http://i.imgur.com/wlT9IjM.png" alt="wlT9IjM.png" />
+
+</section>
+<section id="sec-14-2-4" >
+
+<h4>CodeMirror 에디터</h4>
+<p>
+웹 코드 에디터의 표준
+</p>
+
+<img src="http://i.imgur.com/P4q3j5H.png" alt="P4q3j5H.png" />
+
+</section>
+<section id="sec-14-2-5" >
+
+<h4>Javascript 환경</h4>
+
+</section>
+<section id="sec-14-3" >
+
+<h3>Demo 3</h3>
+<ul class="org-ul">
+<li><a href="http://nbviewer.ipython.org/github/payne92/notebooks/blob/master/00%20Javascript%20In%20Notebooks.ipynb">Javascript Magic</a>
+</li>
+<li><a href="http://nbviewer.ipython.org/gist/nacyot/c0190709f56024eb516e">D3 Notebook 예제(시각화 스터디)</a>
+</li>
+<li><a href="http://nbviewer.ipython.org/github/melund/ipython/blob/3.x/examples/Interactive%20Widgets/Index.ipynb">Interactive Widget</a>
+</li>
+<li><a href="https://github.com/nacyot/jupyter-inline-attachment-sample">InlineAttachment 예제</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-15" >
+
+<h2>여기까지는 프로그래밍 이야기</h2>
+
+</section>
+<section id="sec-16" >
+
+<h2>여기부터는 Notebook 이야기</h2>
+
+</section>
+<section id="sec-17" >
+
+<h2>왜 Jupyter에 주목해야 하는가?</h2>
+</section>
+<section id="sec-17-1" >
+
+<h3>REPL</h3>
+<ul class="org-ul">
+<li>소모성 프로그래밍 환경
+</li>
+<li>보통 짧은 코드 테스트용
+</li>
+</ul>
+
+</section>
+<section id="sec-17-2" >
+
+<h3>REPL의 한계를 넘어서</h3>
+<ul class="org-ul">
+<li>기록을 위한 프로그래밍 환경
+</li>
+<li>다양한 표현 지원
+</li>
+<li>셀 단위의 코드 편집 지원
+</li>
+</ul>
+
+</section>
+<section id="sec-17-3"  data-background="#8DB255">
+
+<h3>연습과 기록</h3>
+
+<blockquote>
+<p>
+"Examples are reusable ideas in the form of customizable code snippets; examples can serve as an alternative to fixed, monolithic typologies; examples are a shared extension of memory."
+</p>
+<div class="who">
+<p>
+<a href="https://vimeo.com/69448223">Eyeo 2013 - For example by Mike Bostock</a>
+</p>
+</div>
+</blockquote>
+
+</section>
+<section id="sec-17-4" >
+
+<h3>Demo 4</h3>
+<ul class="org-ul">
+<li><a href="https://github.com/nacyot/euler-project"><code>naycot/euler_project</code></a>
+</li>
+</ul>
+
+</section>
+<section id="sec-17-5" >
+
+<h3>코드와 글 - 본질적인 문제</h3>
+</section>
+<section id="sec-17-5-1" >
+
+<h4>코드</h4>
+<p>
+IPython code 중 일부 - BSD License
+</p>
+
+<img src="http://i.imgur.com/82CI9An.png" alt="82CI9An.png" />
+
+</section>
+<section id="sec-17-5-2" >
+
+<h4>글</h4>
+<p>
+Discourse on Floating Bodies, by Galileo Galilei
+</p>
+
+<img src="http://i.imgur.com/l93fvIP.png" alt="l93fvIP.png" />
+
+</section>
+<section id="sec-17-6" >
+
+<h3>코드와 글 ≒ 물과 기름</h3>
+<ul class="org-ul">
+<li>각자 고유한 맥락을 가짐
+</li>
+<li>전혀 다른 방식으로 쓰여짐
+<ul class="org-ul">
+<li>사고 방식
+</li>
+</ul>
+</li>
+<li>도구로 처리할 수 있는 부분이 다름
+<ul class="org-ul">
+<li>문법 분석과 맞춤법/오타
+</li>
+<li>Syntax 하이라이팅
+</li>
+</ul>
+</li>
+<li>80자 제한과 문단 개념
+</li>
+</ul>
+
+</section>
+<section id="sec-17-6-1" >
+
+<h4>글 안에 포함된 "죽어있는" 코드</h4>
+<p>
+책에 실린 코드
+</p>
+
+<img src="http://i.imgur.com/SCue2pU.png" alt="SCue2pU.png" />
+
+</section>
+<section id="sec-17-7" >
+
+<h3>코드와 글의 고유한 맥락에 대한 고민들</h3>
+<ul class="org-ul">
+<li>Donal E. Knuth - Literate Programming
+</li>
+<li>Alan Kay - Active Essays
+</li>
+<li>Fernando Perez - Data-driven Journalism
+</li>
+</ul>
+
+</section>
+<section id="sec-17-8"  data-background="#8DB255">
+
+<h3>Literate Programming(문학적 프로그래밍)</h3>
+
+<blockquote>
+<p>
+"Let us change our traditional attitude to the construction of programs: Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do."
+</p>
+<div class="who">
+<p>
+<a href="http://www.literateprogramming.com/knuthweb.pdf">Donald E. Knuth</a>
+</p>
+</div>
+</blockquote>
+
+</section>
+<section id="sec-17-9" >
+
+<h3>같은 평면 위에 올려진 코드와 문서</h3>
+</section>
+<section id="sec-17-9-1" >
+
+<h4>CWeb (1)</h4>
+<img src="http://i.imgur.com/vBG44d1.png" alt="vBG44d1.png" />
+
+</section>
+<section id="sec-17-9-2" >
+
+<h4>CWeb (2)</h4>
+<p>
+<a href="http://faq.ktug.org/wiki/pds/SampleDocument/cwebman.pdf">구조적 문서화를 위한 CWEB 시스템</a>
+</p>
+
+<img src="http://i.imgur.com/ngMttQq.png" alt="ngMttQq.png" />
+
+</section>
+<section id="sec-17-10" >
+
+<h3>"살아있는" 코드 안에 포함된 글</h3>
+</section>
+<section id="sec-17-10-1" >
+
+<h4>Sphinx (1)</h4>
+<p>
+<a href="https://github.com/ansible/ansible-modules-core/blob/16ece8f87c9d1ad3a2a32f4d0b8c9a674eac05d9/cloud/docker/docker.py">ansible-modules-core/cloud/docker/docker.py</a>
+</p>
+
+<img src="http://i.imgur.com/c4HXJvh.png" alt="c4HXJvh.png" />
+
+</section>
+<section id="sec-17-10-2" >
+
+<h4>Sphinx (2)</h4>
+<p>
+<a href="http://docs.ansible.com/docker_module.html">Ansible Documentation - docker</a>
+</p>
+
+<img src="http://i.imgur.com/9qA4AgH.png" alt="9qA4AgH.png" />
+
+</section>
+<section id="sec-17-11" >
+
+<h3>글 안에 포함된 "살아있는" 코드</h3>
+</section>
+<section id="sec-17-11-1" >
+
+<h4>knitr (1)</h4>
+<p>
+<a href="http://freesearch.pe.kr/archives/3265">from <span class="underline"><span class="underline">future</span></span> import dream - knitr를 이용한 워드프래스 포스팅하기</a>
+</p>
+
+<img src="http://i.imgur.com/bKtUjkQ.png" alt="bKtUjkQ.png" />
+
+</section>
+<section id="sec-17-11-2" >
+
+<h4>knitr (2)</h4>
+<p>
+<a href="http://freesearch.pe.kr/archives/3265">from <span class="underline"><span class="underline">future</span></span> import dream - knitr를 이용한 워드프래스 포스팅하기</a>
+</p>
+
+<img src="http://i.imgur.com/UQxQvZn.png" alt="UQxQvZn.png" />
+
+</section>
+<section id="sec-17-11-3" >
+
+<h4>d3 도서(o'reilly)</h4>
+<p>
+<a href="http://chimera.labs.oreilly.com/books/1230000000345/ch06.html#_the_new_chart">O'Reilly Atlas + jsbin</a>
+</p>
+
+<img src="http://i.imgur.com/TaVzgub.png" alt="TaVzgub.png" />
+
+</section>
+<section id="sec-17-12"  data-background="#8DB255">
+
+<h3>Active Essays</h3>
+
+<blockquote>
+<p>
+"An “Active Essay” is a new kind of literacy, combining a written essay, live simulations, and the programs that make them work in order to provide a deep explanation of a dynamic system. The reader works directly with multiple ways of representing the concepts under discussion. By “playing with” the simulations and code, the reader gets some hands-on experience with the topic.
+</p>
+<div class="who">
+<p>
+<a href="http://web.archive.org/web/20060710213801/http://www.squeakland.org/whatis/a_essays.html">Alan Kay</a>
+</p>
+</div>
+</blockquote>
+
+</section>
+<section id="sec-17-12-1" >
+
+<h4>Steven Wittens' Presentation</h4>
+<ul class="org-ul">
+<li><a href="http://acko.net/files/fullfrontal/fullfrontal/webglmath/online.html">Making WebGL Dance</a>
+</li>
+<li><a href="https://github.com/unconed/fullfrontal">Source Code</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-17-12-2" >
+
+<h4>Setosa blog</h4>
+<ul class="org-ul">
+<li><a href="http://setosa.io/blog/2014/07/26/markov-chains/">Markov Chains</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-17-12-3" >
+
+<h4>Jiongster</h4>
+<ul class="org-ul">
+<li><a href="http://jlongster.com/Removing-User-Interface-Complexity,-or-Why-React-is-Awesome">&#x2026;, Why React is Awesome</a>
+</li>
+<li><a href="http://jlongster.com/Presenting-The-Most-Over-Engineered-Blog-Ever">Presenting The Most Over-Engineered Blog Ever</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-17-12-4" >
+
+<h4>Awesome!</h4>
+<ul class="org-ul">
+<li>표현 도구로서의 자바스크립트
+</li>
+<li>하지만, 하나의 웹사이트라고 봐야&#x2026;
+</li>
+<li>저작 환경 = 그냥 프로그래밍
+</li>
+</ul>
+
+</section>
+<section id="sec-17-13" >
+
+<h3>Jupyter</h3>
+</section>
+<section id="sec-17-13-1" >
+
+<h4>"코드"와 "연구"의 만남</h4>
+<p>
+현존하는 가장 범용적이고 편리한 <b>Scientific Research 환경</b>.
+</p>
+
+</section>
+<section id="sec-17-13-2" >
+
+<h4>"글"과 "코드"의 고유한 맥락</h4>
+<p>
+현존하는 가장 범용적이고 편리한 <b>Active Essays 저작 환경</b>.
+</p>
+
+</section>
+<section id="sec-17-14" >
+
+<h3>Scientific Research</h3>
+<img src="http://i.imgur.com/d0o5qcp.png" alt="d0o5qcp.png" />
+
+</section>
+<section id="sec-17-15"  data-background="#8DB255">
+
+<h3>Data-driven Journalism</h3>
+
+<blockquote>
+<p>
+"Our job with IPython is to think deeply about questions regarding the intersection of computing, data and science, but it's clear to me at this point that we can contribute in contexts beyond pure scientific research. I hope we'll be able to provide folks who have a direct intersection with the public, such as journalists, with tools that help a more informed and productive debate."
+</p>
+<div class="who">
+<p>
+<a href="http://nbviewer.ipython.org/github/fperez/blog/blob/master/130418-Data-driven%20journalism.ipynb">Fernando Perez</a>
+</p>
+</div>
+</blockquote>
+
+</section>
+<section id="sec-17-16" >
+
+<h3>Reproducible Notebook</h3>
+<ul class="org-ul">
+<li>코드를 실행해보는 것에 그치지 않음
+</li>
+<li>저장하고, 게시하고, 공유하도록 도와줌
+<ul class="org-ul">
+<li>ipython 환경이 있다면 실행해보는 것도 가능
+</li>
+</ul>
+</li>
+<li>HTML 등 다른 포맷으로 출력 기능 제공
+</li>
+<li><a href="http://nbviewer.ipython.org/">nbviewer</a>
+<ul class="org-ul">
+<li>ipynb 뷰어 서버
+</li>
+</ul>
+</li>
+</ul>
+
+</section>
+<section id="sec-17-17" >
+
+<h3>IPython Notebook으로 블로그하기</h3>
+<ul class="org-ul">
+<li><a href="http://blog.fperez.org/2012/09/blogging-with-ipython-notebook.html">Fernando Perez - Blogging with the IPython notebook</a>
+</li>
+<li><a href="https://jakevdp.github.io/">Pythonic Perambulations</a>
+</li>
+<li><a href="http://www.boxnwhis.kr/2015/02/10/blogging_with_python.html">Box and Whisker - IPython Notebook으로 블로깅하기</a>
+</li>
+</ul>
+
+</section>
+<section id="sec-17-18" >
+
+<h3>사례</h3>
+<p>
+<a href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable/">루비의 꽃, 열거자 Enumerable 모듈</a>
+<a href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/">루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐</a>
+</p>
+
+<img src="http://i.imgur.com/mYNDVjT.png" alt="mYNDVjT.png" />
+
+</section>
+<section id="sec-17-19" >
+
+<h3><code>.ipynb</code> 빌드</h3>
+<p>
+<a href="https://github.com/nacyot/blog.nacyot.com-source/blob/54fc2aa73e37d1614023ede8f497ecda4bc895b8/helper/markdown_helper.rb#L85"><code>blog.nacyot.com-source/helper/markdown_helper.rb</code></a>
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-ruby"><span class="org-keyword">def</span> <span class="org-function-name">render_ipynb</span>(filename)
+<span class="org-highlight-indentation"><span class="org-highlight-indentation"> </span></span> cmd = <span class="org-string">"ipython nbconvert --to html --template basic /presentations/source/iruby/</span><span class="org-variable-name">#{filename}</span><span class="org-string"><span class="org-column-marker-3">.</span></span><span class="org-string">ipynb --output /presentations/source/iruby/</span><span class="org-variable-name">#{filename}</span><span class="org-string">"</span>
+<span class="org-highlight-indentation"><span class="org-highlight-indentation"> </span></span> <span class="org-builtin">system</span>(cmd)
+<span class="org-keyword">end</span>
+</pre>
+</div>
+
+</section>
+<section id="sec-17-20" >
+
+<h3>Demo 5</h3>
+<ul class="org-ul">
+<li>루비의 꽃, 열거자 Enumerable 모듈 실행하기
+</li>
+</ul>
+
+</section>
+<section id="sec-17-21" >
+
+<h3>감사합니다 :)</h3>
+<p>
+<a href="https://twitter.com/nacyo_t"><code>@nacyo_t</code></a>
+</p>
+</section>
+</div>
+</div>
+
+<script src="/presentations/reveal.js/lib/js/head.min.js"></script>
+<script src="/presentations/reveal.js/js/reveal.min.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: true,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 1000,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: '/presentations/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: '/presentations/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/presentations/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: '/presentations/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: '/presentations/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: '/presentations/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>

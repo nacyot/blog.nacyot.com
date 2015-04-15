@@ -5,16 +5,193 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2015-02-04T06:02:00Z</updated>
+  <updated>2015-04-15T01:30:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
+    <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
+    <published>2015-04-15T01:30:00+00:00</published>
+    <updated>2015-04-15T01:36:50+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;IPython은 Python REPL의 확장 구현이다. 0.12 버전부터 Notebook이라는 이름으로 웹 인터페이스를 지원하고 있다. 또한 파이썬 뿐만 아니라 다른 언어를 실행할 수 있는 다양한 커스텀 커널을 지원하고 있다. IRuby는 IPython의 루비(Ruby) 커널 구현체로 이를 사용해 IPython Notebook에서 Ruby 코드를 실행하고 문서를 작성하는 게 가능하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/x794HK9.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;이 글은 2015년 4월 14일 RORLab에서 발표한 내용을 보충하기 위한 글로 IRuby 설치, 실행 및 발표 레퍼런스를 소개한다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2&gt;&lt;a name='발표자료'&gt;발표자료&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;div style='max-width:550px'&gt;
+&lt;script async class="speakerdeck-embed" data-id="ee397ca6231f4a7a9c2c73eda6e81525" data-ratio="1.29456384323641" src="//speakerdeck.com/assets/embed.js"&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href="https://speakerdeck.com/nacyot/jupyter-iruby-notebook"&gt;https://speakerdeck.com/nacyot/jupyter-iruby-notebook&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='iruby-설치하기'&gt;IRuby 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;h3&gt;&lt;a name='zeromq-설치하기'&gt;ZeroMQ 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;ZeroMQ를 설치한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# Mac OSX&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;brew&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;zeromq&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;universal&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# Ubuntu&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;libzmq3&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='python-환경-구축-및-ipython-설치'&gt;python 환경 구축 및 ipython 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;pyenv를 설치한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# Mac OSX&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;brew&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pyenv&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# Ubuntu&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/yyuu/pyenv.git ~/.pyenv&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;pyenv를 셸에 설정해준다. zsh을 사용한다면 &lt;code&gt;.bash_profile&lt;/code&gt;을 &lt;code&gt;.zshrc&lt;/code&gt;로 바꿔준다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;export PATH=&amp;quot;$PYENV_ROOT/bin:$PATH&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;eval &amp;quot;$(pyenv init -)&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;파이썬 3.4.3을 설치하고, 사용하도록 설정한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv install 3.4.3
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv global 3.4.3
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;관련 라이브러리와 IPython을 설치한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install jinja2 tornado pyzmq
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install ipython
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='iruby-설치'&gt;IRuby 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;IRuby 최신 버전은 gem으로 설치할 수 있다. 여기서는 루비 환경은 구축되어있다고 가정한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;gem install iruby
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;iruby&lt;/code&gt; 명령어가 설치되었는지 확인해본다. &lt;code&gt;iruby&lt;/code&gt; 명령어는 IPython3 이전에 루비 커널로 IPython을 실행하는 래퍼였다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;iruby --version
+&lt;/span&gt;&lt;span id="line-2"&gt;0.1.13
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;IPython3부터는 &lt;code&gt;~/.ipython/kernels&lt;/code&gt;의 커널 설정들을 사용하므로, 루비 커널이 추가되었는지 확인한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ls .ipython/kernels
+&lt;/span&gt;&lt;span id="line-2"&gt;ruby
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='iruby-실행하기'&gt;IRuby 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;최신 버전(&amp;gt;=3)에서는 &lt;code&gt;iruby&lt;/code&gt;를 사용하지 않고 &lt;code&gt;ipython&lt;/code&gt;으로 실행해도 정상적으로 ruby 커널을 사용할 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook --ip&lt;span class="o"&gt;=&lt;/span&gt;0.0.0.0 --notebook-dir &amp;lt;NOTEBOOKS_DIR&amp;gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;정상적으로 서버가 실행되면 &lt;code&gt;http://0.0.0.0:8888&lt;/code&gt;에 접속해본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/uhedvNL.png" alt=""&gt;&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='레퍼런스'&gt;레퍼런스&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;h3&gt;&lt;a name='iruby'&gt;IRuby&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/SciRuby/iruby"&gt;SciRuby/iruby&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/Handybook/irails/"&gt;Handybook/irails&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;&lt;a name='ipython/jupyter'&gt;IPython/Jupyter&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://jupyter.org/"&gt;Project Jupyter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://gist.github.com/fperez/1579699"&gt;IPython 0.0.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.fperez.org/2012/01/ipython-notebook-historical.html"&gt;Fernando Perez - The IPython notebook: a historical retrospective&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ipython.org/ipython-doc/rel-0.11/whatsnew/version0.11.html"&gt;IPython 0.11 Release Note&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ipython.org/ipython-doc/rel-0.12/whatsnew/version0.12.html"&gt;IPython 0.12 Release Note&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://ipython.org/ipython-doc/dev/development/messaging.html"&gt;Ipython documentation - Messaging in IPython&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages"&gt;IPython wiki - IPython kernels for other languages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www4.ncsu.edu/%7Ekimler/hi322/galmoons.html"&gt;Galileo&amp;#39;s Sidereus nuncius - Starry Messenger&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.reddit.com/r/Python/comments/1q9tq7/what_is_the_big_deal_about_ipython_notebooks/"&gt;Reddit - What is the big deal about IPython Notebooks?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/github/payne92/notebooks/blob/master/00%20Javascript%20In%20Notebooks.ipynb"&gt;Javascript Magic&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://andrew.gibiansky.com/blog/ipython/ipython-kernels/"&gt;Andrew Gibiansky - Creating Language Kernels for IPython&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;&lt;a name='ipython-kernel-for-other-languages'&gt;IPython Kernel for other languages&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/gibiansky/IHaskell"&gt;gibiansky/IHaskell&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/takluyver/bash_kernel"&gt;takluyver/bash_kernel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/JuliaLang/IJulia.jl"&gt;JuliaLang/IJulia.jl&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://jeroenjanssens.com/2015/02/19/ibash-notebook.html"&gt;Jeroen Janssens - IBash Notebook‽&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;&lt;a name='ipython-client'&gt;IPython Client&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/ivanov/bipython"&gt;ivanov/bipython&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/millejoh/emacs-ipython-notebook"&gt;millejoh/emacs-ipython-notebook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/ivanov/vim-ipython"&gt;ivanov/vim-ipython&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.jetbrains.com/pycharm/help/ipython-notebook-support.html"&gt;PyCharm - IPython Notebook Support&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;&lt;a name='examples'&gt;Examples&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/gist/nacyot/c0190709f56024eb516e"&gt;D3 Notebook 예제(시각화 스터디)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/github/melund/ipython/blob/3.x/examples/Interactive%20Widgets/Index.ipynb"&gt;Interactive Widget&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/nacyot/jupyter-inline-attachment-sample"&gt;InlineAttachment 예제&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/nacyot/euler-project"&gt;naycot/euler_project&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"&gt;루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐&lt;/a&gt; &lt;a href="https://github.com/nacyot/blog.nacyot.com-source/blob/master/source/iruby/ruby_enumerable.ipynb"&gt;ipynb&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable"&gt;루비의 꽃, 열거자 Enumerable 모듈&lt;/a&gt; &lt;a href="https://github.com/nacyot/blog.nacyot.com-source/blob/master/source/iruby/rspec_matchers.ipynb"&gt;ipynb&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div style='border:1px solid gray;max-width:500px;padding:1.8em'&gt;
+&lt;img src='http://i.imgur.com/ir6nP73.png' /&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;&lt;a name='active-essays-/-literate-programming'&gt;Active Essays / Literate Programming&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://web.archive.org/web/20060710213801/http://www.squeakland.org/whatis/a_essays.html"&gt;Active Essays - Alan Kay&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.vpri.org/pdf/tr2009002_active_essays.pdf"&gt;Active Essays on the Web&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://acko.net/files/fullfrontal/fullfrontal/webglmath/online.html"&gt;Steven Wittens - Making WebGL Dance&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://setosa.io/blog/2014/07/26/markov-chains/"&gt;Setosa blog - markov Chains&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://jlongster.com/Removing-User-Interface-Complexity,-or-Why-React-is-Awesome"&gt;Jiongster - Removing User Interface Complexity, or Why React is Awesome&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://greensock.com/position-parameter"&gt;Greensock - Timeline Tip: Understanding the Position Parameter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.literateprogramming.com/knuthweb.pdf"&gt;Donald E. Knuth - Literate Programming&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www-cs-faculty.stanford.edu/%7Euno/programs.html"&gt;Knuth - Programs to Read&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://faq.ktug.org/faq/CWEB"&gt;구조적 문서화를 위한 CWEB 시스템(한국어 번역)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://faq.ktug.org/faq/LiterateProgramming"&gt;KTUGFaq - Literate Programming&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/CWEB"&gt;Wikipedia - CWEB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Literate_programming"&gt;Wikipedia - Literate Programming&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://freesearch.pe.kr/archives/3265"&gt;from &lt;strong&gt;future&lt;/strong&gt; import dream - knitr를 이용한 워드프래스 포스팅하기&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=CuhsPl7JDvc"&gt;전희원 - R Markdown을 이용한 문학적 프로그래밍&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/github/fperez/blog/blob/master/130418-Data-driven%20journalism.ipynb"&gt;Fernando Perez - &amp;quot;Literate computing&amp;quot; and computational reproducibility: IPython in the age of data-driven journalism&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.ansible.com/docker_module.html"&gt;Ansible Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;&lt;a name='blogging-by-ipython'&gt;Blogging by Ipython&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://blog.fperez.org/2012/09/blogging-with-ipython-notebook.html"&gt;Fernando Perez - Blogging with the IPython notebook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://jakevdp.github.io/"&gt;Pythonic Perambulations&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.boxnwhis.kr/2015/02/10/blogging_with_python.html"&gt;Box and Whisker - IPython Notebook으로 블로깅하기&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;&lt;a name='etc'&gt;ETC&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://vimeo.com/69448223"&gt;Eyeo 2013 - For example by Mike Bostock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://chimera.labs.oreilly.com/books/1230000000345/"&gt;O&amp;#39;Reilly Atlas + jsbin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://codemirror.net/"&gt;Codemirror - a versatile text editor implemented in JavaScript for the browser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/bokeh/bokeh"&gt;Bokeh - Python interactive visualization library&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>D3.js 기초 - select API와 enter() 이해하기</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-02-04T09:56:13+00:00</updated>
+    <updated>2015-04-15T01:36:50+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -195,7 +372,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-02-04T09:56:13+00:00</updated>
+    <updated>2015-04-15T01:36:50+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -399,7 +576,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2015-02-04T09:56:13+00:00</updated>
+    <updated>2015-04-15T01:36:50+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1035,7 +1212,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2015-02-04T09:56:13+00:00</updated>
+    <updated>2015-04-15T01:36:50+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1103,7 +1280,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00+00:00</published>
-    <updated>2015-02-04T09:56:13+00:00</updated>
+    <updated>2015-04-15T01:36:50+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1224,66 +1401,6 @@
 &lt;p&gt;터미널 환경과 GUI 환경의 클립보드를 통합하면 매우 편리하다. 그리고 위에서는 간단히만 이야기했지만, 표준 출력으로 넘길 수 있는 모든 것이 클립보드에 복사될 수 있으므로 단순히 클립보드를 통합한다는 이상의 의미를 지닌다. 이는 셸에서 활용할 수 있는 다양한 스크립트와 출력들을 큰 어려움 없이 GUI 환경에 그대로 복사해 갈 수 있음을 의미한다. 또한 Tmux를 사용해 셸 화면을 직접 선택해 복사하는 방법도 보다 편리하게 사용할 수 있다. &lt;/p&gt;
 
 &lt;p&gt;P.S. xclip과 비슷한 툴로는 xsel이 있으며, OSX에서는 pbcopy, pbpaste라는 명령어를 사용한다.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Docker Korea 스터디 그룹</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"/>
-    <id>http://blog.nacyot.com/articles/2014-07-26-docker-korea/</id>
-    <published>2014-07-26T06:47:03+00:00</published>
-    <updated>2015-02-04T09:56:13+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://www.shomney.com"&gt;함께 쓰는 가계부 Shomney&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;현재 저는 &lt;a href="http://blog.remotty.com/about/"&gt;Remotty&lt;/a&gt;라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.&lt;/p&gt;
-
-&lt;p&gt;Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/space_noah' rel='noindex,nofollow'&gt;스페이스 노아&lt;/a&gt;&lt;/span&gt;에서 첫 모임을 가졌습니다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/kngLZ3Y.png" alt="Docker Korea 1회 모임"&gt;&lt;/p&gt;
-
-&lt;p&gt;첫번째 모임에서는 2가지 주제 발표가 이루어졌습니다.&lt;/p&gt;
-
-&lt;p&gt;먼저 &lt;a href="https://twitter.com/subicura"&gt;subicura&lt;/a&gt; 님이
-&amp;#39;Docker - 배포할때 알면 좋은 tip&amp;#39;에 대해서 발표해주셨습니다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;iframe src="//slides.com/chungsubkim/docker-tip/embed" width="680" height="480" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.youtube.com/watch?v=ix1E8YBOTeA"&gt;http://www.youtube.com/watch?v=ix1E8YBOTeA&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;다음으로는 제가 &amp;#39;Immutable Infrastructure&amp;#39;라는 주제로 도커와 맞물린 서버 운영의 패러다임 변화에 대해서 발표했습니다. 이 주제는 이전 Programer 세미나에서 발표했던 주제로, &lt;a href="http://localhost:5004/articles/2014-04-06-immutable-infrastructure/"&gt;이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure&lt;/a&gt;도 참조해주세요.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;iframe src="//www.slideshare.net/slideshow/embed_code/33063863" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/ext/immutable-infrastructure123123123" title="이미지 기반의 배포 패러다임 Immutable infrastructure" target="_blank"&gt;이미지 기반의 배포 패러다임 Immutable infrastructure&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/ext" target="_blank"&gt;Daekwon Kim&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.youtube.com/watch?v=PdI88QNF-1w"&gt;http://www.youtube.com/watch?v=PdI88QNF-1w&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;그리고 앞으로 스터디 모임을 어떻게 진행할 지에 대해서 논의를 했습니다. 논의 결과, 격주로 돌아가며 주제발표를 진행하고 스터디에서 공유한 자료는 부족하더라도 웹 상에서 공유하기로 결정을 했습니다.&lt;/p&gt;
-
-&lt;p&gt;여기서도 발표 자료를 공개해두었습니다만, 아마 이후 스터디에서 공유되는 자료는 작은 포럼 게시판과 유튜브 채널을 통해서 공개될 것입니다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://forum.docker.co.kr/"&gt;Docker Korea 포럼 게시판&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.youtube.com/channel/UC-TpdzGorF3igglmjCWQhMA"&gt;유튜브 Docker Korea Study 채널&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;아직 확정되진 않았습니다만, 스터디에서 여력이 된다면 공개적으로 운영할 계획도 가지고 있으니 관심이 있으시거나 특히 도커에 관해서 발표나 하고싶은 얘기가 있으시다면 꼭 포럼 게시판을 들러주시기 바랍니다.&lt;/p&gt;
-
-&lt;p&gt;다음 모임의 발표주제는 아직 확정은 아닙니다만, &lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Docker로 Ghost 배포하기&lt;/li&gt;
-&lt;li&gt;도커를 이용한 파이썬 모듈 배포시 의존성 해결&lt;/li&gt;
-&lt;li&gt;도커 모니터링 및 로그 수집 시스템 구축하기&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;위 주제에 대해서 공유할 예정입니다. 다음에 또 스터디 그룹에 대한 새로운 소식 전달하겠습니다~&lt;/p&gt;
 </content>
   </entry>
 </feed>

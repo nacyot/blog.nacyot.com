@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-04-15T01:56:38+00:00</updated>
+    <updated>2015-04-16T01:15:20+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -37,6 +37,8 @@
 &lt;p&gt;&lt;a href="https://speakerdeck.com/nacyot/jupyter-iruby-notebook"&gt;https://speakerdeck.com/nacyot/jupyter-iruby-notebook&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2&gt;&lt;a name='iruby-설치하기'&gt;IRuby 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;(어제 올렸던 처음으로 소개했던 설치법에는 몇 가지 문제가 있습니다. 유상민 님 지적으로 jsonschema 설치 및 SciRuby/iruby 설치 부분을 보충합니다. 유상민 님께 감사드립니다)&lt;/p&gt;
 
 &lt;h3&gt;&lt;a name='zeromq-설치하기'&gt;ZeroMQ 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
@@ -66,22 +68,39 @@
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv global 3.4.3
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;관련 라이브러리와 IPython을 설치한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install jinja2 tornado pyzmq
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install jinja2 tornado pyzmq jsonschema
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install ipython
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Jupyter(IPython3)부터는 jsonschema 라이브러리도 추가로 필요하다.&lt;/p&gt;
+
 &lt;h3&gt;&lt;a name='iruby-설치'&gt;IRuby 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;IRuby 최신 버전은 gem으로 설치할 수 있다. 여기서는 루비 환경은 구축되어있다고 가정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;gem install iruby
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;gem install specific_install
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;gem specific_install -l https://github.com/SciRuby/iruby -b master
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c"&gt;# rbenv 사용자만&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;rbenv rehash
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;iruby&lt;/code&gt; 명령어가 설치되었는지 확인해본다. &lt;code&gt;iruby&lt;/code&gt; 명령어는 IPython3 이전에 루비 커널로 IPython을 실행하는 래퍼였다.&lt;/p&gt;
+&lt;p&gt;여기서 &lt;code&gt;specific_install&lt;/code&gt;을 사용할 필요가 있는데, 이는 현재 최신 &lt;code&gt;iruby&lt;/code&gt;가 &lt;code&gt;SciRuby&lt;/code&gt; 쪽으로 포크되어서 관리되고 있기 때문이다. 그냥 &lt;code&gt;gem install iruby&lt;/code&gt;하게 되면 minad/iruby가 설치되는데 이는 jupyter와 호환성이 없다. (좀 더 자세한 내용은 &lt;a href="https://www.facebook.com/groups/rubyonrailskorea/permalink/830114680390964/"&gt;RORLab&lt;/a&gt;에서 유상민 님이 좀 더 자세히 이야기해주셨습니다. &lt;code&gt;specific_install&lt;/code&gt;로 설치 시 몇 가지 경고가 출력되는데 설치하는 법도 다룹니다.)&lt;/p&gt;
+
+&lt;p&gt;마지막으로 &lt;code&gt;iruby&lt;/code&gt; 명령어가 설치되었는지 확인해본다. &lt;code&gt;iruby&lt;/code&gt; 명령어는 IPython3 이전에는 루비 커널로 IPython을 실행하는 래퍼였으며, 현재는 고유한 명령어들을 가지고 있다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;iruby --version
 &lt;/span&gt;&lt;span id="line-2"&gt;0.1.13
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;IPython3부터는 &lt;code&gt;~/.ipython/kernels&lt;/code&gt;의 커널 설정들을 사용하므로, 루비 커널이 추가되었는지 확인한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ls .ipython/kernels
-&lt;/span&gt;&lt;span id="line-2"&gt;ruby
+&lt;p&gt;IPython3부터는 &lt;code&gt;~/.ipython/kernels&lt;/code&gt;에 등록된 커널 설정들을 사용한다. iruby가 정상적으로 설치되었다면 루비 커널을 등록한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# iruby 커널 등록&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;iruby&lt;/span&gt; &lt;span class="k"&gt;register&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아래 명령어로 루비 커널이 추가되었는지 확인할 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec list
+&lt;/span&gt;&lt;span id="line-2"&gt;  python2
+&lt;/span&gt;&lt;span id="line-3"&gt;  bash
+&lt;/span&gt;&lt;span id="line-4"&gt;  julia 0.3
+&lt;/span&gt;&lt;span id="line-5"&gt;  ruby
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ruby가 있다면 정상적으로 커널이 등록된 것이다.&lt;/p&gt;
+
 &lt;h2&gt;&lt;a name='iruby-실행하기'&gt;IRuby 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;최신 버전(&amp;gt;=3)에서는 &lt;code&gt;iruby&lt;/code&gt;를 사용하지 않고 &lt;code&gt;ipython&lt;/code&gt;으로 실행해도 정상적으로 ruby 커널을 사용할 수 있다.&lt;/p&gt;
@@ -193,7 +212,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-04-15T01:56:38+00:00</updated>
+    <updated>2015-04-16T01:15:20+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -374,7 +393,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-04-15T01:56:38+00:00</updated>
+    <updated>2015-04-16T01:15:20+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -578,7 +597,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2015-04-15T01:56:38+00:00</updated>
+    <updated>2015-04-16T01:15:20+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1214,7 +1233,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2015-04-15T01:56:38+00:00</updated>
+    <updated>2015-04-16T01:15:20+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1282,7 +1301,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
     <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
     <published>2014-07-29T15:25:00+00:00</published>
-    <updated>2015-04-15T01:56:38+00:00</updated>
+    <updated>2015-04-16T01:15:20+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

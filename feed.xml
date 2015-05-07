@@ -5,16 +5,223 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2015-04-15T01:30:00Z</updated>
+  <updated>2015-05-07T18:00:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
+    <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
+    <published>2015-05-07T18:00:00+00:00</published>
+    <updated>2015-05-07T18:16:16+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;아이파이썬 노트북(IPython Notebook)은 원래 파이썬 REPL의 확장으로 개발되었다. 원래 메시지 처리 부분을 분리한 현재의 아키텍처는 파이썬이라는 언어에 대해서 콘솔과 qt를 통한 GUI, 그리고 웹을 기반으로하는 노트북 등 클라이언트를 분리하기 위해서 도입되었다. 하지만 이는 동시에 언어 실행기의 확장 (즉, 파이썬 이외의 것들을 실행할 수 있는) 가능성도 열어주었다. 원래 IPython에서는 이런 부분에 대한 고려가 없었기 때문에 언어를 해석하는 커널은 기본적으로 한 가지만을 지원한다. 따라서 커널을 바꿀 수는 있지만, 커널을 바꾸려면 IPython Notebook 서버를 새로 실행해야만 했다. 반면에 주피터(IPython &amp;gt;= 3의 다른 이름)에서는 하나의 서버에서 다수의 커널을 바꿔가며 실행할 수 있다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2&gt;&lt;a name='ipython2의-커널-설정-이해하기'&gt;IPython2의 커널 설정 이해하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;먼저 IPython2 버전의 노트북 서버는 다음과 같이 실행한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 명령어로 파이썬을 실행하면, 현재 버전의 인터프리터 커널로 IPython Notebook 서버가 실행된다. 즉, 파이썬 버전이 2.7.9라면, IPython Kenrel도 2.7.9가 되고, 3.4.2면 3.4.2가 된다. 실행이 가능하다면 다른 인터프리터에 대해서도 마찬가지이다.&lt;/p&gt;
+
+&lt;p&gt;먼저 명령행에서 파이썬 버전을 확인해보고, 파이썬 노트북을 실행해보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python --version
+&lt;/span&gt;&lt;span id="line-2"&gt;Python 2.7.9
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install &lt;span class="s2"&gt;&amp;quot;ipython[notebook]&amp;lt;3&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;...
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;서버를 실행하면 &lt;code&gt;http://localhost:8888&lt;/code&gt;이나 출력되는 주소로 IPython Notebook에 접근할 수 있다. 새로운 노트북을 만들고, 노트북 위에서 파이썬 버전을 확인해보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/vmEJyXA.png" alt="파이썬 버전 확인"&gt;&lt;/p&gt;
+
+&lt;p&gt;명령행에서와 마찬가지로 2.7.9임을 확인할 수 있다. 만일 다른 언어나 다른 버전의 파이썬 커널을 실행하고자 한다면, 별도의 IPython Profile(설정들을 모아놓은 디렉터리)를 만들고 아래의 명령어로 해당하는 프로필을 적용할 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook --profile &amp;lt;PROFILE&amp;gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아니면 커널 옵션을 직접 지정하는 방법도 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook --KernelManager.kernel_cmd&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;COMMAND&amp;gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;즉, 하나의 서버에서는 다수의 커널을 지원하지 않기 때문에 매번 새로 실행하거나 별도의 서버를 실행해야하는 번거로움이 있었다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='왜-주피터(jupyter)가-되었을까?'&gt;왜 주피터(Jupyter)가 되었을까?&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;전술하였듯이, 원래 IPython에서 클라이언트와 파이썬 해석기 사이에 메시지를 중개하기 위한 ZeroMQ가 사용된 것은 사실 다양한 클라이언트를 지원하기 위해서였다. 그런데 이는 동시에 다양한 커널을 도입하게 되는 계기가 되기도 했다(&lt;a href="https://github.com/ipython/ipython/wiki/IPEP-25%3A-Registry-of-installed-kernels"&gt;IPEP 25&lt;/a&gt;). 이러한 요구사항은 IPython이라는 이름 대신 새로운 이름이 필요했던 가장 큰 이유라고 생각된다.&lt;/p&gt;
+
+&lt;p&gt;Jupyter(IPython &amp;gt;= 3)에서는 하나의 노트북 서버에서 다수의 커널을 지원한다. 즉, 하나의 서버를 실행한 상태에서 커널을 선택해서 노트북을 작성할 수 있도록 구조가 변경되었다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='주피터(jupyter)의-기본-커널'&gt;주피터(Jupyter)의 기본 커널&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;먼저 여기에서는 OSX나 Linux 계열 운영체제에서 파이썬3를 사용하고 있다고 가정한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python --version
+&lt;/span&gt;&lt;span id="line-2"&gt;Python 3.4.2
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;최신 버전의 주피터를 설치한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install ipython&lt;span class="o"&gt;[&lt;/span&gt;notebook&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython --version
+&lt;/span&gt;&lt;span id="line-3"&gt;3.1.0
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;주피터에는 현재 사용가능한 kernel들을 확인할 수 있는 명령어가 추가되었다. 먼저 현재 사용할 수 있는 커널을 살펴보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec list
+&lt;/span&gt;&lt;span id="line-2"&gt;python kernelspec list
+&lt;/span&gt;&lt;span id="line-3"&gt;Available kernels:
+&lt;/span&gt;&lt;span id="line-4"&gt;  python3
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이를 통해서 현재 파이썬 버전이 사용가능하다는 것을 알 수 있다. 실제로 서버를 실행해서 확인해보면 새로운 노트북을 만들 때 Python 3만을 선택할 수 있을 것이다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='다중-커널-개념-이해하기'&gt;다중 커널 개념 이해하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;앞서 이야기한 것처럼 주피터에서는 다중 커널을 하나의 노트북 서버에서 지원한다. 이러한 기능을 활성화하려면 적절히 커널 설정 파일을 추가해주어야한다. 과거에는 이러한 작업을 위해서 프로필 개념을 주로 사용했으나, 현재는 &lt;code&gt;~/.ipython&lt;/code&gt; 디렉터리 아래에 &lt;code&gt;kernels&lt;/code&gt;라는 디렉터리를 사용하는 것이 더 편리하다.&lt;/p&gt;
+
+&lt;p&gt;여기에 가보면 처음에는 아무런 커널도 없음을 알 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ls
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;여기에 커널 설정이 없더라도, 주피터는 기본 커널(파이썬3)을 적절히 실행해준다. 명시적으로 커널 설정을 확인하고 수정하기 위해서는 다음 명령어를 사용한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec install-self
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 명령어를 실행하면, &lt;code&gt;/usr/local/share/jupyter/kernels&lt;/code&gt;에 Python3 커널 설정을 추가할 것이다. 편의상 이를 ipython 설정 디렉터리 아래로 복사한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mv /usr/local/share/jupyter/kernels/python3 &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;커널 디렉터리로 이동해보면 다음과 같은 파일들을 볼 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/.ipython/kernels/python3
+&lt;/span&gt;&lt;span id="line-2"&gt;kernel.json    logo-32x32.png logo-64x64.png
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;logo-*.png&lt;/code&gt; 이미지 파일은 해당하는 커널을 사용할 때 화면에 보여줄 이미지이다. 여기서 주목할 파일은 kernel.json이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat kernel.json
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt; &lt;span class="s2"&gt;&amp;quot;language&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;python&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-4"&gt; &lt;span class="s2"&gt;&amp;quot;display_name&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Python 3&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-5"&gt; &lt;span class="s2"&gt;&amp;quot;argv&amp;quot;&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s2"&gt;&amp;quot;/usr/bin/python3&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="s2"&gt;&amp;quot;-m&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s2"&gt;&amp;quot;IPython.kernel&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s2"&gt;&amp;quot;-f&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="s2"&gt;&amp;quot;{connection_file}&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt; &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;langugae&lt;/code&gt;는 커널의 언어, &lt;code&gt;display_name&lt;/code&gt;은 화면에 보여줄 이름이라는 것을 쉽게 유추할 수 있다. 그리고 &lt;code&gt;argv&lt;/code&gt; 속성이 바로 파이썬 커널 서버를 실행하기 위한 명령어이다. 이 명령어를 그대로 복사해서 실행해보도록하자. &lt;code&gt;connection_file&lt;/code&gt;은 임의로 &lt;code&gt;python3.ipython&lt;/code&gt;이라고 붙였다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;python3&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;IPython&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;python3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nl"&gt;NOTE:&lt;/span&gt; &lt;span class="n"&gt;When&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt; &lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt; &lt;span class="n"&gt;entry&lt;/span&gt; &lt;span class="n"&gt;point&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Ctrl&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;work&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;To&lt;/span&gt; &lt;span class="n"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;have&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;explicitly&lt;/span&gt; &lt;span class="n"&gt;quit&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;process&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;either&lt;/span&gt; &lt;span class="n"&gt;sending&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="s"&gt;&amp;quot;quit&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;Ctrl&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;UNIX&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;like&lt;/span&gt; &lt;span class="n"&gt;environments&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;To&lt;/span&gt; &lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="n"&gt;more&lt;/span&gt; &lt;span class="n"&gt;about&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;see&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/ipython/ipython/issues/2049&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;To&lt;/span&gt; &lt;span class="n"&gt;connect&lt;/span&gt; &lt;span class="n"&gt;another&lt;/span&gt; &lt;span class="n"&gt;client&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;use&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;    &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;existing&lt;/span&gt; &lt;span class="n"&gt;python3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제 커널 서버가 실행되고 명령을 기다린다. 맨 아래에서 설명하고 있듯이 &lt;code&gt;--existing python3.ipython&lt;/code&gt; 옵션을 통해서 ipython에서 이 커널 서버를 직접 사용하는 것도 가능하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# 다른 셸에서 실행&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;ipython&lt;/span&gt; &lt;span class="n"&gt;console&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;existing&lt;/span&gt; &lt;span class="n"&gt;python3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipython&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;IPython&lt;/span&gt; &lt;span class="n"&gt;Console&lt;/span&gt; &lt;span class="mf"&gt;3.1.0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;Hello&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;Hello&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Python&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;&lt;a name='다른-언어-커널-예제(ruby)'&gt;다른 언어 커널 예제(ruby)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h4&gt;
+
+&lt;p&gt;위의 예제는 사용하는 커널이 파이썬3이기 때문에 &lt;code&gt;ipython console&lt;/code&gt;을 그냥 사용하는 것과 어떻게 다른지 알 수 없다. 실제로 커널 서버가 작동하는 것을 보여주기 위해, 다음 예제에서는 IRuby가 설치되어있다고 가정한다.(IRuby에 대해서는 이전 글 &lt;a href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"&gt;IRuby Notebook&lt;/a&gt; 참조)&lt;/p&gt;
+
+&lt;p&gt;IRuby를 위한 &lt;code&gt;kernel.json&lt;/code&gt;을 살펴본다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels/ruby
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat kernel.json
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="s2"&gt;&amp;quot;argv&amp;quot;&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;iruby&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;kernel&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;{connection_file}&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="s2"&gt;&amp;quot;display_name&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s2"&gt;&amp;quot;language&amp;quot;&lt;/span&gt;:     &lt;span class="s2"&gt;&amp;quot;ruby&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;기본적인 구조는 파이썬의 &lt;code&gt;kernel.json&lt;/code&gt;과 완전히 같다. 간단히 설명하자면 IRuby는 Jupyter와 소통하기 위한 커널 서버의 Ruby 구현체라고 할 수 있다. 앞서와 마찬가치로 커널 서버를 실행한다. 단, iruby 커널은 자동적으로 connection 파일을 생성하지 않으므로, 임시 파일을 미리 생성해준다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="s1"&gt;  &amp;quot;stdin_port&amp;quot;: 57533, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="s1"&gt;  &amp;quot;ip&amp;quot;: &amp;quot;127.0.0.1&amp;quot;, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="s1"&gt;  &amp;quot;control_port&amp;quot;: 40023, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="s1"&gt;  &amp;quot;hb_port&amp;quot;: 35724, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="s1"&gt;  &amp;quot;signature_scheme&amp;quot;: &amp;quot;hmac-sha256&amp;quot;, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="s1"&gt;  &amp;quot;key&amp;quot;: &amp;quot;29e39299-76c7-495f-be03-eb1722c25efe&amp;quot;, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="s1"&gt;  &amp;quot;shell_port&amp;quot;: 52952, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="s1"&gt;  &amp;quot;transport&amp;quot;: &amp;quot;tcp&amp;quot;, &lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="s1"&gt;  &amp;quot;iopub_port&amp;quot;: 41730&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="s1"&gt;}&amp;#39;&lt;/span&gt; &amp;gt; ruby.ipython
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제 IPython을 이 connection 파일로 실행하면, 루비 코드가 실행된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython console --existing ruby.ipython
+&lt;/span&gt;&lt;span id="line-2"&gt;IPython Console 3.1.0
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;In &lt;span class="o"&gt;[&lt;/span&gt;1&lt;span class="o"&gt;]&lt;/span&gt;: puts &lt;span class="s2"&gt;&amp;quot;puts is not python method!&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;puts is not python method!
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이와 같이 어떤 원리로 커널(실행기)가 클라이언트가 실행되는 지를 이해하면, 다중 커널이 무엇을 의미하고 어떻게 설정할 수 있는 지도 어렵지 않게 이해할 수 있다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='주피터(jupyter)에서-파이썬2와-파이썬3-동시에-사용하기'&gt;주피터(Jupyter)에서 파이썬2와 파이썬3 동시에 사용하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;앞서서 살펴보았듯이 IPython에서는 IPython을 실행한 파이썬 버전을 우선적으로 사용한다. 이는 주피터에서도 마찬가지이다. 파이썬3를 사용하고 있다면 기본 커널은 파이썬3가 된다. 그렇다면 파이썬2를 사용하고자 한다면 어떻게 해야할까? 물론 파이썬2를 설치하고 pip로 ipython을 설치하고 notebook 서버를 실행하는 것도 방법이긴 하다. 하지만 앞서 다중 커널에 대해서 배웠으니, 여기서는 이를 활용해보도록 하자.&lt;/p&gt;
+
+&lt;p&gt;다시 한 번 되새겨보자. 커널은 노트북 서버나 클라이언트와는 분리되어있다. 따라서 커널이 파이썬2건 파이썬3건 노트북 서버나 클라이언트는 전혀 신경쓰지 않는다. 단지 기본적으로 실행되는 파이썬은 IPython이 실행되는 파이썬을 사용하도록 설정되어있을 뿐이다.&lt;/p&gt;
+
+&lt;p&gt;여기서는 pyenv와 파이썬3를 사용한다고 가정하고 앞서 보았던 파이썬3의 &lt;code&gt;kernel.json&lt;/code&gt; 파일을 사용해 파이썬2 커널을 지원하도록 만들 것이다.&lt;/p&gt;
+
+&lt;p&gt;먼저 Notebook Server를 실행해 파이썬 3만이 지원된다는 것을 확인해보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv install 3.4.2
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv global 3.4.2
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pythen --version
+&lt;/span&gt;&lt;span id="line-4"&gt;Python 3.4.2
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;다음 이미지와 같이 IPython Notebook 서버에서는 기본적으로 &lt;code&gt;Python 3&lt;/code&gt; 하나의 커널만을 지원하다. 기본 커널을 생성하고 이를 IPython 설정 디렉터리로 이동시킨다. 그리고 디렉터리 이름을 python2로 변경한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec install-self
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mv /usr/local/share/jupyter/kernels/python3 &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mv python3 python2
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;python2
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;먼저 &lt;code&gt;pyenv&lt;/code&gt;를 통해서 파이썬 2를 설치한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv install 2.7.8
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;kernel.json&lt;/code&gt;을 다음과 같이 수정한다. &lt;USER&gt;은 적절히 변경한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt; &lt;span class="s2"&gt;&amp;quot;language&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;python&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt; &lt;span class="s2"&gt;&amp;quot;display_name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Python 2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt; &lt;span class="s2"&gt;&amp;quot;argv&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="s2"&gt;&amp;quot;/Users/&amp;lt;USER&amp;gt;/.pyenv/versions/2.7.8/bin/python2.7&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s2"&gt;&amp;quot;-m&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="s2"&gt;&amp;quot;IPython.kernel&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s2"&gt;&amp;quot;-f&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s2"&gt;&amp;quot;{connection_file}&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt; &lt;span class="cp"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;}
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이게 전부다. 다시 IPython Notebook을 실행시켜본다(이미 실행이 되어있다면 재실행하지 않아도 바로 적용된다).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제 Notebook에 접속해서 새로운 문서를 만들려고 하면 다음과 같이 &amp;quot;Python 2&amp;quot;와 &amp;quot;Python 3&amp;quot; 두 선택지가 있는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/XhKnpqa.png" alt="노트북 생성시 커널 선택 - 파이썬2, 파이썬3"&gt;&lt;/p&gt;
+
+&lt;p&gt;각각의 커널을 선택해서 실제로 작동하는 버전을 확인해보자. 먼저 파이썬2로 노트북을 만들고, 중간에 파이썬3로 커널을 교체한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/N6Ftpak.png" alt="하나의 서버에서 다른 파이썬 버전 커널 사용하기"&gt;&lt;/p&gt;
+
+&lt;p&gt;위와 같이 파이썬2와 파이썬3 커널을 하나의 노트북 서버에서 사용 가능하다는 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;주피터의 다중 커널 개념 지원은 매우 간단하고, 강력하다. IPython이 실행되는 파이썬 실행기에 종속되지 않기 때문에, 다른 언어들의 커널을 지원할 뿐만 아니라, 환경만 갖춰져 있다면 같은 언어의 다양한 버전에 대해서도 별도의 커널을 만들어 사용할 수 있다. 나아가 파이썬의 virtualenv와 결합하면 환경별로도 커널을 분리해 사용할 수 있다. 이와 같이 다중 커널 개념은 Jupyter의 핵심 개념이며, 이를 통해서 좀 더 자유롭게 Notebook 생활이 가능해질 것이다 &amp;gt;_&amp;lt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-04-16T01:15:20+00:00</updated>
+    <updated>2015-05-07T18:16:16+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -212,7 +419,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-04-16T01:15:20+00:00</updated>
+    <updated>2015-05-07T18:16:16+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -393,7 +600,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-04-16T01:15:20+00:00</updated>
+    <updated>2015-05-07T18:16:16+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -597,7 +804,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2015-04-16T01:15:20+00:00</updated>
+    <updated>2015-05-07T18:16:16+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1233,7 +1440,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2015-04-16T01:15:20+00:00</updated>
+    <updated>2015-05-07T18:16:16+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1294,134 +1501,6 @@
 &lt;p&gt;다다음주가 황금연휴(?)고, 격주 진행시 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/pycon' rel='noindex,nofollow'&gt;pycon&lt;/a&gt;&lt;/span&gt;과 겹치는 관계로 아마 다음 모임은 23일이 될 것으로 생각하고 있습니다. 아직 스터디 지원 문제나 고정된 장소가 확정되지 않은 상태이긴 한데, 아마 확정되는대로 조만간 세번째 모임도 공지를 할 예정입니다.&lt;/p&gt;
 
 &lt;p&gt;모임에 참여해주신 모든 분들 다시 한 번 감사드립니다. 다들 어디 숨어계셨나 했더니 :) Docker Korea는 도커를 비롯해 클라우드나 서버 운영 전반에 관심있으신 분들 모두에게 열려있습니다. 특히 경험 공유나 주제 발표하시고 싶으신 분은 더더욱 우대합니다! 관심있으신 분들은 &lt;a href="http://forum.docker.co.kr/"&gt;포럼&lt;/a&gt;에 들러주시고 &lt;a href="http://forum.docker.co.kr/t/docker-korea/70"&gt;대화방&lt;/a&gt;에도 참여해주세요.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>리눅스에서 터미널과 클립보드 연동하기 - Xclip과 Tmux</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
-    <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
-    <published>2014-07-29T15:25:00+00:00</published>
-    <updated>2015-04-16T01:15:20+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/terminal' rel='noindex,nofollow'&gt;터미널&lt;/a&gt;&lt;/span&gt; 환경과 GUI 환경은 대개 상당히 동떨어진 환경으로 이 둘을 스무스하게 연동하는 것은 작업환경을 갖추는 데 있어서 중요한 주제 중에 하나이다. 이 연결고리가 잘 연결되어있어야 작업 효율도 올라간다. 이 글에서는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/xclip' rel='noindex,nofollow'&gt;Xclip&lt;/a&gt;&lt;/span&gt;를 통해서 터미널 환경의 문자열을 리눅스 GUI 환경의 클립보드로 복사하는 법과 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/tmux'&gt;Tmux&lt;/a&gt;&lt;/span&gt;의 복사 모드와 Xclip을 연동하는 법을 알아본다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2&gt;&lt;a name='xclip'&gt;Xclip&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;h3&gt;&lt;a name='xclip-설치'&gt;Xclip 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ubnutu' rel='noindex,nofollow'&gt;Ubnutu&lt;/a&gt;&lt;/span&gt;에서 Xclip는 아래 명령어로 설치할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-get install -y xclip
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;정상적으로 설치가 되었는지 확인해본다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;xclip -version
-&lt;/span&gt;&lt;span id="line-2"&gt;xclip version 0.12
-&lt;/span&gt;&lt;span id="line-3"&gt;Copyright &lt;span class="o"&gt;(&lt;/span&gt;C&lt;span class="o"&gt;)&lt;/span&gt; 2001-2008 Kim Saunders et al.
-&lt;/span&gt;&lt;span id="line-4"&gt;Distributed under the terms of the GNU GPL
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;버전 정보가 정상적으로 출력된다면 정상적으로 설치된 것이다.&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='xclip으로-복사하기'&gt;Xclip으로 복사하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;Xclip의 기본적인 사용법은 간단하다. 리눅스 커맨드의 출력 결과를 파이프라인으로 넘겨주면 Xclip이 그 결과를 GUI 환경의 클립보드에 저장해준다. 예를 들어 &lt;code&gt;date&lt;/code&gt; 명령어를 사용하면 아래와 같이 출력된다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;date
-&lt;/span&gt;&lt;span id="line-2"&gt;Tue Jul 29 23:35:59 KST 2014
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;터미널 어플리케이션마다 약간의 차이는 있지만 보통 이러한 출력을 복사하기 위해서는 마우스로 문자열을 선택하고 복사를 하거나 그것도 잘 안 되면 마우스 오른쪽 버튼을 눌러서 컨텍스트 메뉴에서 복사하기를 클릭해줘야한다.&lt;/p&gt;
-
-&lt;p&gt;같은 상황에서 &lt;code&gt;date&lt;/code&gt;의 출력을 복사할 때 xclip을 사용하면 아래의 명령어를 실행하면 된다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;date &lt;span class="p"&gt;|&lt;/span&gt; xclip -selection clipboard
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;복사가 잘 되었는지 GUI 에디터에서 Ctrl + v 로 복사해보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/FPZg8Fy.png" alt="Copy &amp;amp; Paste"&gt;
-&lt;p class="shape-title"&gt;Copy &amp;amp; Paste&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;정상적으로 출력되는 것을 알 수 있다. 표준 출력의 내용을 파이프로 넘겨주기만 하면 복사가 이뤄지므로 훨씬 더 다양한 활용이 가능하다. 예를 들어 시스템 정보를 출력해서 바로 클립보드로 보낼 수도 있고, &lt;code&gt;cat&lt;/code&gt;과 함께 사용하면 아주 킨 파일을 바로 클립보드로 보낼 수도 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat /var/log/syslog &lt;span class="p"&gt;|&lt;/span&gt; xclip -selection clipboard
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;클립보드가 훨씬 더 강력해질 것이다.&lt;/p&gt;
-
-&lt;p&gt;계속 긴 옵션을 사용하는 것은 귀찮은 일이므로 alias를 사용하면 더 편리하게 사용할 수 있다. 필요한 경우 alias 셸 설정(~/.zshrc 등)에 포함시킨다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;alias &lt;/span&gt;&lt;span class="nv"&gt;copy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;xclip -selection clipboard&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat /var/log/syslog &lt;span class="p"&gt;|&lt;/span&gt; copy
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;&lt;a name='xclip-함정(?)'&gt;Xclip 함정(?)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h4&gt;
-
-&lt;p&gt;몇몇 예제에서는 &lt;code&gt;-selection clipboard&lt;/code&gt; 옵션 없이 xclip을 사용하기도 하는데 이렇게 사용할 때는 조심할 필요가 있다. X11의 클립보드는 하나가 아니다. 분명 위의 옵션을 명시적으로 주지 않아도 복사는 일어난다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;date &lt;span class="p"&gt;|&lt;/span&gt; xclip
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;분명히 정상적으로 복사되었지만 아마 일반적으로 Ctrl + v 키로 복사한 내용을 가져오지 못 할 것이다. 이렇게 복사한 경우 마우스 가운데 버튼을 통해서 복사한 내용을 가져올 수 있다.&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='xclip으로-붙여넣기'&gt;Xclip으로 붙여넣기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;GUI 클립보드의 내용을 표준 출력에 출력하는 것은 아래 명령어로 가능하다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;xclip -o
-&lt;/span&gt;&lt;span id="line-2"&gt;Tue Jul 29 23:35:59 KST 2014
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;&lt;a name='tmux와-연동하기'&gt;Tmux와 연동하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;Tmux는 다수의 셸을 동시에 띄워놓고 사용할 수 있는 도구이다. Tmux를 사용하면 세션을 통한 프로젝트 관리 등 더 많은 일을 할 수 있지만, 여기서는 간단히만 이해하고 넘어가자. Tmux에서는 터미널 어플리케이션의 스크롤 기능이 자체적인 출력 관리를 수행하며, Copy Mode를 통해서 이렇나 출력들에 대해서 이동하고 복사까지 할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;먼저 복사 모드를 설명하기에 앞서 Tmux에서는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/vi' rel='noindex,nofollow'&gt;vi&lt;/a&gt;&lt;/span&gt;나 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/emacs'&gt;emacs&lt;/a&gt;&lt;/span&gt; 모드를 통해서 키 설정을 사용할 수 있다. 이 설정은 &lt;code&gt;~/.tmux.conf&lt;/code&gt; 파일에 아래 옵션을 통해서 설정할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;vi 모드를 사용하고자 하면 아래와 같이 설정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;option&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt; &lt;span class="n"&gt;vi&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;emacs 모드를 사용하고자 하면 아래와 같이 설정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;option&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt; &lt;span class="n"&gt;emacs&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이제 복사모드를 사용해보자. Tmux 내에서 복사 모드는 &lt;code&gt;^b [&lt;/code&gt; 키로 시작하고, &lt;code&gt;^b ]&lt;/code&gt;로 종료한다. 복사 모드 내에서도 vi나 emacs 모드에 따라서 아래의 단축키들을 사용할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;Function&lt;/span&gt;                &lt;span class="n"&gt;vi&lt;/span&gt;             &lt;span class="n"&gt;emacs&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;Back&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;indentation&lt;/span&gt;     &lt;span class="o"&gt;^&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;Clear&lt;/span&gt; &lt;span class="n"&gt;selection&lt;/span&gt;         &lt;span class="n"&gt;Escape&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;Copy&lt;/span&gt; &lt;span class="n"&gt;selection&lt;/span&gt;          &lt;span class="n"&gt;Enter&lt;/span&gt;          &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;             &lt;span class="n"&gt;j&lt;/span&gt;              &lt;span class="n"&gt;Down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt;             &lt;span class="n"&gt;h&lt;/span&gt;              &lt;span class="n"&gt;Left&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;            &lt;span class="n"&gt;l&lt;/span&gt;              &lt;span class="n"&gt;Right&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;bottom&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;   &lt;span class="n"&gt;L&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;middle&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;   &lt;span class="n"&gt;M&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;      &lt;span class="n"&gt;H&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;               &lt;span class="n"&gt;k&lt;/span&gt;              &lt;span class="n"&gt;Up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="n"&gt;Delete&lt;/span&gt; &lt;span class="n"&gt;entire&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;      &lt;span class="n"&gt;d&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;Delete&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;   &lt;span class="n"&gt;D&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="n"&gt;End&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;             &lt;span class="err"&gt;$&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="n"&gt;Goto&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;               &lt;span class="o"&gt;:&lt;/span&gt;              &lt;span class="n"&gt;g&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="n"&gt;Half&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;          &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;            &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="n"&gt;Half&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;            &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;            &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;Next&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;               &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;            &lt;span class="n"&gt;Page&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="n"&gt;Next&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt;               &lt;span class="n"&gt;w&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="n"&gt;Paste&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;            &lt;span class="n"&gt;p&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="n"&gt;Previous&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;           &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;            &lt;span class="n"&gt;Page&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="n"&gt;Previous&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt;           &lt;span class="n"&gt;b&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="n"&gt;Quit&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt;               &lt;span class="n"&gt;q&lt;/span&gt;              &lt;span class="n"&gt;Escape&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-24"&gt;&lt;span class="n"&gt;Scroll&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;             &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Down&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;J&lt;/span&gt;    &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-25"&gt;&lt;span class="n"&gt;Scroll&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;               &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Up&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;K&lt;/span&gt;      &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-26"&gt;&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;again&lt;/span&gt;            &lt;span class="n"&gt;n&lt;/span&gt;              &lt;span class="n"&gt;n&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-27"&gt;&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;backward&lt;/span&gt;         &lt;span class="o"&gt;?&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-28"&gt;&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;forward&lt;/span&gt;          &lt;span class="o"&gt;/&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-29"&gt;&lt;span class="n"&gt;Start&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;           &lt;span class="mi"&gt;0&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-30"&gt;&lt;span class="n"&gt;Start&lt;/span&gt; &lt;span class="n"&gt;selection&lt;/span&gt;         &lt;span class="n"&gt;Space&lt;/span&gt;          &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Space&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-31"&gt;&lt;span class="n"&gt;Transpose&lt;/span&gt; &lt;span class="n"&gt;chars&lt;/span&gt;                        &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;여기까지는 좋으나, 여기서의 복사 기능은 GUI 환경의 클립보드를 의미하지 않는다. 이를 다시 옮기는 일은 번거로우므로 간단한 설정을 추가해 tmux의 복사를 자동적으로 클립보드로 옮겨줄 수 있다. 아래의 설정을 &lt;code&gt;~/.tmux.conf&lt;/code&gt;에 추가해준다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;bind&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;emacs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt; &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pipe&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xclip -i -selection clipboard&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;설정을 추가했으면 설정 파일을 아래와 같이 리로드하거나 tmux 서버를 재실행한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tmux &lt;span class="nb"&gt;source&lt;/span&gt;-file ~/.tmux.conf
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이제 (Emacs 모드에서) Ctrl+Space로 필요한 영역을 선택한 후 M-w를 누르면 해당영역이 복사되고, 자동적으로 클립보드에도 복사된다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='정리'&gt;정리&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;터미널 환경과 GUI 환경의 클립보드를 통합하면 매우 편리하다. 그리고 위에서는 간단히만 이야기했지만, 표준 출력으로 넘길 수 있는 모든 것이 클립보드에 복사될 수 있으므로 단순히 클립보드를 통합한다는 이상의 의미를 지닌다. 이는 셸에서 활용할 수 있는 다양한 스크립트와 출력들을 큰 어려움 없이 GUI 환경에 그대로 복사해 갈 수 있음을 의미한다. 또한 Tmux를 사용해 셸 화면을 직접 선택해 복사하는 방법도 보다 편리하게 사용할 수 있다. &lt;/p&gt;
-
-&lt;p&gt;P.S. xclip과 비슷한 툴로는 xsel이 있으며, OSX에서는 pbcopy, pbpaste라는 명령어를 사용한다.&lt;/p&gt;
 </content>
   </entry>
 </feed>

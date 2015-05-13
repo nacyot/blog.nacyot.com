@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-05-13T01:15:21+00:00</updated>
+    <updated>2015-05-13T01:29:24+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -55,18 +55,20 @@
 &lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="nt"&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;KeepAlive&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-6"&gt;    &lt;span class="nt"&gt;&amp;lt;true&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Label&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;    &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;com.jupyter.server&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;ProgramArguments&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;    &lt;span class="nt"&gt;&amp;lt;array&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;/your/ipython/path&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;notebook&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-13"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;--ip=0.0.0.0&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-14"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;--port=8888&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-15"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;--notebook-dir=/your/notebook/path&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-16"&gt;    &lt;span class="nt"&gt;&amp;lt;/array&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-17"&gt;  &lt;span class="nt"&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="nt"&gt;&amp;lt;/plist&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;RunAtLoad&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;    &lt;span class="nt"&gt;&amp;lt;true/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Label&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;    &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;com.jupyter.server&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;    &lt;span class="nt"&gt;&amp;lt;key&amp;gt;&lt;/span&gt;ProgramArguments&lt;span class="nt"&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;    &lt;span class="nt"&gt;&amp;lt;array&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;/your/ipython/path&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;notebook&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;--ip=0.0.0.0&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;--port=8888&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;      &lt;span class="nt"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;--notebook-dir=/your/notebook/path&lt;span class="nt"&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;    &lt;span class="nt"&gt;&amp;lt;/array&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;  &lt;span class="nt"&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="nt"&gt;&amp;lt;/plist&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이 설정에서 &lt;code&gt;/your/ipython/path&lt;/code&gt;와 &lt;code&gt;/your/notebook/path&lt;/code&gt;는 직접 자신이 사용하는 디렉터리로 지정해야한다. &lt;code&gt;/your/ipython/path&lt;/code&gt;는 &lt;code&gt;which ipython&lt;/code&gt; 명령어로 위치를 확인할 수 있고, &lt;code&gt;your/notebook/path&lt;/code&gt;는 앞으로 작성하게 될 노트북을 디렉터리를 원하는 곳에 생성하고 그 경로를 지정해준다.&lt;/p&gt;
 
@@ -82,16 +84,16 @@
 &lt;h3&gt;&lt;a name='서비스-실행하기'&gt;서비스 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;launchctl start com.jupyter.server
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;launchctl을 통해서 직접 서비스를 실행할 수도 있다. 서비스를 실행하면 웹페이지가 직접 기본 브라우저로 실행된다. 그렇지 않다면 웹브라우저에서 &lt;code&gt;http://localhost:8888&lt;/code&gt;로 접근할 수 있다.&lt;/p&gt;
+&lt;p&gt;위 설정의 경우, &lt;code&gt;RunAtLoad&lt;/code&gt; 키를 통해서 로드 시에 서비스를 자동 실행한다. 필요한 경우 launchctl을 통해서 직접 서비스를 실행할 수도 있다. 서비스를 실행하면 웹페이지가 직접 기본 브라우저로 실행된다. 그렇지 않다면 웹브라우저에서 &lt;code&gt;http://localhost:8888&lt;/code&gt;로 접근할 수 있다.&lt;/p&gt;
 
 &lt;h3&gt;&lt;a name='서비스-중지하기'&gt;서비스 중지하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;launchctl stop com.jupyter.server
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;launchctl을 통해서 서비스를 중지할 수 있다(자동으로 실행되지 않게하려면 unload 후 파일을 삭제해야한다).&lt;/p&gt;
+&lt;p&gt;launchctl을 통해서 서비스를 중지할 수 있다(자동으로 실행되지 않게하려면 unload 후 파일을 삭제해야한다). 단, 위와 같이 &lt;code&gt;KeepAlive&lt;/code&gt;가 설정되어 있으면 종료되도 다시 실행된다.&lt;/p&gt;
 
 &lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
-&lt;p&gt;이 글에서는 Jupyter Notebook을 서비스로 등록해서 사용하는 법에 대해서 살펴보았다. 하지만 서비스 파일의 기본적인 구조만 익혀둔다면, 이외에도 다양한 서비스들을 직접 정의해서 편리하게 사용할 수 있을 것이다. 더불어 OSX의 서비스는 재실행(&lt;code&gt;&amp;lt;key&amp;gt;StartInterval&amp;lt;/key&amp;gt;&lt;/code&gt;), 표준 출력(&lt;code&gt;&amp;lt;key&amp;gt;StandardOutPath&amp;lt;/key&amp;gt;&lt;/code&gt;), 표준 에러(&lt;code&gt;&amp;lt;key&amp;gt;StandardErrorPath&amp;lt;/key&amp;gt;&lt;/code&gt;) 리다이렉트 등 더 다양한 설정들도 지원한다. 더 자세한 내용은 다음 페이지를 참조하기 바란다.&lt;/p&gt;
+&lt;p&gt;이 글에서는 Jupyter Notebook을 서비스로 등록해서 사용하는 법에 대해서 살펴보았다. 하지만 서비스 파일의 기본적인 구조만 익혀둔다면, 이외에도 다양한 서비스들을 직접 정의해서 편리하게 사용할 수 있을 것이다. 더불어 OSX의 서비스는 실행 상태 유지(&lt;code&gt;&amp;lt;key&amp;gt;KeepAlive&amp;lt;/key&amp;gt;&lt;/code&gt;), 로드 시 실행하기(&lt;code&gt;&amp;lt;key&amp;gt;RunAtLoad&amp;lt;/key&amp;gt;&lt;/code&gt;), 반복 실행(&lt;code&gt;&amp;lt;key&amp;gt;StartInterval&amp;lt;/key&amp;gt;&lt;/code&gt;), 표준 출력(&lt;code&gt;&amp;lt;key&amp;gt;StandardOutPath&amp;lt;/key&amp;gt;&lt;/code&gt;), 표준 에러(&lt;code&gt;&amp;lt;key&amp;gt;StandardErrorPath&amp;lt;/key&amp;gt;&lt;/code&gt;) 리다이렉트 등 더 다양한 설정들도 지원한다. 자세한 내용은 다음 페이지를 참조하기 바란다.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html"&gt;Apple Developer - Daemons and Services Programming Guide&lt;/a&gt;&lt;/p&gt;
 </content>
@@ -101,7 +103,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-05-13T01:15:21+00:00</updated>
+    <updated>2015-05-13T01:29:23+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -308,7 +310,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-05-13T01:15:21+00:00</updated>
+    <updated>2015-05-13T01:29:23+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -506,7 +508,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-05-13T01:15:21+00:00</updated>
+    <updated>2015-05-13T01:29:23+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -687,7 +689,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-05-13T01:15:21+00:00</updated>
+    <updated>2015-05-13T01:29:23+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -891,7 +893,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2015-05-13T01:15:21+00:00</updated>
+    <updated>2015-05-13T01:29:23+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

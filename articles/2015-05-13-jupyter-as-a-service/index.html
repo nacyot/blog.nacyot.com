@@ -158,18 +158,20 @@ May 13 2015
 </span><span id="line-4">  <span class="nt">&lt;dict&gt;</span>
 </span><span id="line-5">    <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
 </span><span id="line-6">    <span class="nt">&lt;true</span> <span class="nt">/&gt;</span>
-</span><span id="line-7">    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
-</span><span id="line-8">    <span class="nt">&lt;string&gt;</span>com.jupyter.server<span class="nt">&lt;/string&gt;</span>
-</span><span id="line-9">    <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
-</span><span id="line-10">    <span class="nt">&lt;array&gt;</span>
-</span><span id="line-11">      <span class="nt">&lt;string&gt;</span>/your/ipython/path<span class="nt">&lt;/string&gt;</span>
-</span><span id="line-12">      <span class="nt">&lt;string&gt;</span>notebook<span class="nt">&lt;/string&gt;</span>
-</span><span id="line-13">      <span class="nt">&lt;string&gt;</span>--ip=0.0.0.0<span class="nt">&lt;/string&gt;</span>
-</span><span id="line-14">      <span class="nt">&lt;string&gt;</span>--port=8888<span class="nt">&lt;/string&gt;</span>
-</span><span id="line-15">      <span class="nt">&lt;string&gt;</span>--notebook-dir=/your/notebook/path<span class="nt">&lt;/string&gt;</span>
-</span><span id="line-16">    <span class="nt">&lt;/array&gt;</span>
-</span><span id="line-17">  <span class="nt">&lt;/dict&gt;</span>
-</span><span id="line-18"><span class="nt">&lt;/plist&gt;</span>
+</span><span id="line-7">    <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+</span><span id="line-8">    <span class="nt">&lt;true/&gt;</span>
+</span><span id="line-9">    <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+</span><span id="line-10">    <span class="nt">&lt;string&gt;</span>com.jupyter.server<span class="nt">&lt;/string&gt;</span>
+</span><span id="line-11">    <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+</span><span id="line-12">    <span class="nt">&lt;array&gt;</span>
+</span><span id="line-13">      <span class="nt">&lt;string&gt;</span>/your/ipython/path<span class="nt">&lt;/string&gt;</span>
+</span><span id="line-14">      <span class="nt">&lt;string&gt;</span>notebook<span class="nt">&lt;/string&gt;</span>
+</span><span id="line-15">      <span class="nt">&lt;string&gt;</span>--ip=0.0.0.0<span class="nt">&lt;/string&gt;</span>
+</span><span id="line-16">      <span class="nt">&lt;string&gt;</span>--port=8888<span class="nt">&lt;/string&gt;</span>
+</span><span id="line-17">      <span class="nt">&lt;string&gt;</span>--notebook-dir=/your/notebook/path<span class="nt">&lt;/string&gt;</span>
+</span><span id="line-18">    <span class="nt">&lt;/array&gt;</span>
+</span><span id="line-19">  <span class="nt">&lt;/dict&gt;</span>
+</span><span id="line-20"><span class="nt">&lt;/plist&gt;</span>
 </span></pre></div>
 <p>이 설정에서 <code>/your/ipython/path</code>와 <code>/your/notebook/path</code>는 직접 자신이 사용하는 디렉터리로 지정해야한다. <code>/your/ipython/path</code>는 <code>which ipython</code> 명령어로 위치를 확인할 수 있고, <code>your/notebook/path</code>는 앞으로 작성하게 될 노트북을 디렉터리를 원하는 곳에 생성하고 그 경로를 지정해준다.</p>
 
@@ -185,16 +187,16 @@ May 13 2015
 <h3><a name='서비스-실행하기'>서비스 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>launchctl start com.jupyter.server
 </span></pre></div>
-<p>launchctl을 통해서 직접 서비스를 실행할 수도 있다. 서비스를 실행하면 웹페이지가 직접 기본 브라우저로 실행된다. 그렇지 않다면 웹브라우저에서 <code>http://localhost:8888</code>로 접근할 수 있다.</p>
+<p>위 설정의 경우, <code>RunAtLoad</code> 키를 통해서 로드 시에 서비스를 자동 실행한다. 필요한 경우 launchctl을 통해서 직접 서비스를 실행할 수도 있다. 서비스를 실행하면 웹페이지가 직접 기본 브라우저로 실행된다. 그렇지 않다면 웹브라우저에서 <code>http://localhost:8888</code>로 접근할 수 있다.</p>
 
 <h3><a name='서비스-중지하기'>서비스 중지하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>launchctl stop com.jupyter.server
 </span></pre></div>
-<p>launchctl을 통해서 서비스를 중지할 수 있다(자동으로 실행되지 않게하려면 unload 후 파일을 삭제해야한다).</p>
+<p>launchctl을 통해서 서비스를 중지할 수 있다(자동으로 실행되지 않게하려면 unload 후 파일을 삭제해야한다). 단, 위와 같이 <code>KeepAlive</code>가 설정되어 있으면 종료되도 다시 실행된다.</p>
 
 <h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
-<p>이 글에서는 Jupyter Notebook을 서비스로 등록해서 사용하는 법에 대해서 살펴보았다. 하지만 서비스 파일의 기본적인 구조만 익혀둔다면, 이외에도 다양한 서비스들을 직접 정의해서 편리하게 사용할 수 있을 것이다. 더불어 OSX의 서비스는 재실행(<code>&lt;key&gt;StartInterval&lt;/key&gt;</code>), 표준 출력(<code>&lt;key&gt;StandardOutPath&lt;/key&gt;</code>), 표준 에러(<code>&lt;key&gt;StandardErrorPath&lt;/key&gt;</code>) 리다이렉트 등 더 다양한 설정들도 지원한다. 더 자세한 내용은 다음 페이지를 참조하기 바란다.</p>
+<p>이 글에서는 Jupyter Notebook을 서비스로 등록해서 사용하는 법에 대해서 살펴보았다. 하지만 서비스 파일의 기본적인 구조만 익혀둔다면, 이외에도 다양한 서비스들을 직접 정의해서 편리하게 사용할 수 있을 것이다. 더불어 OSX의 서비스는 실행 상태 유지(<code>&lt;key&gt;KeepAlive&lt;/key&gt;</code>), 로드 시 실행하기(<code>&lt;key&gt;RunAtLoad&lt;/key&gt;</code>), 반복 실행(<code>&lt;key&gt;StartInterval&lt;/key&gt;</code>), 표준 출력(<code>&lt;key&gt;StandardOutPath&lt;/key&gt;</code>), 표준 에러(<code>&lt;key&gt;StandardErrorPath&lt;/key&gt;</code>) 리다이렉트 등 더 다양한 설정들도 지원한다. 자세한 내용은 다음 페이지를 참조하기 바란다.</p>
 
 <p><a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html">Apple Developer - Daemons and Services Programming Guide</a></p>
 

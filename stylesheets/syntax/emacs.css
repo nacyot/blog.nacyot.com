@@ -82,8 +82,9 @@
 }
 
 .highlight pre > span {
-  display: block;
-  padding: 0.5em;
+  /* display: block; */
+  /* padding: 0.5em; */
+  line-height: 2em;
 }
 
 .highlight pre > span:before {

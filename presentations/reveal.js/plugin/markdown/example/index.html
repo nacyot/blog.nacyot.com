@@ -1,137 +1,129 @@
-<!DOCTYPE html>
-<html ng-app='devstudy'>
-<head>
-<!--
-⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
-⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
+<!doctype html>
+<html lang="en">
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
--->
-<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
-<link href='http://blog.nacyot.com/presentations/reveal.js/plugin/markdown/example/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
-<link href='https://plus.google.com/+KimDaekwon' rel='author'>
-<link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
-<meta content='summary' name='twitter:card'>
-<meta content='article' property='og:type'>
-<meta content='nacyot의 프로그래밍 이야기' name='twitter:title'>
-<meta content='nacyot의 프로그래밍 이야기' property='og:title'>
-<meta content='' name='twitter:description'>
-<meta content='' property='og:description'>
-<meta content='@nacyo_t' name='twitter:site'>
-<meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
-<meta content='http://blog.nacyot.com/presentations/reveal.js/plugin/markdown/example/' name='twitter:url'>
-<meta content='http://blog.nacyot.com/presentations/reveal.js/plugin/markdown/example/' property='og:url'>
-<meta content='' name='twitter:image'>
-<meta content='' property='og:image'>
-<meta content='' name='keywords'>
-<title>nacyot의 프로그래밍 이야기</title>
-<link href="../../../../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
-<script src="../../../../../javascripts/all.js" type="text/javascript"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-46785477-2', 'auto');
-  ga('send', 'pageview');
-</script>
-</head>
-<body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
-</div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
-</a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
-</div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
-</a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
-</div>
-</nav>
+	<head>
+		<meta charset="utf-8">
 
+		<title>reveal.js - Markdown Demo</title>
 
-<h1>Markdown Demo</h1>
+		<link rel="stylesheet" href="../../css/reveal.css">
+		<link rel="stylesheet" href="../../css/theme/default.css" id="theme">
 
-<h2>External 1.1</h2>
+        <link rel="stylesheet" href="../../lib/css/zenburn.css">
+	</head>
 
-<p>Content 1.1</p>
+	<body>
 
-<p>Note: This will only appear in the speaker notes window.</p>
+		<div class="reveal">
 
-<h2>External 1.2</h2>
+			<div class="slides">
 
-<p>Content 1.2</p>
+                <!-- Use external markdown resource, separate slides by three newlines; vertical slides by two newlines -->
+                <section data-markdown="example.md" data-separator="^\n\n\n" data-vertical="^\n\n"></section>
 
-<h2>External 2</h2>
+                <!-- Slides are separated by three dashes (quick 'n dirty regular expression) -->
+                <section data-markdown data-separator="---">
+                    <script type="text/template">
+                        ## Demo 1
+                        Slide 1
+                        ---
+                        ## Demo 1
+                        Slide 2
+                        ---
+                        ## Demo 1
+                        Slide 3
+                    </script>
+                </section>
 
-<p>Content 2.1</p>
+                <!-- Slides are separated by newline + three dashes + newline, vertical slides identical but two dashes -->
+                <section data-markdown data-separator="^\n---\n$" data-vertical="^\n--\n$">
+                    <script type="text/template">
+                        ## Demo 2
+                        Slide 1.1
 
-<h2>External 3.1</h2>
+                        --
 
-<p>Content 3.1</p>
+                        ## Demo 2
+                        Slide 1.2
 
-<h2>External 3.2</h2>
+                        ---
 
-<p>Content 3.2</p>
+                        ## Demo 2
+                        Slide 2
+                    </script>
+                </section>
 
-<div class='row'>
-<div class='col-lg-12'>
-<hr>
-<div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
-<i class='fa-home fa fa-2x'></i>
-</a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
-<i class='fa-twitter fa fa-2x'></i>
-</a>
-<a class='icon' href='https://github.com/nacyot'>
-<i class='fa-github fa fa-2x'></i>
-</a>
-<a class='icon' href='/feed.xml' style='color: orange'>
-<i class='fa-rss fa fa-2x'></i>
-</a>
-</p>
-</div>
-</div>
-</div>
+                <!-- No "extra" slides, since there are no separators defined (so they'll become horizontal rulers) -->
+                <section data-markdown>
+                    <script type="text/template">
+                        A
 
-</body>
+                        ---
+
+                        B
+
+                        ---
+
+                        C
+                    </script>
+                </section>
+
+                <!-- Slide attributes -->
+                <section data-markdown>
+                    <script type="text/template">
+                        <!-- .slide: data-background="#000000" -->
+                        ## Slide attributes
+                    </script>
+                </section>
+
+                <!-- Element attributes -->
+                <section data-markdown>
+                    <script type="text/template">
+                        ## Element attributes
+                        - Item 1 <!-- .element: class="fragment" data-fragment-index="2" -->
+                        - Item 2 <!-- .element: class="fragment" data-fragment-index="1" -->
+                    </script>
+                </section>
+
+                <!-- Code -->
+                <section data-markdown>
+                    <script type="text/template">
+                        ```php
+                        public function foo()
+                        {
+                            $foo = array(
+                                'bar' => 'bar'
+                            )
+                        }
+                        ```
+                    </script>
+                </section>
+
+            </div>
+		</div>
+
+		<script src="../../lib/js/head.min.js"></script>
+		<script src="../../js/reveal.js"></script>
+
+		<script>
+
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../notes/notes.js' }
+				]
+			});
+
+		</script>
+
+	</body>
 </html>

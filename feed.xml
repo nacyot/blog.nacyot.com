@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-20T23:45:00+00:00</published>
-    <updated>2015-05-21T00:55:06+00:00</updated>
+    <updated>2015-05-21T04:14:55+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -536,7 +536,7 @@ require.config({
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;정말 그냥 데이터 배열을 통해서 생서동그라미다.&lt;/p&gt;
+&lt;p&gt;정말 그냥 데이터 배열을 통해서 생성한 동그라미다.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -564,7 +564,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-05-21T00:55:06+00:00</updated>
+    <updated>2015-05-21T04:14:55+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -653,7 +653,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-05-21T00:55:06+00:00</updated>
+    <updated>2015-05-21T04:14:55+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -860,7 +860,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-05-21T00:55:06+00:00</updated>
+    <updated>2015-05-21T04:14:55+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1058,7 +1058,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-05-21T00:55:06+00:00</updated>
+    <updated>2015-05-21T04:14:55+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1239,7 +1239,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-05-21T00:55:06+00:00</updated>
+    <updated>2015-05-21T04:14:55+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

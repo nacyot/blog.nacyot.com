@@ -99,6 +99,41 @@ nacyot의 프로그래밍 이야기
 <div class='summary_card'>
 <div>
 <span class='date'>
+Jun 13 2015
+</span>
+</div>
+<h2 class='title'>
+<a href="articles/2015-06-13-eunjeon-with-elasticsearch/">엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</a>
+</h2>
+<div class='summary'>
+<p>엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &quot;아버지가 방에 들어간다&quot;라는 문장을 인덱스해도 &quot;아버지&quot;로는 검색이 안 되고 반드시 &quot;아버지가&quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.</p>
+••••••
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/eunjeon'>eunjeon</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/mecab'>mecab</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/mecab-ko'>mecab-ko</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/검색엔진'>검색엔진</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/엘라스틱서치'>엘라스틱서치</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/은전한잎'>은전한잎</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/형태소-분석'>형태소 분석</a>
+</div>
+</div>
+
+<div class='summary_card'>
+<div>
+<span class='date'>
 May 21 2015
 </span>
 </div>
@@ -1135,37 +1170,6 @@ Nov 24 2013
 <a href='/tags/번역'>번역</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/프로그래밍-언어'>프로그래밍 언어</a>
-</div>
-</div>
-
-<div class='summary_card'>
-<div>
-<span class='date'>
-Oct 30 2013
-</span>
-</div>
-<h2 class='title'>
-<a href="articles/2013-10-30-angularjs-style-guide/">앵귤러js(AngularJs) 스타일 가이드 번역</a>
-</h2>
-<div class='summary'>
-<p>이 글은 Minko Gechev 씨의 <a href="https://github.com/mgechev/angularjs-style-guide">AngularJS Style Guide</a> 문서를 <a href="http://nacyot.com">nacyot</a>이 변역한 글입니다. 번역된 문서는 <a href="https://github.com/nacyot/angularjs-style-guide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/mgechev/angularjs-style-guide">여기</a>에서 찾아볼 수 있습니다.</p>
-••••••
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/Minko-Gechev'>Minko Gechev</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/angularjs'>angularjs</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/github'>github</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/javascript'>javascript</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/번역'>번역</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/앵귤러JS'>앵귤러JS</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/자바스크립'>자바스크립</a>
 </div>
 </div>
 

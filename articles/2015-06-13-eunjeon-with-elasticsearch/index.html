@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html ng-app='devstudy'>
+<head>
+<!--
+⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
+⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
+
+Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+-->
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
+<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<link href='http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/' rel='canonical'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='/articles/2015-05-21-d3js-in-jupyter/' rel='prev' title='주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화'>
+<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.' name='description'>
+<link href='https://plus.google.com/+KimDaekwon' rel='author'>
+<link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
+<meta content='summary' name='twitter:card'>
+<meta content='article' property='og:type'>
+<meta content='nacyot의 프로그래밍 이야기 :: 엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기' name='twitter:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: 엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기' property='og:title'>
+<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.' name='twitter:description'>
+<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.' property='og:description'>
+<meta content='@nacyo_t' name='twitter:site'>
+<meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
+<meta content='http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/' name='twitter:url'>
+<meta content='http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/' property='og:url'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
+<meta content='엘라스틱서치, elasticsearch, 형태소 분석, eunjeon, 은전한잎, mecab, mecab-ko, docker, 검색엔진' name='keywords'>
+<title>nacyot의 프로그래밍 이야기 :: 엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'auto');
+  ga('send', 'pageview');
+</script>
+</head>
+<body>
+<nav class='navbar navbar-fixed-top' role='navigation'>
+<div class='navbar-header'>
+<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+</div>
+<div class='collapse navbar-collapse'>
+<ul class='nav navbar-nav'>
+<li>
+<a href='http://blog.nacyot.com'>
+<i class='fa fa-comment'></i>
+블로그
+</a>
+</li>
+<li>
+<a href='http://wiki.nacyot.com'>
+<i class='fa fa-comment'></i>
+위키
+</a>
+</li>
+</ul>
+<ul class='nav navbar-nav navbar-right profile'>
+<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
+</form>
+<li>
+<a href='https://twitter.com/nacyo_t'>
+<i class='fa fa-twitter twitter'></i>
+</a>
+</li>
+<li>
+<a href='https://github.com/nacyot/'>
+<i class='fa fa-github github'></i>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<div class='mini-wall'>
+<div class='profile'>
+<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+</a>
+</div>
+</div>
+<div class='row'>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<div>
+<span class='date'>
+<i class='fa fa-calendar'></i>
+Jun 13 2015
+</span>
+</div>
+<div>
+<span class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/eunjeon'>eunjeon</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/mecab'>mecab</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/mecab-ko'>mecab-ko</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/검색엔진'>검색엔진</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/엘라스틱서치'>엘라스틱서치</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/은전한잎'>은전한잎</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/형태소-분석'>형태소 분석</a>
+</span>
+</div>
+<a name='toc'></a>
+<h1 class='title'>
+<a href="./">엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</a>
+</h1>
+<div class='body'>
+</div>
+<div class='toc'></div>
+<div class='body'>
+<p>엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &quot;아버지가 방에 들어간다&quot;라는 문장을 인덱스해도 &quot;아버지&quot;로는 검색이 안 되고 반드시 &quot;아버지가&quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.</p>
+
+
+
+<h2><a name='tl;dr'>TL;DR</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<p>Docker를 사용해 한글 형태소 분석기가 적용된 엘라스틱서치를 바로 사용해볼 수 있다. 필요한 경우 (일반적으로 boot2docker 사용할 경우 사용하는 주소인) <code>192.168.59.103</code> 대신 적절한 주소로 대체한다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -p 9200:9200 nacyot/elasticsearch-korean:1.6.0
+</span><span id="line-2"><span class="nv">$ </span>curl -XPUT http://192.168.59.103:9200/korean/ -d <span class="s1">&#39;{&quot;settings&quot;: {&quot;index&quot;:{&quot;analysis&quot;:{&quot;analyzer&quot;:{&quot;korean&quot;:{&quot;type&quot;:&quot;custom&quot;,&quot;tokenizer&quot;:&quot;mecab_ko_standard_tokenizer&quot;}}}}}}&#39;</span>
+</span><span id="line-3"><span class="nv">$ </span>curl -XGET http://192.168.59.103:9200/korean/_analyze?analyzer<span class="o">=</span>korean<span class="se">\&amp;</span><span class="nv">pretty</span><span class="o">=</span><span class="nb">true</span> -d <span class="s1">&#39;아버지가 방에 들어간다&#39;</span> <span class="p">|</span> jq <span class="s1">&#39;.tokens[] | {token: .token, type: .type}&#39;</span>
+</span><span id="line-4">
+</span><span id="line-5"><span class="c"># 분석 결과</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="o">{</span>
+</span><span id="line-8">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;아버지가&quot;</span>,
+</span><span id="line-9">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;EOJEOL&quot;</span>
+</span><span id="line-10"><span class="o">}</span>
+</span><span id="line-11"><span class="o">{</span>
+</span><span id="line-12">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;아버지&quot;</span>,
+</span><span id="line-13">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;N&quot;</span>
+</span><span id="line-14"><span class="o">}</span>
+</span><span id="line-15"><span class="o">{</span>
+</span><span id="line-16">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;방에&quot;</span>,
+</span><span id="line-17">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;EOJEOL&quot;</span>
+</span><span id="line-18"><span class="o">}</span>
+</span><span id="line-19"><span class="o">{</span>
+</span><span id="line-20">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;방&quot;</span>,
+</span><span id="line-21">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;N&quot;</span>
+</span><span id="line-22"><span class="o">}</span>
+</span><span id="line-23"><span class="o">{</span>
+</span><span id="line-24">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;들어간다&quot;</span>,
+</span><span id="line-25">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;INFLECT&quot;</span>
+</span><span id="line-26"><span class="o">}</span>
+</span></pre></div>
+<h2><a name='설치하기'>설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<p>엘라스틱서치에서 한글 형태소 분석기를 사용하려면 은전한잎을 설치할 필요가 있다. 다음 설치 방법은 우분투 14.04 운영체제에 오라클 자바 8 버전과 엘라스틱서치가 설치되었다는 것을 전제로 작성되었다. 은전한잎 플러그인은 엘라스틱서치 1.3 ~ 1.6(2015년 6월 현재 최신버전)에서 사용가능하다. 테스트에 사용한 버전은 1.6이다.</p>
+
+<h3><a name='은전한잎(mecab-ko)-설치'>은전한잎(mecab-ko) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+
+<p>먼저 은전한잎을 설치한다. 은전한잎은 일본어 형태소 분석기 mecab를 한국어에 맞게 수정한 프로젝트로 mecab-ko라는 프로젝트 이름을 가지고 있다. 최신버전 및 자세한 내용은 <a href="https://bitbucket.org/eunjeon/mecab-ko">저장소</a>를 참고하기 바란다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="cp"># 의존성 설치</span>
+</span><span id="line-2"><span class="err">$</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">automake</span> <span class="n">perl</span>
+</span><span id="line-3">
+</span><span id="line-4"><span class="cp"># mecab-ko 다운로드</span>
+</span><span id="line-5"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span>
+</span><span id="line-6"><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.2.tar.gz</span>
+</span><span id="line-7"><span class="err">$</span> <span class="n">tar</span> <span class="n">xvf</span> <span class="n">mecab</span><span class="o">-</span><span class="mf">0.996</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="mf">0.9.2</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+</span><span id="line-8">
+</span><span id="line-9"><span class="cp"># 빌드 및 설치</span>
+</span><span id="line-10"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">mecab</span><span class="o">-</span><span class="mf">0.996</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="mf">0.9.2</span>
+</span><span id="line-11"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">configure</span>
+</span><span id="line-12"><span class="err">$</span> <span class="n">make</span>
+</span><span id="line-13"><span class="err">$</span> <span class="n">make</span> <span class="n">check</span>
+</span><span id="line-14"><span class="err">$</span> <span class="n">make</span> <span class="n">install</span>
+</span><span id="line-15"><span class="err">$</span> <span class="n">ldconfig</span>
+</span></pre></div>
+<h3><a name='mecab-ko-dic-설치'>mecab-ko-dic 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+
+<p>다음으로 형태소 분석을 위한 사전을 설치한다. 자세한 내용은 <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/">저장소</a>를 참조하기 바란다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="cp"># mecab-ko-dic 다운로드</span>
+</span><span id="line-2"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span>
+</span><span id="line-3"><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/eunjeon/mecab-ko-dic/downloads/mecab-ko-dic-2.0.0-20150517.tar.gz</span>
+</span><span id="line-4"><span class="err">$</span> <span class="n">tar</span> <span class="n">xvf</span> <span class="n">mecab</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="n">dic</span><span class="o">-</span><span class="mf">1.6.1</span><span class="o">-</span><span class="mf">20140814.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+</span><span id="line-5">
+</span><span id="line-6"><span class="cp"># 빌드 및 설치</span>
+</span><span id="line-7"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">mecab</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="n">dic</span><span class="o">-</span><span class="mf">1.6.1</span><span class="o">-</span><span class="mi">20140814</span>
+</span><span id="line-8"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">autogen</span><span class="p">.</span><span class="n">sh</span>
+</span><span id="line-9"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">configure</span>
+</span><span id="line-10"><span class="err">$</span> <span class="n">make</span>
+</span><span id="line-11"><span class="err">$</span> <span class="n">make</span> <span class="n">install</span>
+</span></pre></div>
+<h3><a name='mecab-java-설치'>mecab-java 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+
+<p>다음므로 tagger와 lexicon의 메모리 누수가 해결된 mecab-java 버전을 설치한다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="cp"># 환경 변수 설정</span>
+</span><span id="line-2"><span class="err">$</span> <span class="n">export</span> <span class="n">JAVA_TOOL_OPTIONS</span> <span class="o">-</span><span class="n">Dfile</span><span class="p">.</span><span class="n">encoding</span><span class="o">=</span><span class="n">UTF8</span>
+</span><span id="line-3">
+</span><span id="line-4"><span class="cp"># mecab-java 다운로드</span>
+</span><span id="line-5"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span>
+</span><span id="line-6"><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//mecab.googlecode.com/files/mecab-java-0.996.tar.gz</span>
+</span><span id="line-7"><span class="err">$</span> <span class="n">tar</span> <span class="n">xvf</span> <span class="n">mecab</span><span class="o">-</span><span class="n">java</span><span class="o">-</span><span class="mf">0.996</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+</span><span id="line-8">
+</span><span id="line-9"><span class="cp"># 빌드 및 설치</span>
+</span><span id="line-10"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">mecab</span><span class="o">-</span><span class="n">java</span><span class="o">-</span><span class="mf">0.996</span>
+</span><span id="line-11"><span class="err">$</span> <span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">|/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jvm</span><span class="o">/</span><span class="n">java</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="n">openjdk</span><span class="o">/</span><span class="n">include</span><span class="o">|/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jvm</span><span class="o">/</span><span class="n">java</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">oracle</span><span class="o">/</span><span class="n">include</span><span class="o">|</span><span class="err">&#39;</span> <span class="n">Makefile</span>
+</span><span id="line-12"><span class="err">$</span> <span class="n">make</span>
+</span><span id="line-13">
+</span><span id="line-14"><span class="cp"># 빌드된 파일 이동(elasticsearch 실행시 참조해주어야 함)</span>
+</span><span id="line-15"><span class="err">$</span> <span class="n">cp</span> <span class="n">libMeCab</span><span class="p">.</span><span class="n">so</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span>
+</span></pre></div>
+<h3><a name='엘라스틱서치-mecab-ko-플러그인-설치'>엘라스틱서치 mecab-ko 플러그인 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+
+<p>마지막으로 엘라스틱서치에서 사용할 수 있도록 mecab-ko를 설치한다. <code>&lt;ELASTICSEARCH_PATH&gt;</code>에는 엘라스틱서치가 설치된 경로를 넣어준다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nt">&lt;ELASTICSEARCH_PATH&gt;</span>/bin/plugin --install analysis-mecab-ko-0.17.0 --url https://bitbucket.org/eunjeon/mecab-ko-lucene-analyzer/downloads/elasticsearch-analysis-mecab-ko-0.17.0.zip
+</span></pre></div>
+<h2><a name='형태소-분석을-통한-한국어-문장-검색'>형태소 분석을 통한 한국어 문장 검색</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<p>먼저 엘라스틱서치를 앞서 빌드한 <code>mecab-java</code>를 참조시켜서 실행한다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>elasticsearch -Djava.library.path<span class="o">=</span>/usr/local/lib
+</span></pre></div>
+<p>한글 분석기가 정상적으로 작동하는 지 확인하기 위해 우선 기본 분석기를 통해서 문장을 분석해본다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>curl -XGET http://0.0.0.0:9200/_analyze?pretty<span class="o">=</span><span class="nb">true</span> -d <span class="s1">&#39;아버지가 방에 들어간다.&#39;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="c"># 분석 결과</span>
+</span><span id="line-4">
+</span><span id="line-5"><span class="o">{</span>
+</span><span id="line-6">  <span class="s2">&quot;tokens&quot;</span>: <span class="o">[</span>
+</span><span id="line-7">    <span class="o">{</span>
+</span><span id="line-8">      <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;아버지가&quot;</span>,
+</span><span id="line-9">      <span class="s2">&quot;start_offset&quot;</span>: 0,
+</span><span id="line-10">      <span class="s2">&quot;end_offset&quot;</span>: 4,
+</span><span id="line-11">      <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;&lt;HANGUL&gt;&quot;</span>,
+</span><span id="line-12">      <span class="s2">&quot;position&quot;</span>: 1
+</span><span id="line-13">    <span class="o">}</span>,
+</span><span id="line-14">    <span class="o">{</span>
+</span><span id="line-15">      <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;방에&quot;</span>,
+</span><span id="line-16">      <span class="s2">&quot;start_offset&quot;</span>: 5,
+</span><span id="line-17">      <span class="s2">&quot;end_offset&quot;</span>: 7,
+</span><span id="line-18">      <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;&lt;HANGUL&gt;&quot;</span>,
+</span><span id="line-19">      <span class="s2">&quot;position&quot;</span>: 2
+</span><span id="line-20">    <span class="o">}</span>,
+</span><span id="line-21">    <span class="o">{</span>
+</span><span id="line-22">      <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;들어간다&quot;</span>,
+</span><span id="line-23">      <span class="s2">&quot;start_offset&quot;</span>: 8,
+</span><span id="line-24">      <span class="s2">&quot;end_offset&quot;</span>: 12,
+</span><span id="line-25">      <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;&lt;HANGUL&gt;&quot;</span>,
+</span><span id="line-26">      <span class="s2">&quot;position&quot;</span>: 3
+</span><span id="line-27">    <span class="o">}</span>
+</span><span id="line-28">  <span class="o">]</span>
+</span><span id="line-29"><span class="o">}</span>
+</span></pre></div>
+<p>처음에 얘기한대로 문장이 &quot;아버지가&quot; 통째로 분석된다. 이렇게 되면 &quot;아버지&quot;로는 이 문장을 검색할 수 없다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="cp"># 데이터 입력</span>
+</span><span id="line-2"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XPUT</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/default/text/1&#39; -d &#39;{&quot;text&quot;: &quot;아버지가 방에 들어간다&quot;}&#39;</span>
+</span><span id="line-3">
+</span><span id="line-4"><span class="cp"># &#39;아버지&#39;로 검색</span>
+</span><span id="line-5"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/default/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지&quot;}}}}&#39; | jq .hits</span>
+</span><span id="line-6"><span class="p">{</span>
+</span><span id="line-7">  <span class="s">&quot;total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span><span id="line-8">  <span class="s">&quot;max_score&quot;</span><span class="o">:</span> <span class="n">null</span><span class="p">,</span>
+</span><span id="line-9">  <span class="s">&quot;hits&quot;</span><span class="o">:</span> <span class="p">[]</span>
+</span><span id="line-10"><span class="p">}</span>
+</span><span id="line-11">
+</span><span id="line-12"><span class="cp"># &#39;아버지가&#39;로 검색</span>
+</span><span id="line-13"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/default/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지가&quot;}}}}&#39; | jq .hits</span>
+</span><span id="line-14"><span class="p">{</span>
+</span><span id="line-15">  <span class="s">&quot;total&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span id="line-16">  <span class="s">&quot;max_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-17">  <span class="s">&quot;hits&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span id="line-18">    <span class="p">{</span>
+</span><span id="line-19">      <span class="s">&quot;_index&quot;</span><span class="o">:</span> <span class="s">&quot;default&quot;</span><span class="p">,</span>
+</span><span id="line-20">      <span class="s">&quot;_type&quot;</span><span class="o">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
+</span><span id="line-21">      <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;1&quot;</span><span class="p">,</span>
+</span><span id="line-22">      <span class="s">&quot;_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-23">      <span class="s">&quot;_source&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span id="line-24">        <span class="s">&quot;text&quot;</span><span class="o">:</span> <span class="s">&quot;아버지가 방에 들어간다&quot;</span>
+</span><span id="line-25">      <span class="p">}</span>
+</span><span id="line-26">    <span class="p">}</span>
+</span><span id="line-27">  <span class="p">]</span>
+</span><span id="line-28"><span class="p">}</span>
+</span></pre></div>
+<p>이번에는 <code>korean</code>이라는 이름으로 <code>mecab_ko_standard_tokenizer</code>가 적용된 인덱스를 생성한다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>curl -XPUT http://0.0.0.0:9200/korean/ -d <span class="s1">&#39;{</span>
+</span><span id="line-2"><span class="s1">  &quot;settings&quot; : {</span>
+</span><span id="line-3"><span class="s1">    &quot;index&quot;:{</span>
+</span><span id="line-4"><span class="s1">      &quot;analysis&quot;:{</span>
+</span><span id="line-5"><span class="s1">        &quot;analyzer&quot;:{</span>
+</span><span id="line-6"><span class="s1">          &quot;korean&quot;:{</span>
+</span><span id="line-7"><span class="s1">            &quot;type&quot;:&quot;custom&quot;,</span>
+</span><span id="line-8"><span class="s1">            &quot;tokenizer&quot;:&quot;mecab_ko_standard_tokenizer&quot;</span>
+</span><span id="line-9"><span class="s1">          }</span>
+</span><span id="line-10"><span class="s1">        }</span>
+</span><span id="line-11"><span class="s1">      }</span>
+</span><span id="line-12"><span class="s1">    }</span>
+</span><span id="line-13"><span class="s1">  },</span>
+</span><span id="line-14"><span class="s1">  &quot;mappings&quot;: {</span>
+</span><span id="line-15"><span class="s1">    &quot;text&quot; : {</span>
+</span><span id="line-16"><span class="s1">      &quot;properties&quot; : {</span>
+</span><span id="line-17"><span class="s1">        &quot;text&quot; : {</span>
+</span><span id="line-18"><span class="s1">          &quot;type&quot; : &quot;string&quot;,</span>
+</span><span id="line-19"><span class="s1">          &quot;analyzer&quot;: &quot;korean&quot;</span>
+</span><span id="line-20"><span class="s1">        }</span>
+</span><span id="line-21"><span class="s1">      }</span>
+</span><span id="line-22"><span class="s1">    }</span>
+</span><span id="line-23"><span class="s1">  }</span>
+</span><span id="line-24"><span class="s1">}&#39;</span>
+</span></pre></div>
+<p>이 인덱스를 통해서 한국어 문장을 분석해본다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>curl -XGET http://0.0.0.0:9200/korean/_analyze?analyzer<span class="o">=</span>korean<span class="se">\&amp;</span><span class="nv">pretty</span><span class="o">=</span><span class="nb">true</span> -d <span class="s1">&#39;아버지가 방에 들어간다&#39;</span> <span class="p">|</span> jq <span class="s1">&#39;.tokens[] | {token: .token, type: .type}&#39;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="o">{</span>
+</span><span id="line-4">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;아버지가&quot;</span>,
+</span><span id="line-5">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;EOJEOL&quot;</span>
+</span><span id="line-6"><span class="o">}</span>
+</span><span id="line-7"><span class="o">{</span>
+</span><span id="line-8">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;아버지&quot;</span>,
+</span><span id="line-9">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;N&quot;</span>
+</span><span id="line-10"><span class="o">}</span>
+</span><span id="line-11"><span class="o">{</span>
+</span><span id="line-12">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;방에&quot;</span>,
+</span><span id="line-13">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;EOJEOL&quot;</span>
+</span><span id="line-14"><span class="o">}</span>
+</span><span id="line-15"><span class="o">{</span>
+</span><span id="line-16">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;방&quot;</span>,
+</span><span id="line-17">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;N&quot;</span>
+</span><span id="line-18"><span class="o">}</span>
+</span><span id="line-19"><span class="o">{</span>
+</span><span id="line-20">  <span class="s2">&quot;token&quot;</span>: <span class="s2">&quot;들어간다&quot;</span>,
+</span><span id="line-21">  <span class="s2">&quot;type&quot;</span>: <span class="s2">&quot;INFLECT&quot;</span>
+</span><span id="line-22"><span class="o">}</span>
+</span></pre></div>
+<p>이번에는 &quot;아버지&quot;나 &quot;방&quot;이 명사로 분석된 것을 알 수 있다. 이렇게 인덱스가 되면 정상적으로 검색이 가능하다.</p>
+<div class="highlight"><pre><span id="line-1"><span class="cp"># 데이터 입력</span>
+</span><span id="line-2"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XPUT</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/korean/text/1&#39; -d &#39;{&quot;text&quot;: &quot;아버지가 방에 들어간다&quot;}&#39;</span>
+</span><span id="line-3">
+</span><span id="line-4"><span class="cp"># &#39;아버지&#39;로 검색</span>
+</span><span id="line-5"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/korean/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지&quot;}}}}&#39; | jq .hits</span>
+</span><span id="line-6"><span class="p">{</span>
+</span><span id="line-7">  <span class="s">&quot;total&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span id="line-8">  <span class="s">&quot;max_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-9">  <span class="s">&quot;hits&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span id="line-10">    <span class="p">{</span>
+</span><span id="line-11">      <span class="s">&quot;_index&quot;</span><span class="o">:</span> <span class="s">&quot;korean&quot;</span><span class="p">,</span>
+</span><span id="line-12">      <span class="s">&quot;_type&quot;</span><span class="o">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
+</span><span id="line-13">      <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;1&quot;</span><span class="p">,</span>
+</span><span id="line-14">      <span class="s">&quot;_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-15">      <span class="s">&quot;_source&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span id="line-16">        <span class="s">&quot;text&quot;</span><span class="o">:</span> <span class="s">&quot;아버지가 방에 들어간다&quot;</span>
+</span><span id="line-17">      <span class="p">}</span>
+</span><span id="line-18">    <span class="p">}</span>
+</span><span id="line-19">  <span class="p">]</span>
+</span><span id="line-20"><span class="p">}</span>
+</span></pre></div>
+<p>앞서 확인한 분석 결과대로 검색이 되는 것을 알 수 있다.</p>
+
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+
+<p>일반적으로 동적으로 풀텍스트 서치를 하는 경우 원하는 결과가 검색될 가능성은 높지만, 매우 비효율적이고 검색 대상이 많아질수록 느려진다. 반면에 이른바 검색엔진으로 분류되는 도구들은 미리 텍스트를 분석해 인덱스를 만들기 때문에 매우 효율적으로 검색이 가능하다. 단, 인덱스를 의도한대로 만들어야만 원하는 검색결과를 얻을 수 있다. 앞서 살펴보았듯이 한글 문장을 검색하고자 한다면, 적절히 형태소 분석을 통한 한글 인덱스와 n-gram 인덱스를 만들어줄 필요가 있다. 엘라스틱서치에서는 analyzer와 mapping을 통해서 각 인덱스와 타입들에 대해서 섬세하고 풍부한 인덱스 기능을 지원하고 있다. 이러한 기능들을 잘 활용한다면 의도한 대로 검색 결과를 얻을 수 있을 것이다.</p>
+
+</div>
+<div class='footer'>
+<hr>
+<div class='author'>
+<h1>nacyot</h1>
+프로그래머(29)
+</div>
+<div class='share'>
+<h1>Share this post</h1>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_pocket"></a>
+<a class="addthis_button_print"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
+<!-- AddThis Button END -->
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</div>
+<div class='navigation'>
+<div class='prevnav'>
+<div class='fa fa-chevron-left'></div>
+이전 글
+<a href='/articles/2015-05-21-d3js-in-jupyter/' rel='prev'>주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화</a>
+</div>
+<div class='nextnav'>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+</div>
+<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+</div>
+<script>
+  $('.toc').toc({
+    'selectors': 'h2,h3,h4,h5',
+    'container': '.article'
+  });
+</script>
+
+<div class='row'>
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<p>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2014 • All rights reserved.
+&nbsp;&nbsp;&nbsp;
+<a class='icon' href='http://nacyot.com'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</p>
+</div>
+</div>
+</div>
+
+</body>
+</html>
+

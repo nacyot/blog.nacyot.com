@@ -5,16 +5,266 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2015-05-20T23:45:00Z</updated>
+  <updated>2015-06-12T21:05:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
+    <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
+    <published>2015-06-12T21:05:00+00:00</published>
+    <updated>2015-06-12T21:08:28+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;p&gt;엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2&gt;&lt;a name='tl;dr'&gt;TL;DR&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;Docker를 사용해 한글 형태소 분석기가 적용된 엘라스틱서치를 바로 사용해볼 수 있다. 필요한 경우 (일반적으로 boot2docker 사용할 경우 사용하는 주소인) &lt;code&gt;192.168.59.103&lt;/code&gt; 대신 적절한 주소로 대체한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -p 9200:9200 nacyot/elasticsearch-korean:1.6.0
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -XPUT http://192.168.59.103:9200/korean/ -d &lt;span class="s1"&gt;&amp;#39;{&amp;quot;settings&amp;quot;: {&amp;quot;index&amp;quot;:{&amp;quot;analysis&amp;quot;:{&amp;quot;analyzer&amp;quot;:{&amp;quot;korean&amp;quot;:{&amp;quot;type&amp;quot;:&amp;quot;custom&amp;quot;,&amp;quot;tokenizer&amp;quot;:&amp;quot;mecab_ko_standard_tokenizer&amp;quot;}}}}}}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -XGET http://192.168.59.103:9200/korean/_analyze?analyzer&lt;span class="o"&gt;=&lt;/span&gt;korean&lt;span class="se"&gt;\&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;pretty&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt; -d &lt;span class="s1"&gt;&amp;#39;아버지가 방에 들어간다&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; jq &lt;span class="s1"&gt;&amp;#39;.tokens[] | {token: .token, type: .type}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c"&gt;# 분석 결과&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;아버지가&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;EOJEOL&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;아버지&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-13"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;N&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;방에&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-17"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;EOJEOL&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;방&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-21"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;N&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;들어간다&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-25"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;INFLECT&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='설치하기'&gt;설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;엘라스틱서치에서 한글 형태소 분석기를 사용하려면 은전한잎을 설치할 필요가 있다. 다음 설치 방법은 우분투 14.04 운영체제에 오라클 자바 8 버전과 엘라스틱서치가 설치되었다는 것을 전제로 작성되었다. 은전한잎 플러그인은 엘라스틱서치 1.3 ~ 1.6(2015년 6월 현재 최신버전)에서 사용가능하다. 테스트에 사용한 버전은 1.6이다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='은전한잎(mecab-ko)-설치'&gt;은전한잎(mecab-ko) 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;먼저 은전한잎을 설치한다. 은전한잎은 일본어 형태소 분석기 mecab를 한국어에 맞게 수정한 프로젝트로 mecab-ko라는 프로젝트 이름을 가지고 있다. 최신버전 및 자세한 내용은 &lt;a href="https://bitbucket.org/eunjeon/mecab-ko"&gt;저장소&lt;/a&gt;를 참고하기 바란다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# 의존성 설치&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;perl&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# mecab-ko 다운로드&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.2.tar.gz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;xvf&lt;/span&gt; &lt;span class="n"&gt;mecab&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.996&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ko&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.9.2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="cp"&gt;# 빌드 및 설치&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mecab&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.996&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ko&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.9.2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;configure&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;check&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;ldconfig&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='mecab-ko-dic-설치'&gt;mecab-ko-dic 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;다음으로 형태소 분석을 위한 사전을 설치한다. 자세한 내용은 &lt;a href="https://bitbucket.org/eunjeon/mecab-ko-dic/"&gt;저장소&lt;/a&gt;를 참조하기 바란다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# mecab-ko-dic 다운로드&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//bitbucket.org/eunjeon/mecab-ko-dic/downloads/mecab-ko-dic-2.0.0-20150517.tar.gz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;xvf&lt;/span&gt; &lt;span class="n"&gt;mecab&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ko&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.6.1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;20140814.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="cp"&gt;# 빌드 및 설치&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mecab&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ko&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dic&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;1.6.1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;20140814&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;autogen&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;configure&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='mecab-java-설치'&gt;mecab-java 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;다음므로 tagger와 lexicon의 메모리 누수가 해결된 mecab-java 버전을 설치한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# 환경 변수 설정&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;JAVA_TOOL_OPTIONS&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Dfile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;UTF8&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# mecab-java 다운로드&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//mecab.googlecode.com/files/mecab-java-0.996.tar.gz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;tar&lt;/span&gt; &lt;span class="n"&gt;xvf&lt;/span&gt; &lt;span class="n"&gt;mecab&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.996&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="cp"&gt;# 빌드 및 설치&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mecab&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.996&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;|/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;jvm&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;openjdk&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="o"&gt;|/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;jvm&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;oracle&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;Makefile&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="cp"&gt;# 빌드된 파일 이동(elasticsearch 실행시 참조해주어야 함)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cp&lt;/span&gt; &lt;span class="n"&gt;libMeCab&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='엘라스틱서치-mecab-ko-플러그인-설치'&gt;엘라스틱서치 mecab-ko 플러그인 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;마지막으로 엘라스틱서치에서 사용할 수 있도록 mecab-ko를 설치한다. &lt;code&gt;&amp;lt;ELASTICSEARCH_PATH&amp;gt;&lt;/code&gt;에는 엘라스틱서치가 설치된 경로를 넣어준다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nt"&gt;&amp;lt;ELASTICSEARCH_PATH&amp;gt;&lt;/span&gt;/bin/plugin --install analysis-mecab-ko-0.17.0 --url https://bitbucket.org/eunjeon/mecab-ko-lucene-analyzer/downloads/elasticsearch-analysis-mecab-ko-0.17.0.zip
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='형태소-분석을-통한-한국어-문장-검색'&gt;형태소 분석을 통한 한국어 문장 검색&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;먼저 엘라스틱서치를 앞서 빌드한 &lt;code&gt;mecab-java&lt;/code&gt;를 참조시켜서 실행한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;elasticsearch -Djava.library.path&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/lib
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;한글 분석기가 정상적으로 작동하는 지 확인하기 위해 우선 기본 분석기를 통해서 문장을 분석해본다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -XGET http://0.0.0.0:9200/_analyze?pretty&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt; -d &lt;span class="s1"&gt;&amp;#39;아버지가 방에 들어간다.&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c"&gt;# 분석 결과&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s2"&gt;&amp;quot;tokens&amp;quot;&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;      &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;아버지가&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-9"&gt;      &lt;span class="s2"&gt;&amp;quot;start_offset&amp;quot;&lt;/span&gt;: 0,
+&lt;/span&gt;&lt;span id="line-10"&gt;      &lt;span class="s2"&gt;&amp;quot;end_offset&amp;quot;&lt;/span&gt;: 4,
+&lt;/span&gt;&lt;span id="line-11"&gt;      &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;&amp;lt;HANGUL&amp;gt;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-12"&gt;      &lt;span class="s2"&gt;&amp;quot;position&amp;quot;&lt;/span&gt;: 1
+&lt;/span&gt;&lt;span id="line-13"&gt;    &lt;span class="o"&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-14"&gt;    &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;      &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;방에&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-16"&gt;      &lt;span class="s2"&gt;&amp;quot;start_offset&amp;quot;&lt;/span&gt;: 5,
+&lt;/span&gt;&lt;span id="line-17"&gt;      &lt;span class="s2"&gt;&amp;quot;end_offset&amp;quot;&lt;/span&gt;: 7,
+&lt;/span&gt;&lt;span id="line-18"&gt;      &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;&amp;lt;HANGUL&amp;gt;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-19"&gt;      &lt;span class="s2"&gt;&amp;quot;position&amp;quot;&lt;/span&gt;: 2
+&lt;/span&gt;&lt;span id="line-20"&gt;    &lt;span class="o"&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-21"&gt;    &lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;      &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;들어간다&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-23"&gt;      &lt;span class="s2"&gt;&amp;quot;start_offset&amp;quot;&lt;/span&gt;: 8,
+&lt;/span&gt;&lt;span id="line-24"&gt;      &lt;span class="s2"&gt;&amp;quot;end_offset&amp;quot;&lt;/span&gt;: 12,
+&lt;/span&gt;&lt;span id="line-25"&gt;      &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;&amp;lt;HANGUL&amp;gt;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-26"&gt;      &lt;span class="s2"&gt;&amp;quot;position&amp;quot;&lt;/span&gt;: 3
+&lt;/span&gt;&lt;span id="line-27"&gt;    &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-28"&gt;  &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-29"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;처음에 얘기한대로 문장이 &amp;quot;아버지가&amp;quot; 통째로 분석된다. 이렇게 되면 &amp;quot;아버지&amp;quot;로는 이 문장을 검색할 수 없다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# 데이터 입력&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XPUT&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//0.0.0.0:9200/default/text/1&amp;#39; -d &amp;#39;{&amp;quot;text&amp;quot;: &amp;quot;아버지가 방에 들어간다&amp;quot;}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# &amp;#39;아버지&amp;#39;로 검색&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XGET&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//0.0.0.0:9200/default/_search&amp;#39; -d &amp;#39;{&amp;quot;query&amp;quot;:{&amp;quot;term&amp;quot;: {&amp;quot;text&amp;quot;: &amp;quot;아버지&amp;quot;}}}}&amp;#39; | jq .hits&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="s"&gt;&amp;quot;total&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s"&gt;&amp;quot;max_score&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s"&gt;&amp;quot;hits&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="cp"&gt;# &amp;#39;아버지가&amp;#39;로 검색&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XGET&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//0.0.0.0:9200/default/_search&amp;#39; -d &amp;#39;{&amp;quot;query&amp;quot;:{&amp;quot;term&amp;quot;: {&amp;quot;text&amp;quot;: &amp;quot;아버지가&amp;quot;}}}}&amp;#39; | jq .hits&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;  &lt;span class="s"&gt;&amp;quot;total&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;  &lt;span class="s"&gt;&amp;quot;max_score&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.15342641&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;  &lt;span class="s"&gt;&amp;quot;hits&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;    &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;      &lt;span class="s"&gt;&amp;quot;_index&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;      &lt;span class="s"&gt;&amp;quot;_type&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;      &lt;span class="s"&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;      &lt;span class="s"&gt;&amp;quot;_score&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.15342641&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;      &lt;span class="s"&gt;&amp;quot;_source&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;        &lt;span class="s"&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;아버지가 방에 들어간다&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-25"&gt;      &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-27"&gt;  &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-28"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번에는 &lt;code&gt;korean&lt;/code&gt;이라는 이름으로 &lt;code&gt;mecab_ko_standard_tokenizer&lt;/code&gt;가 적용된 인덱스를 생성한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -XPUT http://0.0.0.0:9200/korean/ -d &lt;span class="s1"&gt;&amp;#39;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="s1"&gt;  &amp;quot;settings&amp;quot; : {&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="s1"&gt;    &amp;quot;index&amp;quot;:{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="s1"&gt;      &amp;quot;analysis&amp;quot;:{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="s1"&gt;        &amp;quot;analyzer&amp;quot;:{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="s1"&gt;          &amp;quot;korean&amp;quot;:{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="s1"&gt;            &amp;quot;type&amp;quot;:&amp;quot;custom&amp;quot;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="s1"&gt;            &amp;quot;tokenizer&amp;quot;:&amp;quot;mecab_ko_standard_tokenizer&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="s1"&gt;          }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="s1"&gt;        }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="s1"&gt;      }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="s1"&gt;    }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="s1"&gt;  },&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="s1"&gt;  &amp;quot;mappings&amp;quot;: {&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="s1"&gt;    &amp;quot;text&amp;quot; : {&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="s1"&gt;      &amp;quot;properties&amp;quot; : {&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="s1"&gt;        &amp;quot;text&amp;quot; : {&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="s1"&gt;          &amp;quot;type&amp;quot; : &amp;quot;string&amp;quot;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="s1"&gt;          &amp;quot;analyzer&amp;quot;: &amp;quot;korean&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="s1"&gt;        }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="s1"&gt;      }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="s1"&gt;    }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="s1"&gt;  }&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;&lt;span class="s1"&gt;}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 인덱스를 통해서 한국어 문장을 분석해본다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -XGET http://0.0.0.0:9200/korean/_analyze?analyzer&lt;span class="o"&gt;=&lt;/span&gt;korean&lt;span class="se"&gt;\&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;pretty&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt; -d &lt;span class="s1"&gt;&amp;#39;아버지가 방에 들어간다&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; jq &lt;span class="s1"&gt;&amp;#39;.tokens[] | {token: .token, type: .type}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;아버지가&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;EOJEOL&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;아버지&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;N&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;방에&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-13"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;EOJEOL&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;방&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-17"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;N&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;  &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;들어간다&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span id="line-21"&gt;  &lt;span class="s2"&gt;&amp;quot;type&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;INFLECT&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번에는 &amp;quot;아버지&amp;quot;나 &amp;quot;방&amp;quot;이 명사로 분석된 것을 알 수 있다. 이렇게 인덱스가 되면 정상적으로 검색이 가능하다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# 데이터 입력&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XPUT&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//0.0.0.0:9200/korean/text/1&amp;#39; -d &amp;#39;{&amp;quot;text&amp;quot;: &amp;quot;아버지가 방에 들어간다&amp;quot;}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# &amp;#39;아버지&amp;#39;로 검색&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XGET&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//0.0.0.0:9200/korean/_search&amp;#39; -d &amp;#39;{&amp;quot;query&amp;quot;:{&amp;quot;term&amp;quot;: {&amp;quot;text&amp;quot;: &amp;quot;아버지&amp;quot;}}}}&amp;#39; | jq .hits&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="s"&gt;&amp;quot;total&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s"&gt;&amp;quot;max_score&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.15342641&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s"&gt;&amp;quot;hits&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;    &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;      &lt;span class="s"&gt;&amp;quot;_index&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;korean&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;      &lt;span class="s"&gt;&amp;quot;_type&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;      &lt;span class="s"&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;      &lt;span class="s"&gt;&amp;quot;_score&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.15342641&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;      &lt;span class="s"&gt;&amp;quot;_source&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;        &lt;span class="s"&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;아버지가 방에 들어간다&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;      &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;  &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;앞서 확인한 분석 결과대로 검색이 되는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;일반적으로 동적으로 풀텍스트 서치를 하는 경우 원하는 결과가 검색될 가능성은 높지만, 매우 비효율적이고 검색 대상이 많아질수록 느려진다. 반면에 이른바 검색엔진으로 분류되는 도구들은 미리 텍스트를 분석해 인덱스를 만들기 때문에 매우 효율적으로 검색이 가능하다. 단, 인덱스를 의도한대로 만들어야만 원하는 검색결과를 얻을 수 있다. 앞서 살펴보았듯이 한글 문장을 검색하고자 한다면, 적절히 형태소 분석을 통한 한글 인덱스와 n-gram 인덱스를 만들어줄 필요가 있다. 엘라스틱서치에서는 analyzer와 mapping을 통해서 각 인덱스와 타입들에 대해서 섬세하고 풍부한 인덱스 기능을 지원하고 있다. 이러한 기능들을 잘 활용한다면 의도한 대로 검색 결과를 얻을 수 있을 것이다.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-20T23:45:00+00:00</published>
-    <updated>2015-05-21T04:14:55+00:00</updated>
+    <updated>2015-06-12T21:08:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -564,7 +814,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-05-21T04:14:55+00:00</updated>
+    <updated>2015-06-12T21:08:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -653,7 +903,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-05-21T04:14:55+00:00</updated>
+    <updated>2015-06-12T21:08:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -860,7 +1110,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-05-21T04:14:55+00:00</updated>
+    <updated>2015-06-12T21:08:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1058,7 +1308,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-05-21T04:14:55+00:00</updated>
+    <updated>2015-06-12T21:08:28+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1232,210 +1482,6 @@ require.config({
 &lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;여러 d3 예제들을 살펴보게 되면 존재하지 않는 요소를 선택하고 데이터를 바인드하는 경우가 많다. 이런 예제를 보면 selectAll과 append에서 왜 굳이 같은 요소를 사용하는 지 의문이 들것이다. 이 글에서는 여기서 무슨 일이 벌어지고 있는 건지, 무엇을 선택해야하는 하는 건지에 대해서 다뤘다. 실제로 여기서하는 작업은 빈 d3 selection 객체를 선택하는 일이고, 여기에 데이터를 바인드하고 바인드된 데이터에 대한 시각적 요소를 생성한다. 이것이 빈 HTML에서 javascript만으로 시각화를 시작하는 기본적인 방법이다. 이를 이해하고 나면 좀 더 수월하게 시각화를 &lt;strong&gt;시작&lt;/strong&gt;할 수 있을 것이다.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
-    <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
-    <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-05-21T04:14:55+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;p&gt;루비에서는 메서드를 괄호 없이 호출할 수 있습니다. 반면에 파이썬에서는 함수를 괄호 없이 사용하면, 함수 호출이 아니라 해당하는 이름을 가진 함수를 참조하게 됩니다. 이는 루비와 파이썬에서 변수와 함수가 존재하는 공간의 차이에서 비롯되는 차이로, 이 글에서는 루비와 파이썬의 함수(메서드) 호출과 함수 참조에 대한 문법 차이를 다룹니다. &lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2&gt;&lt;a name='발단'&gt;발단&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;blockquote class="twitter-tweet" data-conversation="none" lang="ko"&gt;&lt;p&gt;파이썬 프로그래머는 이 코드를 보면 a가 출력될 거라고 예상하는 것 같다. 루비 프로그래머라면 당연히 ab고...&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/status/544497910436466689"&gt;2014년 12월 15일&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-
-&lt;p&gt;반응이 있어서(?) 조금 정리해봅니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;b&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;arg2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="n"&gt;arg1&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;
-&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;실제로 저 코드를 보시면 무엇이 출력될 것이라고 예상되시나요? 재미있게도 이 코드는 자신이 주로 사용하는 언어에 따라서 그 결과가 다르게 보일 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;저는 루비를 주로 사용해왔고, 이 코드를 보면 그냥 당연히 ab가 출력될 것이라고 생각합니다. 더욱이 이 코드는 Ruby 코드이기 때문에 실제로 실행해봐도 ab가 출력됩니다. 이 코드를 이해하기 위한 핵심은 아래 코드에서&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;a와 b가 실제로는 메서드 호출이라는 점입니다. 루비에서는 a, b와 같은 이름이 주어지면 먼저 현재 맥락에서 이러한 이름을 가진 변수를 찾고, 변수를 찾지 못 하면 이러한 이름을 가진 메서드를 찾아서 호출합니다. 즉, f가 호출되는 시점에, &lt;code&gt;a&lt;/code&gt;와 &lt;code&gt;b&lt;/code&gt;는 각각 메서드 호출로 평가되어 그 반환값으로 치환됩니다. 따라서 이 시점에 &lt;code&gt;a&lt;/code&gt;와 &lt;code&gt;b&lt;/code&gt;가 실행되고, ab가 출력됩니다. 그리고 루비에서는 &lt;code&gt;return&lt;/code&gt; 메서드를 명시적으로 사용하지 않을 경우 메서드 본문의 마지막 문장의 평가 결과가 반환된다는 규칙에 따라 &lt;code&gt;print &amp;#39;a&amp;#39;&lt;/code&gt;의 평가 결과인 &lt;code&gt;nil&lt;/code&gt;이 반환됩니다. 따라서 &lt;code&gt;a&lt;/code&gt; 메서드는 a를 출력하고, nil을 반환하고, b 역시 같은 원리로 동작합니다. 이에 따라 실제로 &lt;code&gt;f(a, b)&lt;/code&gt;는 &lt;code&gt;f(nil, nil)&lt;/code&gt;을 호출한 것과 같습니다. 그리고 f함수 안에서 &lt;code&gt;arg1&lt;/code&gt;은 nil이기 때문에 &lt;code&gt;f(a, b)&lt;/code&gt;는 결과적으로 nil을 반환합니다.&lt;/p&gt;
-
-&lt;p&gt;Python 프로그래머에게 ab라는 출력 결과는 의아할 것입니다. 이 코드를 파이썬으로 치환해해보면 아래와 같습니다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;a&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;b&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;arg2&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;    &lt;span class="n"&gt;arg1&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;실제로 이 코드를 파이썬에서 실행하면 a가 출력됩니다. 이렇게 보면 앞선 루비 코드가 ab를 출력하는 일이 왜 의아한 일인지 알 수 있습니다. 이제 반대 입장에서 이는 루비 프로그래머 입장에서 보면 의아한 일입니다.&lt;/p&gt;
-
-&lt;p&gt;어째서 이런 일이 일어난 걸까요. 파이썬에서는 &lt;code&gt;a&lt;/code&gt;와 &lt;code&gt;b&lt;/code&gt;가 함수 호출이 아닙니다. a라는 이름으로 함수를 정의하고 나면 &lt;code&gt;a&lt;/code&gt;를 통해서 함수 자체에 접근할 수 있습니다. 즉 &lt;code&gt;f(a, b)&lt;/code&gt;에서 &lt;code&gt;a&lt;/code&gt;와 &lt;code&gt;b&lt;/code&gt;는 루비와 달리 함수 호출이 아니라, 함수 참조 자체를 f 함수에 넘기는 일이 됩니다. 따라서 f함수 내에서 &lt;code&gt;arg1()&lt;/code&gt;은 실제로는 &lt;code&gt;a()&lt;/code&gt;과 같은 표현이고, 따라서 a만 출력됩니다.&lt;/p&gt;
-
-&lt;blockquote class="twitter-tweet" data-conversation="none" lang="ko"&gt;&lt;p&gt;&lt;a href="https://twitter.com/nacyo_t"&gt;@nacyo_t&lt;/a&gt; 아무 일도 일어나지 않을 것 같은데요..?&lt;/p&gt;&amp;mdash; xymz (@extinctspecies_) &lt;a href="https://twitter.com/extinctspecies_/status/544805229816860672"&gt;2014년 12월 16일&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
-
-&lt;p&gt;이런 의견도 있었는데, 루비 코드를 파이썬 코드로 (뇌 내에서) 포팅할 때 f 함수의 본문을 &lt;code&gt;arg1&lt;/code&gt;로 보느냐 &lt;code&gt;arg()&lt;/code&gt;로 보느냐의 차이에서 오는 것으로 보입니다. &lt;code&gt;arg1()&lt;/code&gt;로 해석하면 &lt;code&gt;a()&lt;/code&gt;와 같이 함수 호출이 되어 a를 출력하지만, &lt;code&gt;arg1&lt;/code&gt;로 보면 단순히 함수 자체를 평가하는 일이 되서 아무일도 일어나지 않습니다(파이썬에는 루비와 같은 마지막 식을 반환한다는 규칙도 없으므로 아무것도 반환되지도 않습니다).&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;루비와 파이썬은 생각보다 다르다, 는 걸로.&lt;/p&gt;
-
-&lt;p&gt;이런 시각 차이는 두 가지 점에서 기인하는 듯 합니다. 하나는 단순한 문법 차이고, 하나는 언어 디자인 자체에 있습니다. 파이썬에서는 함수 정의와 다른 객체들에 대해 실질적인 차이 없이 접근할 수 있습니다만, 그런데 루비에서는 그렇지 않습니다. 루비에서 &lt;code&gt;self.method(:a)&lt;/code&gt;와 같이 메서드 객체를 참조하는 방법이 있긴합니다만, 다른 객체처럼 동등한 방법으로 접근할 방법은 없습니다. 오히려 그렇게 하면 메서드가 호출되어 버립니다. 심지어 &lt;code&gt;self.method(:a)&lt;/code&gt;와 같이 참조한 메서드를 호출하는 방법도 그냥 호출하면 안되고 &lt;code&gt;.call&lt;/code&gt; 메서드를 통해서 호출해야합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://www.facebook.com/ahastudio/posts/10152981560200929"&gt;아샬 님의 글&lt;/a&gt;도 참조해주세요.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='이-코드에-대해-나눈-대화-전문'&gt;이 코드에 대해 나눈 대화 전문&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 와 루비 이상해요&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 네???&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : &lt;br/&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;b&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;arg2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="n"&gt;arg1&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;
-&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 이거 결과가&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : ㅋ&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 아니&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 이렇게 되면 당연히&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 상식적으로(?)&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : a만 출력되야 하는거 아닌가요?&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 왜 그렇게 생각하시는 거죠?&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 궁금하네요. 왜 그렇게 생각하신 건지&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : ㅋㅋ&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 파이썬을 써서&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 파이썬에서는 a, b 가 그냥 함수인 변수인데 루비는 아닌가보죠?&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 왠지 도발한 느낌인데 ㅋㅋ&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 함수인 변수라는 게 무슨 말인지 모르겠네요;;;&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 도발이라는 건 아니고...&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 파이썬은 저렇게 하면&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : a가 결과잖아요&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 루비 &lt;strike&gt;게이&lt;/strike&gt;로서 이해가 안 되요.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 근데 루비는 ab가 나와서&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 그런가요?&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 파이썬에선 왜 a가 나오죠?&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 왜냐하면&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 안에서&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : arg1만 호출하니까&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : f라는 함수 안에서는&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : args1로 a가 넘어가는 거예요?&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 네&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : &amp;quot;a&amp;quot;&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 음. 파이썬도&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : a라는 함수인 변수가&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 넘어가니&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 아하.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : arg1가&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : a라는 함수가 넘어가니.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : a가 되는거죠&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 네&lt;br/&gt;
-&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : a는&lt;br/&gt;
-&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : a()&lt;br/&gt;
-&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : a = a()&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 파이썬 얘기 듣게요.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 근데&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 그렇게 되면 arg1은 뭐죠? 함수 안에서.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 이건 그냥 함수잖아요.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 그냥 함수죠&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 네&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 함수 호출도 아니고.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 파이썬은 그냥 함수&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 아&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 파이썬은 물론&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 그럼 왜 a가 찍히죠?&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : ()가 있어야 ..&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 아.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : ㅇㅋ 이해했습니다.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 루비는 ()가 없어도 호출 되길래&lt;br/&gt;
-&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : 음&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 원래 루비는 그렇게 호출하나보다 라고 생각을 ..&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 루비 해설해 드릴게요.&lt;br/&gt;
-&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : 루비는 함수를 넘기려면 어떻게 하지&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 루비는 함수를 못 넘깁니다.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 리터럴로는&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 아 ..&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 파이썬은 자바스크립트랑 비슷해요.&lt;br/&gt;
-&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : 아 뭔가 꼼수같은 방법 없나요?&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 저 소스 다시 써주세요.ㅜ&lt;br/&gt;
-&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : 애초에 그렇게 안해서 그런가 ㅋ&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : &lt;br/&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 를 이해할 필요가 있는데.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : &lt;br/&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;b&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;b&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;arg1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;arg2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="n"&gt;arg1&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;
-&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : a를 호출하면 a가 찍히겠죠?&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 넵&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 그러니까 f(a, b)에서&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 실제는 f(a(), b())이 되서,&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : a,b는 미리 출력됩니다.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 헐&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 그런거구나&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 그럼 어떻게 f()가 호출되는 거냐면.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : &lt;br/&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;a&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;span style="color:purple"&gt;&lt;strong&gt;s?????&lt;/strong&gt;&lt;/span&gt; : a -&amp;gt; a() 요것만 생각하면 이해가 쉬우실듯 ㅋㅋ&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 이 메서드의&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 반환값이&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : nil이에요.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 그러니까  실제로는 f(a,b)라고 생각하셨지만, 이 시점에서 함수 호출과 반환값으로 치환이 이루어지는 거죠.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 따라서 ab가 출력되고&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 아&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 헐 ..&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 실제 인자는 반환값이군요&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : f(nil, nil)을 호출하는 겁니다.&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 아 ..&lt;br/&gt;
-&lt;span style="color:blue"&gt;&lt;strong&gt;l?????&lt;/strong&gt;&lt;/span&gt; : 이해가 한 방에 됐네요 감사합니다. ㅜ&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : f 내부에서 args1이 nil이 되니까.&lt;br/&gt;
-&lt;span style="color:darkgreen"&gt;&lt;strong&gt;nacyot&lt;/strong&gt;&lt;/span&gt; : 저 함수는 ab를 출력하고 반환값이 nil이 되는 거죠&lt;br/&gt;&lt;/p&gt;
 </content>
   </entry>
 </feed>

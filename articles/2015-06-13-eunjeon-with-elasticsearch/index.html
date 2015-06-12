@@ -13,15 +13,15 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <link href='http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
 <link href='/articles/2015-05-21-d3js-in-jupyter/' rel='prev' title='주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화'>
-<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.' name='description'>
+<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 한국어 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고, 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
 <meta content='nacyot의 프로그래밍 이야기 :: 엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기' name='twitter:title'>
 <meta content='nacyot의 프로그래밍 이야기 :: 엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기' property='og:title'>
-<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.' name='twitter:description'>
-<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.' property='og:description'>
+<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 한국어 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고, 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.' name='twitter:description'>
+<meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 한국어 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고, 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/' name='twitter:url'>
@@ -133,14 +133,14 @@ Jun 13 2015
 </div>
 <div class='toc'></div>
 <div class='body'>
-<p>엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &quot;아버지가 방에 들어간다&quot;라는 문장을 인덱스해도 &quot;아버지&quot;로는 검색이 안 되고 반드시 &quot;아버지가&quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.</p>
+<p>엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &quot;아버지가 방에 들어간다&quot;라는 한국어 문장을 인덱스해도 &quot;아버지&quot;로는 검색이 안 되고, 반드시 &quot;아버지가&quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.</p>
 
 
 
 <h2><a name='tl;dr'>TL;DR</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
 
 <p>Docker를 사용해 한글 형태소 분석기가 적용된 엘라스틱서치를 바로 사용해볼 수 있다. 필요한 경우 (일반적으로 boot2docker 사용할 경우 사용하는 주소인) <code>192.168.59.103</code> 대신 적절한 주소로 대체한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -p 9200:9200 nacyot/elasticsearch-korean:1.6.0
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -p 9200:9200 nacyot/elasticsearch-korean
 </span><span id="line-2"><span class="nv">$ </span>curl -XPUT http://192.168.59.103:9200/korean/ -d <span class="s1">&#39;{&quot;settings&quot;: {&quot;index&quot;:{&quot;analysis&quot;:{&quot;analyzer&quot;:{&quot;korean&quot;:{&quot;type&quot;:&quot;custom&quot;,&quot;tokenizer&quot;:&quot;mecab_ko_standard_tokenizer&quot;}}}}}}&#39;</span>
 </span><span id="line-3"><span class="nv">$ </span>curl -XGET http://192.168.59.103:9200/korean/_analyze?analyzer<span class="o">=</span>korean<span class="se">\&amp;</span><span class="nv">pretty</span><span class="o">=</span><span class="nb">true</span> -d <span class="s1">&#39;아버지가 방에 들어간다&#39;</span> <span class="p">|</span> jq <span class="s1">&#39;.tokens[] | {token: .token, type: .type}&#39;</span>
 </span><span id="line-4">
@@ -175,7 +175,7 @@ Jun 13 2015
 
 <p>먼저 은전한잎을 설치한다. 은전한잎은 일본어 형태소 분석기 mecab를 한국어에 맞게 수정한 프로젝트로 mecab-ko라는 프로젝트 이름을 가지고 있다. 최신버전 및 자세한 내용은 <a href="https://bitbucket.org/eunjeon/mecab-ko">저장소</a>를 참고하기 바란다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># 의존성 설치</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">automake</span> <span class="n">perl</span>
+</span><span id="line-2"><span class="err">$</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">automake</span> <span class="n">perl</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span>
 </span><span id="line-3">
 </span><span id="line-4"><span class="cp"># mecab-ko 다운로드</span>
 </span><span id="line-5"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span>

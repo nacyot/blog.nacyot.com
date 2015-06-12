@@ -14,18 +14,18 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
     <published>2015-06-12T21:05:00+00:00</published>
-    <updated>2015-06-12T21:08:28+00:00</updated>
+    <updated>2015-06-12T21:27:03+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;p&gt;엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 동적으로 풀텍스트 검색을 하는 대신에 미리 인덱스를 해서 문장을 검색하기 때문에 매우 빠르게 원하는 결과를 찾을 수 있다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 전문 검색을 하고자 할 경우 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 여기서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 엘라스틱서치에서 사용하는 방법에 대해서 다룬다.&lt;/p&gt;
+    <content type="html">&lt;p&gt;엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 한국어 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고, 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.&lt;/p&gt;
 
 &lt;!--more--&gt;
 
 &lt;h2&gt;&lt;a name='tl;dr'&gt;TL;DR&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-flag'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;Docker를 사용해 한글 형태소 분석기가 적용된 엘라스틱서치를 바로 사용해볼 수 있다. 필요한 경우 (일반적으로 boot2docker 사용할 경우 사용하는 주소인) &lt;code&gt;192.168.59.103&lt;/code&gt; 대신 적절한 주소로 대체한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -p 9200:9200 nacyot/elasticsearch-korean:1.6.0
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker run -p 9200:9200 nacyot/elasticsearch-korean
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -XPUT http://192.168.59.103:9200/korean/ -d &lt;span class="s1"&gt;&amp;#39;{&amp;quot;settings&amp;quot;: {&amp;quot;index&amp;quot;:{&amp;quot;analysis&amp;quot;:{&amp;quot;analyzer&amp;quot;:{&amp;quot;korean&amp;quot;:{&amp;quot;type&amp;quot;:&amp;quot;custom&amp;quot;,&amp;quot;tokenizer&amp;quot;:&amp;quot;mecab_ko_standard_tokenizer&amp;quot;}}}}}}&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;curl -XGET http://192.168.59.103:9200/korean/_analyze?analyzer&lt;span class="o"&gt;=&lt;/span&gt;korean&lt;span class="se"&gt;\&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;pretty&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt; -d &lt;span class="s1"&gt;&amp;#39;아버지가 방에 들어간다&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; jq &lt;span class="s1"&gt;&amp;#39;.tokens[] | {token: .token, type: .type}&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-4"&gt;
@@ -60,7 +60,7 @@
 
 &lt;p&gt;먼저 은전한잎을 설치한다. 은전한잎은 일본어 형태소 분석기 mecab를 한국어에 맞게 수정한 프로젝트로 mecab-ko라는 프로젝트 이름을 가지고 있다. 최신버전 및 자세한 내용은 &lt;a href="https://bitbucket.org/eunjeon/mecab-ko"&gt;저장소&lt;/a&gt;를 참고하기 바란다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# 의존성 설치&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;perl&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;automake&lt;/span&gt; &lt;span class="n"&gt;perl&lt;/span&gt; &lt;span class="n"&gt;build&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;essential&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-3"&gt;
 &lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="cp"&gt;# mecab-ko 다운로드&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;opt&lt;/span&gt;
@@ -264,7 +264,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-20T23:45:00+00:00</published>
-    <updated>2015-06-12T21:08:28+00:00</updated>
+    <updated>2015-06-12T21:27:03+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -814,7 +814,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-06-12T21:08:28+00:00</updated>
+    <updated>2015-06-12T21:27:03+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -903,7 +903,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-06-12T21:08:28+00:00</updated>
+    <updated>2015-06-12T21:27:03+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1110,7 +1110,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-06-12T21:08:28+00:00</updated>
+    <updated>2015-06-12T21:27:03+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1308,7 +1308,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-06-12T21:08:28+00:00</updated>
+    <updated>2015-06-12T21:27:03+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

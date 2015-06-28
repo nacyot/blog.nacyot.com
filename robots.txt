@@ -1,7 +1,2 @@
 User-agent: *
 Allow: /
-Disallow: /tags/
-Disallow: /2013/
-Disallow: /2014/
-Disallow: /2015/
-Disallow: /2016/

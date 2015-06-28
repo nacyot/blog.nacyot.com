@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/tags/docker/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
+<meta content='도커(Docker)에 관련된 글 목록' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
-<meta content='nacyot의 프로그래밍 이야기' name='twitter:title'>
-<meta content='nacyot의 프로그래밍 이야기' property='og:title'>
-<meta content='' name='twitter:description'>
-<meta content='' property='og:description'>
+<meta content='nacyot의 프로그래밍 이야기 :: 도커(Docker)' name='twitter:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: 도커(Docker)' property='og:title'>
+<meta content='도커(Docker)에 관련된 글 목록' name='twitter:description'>
+<meta content='도커(Docker)에 관련된 글 목록' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/tags/docker/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/tags/docker/' property='og:url'>
-<meta content='' name='twitter:image'>
-<meta content='' property='og:image'>
-<meta content='' name='keywords'>
-<title>nacyot의 프로그래밍 이야기</title>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
+<meta content='도커(Docker)' name='keywords'>
+<title>nacyot의 프로그래밍 이야기 :: 도커(Docker)</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,122 +42,722 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
-
-
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
 <div class='wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
 </a>
+</h1>
 </div>
-<h1 class='title'>태그 > Docker</h1>
-<div class='description'></div>
-</div>
+
+<h1 class='subtitle'>도커(Docker) 목록</h1>
 <div class='main'>
 <div id='container'>
+<div class='row'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2015-06-13-eunjeon-with-elasticsearch/">엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</a>
+</h1>
 <div>
 <span class='date'>
-Aug  5 2014
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2015년 06월 13일 발행
 </span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-08-04-docker-korea-secord/">Docker Korea 스터디 그룹 두번째 모임</a>
-</h2>
 <div class='summary'>
-<p>얼마 전 &#39;<span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker_korea' rel='noindex,nofollow'>도커 코리아</a></span>&#39;라는 이름으로 <a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/">스터디를 진행한다는 이야기</a>를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 <a href="http://onoffmix.com/event/31354">도커 코리아 두번째 모임</a>을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/remotty'>리모티</a></span> 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)</p>
-••••••
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/DxnlLeu.jpg" />
+</div>
+<p>엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &quot;아버지가 방에 들어간다&quot;라는 한국어 문장을 인덱스해도 &quot;아버지&quot;로는 검색이 안 되고, 반드시 &quot;아버지가&quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.</p>
+
+<span class='link'>
+<a href="../../articles/2015-06-13-eunjeon-with-elasticsearch/">계속 읽기</a>
+</span>
 </div>
 <div class='tags'>
 <i class='fa fa-tag'></i>
-<a href='/tags/CoreOS'>CoreOS</a>
+<a href='/tags/docker'>docker</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Docker'>Docker</a>
+<a href='/tags/elasticsearch'>elasticsearch</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Docker-Korea'>Docker Korea</a>
+<a href='/tags/eunjeon'>eunjeon</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Elasticsearch'>Elasticsearch</a>
+<a href='/tags/mecab'>mecab</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Fleet'>Fleet</a>
+<a href='/tags/morphology'>morphology</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Ghost'>Ghost</a>
+<a href='/tags/programming'>programming</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Grafana'>Grafana</a>
+<a href='/tags/search_engine'>search_engine</a>
+</div>
+<div class='barcode' data-title='엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-08-08-rails-on-docker/">도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 08월 08일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/8GK2rbA.jpg" />
+</div>
+<p>이 글은 지난 6월 10일 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rorlab' rel='nofollow'>RORLab</a></span>에서 발표한 &#39;도커(Docker)로 루비 온 레일스 어플리케이션 배포하기&#39;를 정리한 문서입니다. 발표 자료는 <a href="https://www.facebook.com/naverd2/posts/505653179563380">페이스북 페이지</a>를 참조해주세요. 먼저 이미지와 컨테이너 소개 및 이미지 생성에 대해서 다룬 앞 부분은 이전에 작성했던 문서 &#39;<a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>&#39;로 대체합니다.</p>
+
+<p>이 글은 두 편으로 나눠서 공개할 예정입니다. 먼저 이 글에서는 Docker를 사용해 Ruby on Rails 어플리케이션을 도커 이미지화하는 법에 대해서 다룹니다. 그리고 다음 글에서는 이미지화한 어플리케이션을 실제로 어떻게 배포하는 지와 간단한 스케일 아웃 예제를 소개합니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-08-08-rails-on-docker/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
 <i class='fa fa-tag'></i>
-<a href='/tags/Graphite'>Graphite</a>
+<a href='/tags/deployment'>deployment</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Kibana'>Kibana</a>
+<a href='/tags/devops'>devops</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Remotty'>Remotty</a>
+<a href='/tags/docker'>docker</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/Service-Discovery'>Service Discovery</a>
+<a href='/tags/dockerfile'>dockerfile</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby_on_rails'>ruby_on_rails</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/the_twelve_factor_app'>the_twelve_factor_app</a>
+</div>
+<div class='barcode' data-title='도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-news-top' style='width: 33.333333333333336%'></div>
+<div class='category category-infrastructure-top' style='width: 33.333333333333336%'></div>
+<div class='category category-programming-top' style='width: 33.333333333333336%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-08-04-docker-korea-secord/">Docker Korea 스터디 그룹 두번째 모임</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<i class='fa fa-newspaper-o' style='color: #bcbd22'></i>
+새소식
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 08월 05일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/9A89h4Y.jpg" />
+</div>
+<p>얼마 전 &#39;<span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker_korea' rel='nofollow'>도커 코리아</a></span>&#39;라는 이름으로 <a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/">스터디를 진행한다는 이야기</a>를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 <a href="http://onoffmix.com/event/31354">도커 코리아 두번째 모임</a>을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/remotty'>리모티</a></span> 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)</p>
+
+<span class='link'>
+<a href="../../articles/2014-08-04-docker-korea-secord/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/consul'>consul</a>
 <i class='fa fa-tag'></i>
+<a href='/tags/coreos'>coreos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_korea'>docker_korea</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
 <a href='/tags/etcd'>etcd</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/고스트'>고스트</a>
+<a href='/tags/fleet'>fleet</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
+<a href='/tags/ghost'>ghost</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/로그'>로그</a>
+<a href='/tags/grafana'>grafana</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/리모티'>리모티</a>
+<a href='/tags/graphite'>graphite</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/메트릭스'>메트릭스</a>
+<a href='/tags/infrastructure'>infrastructure</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/스터디'>스터디</a>
+<a href='/tags/kibana'>kibana</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/스페이스-노아'>스페이스 노아</a>
+<a href='/tags/log'>log</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/토즈'>토즈</a>
+<a href='/tags/metrics'>metrics</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/파이썬'>파이썬</a>
+<a href='/tags/news'>news</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/포럼'>포럼</a>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python'>python</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/remotty'>remotty</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/service_discovery'>service_discovery</a>
 </div>
+<div class='barcode' data-title='Docker Korea 스터디 그룹 두번째 모임'></div>
 </div>
 
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-news-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-07-26-docker-korea/">Docker Korea 스터디 그룹</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/news' title='새소식(News) 목록'>
+<i class='fa fa-newspaper-o' style='color: #bcbd22'></i>
+새소식
+</a>
+<i class='fa fa-calendar'></i>
+2014년 07월 26일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/zl97L6z.jpg" />
+</div>
+<ul>
+<li><a href="http://www.shomney.com">함께 쓰는 가계부 Shomney</a></li>
+</ul>
+
+<p>현재 저는 <a href="http://blog.remotty.com/about/">Remotty</a>라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.</p>
+
+<p>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/space_noah' rel='nofollow'>스페이스 노아</a></span>에서 첫 모임을 가졌습니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-07-26-docker-korea/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_korea'>docker_korea</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/immutable_infrastructure'>immutable_infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/news'>news</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/remotty'>remotty</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/shomney'>shomney</a>
+</div>
+<div class='barcode' data-title='Docker Korea 스터디 그룹'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 07월 25일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/2Omobwt.jpg" />
+</div>
+<p>시스템 <span class='live_link'><a href='http://wiki.nacyot.com/documents/monitoring'>모니터링</a></span>에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rrdtool' rel='nofollow'>rrdtool</a></span>로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/metrics' rel='nofollow'>metrics</a></span>) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.</p>
+
+<p><img src="http://i.imgur.com/egJIriw.png" alt="rrdtool">
+<div class="shape-title">rrdtool</div></p>
+
+<span class='link'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/carbon'>carbon</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dashboard'>dashboard</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/grafana'>grafana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/graphite'>graphite</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/kibana'>kibana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/monitoring'>monitoring</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/timeserise_database'>timeserise_database</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/volume_container'>volume_container</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/whisper'>whisper</a>
+</div>
+<div class='barcode' data-title='그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-05-08-docker-registry-introduction/">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 05월 08일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ilkin2F.jpg" />
+</div>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 <span class='live_link'><a href='http://wiki.nacyot.com/documents/dockerfile'>Dockerfile</a></span>을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-05-08-docker-registry-introduction/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/aws'>aws</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_registry'>docker_registry</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/s3'>s3</a>
+</div>
+<div class='barcode' data-title='도커 레지스트리(Docker Registry) 설치하기 + S3 연동'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-software-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 19일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/Jag0s9f.jpg" />
+</div>
+<p>드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이 글에서는 테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. </p>
+
+<span class='link'>
+<a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/apt_get'>apt_get</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/digital_ocean'>digital_ocean</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tugboat'>tugboat</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu_14_04'>ubuntu_14_04</a>
+</div>
+<div class='barcode' data-title='우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-04-06-immutable-infrastructure/">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 06일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ro7ZK8t.jpg" />
+</div>
+<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/immutable_infrastructure'>immutable infrastructure</a></span>을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/aws' rel='nofollow'>AWS</a></span> AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/heroku' rel='nofollow'>Heroku</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/travis'>Travis</a></span> 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/chef' rel='nofollow'>Chef</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/puppet' rel='nofollow'>Puppet</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>Docker</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/vagrant'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/packer' rel='nofollow'>Packer</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/serf' rel='nofollow'>Serf</a></span>와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
+
+<ul>
+<li><a href="/presentations/immutable_infrastructure">Immutable Infrastructure 발표 자료</a></li>
+</ul>
+
+<span class='link'>
+<a href="../../articles/2014-04-06-immutable-infrastructure/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/immutable_infrastructure'>immutable_infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programer'>programer</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+</div>
+<div class='barcode' data-title='이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-02-11-dokcer-08-on-macosx/">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 02월 11일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/hEFPXW5.jpg" />
+</div>
+<p>[도커][docker]는 리눅스 위에서 격리된 또 다른 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/linux' rel='nofollow'>리눅스</a></span> 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 [도커(Docker) 소개 글][docker<em>introduction]을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 &lt;span class=&#39;dead</em>link&#39;&gt;<a href='http://wiki.nacyot.com/documents/macosx' rel='nofollow'>맥</a></span>을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-02-11-dokcer-08-on-macosx/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/boot2docker'>boot2docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/coreos'>coreos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/lxc'>lxc</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/osx'>osx</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/virtual_machine'>virtual_machine</a>
+</div>
+<div class='barcode' data-title='도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-01-30-github-hook-api-slack-sample/">깃허브(Github) 후크 API와 슬랙(Slack)에 알림 전달하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 01월 30일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/18BQZ7e.jpg" />
+</div>
+<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(<span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>Git</a></span>)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
+
+<p>깃허브([Github][github])에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 [실제 코드][github-service]를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-01-30-github-hook-api-slack-sample/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/api'>api</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/git'>git</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>github</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/gollum'>gollum</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/hipchat'>hipchat</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/padrino'>padrino</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/slack'>slack</a>
+</div>
+<div class='barcode' data-title='깃허브(Github) 후크 API와 슬랙(Slack)에 알림 전달하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-01-30-deploying-application-with-dokku/">도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 01월 30일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/e8TYHYx.jpg" />
+</div>
+<p>지난 번 [도커][docker] 시리즈의 첫번째 글에서는 [도커(Docker) 튜토리얼 : 깐 김에 배포까지][docker-1] 도커를 설치하고 이미지와 컨테이너의 개념 그리고 마지막으로 Dockerfile을 통해서 이미지를 생성하고 실제로 배포하는 부분까지 다뤄봤습니다. 이번 글에서는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>를 활용해 간단히 어플리케이션 배포 서버를 구축할 수 있게 도와주는 [도쿠]<a href="Dokku">dokku</a>를 다루도록 하겠습니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-01-30-deploying-application-with-dokku/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/buildpack'>buildpack</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dokku'>dokku</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/heroku'>heroku</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/iaas'>iaas</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/nginx'>nginx</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/paas'>paas</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tutorial'>tutorial</a>
+</div>
+<div class='barcode' data-title='도쿠(Dokku)로 만드는 미니 히로쿠(Heroku)'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<span class='featured'>
+<i class='fa fa-star'></i>
+</span>
+<a href="../../articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 01월 27일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/GEcrPFc.jpg" />
+</div>
+<p>도커(Docker)는 2013년에 등장한 새로운 컨테이너 기반 가상화 도구입니다. 도커는 계층화된 파일시스템(AUFS, BTRFS 등)을 사용해 가상화된 컨테이너의 변경사항을 모두 추적하고 관리합니다. 이를 통해서 컨테이너의 특정 상태를 항상 보존해두고, 필요할 때 언제 어디서나(단, Docker가 설치만 되어있다면) 이를 실행할 수 있도록 도와주는 도구입니다. 이 글은 Docker 입문자를 위한 튜토리얼로, 도커의 기본 개념들과 사용법에 대해서 소개합니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-01-27-easy-deploy-with-docker/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/centos'>centos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dockerfile'>dockerfile</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/lxc'>lxc</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/moniwiki'>moniwiki</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tutorial'>tutorial</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+</div>
+<div class='barcode' data-title='도커(Docker) 튜토리얼 : 깐 김에 배포까지'></div>
+</div>
+
+</div>
+<div class='col-lg-2 col-md-2'></div>
+</div>
+</div>
+<div class='pagination'>
 </div>
 </div>
 
@@ -164,24 +766,41 @@ Aug  5 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

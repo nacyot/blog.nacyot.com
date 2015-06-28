@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2014-08-04-docker-korea-secord/' rel='prev' title='Docker Korea 스터디 그룹 두번째 모임'>
 <link href='/articles/2014-12-17-diffrence-of-ruby-and-python/' rel='next' title='루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이'>
 <meta content='이 글은 지난 6월 10일 RORLab에서 발표한 &amp;#39;도커(Docker)로 루비 온 레일스 어플리케이션 배포하기&amp;#39;를 정리한 문서입니다. 발표 자료는 페이스북 페이지를 참조해주세요. 먼저 이미지와 컨테이너 소개 및 이미지 생성에 대해서 다룬 앞 부분은 이전에 작성했던 문서 &amp;#39;도커(Docker) 튜토리얼 : 깐 김에 배포까지&amp;#39;로 대체합니다.이 글은 두 편으로 나눠서 공개할 예정입니다. 먼저 이 글에서는 Docker를 사용해 Ruby on Rails 어플리케이션을 도커 이미지화하는 법에 대해서 다룹니다. 그리고 다음 글에서는 이미지화한 어플리케이션을 실제로 어떻게 배포하는 지와 간단한 스케일 아웃 예제를 소개합니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='ruby, docker, rails, deploy, devops, dockerfile, 루비, 도커, 레일스, 배포, 서버, 서버 운영, The Twelve Factor App' name='keywords'>
+<meta content='http://i.imgur.com/8GK2rbA.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/8GK2rbA.jpg' property='og:image'>
+<meta content='ruby, docker, ruby_on_rails, deployment, devops, dockerfile, the_twelve_factor_app, programming, infrastructure' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,112 +44,100 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Aug  8 2014
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/The-Twelve-Factor-App'>The Twelve Factor App</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/deploy'>deploy</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/devops'>devops</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/dockerfile'>dockerfile</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/rails'>rails</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ruby'>ruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/레일스'>레일스</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/루비'>루비</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/배포'>배포</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/서버'>서버</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/서버-운영'>서버 운영</a>
-</span>
+<div class='category category-infrastructure-top' style='width: 50.0%'>
 </div>
-<a name='toc'></a>
+</div>
 <h1 class='title'>
 <a href="./">도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 08월 08일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/8GK2rbA.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
-<p>이 글은 지난 6월 10일 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rorlab' rel='noindex,nofollow'>RORLab</a></span>에서 발표한 &#39;도커(Docker)로 루비 온 레일스 어플리케이션 배포하기&#39;를 정리한 문서입니다. 발표 자료는 <a href="https://www.facebook.com/naverd2/posts/505653179563380">페이스북 페이지</a>를 참조해주세요. 먼저 이미지와 컨테이너 소개 및 이미지 생성에 대해서 다룬 앞 부분은 이전에 작성했던 문서 &#39;<a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>&#39;로 대체합니다.</p>
+<p>이 글은 지난 6월 10일 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rorlab' rel='nofollow'>RORLab</a></span>에서 발표한 &#39;도커(Docker)로 루비 온 레일스 어플리케이션 배포하기&#39;를 정리한 문서입니다. 발표 자료는 <a href="https://www.facebook.com/naverd2/posts/505653179563380">페이스북 페이지</a>를 참조해주세요. 먼저 이미지와 컨테이너 소개 및 이미지 생성에 대해서 다룬 앞 부분은 이전에 작성했던 문서 &#39;<a href="http://blog.nacyot.com/articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>&#39;로 대체합니다.</p>
 
 <p>이 글은 두 편으로 나눠서 공개할 예정입니다. 먼저 이 글에서는 Docker를 사용해 Ruby on Rails 어플리케이션을 도커 이미지화하는 법에 대해서 다룹니다. 그리고 다음 글에서는 이미지화한 어플리케이션을 실제로 어떻게 배포하는 지와 간단한 스케일 아웃 예제를 소개합니다.</p>
 
 
 
-<h2><a name='도커로-어플리케이션-배포하기'>도커로 어플리케이션 배포하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='도커로-어플리케이션-배포하기'>도커로 어플리케이션 배포하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p><span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>는 다양한 용도로 사용 가능하지만, 가장 원초적인 목적은 어플리케이션 배포에 있다. 또한 이미지를 기반으로 한 도커의 방식에 따라 도커를 통해 어플리케이션을 배포한다는 의미는 개발한 어플리케이션과 어플리케이션을 둘러싼 어플리케이션이 실행가능한 환경 전체를 이미지화한다는 의미를 가지고 있다.</p>
 
@@ -158,7 +147,7 @@ Aug  8 2014
 
 <p>이렇게 빌드된 이미지는 어플리케이션 + 실행환경은 하나의 세트로 포함하고 있으며, 따라서 도커 서버가 설치된 곳이라면 어디에서든지 &#39;당장&#39;에 &#39;정상적으로&#39; 실행가능하다. 다시 한 번 이야기하지만, 도커를 통해서 어플리케이션을 배포한다는 의미는 어플리케이션을 포함하는 이미지를 생성하고 관리한다는 의미이다.</p>
 
-<h2><a name='레일스-어플리케이션'>레일스 어플리케이션</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='레일스-어플리케이션'>레일스 어플리케이션</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>이 글에서 배포하는 어플리케이션은 <code>rails new</code>로 생성되는 사실은 속에 아무것도 없는 어플리케이션이다. 물론 훨씬 더 개발이 진행된 어플리케이션에서는 고려해야할 사항이 훨씬 더 많이 있겠지만, 그런 문제들은 도커를 통한 배포의 문제라기보다는 서버 구성이나 레일스 내부적으로 결정해야할 문제라고 할 수 있다. 도커를 통해서 이미지를 만드는 과정 자체는 근본적으로 다르지 않을 것이다. 단지 좀 더 많은 설정이 필요하고, 좀 더 많고, 정교한 의존성 관리가 필요한 것 뿐이다.</p>
 
@@ -174,7 +163,7 @@ Aug  8 2014
 <li><a href="https://github.com/nacyot/rails-new-dockerfile">nacyot/rails-new-dockerfile</a></li>
 </ul>
 
-<h3><a name='이미지-생성-준비-작업'>이미지 생성 준비 작업</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='이미지-생성-준비-작업'>이미지 생성 준비 작업</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저 작업을 진행하기 위해 위에서 언급한 저장소를 작업 디렉토리에 clone한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># 샘플 레일스 프로젝트 클론</span>
@@ -188,7 +177,7 @@ Aug  8 2014
 </span><span id="line-2">drwxrwxr-x 13 nacyot nacyot 4096 Jun 10 20:50 docker-sample-project
 </span><span id="line-3">drwxrwxr-x 10 nacyot nacyot 4096 Jun 11 21:08 rails-new-dockerfile
 </span></pre></div>
-<h2><a name='v0.0'>v0.0</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='v0.0'>v0.0</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p><code>docker-sample-project</code>는 <code>rails new</code> 명령어로 생성되었다. <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby_on_rails'>레일스</a></span>를 사용해본 사람이라면 바로 이해하겠지만 <code>rails new</code> 명령어는 레일스 프로젝트의 뼈대를 만들어준다. 프로그래머는 이 뼈대에 자신이 필요한 것들을 붙여나가면서 어플리케이션을 만들어나간다.</p>
 
@@ -202,7 +191,7 @@ Aug  8 2014
 </span></pre></div>
 <p>익숙한 레일스 프로젝트를 볼 수 있다.</p>
 
-<h2><a name='v0.1-procfile-&amp;-serve-static-assets-옵션'>v0.1 Procfile &amp; serve static assets 옵션</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='v0.1-procfile-&amp;-serve-static-assets-옵션'>v0.1 Procfile &amp; serve static assets 옵션</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>먼저 처음으로 배포할 태그 <code>v0.1</code>은 <code>rails new</code>로 프로젝트를 생성한 이후 약간의 수정을 거쳤다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>git checkout v0.1
@@ -219,21 +208,21 @@ Aug  8 2014
 </span></pre></div>
 <p>diff를 통해 <code>v0.1</code>에서는 두 개의 파일이 변경된 것을 확인할 수 있다.</p>
 
-<h3><a name='procfile'>Procfile</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='procfile'>Procfile</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>cat Procfile
 </span><span id="line-2">web: bundle <span class="nb">exec </span>rails server -p 60005
 </span></pre></div>
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/procfile' rel='noindex,nofollow'>Procfile</a></span>은 어플리케이션의 실행단위를 정의한다. 예를 들어 하나의 어플리케이션은 여러개의 프로세스로 구성될 수 있다. 가장 기본적인 프로세스는 단연 웹 서버일 것이다. 부가적으로 백그라운드 작업을 하는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/sidekiq'>sidekiq</a></span>이 있을 수도 있고, 중간 cache_db가 있을 수도 있다. 일반적인 서버 운영시에는 필요한 프로세스를 각각 실행시킨다. 하지만 이러한 프로세스들은 하나로 모아야만 하나의 어플리케이션이 정상적으로 실행될 수 있다면, 그것들을 한꺼번에 실행시키는 것이 더 합리적일 것이다. Procfile에는 바로 이러한 어플리케이션 실행 단위를 정의한다. 여기서는 아직 레일스 기본 웹서버밖에 없으므로 특별한 내용은 없다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/procfile' rel='nofollow'>Procfile</a></span>은 어플리케이션의 실행단위를 정의한다. 예를 들어 하나의 어플리케이션은 여러개의 프로세스로 구성될 수 있다. 가장 기본적인 프로세스는 단연 웹 서버일 것이다. 부가적으로 백그라운드 작업을 하는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/sidekiq'>sidekiq</a></span>이 있을 수도 있고, 중간 cache_db가 있을 수도 있다. 일반적인 서버 운영시에는 필요한 프로세스를 각각 실행시킨다. 하지만 이러한 프로세스들은 하나로 모아야만 하나의 어플리케이션이 정상적으로 실행될 수 있다면, 그것들을 한꺼번에 실행시키는 것이 더 합리적일 것이다. Procfile에는 바로 이러한 어플리케이션 실행 단위를 정의한다. 여기서는 아직 레일스 기본 웹서버밖에 없으므로 특별한 내용은 없다.</p>
 
 <p>참고로 포트를 60005번으로 지정한 것은 3000번 포트를 자주 사용하므로 편의상 이동시킨 것뿐이고, 특별한 의미는 없다.</p>
 
-<p>이 Procfile은 루비의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/foreman' rel='noindex,nofollow'>foreman</a></span>이라는 Gem을 사용해서 실행한다. 이는 뒤에서 Dockerfile을 검토할 때 다룬다.</p>
+<p>이 Procfile은 루비의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/foreman' rel='nofollow'>foreman</a></span>이라는 Gem을 사용해서 실행한다. 이는 뒤에서 Dockerfile을 검토할 때 다룬다.</p>
 
-<h3><a name='serve-static-assets-옵션'>serve static assets 옵션</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='serve-static-assets-옵션'>serve static assets 옵션</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
-<p>두번째로 변경한 부분은 <code>produciton.rb</code>(프로덕션 환경 설정)에서 <code>serve_static_assets</code> 옵션을 <code>true</code>로 지정한 부분이다. 개발(development) 모드에서는 레일스 서버가 <code>./public</code> 디렉토리 아래의 파일들을 직접 응답해준다. 하지만 프로덕션 환경에서는 그렇지 않다. 이는 실제 프로덕션 환경에서는 이러한 정적 파일들을 레일스 서버가 아니라 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/nginx' rel='noindex,nofollow'>nginx</a></span>나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/apache' rel='noindex,nofollow'>apache</a></span>와 같은 이런 역할에 좀 더 충실한 서버들을 활용해서 전달될 것을 기대하기 때문이다. 그리고 실제로 그렇게 사용하는 것이 정상적인 구성이다. 하지만 여기서는 해당하는 구성을 하지 않으므로 에러 페이지를 비롯한 기본적인 정적 파일에 응답하기 위해 이 옵션을 활성화한다.</p>
+<p>두번째로 변경한 부분은 <code>produciton.rb</code>(프로덕션 환경 설정)에서 <code>serve_static_assets</code> 옵션을 <code>true</code>로 지정한 부분이다. 개발(development) 모드에서는 레일스 서버가 <code>./public</code> 디렉토리 아래의 파일들을 직접 응답해준다. 하지만 프로덕션 환경에서는 그렇지 않다. 이는 실제 프로덕션 환경에서는 이러한 정적 파일들을 레일스 서버가 아니라 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/nginx' rel='nofollow'>nginx</a></span>나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/apache' rel='nofollow'>apache</a></span>와 같은 이런 역할에 좀 더 충실한 서버들을 활용해서 전달될 것을 기대하기 때문이다. 그리고 실제로 그렇게 사용하는 것이 정상적인 구성이다. 하지만 여기서는 해당하는 구성을 하지 않으므로 에러 페이지를 비롯한 기본적인 정적 파일에 응답하기 위해 이 옵션을 활성화한다.</p>
 
-<h3><a name='v0.1-이미지-생성하기'>v0.1 이미지 생성하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='v0.1-이미지-생성하기'>v0.1 이미지 생성하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>여기까지 간략하게 <code>v0.1</code>이 어떻게 변경되었는 지를 살펴보았다. 그렇다면 여기서부터는 실제로 <code>v0.1</code> 프로젝트를 이미지로 만들 것이다. 이를 위해서는 이러한 일련의 과정을 기술한 Dockerfile을 준비해야한다. 이 파일은 앞서서 클론 받은 <code>rails-new-dockerfile</code> 디렉토리에 포함되어 있다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span><span class="nb">cd</span> ../rails-new-dockerfile/v0.1
@@ -242,7 +231,7 @@ Aug  8 2014
 </span></pre></div>
 <p>이 디렉토리에는 Dockerfile 하나만 덩그러니 들어있다.</p>
 
-<h3><a name='dockerfile(v0.1)'>Dockerfile(v0.1)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='dockerfile(v0.1)'>Dockerfile(v0.1)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저 빌드에 앞서 도커 파일을 살펴보도록하자.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">FROM</span> <span class="n">dockerfile</span><span class="o">/</span><span class="n">ubuntu</span>
@@ -280,19 +269,19 @@ Aug  8 2014
 </span></pre></div>
 <p>계속해서 사용할 Dockerfile이므로 각각의 부분에 대해서 좀 더 자세히 살펴보자.</p>
 
-<h4><a name='베이스-이미지-지정'>베이스 이미지 지정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='베이스-이미지-지정'>베이스 이미지 지정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="n">FROM</span> <span class="n">dockerfile</span><span class="o">/</span><span class="n">ubuntu</span>
 </span></pre></div>
 <p><code>FROM</code>은 이 Dockerfile을 빌드할 때 사용할 베이스 이미지를 지정한다. 지정 방식은 이미지를 나타내는 해시값이나 이름을 지정할 수 있다.</p>
 
 <p>여기서 사용한 <code>dockerfile/ubuntu</code>는 공식 <code>ubuntu:14.04</code>에 약간의 기본적인 설정이 가미된 이미지이다. <a href="http://dockerfile.github.io/#/ubuntu">Dockerfile Project</a>는 비슷한 종류의 확장된 기본 이미지를 다수 제공한다.</p>
 
-<h4><a name='dockerfile-관리자-지정'>Dockerfile 관리자 지정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='dockerfile-관리자-지정'>Dockerfile 관리자 지정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="n">MAINTAINER</span> <span class="n">nacyot</span><span class="p">(</span><span class="n">propellerheaven</span><span class="err">@</span><span class="n">gmail</span><span class="p">.</span><span class="n">com</span><span class="p">)</span>
 </span></pre></div>
 <p><code>MAINTAINER</code>는 이 Dockerfile을 관리하는 사람을 명시적으로 알려준다.</p>
 
-<h4><a name='기본-라이브러리-설치'>기본 라이브러리 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='기본-라이브러리-설치'>기본 라이브러리 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># Run upgrades</span>
 </span><span id="line-2"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 </span><span id="line-3">
@@ -303,7 +292,7 @@ Aug  8 2014
 
 <p>다음으로는 <code>apt-get install</code> 명령어로 기본 패키지들을 설치한다. 이는 필요에 따라서 유동적이다. 여기서는 다른 어플리케이션 빌드 과정에서 필요한 패키지들과 어플리케이션을 저장소에서 가져올 수 있도록 git을 미리 설치한다.</p>
 
-<h4><a name='루비-설치하기'>루비 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='루비-설치하기'>루비 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># Install Ruby 2.1</span>
 </span><span id="line-2"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">add</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">brightbox</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="n">ng</span>
 </span><span id="line-3"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
@@ -314,18 +303,18 @@ Aug  8 2014
 </span></pre></div>
 <p>루비에는 현재 기본적으로 패키지 관리를 위한 <code>gem</code> 명령어를 포함한다. 이는 시스템 단위의 패키지 관리를 해주는 툴이므로 어플리케이션 단위의 의존성 관리를 위한 <code>bundler</code>를 설치할 필요가 있다. 이를 설치해준다.</p>
 
-<h4><a name='레일스-어플리케이션-실행을-위한-시스템-패키지-설치'>레일스 어플리케이션 실행을 위한 시스템 패키지 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='레일스-어플리케이션-실행을-위한-시스템-패키지-설치'>레일스 어플리케이션 실행을 위한 시스템 패키지 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">qq</span> <span class="o">-</span><span class="n">y</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span>
 </span><span id="line-2"><span class="n">RUN</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">qq</span> <span class="o">-</span><span class="n">y</span> <span class="n">nodejs</span>
 </span></pre></div>
-<p>여기에는 함정에 빠진 초보 레일스 개발자를 구해줄 마법같은 명령어들이 있다. 레일스는 특별히 설정하지 않으면 기본적으로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/sqlite3' rel='noindex,nofollow'>sqlite3</a></span>를 사용한다. 그런데 <code>bundle install</code>을 실행하면 sqlite3 Gem 부분에서 에러가 나는 경우가 많다. 위의 패키지를 설치하면 해당하는 문제가 마법같이 해결된다.</p>
+<p>여기에는 함정에 빠진 초보 레일스 개발자를 구해줄 마법같은 명령어들이 있다. 레일스는 특별히 설정하지 않으면 기본적으로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/sqlite3' rel='nofollow'>sqlite3</a></span>를 사용한다. 그런데 <code>bundle install</code>을 실행하면 sqlite3 Gem 부분에서 에러가 나는 경우가 많다. 위의 패키지를 설치하면 해당하는 문제가 마법같이 해결된다.</p>
 
 <p>아래 <span class='live_link'><a href='http://wiki.nacyot.com/documents/nodejs'>nodejs</a></span> 패키지도 마찬가지다. nodejs 패키지 설치없이 <code>bundle install</code>을 설치하면 시스템에 자바스크립트 런타임이 없다는 이유로 bundle이 제대로 이루어지지 못 한다. nodejs를 설치하면 이러한 문제가 해결된다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">RUN</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">foreman</span> <span class="n">compass</span>
 </span></pre></div>
-<p>추가적으로 루비 패키지들을 설치해준다. foreman은 앞서서 소개한 Procfile을 실행시켜주는 Gem이다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/compass' rel='noindex,nofollow'>compass</a></span>는 에셋 컴파일에 사용된다.</p>
+<p>추가적으로 루비 패키지들을 설치해준다. foreman은 앞서서 소개한 Procfile을 실행시켜주는 Gem이다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/compass' rel='nofollow'>compass</a></span>는 에셋 컴파일에 사용된다.</p>
 
-<h4><a name='레일스-어플리케이션-설치하기'>레일스 어플리케이션 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='레일스-어플리케이션-설치하기'>레일스 어플리케이션 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 
 <p>여기까지가 기본적인 시스템 설정이었다면 여기부터가 직접 만든 어플리케이션을 설치하는 부분이다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">WORKDIR</span> <span class="o">/</span><span class="n">app</span>
@@ -339,7 +328,7 @@ Aug  8 2014
 </span></pre></div>
 <p>프로덕션 모드에서 배포를 위한 레일스 의존성을 설치한다. 특별히 어려울 건 전혀없다. 앞서서 <code>bundle</code> 실행시 발생할 수 있는 문제들을 해결하기 위한 패키지들도 미리 설치해두었기 때문에 별 무리없이 설치가 진행될 것이다.</p>
 
-<h4><a name='환경변수-지정하기'>환경변수 지정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='환경변수-지정하기'>환경변수 지정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="n">ENV</span> <span class="n">RAILS_ENV</span> <span class="n">production</span>
 </span><span id="line-2"><span class="n">ENV</span> <span class="n">SECRET_KEY_BASE</span> <span class="n">hellodocker</span>
 </span></pre></div>
@@ -349,12 +338,12 @@ Aug  8 2014
 
 <p>또한 production 모드에서는 <code>secret_token</code>이 기본적으로 설정되어있지 않다. 이를 지정하기 위해서는 <code>SECRET_KEY_BASE</code> 환경변수를 사용해야한다. 적당한 값을 지정해주면 된다.</p>
 
-<h4><a name='포트-노출하기'>포트 노출하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='포트-노출하기'>포트 노출하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="n">EXPOSE</span> <span class="mi">60005</span>
 </span></pre></div>
 <p><code>EXPOSE</code> 지시자는 실행된 도커 컨테이너에서 외부에 노출 가능한 포트를 지정한다. 앞서 언급한 바 있듯이 이 글에서는 편의상 서버를 60005번으로 사용한다. 따라서 컨테이너의 60005번 포트를 노출시킨다.</p>
 
-<h4><a name='기본-명령어-지정하기'>기본 명령어 지정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='기본-명령어-지정하기'>기본 명령어 지정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 <div class="highlight"><pre><span id="line-1"><span class="n">CMD</span> <span class="n">foreman</span> <span class="n">start</span> <span class="o">-</span><span class="n">f</span> <span class="n">Procfile</span>
 </span></pre></div>
 <p><code>CMD</code>를 사용하면 도커 이미지에 기본 명령어를 지정할 수 있다. 이미지와 컨테이너를 소개할 때 반복적으로 강조하려고 하는 두 가지가 이미지로부터 컨테이너가 실행된다는 거고, 컨테이너는 항상 단 하나의 프로세스라는 점이다. 즉 개념적으로는 가상머신과 비슷하지만, 구현적으로는 가상머신과 너무나도 다르다. 다시 한 번 이야기한다. 컨테이너는 항상 단 하나의 프로세스이다. 이 사실을 놓쳐서는 안 된다.</p>
@@ -365,7 +354,7 @@ Aug  8 2014
 
 <p>여기서는 기본 명령어로 위에서 이야기한 대로 foreman을 사용해 Procfile을 실행한다.</p>
 
-<h3><a name='도커-이미지-빌드'>도커 이미지 빌드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='도커-이미지-빌드'>도커 이미지 빌드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>여기까지 따라왔으면 거진 다 온 거나 마찬가지다. 이제 이미지를 빌드해보자.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker build -t nacyot/rails-new:0.1 .
@@ -396,7 +385,7 @@ Aug  8 2014
 </span></pre></div>
 <p>Dockerfile만 잘 만들면 시간이 걸릴 뿐이지, 빌드는 정말 쉽다. 중간에 빌드가 실패하더라도, 실패한 부분까지는 레이어가 만들어져 cache를 사용할 수 있게된다. 따라서 실패한 부분 이후의 Dockerfile만 수정하고 다시 빌드하더라도 매우 빠르게 진행이 되서 부담이 적다.</p>
 
-<h3><a name='도커-이미지-실행'>도커 이미지 실행</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='도커-이미지-실행'>도커 이미지 실행</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>계속해서 강조하지만 도커에서 어플리케이션을 배포한다는 말은 실행가능한 이미지를 생성하는 일이다. 첫번째 레일스 이미지를 만드는데 무사히 성공했다. 이제 이를 실행해보자.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run --name v0.1 -d -p 60005:60005 nacyot/rails-new:0.1
@@ -435,7 +424,7 @@ Aug  8 2014
 </span><span id="line-3"><span class="nv">$ </span>docker rm v0.1
 </span><span id="line-4">v0.1
 </span></pre></div>
-<h2><a name='v0.2-rails_12factor'>v0.2 rails_12factor</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='v0.2-rails_12factor'>v0.2 rails_12factor</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>[[히로쿠(heroku)|heroku]]를 사용해본 적이 있다면 히로쿠의 배포 방식이 기존의 배포 방식과는 상당히 다르다는 것을 알 수 있다. 클라우드로 따지자면 Infrastructure as a Service와 Platform as a Service의 차이라고 단순히 말할 수도 있겠지만, 그러한 환경을 구현하기 위해서 많은 것이 달라진다. 그리고 그러한 변화에 대응하기 위해 적용되는 라이브러리가 <code>rails_12factor</code>라는 gem이다.</p>
 
@@ -443,15 +432,15 @@ Aug  8 2014
 
 <p>Heroku에서는 이 gem을 설치하라고 하고, 이 gem을 설치하면 뭔가 문제가 생기던 게 해결된다. 하지만 마법과 같은 이 Gem이 무엇을 하는 지까지 관심을 가지는 경우는 드물다. 이번에는 이 gem 을 설치하고 그 궁금증을 해소해본다.</p>
 
-<h3><a name='프로젝트-변경사항'>프로젝트 변경사항</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='프로젝트-변경사항'>프로젝트 변경사항</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span><span class="nb">cd</span> ../docker-sample-project
 </span><span id="line-2"><span class="nv">$ </span>git checkout v0.2
 </span><span id="line-3"><span class="nv">$ </span>cat Gemfile <span class="p">|</span> grep 12
 </span><span id="line-4"><span class="o">(</span>standard input<span class="o">)</span>:13:gem <span class="s1">&#39;rails_12factor&#39;</span>
 </span></pre></div>
-<p>프로젝트에 변경되는 부분은 거의 없다. 단지 gem에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rails_12factor' rel='noindex,nofollow'>rails_12factor</a></span>를 추가했을 뿐이다.</p>
+<p>프로젝트에 변경되는 부분은 거의 없다. 단지 gem에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rails_12factor' rel='nofollow'>rails_12factor</a></span>를 추가했을 뿐이다.</p>
 
-<h3><a name='dockerfile'>Dockerfile</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='dockerfile'>Dockerfile</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>Dockerfile에 대해서도 위에서 자세히 설명했다. 여기서 달라지는 부분은 실질적으로 <code>v0.2</code>로 체크아웃하는 거 이외에는 없다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># Dockerfile</span>
@@ -467,7 +456,7 @@ Aug  8 2014
 </span><span id="line-11"><span class="o">---</span>
 </span><span id="line-12"><span class="o">&gt;</span> <span class="n">RUN</span> <span class="n">git</span> <span class="n">checkout</span> <span class="n">v0</span><span class="mf">.1</span>
 </span></pre></div>
-<h3><a name='이미지-빌드하기'>이미지 빌드하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='이미지-빌드하기'>이미지 빌드하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>빌드도 똑같다. 단지 이번에는 태그에 <code>0.2</code>를 주고 빌드한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker build -t nacyot/rails-new:0.2 .
@@ -490,7 +479,7 @@ Aug  8 2014
 </span><span id="line-18"> ---&gt; a8263aeb3676
 </span><span id="line-19">Successfully built a8263aeb3676
 </span></pre></div>
-<h3><a name='이미지-실행하기'>이미지 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='이미지-실행하기'>이미지 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>실행하고 정상적으로 실행되었는 지 확인해본다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run --name v0.2 -d -p 60005:60005 nacyot/rails-new:0.2
@@ -525,7 +514,7 @@ Aug  8 2014
 
 <p><code>v0.2</code>에서 코드가 달라진 부분은 <code>rails_12factor</code>를 추가한 부분뿐이다. 그렇다면 자연스럽게 결론을 내릴 수 있다. <code>rails_12factor</code>는 로그를 Process의 stdout으로 출력해준다.</p>
 
-<h3><a name='the-twelve-factor-app'>The Twelve-Factor App</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='the-twelve-factor-app'>The Twelve-Factor App</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>여기서 두 가지 정도 의문이 들 것이다.</p>
 
@@ -551,29 +540,29 @@ Aug  8 2014
 
 <p>아, 여기서 <code>rails_12factor</code>의 정체가 명확해진다. <code>rails_12factor</code>은 다름 아닌 The Twelve-Factor App의 실천사항의 일부를 실제로 구현해주는 gem이다. 소개가 늦었다. The Twelve-Factor App은 위에서 이야기한 PaaS의 패러다임에 해당하는 이야기를 히로쿠의 프로그래머가 정리한 문서이다.</p>
 
-<p>도커는 어렵다. 도커를 가상화 기술이라고 소개할 때 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vmware' rel='noindex,nofollow'>VMWare</a></span>나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/virtualbox' rel='noindex,nofollow'>VirtualBox</a></span>와 같은 툴들과 상당한 차이를 지니고 있다. 이는 단순히 하드웨어 에뮬레이션 정도의 차이가 아니라, 어플리케이션을 다루는 방식 전반에 걸친 차이가 존재하기 때문이다. 그리고 컨테이너라는 개념과 이러한 차이를 이해하는 게 도커를 활용하는 지름길이라고 할 수 있다. 컨테이너는 단지 하나의 프로세스이고, 이 하나의 프로세스로 어플리케이션을 운영해야한다는 점에서는 VMWare의 가상머신보다는 히로쿠의 어플리케이션에 한없이 가깝다. 따라서 The twelve-Factor App의 원칙들은 컨테이너를 유연하게 사용하는데 좋은 지침이 된다. 이는 2가지 면에서 좋은 지침이 되어주는데, 도커에서 어플리케이션을 어떻게 실행 관리되는 지를 알려주고, 두번째로 <code>Build once, Run anywhere</code>를 실현할 수 있는 전략들을 알려준다.</p>
+<p>도커는 어렵다. 도커를 가상화 기술이라고 소개할 때 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vmware' rel='nofollow'>VMWare</a></span>나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/virtualbox' rel='nofollow'>VirtualBox</a></span>와 같은 툴들과 상당한 차이를 지니고 있다. 이는 단순히 하드웨어 에뮬레이션 정도의 차이가 아니라, 어플리케이션을 다루는 방식 전반에 걸친 차이가 존재하기 때문이다. 그리고 컨테이너라는 개념과 이러한 차이를 이해하는 게 도커를 활용하는 지름길이라고 할 수 있다. 컨테이너는 단지 하나의 프로세스이고, 이 하나의 프로세스로 어플리케이션을 운영해야한다는 점에서는 VMWare의 가상머신보다는 히로쿠의 어플리케이션에 한없이 가깝다. 따라서 The twelve-Factor App의 원칙들은 컨테이너를 유연하게 사용하는데 좋은 지침이 된다. 이는 2가지 면에서 좋은 지침이 되어주는데, 도커에서 어플리케이션을 어떻게 실행 관리되는 지를 알려주고, 두번째로 <code>Build once, Run anywhere</code>를 실현할 수 있는 전략들을 알려준다.</p>
 
 <p>물론 도커의 컨테이너를 가상머신처럼 다루는 게 불가능하지는 않다. 컨테이너를 실행할 때 sshd 데몬을 같이 띄운다거나 log가 저장되는 디렉토리 자체를 어플리케이션에 이미지와 별개로 마운트시키는 방식으로 log 파일을 관리하는 게 가능하기는 하다. 하지만 그런 방식이 도커에서 딱히 권장되지는 않는다.</p>
 
 <p>이 정도면 처음에 품었던 두 가지 질문에 대한 설명은 충분히되었다.</p>
 
-<h3><a name='rails_12factor'>rails_12factor</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='rails_12factor'>rails_12factor</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>그렇다면 실제로 <code>rails_12factor</code>가 해주는 일은 어떤 것들이 있을까?</p>
 
 <p>먼저 로그를 stdout으로 출력해주는 것은 이미 살펴보았다. 또 하나는 앞서 다룬 <code>serve_static_assets</code>를 활성화시켜는 일이다. rails_12factor가 하는 일은 정말 딱 이렇게 두가지다.</p>
 
-<h3><a name='v0.2-정리'>v0.2 정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='v0.2-정리'>v0.2 정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이걸로 v0.2에 대한 설명도 마무리 되었다. 이제 컨테이너를 멈추고 삭제한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">docker</span> <span class="n">stop</span> <span class="n">v0</span><span class="mf">.2</span>
 </span><span id="line-2"><span class="n">docker</span> <span class="n">rm</span> <span class="n">v0</span><span class="mf">.2</span>
 </span></pre></div>
-<h2><a name='v0.3-데이터베이스-연동하기'>v0.3 데이터베이스 연동하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='v0.3-데이터베이스-연동하기'>v0.3 데이터베이스 연동하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>웹 어플리케이션의 꽃은 이러쿵저러쿵 해도 데이터베이스다. <code>v0.3</code>에서는 데이터베이스를 연동하고 간단한 scaffolding을 통해 에러없이 어플리케이션이 작동하도록 만든다.</p>
 
-<h3><a name='프로젝트-변경사항'>프로젝트 변경사항</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='프로젝트-변경사항'>프로젝트 변경사항</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저 v0.3에서는 scaffold 명령어로 Post 모델을 생성했다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>bundle <span class="nb">exec </span>rails g scaffold post title body:text published:boolean
@@ -589,7 +578,7 @@ Aug  8 2014
 </span><span id="line-2"><span class="nv">$ </span>cat Gemfile <span class="p">|</span> grep mysql2
 </span><span id="line-3"><span class="o">(</span>standard input<span class="o">)</span>:14:gem <span class="s1">&#39;mysql2&#39;</span>
 </span></pre></div>
-<h3><a name='dockerfile'>Dockerfile</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='dockerfile'>Dockerfile</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>rails-new-docker/v0.3의 Dockerfile에서 달라진 부분은 아래와 같다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>diff Dockerfile ../v0.2/Dockerfile
@@ -608,12 +597,12 @@ Aug  8 2014
 </span></pre></div>
 <p><span class='live_link'><a href='http://wiki.nacyot.com/documents/mysql'>mysql</a></span>에 필요한 시스템 패키지를 설치하고 v0.3으로 체크아웃 하는 정도이다.. 시스템 라이브러리를 설치하는 부분은 레일스를 처음 사용할 때 겪는 함정으로 해당하는 패키지가 없으면 <code>bundle install</code>에 실패한다.</p>
 
-<h3><a name='이미지-빌드하기'>이미지 빌드하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='이미지-빌드하기'>이미지 빌드하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이미지를 빌드한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">t</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">rails</span><span class="o">-</span><span class="n">new</span><span class="o">:</span><span class="mf">0.3</span> <span class="p">.</span>
 </span></pre></div>
-<h3><a name='이미지-실행하기'>이미지 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='이미지-실행하기'>이미지 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이미지를 실행한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">name</span> <span class="n">v0</span><span class="mf">.3</span> <span class="o">-</span><span class="n">d</span> <span class="o">-</span><span class="n">p</span> <span class="mi">60005</span><span class="o">:</span><span class="mi">60005</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">rails</span><span class="o">-</span><span class="n">new</span><span class="o">:</span><span class="mf">0.3</span>
@@ -659,7 +648,7 @@ Aug  8 2014
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker stop v0.3
 </span><span id="line-2"><span class="nv">$ </span>docker rm v0.3
 </span></pre></div>
-<h3><a name='데이터베이스-준비'>데이터베이스 준비</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='데이터베이스-준비'>데이터베이스 준비</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>여기서는 데이터베이스로 mysql을 사용한다. 이를 통해서 도커에서 웹어플리케이션을 실행시킬 때 어떻게 외부 서비스를 연결하는지 알 수 있다. 먼저 mysql을 준비한다. 여기서는 편의상 호스트에 mysql을 설치한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>sudo apt-get install mysql-server
@@ -696,7 +685,7 @@ Aug  8 2014
 </span></pre></div>
 <p>이것으로 데이터베이스가 준비되었다.</p>
 
-<h3><a name='컨테이너로-rake-명령어-사용하기---db:migrate'>컨테이너로 rake 명령어 사용하기 - db:migrate</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='컨테이너로-rake-명령어-사용하기---db:migrate'>컨테이너로 rake 명령어 사용하기 - db:migrate</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이번에는 도커 컨테이너를 통해서 rake를 실행해 데이터베이스 테이블을 초기화한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -i -t -e <span class="nv">DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;mysql2://docker:docker@172.17.42.1/rails_new&quot;</span> nacyot/rails-new:0.3 bundle <span class="nb">exec </span>rake db:migrate
@@ -717,7 +706,7 @@ Aug  8 2014
 
 <p>위에서 실행한 컨테이너는 단지 이 역할만 하고 종료된다.</p>
 
-<h3><a name='데이터베이스가-연결된-어플리케이션-실행하기'>데이터베이스가 연결된 어플리케이션 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='데이터베이스가-연결된-어플리케이션-실행하기'>데이터베이스가 연결된 어플리케이션 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이제 어플리케이션을 실행하고 어플리케이션에 접속한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">d</span> <span class="o">--</span><span class="n">name</span> <span class="n">v0</span><span class="mf">.3</span> <span class="o">-</span><span class="n">p</span> <span class="mi">60005</span><span class="o">:</span><span class="mi">60005</span> <span class="o">-</span><span class="n">e</span> <span class="n">DATABASE_URL</span><span class="o">=</span><span class="s">&quot;mysql2://docker:docker@172.17.42.1/rails_new&quot;</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">rails</span><span class="o">-</span><span class="n">new</span><span class="o">:</span><span class="mf">0.3</span>
@@ -742,7 +731,7 @@ Aug  8 2014
 </span></pre></div>
 <p>정상적으로 기록된다. 이제 도커를 통해 레일스 어플리케이션을 배포할 때 데이터베이스를 연결하는 것까지 성공했다.</p>
 
-<h3><a name='sqlite3-vs-mysql,-database.yml-vs-환경변수'>sqlite3 vs mysql, database.yml vs 환경변수</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='sqlite3-vs-mysql,-database.yml-vs-환경변수'>sqlite3 vs mysql, database.yml vs 환경변수</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>여기서 잠깐 왜 mysql과 환경변수를 사용했는지 살펴볼 필요가 있다.</p>
 
@@ -762,20 +751,128 @@ Aug  8 2014
 <p>Twelve-Factor App에서는 설정을 환경 변수(environment variables)에 저장한다. 환경변수를 사용하면 코드 수정 없이 설정을 쉽게 변경할 수 있다. 설정 파일과는 달리 실수로 저장소에 설정을 포함시킬 가능성도 낮다. 나아가 독자적인 형식의 설정 파일이나 자바 시스템 프로퍼티와 같은 설정 형식과 달리 환경변수는 언어나 OS에 의존하지 않는 표준이다. <a href="http://the-twelve-factor-app.herokuapp.com/config">The Twelve-Factor App - 설정</a></p>
 </blockquote>
 
-<h2><a name='정리'>정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='정리'>정리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>이 글에서는 루비 온 레일스 어플리케이션을 도커 이미지로 만드는 과정을 다루었다. 여기서 다룬 어플리케이션은 <code>rails new</code>로 생성한 아무것도 없는 어플리케이션이긴 하지만 어플리케이션의 복잡도에 따라서 어플리케이션을 배포하는 방식 자체가 달라지지는 않는다. 이 글에서는 도커로 어떻게 하면 어플리케이션을 이미지로 만들어낼 수 있는지, 그리고 도커를 사용함으로써 (좋은 의미에서건 나쁜 의미에서건) 발생하는 새로운 제약에 대해 어떻게 이해하고 대처해야하는 지 The Twelve Factor App의 관점에서 설명했다.</p>
 
 <p>이를 통해 이미지는 만들었다. 다음 글에서는 이제 이미지가 준비됐으니 이 이미지를 어떻게 실 서버에 배포하고 스케일 아웃이 가능한 지에 대해서 다룬다.</p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/deployment'>
+배포(deployment)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/devops'>
+데브옵스(devops)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>
+도커(Docker)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/dockerfile'>
+dockerfile
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>
+시스템(Infrastructure)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>
+루비(Ruby)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby_on_rails'>
+루비 온 레일스(Ruby on Rails)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/the_twelve_factor_app'>
+The Twelve Factor App
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -789,6 +886,7 @@ Aug  8 2014
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -808,23 +906,148 @@ Aug  8 2014
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='도커(Docker)로 루비 온 레일스 어플리케이션 배포하기 (1) 어플리케이션 이미지 만들기'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2014-08-04-docker-korea-secord/' rel='prev'>Docker Korea 스터디 그룹 두번째 모임</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2014-08-04-docker-korea-secord/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-news-top' style='width: 33.333333333333336%'></div>
+<div class='category category-infrastructure-top' style='width: 33.333333333333336%'></div>
+<div class='category category-programming-top' style='width: 33.333333333333336%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-08-04-docker-korea-secord/">Docker Korea 스터디 그룹 두번째 모임</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<i class='fa fa-newspaper-o' style='color: #bcbd22'></i>
+새소식
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 08월 05일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/9A89h4Y.jpg" />
+</div>
+<p>얼마 전 &#39;<span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker_korea' rel='nofollow'>도커 코리아</a></span>&#39;라는 이름으로 <a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/">스터디를 진행한다는 이야기</a>를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 <a href="http://onoffmix.com/event/31354">도커 코리아 두번째 모임</a>을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/remotty'>리모티</a></span> 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)</p>
+
+<span class='link'>
+<a href="../2014-08-04-docker-korea-secord/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/consul'>consul</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/coreos'>coreos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_korea'>docker_korea</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/etcd'>etcd</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/fleet'>fleet</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ghost'>ghost</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/grafana'>grafana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/graphite'>graphite</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/kibana'>kibana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/log'>log</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/metrics'>metrics</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/news'>news</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python'>python</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/remotty'>remotty</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/service_discovery'>service_discovery</a>
+</div>
+<div class='barcode' data-title='Docker Korea 스터디 그룹 두번째 모임'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-12-17-diffrence-of-ruby-and-python/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-12-17-diffrence-of-ruby-and-python/' rel='next'>루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-12-17-diffrence-of-ruby-and-python/">루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 12월 17일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/byNJqrU.jpg" />
+</div>
+<p>루비에서는 메서드를 괄호 없이 호출할 수 있습니다. 반면에 파이썬에서는 함수를 괄호 없이 사용하면, 함수 호출이 아니라 해당하는 이름을 가진 함수를 참조하게 됩니다. 이는 루비와 파이썬에서 변수와 함수가 존재하는 공간의 차이에서 비롯되는 차이로, 이 글에서는 루비와 파이썬의 함수(메서드) 호출과 함수 참조에 대한 문법 차이를 다룹니다. </p>
+
+<span class='link'>
+<a href="../2014-12-17-diffrence-of-ruby-and-python/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/function'>function</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python'>python</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/syntax'>syntax</a>
+</div>
+<div class='barcode' data-title='루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -837,24 +1060,41 @@ Aug  8 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

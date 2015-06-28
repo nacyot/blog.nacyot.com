@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2015-04-15-rorlab-jupyter-iruby-notebook/' rel='prev' title='[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충'>
 <link href='/articles/2015-05-13-jupyter-as-a-service/' rel='next' title='launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython &gt;= 3) 노트북 서비스 등록 예제'>
 <meta content='아이파이썬 노트북(IPython Notebook)은 원래 파이썬 REPL의 확장으로 개발되었다. 원래 메시지 처리 부분을 분리한 현재의 아키텍처는 파이썬이라는 언어에 대해서 콘솔과 qt를 통한 GUI, 그리고 웹을 기반으로하는 노트북 등 클라이언트를 분리하기 위해서 도입되었다. 하지만 이는 동시에 언어 실행기의 확장 (즉, 파이썬 이외의 것들을 실행할 수 있는) 가능성도 열어주었다. 원래 IPython에서는 이런 부분에 대한 고려가 없었기 때문에 언어를 해석하는 커널은 기본적으로 한 가지만을 지원한다. 따라서 커널을 바꿀 수는 있지만, 커널을 바꾸려면 IPython Notebook 서버를 새로 실행해야만 했다. 반면에 주피터(IPython &amp;gt;= 3의 다른 이름)에서는 하나의 서버에서 다수의 커널을 바꿔가며 실행할 수 있다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='ipython, jupyter, python, jupyter kernel, iruby, python2, python3, ipython notebook, pyenv' name='keywords'>
+<meta content='http://i.imgur.com/ww5UMh7.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/ww5UMh7.jpg' property='og:image'>
+<meta content='ipython, jupyter, python, jupyter_kernel, iruby, python2, python3, ipython_notebook, pyenv, programming, editor' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 주피터(Jupyter, IPython >= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,102 +44,98 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-May  8 2015
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/ipython'>ipython</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ipython-notebook'>ipython notebook</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/iruby'>iruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/jupyter'>jupyter</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/jupyter-kernel'>jupyter kernel</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/pyenv'>pyenv</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/python'>python</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/python2'>python2</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/python3'>python3</a>
-</span>
+<div class='category category-editor-top' style='width: 50.0%'>
 </div>
-<a name='toc'></a>
+</div>
 <h1 class='title'>
 <a href="./">주피터(Jupyter, IPython >= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2015년 05월 08일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ww5UMh7.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
 <p>아이파이썬 노트북(IPython Notebook)은 원래 파이썬 REPL의 확장으로 개발되었다. 원래 메시지 처리 부분을 분리한 현재의 아키텍처는 파이썬이라는 언어에 대해서 콘솔과 qt를 통한 GUI, 그리고 웹을 기반으로하는 노트북 등 클라이언트를 분리하기 위해서 도입되었다. 하지만 이는 동시에 언어 실행기의 확장 (즉, 파이썬 이외의 것들을 실행할 수 있는) 가능성도 열어주었다. 원래 IPython에서는 이런 부분에 대한 고려가 없었기 때문에 언어를 해석하는 커널은 기본적으로 한 가지만을 지원한다. 따라서 커널을 바꿀 수는 있지만, 커널을 바꾸려면 IPython Notebook 서버를 새로 실행해야만 했다. 반면에 주피터(IPython &gt;= 3의 다른 이름)에서는 하나의 서버에서 다수의 커널을 바꿔가며 실행할 수 있다.</p>
 
 
 
-<h2><a name='ipython2의-커널-설정-이해하기'>IPython2의 커널 설정 이해하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='ipython2의-커널-설정-이해하기'>IPython2의 커널 설정 이해하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>먼저 IPython2 버전의 노트북 서버는 다음과 같이 실행한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>ipython notebook
@@ -164,13 +161,13 @@ May  8 2015
 </span></pre></div>
 <p>즉, 하나의 서버에서는 다수의 커널을 지원하지 않기 때문에 매번 새로 실행하거나 별도의 서버를 실행해야하는 번거로움이 있었다.</p>
 
-<h2><a name='왜-주피터(jupyter)가-되었을까?'>왜 주피터(Jupyter)가 되었을까?</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='왜-주피터(jupyter)가-되었을까?'>왜 주피터(Jupyter)가 되었을까?</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>전술하였듯이, 원래 IPython에서 클라이언트와 파이썬 해석기 사이에 메시지를 중개하기 위한 ZeroMQ가 사용된 것은 사실 다양한 클라이언트를 지원하기 위해서였다. 그런데 이는 동시에 다양한 커널을 도입하게 되는 계기가 되기도 했다(<a href="https://github.com/ipython/ipython/wiki/IPEP-25%3A-Registry-of-installed-kernels">IPEP 25</a>). 이러한 요구사항은 IPython이라는 이름 대신 새로운 이름이 필요했던 가장 큰 이유라고 생각된다.</p>
 
 <p>Jupyter(IPython &gt;= 3)에서는 하나의 노트북 서버에서 다수의 커널을 지원한다. 즉, 하나의 서버를 실행한 상태에서 커널을 선택해서 노트북을 작성할 수 있도록 구조가 변경되었다.</p>
 
-<h3><a name='주피터(jupyter)의-기본-커널'>주피터(Jupyter)의 기본 커널</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='주피터(jupyter)의-기본-커널'>주피터(Jupyter)의 기본 커널</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저 여기에서는 OSX나 Linux 계열 운영체제에서 파이썬3를 사용하고 있다고 가정한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>python --version
@@ -189,7 +186,7 @@ May  8 2015
 </span></pre></div>
 <p>이를 통해서 현재 파이썬 버전이 사용가능하다는 것을 알 수 있다. 실제로 서버를 실행해서 확인해보면 새로운 노트북을 만들 때 Python 3만을 선택할 수 있을 것이다.</p>
 
-<h3><a name='다중-커널-개념-이해하기'>다중 커널 개념 이해하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='다중-커널-개념-이해하기'>다중 커널 개념 이해하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>앞서 이야기한 것처럼 주피터에서는 다중 커널을 하나의 노트북 서버에서 지원한다. 이러한 기능을 활성화하려면 적절히 커널 설정 파일을 추가해주어야한다. 과거에는 이러한 작업을 위해서 프로필 개념을 주로 사용했으나, 현재는 <code>~/.ipython</code> 디렉터리 아래에 <code>kernels</code>라는 디렉터리를 사용하는 것이 더 편리하다.</p>
 
@@ -241,7 +238,7 @@ May  8 2015
 </span><span id="line-5"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">:</span> <span class="n">print</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Hello</span><span class="p">,</span> <span class="n">Python</span><span class="err">&#39;</span><span class="p">)</span>
 </span><span id="line-6"><span class="n">Hello</span><span class="p">,</span> <span class="n">Python</span>
 </span></pre></div>
-<h4><a name='다른-언어-커널-예제(ruby)'>다른 언어 커널 예제(ruby)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h4>
+<h4><a name='다른-언어-커널-예제(ruby)'>다른 언어 커널 예제(ruby)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 
 <p>위의 예제는 사용하는 커널이 파이썬3이기 때문에 <code>ipython console</code>을 그냥 사용하는 것과 어떻게 다른지 알 수 없다. 실제로 커널 서버가 작동하는 것을 보여주기 위해, 다음 예제에서는 IRuby가 설치되어있다고 가정한다.(IRuby에 대해서는 이전 글 <a href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/">IRuby Notebook</a> 참조)</p>
 
@@ -276,7 +273,7 @@ May  8 2015
 </span></pre></div>
 <p>이와 같이 어떤 원리로 커널(실행기)가 클라이언트가 실행되는 지를 이해하면, 다중 커널이 무엇을 의미하고 어떻게 설정할 수 있는 지도 어렵지 않게 이해할 수 있다.</p>
 
-<h2><a name='주피터(jupyter)에서-파이썬2와-파이썬3-동시에-사용하기'>주피터(Jupyter)에서 파이썬2와 파이썬3 동시에 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='주피터(jupyter)에서-파이썬2와-파이썬3-동시에-사용하기'>주피터(Jupyter)에서 파이썬2와 파이썬3 동시에 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>앞서서 살펴보았듯이 IPython에서는 IPython을 실행한 파이썬 버전을 우선적으로 사용한다. 이는 주피터에서도 마찬가지이다. 파이썬3를 사용하고 있다면 기본 커널은 파이썬3가 된다. 그렇다면 파이썬2를 사용하고자 한다면 어떻게 해야할까? 물론 파이썬2를 설치하고 pip로 ipython을 설치하고 notebook 서버를 실행하는 것도 방법이긴 하다. 하지만 앞서 다중 커널에 대해서 배웠으니, 여기서는 이를 활용해보도록 하자.</p>
 
@@ -327,18 +324,144 @@ May  8 2015
 
 <p>위와 같이 파이썬2와 파이썬3 커널을 하나의 노트북 서버에서 사용 가능하다는 것을 확인할 수 있다.</p>
 
-<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>주피터의 다중 커널 개념 지원은 매우 간단하고, 강력하다. IPython이 실행되는 파이썬 실행기에 종속되지 않기 때문에, 다른 언어들의 커널을 지원할 뿐만 아니라, 환경만 갖춰져 있다면 같은 언어의 다양한 버전에 대해서도 별도의 커널을 만들어 사용할 수 있다. 나아가 파이썬의 virtualenv와 결합하면 환경별로도 커널을 분리해 사용할 수 있다. 이와 같이 다중 커널 개념은 Jupyter의 핵심 개념이며, 이를 통해서 좀 더 자유롭게 Notebook 생활이 가능해질 것이다 &gt;_&lt;</p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>
+에디터(Editor)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython'>
+아이파이썬(Ipython)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython_notebook'>
+아이파이썬 노트북(Ipython Notebook)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/iruby'>
+아이루비(iruby)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>
+주피터(Jupyter)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter_kernel'>
+주피터 커널(Jupyter kernel)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/pyenv'>
+pyenv
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/python'>
+파이썬(Python)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/python2'>
+파이썬2(Python2)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/python3'>
+파이썬3(Python3)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -352,6 +475,7 @@ May  8 2015
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -371,23 +495,134 @@ May  8 2015
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2015-04-15-rorlab-jupyter-iruby-notebook/' rel='prev'>[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2015-04-15-rorlab-jupyter-iruby-notebook/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-04-15-rorlab-jupyter-iruby-notebook/">[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2015년 04월 15일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/KsQGjGT.jpg" />
+</div>
+<p>IPython은 Python REPL의 확장 구현이다. 0.12 버전부터 Notebook이라는 이름으로 웹 인터페이스를 지원하고 있다. 또한 파이썬 뿐만 아니라 다른 언어를 실행할 수 있는 다양한 커스텀 커널을 지원하고 있다. IRuby는 IPython의 루비(Ruby) 커널 구현체로 이를 사용해 IPython Notebook에서 Ruby 코드를 실행하고 문서를 작성하는 게 가능하다.</p>
+
+<p><img src="http://i.imgur.com/x794HK9.png" alt=""></p>
+
+<p>이 글은 2015년 4월 14일 RORLab에서 발표한 내용을 보충하기 위한 글로 IRuby 설치, 실행 및 발표 레퍼런스를 소개한다.</p>
+
+<span class='link'>
+<a href="../2015-04-15-rorlab-jupyter-iruby-notebook/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/active_essays'>active_essays</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython'>ipython</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython_notebook'>ipython_notebook</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/iruby'>iruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>jupyter</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/literate_programming'>literate_programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/rorlab'>rorlab</a>
+</div>
+<div class='barcode' data-title='[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2015-05-13-jupyter-as-a-service/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2015-05-13-jupyter-as-a-service/' rel='next'>launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython >= 3) 노트북 서비스 등록 예제</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-05-13-jupyter-as-a-service/">launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython >= 3) 노트북 서비스 등록 예제</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2015년 05월 13일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/3tBPtzI.jpg" />
+</div>
+<p>아주 자주 사용하는 프로그램은 컴퓨터가 켜져있으면 어김없이 실행된다. 그래서 사용자들은 보통 이러한 프로그램을 시작 프로그램에 등록해서 사용하곤 한다. 이러한 프로그램이 백그라운드 작업을 하는 프로그램이거나 서버 프로그램이라면 매번 터미널을 열어서 실행한다는 것이 여간 번거로운 일이 아닐 것이다. 맥 OSX에서도 이와 같은 상황을 겪을 수 있는데, 적절히 커스텀 서비스를 등록해 이러한 번거로움을 피해갈 수 있다. 이 글에서는 <a href="http://www.jupyter.org/">Jupyter Notebook</a>을 예제로 OSX 서비스 등록과 간단한 조작법에 대해서 살펴본다.</p>
+
+<span class='link'>
+<a href="../2015-05-13-jupyter-as-a-service/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>jupyter</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/launchctl'>launchctl</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/osx'>osx</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/service'>service</a>
+</div>
+<div class='barcode' data-title='launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython &gt;= 3) 노트북 서비스 등록 예제'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -400,24 +635,41 @@ May  8 2015
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

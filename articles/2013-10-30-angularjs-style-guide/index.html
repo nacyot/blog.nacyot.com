@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2013-10-30-angularjs-style-guide/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='prev' title='Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화'>
 <link href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='next' title='알아두면 도움이 되는 55가지 루비(Ruby) 기법'>
 <meta content='이 글은 Minko Gechev 씨의 AngularJS Style Guide 문서를 nacyot이 변역한 글입니다. 번역된 문서는 Github 저장소에서 관리되고 있으며 원본은 여기에서 찾아볼 수 있습니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2013-10-30-angularjs-style-guide/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2013-10-30-angularjs-style-guide/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='angularjs, 앵귤러JS, javascript, 자바스크립, github, 번역, Minko Gechev' name='keywords'>
+<meta content='http://i.imgur.com/wKwOaNU.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/wKwOaNU.jpg' property='og:image'>
+<meta content='angularjs, javascript, github, translation, minko_gechev, programming' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 앵귤러js(AngularJs) 스타일 가이드 번역</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,98 +44,92 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Oct 30 2013
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/Minko-Gechev'>Minko Gechev</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/angularjs'>angularjs</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/github'>github</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/javascript'>javascript</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/번역'>번역</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/앵귤러JS'>앵귤러JS</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/자바스크립'>자바스크립</a>
-</span>
 </div>
-<a name='toc'></a>
 <h1 class='title'>
 <a href="./">앵귤러js(AngularJs) 스타일 가이드 번역</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2013년 10월 30일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/wKwOaNU.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
 <p>이 글은 Minko Gechev 씨의 <a href="https://github.com/mgechev/angularjs-style-guide">AngularJS Style Guide</a> 문서를 <a href="http://nacyot.com">nacyot</a>이 변역한 글입니다. 번역된 문서는 <a href="https://github.com/nacyot/angularjs-style-guide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/mgechev/angularjs-style-guide">여기</a>에서 찾아볼 수 있습니다.</p>
 
 
 
-<h1><a name='소개'>소개</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='소개'>소개</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <p>이 스타일 가이드의 목표는 AngularJS 어플리케이션을 제작하는 데 있어서 현재의 베스트 프렉티스를 알려드리는 일입니다.</p>
 
@@ -161,7 +156,7 @@ Oct 30 2013
 
 <p>AngularJS GitHub 위키에는 <a href="https://github.com/ProLoser">ProLoser</a>가 작성한 관련된 부분이 있습니다. <a href="https://github.com/angular/angular.js/wiki">여기</a>에서 확인하실 수 있습니다..</p>
 
-<h1><a name='차례'>차례</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='차례'>차례</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li><a href="#general">일반</a>
@@ -182,9 +177,9 @@ Oct 30 2013
 <li><a href="#contribution">기여</a></li>
 </ul>
 
-<h1><a name='일반'>일반</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='일반'>일반</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
-<h3><a name='디렉토리-구조'>디렉토리 구조</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='디렉토리-구조'>디렉토리 구조</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>규모가 큰 AngularJS 어플리케이션엔 다수의 컴포넌트가 있으므로 디렉토리 계층 구조를 만드는 것이 좋습니다.</p>
 
@@ -298,14 +293,14 @@ Oct 30 2013
 
 <p>각 컴포넌트의 명명 규칙은 각 컴포넌트 절에서 설명합니다.</p>
 
-<h3><a name='digest-cycle-최적화'>Digest cycle 최적화</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='digest-cycle-최적화'>Digest cycle 최적화</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li>가장 중요한 변수만 감시합니다(예를 들어 실시간 통신이 필요한 경우 각각의 메시지를 받을 때 digest loop를 일으키지 않아야합니다).</li>
 <li><code>$watch</code>는 가능한한 간단하게 작성합니다. 무겁과 느린 처리를 하나의 <code>$watch</code>에 집어넣으면 어플리케이션 전체를 느리게 만듭니다. (자바스크립트는 싱글 쓰레드에서 작동하므로 $digest 루프 또한 싱글 쓰레드로 작동합니다.)</li>
 </ul>
 
-<h3><a name='기타'>기타</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='기타'>기타</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li>사용해야 함.
@@ -337,7 +332,7 @@ Oct 30 2013
 <li><p>변수명, 프로퍼티명, 메소드명 앞에 <code>$</code>를 사용하지 않습니다. <code>$</code>를 앞에 붙이는 명명법은 AngularJS와 관련되어 특별한 의미로 사용됩니다.</p></li>
 </ul>
 
-<h1><a name='모듈'>모듈</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='모듈'>모듈</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <p>모듈의 구성은 일반적으로 두 가지 기준이 사용됩니다.</p>
 
@@ -348,7 +343,7 @@ Oct 30 2013
 
 <p>두 접근법에 큰 차이는 없지만 첫번째 방법이 좀 더 깔끔합니다. 또한 (아직 AngularJS 로드맵에는 없습니다만) 모듈의 지연 로딩이 지원된다면 어플리케이션의 성능도 좋아질 것입니다.</p>
 
-<h1><a name='컨트롤러'>컨트롤러</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='컨트롤러'>컨트롤러</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li>컨트롤러에서 DOM을 조작하지 마세요. 컨트롤러 대신 디렉티브를 사용하시기 바랍니다.</li>
@@ -391,7 +386,7 @@ Oct 30 2013
 </span></pre></div></li>
 </ul>
 
-<h1><a name='디렉티브'>디렉티브</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='디렉티브'>디렉티브</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li>디렉티브의 이름은 lowerCamelCase를 사용하세요.</li>
@@ -404,14 +399,14 @@ Oct 30 2013
 <li>범위(scope)를 없앨 때는 <code>$scope.$on(&#39;$destroy&#39;, fn)</code>를 사용하세요. 이러한 접근은 특히 third-party 플러그인을 디렉티브로 감싸서 사용할 때 유용합니다.</li>
 </ul>
 
-<h1><a name='필터'>필터</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='필터'>필터</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li>이름은 lowerCamelCase를 사용하세요</li>
 <li>필터는 가능한 한 가볍게 만들어주세요. 필터는 간혹 <code>$digest</code> 루프 내에서 호출될 수 있기 때문에 느린 필터는 어플리케이션 전체를 느리게 만들 수 있습니다.</li>
 </ul>
 
-<h1><a name='서비스'>서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='서비스'>서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li>서비스명은 camelCase나 CamelCase로 작성.</li>
@@ -420,7 +415,7 @@ Oct 30 2013
 <li>세션 수준의 캐시는 <code>$cacheFactory</code>를 사용하세요. 이는 요청(request)나 무거운 처리를 캐시하고 싶을 때 사용합니다.</li>
 </ul>
 
-<h1><a name='템플릿'>템플릿</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='템플릿'>템플릿</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li>문서가 반짝이는 현상을 방지하기 위해서 <code>{{}}</code> 대신에 <code>ng-bind</code>나 <code>ng-cloak</code>를 사용하세요.</li>
@@ -438,29 +433,110 @@ Oct 30 2013
 </span></pre></div></li>
 </ul>
 
-<h1><a name='라우팅'>라우팅</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='라우팅'>라우팅</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li>view가 보여지기 전에 <code>resolve</code>를 사용해 의존관계를 해결해주세요.</li>
 </ul>
 
-<h1><a name='테스트'>테스트</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='테스트'>테스트</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <p>TBD</p>
 
-<h1><a name='기여'>기여</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='기여'>기여</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <p>이 문서는 communty-driven을 지향하며, 문서에 대한 기여는 언제든 대환영입니다.
 부족한 부분을 보충해주시거나 여러분이 사용하는 모국어로 문서를 번역해주셔도 좋습니다.</p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/angularjs'>
+angularjs(!)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>
+깃허브(Github)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/javascript'>
+자바스크립트(Javascript)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/minko_gechev'>
+minko_gechev(!)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>
+번역(translation)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -474,6 +550,7 @@ Oct 30 2013
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -493,23 +570,121 @@ Oct 30 2013
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='앵귤러js(AngularJs) 스타일 가이드 번역'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='prev'>Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-software-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2013-10-02-ruby-test-automation-with-rspec-and-guard/">Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2013년 10월 02일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/g055UBi.jpg" />
+</div>
+<p>루비 테스트로는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/minitest' rel='nofollow'>minitest</a></span>와 <span class='live_link'><a href='http://wiki.nacyot.com/documents/rspec'>Rspec</a></span>이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/autotest' rel='nofollow'>Autotest</a></span> 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/guard' rel='nofollow'>Guard</a></span>를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.</p>
+
+<span class='link'>
+<a href="../2013-10-02-ruby-test-automation-with-rspec-and-guard/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/autotest'>autotest</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/guard'>guard</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/minitest'>minitest</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/rspec'>rspec</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/test'>test</a>
+</div>
+<div class='barcode' data-title='Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='next'>알아두면 도움이 되는 55가지 루비(Ruby) 기법</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2013-11-24-ruby-trivias-you-should-know-4/">알아두면 도움이 되는 55가지 루비(Ruby) 기법</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2013년 11월 24일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/7XAjowN.jpg" />
+</div>
+<p>이 글은 <a href="http://melborne.github.io/">kyoendo</a> 씨의 55 Trivia Notations you should know in Ruby 문서를 <a href="http://nacyot.com">nacyot</a>이 번역한 글입니다. 번역된 문서는 <a href="https://gist.github.com/nacyot/7624036">gist</a>에서 관리되고 있습니다. 원본은 <a href="http://melborne.github.io/2013/03/04/ruby-trivias-you-should-know-4/">여기</a>에서 찾아볼 수 있으며 <a href="http://creativecommons.org/licenses/by-nc/2.1/jp/">cc-by-nc</a> 라이센스에 따라 공개되어있습니다. 번역본 또한 같은 라이센스를 따릅니다.</p>
+
+<span class='link'>
+<a href="../2013-11-24-ruby-trivias-you-should-know-4/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/kyoendo'>kyoendo</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming_language'>programming_language</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>translation</a>
+</div>
+<div class='barcode' data-title='알아두면 도움이 되는 55가지 루비(Ruby) 기법'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -522,9 +697,35 @@ Oct 30 2013
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</div>
+<div class='copyright'>
 
-</p>
+</div>
 </div>
 </div>
 </div>

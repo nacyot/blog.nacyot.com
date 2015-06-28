@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2013-12-29-hub-and-pull-request/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='prev' title='알아두면 도움이 되는 55가지 루비(Ruby) 기법'>
 <link href='/articles/2014-01-15-static-site-generator/' rel='next' title='정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로'>
 <meta content='오픈소스뿐만 아니라 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다. 또한 Github 고유의 기능을 명령행 인터페이스 사용할 수 있게 도와주는 hub라는 도구를 지원합니다. 이 글에서는 hub(허브)를 Git 명령어에 연동해서, 명령행에서 풀리퀘스트를 보내는 방법을 설명합니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2013-12-29-hub-and-pull-request/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2013-12-29-hub-and-pull-request/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='hub, github, ruby, git, 루비, 풀리퀘스트, pull request, zsh' name='keywords'>
+<meta content='http://i.imgur.com/8oGWPDG.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/8oGWPDG.jpg' property='og:image'>
+<meta content='hub, github, ruby, git, pull_request, zsh, programming, software' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: hub(허브)로 명령행에서 Github(깃허브) 풀리퀘스트 보내기</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,108 +44,106 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Dec 29 2013
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/git'>git</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/github'>github</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/hub'>hub</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/pull-request'>pull request</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ruby'>ruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/zsh'>zsh</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/루비'>루비</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/풀리퀘스트'>풀리퀘스트</a>
-</span>
+<div class='category category-software-top' style='width: 50.0%'>
 </div>
-<a name='toc'></a>
+</div>
 <h1 class='title'>
 <a href="./">hub(허브)로 명령행에서 Github(깃허브) 풀리퀘스트 보내기</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2013년 12월 29일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/8oGWPDG.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/open_source' rel='noindex,nofollow'>오픈소스</a></span>뿐만 아니라 <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>git</a></span>를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/github'>Github</a></span>를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다. 또한 Github 고유의 기능을 명령행 인터페이스 사용할 수 있게 도와주는 hub라는 도구를 지원합니다. 이 글에서는 hub(허브)를 Git 명령어에 연동해서, 명령행에서 풀리퀘스트를 보내는 방법을 설명합니다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/open_source' rel='nofollow'>오픈소스</a></span>뿐만 아니라 <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>git</a></span>를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/github'>Github</a></span>를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다. 또한 Github 고유의 기능을 명령행 인터페이스 사용할 수 있게 도와주는 hub라는 도구를 지원합니다. 이 글에서는 hub(허브)를 Git 명령어에 연동해서, 명령행에서 풀리퀘스트를 보내는 방법을 설명합니다.</p>
 
 
 
 <p>Github에서는 Git에서 지원하는 소스 관리를 위한 기능 뿐만 아니라 협업을 위한 다양한 기능들을 지원하고 있습니다. 예를 들어서 다른 사람이 만든 저장소를 자신의 계정에 fork해서 별도로 관리할 수 있고, 이렇게 fork해서 수정한 저장소의 브랜치를 pull-request를 통해서 원래의 저장소에 통합하도록 요청할 수도 있습니다. 이외에도 이슈 관리와 위키를 비롯한 매우 다양한 기능들이 지원됩니다. 이러한 Github의 장점들은 단순히 git을 활용한 좋은 버전관리 시스템이라는 것을 넘어서 프로젝트 관리를 위한 도구로서 Github 서비스를 차별화 시켜줍니다.</p>
 
-<p>하지만 대부분의 기능들은 기본적으로 웹인터페이스로만 사용할 수 있다는 단점이 있습니다. Git의 가장 기본적인 클라이언트 프로그램은 git 명령어로 커맨드라인에서 사용할 수 있습니다. 하지만 Github는 일차적으로 웹서비스로서 부가적인 기능들을 웹을 통해서 제공합니다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gui' rel='noindex,nofollow'>GUI</a></span>나 화면에 익숙한 분들에게는 이러한 면은 또다른 장점이 될 수도 있겠지만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cli' rel='noindex,nofollow'>커맨드라인</a></span>에서 직접 git 명령어를 입력하고, 저장소의 상태를 확인하는 사람들에게는 워크 플로우가 웹과 커맨드라인으로 나눠진다는 게 영 장점이지만은 않습니다.</p>
+<p>하지만 대부분의 기능들은 기본적으로 웹인터페이스로만 사용할 수 있다는 단점이 있습니다. Git의 가장 기본적인 클라이언트 프로그램은 git 명령어로 커맨드라인에서 사용할 수 있습니다. 하지만 Github는 일차적으로 웹서비스로서 부가적인 기능들을 웹을 통해서 제공합니다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gui' rel='nofollow'>GUI</a></span>나 화면에 익숙한 분들에게는 이러한 면은 또다른 장점이 될 수도 있겠지만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cli' rel='nofollow'>커맨드라인</a></span>에서 직접 git 명령어를 입력하고, 저장소의 상태를 확인하는 사람들에게는 워크 플로우가 웹과 커맨드라인으로 나눠진다는 게 영 장점이지만은 않습니다.</p>
 
 <p>물론 Github에서 제공하는 API를 직접 이용하는 방법도 있긴있겠습니다만, 매우 번거로운 작업입니다. Github에서는 이러한 문제를 해결하기 위해서 저장소 생성, 포크 및 풀리퀘스트 등 주요한 기능을 커맨드라인 인터페이스로 제공해주는 Hub라는 git 명령어의 확장 인터페이스를 제공하고 있습니다. <a href="https://github.com/github/hub">Hub</a>라는 이름은 git + hub = Github 라는 공식에서 나온 이름도 참 앙증맞습니다.</p>
 
-<p>이 글은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/hub' rel='noindex,nofollow'>Hub</a></span>를 설치하고 실제 커맨드라인에서 풀리퀘스트를 보내는 과정을 다룹니다. 기본적으로 Github의 풀리퀘스트 기능 정도는 익숙하다는 걸 전제로(최소한 개념 정도는 이해하고 있다는 전제로) 이야기합니다.</p>
+<p>이 글은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/hub' rel='nofollow'>Hub</a></span>를 설치하고 실제 커맨드라인에서 풀리퀘스트를 보내는 과정을 다룹니다. 기본적으로 Github의 풀리퀘스트 기능 정도는 익숙하다는 걸 전제로(최소한 개념 정도는 이해하고 있다는 전제로) 이야기합니다.</p>
 
-<h2><a name='hub-설치---gtihub-명령행-인터페이스'>Hub 설치 - Gtihub 명령행 인터페이스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='hub-설치---gtihub-명령행-인터페이스'>Hub 설치 - Gtihub 명령행 인터페이스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>먼저 Hub를 사용하기 위해서는 공식 홈페이지를 참조해 프로그램을 설치해줄 필요가 있습니다. 우선 hub는 git과 ruby에 의존적인 프로그램이므로 시스템에 이러한 프로그램들이 있는지 확인해야합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>git -v
@@ -163,7 +162,7 @@ Dec 29 2013
 </span><span id="line-2"><span class="nv">$ </span><span class="nb">cd </span>hub
 </span><span id="line-3"><span class="nv">$ </span>rake install
 </span></pre></div>
-<p>설치 시 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>ruby</a></span>의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rake' rel='noindex,nofollow'>rake</a></span> 명령어가 지원되어야합니다. <code>rake</code> 명령어가 없다면 <code>gem install rake</code>로 먼저 rake를 설치해주시기 바랍니다. 또한 <code>rake install</code> 명령어 실행시 기본적으로 메인 시스템 상에 프로그램을 설치하므로 <code>sudo</code> 등을 붙여 관리자 권한으로 설치해야할 수도 있습니다.</p>
+<p>설치 시 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>ruby</a></span>의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rake' rel='nofollow'>rake</a></span> 명령어가 지원되어야합니다. <code>rake</code> 명령어가 없다면 <code>gem install rake</code>로 먼저 rake를 설치해주시기 바랍니다. 또한 <code>rake install</code> 명령어 실행시 기본적으로 메인 시스템 상에 프로그램을 설치하므로 <code>sudo</code> 등을 붙여 관리자 권한으로 설치해야할 수도 있습니다.</p>
 
 <p>설치가 정상적으로 끝났다면 아래와 같이 <code>hub</code> 명령어를 사용할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>hub --version
@@ -181,7 +180,7 @@ Dec 29 2013
 </span><span id="line-2">git version 1.8.3.2
 </span><span id="line-3">hub version 1.11.1
 </span></pre></div>
-<h2><a name='쉘에서-hub-명령어-자동-완성-사용하기'>쉘에서 Hub 명령어 자동 완성 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='쉘에서-hub-명령어-자동-완성-사용하기'>쉘에서 Hub 명령어 자동 완성 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>Hub에서는 쉘에서 명령어 및 옵션 자동 완성을 위한 completion 파일을 제공하고 있습니다. 여기서 zsh을 기준으로 git 명령어의 자동완성을 확장하는 법을 설명합니다. 먼저 hub 자동 완성 파일을 다운로드 받아 적절한 위치(우분투의 경우 기본적으로  <code>usr/local/share/zsh/site-functions</code> 디렉토리. 정확한 위치는 각 운영체제 별 zsh 환경 설정 파일 위치에 따릅니다)에 복사해줍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>mkdir ~/src
@@ -202,7 +201,7 @@ Dec 29 2013
 </span><span id="line-2">pull          -- fetch from and merge with another rep....
 </span><span id="line-3">pull-request  -- open a pull request on GitHub
 </span></pre></div>
-<h2><a name='hub-사용하기'>Hub 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='hub-사용하기'>Hub 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>Hub의 다양한 명령어에 대해서는 공식 저장소에 간략한 사용법들이 나와있습니다. 여기서는 Hub를 사용해 Github에 저장소를 만들어보고, Github의 핵심 기능중 하나인 풀리퀘스트를 실제로 보내보겠습니다. (단, 여기서는 같은 저장소의 브랜치간에 풀리퀘스트를 보냅니다.)</p>
 
@@ -275,18 +274,117 @@ Dec 29 2013
 </span></pre></div>
 <p>여기서 <code>-m</code> 플래그는 풀리퀘스트 메시지, <code>-b</code> 플래그는 풀리퀘스트 목적지, <code>-h</code> 플래그는 풀리퀘스트를 보내는 브랜치가 됩니다. <code>-b</code>와 <code>-h</code> 플래그는 <code>&lt;계정명&gt;:&lt;브랜치명&gt;</code> 형식으로 기술하며, 저장소는 작업 디렉토리 저장소를 근거로 자동으로 유추됩니다. 마찬가지로 풀리퀘스트에 성공하면 풀리퀘스트의 url을 보여줍니다.</p>
 
-<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>여기까지 git 명령어를 hub로 확장해서 커맨드라인에서 Github 작업을 좀 더 편하게 하는 방법을 소개했습니다. hub는 웹에서 해야하는 귀찮은 일들을 많이 덜어주는 프로그램입니다. Github에서 저장소를 만들고 풀리퀘스트를 보내려고 웹상에서 브랜치 지정해주고 하는 일은 간단한 작업이지만 꽤나 번거롭습니다. 특히 해당 &#39;저장소&#39;를 찾아서 들어가는 일도 반복되면 귀찮기만 한 일입니다. hub와 함께 좀 더 즐거운 Github 라이프가 되길 바랍니다 &gt;_&lt;</p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/git'>
+깃(Git)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>
+깃허브(Github)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/hub'>
+hub
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/pull_request'>
+풀리퀘스트(pull request)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>
+루비(Ruby)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>
+소프트웨어(software)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/zsh'>
+zsh
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -300,6 +398,7 @@ Dec 29 2013
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -319,23 +418,108 @@ Dec 29 2013
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='hub(허브)로 명령행에서 Github(깃허브) 풀리퀘스트 보내기'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='prev'>알아두면 도움이 되는 55가지 루비(Ruby) 기법</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2013-11-24-ruby-trivias-you-should-know-4/">알아두면 도움이 되는 55가지 루비(Ruby) 기법</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2013년 11월 24일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/7XAjowN.jpg" />
+</div>
+<p>이 글은 <a href="http://melborne.github.io/">kyoendo</a> 씨의 55 Trivia Notations you should know in Ruby 문서를 <a href="http://nacyot.com">nacyot</a>이 번역한 글입니다. 번역된 문서는 <a href="https://gist.github.com/nacyot/7624036">gist</a>에서 관리되고 있습니다. 원본은 <a href="http://melborne.github.io/2013/03/04/ruby-trivias-you-should-know-4/">여기</a>에서 찾아볼 수 있으며 <a href="http://creativecommons.org/licenses/by-nc/2.1/jp/">cc-by-nc</a> 라이센스에 따라 공개되어있습니다. 번역본 또한 같은 라이센스를 따릅니다.</p>
+
+<span class='link'>
+<a href="../2013-11-24-ruby-trivias-you-should-know-4/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/kyoendo'>kyoendo</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming_language'>programming_language</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>translation</a>
+</div>
+<div class='barcode' data-title='알아두면 도움이 되는 55가지 루비(Ruby) 기법'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-01-15-static-site-generator/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-01-15-static-site-generator/' rel='next'>정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-01-15-static-site-generator/">정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 01월 05일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/vAuIolp.jpg" />
+</div>
+<p>개인적으로 요새 화두인 주제가 바로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/static_site_generator' rel='nofollow'>정적 웹사이트 생성기</a></span>입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만, 일부 블로그들에서는 이미 정적 컨텐츠로 블로그를 발행(Publish)하는 기능을 지원해왔으며 많은 오픈소스와 프로그래머들이 Github Page의 Jekyll을 통한 정적 페이지 발행 기능을 활용하고 있습니다. 이 글에서는 정적 페이지가 왜 각광을 받는지와 그 배경에 대해서 조금 이야기해보고자 합니다.</p>
+
+<span class='link'>
+<a href="../2014-01-15-static-site-generator/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>github</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/static_site_generator'>static_site_generator</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/www'>www</a>
+</div>
+<div class='barcode' data-title='정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -348,24 +532,41 @@ Dec 29 2013
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

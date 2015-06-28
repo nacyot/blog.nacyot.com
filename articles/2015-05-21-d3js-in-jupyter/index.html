@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2015-05-13-jupyter-as-a-service/' rel='prev' title='launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython &gt;= 3) 노트북 서비스 등록 예제'>
 <link href='/articles/2015-06-13-eunjeon-with-elasticsearch/' rel='next' title='엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기'>
 <meta content='기존의 아이파이썬(IPython)에서 이제 본격적으로 주피터 프로젝트로 옮겨가는 과정이 한창 진행중이다. 주피터의 핵심에 대해서는 주피터 다중 커널 개념 이해하기에서 이미 다루었듯이, 파이썬을 비롯한 다양한 언어의 커널을 지원한다는 데 있다. 맥락은 조금 다르지만, 아이파이썬은 이미 훌륭한 자바스크립트 실행환경에서 작동한다는 점에서 주피터 이전에도 이미 멀티 커널을 기본적으로 지원하고 있었다고 할 수 있다. 이 글에서는 이러한 기능을 활용해 주피터 위에서 자바스크립트 코드를 작성 및 실행하고, d3.js 라이브러리를 통해 시각화를 하는 방법에 대해 간단히 소개한다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='ipython, jupyter, d3.js, javascript, 시각화, 주피터, 아이파이썬, 자바스크립트, 커널, 클로저' name='keywords'>
+<meta content='http://i.imgur.com/eDpIHJo.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/eDpIHJo.jpg' property='og:image'>
+<meta content='ipython, jupyter, d3js, javascript, data_visualization, jupyter_kernel, closure, jupyter_notebook, visualization, programming, editor' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,97 +44,97 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-May 21 2015
-</span>
+<div class='categories'>
+<div class='category category-visualization-top' style='width: 33.333333333333336%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/d3.js'>d3.js</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ipython'>ipython</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/javascript'>javascript</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/jupyter'>jupyter</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/시각화'>시각화</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/아이파이썬'>아이파이썬</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/자바스크립트'>자바스크립트</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/주피터'>주피터</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/커널'>커널</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/클로저'>클로저</a>
-</span>
+<div class='category category-programming-top' style='width: 33.333333333333336%'>
 </div>
-<a name='toc'></a>
+<div class='category category-editor-top' style='width: 33.333333333333336%'>
+</div>
+</div>
 <h1 class='title'>
 <a href="./">주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<i class='fa fa-bar-chart' style='color: #ff7f0e'></i>
+시각화
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2015년 05월 21일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/eDpIHJo.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
 <p>기존의 아이파이썬(IPython)에서 이제 본격적으로 주피터 프로젝트로 옮겨가는 과정이 한창 진행중이다. 주피터의 핵심에 대해서는 <strong><a href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/">주피터 다중 커널 개념 이해하기</a></strong>에서 이미 다루었듯이, 파이썬을 비롯한 다양한 언어의 커널을 지원한다는 데 있다. 맥락은 조금 다르지만, 아이파이썬은 이미 훌륭한 자바스크립트 실행환경에서 작동한다는 점에서 주피터 이전에도 이미 멀티 커널을 기본적으로 지원하고 있었다고 할 수 있다. 이 글에서는 이러한 기능을 활용해 주피터 위에서 자바스크립트 코드를 작성 및 실행하고, d3.js 라이브러리를 통해 시각화를 하는 방법에 대해 간단히 소개한다.</p>
@@ -146,9 +147,9 @@ May 21 2015
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='&#45432;&#53944;&#48513;-&#47564;&#46308;&#44592;'>&#45432;&#53944;&#48513; &#47564;&#46308;&#44592;<a class="anchor-link" href="#&#45432;&#53944;&#48513;-&#47564;&#46308;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2><p>먼저 주피터를 실행하고 Python3 커널로 노트북을 만든다.</p>
+<h2><a name='&#45432;&#53944;&#48513;-&#47564;&#46308;&#44592;'>&#45432;&#53944;&#48513; &#47564;&#46308;&#44592;<a class="anchor-link" href="#&#45432;&#53944;&#48513;-&#47564;&#46308;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>먼저 주피터를 실행하고 Python3 커널로 노트북을 만든다.</p>
 <p><img src="http://i.imgur.com/tJdRdHAm.png" alt="Python3 커널 노트북 만들기"></p>
-<h2><a name='&#51088;&#48148;&#49828;&#53356;&#47549;&#53944;-&#47588;&#51649;'>&#51088;&#48148;&#49828;&#53356;&#47549;&#53944; &#47588;&#51649;<a class="anchor-link" href="#&#51088;&#48148;&#49828;&#53356;&#47549;&#53944;-&#47588;&#51649;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2><p>주피터 노트북에서는 매직 커맨드를 통해 단순히 파이썬 코드를 실행시키는 것 이외에도 다양한 작업을 수행할 수 있도록 도와준다. 이러한 매직 커맨드들은 언어 커널에 정의되어 있으면 파이썬 커널에서는 이를 위해 <code>%%</code>를 앞에 붙여서 실행한다. 예를 들어 <code>%%html</code> 매직을 사용하면 html 코드를 직접 결과 블록에 삽입할 수 있다. <code>%%html</code>을 첫 줄에 작성하고, 아래부터는 html코드를 작성한다.</p>
+<h2><a name='&#51088;&#48148;&#49828;&#53356;&#47549;&#53944;-&#47588;&#51649;'>&#51088;&#48148;&#49828;&#53356;&#47549;&#53944; &#47588;&#51649;<a class="anchor-link" href="#&#51088;&#48148;&#49828;&#53356;&#47549;&#53944;-&#47588;&#51649;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>주피터 노트북에서는 매직 커맨드를 통해 단순히 파이썬 코드를 실행시키는 것 이외에도 다양한 작업을 수행할 수 있도록 도와준다. 이러한 매직 커맨드들은 언어 커널에 정의되어 있으면 파이썬 커널에서는 이를 위해 <code>%%</code>를 앞에 붙여서 실행한다. 예를 들어 <code>%%html</code> 매직을 사용하면 html 코드를 직접 결과 블록에 삽입할 수 있다. <code>%%html</code>을 첫 줄에 작성하고, 아래부터는 html코드를 작성한다.</p>
 
 </div>
 </div>
@@ -314,7 +315,7 @@ $(target).append('<div class="hello-world">Hello, js magic!</div>')
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='&#54764;&#54140;-&#54632;&#49688;-&#51060;&#54644;&#54616;&#44592;'>&#54764;&#54140; &#54632;&#49688; &#51060;&#54644;&#54616;&#44592;<a class="anchor-link" href="#&#54764;&#54140;-&#54632;&#49688;-&#51060;&#54644;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2><p>앞선 예제에서는 <code>get_element</code>라는 헬퍼 함수를 작성했다. 이 함수를 이해하기에 앞서 한가지 짚고 넘어갈 부분이 있다. 주피터 노트북의 <code>%%javascript</code> 매직 안에서는 element라는 특별한 요소가 정의되어있다. 이 element에는 현재 주피터 노트북 셀의 결과 요소가 지정되어 있고, 이를 조작해서 현재 셀의 출력 결과에 대한 조작을 할 수 있다.</p>
+<h2><a name='&#54764;&#54140;-&#54632;&#49688;-&#51060;&#54644;&#54616;&#44592;'>&#54764;&#54140; &#54632;&#49688; &#51060;&#54644;&#54616;&#44592;<a class="anchor-link" href="#&#54764;&#54140;-&#54632;&#49688;-&#51060;&#54644;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>앞선 예제에서는 <code>get_element</code>라는 헬퍼 함수를 작성했다. 이 함수를 이해하기에 앞서 한가지 짚고 넘어갈 부분이 있다. 주피터 노트북의 <code>%%javascript</code> 매직 안에서는 element라는 특별한 요소가 정의되어있다. 이 element에는 현재 주피터 노트북 셀의 결과 요소가 지정되어 있고, 이를 조작해서 현재 셀의 출력 결과에 대한 조작을 할 수 있다.</p>
 <p>예를 들어서 jupyter notebook 위에서는 헬퍼 함수 없이도 다음과 같이 코드가 정상적으로 작동한다.</p>
 <div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;hello-world&quot;&gt;I don&#39;</span><span class="nx">t</span> <span class="nx">need</span> <span class="nx">helper</span><span class="o">!&lt;</span><span class="err">/div&gt;&#39;)</span>
 </pre></div>
@@ -344,7 +345,7 @@ $(target).append('<div class="hello-world">Hello, js magic!</div>')
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3><a name='jupyter-notebook&#44284;-nbviewer-&#47784;&#46160;-&#51648;&#50896;&#54616;&#44592;'>jupyter notebook&#44284; nbviewer &#47784;&#46160; &#51648;&#50896;&#54616;&#44592;<a class="anchor-link" href="#jupyter-notebook&#44284;-nbviewer-&#47784;&#46160;-&#51648;&#50896;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3><p>그런데 문제는 element에 있다. jupyter notebook에서는 코드를 직접 실행하거나, 저장된 파일을 읽어들여도 element 요소가 적절하게 해석된다. 하지만 nbviewer에서는 element 요소를 적절하게 해석하지 못 한다. 실제로 nbviewer에서 실행되는 코드를 살펴보자.</p>
+<h3><a name='jupyter-notebook&#44284;-nbviewer-&#47784;&#46160;-&#51648;&#50896;&#54616;&#44592;'>jupyter notebook&#44284; nbviewer &#47784;&#46160; &#51648;&#50896;&#54616;&#44592;<a class="anchor-link" href="#jupyter-notebook&#44284;-nbviewer-&#47784;&#46160;-&#51648;&#50896;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3><p>그런데 문제는 element에 있다. jupyter notebook에서는 코드를 직접 실행하거나, 저장된 파일을 읽어들여도 element 요소가 적절하게 해석된다. 하지만 nbviewer에서는 element 요소를 적절하게 해석하지 못 한다. 실제로 nbviewer에서 실행되는 코드를 살펴보자.</p>
 <div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;output_subarea output_javascript &quot;</span><span class="nt">&gt;</span>
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
 <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;hello-world&quot;&gt;I don&#39;</span><span class="nx">t</span> <span class="nx">need</span> <span class="nx">helper</span><span class="o">!&lt;</span><span class="err">/div&gt;&#39;)</span>
@@ -372,7 +373,7 @@ $(target).append('<div class="hello-world">Hello, js magic!</div>')
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='require.js-&#49324;&#50857;&#54644;-&#46041;&#51201;&#51004;&#47196;-&#50808;&#48512;-&#49828;&#53356;&#47549;&#53944;-&#49324;&#50857;&#54616;&#44592;'>require.js &#49324;&#50857;&#54644; &#46041;&#51201;&#51004;&#47196; &#50808;&#48512; &#49828;&#53356;&#47549;&#53944; &#49324;&#50857;&#54616;&#44592;<a class="anchor-link" href="#require.js-&#49324;&#50857;&#54644;-&#46041;&#51201;&#51004;&#47196;-&#50808;&#48512;-&#49828;&#53356;&#47549;&#53944;-&#49324;&#50857;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2><p>조금 더 나아가보자. 주피터 노트북에는 기본적으로 몇 가지 외부 스크립트들이 포함되어 있다. jquery, moment, require.js가 기본 외부 스크립트이다. 이러한 스크립트는 프로필 설정을 통해서 미리 추가할 수도 있지만, <code>require.js</code>가 눈에 띈다. 이를 사용하면 AMD 방식으로 동적으로 외부 스크립트를 읽어오는 것이 가능해진다. 이를 통해 미리 외부 스크립트들을 준비해야하는 번잡함과 전역 환경에 스크립트들을 로드해서 생길 수 있는 문제들을 피해갈 수 있다.</p>
+<h2><a name='require.js-&#49324;&#50857;&#54644;-&#46041;&#51201;&#51004;&#47196;-&#50808;&#48512;-&#49828;&#53356;&#47549;&#53944;-&#49324;&#50857;&#54616;&#44592;'>require.js &#49324;&#50857;&#54644; &#46041;&#51201;&#51004;&#47196; &#50808;&#48512; &#49828;&#53356;&#47549;&#53944; &#49324;&#50857;&#54616;&#44592;<a class="anchor-link" href="#require.js-&#49324;&#50857;&#54644;-&#46041;&#51201;&#51004;&#47196;-&#50808;&#48512;-&#49828;&#53356;&#47549;&#53944;-&#49324;&#50857;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>조금 더 나아가보자. 주피터 노트북에는 기본적으로 몇 가지 외부 스크립트들이 포함되어 있다. jquery, moment, require.js가 기본 외부 스크립트이다. 이러한 스크립트는 프로필 설정을 통해서 미리 추가할 수도 있지만, <code>require.js</code>가 눈에 띈다. 이를 사용하면 AMD 방식으로 동적으로 외부 스크립트를 읽어오는 것이 가능해진다. 이를 통해 미리 외부 스크립트들을 준비해야하는 번잡함과 전역 환경에 스크립트들을 로드해서 생길 수 있는 문제들을 피해갈 수 있다.</p>
 <p>이를 사용하려면 먼저 외부 스크립트 주소를 <code>require.config</code>에 정의한다.</p>
 
 </div>
@@ -441,7 +442,7 @@ require.config({
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3><a name='&#53364;&#47196;&#51200;&#50752;-&#51593;&#49884;&#49892;&#54665;&#54632;&#49688;-&#54056;&#53556;&#51012;-&#54876;&#50857;&#54644;-&#52636;&#47141;-&#50948;&#52824;-&#48372;&#51221;&#54616;&#44592;'>&#53364;&#47196;&#51200;&#50752; &#51593;&#49884;&#49892;&#54665;&#54632;&#49688; &#54056;&#53556;&#51012; &#54876;&#50857;&#54644; &#52636;&#47141; &#50948;&#52824; &#48372;&#51221;&#54616;&#44592;<a class="anchor-link" href="#&#53364;&#47196;&#51200;&#50752;-&#51593;&#49884;&#49892;&#54665;&#54632;&#49688;-&#54056;&#53556;&#51012;-&#54876;&#50857;&#54644;-&#52636;&#47141;-&#50948;&#52824;-&#48372;&#51221;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3><p>안타깝게도, 여기서도 위에서 이야기했던 것과 비슷한 문제가 하나 있다. require는 비동기적으로 실행되며 d3가 로드된 다음에서야 넘겨진 함수를 호출하도록 되어있다. 즉, d3가 로드되는 것을 기다리지 않고 다음 스크립트들을 실행해버린다. 주피터 노트북 위에서는 자바스크립트 실행에 대해서 독립된 영역이 사용되기 때문에 무방하지만, nbviewer에서는 위에서 보았듯이 모든 코드가 script 태그로 그냥 삽입된다. 따라서 그냥 실행하면 모든 변수가 전역에 노출되어 버린다. 따라서 target 변수는 실행하자마자 갱신되고, 이미 모든 코드가 실행되어버렸기 때문에 nbviewer에서 마지막에 호출된 <code>get_element(element)</code>가 모든 셀의 출력 위치가 된다. 아래는 여러 셀에서 출력한 모든 그래프가 마지막 셀에 그려져 버린 경우이다.</p>
+<h3><a name='&#53364;&#47196;&#51200;&#50752;-&#51593;&#49884;&#49892;&#54665;&#54632;&#49688;-&#54056;&#53556;&#51012;-&#54876;&#50857;&#54644;-&#52636;&#47141;-&#50948;&#52824;-&#48372;&#51221;&#54616;&#44592;'>&#53364;&#47196;&#51200;&#50752; &#51593;&#49884;&#49892;&#54665;&#54632;&#49688; &#54056;&#53556;&#51012; &#54876;&#50857;&#54644; &#52636;&#47141; &#50948;&#52824; &#48372;&#51221;&#54616;&#44592;<a class="anchor-link" href="#&#53364;&#47196;&#51200;&#50752;-&#51593;&#49884;&#49892;&#54665;&#54632;&#49688;-&#54056;&#53556;&#51012;-&#54876;&#50857;&#54644;-&#52636;&#47141;-&#50948;&#52824;-&#48372;&#51221;&#54616;&#44592;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3><p>안타깝게도, 여기서도 위에서 이야기했던 것과 비슷한 문제가 하나 있다. require는 비동기적으로 실행되며 d3가 로드된 다음에서야 넘겨진 함수를 호출하도록 되어있다. 즉, d3가 로드되는 것을 기다리지 않고 다음 스크립트들을 실행해버린다. 주피터 노트북 위에서는 자바스크립트 실행에 대해서 독립된 영역이 사용되기 때문에 무방하지만, nbviewer에서는 위에서 보았듯이 모든 코드가 script 태그로 그냥 삽입된다. 따라서 그냥 실행하면 모든 변수가 전역에 노출되어 버린다. 따라서 target 변수는 실행하자마자 갱신되고, 이미 모든 코드가 실행되어버렸기 때문에 nbviewer에서 마지막에 호출된 <code>get_element(element)</code>가 모든 셀의 출력 위치가 된다. 아래는 여러 셀에서 출력한 모든 그래프가 마지막 셀에 그려져 버린 경우이다.</p>
 <p><img src="http://i.imgur.com/5OU34Exl.png" alt="클로저를 사용하지 않은 경우"></p>
 <p>이 문제를 해결하려면 즉시실행함수 패턴과 클로저를 사용해서 미리 결과를 출력한 대상을 정의해두어야 한다. 즉 위에서 정의했던 코드는 다음과 같이 작성되어야 한다. 이를 통해서 함수로 각 셀의 실행 환경을 분리하고, <code>targetElement</code>를 정확히 지정할 수 있다.</p>
 <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
@@ -464,7 +465,7 @@ require.config({
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='d3.js&#47484;-&#54876;&#50857;&#54620;-&#49884;&#44033;&#54868;'>d3.js&#47484; &#54876;&#50857;&#54620; &#49884;&#44033;&#54868;<a class="anchor-link" href="#d3.js&#47484;-&#54876;&#50857;&#54620;-&#49884;&#44033;&#54868;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2><p>자잘한 문제들로 인해 조금 돌아서 왔다. 이제 d3.js를 실제로 사용해서 정말 간단하게 동그라미 몇 개를 실제로 그려보자.</p>
+<h2><a name='d3.js&#47484;-&#54876;&#50857;&#54620;-&#49884;&#44033;&#54868;'>d3.js&#47484; &#54876;&#50857;&#54620; &#49884;&#44033;&#54868;<a class="anchor-link" href="#d3.js&#47484;-&#54876;&#50857;&#54620;-&#49884;&#44033;&#54868;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>자잘한 문제들로 인해 조금 돌아서 왔다. 이제 d3.js를 실제로 사용해서 정말 간단하게 동그라미 몇 개를 실제로 그려보자.</p>
 <p>먼저 require를 통해서 정말로 d3 객체를 읽어오는 지 확인해보자.</p>
 
 </div>
@@ -664,7 +665,7 @@ require.config({
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='&#44208;&#47200;'>&#44208;&#47200;<a class="anchor-link" href="#&#44208;&#47200;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2><p>이를 통해 자바스크립트와 d3.js를 활용해(다른 라이브러리 어떤 것이라도 가능하다) 노트북을 작성할 수 있다. 아직 nbviewer에서는 이런 부분에 대한 지원이 약한 편인데(앞으로 지원 여부도 명확하지 않다), 약간의 편법을 통해서 피해갈 수 있다. 아래 링크들은 실제로 이러한 방식을 사용해서 만들어본 몇 가지 예제들이다. 모두 nbviewer를 통해서 웹에서 직접 확인해볼 수 있다. 심지어(?) 지금 읽고 있는 글도 nbviewer에서 직접 확인할 수 있다.</p>
+<h2><a name='&#44208;&#47200;'>&#44208;&#47200;<a class="anchor-link" href="#&#44208;&#47200;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>이를 통해 자바스크립트와 d3.js를 활용해(다른 라이브러리 어떤 것이라도 가능하다) 노트북을 작성할 수 있다. 아직 nbviewer에서는 이런 부분에 대한 지원이 약한 편인데(앞으로 지원 여부도 명확하지 않다), 약간의 편법을 통해서 피해갈 수 있다. 아래 링크들은 실제로 이러한 방식을 사용해서 만들어본 몇 가지 예제들이다. 모두 nbviewer를 통해서 웹에서 직접 확인해볼 수 있다. 심지어(?) 지금 읽고 있는 글도 nbviewer에서 직접 확인할 수 있다.</p>
 <ul>
 <li><a href="http://nbviewer.ipython.org/github/nacyot/blog.nacyot.com-source/blob/master/source/iruby/d3js-in-jupyter.ipynb">D3.js in Jupyter</a></li>
 <li><a href="http://nbviewer.ipython.org/gist/nacyot/2abc5e8c80c3916500ba">Rounded Donut Chart 예제</a></li>
@@ -677,13 +678,139 @@ require.config({
 </div></p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/closure'>
+클로저(closure)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/d3js'>
+D3.js
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/data_visualization'>
+정보시각화(data visualization)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>
+에디터(Editor)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython'>
+아이파이썬(Ipython)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/javascript'>
+자바스크립트(Javascript)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>
+주피터(Jupyter)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter_kernel'>
+주피터 커널(Jupyter kernel)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter_notebook'>
+주피터 노트북(Jupyter Notebook)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/visualization'>
+시각화(Visualization)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -697,6 +824,7 @@ require.config({
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -716,23 +844,121 @@ require.config({
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2015-05-13-jupyter-as-a-service/' rel='prev'>launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython >= 3) 노트북 서비스 등록 예제</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2015-05-13-jupyter-as-a-service/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-05-13-jupyter-as-a-service/">launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython >= 3) 노트북 서비스 등록 예제</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2015년 05월 13일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/3tBPtzI.jpg" />
+</div>
+<p>아주 자주 사용하는 프로그램은 컴퓨터가 켜져있으면 어김없이 실행된다. 그래서 사용자들은 보통 이러한 프로그램을 시작 프로그램에 등록해서 사용하곤 한다. 이러한 프로그램이 백그라운드 작업을 하는 프로그램이거나 서버 프로그램이라면 매번 터미널을 열어서 실행한다는 것이 여간 번거로운 일이 아닐 것이다. 맥 OSX에서도 이와 같은 상황을 겪을 수 있는데, 적절히 커스텀 서비스를 등록해 이러한 번거로움을 피해갈 수 있다. 이 글에서는 <a href="http://www.jupyter.org/">Jupyter Notebook</a>을 예제로 OSX 서비스 등록과 간단한 조작법에 대해서 살펴본다.</p>
+
+<span class='link'>
+<a href="../2015-05-13-jupyter-as-a-service/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>jupyter</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/launchctl'>launchctl</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/osx'>osx</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/service'>service</a>
+</div>
+<div class='barcode' data-title='launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython &gt;= 3) 노트북 서비스 등록 예제'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2015-06-13-eunjeon-with-elasticsearch/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2015-06-13-eunjeon-with-elasticsearch/' rel='next'>엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-06-13-eunjeon-with-elasticsearch/">엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2015년 06월 13일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/DxnlLeu.jpg" />
+</div>
+<p>엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &quot;아버지가 방에 들어간다&quot;라는 한국어 문장을 인덱스해도 &quot;아버지&quot;로는 검색이 안 되고, 반드시 &quot;아버지가&quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.</p>
+
+<span class='link'>
+<a href="../2015-06-13-eunjeon-with-elasticsearch/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/eunjeon'>eunjeon</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/mecab'>mecab</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/morphology'>morphology</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/search_engine'>search_engine</a>
+</div>
+<div class='barcode' data-title='엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -745,24 +971,41 @@ require.config({
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

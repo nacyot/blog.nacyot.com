@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2015-02-02-d3-selection/' rel='prev' title='D3.js 기초 - select API와 enter() 이해하기'>
 <link href='/articles/2015-05-08-jupyter-multiple-pythons/' rel='next' title='주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기'>
 <meta content='IPython은 Python REPL의 확장 구현이다. 0.12 버전부터 Notebook이라는 이름으로 웹 인터페이스를 지원하고 있다. 또한 파이썬 뿐만 아니라 다른 언어를 실행할 수 있는 다양한 커스텀 커널을 지원하고 있다. IRuby는 IPython의 루비(Ruby) 커널 구현체로 이를 사용해 IPython Notebook에서 Ruby 코드를 실행하고 문서를 작성하는 게 가능하다.이 글은 2015년 4월 14일 RORLab에서 발표한 내용을 보충하기 위한 글로 IRuby 설치, 실행 및 발표 레퍼런스를 소개한다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='ipython, iruby, jupyter, iruby notebook, ipython notebook, literate programming, active essays' name='keywords'>
+<meta content='http://i.imgur.com/KsQGjGT.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/KsQGjGT.jpg' property='og:image'>
+<meta content='ipython, iruby, jupyter, ipython_notebook, literate_programming, active_essays, rorlab, programming, editor' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: [RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,91 +44,91 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Apr 15 2015
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/active-essays'>active essays</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ipython'>ipython</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ipython-notebook'>ipython notebook</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/iruby'>iruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/iruby-notebook'>iruby notebook</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/jupyter'>jupyter</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/literate-programming'>literate programming</a>
-</span>
+<div class='category category-editor-top' style='width: 50.0%'>
 </div>
-<a name='toc'></a>
+</div>
 <h1 class='title'>
 <a href="./">[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2015년 04월 15일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/KsQGjGT.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
 <p>IPython은 Python REPL의 확장 구현이다. 0.12 버전부터 Notebook이라는 이름으로 웹 인터페이스를 지원하고 있다. 또한 파이썬 뿐만 아니라 다른 언어를 실행할 수 있는 다양한 커스텀 커널을 지원하고 있다. IRuby는 IPython의 루비(Ruby) 커널 구현체로 이를 사용해 IPython Notebook에서 Ruby 코드를 실행하고 문서를 작성하는 게 가능하다.</p>
@@ -138,7 +139,7 @@ Apr 15 2015
 
 
 
-<h2><a name='발표자료'>발표자료</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='발표자료'>발표자료</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p><a href="http://blog.nacyot.com/presentations/rorlab_jupyter">IRuby Notebook 원본 발표자료(reveal.js)</a></p>
 
@@ -148,11 +149,11 @@ Apr 15 2015
 
 <p><a href="https://speakerdeck.com/nacyot/jupyter-iruby-notebook">https://speakerdeck.com/nacyot/jupyter-iruby-notebook</a></p>
 
-<h2><a name='iruby-설치하기'>IRuby 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='iruby-설치하기'>IRuby 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>(어제 올렸던 처음으로 소개했던 설치법에는 몇 가지 문제가 있습니다. 유상민 님 지적으로 jsonschema 설치 및 SciRuby/iruby 설치 부분을 보충합니다. 유상민 님께 감사드립니다)</p>
 
-<h3><a name='zeromq-설치하기'>ZeroMQ 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='zeromq-설치하기'>ZeroMQ 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>ZeroMQ를 설치한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># Mac OSX</span>
@@ -161,7 +162,7 @@ Apr 15 2015
 </span><span id="line-4"><span class="cp"># Ubuntu</span>
 </span><span id="line-5"><span class="err">$</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libzmq3</span>
 </span></pre></div>
-<h3><a name='python-환경-구축-및-ipython-설치'>python 환경 구축 및 ipython 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='python-환경-구축-및-ipython-설치'>python 환경 구축 및 ipython 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>pyenv를 설치한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="cp"># Mac OSX</span>
@@ -185,7 +186,7 @@ Apr 15 2015
 </span></pre></div>
 <p>Jupyter(IPython3)부터는 jsonschema 라이브러리도 추가로 필요하다.</p>
 
-<h3><a name='iruby-설치'>IRuby 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='iruby-설치'>IRuby 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>IRuby 최신 버전은 gem으로 설치할 수 있다. 여기서는 루비 환경은 구축되어있다고 가정한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>gem install specific_install
@@ -213,7 +214,7 @@ Apr 15 2015
 </span></pre></div>
 <p>ruby가 있다면 정상적으로 커널이 등록된 것이다.</p>
 
-<h2><a name='iruby-실행하기'>IRuby 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='iruby-실행하기'>IRuby 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>최신 버전(&gt;=3)에서는 <code>iruby</code>를 사용하지 않고 <code>ipython</code>으로 실행해도 정상적으로 ruby 커널을 사용할 수 있다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>ipython notebook --ip<span class="o">=</span>0.0.0.0 --notebook-dir &lt;NOTEBOOKS_DIR&gt;
@@ -222,16 +223,16 @@ Apr 15 2015
 
 <p><img src="http://i.imgur.com/uhedvNL.png" alt=""></p>
 
-<h2><a name='레퍼런스'>레퍼런스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='레퍼런스'>레퍼런스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
-<h3><a name='iruby'>IRuby</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='iruby'>IRuby</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="https://github.com/SciRuby/iruby">SciRuby/iruby</a></li>
 <li><a href="https://github.com/Handybook/irails/">Handybook/irails</a></li>
 </ul>
 
-<h3><a name='ipython/jupyter'>IPython/Jupyter</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='ipython/jupyter'>IPython/Jupyter</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="https://jupyter.org/">Project Jupyter</a></li>
@@ -247,7 +248,7 @@ Apr 15 2015
 <li><a href="http://andrew.gibiansky.com/blog/ipython/ipython-kernels/">Andrew Gibiansky - Creating Language Kernels for IPython</a></li>
 </ul>
 
-<h3><a name='ipython-kernel-for-other-languages'>IPython Kernel for other languages</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='ipython-kernel-for-other-languages'>IPython Kernel for other languages</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="https://github.com/gibiansky/IHaskell">gibiansky/IHaskell</a></li>
@@ -256,7 +257,7 @@ Apr 15 2015
 <li><a href="http://jeroenjanssens.com/2015/02/19/ibash-notebook.html">Jeroen Janssens - IBash Notebook‽</a></li>
 </ul>
 
-<h3><a name='ipython-client'>IPython Client</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='ipython-client'>IPython Client</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="https://github.com/ivanov/bipython">ivanov/bipython</a></li>
@@ -265,7 +266,7 @@ Apr 15 2015
 <li><a href="https://www.jetbrains.com/pycharm/help/ipython-notebook-support.html">PyCharm - IPython Notebook Support</a></li>
 </ul>
 
-<h3><a name='examples'>Examples</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='examples'>Examples</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="http://nbviewer.ipython.org/gist/nacyot/c0190709f56024eb516e">D3 Notebook 예제(시각화 스터디)</a></li>
@@ -280,7 +281,7 @@ Apr 15 2015
 <img src='http://i.imgur.com/ir6nP73.png' />
 </div>
 
-<h3><a name='active-essays-/-literate-programming'>Active Essays / Literate Programming</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='active-essays-/-literate-programming'>Active Essays / Literate Programming</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="http://web.archive.org/web/20060710213801/http://www.squeakland.org/whatis/a_essays.html">Active Essays - Alan Kay</a></li>
@@ -301,7 +302,7 @@ Apr 15 2015
 <li><a href="http://docs.ansible.com/docker_module.html">Ansible Documentation</a></li>
 </ul>
 
-<h3><a name='blogging-by-ipython'>Blogging by Ipython</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='blogging-by-ipython'>Blogging by Ipython</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="http://blog.fperez.org/2012/09/blogging-with-ipython-notebook.html">Fernando Perez - Blogging with the IPython notebook</a></li>
@@ -309,7 +310,7 @@ Apr 15 2015
 <li><a href="http://www.boxnwhis.kr/2015/02/10/blogging_with_python.html">Box and Whisker - IPython Notebook으로 블로깅하기</a></li>
 </ul>
 
-<h3><a name='etc'>ETC</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='etc'>ETC</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <ul>
 <li><a href="https://vimeo.com/69448223">Eyeo 2013 - For example by Mike Bostock</a></li>
@@ -319,13 +320,121 @@ Apr 15 2015
 </ul>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/active_essays'>
+액티브 에세이(active essays)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>
+에디터(Editor)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython'>
+아이파이썬(Ipython)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython_notebook'>
+아이파이썬 노트북(Ipython Notebook)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/iruby'>
+아이루비(iruby)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>
+주피터(Jupyter)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/literate_programming'>
+문학적 프로그래밍(literate programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/rorlab'>
+RORLab
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -339,6 +448,7 @@ Apr 15 2015
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -358,23 +468,132 @@ Apr 15 2015
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2015-02-02-d3-selection/' rel='prev'>D3.js 기초 - select API와 enter() 이해하기</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2015-02-02-d3-selection/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-visualization-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-02-02-d3-selection/">D3.js 기초 - select API와 enter() 이해하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<i class='fa fa-bar-chart' style='color: #ff7f0e'></i>
+시각화
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2015년 02월 04일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/YZXcVjR.jpg" />
+</div>
+<p><a href="http://d3js.org/">D3JS</a>에서는 조작하고자 하는 요소를 선택할 수 있는 select API를 제공한다. select API는 jquery의 select API와도 비슷하지만, D3에서는 selection 객체에 대해서 <code>data()</code>를 통해 특정 데이터를 바인드하고, <code>enter()</code>와 <code>exit()</code>를 통해 데이터에 대응하는 객체를 다룰 수 있는 기능들을 제공한다. 이 글에서는 D3에서 이 select API를 통해서 어떻게 시각화를 <strong>시작</strong>하는 지에 대해서 다룬다.</p>
+
+<span class='link'>
+<a href="../2015-02-02-d3-selection/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/d3js'>d3js</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/data_visualization'>data_visualization</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/javascript'>javascript</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/visualization'>visualization</a>
+</div>
+<div class='barcode' data-title='D3.js 기초 - select API와 enter() 이해하기'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2015-05-08-jupyter-multiple-pythons/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2015-05-08-jupyter-multiple-pythons/' rel='next'>주피터(Jupyter, IPython >= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-05-08-jupyter-multiple-pythons/">주피터(Jupyter, IPython >= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2015년 05월 08일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ww5UMh7.jpg" />
+</div>
+<p>아이파이썬 노트북(IPython Notebook)은 원래 파이썬 REPL의 확장으로 개발되었다. 원래 메시지 처리 부분을 분리한 현재의 아키텍처는 파이썬이라는 언어에 대해서 콘솔과 qt를 통한 GUI, 그리고 웹을 기반으로하는 노트북 등 클라이언트를 분리하기 위해서 도입되었다. 하지만 이는 동시에 언어 실행기의 확장 (즉, 파이썬 이외의 것들을 실행할 수 있는) 가능성도 열어주었다. 원래 IPython에서는 이런 부분에 대한 고려가 없었기 때문에 언어를 해석하는 커널은 기본적으로 한 가지만을 지원한다. 따라서 커널을 바꿀 수는 있지만, 커널을 바꾸려면 IPython Notebook 서버를 새로 실행해야만 했다. 반면에 주피터(IPython &gt;= 3의 다른 이름)에서는 하나의 서버에서 다수의 커널을 바꿔가며 실행할 수 있다.</p>
+
+<span class='link'>
+<a href="../2015-05-08-jupyter-multiple-pythons/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython'>ipython</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython_notebook'>ipython_notebook</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/iruby'>iruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>jupyter</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter_kernel'>jupyter_kernel</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/pyenv'>pyenv</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python'>python</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python2'>python2</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python3'>python3</a>
+</div>
+<div class='barcode' data-title='주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -387,24 +606,41 @@ Apr 15 2015
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

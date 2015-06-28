@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/page/2/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <meta content='blog.nacyot.com은 루비 프로그래머 nacyot이 프로그래밍을 주제로 운영하고 있는 블로그입니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
@@ -31,6 +31,7 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <title>nacyot의 프로그래밍 이야기</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -41,165 +42,652 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
-
-
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
 <div class='wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
 <h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
 nacyot의 프로그래밍 이야기
+</span>
+</a>
 </h1>
-<div class='description'></div>
 </div>
+
 <div class='main'>
 <div id='container'>
+<div class='row'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<span class='featured'>
+<i class='fa fa-star'></i>
+</span>
+<a href="../../articles/2014-01-27-easy-deploy-with-docker/">도커(Docker) 튜토리얼 : 깐 김에 배포까지</a>
+</h1>
 <div>
 <span class='date'>
-Oct 30 2013
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 01월 27일 발행
 </span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2013-10-30-angularjs-style-guide/">앵귤러js(AngularJs) 스타일 가이드 번역</a>
-</h2>
 <div class='summary'>
-<p>이 글은 Minko Gechev 씨의 <a href="https://github.com/mgechev/angularjs-style-guide">AngularJS Style Guide</a> 문서를 <a href="http://nacyot.com">nacyot</a>이 변역한 글입니다. 번역된 문서는 <a href="https://github.com/nacyot/angularjs-style-guide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/mgechev/angularjs-style-guide">여기</a>에서 찾아볼 수 있습니다.</p>
-••••••
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/GEcrPFc.jpg" />
+</div>
+<p>도커(Docker)는 2013년에 등장한 새로운 컨테이너 기반 가상화 도구입니다. 도커는 계층화된 파일시스템(AUFS, BTRFS 등)을 사용해 가상화된 컨테이너의 변경사항을 모두 추적하고 관리합니다. 이를 통해서 컨테이너의 특정 상태를 항상 보존해두고, 필요할 때 언제 어디서나(단, Docker가 설치만 되어있다면) 이를 실행할 수 있도록 도와주는 도구입니다. 이 글은 Docker 입문자를 위한 튜토리얼로, 도커의 기본 개념들과 사용법에 대해서 소개합니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-01-27-easy-deploy-with-docker/">계속 읽기</a>
+</span>
 </div>
 <div class='tags'>
 <i class='fa fa-tag'></i>
-<a href='/tags/Minko-Gechev'>Minko Gechev</a>
+<a href='/tags/centos'>centos</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/angularjs'>angularjs</a>
+<a href='/tags/docker'>docker</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/github'>github</a>
+<a href='/tags/dockerfile'>dockerfile</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/javascript'>javascript</a>
+<a href='/tags/infrastructure'>infrastructure</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/번역'>번역</a>
+<a href='/tags/lxc'>lxc</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/앵귤러JS'>앵귤러JS</a>
+<a href='/tags/moniwiki'>moniwiki</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/자바스크립'>자바스크립</a>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tutorial'>tutorial</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
 </div>
+<div class='barcode' data-title='도커(Docker) 튜토리얼 : 깐 김에 배포까지'></div>
 </div>
 
 <div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-news-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-07-26-docker-korea/">Docker Korea 스터디 그룹</a>
+</h1>
 <div>
 <span class='date'>
-Oct  2 2013
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/news' title='새소식(News) 목록'>
+<i class='fa fa-newspaper-o' style='color: #bcbd22'></i>
+새소식
+</a>
+<i class='fa fa-calendar'></i>
+2014년 07월 26일 발행
 </span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/">Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화</a>
-</h2>
 <div class='summary'>
-<p>루비 테스트로는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/minitest' rel='noindex,nofollow'>minitest</a></span>와 <span class='live_link'><a href='http://wiki.nacyot.com/documents/rspec'>Rspec</a></span>이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/autotest' rel='noindex,nofollow'>Autotest</a></span> 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/guard' rel='noindex,nofollow'>Guard</a></span>를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.</p>
-••••••
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/zl97L6z.jpg" />
+</div>
+<ul>
+<li><a href="http://www.shomney.com">함께 쓰는 가계부 Shomney</a></li>
+</ul>
+
+<p>현재 저는 <a href="http://blog.remotty.com/about/">Remotty</a>라는 프로그래밍 모임에 속해있습니다. Remotty는 작년 다른 스터디 그룹에서 파생된 작은 팀으로 2014년에는 계속 Shomney라는 공동 가계부 웹앱을 만들어왔습니다. 업무로 일을 하는 게 아니다보니, 다들 바쁜 시간을 쪼개고, 다른 일에 치이면서(저는 거의 참여도 하지 못 했고...) 7월에서야 겨우 빚을 보았습니다.</p>
+
+<p>Shomney는 계속 개발중입니다만, 이 공동가계부를 뒤로 하고 Remotty 팀에서는 2번째 커다란 주제로 도커(Docker)를 스터디하기로 했습니다. 그리고 지난주 토요일(7월 19일) 시청역 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/space_noah' rel='nofollow'>스페이스 노아</a></span>에서 첫 모임을 가졌습니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-07-26-docker-korea/">계속 읽기</a>
+</span>
 </div>
 <div class='tags'>
 <i class='fa fa-tag'></i>
-<a href='/tags/autotest'>autotest</a>
+<a href='/tags/docker'>docker</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/guard'>guard</a>
+<a href='/tags/docker_korea'>docker_korea</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/minitest'>minitest</a>
+<a href='/tags/immutable_infrastructure'>immutable_infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/news'>news</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/remotty'>remotty</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/shomney'>shomney</a>
+</div>
+<div class='barcode' data-title='Docker Korea 스터디 그룹'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 07월 25일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/2Omobwt.jpg" />
+</div>
+<p>시스템 <span class='live_link'><a href='http://wiki.nacyot.com/documents/monitoring'>모니터링</a></span>에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rrdtool' rel='nofollow'>rrdtool</a></span>로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/metrics' rel='nofollow'>metrics</a></span>) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.</p>
+
+<p><img src="http://i.imgur.com/egJIriw.png" alt="rrdtool">
+<div class="shape-title">rrdtool</div></p>
+
+<span class='link'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/carbon'>carbon</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dashboard'>dashboard</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/grafana'>grafana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/graphite'>graphite</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/kibana'>kibana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/monitoring'>monitoring</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/timeserise_database'>timeserise_database</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/volume_container'>volume_container</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/whisper'>whisper</a>
+</div>
+<div class='barcode' data-title='그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-06-01-emacs-with-cask/">캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2014년 06월 01일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/zYArOUu.jpg" />
+</div>
+<p>얼마 전 [Cask 공식 문서를 한국어로 번역][cask]해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.</p>
+
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs24' rel='nofollow'>Emacs24</a></span>부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>와 비교하면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gem' rel='nofollow'>Gem</a></span>에 해당한다. 루비에서 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='nofollow'>Cask</a></span>의 역할은 Gem이 아니라 <span class='live_link'><a href='http://wiki.nacyot.com/documents/bundler'>Bundler</a></span>의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-06-01-emacs-with-cask/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/cask'>cask</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/package_management'>package_management</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/pallet'>pallet</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+</div>
+<div class='barcode' data-title='캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-05-08-docker-registry-introduction/">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 05월 08일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ilkin2F.jpg" />
+</div>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 <span class='live_link'><a href='http://wiki.nacyot.com/documents/dockerfile'>Dockerfile</a></span>을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-05-08-docker-registry-introduction/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/aws'>aws</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_registry'>docker_registry</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/s3'>s3</a>
+</div>
+<div class='barcode' data-title='도커 레지스트리(Docker Registry) 설치하기 + S3 연동'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+<div class='category category-news-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-04-28-translate-emacs-cask-documenation/">이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<a href='/tags/news' title='새소식(News) 목록'>
+<i class='fa fa-newspaper-o' style='color: #bcbd22'></i>
+새소식
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 28일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/QyIQJCe.jpg" />
+</div>
+<ul>
+<li><a href="http://cask.emacs.kr">http://cask.emacs.kr/</a></li>
+</ul>
+
+<blockquote>
+<p>Emacs を使い始めてはや15年、ようやくまともな elisp 管理ができるようになった。</p>
+
+<p>Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 관리가 가능하게 되었다. </p>
+</blockquote>
+
+<p>일본 프로그래머 Ito Naoya 씨가 <a href="http://d.hatena.ne.jp/naoya/20140424/1398318293">Cask를 소개하는 글</a>에서 이런 얘기를 하길래, 관심이 가서 <a href="http://cask.github.io">Cask 공식 문서</a>를 번역했습니다.</p>
+
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span> 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.</p>
+
+<p>그만큼이나 Emacs 설정을 잘 하는 건 어렵습니다. 해본 사람은 알겠지만 이것저것 입맛대로 뜯어고치고 플러그인 설치하고 한 번 꼬이고 그러면 그냥 프로그래밍 하는 시간보다 설정하는 시간이 더 많이 드는 거 아닌가 하는 회의감이 들 정도니까요. 강력하지만 귀찮고 어렵습니다.</p>
+
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='nofollow'>Cask</a></span>는 이러한 문제를 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>Ruby</a></span>의 번들러나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='nofollow'>Node.js</a></span>의 <span class='live_link'><a href='http://wiki.nacyot.com/documents/npm'>npm</a></span>처럼 &#39;Cask&#39;라는 파일을 통해 해결해줍니다. 이를 통해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs_lisp' rel='nofollow'>emacs lisp</a></span> 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.</p>
+
+<p>현재 틈틈히 Cask로 옮기는 작업을 하고 있으니, 조만간 Cask로 완전히 갈아타는 데 성공하면 사용법에 대해서도 소개하겠습니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-04-28-translate-emacs-cask-documenation/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/cask'>cask</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/news'>news</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>translation</a>
+</div>
+<div class='barcode' data-title='이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-04-19-ruby-enumerable/">루비의 꽃, 열거자 Enumerable 모듈</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 19일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/smOrGyZ.jpg" />
+</div>
+<p>프로그래밍을 배우면 피해갈 수 없는 부분 중 하나가 바로 제어 추상화입니다. 그 중에서도 반복문은 특히 많이 사용되는데, 재미있는 건 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>에서는 다른 언어에서 많이 사용되는 while이나 for 같은 문법을 잘 사용하지 않는다는 점입니다. 이러한 변수 재대입에 의존한 반복문들을 사용하기보다는 컬렉션의 요소 하나하나를 블록에 넘겨 평가하는 <code>each</code>와 같은 열거자(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/enumerable' rel='nofollow'>Enumerable</a></span>) 메서드가 주로 사용됩니다. 이러한 컬렉션 확장 메서들은 처음 사용할 때는 낯설게 느껴질 지도 모르지만, 사실은 컬렉션 없는 반복문이야 말로 특수한 경우이므로 루비의 접근이 합리적이라는 걸 금방 깨닫게됩니다. 나아가 Enumerable은 단순히 <code>each</code> 메서드만 제공하는 게 아닙니다. 다양한 열거자 메서드를 통해 루비에서 컬렉션을 좀 더 자유자재로 다룰 수 있습니다. 이 글에서는 Enumerable 모듈에 포함된 다양한 열거자 메서드들을 소개합니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-04-19-ruby-enumerable/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/enumerable'>enumerable</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming_language'>programming_language</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+</div>
+<div class='barcode' data-title='루비의 꽃, 열거자 Enumerable 모듈'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-software-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 19일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/Jag0s9f.jpg" />
+</div>
+<p>드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이 글에서는 테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. </p>
+
+<span class='link'>
+<a href="../../articles/2014-04-18-docker-on-ubuntu-14-04/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/apt_get'>apt_get</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/digital_ocean'>digital_ocean</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tugboat'>tugboat</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu_14_04'>ubuntu_14_04</a>
+</div>
+<div class='barcode' data-title='우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-04-07-rspec-matchers/">루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 07일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/vX8CxfP.jpg" />
+</div>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>에서는 테스트를 하기 위해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/minitest' rel='nofollow'>minitest</a></span>와 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bdd' rel='nofollow'>BDD</a></span> 프레임워크인 <span class='live_link'><a href='http://wiki.nacyot.com/documents/rspec'>RSpec</a></span>이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-04-07-rspec-matchers/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/bdd'>bdd</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/rspec'>rspec</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/ruby'>ruby</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/루비'>루비</a>
+<a href='/tags/tdd'>tdd</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/테스트'>테스트</a>
+<a href='/tags/test'>test</a>
 </div>
+<div class='barcode' data-title='루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)'></div>
 </div>
 
 <div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-04-06-immutable-infrastructure/">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
+</h1>
 <div>
 <span class='date'>
-Oct  2 2013
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 06일 발행
 </span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2013-10-02-github-ecosystem/">Github 에코시스템 - Git을 둘러싼 유용한 서비스들</a>
-</h2>
 <div class='summary'>
-<p>소스 관리를 위해 사용하는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/github'>Github</a></span>와 바로 연동해서 사용할 수 있는 많은 좋은
-서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수
-있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이
-서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는
-기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을
-검토해보셔도 좋을 듯 합니다. 여기서는 코드 퀄리티 관리 서비스 Code Climate,
-의존성 버전 관리 Gemnasium, 루비 문서 서비스 rubydoc.info, CI 서비스 Trivas,
-테스트 커버리지 관리 서비스 Coveralls를 간락히 소개합니다.</p>
-••••••
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ro7ZK8t.jpg" />
+</div>
+<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/immutable_infrastructure'>immutable infrastructure</a></span>을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/aws' rel='nofollow'>AWS</a></span> AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/heroku' rel='nofollow'>Heroku</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/travis'>Travis</a></span> 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/chef' rel='nofollow'>Chef</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/puppet' rel='nofollow'>Puppet</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>Docker</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/vagrant'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/packer' rel='nofollow'>Packer</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/serf' rel='nofollow'>Serf</a></span>와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
+
+<ul>
+<li><a href="/presentations/immutable_infrastructure">Immutable Infrastructure 발표 자료</a></li>
+</ul>
+
+<span class='link'>
+<a href="../../articles/2014-04-06-immutable-infrastructure/">계속 읽기</a>
+</span>
 </div>
 <div class='tags'>
 <i class='fa fa-tag'></i>
-<a href='/tags/code-climate'>code climate</a>
+<a href='/tags/docker'>docker</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/coveralls'>coveralls</a>
+<a href='/tags/immutable_infrastructure'>immutable_infrastructure</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/gemnasium'>gemnasium</a>
+<a href='/tags/infrastructure'>infrastructure</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/github'>github</a>
+<a href='/tags/programer'>programer</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+</div>
+<div class='barcode' data-title='이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-03-23-cookpad-ruby-styleguide/">쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 03월 23일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/JF65kMh.jpg" />
+</div>
+<p>이 문서는 Cookpad의 <a href="https://github.com/cookpad/styleguide">Ruby Style Guide</a>를 <a href="http://nacyot.com">nacyot</a>이 한국어로 번역한 문서입니다. 번역된 문서는 <a href="https://github.com/nacyot/styleguide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/cookpad/styleguide">여기</a>에서 찾아볼 수 있습니다. 이 문서는 <a href="http://creativecommons.org/licenses/by/3.0/">cc-by</a> 라이센스를 따릅니다.</p>
+
+<span class='link'>
+<a href="../../articles/2014-03-23-cookpad-ruby-styleguide/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/cookpad'>cookpad</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming_language'>programming_language</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/ruby'>ruby</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/rubydoc.info'>rubydoc.info</a>
+<a href='/tags/style_guide'>style_guide</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/travis'>travis</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/루비'>루비</a>
+<a href='/tags/translation'>translation</a>
 </div>
+<div class='barcode' data-title='쿡패드(Cookpad) 루비(ruby) 스타일 가이드'></div>
 </div>
 
 </div>
-<a href="../../">Prev page</a>
+<div class='col-lg-2 col-md-2'></div>
+</div>
+</div>
+<div class='pagination'>
+<span class='prev_page'>
+<a href='/'>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+최신 글
+</a>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<span class='next_page'>
+<a href='/page/3/'>
+이전 글
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+</a>
+</span>
+</div>
 </div>
 
 
@@ -207,24 +695,41 @@ Oct  2 2013
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

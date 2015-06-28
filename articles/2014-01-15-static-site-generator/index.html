@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-01-15-static-site-generator/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2013-12-29-hub-and-pull-request/' rel='prev' title='hub(허브)로 명령행에서 Github(깃허브) 풀리퀘스트 보내기'>
 <link href='/articles/2014-01-18-ubuntu-setting/' rel='next' title='우분투(ubuntu) 13.10 개발환경 준비하기'>
 <meta content='개인적으로 요새 화두인 주제가 바로 정적 웹사이트 생성기입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만, 일부 블로그들에서는 이미 정적 컨텐츠로 블로그를 발행(Publish)하는 기능을 지원해왔으며 많은 오픈소스와 프로그래머들이 Github Page의 Jekyll을 통한 정적 페이지 발행 기능을 활용하고 있습니다. 이 글에서는 정적 페이지가 왜 각광을 받는지와 그 배경에 대해서 조금 이야기해보고자 합니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-01-15-static-site-generator/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2014-01-15-static-site-generator/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='' name='keywords'>
+<meta content='http://i.imgur.com/vAuIolp.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/vAuIolp.jpg' property='og:image'>
+<meta content='static_site_generator, www, github, programming' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,84 +44,92 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Jan  5 2014
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'>
 </div>
-<div>
-<span class='tags'>
-</span>
 </div>
-<a name='toc'></a>
 <h1 class='title'>
 <a href="./">정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 01월 05일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/vAuIolp.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
-<p>개인적으로 요새 화두인 주제가 바로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/static_site_generator' rel='noindex,nofollow'>정적 웹사이트 생성기</a></span>입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만, 일부 블로그들에서는 이미 정적 컨텐츠로 블로그를 발행(Publish)하는 기능을 지원해왔으며 많은 오픈소스와 프로그래머들이 Github Page의 Jekyll을 통한 정적 페이지 발행 기능을 활용하고 있습니다. 이 글에서는 정적 페이지가 왜 각광을 받는지와 그 배경에 대해서 조금 이야기해보고자 합니다.</p>
+<p>개인적으로 요새 화두인 주제가 바로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/static_site_generator' rel='nofollow'>정적 웹사이트 생성기</a></span>입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만, 일부 블로그들에서는 이미 정적 컨텐츠로 블로그를 발행(Publish)하는 기능을 지원해왔으며 많은 오픈소스와 프로그래머들이 Github Page의 Jekyll을 통한 정적 페이지 발행 기능을 활용하고 있습니다. 이 글에서는 정적 페이지가 왜 각광을 받는지와 그 배경에 대해서 조금 이야기해보고자 합니다.</p>
 
 
 
-<p>분명히 <strong>정적</strong>이라는 단어는 그 동안에 웹 어플리케이션이 발전해 온 데 있어서 정반대의 위치에 있는 단어입니다. <strong>정적</strong>인 페이지란 말그대로 이미 완성된 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/html' rel='noindex,nofollow'>HTML</a></span>이고, 클라이언트의 요청을 받는 서버의 역할은 단순히 이렇게 완성되어 있는 HTML을 보내주는 역할을 할 뿐입니다. 이러한 모델은 우편부를 통해서 비유하기에 아주 적절합니다. 그렇다면 웹이 <strong>동적</strong>으로 발전해왔다는 건 어떤 걸 의미할까요? 여기서 <strong>동적</strong>이란 화려한 시각적 효과나 움직임을 지칭하는 단어가 아닙니다. 좀 더 정확히 말하자면 HTML 페이지를 클라이언트의 요청에 따라서 실시간으로 생성해서 보내준다는 의미를 가지고 있습니다. 그래서 이러한 웹 어플리케이션을 배울 때 가장 먼저 나오는 가장 간단한 예는 항상 이름을 받고서 이름을 출력해주는 예제입니다. 즉 서버는 완성된 HTML을 가지고 있지 않습니다. 거의 완성되어있거나, 심지어는 아무것도 없이도 요청에 따라 실시간으로 완성된 문서를 다시 보내줍니다. 즉, 여기서 서버란 웹서버 어플리케이션과 웹 어플리케이션을 함께 이야기합니다.</p>
+<p>분명히 <strong>정적</strong>이라는 단어는 그 동안에 웹 어플리케이션이 발전해 온 데 있어서 정반대의 위치에 있는 단어입니다. <strong>정적</strong>인 페이지란 말그대로 이미 완성된 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/html' rel='nofollow'>HTML</a></span>이고, 클라이언트의 요청을 받는 서버의 역할은 단순히 이렇게 완성되어 있는 HTML을 보내주는 역할을 할 뿐입니다. 이러한 모델은 우편부를 통해서 비유하기에 아주 적절합니다. 그렇다면 웹이 <strong>동적</strong>으로 발전해왔다는 건 어떤 걸 의미할까요? 여기서 <strong>동적</strong>이란 화려한 시각적 효과나 움직임을 지칭하는 단어가 아닙니다. 좀 더 정확히 말하자면 HTML 페이지를 클라이언트의 요청에 따라서 실시간으로 생성해서 보내준다는 의미를 가지고 있습니다. 그래서 이러한 웹 어플리케이션을 배울 때 가장 먼저 나오는 가장 간단한 예는 항상 이름을 받고서 이름을 출력해주는 예제입니다. 즉 서버는 완성된 HTML을 가지고 있지 않습니다. 거의 완성되어있거나, 심지어는 아무것도 없이도 요청에 따라 실시간으로 완성된 문서를 다시 보내줍니다. 즉, 여기서 서버란 웹서버 어플리케이션과 웹 어플리케이션을 함께 이야기합니다.</p>
 
 <p>하지만 본질적인 부분을 다시 생각해볼 필요가 있습니다. 정말로 <strong>동적</strong>인 웹페이지란 필요한 걸까요? 단언컨데, 네 필요합니다. 질문을 바꿀 필요가 있습니다. 모든 경우에 정말로 <strong>동적</strong>인 웹페이지가 필요한 걸까요? 여기에 <strong>모든 경우에</strong>라는 수사를 통해서 저는 이도 저도 아닌 회색 영역을 만들었습니다. 네, 물론 아닙니다. 웹페이지 상에 동적으로 변해야하는 부분이 단 하나도 없다면, 완성된 HTML 형식으로 사이트를 공개해도 아무런 문제가 없습니다. 단지 우리는 21.1세기에 더 이상 그런 원시적인 웹 사이트는 거의 없다고 믿고 있을 뿐이죠.</p>
 
@@ -130,7 +139,7 @@ Jan  5 2014
 
 <p>단순히 서버 수준의 스케일링까지 고려를 하지 않더라도 동적으로 웹페이지를 생성하는 일은 굉장히 느립니다. 이는 만들어져있는 즉석식품과와 주문 받으면 음식을 조리하는 방식의 차이입니다. 정적이 전자라면, 동적은 후자입니다. 당연히 느립니다. 그 차이가 비록 와닿지 않을 정도라고 하더라도 분명히 느리며, 또한 이러한 차이를 극복하기 위해 실제 웹서비스들에서는 캐시를 사용해 마치 자신이 정적 웹 페이지인 것 마냥 작동합니다. 캐시가 가능한 이유는 웹 어플리케이션의 많은 부분이 <strong>사실은</strong> 정적이기 때문입니다. 즉, 요청마다 다르게 보여주는 부분은 실제로는 그렇게 많지 않다는 이야기입니다.</p>
 
-<p>정적인 자원은 다른 처리 비용을 발생시키지 않기 때문에 동적인 자원에 비해서 훨씬 더 빠릅니다. 그저 이미 만들어져있는 것을 보내주면 그만입니다. 앞에서 이야기했듯이 서버는 그저 우편부 역할을 할 뿐입니다. 여기서 오는 또 하나의 장점은 이렇게 미리 HTML 문서를 만들 경우 배포가 매우 쉽다는 점입니다. 어느 웹서버든 HTML은 serve할 수 있습니다. 복잡하게 어떤 언어를 쓰면 이렇게 하고 어떤 프레임워크를 써면 저렇게 하고 프록시 서버 써서 도메인 돌리고 그런 걸 고민할 필요가 없습니다. 싸구려 호스팅에 올려도 되고, 남는 서버에 올려도 되고, 아마존 S3에 올려도 되고, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/github_pages' rel='noindex,nofollow'>github pages</a></span>로 배포할 수도 있습니다. 어플리케이션이 아니니 SQL injection 같은 보안 이슈도 없고요. 오오... 은근히 좋아보이네요. </p>
+<p>정적인 자원은 다른 처리 비용을 발생시키지 않기 때문에 동적인 자원에 비해서 훨씬 더 빠릅니다. 그저 이미 만들어져있는 것을 보내주면 그만입니다. 앞에서 이야기했듯이 서버는 그저 우편부 역할을 할 뿐입니다. 여기서 오는 또 하나의 장점은 이렇게 미리 HTML 문서를 만들 경우 배포가 매우 쉽다는 점입니다. 어느 웹서버든 HTML은 serve할 수 있습니다. 복잡하게 어떤 언어를 쓰면 이렇게 하고 어떤 프레임워크를 써면 저렇게 하고 프록시 서버 써서 도메인 돌리고 그런 걸 고민할 필요가 없습니다. 싸구려 호스팅에 올려도 되고, 남는 서버에 올려도 되고, 아마존 S3에 올려도 되고, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/github_pages' rel='nofollow'>github pages</a></span>로 배포할 수도 있습니다. 어플리케이션이 아니니 SQL injection 같은 보안 이슈도 없고요. 오오... 은근히 좋아보이네요. </p>
 
 <p>하지만!</p>
 
@@ -142,7 +151,7 @@ Jan  5 2014
 
 <p>단, 여기에는 약간의 함정이 있습니다. 블로그에도 정말 적은 부분이지만 사용자의 요청이 발생하는 시점에서 실시간으로 동적으로 생성하고 반응해야하는 부분이 있습니다. 바로 댓글입니다. 이 부분은 따로 고민하지 않습니다. 그냥 댓글이 들어갈 부분에 <a href="http://disqus.com/">Disqus</a>를 삽입합니다.</p>
 
-<p>이렇듯 의외로 블로그는 정적인 웹 플랫폼입니다. 근데 더 큰 함정이 있군요. 이렇게 만들면 블로그에 글은 어떻게 쓸까요? 다르게 말하면 블로그에서 가장 동적인 부분은 글을 작성하는 부분입니다. 이런 부분은 정적 블로그 생성기에서는 존재하지 않습니다. 여기서 모든 포스트는 그저 마크다운 파일일 뿐입니다. 또한 글이 작성된 시점이나 사이트에 기능이나 페이지가 더해진 시점을 일반적으로 Git 저장소에 push가 일어난 시점으로 판단합니다. 이런 부분은 일반인들이 이런 툴을 사용하기에 매우 프로그래머스럽습니다. 하지만 프로그래머들에게 이런 점은 다른 방향에서 자유를 선사합니다. 바로 블로그 글을 자신이 원하는 에디터로 작성 할 수 있다는 점입니다. 저는 지금 이 글을 제가 애용하는 에디터인 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span> 위에서 작성하고 있습니다. 예전부터 블로그나 위키를 운영하면서 에디터 통합을 꿈꾸던 입장에서는 지금은 너무 쉽게 이런 접근이 가능합니다. 물론 또다른 방향에서 웹 편집기들은 발전하고 있습니다. <a href="https://github.com/HackerWins/summernote">Summernote</a>와 같은 부트스트랩 기반의 에디터도 있고 <a href="http://ghost.org">Ghost</a>와 같은 마크다운 프리뷰를 바로 보여주는 훌륭한 플랫폼도 있습니다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/mediawiki' rel='noindex,nofollow'>Mediawiki</a></span>에는 웹문서에서 바로 편집을 하는 것 같은 경험을 제공하는 <a href="http://www.mediawiki.org/wiki/VisualEditor">Visual Editor</a> 같은 확장도 있습니다.<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup> 많은 훌륭한 시도들이 있습니다만 여전히 웹에서 글을 작성한다는 것은 전용 에디터에 비해서 매우 불만족스러운 일입니다. 반면에 마크다운 파일을 기반으로 하고 있다면 그저 텍스트 문서를 원하는 에디터에서 작성하면 그만입니다.</p>
+<p>이렇듯 의외로 블로그는 정적인 웹 플랫폼입니다. 근데 더 큰 함정이 있군요. 이렇게 만들면 블로그에 글은 어떻게 쓸까요? 다르게 말하면 블로그에서 가장 동적인 부분은 글을 작성하는 부분입니다. 이런 부분은 정적 블로그 생성기에서는 존재하지 않습니다. 여기서 모든 포스트는 그저 마크다운 파일일 뿐입니다. 또한 글이 작성된 시점이나 사이트에 기능이나 페이지가 더해진 시점을 일반적으로 Git 저장소에 push가 일어난 시점으로 판단합니다. 이런 부분은 일반인들이 이런 툴을 사용하기에 매우 프로그래머스럽습니다. 하지만 프로그래머들에게 이런 점은 다른 방향에서 자유를 선사합니다. 바로 블로그 글을 자신이 원하는 에디터로 작성 할 수 있다는 점입니다. 저는 지금 이 글을 제가 애용하는 에디터인 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span> 위에서 작성하고 있습니다. 예전부터 블로그나 위키를 운영하면서 에디터 통합을 꿈꾸던 입장에서는 지금은 너무 쉽게 이런 접근이 가능합니다. 물론 또다른 방향에서 웹 편집기들은 발전하고 있습니다. <a href="https://github.com/HackerWins/summernote">Summernote</a>와 같은 부트스트랩 기반의 에디터도 있고 <a href="http://ghost.org">Ghost</a>와 같은 마크다운 프리뷰를 바로 보여주는 훌륭한 플랫폼도 있습니다. <span class='dead_link'><a href='http://wiki.nacyot.com/documents/mediawiki' rel='nofollow'>Mediawiki</a></span>에는 웹문서에서 바로 편집을 하는 것 같은 경험을 제공하는 <a href="http://www.mediawiki.org/wiki/VisualEditor">Visual Editor</a> 같은 확장도 있습니다.<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup> 많은 훌륭한 시도들이 있습니다만 여전히 웹에서 글을 작성한다는 것은 전용 에디터에 비해서 매우 불만족스러운 일입니다. 반면에 마크다운 파일을 기반으로 하고 있다면 그저 텍스트 문서를 원하는 에디터에서 작성하면 그만입니다.</p>
 
 <p>아시는 분은 아시겠지만! 이미 <a href="http://github.com">Github</a>을 적극 활용하는 많은 분들은 Github Pages와 Github에서 지원하는 루비 기반의 정적 웹페이지 생성기(이자 Github CEO가 만든)인 <a href="http://jekyllrb.com/">Jekyll</a>을 적극 활용해서 블로그나 사이트를 운영하고 있습니다. 단순히 블로그에서만 사용할 수 있는 건 아닙니다. 이미 괜찮은 블로그 솔루션들이 마련되어 있기에 편하게 사용할 수 있는 것 뿐이지, 결과적으로 정적인 사이트라면 얼마든지 생성할 수 있습니다. 루비 커뮤니티에서 두 번째로 유명한 <a href="http://middlemanapp.com/community/built-using-middleman/">Middleman으로 생성한 사례들</a>도 매우 많습니다. 이 사이트도 Middleman으로 만들어졌고, 글을 작성하면 <a href="https://travis-ci.org/">Travis</a>를 통해 빌드하고, 다시 변경된 내용을 Github Repository에 반영해 Github Pages로 배포되고 있습니다. 이러한 활용 방법에 대해서는 다른 포스트에서 좀 더 자세히 다루겠습니다. 이 외에도 <a href="http://staticsitegenerators.net/">Static Site Generator</a>와 <a href="http://modernstatic.com/">Modern Static</a>에서는 다양한 정적 웹페이지 생성기들을 소개하고 있습니다.</p>
 
@@ -164,13 +173,76 @@ Jan  5 2014
 </div>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>
+깃허브(Github)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/static_site_generator'>
+정적 웹페이지 생성기(static site generator)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/www'>
+월드 와이드 웹(World Wide Web)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -184,6 +256,7 @@ Jan  5 2014
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -203,23 +276,139 @@ Jan  5 2014
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2013-12-29-hub-and-pull-request/' rel='prev'>hub(허브)로 명령행에서 Github(깃허브) 풀리퀘스트 보내기</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2013-12-29-hub-and-pull-request/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-software-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2013-12-29-hub-and-pull-request/">hub(허브)로 명령행에서 Github(깃허브) 풀리퀘스트 보내기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2013년 12월 29일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/8oGWPDG.jpg" />
+</div>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/open_source' rel='nofollow'>오픈소스</a></span>뿐만 아니라 <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>git</a></span>를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/github'>Github</a></span>를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다. 또한 Github 고유의 기능을 명령행 인터페이스 사용할 수 있게 도와주는 hub라는 도구를 지원합니다. 이 글에서는 hub(허브)를 Git 명령어에 연동해서, 명령행에서 풀리퀘스트를 보내는 방법을 설명합니다.</p>
+
+<span class='link'>
+<a href="../2013-12-29-hub-and-pull-request/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/git'>git</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>github</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/hub'>hub</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/pull_request'>pull_request</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/zsh'>zsh</a>
+</div>
+<div class='barcode' data-title='hub(허브)로 명령행에서 Github(깃허브) 풀리퀘스트 보내기'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-01-18-ubuntu-setting/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-01-18-ubuntu-setting/' rel='next'>우분투(ubuntu) 13.10 개발환경 준비하기</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-software-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-01-18-ubuntu-setting/">우분투(ubuntu) 13.10 개발환경 준비하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2014년 01월 18일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/1RtdQOZ.jpg" />
+</div>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>Ubuntu</a></span> 13.10 개발 환경 세팅 정리. 서버면 자동화시키는 것도 좋은 방법일 듯 한데, 데스크탑은 그래픽 드라이버 같은 부분이 컴퓨터마다 다르다 보니 완전히 자동화하는 건 쉽지 않은 것 같다. 지난 번까지 우분투 13.04 써왔는데(지금 노트북도 13.04), 이번에 새로 13.10에 도전해봤다. 사실 그래픽 드라이버 문제로 13.04로 낮추고 싶었으나, 조만간 지원이 끝난다고 하길래 맘 잡고 13.10으로 개발환경 정리를 했다. 금요일 오전 내내 걸렸으니까 전체 세팅하는데 4~5시간 정도 걸린 것 같다. 이걸로 기본적인 부분은 정리가 된 듯 싶고, 어디까지나 앞으로 삽질 방지용 포스트.</p>
+
+<p>참고로 본인은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>Ubuntu</a></span> / <span class='dead_link'><a href='http://wiki.nacyot.com/documents/terminator' rel='nofollow'>Terminator</a></span>(터미널 프로그램) / <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>(에디터) / <span class='dead_link'><a href='http://wiki.nacyot.com/documents/dvorak' rel='nofollow'>Dvorak</a></span>(키보드 레이아웃) 사용자.</p>
+
+<span class='link'>
+<a href="../2014-01-18-ubuntu-setting/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/bash'>bash</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/hub'>hub</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/kakaotalk'>kakaotalk</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/nabi'>nabi</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/nvidia'>nvidia</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/openvpn'>openvpn</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/qd270'>qd270</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/terminator'>terminator</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/wine'>wine</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/zsh'>zsh</a>
+</div>
+<div class='barcode' data-title='우분투(ubuntu) 13.10 개발환경 준비하기'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -232,24 +421,41 @@ Jan  5 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

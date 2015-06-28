@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2014-04-28-translate-emacs-cask-documenation/' rel='prev' title='이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역'>
 <link href='/articles/2014-06-01-emacs-with-cask/' rel='next' title='캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기'>
 <meta content='도커의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 공식 저장소를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 Dockerfile을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2014-05-08-docker-registry-introduction/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='도커, 도커 레지스트리, docker, docker registry, s3, aws, 아마존 웹서비스' name='keywords'>
+<meta content='http://i.imgur.com/ilkin2F.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/ilkin2F.jpg' property='og:image'>
+<meta content='docker, docker_registry, s3, aws, infrastructure' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 도커 레지스트리(Docker Registry) 설치하기 + S3 연동</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,112 +44,106 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-May  8 2014
-</span>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 100.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/aws'>aws</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker-registry'>docker registry</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/s3'>s3</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커-레지스트리'>도커 레지스트리</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/아마존-웹서비스'>아마존 웹서비스</a>
-</span>
 </div>
-<a name='toc'></a>
 <h1 class='title'>
 <a href="./">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 05월 08일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ilkin2F.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
 <p><span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 <span class='live_link'><a href='http://wiki.nacyot.com/documents/dockerfile'>Dockerfile</a></span>을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
 
 
 
-<p>개인적으로는 이미 개발용으로 오픈소스 어플리케이션을 설치할 때는 거의 전면적으로 도커를 활용하고 있습니다. 일견 납득하기 어려울 지도 모릅니다만, 어떤 어플리케이션을 설치하기 위해 서버를 어떤 상태로 만드는 것보다, 서버의 상태와 무관하게 특정 어플리케이션의 컨테이너를 실행시키는 게 훨씬 쉽고 신뢰높은 전략입니다. 예를 들어서 설치하기 어려운 오픈소스 어플리케이션으로 프라이빗 <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>Git</a></span> 저장소인 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gitlab' rel='noindex,nofollow'>Gitlab</a></span>이 유명합니다만, 도커에서는 명령어 하나면 됩니다. 물론 구체적인 설정이나 실 배포환경에서 사용하는 건 각자의 선택에 달렸겠습니다만.</p>
+<p>개인적으로는 이미 개발용으로 오픈소스 어플리케이션을 설치할 때는 거의 전면적으로 도커를 활용하고 있습니다. 일견 납득하기 어려울 지도 모릅니다만, 어떤 어플리케이션을 설치하기 위해 서버를 어떤 상태로 만드는 것보다, 서버의 상태와 무관하게 특정 어플리케이션의 컨테이너를 실행시키는 게 훨씬 쉽고 신뢰높은 전략입니다. 예를 들어서 설치하기 어려운 오픈소스 어플리케이션으로 프라이빗 <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>Git</a></span> 저장소인 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gitlab' rel='nofollow'>Gitlab</a></span>이 유명합니다만, 도커에서는 명령어 하나면 됩니다. 물론 구체적인 설정이나 실 배포환경에서 사용하는 건 각자의 선택에 달렸겠습니다만.</p>
 
-<h2><a name='설치'>설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='설치'>설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>도커 이미지의 공적인 공유에 대한 자세한 얘기는 언젠가 기회가 되면 하기로 하고...</p>
 
 <p>공개된 이미지를 활용해보신 분들이라면 사적인 자신만의 이미지를 공유하는 공간을 가지고 싶어질
-것입니다. 이 글에서는 사적인 이미지 공유를 위한 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker_registry' rel='noindex,nofollow'>도커 레지스트리</a></span>에 대해서 소개하고자 합니다. 위에서 이야기한 바의 연장입니다만, 도커 레지스트리 역시 빌드를 위한 Dockerfile을 Github 저장소에서 제공하고 있으며, 도커 공식 저장소에서 빌드된 이미지도 제공되고 있습니다. 여기서는 공식 저장소에서 제공하는 이미지를 통해서 도커 레지스트리를 실행하도록 하겠습니다.</p>
+것입니다. 이 글에서는 사적인 이미지 공유를 위한 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker_registry' rel='nofollow'>도커 레지스트리</a></span>에 대해서 소개하고자 합니다. 위에서 이야기한 바의 연장입니다만, 도커 레지스트리 역시 빌드를 위한 Dockerfile을 Github 저장소에서 제공하고 있으며, 도커 공식 저장소에서 빌드된 이미지도 제공되고 있습니다. 여기서는 공식 저장소에서 제공하는 이미지를 통해서 도커 레지스트리를 실행하도록 하겠습니다.</p>
 
-<h3><a name='도커-설치'>도커 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='도커-설치'>도커 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>여기서는 도커가 이미 설치되어있다고 가정하겠습니다. 설치되어있지 않다면, <span class='live_link'><a href='http://wiki.nacyot.com/documents/ubuntu'>Ubuntu</a></span> 14.04 LTS 기준으로 아래 명령어로 도커를 설치해주세요.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>apt-get install docker.io
 </span></pre></div>
-<h3><a name='도커-레지스트리-설치'>도커 레지스트리 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='도커-레지스트리-설치'>도커 레지스트리 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저 <code>docker pull</code> 명령어로 공식 저장소에서 registy 이미지의 최신 버전을 받아옵니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker pull registry:latest
@@ -163,9 +158,9 @@ May  8 2014
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker images <span class="p">|</span> grep <span class="s2">&quot;registry.*latest&quot;</span>
 </span><span id="line-2"><span class="o">(</span>표준 입력<span class="o">)</span>:3:registry             latest              2930bc3d8f1e        12 days ago         454.8 MB
 </span></pre></div>
-<h2><a name='실행'>실행</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='실행'>실행</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
-<p>이미지가 정상적으로 받아졌으면 실행은 간단합니다. 여기서 <code>--name</code>은 이름을 지정하는 플래그이며, <code>-d</code>는 백그라운드에서 실행, <code>-p {host_port}:{container_port}</code>는 포트 노출을 위한 맵핑을 의미합니다. 마지막 <code>registry</code>는 실행하고자하는 이미지의 이름입니다. 좀 더 정확히는 <code>registry</code> 다음에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/컨테이너' rel='noindex,nofollow'>컨테이너</a></span>에 대해서 실행하고자 하는 명령어를 입력합니다만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/이미지' rel='noindex,nofollow'>이미지</a></span> 내부에 기본 실행 명령이 지정되어 있으므로 생략해도 무방합니다.</p>
+<p>이미지가 정상적으로 받아졌으면 실행은 간단합니다. 여기서 <code>--name</code>은 이름을 지정하는 플래그이며, <code>-d</code>는 백그라운드에서 실행, <code>-p {host_port}:{container_port}</code>는 포트 노출을 위한 맵핑을 의미합니다. 마지막 <code>registry</code>는 실행하고자하는 이미지의 이름입니다. 좀 더 정확히는 <code>registry</code> 다음에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/컨테이너' rel='nofollow'>컨테이너</a></span>에 대해서 실행하고자 하는 명령어를 입력합니다만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/이미지' rel='nofollow'>이미지</a></span> 내부에 기본 실행 명령이 지정되어 있으므로 생략해도 무방합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run --name personal-registry -d -p 5000:5000 registry
 </span><span id="line-2">8fa28faf47f3cacce64aeb63b5a6c7e1388b5470340f6feb342b03d4fad4352c
 </span></pre></div>
@@ -182,11 +177,11 @@ May  8 2014
 </span></pre></div>
 <p>이를 통해 도커 레지스트리(Docker registry)의 실행환경과 버전을 확인할 수 있습니다. 이걸로 도커 레지스트리가 정상적으로 설치되었습니다.</p>
 
-<h2><a name='사용하기'>사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='사용하기'>사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>아무것도 설정하지 않았다면 도커 레지스트리는 기본적으로 로컬에 데이터를 저장합니다. <a href="https://github.com/dotcloud/docker-registry/blob/master/config/config_sample.yml"><code>config_sample.yml</code></a>을 참조해주세요.</p>
 
-<h3><a name='사용자-도커-이미지-만들기'>사용자 도커 이미지 만들기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='사용자-도커-이미지-만들기'>사용자 도커 이미지 만들기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>기본적으로 사적인 저장소는 자신이 직접 빌드한 이미지를 저장하기 위해서 사용합니다. 이미 가지고 있는 이미지를 사용해도 무방합니다만 여기서는 간단한 이미지를 하나 생성하겠습니다. 임의의 디렉토리에 아래 내용을 복사해 <code>Dockerfile</code>을 만듭니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">FROM</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">12.04</span>
@@ -227,7 +222,7 @@ May  8 2014
 </span><span id="line-2">CONTAINER ID        IMAGE                        COMMAND                CREATED             STATUS                     PORTS                    NAMES
 </span><span id="line-3">d01aea6f8332        nacyot/hello_docker:latest   /bin/sh -c <span class="s1">&#39;echo &#39;</span>He   2 minutes ago       Exited <span class="o">(</span>0<span class="o">)</span> 2minutes ago                            prickly_fermat
 </span></pre></div>
-<h3><a name='도커-레지스트리에-푸시(push)하기'>도커 레지스트리에 푸시(Push)하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='도커-레지스트리에-푸시(push)하기'>도커 레지스트리에 푸시(Push)하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이미지가 정상적으로 작동하는 것을 확인했으니 이제 이미지를 도커 레지스트리에 집어넣어보겠습니다. 먼저 이미지를 도커 레지스트리에 넣기 위해서는 이미지에 적당한 이름을 붙여줄 필요가 있습니다. <code>docker tag</code> 명령어로 이미지에 새로운 이름을 부여하겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker tag nacyot/hello_docker 0.0.0.0:5000/hello_docker
@@ -258,7 +253,7 @@ May  8 2014
 </span></pre></div>
 <p>이미지 ID에서 확인할 수 있듯이 로컬의 <code>0.0.0.0:5000/hello_docker:latest</code>(<code>nacyot/hello_docker:latest</code>)와 도커 레지스트리의 <code>hello_docker:latest</code>는 같은 이미지입니다.</p>
 
-<h3><a name='도커-레지스트리에서-풀(pull)-받아-실행하기'>도커 레지스트리에서 풀(Pull) 받아 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='도커-레지스트리에서-풀(pull)-받아-실행하기'>도커 레지스트리에서 풀(Pull) 받아 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이제 가장 중요한 부분입니다. 도커 레지스트리에 이미지를 업로드했으니 거꾸로 이 도커 레지스트르에서 이미지를 <code>pull</code> 받아 실행해보도록 하겠습니다. 로컬 도커 서버에 같은 이미지가 있으면 정확한 확인이 안 되니, 로컬에서 실행했던 컨테이너와 이미지를 삭제하겠습니다.</p>
 
@@ -293,7 +288,7 @@ May  8 2014
 </span></pre></div>
 <p>명령어는 위에서 로컬에 있던 이미지를 실행하는 것과 같습니다. 하지만 실행 과정의 출력을 보면 알 수 있듯이 로컬에 이미지가 없으니 <code>0.0.0.0:5000</code>의 도커 레지스트리에서 이미지를 다운 받는 것을 확인할 수 있습니다. 그리고 마지막에는 정상적으로 이미지가 실행되어 <code>Hello, Docker!</code>가 출력되었습니다!</p>
 
-<h3><a name='원격에서-도커-레지스트리-사용하기'>원격에서 도커 레지스트리 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='원격에서-도커-레지스트리-사용하기'>원격에서 도커 레지스트리 사용하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이 예제에서는 로컬에서 도커 레지스트리와 도커 실행 서버를 둘 다 운영하고 있어서 실제로 제대로 작동하는 건지 잘 와닿지 않을지도 모릅니다. 가능하면 자신의 로컬(도커 레지스트리를 설치한 서버)을 외부에 노출시켜서 다른 도커 서버에서 실행시켜봅니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>curl http://17.231.14.21:5000/
@@ -311,13 +306,13 @@ May  8 2014
 </span></pre></div>
 <p>실제 IP는 공개할 수 없지만 :) 도커 레지스트리 서버(여기선 <code>17.231.14.21:5000</code>)에 접속 가능한 도커 서버에서도 로컬에서와 같은 결과를 볼 수 있습니다. 직접 테스트해보시기 바랍니다.</p>
 
-<h2><a name='s3와-연동하기'>S3와 연동하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='s3와-연동하기'>S3와 연동하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>AWS빠라면 응당 도커 이미지를 S3에 저장하고 싶다고 느낄 것입니다. 속도나 추가적인 비용이 발생하는 데서, S3에 저장하는데 따른 부담이 없는 것은 아닙니다만 가장 쉽게 이미지를 안전하게 저장하는 방법이라고 할 수 있습니다.</p>
 
-<p>하지만 도커 레지스트리는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/python'>파이썬</a></span>의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/flask' rel='noindex,nofollow'>flask</a></span>에 기반한 웹 어플리케이션입니다. 따라서 S3에서는 도커 레지스트리를 구동할 수 없습니다. 즉,  도커 레지스트리는 EC2나 로컬 서버를 이용해서 별도로 실행해야합니다. 이 레지스트리 설정에 이미지 저장 공간으로 로컬 드라이브가 아닌 S3 버킷을 지정해두면 해당하는 버킷에 이미지를 저장합니다. 이렇게 설정하면 도커 레지스트리에 이미지를 푸시할 때 도커 레지스트리는 이 이미지를 S3로 복사합니다. S3에 복사되면 아마존은 이 이미지를 안전하게 보관해줍니다.</p>
+<p>하지만 도커 레지스트리는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/python'>파이썬</a></span>의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/flask' rel='nofollow'>flask</a></span>에 기반한 웹 어플리케이션입니다. 따라서 S3에서는 도커 레지스트리를 구동할 수 없습니다. 즉,  도커 레지스트리는 EC2나 로컬 서버를 이용해서 별도로 실행해야합니다. 이 레지스트리 설정에 이미지 저장 공간으로 로컬 드라이브가 아닌 S3 버킷을 지정해두면 해당하는 버킷에 이미지를 저장합니다. 이렇게 설정하면 도커 레지스트리에 이미지를 푸시할 때 도커 레지스트리는 이 이미지를 S3로 복사합니다. S3에 복사되면 아마존은 이 이미지를 안전하게 보관해줍니다.</p>
 
-<h3><a name='도커-레지스트리-저장공간으로-s3-설정하기'>도커 레지스트리 저장공간으로 S3 설정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='도커-레지스트리-저장공간으로-s3-설정하기'>도커 레지스트리 저장공간으로 S3 설정하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>S3 가입과 버킷 생성법은 별도로 다루지 않습니다.</p>
 
@@ -368,32 +363,104 @@ May  8 2014
 
 <p>S3 설정을 사용하는 경우 어디에 저장하는 지만 차이가 나기 때문에, 앞서 다룬 풀(Pull)과 실행(Run)은 로컬에서 했던 것과 마찬가지입니다.</p>
 
-<h2><a name='기타-주제'>기타 주제</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='기타-주제'>기타 주제</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
-<h3><a name='비용-문제'>비용 문제</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='비용-문제'>비용 문제</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>아직 헤비 유저는 아니라 단언은 불가하지만 비용 문제가 그렇게 부담은 아닐 거라고 생각하고 있습니다. 얼핏 생각해봐도 이미지의 용량이 상당히 크지 않을까 하는 생각이 듭니다만 도커에서는 이미지를 레이어 단위로 저장한다는 사실을 떠올릴 필요가 있습니다. 도커의 이미지는 부모 레이어에 대한 차분만을 저장합니다. 따라서 특정한 어플리케이션에 대한 이미지를 만들고 변경사항들을 계속 누적해가도 용량은 생각보다 크지 않습니다. 즉 10번의 변경이 누적된 이미지가 있다고 할 때 각각의 이미지가 최종적으로 1GB라고 해도 <code>1GB * 10 = 10GB</code>가 되는 것이 아니라 <code>1GB + 0GB + 0GB ... = 1.xxxGB</code> 정도가 됩니다. 물론 전혀 다른 이미지의 경우는 그만큼 용량을 차지합니다만, 사용하기에 따라서 절대적으로 부담스러운 용량은 아닐지도 모릅니다. 참고로 S3 프리티어는 5GB이고 이후 1GB당 1달에 $0.033 정도가 과금됩니다.</p>
 
-<h3><a name='보안'>보안</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='보안'>보안</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이 예제에서는 사용자 인증을 다루고 있지 않습니다. 따라서 예제대로 따라하면 개인적인 이미지 저장소이지만 네트워크가 열려있으면 공개되어있는 거나 마찬가지입니다. 실제로 사용하려면 보안 설정은 필수입니다. 더 자세한 사항은 <a href="https://github.com/dotcloud/docker-registry">Github 저장소</a>를 참조해주세요.</p>
 
-<h3><a name='api'>API</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h3>
+<h3><a name='api'>API</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p><a href="http://docs.docker.io/reference/api/registry_api/">Docker Registry API</a>를 참조하세요. 아직 레지스트리에 올라간 모든 이미지를 가져오는 API가 없습니다만, 아마 다음 버전에 추가될 것으로 보입니다.</p>
 
-<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>앞서 이야기했듯이 이미지를 쉽게 공유할 수 있다는 건 도커의 큰 장점 중 하나입니다. 공적 공유뿐 아니라 내부 네트워크에서 이미지의 사적 공유를 실현하는 건 도커를 실제 운용하는데 아마 필수적인 부분일 것입니다. 이를 통해 도커 레지스트리에서 커스텀 이미지를 일괄적으로 관리할 수 있고, 분산된 도커 서버들에서 이를 사용할 수 있습니다.</p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/aws'>
+아마존 웹 서비스(Amazon Web Service)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>
+도커(Docker)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_registry'>
+docker_registry(!)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>
+시스템(Infrastructure)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/s3'>
+s3
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -407,6 +474,7 @@ May  8 2014
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -426,23 +494,144 @@ May  8 2014
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='도커 레지스트리(Docker Registry) 설치하기 + S3 연동'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2014-04-28-translate-emacs-cask-documenation/' rel='prev'>이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2014-04-28-translate-emacs-cask-documenation/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+<div class='category category-news-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-04-28-translate-emacs-cask-documenation/">이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<a href='/tags/news' title='새소식(News) 목록'>
+<i class='fa fa-newspaper-o' style='color: #bcbd22'></i>
+새소식
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 28일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/QyIQJCe.jpg" />
+</div>
+<ul>
+<li><a href="http://cask.emacs.kr">http://cask.emacs.kr/</a></li>
+</ul>
+
+<blockquote>
+<p>Emacs を使い始めてはや15年、ようやくまともな elisp 管理ができるようになった。</p>
+
+<p>Emacs를 사용하기 시작한 지 벌써 15년, 드디어 제대로 된 elisp 관리가 가능하게 되었다. </p>
+</blockquote>
+
+<p>일본 프로그래머 Ito Naoya 씨가 <a href="http://d.hatena.ne.jp/naoya/20140424/1398318293">Cask를 소개하는 글</a>에서 이런 얘기를 하길래, 관심이 가서 <a href="http://cask.github.io">Cask 공식 문서</a>를 번역했습니다.</p>
+
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span> 24를 사용하시는 분들은 아시겠지만 이제 Emacs에서도 공식 패키지 관리 도구를 제공합니다. 하지만 어디까지나 패키지를 설치할 뿐이고, 삭제나 업데이트 같은 기능은 지원하지 않습니다. 이런 이유로 장기적인 관점에서 패키지 관리나 환경 설정이 산만해지는 건 아직까지도 어쩔 수 없는 문제입니다.</p>
+
+<p>그만큼이나 Emacs 설정을 잘 하는 건 어렵습니다. 해본 사람은 알겠지만 이것저것 입맛대로 뜯어고치고 플러그인 설치하고 한 번 꼬이고 그러면 그냥 프로그래밍 하는 시간보다 설정하는 시간이 더 많이 드는 거 아닌가 하는 회의감이 들 정도니까요. 강력하지만 귀찮고 어렵습니다.</p>
+
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='nofollow'>Cask</a></span>는 이러한 문제를 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>Ruby</a></span>의 번들러나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='nofollow'>Node.js</a></span>의 <span class='live_link'><a href='http://wiki.nacyot.com/documents/npm'>npm</a></span>처럼 &#39;Cask&#39;라는 파일을 통해 해결해줍니다. 이를 통해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs_lisp' rel='nofollow'>emacs lisp</a></span> 개발자는 의존 라이브러리를 관리할 수 있고, Emacs 사용자는 자신이 사용하고자 하는 패키지를 쉽고 체계적으로 관리할 수 있습니다.</p>
+
+<p>현재 틈틈히 Cask로 옮기는 작업을 하고 있으니, 조만간 Cask로 완전히 갈아타는 데 성공하면 사용법에 대해서도 소개하겠습니다.</p>
+
+<span class='link'>
+<a href="../2014-04-28-translate-emacs-cask-documenation/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/cask'>cask</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/news'>news</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>translation</a>
+</div>
+<div class='barcode' data-title='이맥스(Emacs) 패키지 관리 도구 Cask 문서 번역'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-06-01-emacs-with-cask/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-06-01-emacs-with-cask/' rel='next'>캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-06-01-emacs-with-cask/">캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2014년 06월 01일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/zYArOUu.jpg" />
+</div>
+<p>얼마 전 [Cask 공식 문서를 한국어로 번역][cask]해서 공개한 바 있다. Cask는 기본적으로 개발중인 패키지의 의존성을 관리하기 위한 툴이다.</p>
+
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs24' rel='nofollow'>Emacs24</a></span>부터는 기본적으로 패키지 관리자가 포함되어있지만, 이를 통해서 설치되는 패키지는 전역적으로 설치된다. 이러한 방식은 편리하지만, 각각의 프로젝트에게는 섬세하지도, 적절하지도 않다. Emacs24의 기본 패키지 관리자는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>와 비교하면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/gem' rel='nofollow'>Gem</a></span>에 해당한다. 루비에서 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/cask' rel='nofollow'>Cask</a></span>의 역할은 Gem이 아니라 <span class='live_link'><a href='http://wiki.nacyot.com/documents/bundler'>Bundler</a></span>의 역할과 같다. Cask는 각 패키지의 의존성을 패키지 단위로 관리해주고, 패키지나 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>를 해당하는 의존성을 바탕으로 실행할 수 있도록 도와주는 도구이다.</p>
+
+<span class='link'>
+<a href="../2014-06-01-emacs-with-cask/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/cask'>cask</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/package_management'>package_management</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/pallet'>pallet</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+</div>
+<div class='barcode' data-title='캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -455,24 +644,41 @@ May  8 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2014-04-06-immutable-infrastructure/' rel='prev' title='이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure'>
 <link href='/articles/2014-04-18-docker-on-ubuntu-14-04/' rel='next' title='우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기'>
 <meta content='루비에서는 테스트를 하기 위해 minitest와 BDD 프레임워크인 RSpec이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='rspec, 테스트, tdd, ruby, 루비, bdd' name='keywords'>
+<meta content='http://i.imgur.com/vX8CxfP.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/vX8CxfP.jpg' property='og:image'>
+<meta content='rspec, test, tdd, ruby, bdd, programming' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,92 +44,88 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Apr  7 2014
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/bdd'>bdd</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/rspec'>rspec</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ruby'>ruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/tdd'>tdd</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/루비'>루비</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/테스트'>테스트</a>
-</span>
 </div>
-<a name='toc'></a>
 <h1 class='title'>
 <a href="./">루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 07일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/vX8CxfP.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
-<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>에서는 테스트를 하기 위해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/minitest' rel='noindex,nofollow'>minitest</a></span>와 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bdd' rel='noindex,nofollow'>BDD</a></span> 프레임워크인 <span class='live_link'><a href='http://wiki.nacyot.com/documents/rspec'>RSpec</a></span>이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.</p>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>에서는 테스트를 하기 위해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/minitest' rel='nofollow'>minitest</a></span>와 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bdd' rel='nofollow'>BDD</a></span> 프레임워크인 <span class='live_link'><a href='http://wiki.nacyot.com/documents/rspec'>RSpec</a></span>이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.</p>
 
 
 
@@ -138,25 +135,24 @@ Apr  7 2014
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>테스트 준비</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>일반적으로 테스트 파일은 프로그램 파일과 별개로 작성됩니다. 여기서는 편의상 pry 위에서 바로 테스트를 진행합니다. 따라서 이 글의 내용은 irb나 pry를 통해서 따라해볼 수 있습니다. 필요한 경우 먼저 rspec과 pry 패키지를 설치합니다</p>
-<pre><code class="language-sh">$ gem <span class="keyword">install</span> rspec pry
-</code></pre>
+<h2><a name='&#53580;&#49828;&#53944;-&#51456;&#48708;'>&#53580;&#49828;&#53944; &#51456;&#48708;<a class="anchor-link" href="#&#53580;&#49828;&#53944;-&#51456;&#48708;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>일반적으로 테스트 파일은 프로그램 파일과 별개로 작성됩니다. 여기서는 편의상 pry 위에서 바로 테스트를 진행합니다. 따라서 이 글의 내용은 irb나 pry를 통해서 따라해볼 수 있습니다. 필요한 경우 먼저 rspec과 pry 패키지를 설치합니다</p>
+<div class="highlight"><pre><span class="nv">$ </span>gem install rspec pry
+</pre></div>
 <p>다음으로 pry를 실행합니다</p>
+
 <pre><code>$ pry
-[1] pry(main)&gt;
-</code></pre><p>다음으로 Matecher를 사용하기 위해 <code>rspec</code>과 <code>RSpec::Matchers</code>를 읽어들입니다.</p>
+[1] pry(main)&gt;</code></pre>
+<p>다음으로 Matecher를 사용하기 위해 <code>rspec</code>과 <code>RSpec::Matchers</code>를 읽어들입니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-184번째 입력:
-</div>
+<div class="prompt input_prompt">184번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">require</span> <span class="s">&#39;rspec&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">require</span> <span class="s">&#39;rspec&#39;</span>
 <span class="n">include</span> <span class="n">RSpec</span><span class="p">::</span><span class="n">Matchers</span>
 </pre></div>
 
@@ -168,14 +164,11 @@ Apr  7 2014
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    184번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">184번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-Object
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>Object</pre>
 </div>
 
 </div>
@@ -189,12 +182,12 @@ Object
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>테스트 기초</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>테스트는 기본적으로 아래와 같은 형식으로 쓰여집니다</p>
-<pre><code class="language-ruby">expect(actual).to be(expected)
-</code></pre>
+<h2><a name='&#53580;&#49828;&#53944;-&#44592;&#52488;'>&#53580;&#49828;&#53944; &#44592;&#52488;<a class="anchor-link" href="#&#53580;&#49828;&#53944;-&#44592;&#52488;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>테스트는 기본적으로 아래와 같은 형식으로 쓰여집니다</p>
+<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">actual</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+</pre></div>
 <p>여기서 <code>actual</code>에는 실제로 테스트하고자 하는 객체가 들어가며, <code>expected</code>에는 예상하는 값이 들어갑니다. 그리고 <code>be</code>는 <code>actual</code>과 <code>expected</code>를 비교하기 위한 매쳐를 지정합니다</p>
 <p>또한 단언문과 마찬가지로 테스트가 실패하면 예외를 발생시킵니다. 즉, 리턴값이 true라고 해서 테스트가 성공을 의미하는 게 아니며, 거꾸로 false라고 해서 실패를 의미하는 게 아닙니다. 테스트가 실패하면 <code>RSpec::Expectations::ExpectationNotMetError</code> 예외가 발생합니다.</p>
+
 </div>
 </div>
 </div>
@@ -203,19 +196,17 @@ Object
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>동일값 테스트 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>가장 기본적이고 가장 많이 쓰이는 매쳐는 실제값과 예상되는 값이 같은 지를 비교하는 매쳐입니다</p>
+<h2><a name='&#46041;&#51068;&#44050;-&#53580;&#49828;&#53944;-&#47588;&#52432;'>&#46041;&#51068;&#44050; &#53580;&#49828;&#53944; &#47588;&#52432;<a class="anchor-link" href="#&#46041;&#51068;&#44050;-&#53580;&#49828;&#53944;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>가장 기본적이고 가장 많이 쓰이는 매쳐는 실제값과 예상되는 값이 같은 지를 비교하는 매쳐입니다</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-185번째 입력:
-</div>
+<div class="prompt input_prompt">185번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="c"># Equivalence</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Equivalence</span>
 <span class="n">expect</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eq</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -227,14 +218,11 @@ Object
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    185번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">185번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -245,12 +233,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-186번째 입력:
-</div>
+<div class="prompt input_prompt">186번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eql</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eql</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -261,14 +247,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    186번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">186번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -279,12 +262,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-187번째 입력:
-</div>
+<div class="prompt input_prompt">187번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span> <span class="o">==</span> <span class="s">&quot;프로그래밍 언어 루비&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;프로그래밍 언어 루비&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span> <span class="o">==</span> <span class="s">&quot;프로그래밍 언어 루비&quot;</span>
 </pre></div>
 
 </div>
@@ -295,14 +276,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    187번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">187번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -316,19 +294,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>동일성 테스트 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p><code>eq</code>가 실제값과 예상값이 같은지를 평가하는 매쳐라면, <code>equal</code>은 비교하는 두 객체가 같은 객체인지를 테스트합니다. 루비에선 같은 값을 가진 심볼은 항상 같은 객체입니다. 하지만 같은 값을 가지고 있더라도 별개로 생성된 문자열은 다른 문자열입니다. 따라서 같은 값을 가진 심볼은 동일성 테스트를 통과하지만, 아래 문자열 테스트는 실패합니다</p>
+<h2><a name='&#46041;&#51068;&#49457;-&#53580;&#49828;&#53944;-&#47588;&#52432;'>&#46041;&#51068;&#49457; &#53580;&#49828;&#53944; &#47588;&#52432;<a class="anchor-link" href="#&#46041;&#51068;&#49457;-&#53580;&#49828;&#53944;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p><code>eq</code>가 실제값과 예상값이 같은지를 평가하는 매쳐라면, <code>equal</code>은 비교하는 두 객체가 같은 객체인지를 테스트합니다. 루비에선 같은 값을 가진 심볼은 항상 같은 객체입니다. 하지만 같은 값을 가지고 있더라도 별개로 생성된 문자열은 다른 문자열입니다. 따라서 같은 값을 가진 심볼은 동일성 테스트를 통과하지만, 아래 문자열 테스트는 실패합니다</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-188번째 입력:
-</div>
+<div class="prompt input_prompt">188번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="c"># Identity</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Identity</span>
 <span class="n">expect</span><span class="p">(:</span><span class="n">Hello_world</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">equal</span><span class="p">(:</span><span class="n">Hello_world</span><span class="p">)</span>
 </pre></div>
 
@@ -340,14 +316,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    188번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">188번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -358,12 +331,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-189번째 입력:
-</div>
+<div class="prompt input_prompt">189번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(:</span><span class="n">Hello_world</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span><span class="p">(:</span><span class="n">Hello_world</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(:</span><span class="n">Hello_world</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span><span class="p">(:</span><span class="n">Hello_world</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -374,14 +345,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    189번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">189번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -392,12 +360,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-190번째 입력:
-</div>
+<div class="prompt input_prompt">190번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello, World&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">equal</span><span class="p">(</span><span class="s">&quot;Hello, World&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello, World&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">equal</span><span class="p">(</span><span class="s">&quot;Hello, World&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -409,7 +375,7 @@ true
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_pyerr">
+<div class="output_subarea output_text output_error">
 <pre>
 <span class="ansired">RSpec::Expectations::ExpectationNotMetError</span>: 
 expected #&lt;String:70158862817480&gt; =&gt; &quot;Hello, World&quot;
@@ -433,19 +399,17 @@ object identity in this example.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>연산자 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>동일값 테스트만큼 많이 사용되는 매쳐는 실제값과 예상값을 비교하는 연산자 매쳐입니다. 기본적으로 동일값을 비교하는 <code>==</code>을 비롯해 <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&lt;</code> 등을 사용할 수 있습니다.</p>
+<h2><a name='&#50672;&#49328;&#51088;-&#47588;&#52432;'>&#50672;&#49328;&#51088; &#47588;&#52432;<a class="anchor-link" href="#&#50672;&#49328;&#51088;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>동일값 테스트만큼 많이 사용되는 매쳐는 실제값과 예상값을 비교하는 연산자 매쳐입니다. 기본적으로 동일값을 비교하는 <code>==</code>을 비롯해 <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&lt;</code> 등을 사용할 수 있습니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-191번째 입력:
-</div>
+<div class="prompt input_prompt">191번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="c"># Comparisons</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Comparisons</span>
 <span class="n">expect</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span> <span class="o">&gt;</span> <span class="mi">100</span>
 </pre></div>
 
@@ -457,14 +421,11 @@ object identity in this example.
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    191번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">191번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -475,12 +436,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-192번째 입력:
-</div>
+<div class="prompt input_prompt">192번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span> <span class="o">&lt;</span> <span class="mi">100</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span> <span class="o">&lt;</span> <span class="mi">100</span>
 </pre></div>
 
 </div>
@@ -491,14 +450,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    192번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">192번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -513,17 +469,16 @@ true
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><code>match</code>와 <code>=~</code>는 특정 문자열이 주어진 정규표현식에 매치되는 지 여부를 테스트합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-193번째 입력:
-</div>
+<div class="prompt input_prompt">193번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;나랏말 싸미 듕국과 달라&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">match</span><span class="p">(</span><span class="o">/</span><span class="err">듕국</span><span class="o">/</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;나랏말 싸미 듕국과 달라&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">match</span><span class="p">(</span><span class="o">/</span><span class="n">듕국</span><span class="o">/</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -534,14 +489,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    193번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">193번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-#&lt;MatchData &quot;듕국&quot;&gt;
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>#&lt;MatchData &quot;듕국&quot;&gt;</pre>
 </div>
 
 </div>
@@ -552,12 +504,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-194번째 입력:
-</div>
+<div class="prompt input_prompt">194번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;나랏말 싸미 듕국과 달라&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span> <span class="o">=~</span> <span class="o">/</span><span class="err">듕국</span><span class="o">/</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;나랏말 싸미 듕국과 달라&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span> <span class="o">=~</span> <span class="o">/</span><span class="n">듕국</span><span class="o">/</span>
 </pre></div>
 
 </div>
@@ -568,14 +518,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    194번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">194번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-7
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>7</pre>
 </div>
 
 </div>
@@ -589,19 +536,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>숫자 범위 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p><code>be_within.of</code> 매쳐는 실제값이 예상값 +- 특정 범위에 포함되는 지 여부를 테스트합니다.</p>
+<h2><a name='&#49707;&#51088;-&#48276;&#50948;-&#47588;&#52432;'>&#49707;&#51088; &#48276;&#50948; &#47588;&#52432;<a class="anchor-link" href="#&#49707;&#51088;-&#48276;&#50948;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p><code>be_within.of</code> 매쳐는 실제값이 예상값 +- 특정 범위에 포함되는 지 여부를 테스트합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-195번째 입력:
-</div>
+<div class="prompt input_prompt">195번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_within</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_within</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -612,14 +557,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    195번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">195번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -630,12 +572,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-196번째 입력:
-</div>
+<div class="prompt input_prompt">196번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_within</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_within</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">100</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -647,7 +587,7 @@ true
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_pyerr">
+<div class="output_subarea output_text output_error">
 <pre>
 <span class="ansired">RSpec::Expectations::ExpectationNotMetError</span>: expected 100 to be within 5 of 106
 </div>
@@ -662,19 +602,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>타입 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>어떤 객체가 어떤 클래스로부터 만들어졌는지 테스트할 수 있습니다.</p>
+<h2><a name='&#53440;&#51077;-&#47588;&#52432;'>&#53440;&#51077; &#47588;&#52432;<a class="anchor-link" href="#&#53440;&#51077;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>어떤 객체가 어떤 클래스로부터 만들어졌는지 테스트할 수 있습니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-197번째 입력:
-</div>
+<div class="prompt input_prompt">197번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="c"># Types and classes</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Types and classes</span>
 <span class="n">expect</span><span class="p">(</span><span class="s">&quot;Ruby&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_instance_of</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
 </pre></div>
 
@@ -686,14 +624,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    197번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">197번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -704,12 +639,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-198번째 입력:
-</div>
+<div class="prompt input_prompt">198번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Ruby&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_an_instance_of</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Ruby&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_an_instance_of</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -720,14 +653,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    198번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">198번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -738,12 +668,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-199번째 입력:
-</div>
+<div class="prompt input_prompt">199번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Ruby&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_a</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Ruby&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_a</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -754,14 +682,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    199번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">199번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -772,12 +697,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-200번째 입력:
-</div>
+<div class="prompt input_prompt">200번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Ruby&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_kind_of</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Ruby&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_kind_of</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -788,14 +711,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    200번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">200번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -809,19 +729,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>참거짓 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>어떤 객체가 참인지 거짓인지 테스트할 수 있습니다.</p>
+<h2><a name='&#52280;&#44144;&#51667;-&#47588;&#52432;'>&#52280;&#44144;&#51667; &#47588;&#52432;<a class="anchor-link" href="#&#52280;&#44144;&#51667;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>어떤 객체가 참인지 거짓인지 테스트할 수 있습니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-201번째 입력:
-</div>
+<div class="prompt input_prompt">201번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="c"># Truthiness and existentialism</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Truthiness and existentialism</span>
 <span class="n">expect</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_true</span>
 </pre></div>
 
@@ -833,14 +751,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    201번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">201번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -851,12 +766,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-202번째 입력:
-</div>
+<div class="prompt input_prompt">202번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">nil</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_false</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">nil</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_false</span>
 </pre></div>
 
 </div>
@@ -867,14 +780,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    202번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">202번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -888,18 +798,16 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-be-'>존재(be) 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='&#51316;&#51116;(be)-&#47588;&#52432;'>&#51316;&#51116;(be) &#47588;&#52432;<a class="anchor-link" href="#&#51316;&#51116;(be)-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-203번째 입력:
-</div>
+<div class="prompt input_prompt">203번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">true</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">true</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span>
 </pre></div>
 
 </div>
@@ -910,14 +818,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    203번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">203번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -928,12 +833,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-204번째 입력:
-</div>
+<div class="prompt input_prompt">204번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span>
 </pre></div>
 
 </div>
@@ -944,14 +847,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    204번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">204번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -962,12 +862,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-205번째 입력:
-</div>
+<div class="prompt input_prompt">205번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">nil</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">be</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">nil</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">be</span>
 </pre></div>
 
 </div>
@@ -978,14 +876,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    205번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">205번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-false
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>false</pre>
 </div>
 
 </div>
@@ -996,12 +891,10 @@ false
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-206번째 입력:
-</div>
+<div class="prompt input_prompt">206번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">nil</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_nil</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">nil</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_nil</span>
 </pre></div>
 
 </div>
@@ -1012,14 +905,11 @@ false
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    206번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">206번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1033,19 +923,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>변화 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p><code>change</code> 매쳐는 <code>expect</code>에 주어진 블록이 실행되었을 때 <code>change</code>에 주어진 블록의 평가 결과가 변화하는 지를 테스트합니다. 변화했다면 테스트가 통과합니다. 필요에 따라서 얼마만큼 변화했는지를 테스트할 수 있는 <code>by</code>나 <code>expect</code> 블록을 실행시키기 전의 값을 테스트할 수 있는 <code>from</code>, 평가한 이후의 값을 테스트 할 수 있는 <code>to</code> 메소드와 함께 사용될 수 있습니다</p>
+<h2><a name='&#48320;&#54868;-&#47588;&#52432;'>&#48320;&#54868; &#47588;&#52432;<a class="anchor-link" href="#&#48320;&#54868;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p><code>change</code> 매쳐는 <code>expect</code>에 주어진 블록이 실행되었을 때 <code>change</code>에 주어진 블록의 평가 결과가 변화하는 지를 테스트합니다. 변화했다면 테스트가 통과합니다. 필요에 따라서 얼마만큼 변화했는지를 테스트할 수 있는 <code>by</code>나 <code>expect</code> 블록을 실행시키기 전의 값을 테스트할 수 있는 <code>from</code>, 평가한 이후의 값을 테스트 할 수 있는 <code>to</code> 메소드와 함께 사용될 수 있습니다</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-207번째 입력:
-</div>
+<div class="prompt input_prompt">207번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">expect</span><span class="p">{</span><span class="n">arr</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">change</span><span class="p">{</span><span class="n">arr</span><span class="o">.</span><span class="n">count</span><span class="p">}</span>
 </pre></div>
 
@@ -1057,14 +945,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    207번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">207번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1075,12 +960,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-208번째 입력:
-</div>
+<div class="prompt input_prompt">208번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">{</span><span class="n">arr</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">change</span><span class="p">{</span><span class="n">arr</span><span class="o">.</span><span class="n">count</span><span class="p">}</span><span class="o">.</span><span class="n">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">{</span><span class="n">arr</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">change</span><span class="p">{</span><span class="n">arr</span><span class="o">.</span><span class="n">count</span><span class="p">}</span><span class="o">.</span><span class="n">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1091,14 +974,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    208번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">208번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1109,13 +989,11 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-209번째 입력:
-</div>
+<div class="prompt input_prompt">209번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="nb">str</span> <span class="o">=</span> <span class="s">&quot;Hello, world.&quot;</span>
-<span class="n">expect</span><span class="p">{</span> <span class="nb">str</span><span class="o">.</span><span class="n">upcase</span><span class="err">!</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">change</span><span class="p">{</span> <span class="nb">str</span> <span class="p">}</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s">&quot;Hello, world.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s">&quot;HELLO, WORLD.&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="nb">str</span> <span class="o">=</span> <span class="s">&quot;Hello, world.&quot;</span>
+<span class="n">expect</span><span class="p">{</span> <span class="nb">str</span><span class="o">.</span><span class="n">upcase</span><span class="o">!</span> <span class="o">}</span>.to change<span class="o">{</span> str <span class="o">}</span>.from<span class="o">(</span><span class="s2">&quot;Hello, world.&quot;</span><span class="o">)</span>.to<span class="o">(</span><span class="s2">&quot;HELLO, WORLD.&quot;</span><span class="o">)</span>
 </pre></div>
 
 </div>
@@ -1126,14 +1004,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    209번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">209번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1147,19 +1022,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>예외 메쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p><code>expect</code>에 주어진 블록의 평가 결과가 예외를 일으키는 지 테스트합니다. expect가 블록을 받는다는 데 주의가 필요합니다.</p>
+<h2><a name='&#50696;&#50808;-&#47700;&#52432;'>&#50696;&#50808; &#47700;&#52432;<a class="anchor-link" href="#&#50696;&#50808;-&#47700;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p><code>expect</code>에 주어진 블록의 평가 결과가 예외를 일으키는 지 테스트합니다. expect가 블록을 받는다는 데 주의가 필요합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-210번째 입력:
-</div>
+<div class="prompt input_prompt">210번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="c"># Expecting errors</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Expecting errors</span>
 <span class="n">expect</span><span class="p">{</span> <span class="k">raise</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">raise_error</span>
 </pre></div>
 
@@ -1171,14 +1044,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    210번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">210번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1189,12 +1059,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-211번째 입력:
-</div>
+<div class="prompt input_prompt">211번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">{</span> <span class="n">non_existance</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">raise_error</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">{</span> <span class="n">non_existance</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">raise_error</span>
 </pre></div>
 
 </div>
@@ -1205,14 +1073,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    211번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">211번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1223,12 +1088,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-212번째 입력:
-</div>
+<div class="prompt input_prompt">212번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span> <span class="p">{</span> <span class="n">non_existance</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="ne">NameError</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span> <span class="p">{</span> <span class="n">non_existance</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="ne">NameError</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1239,14 +1102,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    212번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">212번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1260,19 +1120,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='have-'>Have 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>컬렉션 객체가 몇 개의 항목을 가지고 있는 지 테스트합니다.</p>
+<h2><a name='Have-&#47588;&#52432;'>Have &#47588;&#52432;<a class="anchor-link" href="#Have-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>컬렉션 객체가 몇 개의 항목을 가지고 있는 지 테스트합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-213번째 입력:
-</div>
+<div class="prompt input_prompt">213번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">arr</span> <span class="o">=</span> <span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">arr</span> <span class="o">=</span> <span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1283,14 +1141,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    213번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">213번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-[&quot;H&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>[&quot;H&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]</pre>
 </div>
 
 </div>
@@ -1301,12 +1156,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-214번째 입력:
-</div>
+<div class="prompt input_prompt">214번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
 </pre></div>
 
 </div>
@@ -1317,14 +1170,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    214번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">214번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1335,12 +1185,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-215번째 입력:
-</div>
+<div class="prompt input_prompt">215번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_exactly</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_exactly</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
 </pre></div>
 
 </div>
@@ -1351,14 +1199,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    215번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">215번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1369,12 +1214,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-216번째 입력:
-</div>
+<div class="prompt input_prompt">216번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_at_least</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_at_least</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
 </pre></div>
 
 </div>
@@ -1385,14 +1228,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    216번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">216번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1403,12 +1243,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-217번째 입력:
-</div>
+<div class="prompt input_prompt">217번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_at_most</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_at_most</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">items</span>
 </pre></div>
 
 </div>
@@ -1419,14 +1257,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    217번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">217번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1440,19 +1275,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='have_key-'>have_key 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>해시에 특정 키가 포함되어있는 지 테스트합니다.</p>
+<h2><a name='have_key-&#47588;&#52432;'>have_key &#47588;&#52432;<a class="anchor-link" href="#have_key-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>해시에 특정 키가 포함되어있는 지 테스트합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-218번째 입력:
-</div>
+<div class="prompt input_prompt">218번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="s">&quot;nacyot&quot;</span><span class="p">,</span> <span class="n">blog</span><span class="p">:</span> <span class="s">&quot;blog.nacyot.com&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">to</span> <span class="n">have_key</span><span class="p">(:</span><span class="n">name</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="s">&quot;nacyot&quot;</span><span class="p">,</span> <span class="n">blog</span><span class="p">:</span> <span class="s">&quot;blog.nacyot.com&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">to</span> <span class="n">have_key</span><span class="p">(:</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1463,14 +1296,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    218번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">218번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1484,19 +1314,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>포함 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>객체에 특정한 값이나 키가 포함되어있는 지 테스트합니다.</p>
+<h2><a name='&#54252;&#54632;-&#47588;&#52432;'>&#54252;&#54632; &#47588;&#52432;<a class="anchor-link" href="#&#54252;&#54632;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>객체에 특정한 값이나 키가 포함되어있는 지 테스트합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-219번째 입력:
-</div>
+<div class="prompt input_prompt">219번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to</span> <span class="n">be_include</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">to</span> <span class="n">be_include</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1507,14 +1335,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    219번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">219번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1525,12 +1350,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-220번째 입력:
-</div>
+<div class="prompt input_prompt">220번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="s">&quot;nacyot&quot;</span><span class="p">,</span> <span class="n">blog</span><span class="p">:</span> <span class="s">&quot;blog.nacyot.com&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">to</span> <span class="n">be_include</span><span class="p">(:</span><span class="n">name</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="s">&quot;nacyot&quot;</span><span class="p">,</span> <span class="n">blog</span><span class="p">:</span> <span class="s">&quot;blog.nacyot.com&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">to</span> <span class="n">be_include</span><span class="p">(:</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1541,14 +1364,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    220번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">220번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1559,12 +1379,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-221번째 입력:
-</div>
+<div class="prompt input_prompt">221번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_include</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_include</span><span class="p">(</span><span class="s">&quot;H&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1575,14 +1393,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    221번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">221번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1596,19 +1411,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='start_with-end_with-'>start_with / end_with 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>객체의 처음이나 끝이 특정 항목으로 시작하거나 끝나는지 테스트합니다</p>
+<h2><a name='start_with-/-end_with-&#47588;&#52432;'>start_with / end_with &#47588;&#52432;<a class="anchor-link" href="#start_with-/-end_with-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>객체의 처음이나 끝이 특정 항목으로 시작하거나 끝나는지 테스트합니다</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-222번째 입력:
-</div>
+<div class="prompt input_prompt">222번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello, world&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">start_with</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello, world&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">start_with</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1619,14 +1432,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    222번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">222번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1637,12 +1447,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-223번째 입력:
-</div>
+<div class="prompt input_prompt">223번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello, world&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">end_with</span><span class="p">(</span><span class="s">&quot;world&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello, world&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">end_with</span><span class="p">(</span><span class="s">&quot;world&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1653,14 +1461,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    223번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">223번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1671,12 +1476,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-224번째 입력:
-</div>
+<div class="prompt input_prompt">224번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">to</span> <span class="n">start_with</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">to</span> <span class="n">start_with</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1687,14 +1490,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    224번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">224번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1705,12 +1505,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-225번째 입력:
-</div>
+<div class="prompt input_prompt">225번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">to</span> <span class="n">end_with</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">to</span> <span class="n">end_with</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1721,14 +1519,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    225번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">225번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1742,19 +1537,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>커버 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>범위 객체가 특정 값을 포함하는 지 테스트합니다.</p>
+<h2><a name='&#52964;&#48260;-&#47588;&#52432;'>&#52964;&#48260; &#47588;&#52432;<a class="anchor-link" href="#&#52964;&#48260;-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>범위 객체가 특정 값을 포함하는 지 테스트합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-226번째 입력:
-</div>
+<div class="prompt input_prompt">226번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mf">100.</span><span class="o">.</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">cover</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="mf">100.</span><span class="o">.</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">cover</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1765,14 +1558,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    226번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">226번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1783,12 +1573,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-227번째 입력:
-</div>
+<div class="prompt input_prompt">227번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mf">100.</span><span class="o">.</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">cover</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="mf">100.</span><span class="o">.</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">cover</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1799,14 +1587,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    227번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">227번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-false
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>false</pre>
 </div>
 
 </div>
@@ -1820,19 +1605,17 @@ false
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='respond_to-'>respond_to 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>객체가 특정 메시지를 받을 수 있는 지 테스트 합니다.</p>
+<h2><a name='respond_to-&#47588;&#52432;'>respond_to &#47588;&#52432;<a class="anchor-link" href="#respond_to-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>객체가 특정 메시지를 받을 수 있는 지 테스트 합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-228번째 입력:
-</div>
+<div class="prompt input_prompt">228번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">respond_to</span><span class="p">(:</span><span class="n">upcase</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">respond_to</span><span class="p">(:</span><span class="n">upcase</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1843,14 +1626,11 @@ false
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    228번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">228번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1864,19 +1644,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='satisfy-'>satisfy 매쳐</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>블록의 평가 결과가 참인지를 평가합니다. 이 때 expect에 주어진 값이 평가 대상이 되며 satisfy 블록의 인자로 넘겨집니다. 이 블록이 참이면 테스트가 통과합니다.</p>
+<h2><a name='satisfy-&#47588;&#52432;'>satisfy &#47588;&#52432;<a class="anchor-link" href="#satisfy-&#47588;&#52432;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>블록의 평가 결과가 참인지를 평가합니다. 이 때 expect에 주어진 값이 평가 대상이 되며 satisfy 블록의 인자로 넘겨집니다. 이 블록이 참이면 테스트가 통과합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-229번째 입력:
-</div>
+<div class="prompt input_prompt">229번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="n">false</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">satisfy</span><span class="p">{</span><span class="o">|</span><span class="n">value</span><span class="o">|</span> <span class="err">!</span><span class="n">value</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="n">false</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">satisfy</span><span class="p">{</span><span class="o">|</span><span class="n">value</span><span class="o">|</span> <span class="o">!</span>value<span class="o">}</span>
 </pre></div>
 
 </div>
@@ -1887,14 +1665,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    229번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">229번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1908,19 +1683,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='yielding'>Yielding</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>메소드 내에서 yield하는 부분에 대해서 테스트합니다.</p>
+<h2><a name='Yielding'>Yielding<a class="anchor-link" href="#Yielding"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>메소드 내에서 yield하는 부분에 대해서 테스트합니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-230번째 입력:
-</div>
+<div class="prompt input_prompt">230번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span> <span class="p">{</span><span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="mf">5.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_control</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span> <span class="p">{</span><span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="mf">5.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_control</span>
 </pre></div>
 
 </div>
@@ -1931,14 +1704,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    230번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">230번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1949,12 +1719,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-231번째 입력:
-</div>
+<div class="prompt input_prompt">231번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="mf">5.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_with_args</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="mf">5.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_with_args</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1965,14 +1733,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    231번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">231번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -1983,12 +1748,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-232번째 입력:
-</div>
+<div class="prompt input_prompt">232번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="mf">5.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_with_args</span><span class="p">(</span><span class="n">Fixnum</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="mf">5.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_with_args</span><span class="p">(</span><span class="n">Fixnum</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1999,14 +1762,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    232번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">232번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -2017,12 +1777,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-233번째 입력:
-</div>
+<div class="prompt input_prompt">233번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="s">&quot;a string&quot;</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_with_args</span><span class="p">(</span><span class="o">/</span><span class="nb">str</span><span class="o">/</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="s">&quot;a string&quot;</span><span class="o">.</span><span class="n">tap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_with_args</span><span class="p">(</span><span class="o">/</span><span class="nb">str</span><span class="o">/</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2033,14 +1791,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    233번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">233번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -2051,12 +1806,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-234번째 입력:
-</div>
+<div class="prompt input_prompt">234번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_successive_args</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_successive_args</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2067,14 +1820,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    234번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">234번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -2085,12 +1835,10 @@ true
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-235번째 입력:
-</div>
+<div class="prompt input_prompt">235번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="p">{</span> <span class="p">:</span><span class="n">a</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">b</span> <span class="o">=&gt;</span> <span class="mi">2</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_successive_args</span><span class="p">([:</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[:</span><span class="n">b</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span> <span class="p">{</span> <span class="o">|</span><span class="n">b</span><span class="o">|</span> <span class="p">{</span> <span class="p">:</span><span class="n">a</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">b</span> <span class="o">=&gt;</span> <span class="mi">2</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">to</span> <span class="n">yield_successive_args</span><span class="p">([:</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[:</span><span class="n">b</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -2101,14 +1849,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    235번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">235번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-true
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>true</pre>
 </div>
 
 </div>
@@ -2122,19 +1867,17 @@ true
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='predicate-matchers'>Predicate matchers</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>참거짓을 리턴하는 메소드를 사용해 테스트합니다. 이 때 매쳐 이름은 <code>be_메소드이름</code>이 됩니다.</p>
+<h2><a name='Predicate-matchers'>Predicate matchers<a class="anchor-link" href="#Predicate-matchers"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>참거짓을 리턴하는 메소드를 사용해 테스트합니다. 이 때 매쳐 이름은 <code>be_메소드이름</code>이 됩니다.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">
-241번째 입력:
-</div>
+<div class="prompt input_prompt">241번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class="highlight"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">be_zero</span> <span class="c"># 7.zero?</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">expect</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">not_to</span> <span class="n">be_zero</span> <span class="c"># 7.zero?</span>
 </pre></div>
 
 </div>
@@ -2145,14 +1888,11 @@ true
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">
-    241번째 평가:</div>
+<div class="output_area"><div class="prompt output_prompt">241번째 평가:</div>
 
 
-<div class="output_text output_subarea output_pyout">
-<pre>
-false
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>false</pre>
 </div>
 
 </div>
@@ -2166,20 +1906,101 @@ false
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2><a name='-'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
-<p>여기까지 소개한 매쳐들이 RSpec 빌트인 매쳐로 테스트하는데 가장 많이 사용됩니다. 조금 기교스러운 매쳐들도 있어서 익숙해지는데 시간이 걸릴지도 모르겠습니다만, 기본적인 원리만 이해하고 빌트인 매쳐들만 활용해도 대부분의 테스트를 하는 데는 크게 무리가 없습니다. 좀 더 자세한 사항은 <a href="https://www.relishapp.com/rspec/rspec-expectations/v/2-14/docs/built-in-matchers">Relish의 Rspec 문서</a>에서 확인하실 수 있습니다. 또한 아직 베타이지만 조만간 업데이트 예정인 메이저 버전 3에서 추가되는 매쳐도 확인할 필요가 있습니다. 역시 <a href="https://www.relishapp.com/rspec/rspec-expectations/v/3-0/docs/built-in-matchers">공식문서</a>에서 확인할 수 있습니다.</p>
+<h2><a name='&#44208;&#47200;'>&#44208;&#47200;<a class="anchor-link" href="#&#44208;&#47200;"></a></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2><p>여기까지 소개한 매쳐들이 RSpec 빌트인 매쳐로 테스트하는데 가장 많이 사용됩니다. 조금 기교스러운 매쳐들도 있어서 익숙해지는데 시간이 걸릴지도 모르겠습니다만, 기본적인 원리만 이해하고 빌트인 매쳐들만 활용해도 대부분의 테스트를 하는 데는 크게 무리가 없습니다. 좀 더 자세한 사항은 <a href="https://www.relishapp.com/rspec/rspec-expectations/v/2-14/docs/built-in-matchers">Relish의 Rspec 문서</a>에서 확인하실 수 있습니다. 또한 아직 베타이지만 조만간 업데이트 예정인 메이저 버전 3에서 추가되는 매쳐도 확인할 필요가 있습니다. 역시 <a href="https://www.relishapp.com/rspec/rspec-expectations/v/3-0/docs/built-in-matchers">공식문서</a>에서 확인할 수 있습니다.</p>
+
 </div>
 </div>
 </div></p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/bdd'>
+행동 주도 개발(Behavior Driven Development)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/rspec'>
+RSpec
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>
+루비(Ruby)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/tdd'>
+테스트 주도 개발(Test Driven Development)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/test'>
+테스트(test)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -2193,6 +2014,7 @@ false
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -2212,23 +2034,123 @@ false
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2014-04-06-immutable-infrastructure/' rel='prev'>이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2014-04-06-immutable-infrastructure/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-04-06-immutable-infrastructure/">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 06일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ro7ZK8t.jpg" />
+</div>
+<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/immutable_infrastructure'>immutable infrastructure</a></span>을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/aws' rel='nofollow'>AWS</a></span> AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/heroku' rel='nofollow'>Heroku</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/travis'>Travis</a></span> 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/chef' rel='nofollow'>Chef</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/puppet' rel='nofollow'>Puppet</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>Docker</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/vagrant'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/packer' rel='nofollow'>Packer</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/serf' rel='nofollow'>Serf</a></span>와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
+
+<ul>
+<li><a href="/presentations/immutable_infrastructure">Immutable Infrastructure 발표 자료</a></li>
+</ul>
+
+<span class='link'>
+<a href="../2014-04-06-immutable-infrastructure/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/immutable_infrastructure'>immutable_infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programer'>programer</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+</div>
+<div class='barcode' data-title='이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-04-18-docker-on-ubuntu-14-04/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-04-18-docker-on-ubuntu-14-04/' rel='next'>우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-software-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-04-18-docker-on-ubuntu-14-04/">우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 19일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/Jag0s9f.jpg" />
+</div>
+<p>드디어 우분투 14.04 LTS가 정식 릴리즈되었습니다. 이 글에서는 우분투 14.04에서 도커(Docker)를 설치하고 사용하는 법을 다룹니다. 이 글에서는 테스트 용으로 디지털 오션에 우분투 14.04 이미지를 사용해 인스턴스를 만들고 도커를 설치하겠습니다. </p>
+
+<span class='link'>
+<a href="../2014-04-18-docker-on-ubuntu-14-04/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/apt_get'>apt_get</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/digital_ocean'>digital_ocean</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tugboat'>tugboat</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu_14_04'>ubuntu_14_04</a>
+</div>
+<div class='barcode' data-title='우분투(Ubuntu) 14.04에서 도커(Docker) 설치 및 사용하기'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -2241,24 +2163,41 @@ false
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

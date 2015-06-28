@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='prev' title='쿡패드(Cookpad) 루비(ruby) 스타일 가이드'>
 <link href='/articles/2014-04-07-rspec-matchers/' rel='next' title='루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)'>
 <meta content='얼마 전 4월 2일에 프로그래머 그룹에서 Immutable Infrastructure을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &amp;#39;관리&amp;#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 AWS AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, Heroku, Travis 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 Chef, Puppet, Docker, Vagrant, Packer, Serf와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.Immutable Infrastructure 발표 자료' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2014-04-06-immutable-infrastructure/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='immutable infrastructure, programer, docker, 도커' name='keywords'>
+<meta content='http://i.imgur.com/ro7ZK8t.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/ro7ZK8t.jpg' property='og:image'>
+<meta content='immutable_infrastructure, programer, docker, infrastructure, programming' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,88 +44,94 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Apr  6 2014
-</span>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/immutable-infrastructure'>immutable infrastructure</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/programer'>programer</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-</span>
+<div class='category category-programming-top' style='width: 50.0%'>
 </div>
-<a name='toc'></a>
+</div>
 <h1 class='title'>
 <a href="./">이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 06일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ro7ZK8t.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
-<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/immutable_infrastructure'>immutable infrastructure</a></span>을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/aws' rel='noindex,nofollow'>AWS</a></span> AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/heroku' rel='noindex,nofollow'>Heroku</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/travis'>Travis</a></span> 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/chef' rel='noindex,nofollow'>Chef</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/puppet' rel='noindex,nofollow'>Puppet</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>Docker</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/vagrant'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/packer' rel='noindex,nofollow'>Packer</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/serf' rel='noindex,nofollow'>Serf</a></span>와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
+<p>얼마 전 4월 2일에 <a href="https://www.facebook.com/groups/programer.io/">프로그래머 그룹</a>에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/immutable_infrastructure'>immutable infrastructure</a></span>을 주제로 발표했습니다. Immutable Infrastructure란 분명한 실체를 지칭하기보다는 한 번 설정하고 (거의) 변경하지 않는 이미지 기반의 어플리케이션 배포 패러다임을 뜻하는 단어입니다. 다수의 서버를 동적으로 관리하는 클라우드를 기반으로 어떻게 하면 좀 더 효과적이고 유연하게 배포할 수 있을가 하는 고민에서 나온 패러다임이라고 할 수 있습니다. 따라서 기존에 서버를 지속적으로 &#39;관리&#39;한다는 데서 벗어나 어떻게하면 서버를 잘 쓰고 버리는 지를 다룹니다. 지금까지는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/aws' rel='nofollow'>AWS</a></span> AMI를 통한 오토 스케일링에서 보듯이 이러한 패러다임이 현상적으로만 존재했는데, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/heroku' rel='nofollow'>Heroku</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/travis'>Travis</a></span> 등에서는 이러한 패러다임을 이미 적극 채용하고 있으며, 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/chef' rel='nofollow'>Chef</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/puppet' rel='nofollow'>Puppet</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>Docker</a></span>, <span class='live_link'><a href='http://wiki.nacyot.com/documents/vagrant'>Vagrant</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/packer' rel='nofollow'>Packer</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/serf' rel='nofollow'>Serf</a></span>와 같은 도구들은 Immutable Infrastructure라는 패러다임을 실제 어플리케이션 배포에 적용할 수 있도록 도와줍니다. 이 글에서는 발표자료와 관련된 관련된 리소스들을 소개합니다.</p>
 
 <ul>
 <li><a href="/presentations/immutable_infrastructure">Immutable Infrastructure 발표 자료</a></li>
@@ -132,7 +139,7 @@ Apr  6 2014
 
 
 
-<h2><a name='cloud'>Cloud</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='cloud'>Cloud</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <ul>
 <li><a href="http://aws.amazon.com/">Amazon Web Service</a></li>
@@ -146,7 +153,7 @@ Apr  6 2014
 <li><a href="http://aws.amazon.com/cli/">AWS Command Line Interface</a></li>
 </ul>
 
-<h2><a name='immutable-infrastructure'>Immutable Infrastructure</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='immutable-infrastructure'>Immutable Infrastructure</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <ul>
 <li><a href="http://12factor.net/">The Twelve-Factor App</a></li>
@@ -157,7 +164,7 @@ Apr  6 2014
 <li><a href="http://shop.oreilly.com/product/0636920026358.do">BlueGreeDeployment</a></li>
 </ul>
 
-<h2><a name='configuration-management'>Configuration Management</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='configuration-management'>Configuration Management</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.getchef.com/chef/">Chef</a></li>
@@ -171,7 +178,7 @@ Apr  6 2014
 <li><a href="http://www.youtube.com/watch?v=ruAdx8-1a5s">H3 2012 - Just Do IT, Chef 언제까지 손으로 일일이 할텐가?</a></li>
 </ul>
 
-<h2><a name='docker'>Docker</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='docker'>Docker</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <ul>
 <li><a href="https://www.docker.io/">Docker</a></li>
@@ -186,7 +193,7 @@ Apr  6 2014
 <li><a href="http://deview.kr/2013/detail.nhn?topicSeq=45">Deview Lightweight Linux Container Docker</a></li>
 </ul>
 
-<h1><a name='vagrant'>Vagrant</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h1>
+<h1><a name='vagrant'>Vagrant</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h1>
 
 <ul>
 <li><a href="http://www.vagrantup.com/">Vagrant</a></li>
@@ -198,26 +205,98 @@ Apr  6 2014
 <li><a href="http://shop.oreilly.com/product/0636920026358.do">Book Vagrant: Up and Running</a></li>
 </ul>
 
-<h2><a name='packer'>Packer</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='packer'>Packer</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.packer.io/">Packer</a></li>
 </ul>
 
-<h2><a name='serf'>Serf</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='serf'>Serf</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <ul>
 <li><a href="http://www.serfdom.io/">Serf</a></li>
 </ul>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>
+도커(Docker)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/immutable_infrastructure'>
+immutable infrastructure
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>
+시스템(Infrastructure)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programer'>
+프로그래머(programer)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -231,6 +310,7 @@ Apr  6 2014
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -250,23 +330,114 @@ Apr  6 2014
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='이미지 기반 어플리케이션 배포 패러다임 Immutable Infrastructure'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='prev'>쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-03-23-cookpad-ruby-styleguide/">쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 03월 23일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/JF65kMh.jpg" />
+</div>
+<p>이 문서는 Cookpad의 <a href="https://github.com/cookpad/styleguide">Ruby Style Guide</a>를 <a href="http://nacyot.com">nacyot</a>이 한국어로 번역한 문서입니다. 번역된 문서는 <a href="https://github.com/nacyot/styleguide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/cookpad/styleguide">여기</a>에서 찾아볼 수 있습니다. 이 문서는 <a href="http://creativecommons.org/licenses/by/3.0/">cc-by</a> 라이센스를 따릅니다.</p>
+
+<span class='link'>
+<a href="../2014-03-23-cookpad-ruby-styleguide/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/cookpad'>cookpad</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming_language'>programming_language</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/style_guide'>style_guide</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>translation</a>
+</div>
+<div class='barcode' data-title='쿡패드(Cookpad) 루비(ruby) 스타일 가이드'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-04-07-rspec-matchers/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-04-07-rspec-matchers/' rel='next'>루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-04-07-rspec-matchers/">루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 04월 07일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/vX8CxfP.jpg" />
+</div>
+<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/ruby'>루비</a></span>에서는 테스트를 하기 위해 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/minitest' rel='nofollow'>minitest</a></span>와 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bdd' rel='nofollow'>BDD</a></span> 프레임워크인 <span class='live_link'><a href='http://wiki.nacyot.com/documents/rspec'>RSpec</a></span>이 많이 사용됩니다. 유닛 테스트에 친숙하신 분들은 minitest를 선호하지만, 좀 더 설명적인 테스트가 가능한 RSpec도 많이 사용되고 있습니다. 이 글에서는 RSpec 테스트에서 사용할 수 있는 빌트인 테스트 매쳐(Matcher)들을 간단히 소개합니다.</p>
+
+<span class='link'>
+<a href="../2014-04-07-rspec-matchers/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/bdd'>bdd</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/rspec'>rspec</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tdd'>tdd</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/test'>test</a>
+</div>
+<div class='barcode' data-title='루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐(Matchers)'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -279,24 +450,41 @@ Apr  6 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

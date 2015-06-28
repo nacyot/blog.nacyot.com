@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2014-03-12-emacs-with-tern/' rel='prev' title='이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern'>
 <link href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='next' title='쿡패드(Cookpad) 루비(ruby) 스타일 가이드'>
 <meta content='vim.sexy의 emacs판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &amp;gt;_&amp;lt;http://t.co/NrSRaEXMWO http://t.co/3YY2lCXkLd 한국어 번역&amp;mdash; nacyot (@nacyo_t) 2014년 3월 16일이 글에서는 emacs.sexy를 번역하는 과정에서 사용했던 번역 메모리 OmegaT, 지속적 통합 서비스 Travis, 루비 태스크 관리 Rake, 깃허브 호스팅 서비스 Github Pages를 간단히 소개합니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2014-03-17-sexy-emacs-kr/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='emacs, emacs.sexy, omegat, 번역, 오메가t, 이맥스, travis, 트래비스' name='keywords'>
+<meta content='http://i.imgur.com/d2Fvsuw.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/d2Fvsuw.jpg' property='og:image'>
+<meta content='emacs, emacs_sexy, omegat, translation, travis, programming, service, editor' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,93 +44,97 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Mar 17 2014
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 33.333333333333336%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/emacs'>emacs</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/emacs.sexy'>emacs.sexy</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/omegat'>omegat</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/travis'>travis</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/번역'>번역</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/오메가t'>오메가t</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/이맥스'>이맥스</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/트래비스'>트래비스</a>
-</span>
+<div class='category category-service-top' style='width: 33.333333333333336%'>
 </div>
-<a name='toc'></a>
+<div class='category category-editor-top' style='width: 33.333333333333336%'>
+</div>
+</div>
 <h1 class='title'>
 <a href="./">emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<i class='fa fa-cubes' style='color: #8c564b'></i>
+서비스
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2014년 03월 17일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/d2Fvsuw.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
 <p>vim.sexy의 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>emacs</a></span>판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &gt;_&lt;</p>
@@ -142,7 +147,7 @@ Mar 17 2014
 
 
 
-<h2><a name='깃허브(github)---번역-저장소-관리'>깃허브(Github) - 번역 저장소 관리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='깃허브(github)---번역-저장소-관리'>깃허브(Github) - 번역 저장소 관리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>특별한 건 없습니다만, 번역과 번역 저장소 관리에 대해서 조금 이야기를 해보자면 현재 sexy.emacs.kr은 두 개의 저장소에서 관리되고 있습니다.</p>
 
@@ -160,11 +165,11 @@ Mar 17 2014
 
 <p>입니다.</p>
 
-<h2><a name='오메가t(omegat)---번역-메모리'>오메가T(OmegaT) - 번역 메모리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='오메가t(omegat)---번역-메모리'>오메가T(OmegaT) - 번역 메모리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>개인적으로 번역 프로젝트에는 전부 OmegaT를 사용하고 있습니다.자바로 만들어진 번역 메모리로 기능적으론 굉장히 훌륭합니다. 특히 OmegaT는 문장 단위로 번역을 진행해서, 직접 원본 파일을 번역하는 것과 달리 원문의 업데이트에 비교적 쉽게 대응할 수 있습니다. 약간 번거롭고 저장소와 호환이 안 맞아서 한참 고생을 했는데, 최근에 활용 방향이 정리가 되서 베스트 프렉티스를 정리해보는 중입니다. 이에 대한 내용은 조만간 공유해 볼 예정입니다.</p>
 
-<h2><a name='트래비스(travis)를-통한-오메가t-자동-빌드'>트래비스(Travis)를 통한 오메가T 자동 빌드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='트래비스(travis)를-통한-오메가t-자동-빌드'>트래비스(Travis)를 통한 오메가T 자동 빌드</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>이번에 한 가지 시도해본 건 Travis를 통해 OmegaT의 프로젝트를 빌드하는 일입니다. OmegaT에서는 원본 문서를 편집하지 않고 Segment 단위로 한 문장(혹은 한 문단) 씩 번역을 진행합니다. 따라서 여기서 빌드란 OmegaT를 통해서 번역한 결과물을 실제 파일로 출력하는 과정을 말합니다. 로컬에서 번역을 진행하고 빌드 후 저장소를 올리는 것도 어렵지 않습니다만 신경써야할 부분이 하나 더 느는 문제가 있고, 또 하나는 커밋 단위로 빌드를 하고 싶었기 때문입니다. 이는 이 블로그나 위키에서도 마찬가지로 문서를 작성하면 자동적으로 Travis에서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/middleman'>Middleman</a></span> 어플리케이션을 빌드하고 깃허브 저장소에 올리는 것과 마찬가지입니다. 즉, 이를 통해 OmegaT를 통한 번역작업과 Github 페이지를 통한 배포 작업을 하나의 트랜젝션으로 묶을 수 있습니다.</p>
 
@@ -178,7 +183,7 @@ Mar 17 2014
 
 <p>이러한 작업을 할 때 OmegaT의 프로젝트 구조를 로컬에서와 같도록 최대한 보장해줄 필요가 있습니다. 예를 들어 과거 프로젝트에서 생성한 번역 메모리를 재활용할 수 있게 도와주는 <code>/tm/auto</code> 디렉토리는 실제론 필요가 없지만, 빌드 시에 없으면 프로젝트를 인식하지 못 합니다. <code>target</code> 디렉토리는 빌드 결과가 출력되는 디렉토리인데 자동으로 생성해주지 않기 때문에, 빈 디렉토리라도 생성해두지 않으면 빌드에 실패합니다. 이 외에 <code>glossary</code>, <code>dictionary</code>, <code>source</code>도 정상적으로 프로젝트 디렉토리 안에 생성되어 있어야합니다.</p>
 
-<p>OmegaT의 경우 <code>apt-get</code>으로 설치하면 상당히 구버전이 설치됩니다. 저 같은 경우는 번역에 3버전을 사용하고 있는데, 빌드 과정에서 특별한 문제점은 없었습니다. 만약 <code>apt-get</code>으로 설치하는 버전을 사용하기가 어렵다면 별도로 프로젝트에 OmegaT를 집어넣거나, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/wget' rel='noindex,nofollow'>wget</a></span>으로 소스포지에서 다운로드해야합니다.</p>
+<p>OmegaT의 경우 <code>apt-get</code>으로 설치하면 상당히 구버전이 설치됩니다. 저 같은 경우는 번역에 3버전을 사용하고 있는데, 빌드 과정에서 특별한 문제점은 없었습니다. 만약 <code>apt-get</code>으로 설치하는 버전을 사용하기가 어렵다면 별도로 프로젝트에 OmegaT를 집어넣거나, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/wget' rel='nofollow'>wget</a></span>으로 소스포지에서 다운로드해야합니다.</p>
 
 <blockquote class="twitter-tweet" lang="ko"><p><a href="https://twitter.com/marocchino">@marocchino</a> 아... 빌드에서 사용할 파일 따로 가져올 방법이 없어서 압축해서 포함시키려고 했는데 100mb 넘는다고 안 들어가더군요 ㅎㅎ. 좋은 접근은 아니었죠 ㅜ</p>&mdash; nacyot (@nacyo_t) <a href="https://twitter.com/nacyo_t/statuses/444838462277967873">2014년 3월 15일</a></blockquote>
 
@@ -189,34 +194,133 @@ Mar 17 2014
 <p>이렇게 100mb 넘는 파일을 추가하고 Github에 올리기 위해선 커밋 히스토리 자체를 삭제할 필요가 생기는데 아래 명령어를 사용할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">filter</span><span class="o">-</span><span class="n">branch</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">filter</span> <span class="err">&#39;</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">file</span><span class="err">&#39;</span> <span class="n">HEAD</span>
 </span></pre></div>
-<h2><a name='루비-태스크-관리-도구---레이크(rake)'>루비 태스크 관리 도구 - 레이크(Rake)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='루비-태스크-관리-도구---레이크(rake)'>루비 태스크 관리 도구 - 레이크(Rake)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
-<p>빌드 과정에서 몇 가지 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rake' rel='noindex,nofollow'>rake</a></span> 작업이 이루어집니다. OmegaT를 사용한 번역에서는 원본 파일을 직접 수정하지 않고, 문장들만을 번역합니다. 따라서 원칙적으로 원본 파일은 건드리지 않고 작업을 하기 위해서 빌드된 결과물을 rake  스크립트를 통해서 편집해줍니다. <code>rewrite_cname</code>은 CNAME 파일이 <code>sexy.emacs.kr</code>(실제 배포될 URL)을 가리키도록 합니다.  <code>add_link</code>는 별도로 관리중인 <a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/data/sites.json">한국어 링크를 정리한 json 파일</a>에서 링크를 가져와 문서의 아래 쪽에 추가해줍니다. 마지막으로 <code>add_link_to_translator</code>는 번역자 정보를 문서에 추가해줍니다.</p>
+<p>빌드 과정에서 몇 가지 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rake' rel='nofollow'>rake</a></span> 작업이 이루어집니다. OmegaT를 사용한 번역에서는 원본 파일을 직접 수정하지 않고, 문장들만을 번역합니다. 따라서 원칙적으로 원본 파일은 건드리지 않고 작업을 하기 위해서 빌드된 결과물을 rake  스크립트를 통해서 편집해줍니다. <code>rewrite_cname</code>은 CNAME 파일이 <code>sexy.emacs.kr</code>(실제 배포될 URL)을 가리키도록 합니다.  <code>add_link</code>는 별도로 관리중인 <a href="https://github.com/nacyot/omegat-emacs.sexy/blob/master/data/sites.json">한국어 링크를 정리한 json 파일</a>에서 링크를 가져와 문서의 아래 쪽에 추가해줍니다. 마지막으로 <code>add_link_to_translator</code>는 번역자 정보를 문서에 추가해줍니다.</p>
 
-<h2><a name='깃허브-페이지(github-pages)---정적-컨텐츠-호스팅-서비스'>깃허브 페이지(Github Pages) - 정적 컨텐츠 호스팅 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='깃허브-페이지(github-pages)---정적-컨텐츠-호스팅-서비스'>깃허브 페이지(Github Pages) - 정적 컨텐츠 호스팅 서비스</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
-<p>빌드 과정의 마지막에는 이렇게 생성된 번역 결과를 sexy.emacs.kr 깃허브 저장소에 push하도록 되어있습니다. 깃허브에서는 gh-pages 브랜치를 이용해 저장소의 내용을 배포할 수 있습니다. 특별한 건 없습니다만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/github_pages' rel='noindex,nofollow'>github pages</a></span>에서 커스텀 도메인으로 배포 가능하도록 DNS A record를 지정해야하는 ip 주소가 최근에 바뀐 듯 합니다. <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">깃허브 Help 사이트</a>에서는 <code>192.30.252.153</code>과 <code>192.30.252.154</code>를 지정해야한다고 이야기하고 있으며, 예전 ip도 업데이트를 권장하고 있었습니다.</p>
+<p>빌드 과정의 마지막에는 이렇게 생성된 번역 결과를 sexy.emacs.kr 깃허브 저장소에 push하도록 되어있습니다. 깃허브에서는 gh-pages 브랜치를 이용해 저장소의 내용을 배포할 수 있습니다. 특별한 건 없습니다만, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/github_pages' rel='nofollow'>github pages</a></span>에서 커스텀 도메인으로 배포 가능하도록 DNS A record를 지정해야하는 ip 주소가 최근에 바뀐 듯 합니다. <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">깃허브 Help 사이트</a>에서는 <code>192.30.252.153</code>과 <code>192.30.252.154</code>를 지정해야한다고 이야기하고 있으며, 예전 ip도 업데이트를 권장하고 있었습니다.</p>
 
 <p>10A</p>
 
-<h2><a name='트래비스(travis)---지속적-통합을-통한-지속적-번역'>트래비스(Travis) - 지속적 통합을 통한 지속적 번역</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='트래비스(travis)---지속적-통합을-통한-지속적-번역'>트래비스(Travis) - 지속적 통합을 통한 지속적 번역</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p><a href="https://travis-ci.org/nacyot/omegat-emacs.sexy">Travis의 빌드 결과</a>는 여기서 확인할 수 있습니다. 이를 통해서 빌드가 어떤 식으로 이루어지는지 감이 오실 거라고 생각합니다.</p>
 
 <p>아시는 분은 이미 아시리라고 생가합니다만, 공개 프로젝트를 운영하신다면 tarvis는 둘도 없는 강력한 빌드 서비스입니다. 어떤 자원을 사용하건 자원에 대한 대가를 치루는 거는 꽤나 번거롭고 관리가 드는 일입니다만, 공개 프로젝트에 한해서 Travis는 이러한 부담이 전혀 없이 무료로 사용할 수 있습니다. 위에서 보셨다시피 커밋에 대응한 자동 빌드 및 심지어 빌드 성공시 깃헙 페이지에 자동 배포하는 역할까지 수행하고 있습니다.</p>
 
-<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>이 프로젝트의 경우는 번역할 절대 양이 많지도 않고 업데이트가 크게 많다고 생각되지 않기 때문에 조금 오버를 했다는 느낌도 없지 않습니다만, 예전부터 생각해오던 것을 직접 적용해서 작은 번역 프로젝트를 하나 진행해 보았습니다. 좀 더 큰 프로젝트에서라면 번역에만 집중할 수 있는 이러한 워크플로우가 꽤나 도움이 될 것이라고 기대하고 있습니다.</p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>
+에디터(Editor)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>
+이맥스(Emacs)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs_sexy'>
+emacs.sexy
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/omegat'>
+오메가T(OmegaT)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/service'>
+서비스(service)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>
+번역(translation)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/travis'>
+트래비스(Travis)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -230,6 +334,7 @@ Mar 17 2014
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -249,23 +354,121 @@ Mar 17 2014
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2014-03-12-emacs-with-tern/' rel='prev'>이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2014-03-12-emacs-with-tern/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-03-12-emacs-with-tern/">이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2014년 03월 12일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/PYkUJs4.jpg" />
+</div>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/text_editor' rel='nofollow'>텍스트 에디터</a></span>는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ide' rel='nofollow'>IDE</a></span>에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/javascript'>자바스크립트</a></span> 코드 분석기 <a href="http://ternjs.net/">Tern</a>입니다.</p>
+
+<span class='link'>
+<a href="../2014-03-12-emacs-with-tern/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/auto_complete'>auto_complete</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/javascript'>javascript</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/node_js'>node_js</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/tern'>tern</a>
+</div>
+<div class='barcode' data-title='이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-03-23-cookpad-ruby-styleguide/' rel='next'>쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-03-23-cookpad-ruby-styleguide/">쿡패드(Cookpad) 루비(ruby) 스타일 가이드</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 03월 23일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/JF65kMh.jpg" />
+</div>
+<p>이 문서는 Cookpad의 <a href="https://github.com/cookpad/styleguide">Ruby Style Guide</a>를 <a href="http://nacyot.com">nacyot</a>이 한국어로 번역한 문서입니다. 번역된 문서는 <a href="https://github.com/nacyot/styleguide">Github 저장소</a>에서 관리되고 있으며 원본은 <a href="https://github.com/cookpad/styleguide">여기</a>에서 찾아볼 수 있습니다. 이 문서는 <a href="http://creativecommons.org/licenses/by/3.0/">cc-by</a> 라이센스를 따릅니다.</p>
+
+<span class='link'>
+<a href="../2014-03-23-cookpad-ruby-styleguide/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/cookpad'>cookpad</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming_language'>programming_language</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ruby'>ruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/style_guide'>style_guide</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>translation</a>
+</div>
+<div class='barcode' data-title='쿡패드(Cookpad) 루비(ruby) 스타일 가이드'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -278,24 +481,41 @@ Mar 17 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

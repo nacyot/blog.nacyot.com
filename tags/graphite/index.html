@@ -1,35 +1,37 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/tags/graphite/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
+<meta content='그라파이트(Graphite)에 관련된 글 목록' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
 <meta content='summary' name='twitter:card'>
 <meta content='article' property='og:type'>
-<meta content='nacyot의 프로그래밍 이야기' name='twitter:title'>
-<meta content='nacyot의 프로그래밍 이야기' property='og:title'>
-<meta content='' name='twitter:description'>
-<meta content='' property='og:description'>
+<meta content='nacyot의 프로그래밍 이야기 :: 그라파이트(Graphite)' name='twitter:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: 그라파이트(Graphite)' property='og:title'>
+<meta content='그라파이트(Graphite)에 관련된 글 목록' name='twitter:description'>
+<meta content='그라파이트(Graphite)에 관련된 글 목록' property='og:description'>
 <meta content='@nacyo_t' name='twitter:site'>
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/tags/graphite/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/tags/graphite/' property='og:url'>
-<meta content='' name='twitter:image'>
-<meta content='' property='og:image'>
-<meta content='' name='keywords'>
-<title>nacyot의 프로그래밍 이야기</title>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
+<meta content='그라파이트(Graphite)' name='keywords'>
+<title>nacyot의 프로그래밍 이야기 :: 그라파이트(Graphite)</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,78 +42,184 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
-
-
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
 <div class='wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
 </a>
+</h1>
 </div>
-<h1 class='title'>태그 > graphite</h1>
-<div class='description'></div>
-</div>
+
+<h1 class='subtitle'>그라파이트(Graphite) 목록</h1>
 <div class='main'>
 <div id='container'>
+<div class='row'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='summary_card'>
+<div class='categories'>
+<div class='category category-news-top' style='width: 33.333333333333336%'></div>
+<div class='category category-infrastructure-top' style='width: 33.333333333333336%'></div>
+<div class='category category-programming-top' style='width: 33.333333333333336%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-08-04-docker-korea-secord/">Docker Korea 스터디 그룹 두번째 모임</a>
+</h1>
 <div>
 <span class='date'>
-Jul 25 2014
+<a href='/tags/news' title='새소식(News) 목록'>
+<i class='fa fa-newspaper-o' style='color: #bcbd22'></i>
+새소식
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 08월 05일 발행
 </span>
 </div>
-<h2 class='title'>
-<a href="../../articles/2014-07-17-graphite-with-dokcer/">그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</a>
-</h2>
 <div class='summary'>
-<p>시스템 <span class='live_link'><a href='http://wiki.nacyot.com/documents/monitoring'>모니터링</a></span>에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rrdtool' rel='noindex,nofollow'>rrdtool</a></span>로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/metrics' rel='noindex,nofollow'>metrics</a></span>) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.</p>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/9A89h4Y.jpg" />
+</div>
+<p>얼마 전 &#39;<span class='dead_link'><a href='http://wiki.nacyot.com/documents/docker_korea' rel='nofollow'>도커 코리아</a></span>&#39;라는 이름으로 <a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/">스터디를 진행한다는 이야기</a>를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 <a href="http://onoffmix.com/event/31354">도커 코리아 두번째 모임</a>을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/remotty'>리모티</a></span> 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)</p>
+
+<span class='link'>
+<a href="../../articles/2014-08-04-docker-korea-secord/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/consul'>consul</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/coreos'>coreos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_korea'>docker_korea</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/etcd'>etcd</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/fleet'>fleet</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ghost'>ghost</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/grafana'>grafana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/graphite'>graphite</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/kibana'>kibana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/log'>log</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/metrics'>metrics</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/news'>news</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python'>python</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/remotty'>remotty</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/service_discovery'>service_discovery</a>
+</div>
+<div class='barcode' data-title='Docker Korea 스터디 그룹 두번째 모임'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 07월 25일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/2Omobwt.jpg" />
+</div>
+<p>시스템 <span class='live_link'><a href='http://wiki.nacyot.com/documents/monitoring'>모니터링</a></span>에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rrdtool' rel='nofollow'>rrdtool</a></span>로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/metrics' rel='nofollow'>metrics</a></span>) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.</p>
 
 <p><img src="http://i.imgur.com/egJIriw.png" alt="rrdtool">
-<p class="shape-title">rrdtool</p></p>
-••••••
+<div class="shape-title">rrdtool</div></p>
+
+<span class='link'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">계속 읽기</a>
+</span>
 </div>
 <div class='tags'>
 <i class='fa fa-tag'></i>
 <a href='/tags/carbon'>carbon</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dashboard'>dashboard</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/docker'>docker</a>
 <i class='fa fa-tag'></i>
@@ -121,26 +229,28 @@ Jul 25 2014
 <i class='fa fa-tag'></i>
 <a href='/tags/graphite'>graphite</a>
 <i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
 <a href='/tags/kibana'>kibana</a>
 <i class='fa fa-tag'></i>
+<a href='/tags/monitoring'>monitoring</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/timeserise_database'>timeserise_database</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/volume_container'>volume_container</a>
+<i class='fa fa-tag'></i>
 <a href='/tags/whisper'>whisper</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/그라파나'>그라파나</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/그라파이트'>그라파이트</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/대시보드'>대시보드</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/도커'>도커</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/모니터링'>모니터링</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/볼륨-컨테이너'>볼륨 컨테이너</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/시계열-데이터베이스'>시계열 데이터베이스</a>
 </div>
+<div class='barcode' data-title='그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker'></div>
 </div>
 
+</div>
+<div class='col-lg-2 col-md-2'></div>
+</div>
+</div>
+<div class='pagination'>
 </div>
 </div>
 
@@ -149,24 +259,41 @@ Jul 25 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

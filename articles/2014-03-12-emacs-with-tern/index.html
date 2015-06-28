@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html ng-app='devstudy'>
+<html>
 <head>
 <!--
 ⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
 ⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
 
-Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 -->
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.7, user-scalable=yes' name='viewport'>
-<link href='images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/' rel='canonical'>
-<link href='http://blog.nacyot.com/feed.xml' rel='alternative' type='application/rss+xml'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2014-02-11-dokcer-08-on-macosx/' rel='prev' title='도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기'>
 <link href='/articles/2014-03-17-sexy-emacs-kr/' rel='next' title='emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역'>
 <meta content='텍스트 에디터는 IDE에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 자바스크립트 코드 분석기 Tern입니다.' name='description'>
@@ -27,12 +27,13 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 <meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
 <meta content='http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/' name='twitter:url'>
 <meta content='http://blog.nacyot.com/articles/2014-03-12-emacs-with-tern/' property='og:url'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
-<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
-<meta content='javascript, emacs, 이맥스, 자바스크립트, npm, node.js, tern, 자동완성' name='keywords'>
+<meta content='http://i.imgur.com/PYkUJs4.jpg' name='twitter:image'>
+<meta content='http://i.imgur.com/PYkUJs4.jpg' property='og:image'>
+<meta content='javascript, emacs, node_js, tern, auto_complete, programming, editor' name='keywords'>
 <title>nacyot의 프로그래밍 이야기 :: 이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern</title>
 <link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
 <script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -43,106 +44,104 @@ Copyright © 2013- nacyot<Daewkon Kim> All Rights Reserved.
 </script>
 </head>
 <body>
-<nav class='navbar navbar-fixed-top' role='navigation'>
-<div class='navbar-header'>
-<a class='navbar-brand' href='http://nacyot.com'>nacyot</a>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
 </div>
-<div class='collapse navbar-collapse'>
-<ul class='nav navbar-nav'>
-<li>
-<a href='http://blog.nacyot.com'>
-<i class='fa fa-comment'></i>
-블로그
 </a>
-</li>
-<li>
-<a href='http://wiki.nacyot.com'>
-<i class='fa fa-comment'></i>
-위키
-</a>
-</li>
-</ul>
-<ul class='nav navbar-nav navbar-right profile'>
-<form class="navbar-form navbar-right" role="search" id="cse-search-box" action="http://google.com/cse">
-<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
-<input type="hidden" name="ie" value="UTF-8" />
-<div class="form-group">
-<input class="form-control" type="text" name="q" size="15" />
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
 </div>
-<button class="btn btn-default" type="submit" name="sa" value="Search">Search</button>
-</form>
-<li>
-<a href='https://twitter.com/nacyo_t'>
-<i class='fa fa-twitter twitter'></i>
 </a>
-</li>
-<li>
-<a href='https://github.com/nacyot/'>
-<i class='fa fa-github github'></i>
-</a>
-</li>
-</ul>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
 </div>
-</nav>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/book' title='서평(Book Review) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
 
-
-<div class='mini-wall'>
-<div class='profile'>
-<a href="/"><img class='img-rounded profile_image' src='/images/nacyot.jpeg'>
-</a>
-</div>
-</div>
 <div class='row'>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
-<div class='col-lg-8 col-md-10 col-sm-10 col-xs-10'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
 <div class='articles'>
 <div class='article'>
-<div>
-<span class='date'>
-<i class='fa fa-calendar'></i>
-Mar 12 2014
-</span>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'>
 </div>
-<div>
-<span class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/emacs'>emacs</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/javascript'>javascript</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/node.js'>node.js</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/npm'>npm</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/tern'>tern</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/이맥스'>이맥스</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/자동완성'>자동완성</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/자바스크립트'>자바스크립트</a>
-</span>
+<div class='category category-editor-top' style='width: 50.0%'>
 </div>
-<a name='toc'></a>
+</div>
 <h1 class='title'>
 <a href="./">이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern</a>
 </h1>
-<div class='body'>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2014년 03월 12일 발행
+</span>
 </div>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/PYkUJs4.jpg" />
+</div>
+<a name='toc'></a>
 <div class='toc'></div>
 <div class='body'>
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/text_editor' rel='noindex,nofollow'>텍스트 에디터</a></span>는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ide' rel='noindex,nofollow'>IDE</a></span>에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/javascript'>자바스크립트</a></span> 코드 분석기 <a href="http://ternjs.net/">Tern</a>입니다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/text_editor' rel='nofollow'>텍스트 에디터</a></span>는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ide' rel='nofollow'>IDE</a></span>에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/javascript'>자바스크립트</a></span> 코드 분석기 <a href="http://ternjs.net/">Tern</a>입니다.</p>
 
 
 
-<h2><a name='자바스크립트-정적-분석-도구-tern'>자바스크립트 정적 분석 도구 Tern</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='자바스크립트-정적-분석-도구-tern'>자바스크립트 정적 분석 도구 Tern</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
-<p>Tern은 <a href="https://github.com/marijnh/CodeMirror">코드미러</a>라는 에디터를 만들었던 Marijn Haverbeke의 또다른 오픈소스 어플리케이션으로 기본적으로 자바스크립트 코드 분석기입니다. 지금 바로 <a href="http://ternjs.net/doc/demo.html">데모 페이지</a>에서 코드 미러 위에서 동작하는 Tern의 기능들을 확인해보시기 바랍니다. 이러한 정적 코드 분석의 결과는 질높은 문법 체크 및 자동완성을 비롯한 다양한 부가 기능을 제공하는데 이용될 수 있습니다. 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/tern' rel='noindex,nofollow'>Tern</a></span>은 특정 에디터에 종속되지 않는다는 점에서 봤을 때 마츠야마 토모히로 씨가 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>는 죽었다는 글에서 이야기했던 (이맥스 문화권에서 나오진 않았지만) <strong><em>외부 프로그램에 의한 잠재적인 사회적 가치를 극대화</em></strong>해야한다는 사상에 정말로 잘 들어맞는 프로그램입니다. Tern은 어떤 에디터에 종속적이지 않습니다. Tern은 독자적인 서버로 실행되고, 에디터에서 보내오는 결과에 대한 적절한 분석결과를 되돌려 줄 뿐입니다. 리눅스에서 명령어들의 결과를 파이프라인으로 보내는데 익숙하다면 이러한 개념이 얼마나 합리적이고 적절히 확장 가능한지 이해할 수 있을 것입니다. 분석 결과는 에디터의 플러그인들이 적절히 처리해줍니다. 실제 Tern의 저장소에는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vim' rel='noindex,nofollow'>Vim</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/sublime_text' rel='noindex,nofollow'>sublime text</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/eclipse' rel='noindex,nofollow'>eclipse</a></span>를 플러그인으로 지원하고 있으면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/brackets' rel='noindex,nofollow'>Brackets</a></span>과 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/edge_code' rel='noindex,nofollow'>edge code</a></span>에서는 빌트인으로 지원하고 있다고 쓰여있습니다.</p>
+<p>Tern은 <a href="https://github.com/marijnh/CodeMirror">코드미러</a>라는 에디터를 만들었던 Marijn Haverbeke의 또다른 오픈소스 어플리케이션으로 기본적으로 자바스크립트 코드 분석기입니다. 지금 바로 <a href="http://ternjs.net/doc/demo.html">데모 페이지</a>에서 코드 미러 위에서 동작하는 Tern의 기능들을 확인해보시기 바랍니다. 이러한 정적 코드 분석의 결과는 질높은 문법 체크 및 자동완성을 비롯한 다양한 부가 기능을 제공하는데 이용될 수 있습니다. 특히 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/tern' rel='nofollow'>Tern</a></span>은 특정 에디터에 종속되지 않는다는 점에서 봤을 때 마츠야마 토모히로 씨가 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>는 죽었다는 글에서 이야기했던 (이맥스 문화권에서 나오진 않았지만) <strong><em>외부 프로그램에 의한 잠재적인 사회적 가치를 극대화</em></strong>해야한다는 사상에 정말로 잘 들어맞는 프로그램입니다. Tern은 어떤 에디터에 종속적이지 않습니다. Tern은 독자적인 서버로 실행되고, 에디터에서 보내오는 결과에 대한 적절한 분석결과를 되돌려 줄 뿐입니다. 리눅스에서 명령어들의 결과를 파이프라인으로 보내는데 익숙하다면 이러한 개념이 얼마나 합리적이고 적절히 확장 가능한지 이해할 수 있을 것입니다. 분석 결과는 에디터의 플러그인들이 적절히 처리해줍니다. 실제 Tern의 저장소에는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>Emacs</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/vim' rel='nofollow'>Vim</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/sublime_text' rel='nofollow'>sublime text</a></span>, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/eclipse' rel='nofollow'>eclipse</a></span>를 플러그인으로 지원하고 있으면 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/brackets' rel='nofollow'>Brackets</a></span>과 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/edge_code' rel='nofollow'>edge code</a></span>에서는 빌트인으로 지원하고 있다고 쓰여있습니다.</p>
 
 <p>이 글에서는 그 중에서도 제가 애용하는 텍스트 에디터인 이맥스(Emacs)에서 Tern을 연동해 사용하는 방법에 대해서 다루도록 하겠습니다.</p>
 
-<h2><a name='npm-패키지-관리자를-통한-tern-설치하기'>npm 패키지 관리자를 통한 Tern 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='npm-패키지-관리자를-통한-tern-설치하기'>npm 패키지 관리자를 통한 Tern 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>우선 Tern을 사용하기 위해서는 Tern을 설치해야할 필요가 있습니다. 먼저 npm을 사용해서 설치해보겠습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>npm install -g tern
@@ -156,14 +155,14 @@ Mar 12 2014
 </span></pre></div>
 <p><span class='live_link'><a href='http://wiki.nacyot.com/documents/npm'>npm</a></span>을 사용하는 게 가장 간단합니다만, npm을 사용할 수 없는 경우엔,</p>
 
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='noindex,nofollow'>node.js</a></span>와 npm을 설치해주세요(...). 그만 nodejs를 받아들이시기 바랍니다.</p>
+<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='nofollow'>node.js</a></span>와 npm을 설치해주세요(...). 그만 nodejs를 받아들이시기 바랍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>tern 
 </span><span id="line-2">Listening on port 60805
 </span><span id="line-3">^c<span class="o">(</span>종료<span class="o">)</span>
 </span></pre></div>
 <p>이제 tern을 실행해보면 랜덤한 포트에서 tern이 실행되는 것을 알 수 있습니다.</p>
 
-<h2><a name='tern과-이맥스(emacs)-연동하기'>Tern과 이맥스(emacs) 연동하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='tern과-이맥스(emacs)-연동하기'>Tern과 이맥스(emacs) 연동하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>Tern 설치가 되었다면 이제 이맥스와 연동을 해야합니다. Tern은 기본적으로 이맥스 24 이상을 지원하고 있습니다. 먼저 설치된 이맥스 버전을 확인해주시고, 필요한 경우 버전을 올려줍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>emacs --version
@@ -196,7 +195,7 @@ Mar 12 2014
 </span></pre></div>
 <p>이걸로 기본적인 설정은 끝났습니다. <code>M-x load-file</code> 명령어나 emacs를 다시 실행시켜 설정을 적용시켜줍니다. 이제 js 파일을 편집할 때(좀 더 정확히는 javascript 메이져 모드일 때), tern 마이너 모드가 실행됩니다.</p>
 
-<h2><a name='자바스크립트-프로젝트-설정'>자바스크립트 프로젝트 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='자바스크립트-프로젝트-설정'>자바스크립트 프로젝트 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>tern 마이너 모드가 실행되면 자동적으로 tern 서버가 실행되고, 이 서버와 통신하면서 자동 완성을 비롯한 몇 가지 부가 기능들을 사용할 수 있게됩니다. 하지만 이 상태에선 자동완성이 될만한 표현식을 입력해봐도 거의 자동으로 완성되는 게 없습니다. 이는 tern 서버가 현재 javascript가 어떤 맥락에서 평가되는지 판단할 수 없기 때문입니다. 이를 위해서는 자바스크립트 프로젝트 단위로 <code>.tern-project</code> 파일을 만들어야합니다.</p>
 
@@ -235,9 +234,9 @@ Mar 12 2014
 
 <p><img src="/images/2014-03-12-emacs-with-tern/d3js.png" alt="d3js auto complate"></p>
 
-<p>이외에도 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='noindex,nofollow'>Node.js</a></span> 플러그인, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/requirejs' rel='noindex,nofollow'>RequireJS</a></span> 플러그인, <span class='live_link'><a href='http://wiki.nacyot.com/documents/angularjs'>Angularjs</a></span> 플러그인 등 추가적인 확장을 사용할 수 있습니다. 이에 대한 자세한 설명은 공식 문서의 <a href="http://ternjs.net/doc/manual.html#plugins">서버 플러그인 섹션</a>을 참조하시기 바랍니다.</p>
+<p>이외에도 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/node.js' rel='nofollow'>Node.js</a></span> 플러그인, <span class='dead_link'><a href='http://wiki.nacyot.com/documents/requirejs' rel='nofollow'>RequireJS</a></span> 플러그인, <span class='live_link'><a href='http://wiki.nacyot.com/documents/angularjs'>Angularjs</a></span> 플러그인 등 추가적인 확장을 사용할 수 있습니다. 이에 대한 자세한 설명은 공식 문서의 <a href="http://ternjs.net/doc/manual.html#plugins">서버 플러그인 섹션</a>을 참조하시기 바랍니다.</p>
 
-<h2><a name='tern-사용하기-:-m-x-명령어-및-단축키'>Tern 사용하기 : M-x 명령어 및 단축키</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='tern-사용하기-:-m-x-명령어-및-단축키'>Tern 사용하기 : M-x 명령어 및 단축키</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>tern emacs 확장에는 다음과 같은 명령어들이 정의되어있습니다. 괄호 안에 키는 기본 단축키 입니다.</p>
 
@@ -251,18 +250,108 @@ Mar 12 2014
 <li>tern-find-definition-by-name : 지정한 이름의 정의를 찾아갑니다.</li>
 </ul>
 
-<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-flag'></i></a></span></h2>
+<h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>Tern과 함께 Emacs에서도 즐거운 자바스크립트 코딩을 즐기시기바랍니다. 아듀~ :)</p>
 
 </div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
 <div class='footer'>
 <hr>
-<div class='author'>
-<h1>nacyot</h1>
-프로그래머(29)
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/auto_complete'>
+자동완성(auto complete)
+<span class='more'>
+더 보기
+</span>
+</a>
 </div>
-<div class='share'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>
+에디터(Editor)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>
+이맥스(Emacs)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/javascript'>
+자바스크립트(Javascript)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/node_js'>
+노드js(node.js)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>
+프로그래밍(Programming)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/tern'>
+Tern
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
 <h1>Share this post</h1>
 <!-- AddThis Button BEGIN -->
 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -276,6 +365,7 @@ Mar 12 2014
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
 <!-- AddThis Button END -->
+</div>
 </div>
 </div>
 <hr>
@@ -295,23 +385,138 @@ Mar 12 2014
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </div>
 </div>
+<div class='barcode' data-title='이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern'></div>
 <div class='navigation'>
 <div class='prevnav'>
 <div class='fa fa-chevron-left'></div>
-이전 글
-<a href='/articles/2014-02-11-dokcer-08-on-macosx/' rel='prev'>도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2014-02-11-dokcer-08-on-macosx/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-infrastructure-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-02-11-dokcer-08-on-macosx/">도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2014년 02월 11일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/hEFPXW5.jpg" />
+</div>
+<p>[도커][docker]는 리눅스 위에서 격리된 또 다른 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/linux' rel='nofollow'>리눅스</a></span> 환경을 구축할 수 있도록 해주는 가상화 어플리케이션입니다. 기존의 가상화 어플리케이션에서 하드웨어 전체를 가상화하는 것과 달리 리눅스 컨테이너를 활용하고 있는 도커는 아주 빠르고 쉽게 가상화 환경을 사용할 수 있도록 해줍니다. 이전 [도커(Docker) 소개 글][docker<em>introduction]을 올린 바 있습니다만, 바로 얼마 전 도커가 0.8로 업데이트되었습니다. 0.8에서 가장 큰 변화중 하나는 &lt;span class=&#39;dead</em>link&#39;&gt;<a href='http://wiki.nacyot.com/documents/macosx' rel='nofollow'>맥</a></span>을 지원하는 부분입니다. 여기서는 어떤 방식으로 맥을 지원하는 지 알아보고 실제로 설치하는 법에서 다루도록 하겠습니다.</p>
+
+<span class='link'>
+<a href="../2014-02-11-dokcer-08-on-macosx/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/boot2docker'>boot2docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/coreos'>coreos</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/lxc'>lxc</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/osx'>osx</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ubuntu'>ubuntu</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/virtual_machine'>virtual_machine</a>
+</div>
+<div class='barcode' data-title='도커(Docker) 튜토리얼 : 0.8 맥에서 설치하기'></div>
+</div>
+
 </div>
 <div class='nextnav'>
+<a href='/articles/2014-03-17-sexy-emacs-kr/' rel='next'>다음 글</a>
 <div class='fa fa-chevron-right'></div>
-다음 글:
-<a href='/articles/2014-03-17-sexy-emacs-kr/' rel='next'>emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 33.333333333333336%'></div>
+<div class='category category-service-top' style='width: 33.333333333333336%'></div>
+<div class='category category-editor-top' style='width: 33.333333333333336%'></div>
+</div>
+<h1 class='title'>
+<a href="../2014-03-17-sexy-emacs-kr/">emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<i class='fa fa-cubes' style='color: #8c564b'></i>
+서비스
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2014년 03월 17일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/d2Fvsuw.jpg" />
+</div>
+<p>vim.sexy의 <span class='live_link'><a href='http://wiki.nacyot.com/documents/emacs'>emacs</a></span>판인 emacs.sexy를 번역했습니다. 저 또한 한 명의 행복한 이맥스 사용자이기에 &gt;_&lt;</p>
+
+<blockquote class="twitter-tweet" lang="ko"><p><a href="http://t.co/NrSRaEXMWO">http://t.co/NrSRaEXMWO</a> <a href="http://t.co/3YY2lCXkLd">http://t.co/3YY2lCXkLd</a> 한국어 번역</p>&mdash; nacyot (@nacyo_t) <a href="https://twitter.com/nacyo_t/statuses/445030787130200064">2014년 3월 16일</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>이 글에서는 emacs.sexy를 번역하는 과정에서 사용했던 번역 메모리 OmegaT, 지속적 통합 서비스 Travis, 루비 태스크 관리 Rake, 깃허브 호스팅 서비스 Github Pages를 간단히 소개합니다.</p>
+
+<span class='link'>
+<a href="../2014-03-17-sexy-emacs-kr/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs'>emacs</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/emacs_sexy'>emacs_sexy</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/omegat'>omegat</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/service'>service</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/translation'>translation</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/travis'>travis</a>
+</div>
+<div class='barcode' data-title='emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>
 </div>
 </div>
 </div>
-<div class='col-lg-2 col-md-1 col-sm-1 col-xs-1'></div>
+<div class='col-lg-2 col-md-2'></div>
 </div>
 <script>
   $('.toc').toc({
@@ -324,24 +529,41 @@ Mar 12 2014
 <div class='col-lg-12'>
 <hr>
 <div class='site-footer'>
-<p>
-All content copyright
-<a href='http://nacyot.com'>nacyot</a>
-© 2014 • All rights reserved.
-&nbsp;&nbsp;&nbsp;
-<a class='icon' href='http://nacyot.com'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
 <i class='fa-home fa fa-2x'></i>
 </a>
-<a class='icon' href='https://twitter.com/nacyo_t'>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
 <i class='fa-twitter fa fa-2x'></i>
 </a>
-<a class='icon' href='https://github.com/nacyot'>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
 <i class='fa-github fa fa-2x'></i>
 </a>
-<a class='icon' href='/feed.xml' style='color: orange'>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
 <i class='fa-rss fa fa-2x'></i>
 </a>
-</p>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
 </div>
 </div>
 </div>

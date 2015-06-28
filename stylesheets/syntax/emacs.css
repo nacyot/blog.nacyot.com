@@ -62,11 +62,11 @@
 
 .highlight {
   font-family: "Inconsolata", Monaco, Courier, monospace;
-  font-size: 1em;
+  font-size: 0.85em;
   border: 1px solid #fafafa;
-  border-left: 3em solid #efefef;
+  border-left: 1.5em solid #efefef;
   position: relative;
-  margin: 1em 0; 
+  margin: 1em 0;
 }
 
 .highlight pre {
@@ -90,8 +90,8 @@
 .highlight pre > span:before {
   font-size: .9em;
   color: #aaa;
-  content: counter(linenumbers);
-  counter-increment: linenumbers;
+  /* content: counter(linenumbers); */
+  /* counter-increment: linenumbers; */
   left: -4.2em;
   position: absolute;
   text-align: right;

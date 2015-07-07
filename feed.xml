@@ -5,16 +5,333 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2015-06-12T21:05:00Z</updated>
+  <updated>2015-07-07T01:25:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/"/>
+    <id>http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/</id>
+    <published>2015-07-07T01:25:00+00:00</published>
+    <updated>2015-07-07T01:25:49+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;img src='http://i.imgur.com/MyCDEgF.jpg' /&gt;&lt;p&gt;Immutable Infrastructure와 컨테이너로 대표되는 도커(Docker)와 함께 서버 분야에 많은 변화를 가져온 것은 Configuration Management 도구들이었다. 쉐프(Chef), 퍼펫(Puppet), 앤서블(Ansible)로 대표되는 CM 툴들은 독자적인 DSL을 통해서 서버의 이상적인 상태와 그에 다다르는 과정을 선언적으로 기록한다. 그리고 이 기록을 통해서 원하는 서버의 특정 상태를 재현하게 도와준다. 이러한 흐름을 Infrastructure as Code라고 표현하기도 한다. 서버의 코드화, 여기서 한 단계 더 나아가면 또 다른 흥미로운 아이디어를 만나게된다. 서버가 코드라면 소프트웨어를 검증하는 기법들을 똑같이 적용할 수 있지 않을까?&lt;/p&gt;
+
+&lt;p&gt;서버스펙(Serverspec)은 바로 이 질문에 대한 답을 보여주는 도구이다. 이 글에서는 Serverspec을 통해서 도커 이미지를 테스트하는 방법에 대해서 다룬다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2&gt;&lt;a name='서버스펙(serverspec)을-통한-도커-이미지-테스트'&gt;서버스펙(Serverspec)을 통한 도커 이미지 테스트&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;이제 테스트 환경을 마련하고 실제로 테스트를 작성해보도록하자. 서버스펙에는 기본적으로 프로젝트를 초기화를 돕는 &lt;code&gt;serverspec-init&lt;/code&gt;이라는 명령어가 포함되어있다. 여기서는 이 명령어를 사용하지 않고 진행한다. 먼저 루비의 기본적인 구조와 비슷하게 spec 디렉터리를 만들고 그 아래에 테스트 코드를 넣을 것이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;serverspec&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;docker&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;Gemfile&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="n"&gt;spec&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;    &lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;mongodb_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="n"&gt;spec_helper&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;디렉터리 구조는 아주 간단한다. 프로젝트 메인 디렉터리 아래에 spec 디렉터리를 만들고 테스트 설정 파일은 &lt;code&gt;spec_helper.rb&lt;/code&gt;와 테스트 파일은 &lt;code&gt;mongodb_image_spec.rb&lt;/code&gt;를 준비한다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='도커-이미지-준비'&gt;도커 이미지 준비&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;여기서는 시스템에 도커가 설치되어있다고 가정한다(boot2docker도 무방하며, 실제로 이 글의 내용은 boot2docker를 통해서 테스트되었다). 도커를 통해서 nginx 공식 이미지를 다운로드 받는다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;docker pull nginx:latest
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='gemfile을-통한-의존성-관리'&gt;Gemfile을 통한 의존성 관리&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Serverspec을 통한 인프라 테스트는 루비를 기반으로 돌아간다(즉, 시스템에 루비가 설치되어있어야한다). 루비를 테스트를 위해 사용할 의존성 관리를 위해 프로젝트 루트에 다음과 같이 Gemfile을 작성한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;https://rubygems.org&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;3e,21ec&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;docker-api&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Gemfile은 프로젝트의 의존성을 관리하고, 프로젝트 내에서 사용될 실행 가능한 명령어들을 관리하기 위해 사용된다. 이제 의존성을 설치해보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bundle install
+&lt;/span&gt;&lt;span id="line-2"&gt;Fetching gem metadata from https://rubygems.org/.......
+&lt;/span&gt;&lt;span id="line-3"&gt;Resolving dependencies...
+&lt;/span&gt;&lt;span id="line-4"&gt;Using diff-lcs 1.2.5
+&lt;/span&gt;&lt;span id="line-5"&gt;Using excon 0.45.3
+&lt;/span&gt;&lt;span id="line-6"&gt;...
+&lt;/span&gt;&lt;span id="line-7"&gt;Using specinfra 2.36.6
+&lt;/span&gt;&lt;span id="line-8"&gt;Using serverspec 2.19.0
+&lt;/span&gt;&lt;span id="line-9"&gt;Using bundler 1.7.3
+&lt;/span&gt;&lt;span id="line-10"&gt;Your bundle is &lt;span class="nb"&gt;complete&lt;/span&gt;!
+&lt;/span&gt;&lt;span id="line-11"&gt;Use &lt;span class="sb"&gt;`&lt;/span&gt;bundle show &lt;span class="o"&gt;[&lt;/span&gt;gemname&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt; to see where a bundled gem is installed.
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;설치가 끝났으면 프로젝트 루트 아래에서 rspec 명령어가 작동하는지 테스트해보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bundle &lt;span class="nb"&gt;exec &lt;/span&gt;rspec --version
+&lt;/span&gt;&lt;span id="line-2"&gt;3.3.1
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;잘 동작한다!&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='spec_helper.rb'&gt;&lt;code&gt;spec_helper.rb&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;spec_helper.rb&lt;/code&gt;는 프로젝트에 적용되는 RSpec 설정파일이다. &lt;code&gt;:host&lt;/code&gt;에는 테스트에 사용할 적절한 도커 서버의 주소를 입력한다. &lt;code&gt;:docker_image&lt;/code&gt;는 테스트할 대상을 의미하며, &lt;code&gt;:os&lt;/code&gt;는 테스트 대상이 되는 서버의 운영체제를 의미한다. 서버스펙은 이 옵션을 통해서 테스트에서 사용하는 DSL을 추상화한다. &lt;code&gt;&amp;lt;USERNAME&amp;gt;&lt;/code&gt;에는 적절한 사용자 이름을 넣어준다. 여기서는 OSX에서 boot2docker를 사용하고 있다고 가정하고 있으며 ssl key가 다른 곳에 있다면 적절한 위치를 지정해준다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;require&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;serverspec&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="s1"&gt;require &amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;docker&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="s1"&gt;set :backend, &amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;docker&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="s1"&gt;set :host, &amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//192.168.59.103:2376&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="kt"&gt;set&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;docker_image&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;tutum/mongodb&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="kt"&gt;set&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;os&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;family&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;ubuntu&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;Docker.options&lt;/span&gt;&lt;span class="o"&gt; =&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="nx"&gt;client_cert&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/Users/&amp;lt;USERNAME&amp;gt;/.boot2docker/certs/boot2docker-vm/cert.pem&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;  &lt;span class="nx"&gt;client_key&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/Users/&amp;lt;USERNAME&amp;gt;/.boot2docker/certs/boot2docker-vm/key.pem&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;  &lt;span class="nx"&gt;ssl_ca_file&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;/Users/&amp;lt;USERNAME&amp;gt;/.boot2docker/certs/boot2docker-vm/ca.pem&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;  &lt;span class="nx"&gt;scheme&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;  &lt;span class="nx"&gt;read_timeout&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;3600&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="nx"&gt;Excon.defaults&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;ssl_verify_peer&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt; = false
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='mongodb_image_spec.rb'&gt;&lt;code&gt;mongodb_image_spec.rb&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;이 파일에는 테스트 코드를 작성한다. 테스트 코드는 RSpec 고유의 DSL로 작성되며, 서버스펙은 서버를 검증하기 위한 도구들을 제공한다. 아마 루비나 RSpec에 친숙하다면, 이 코드를 보고 어떤 내용인지 바로 알 수 있을 것이며, 안 써봤어도 직관적으로 이해할 수 있을 것이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;spec_helper&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;tutum&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mongodb&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_directory&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;mongod&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_running&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;27017&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_listening&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;여기에는 3개의 테스트가 기술되어있다. 서버스펙에서는 리소스라는 개념을 사용해서 테스트를 수행한다. 먼저 첫번째 테스트에서 쓰인 리소스는 &lt;code&gt;file&lt;/code&gt;이다. 이를 통해서 &lt;code&gt;/etc&lt;/code&gt;가 디렉터리인지 검증한다. 그 다음으로 두번째 테스트에서는 &lt;code&gt;process&lt;/code&gt; 리소스를 통해서 &lt;code&gt;mongod&lt;/code&gt; 프로세스가 실행중인지 검증한다. 마지막으로 &lt;code&gt;port&lt;/code&gt; 리소스를 통해서 27017 포트가 대기중인지 검증한다. 서버스펙은 서버를 검증하기 위한 다양한 리소스를 제공하고 있으며 더 많은 리소스들에 대해서는 &lt;a href="http://serverspec.org/resource_types.html"&gt;서버스펙 공식 사이트&lt;/a&gt;에서 찾아볼 수 있다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='rspec으로-테스트-실행하기'&gt;rspec으로 테스트 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;이제 테스트 코드도 모두 작성했으니, 테스트가 정상적으로 작동하는지 검증하는 일만 남았다. 프로젝트 메인에서 테스트를 실행해보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;rspec .
+&lt;/span&gt;&lt;span id="line-2"&gt;tutum/mongodb IMage
+&lt;/span&gt;&lt;span id="line-3"&gt;  File &lt;span class="s2"&gt;&amp;quot;/etc&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;    should be directory
+&lt;/span&gt;&lt;span id="line-5"&gt;  Process &lt;span class="s2"&gt;&amp;quot;mongod&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;    should be running
+&lt;/span&gt;&lt;span id="line-7"&gt;  Port &lt;span class="s2"&gt;&amp;quot;27017&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;    should be listening
+&lt;/span&gt;&lt;span id="line-9"&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;Finished in 6.18 seconds &lt;span class="o"&gt;(&lt;/span&gt;files took 1.14 seconds to load&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;3 examples, 0 failures
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;모든 테스트가 성공했다! 테스트를 통해서 &lt;code&gt;/etc&lt;/code&gt; 디렉터리가 존재하고, &lt;code&gt;mongod&lt;/code&gt; 프로세스가 실행되고 있으며, &lt;code&gt;27017&lt;/code&gt; 포트가 대기중임을 알 수 있다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='테스트-주도-인프라스트럭처(test-driven-infrastructure)'&gt;테스트 주도 인프라스트럭처(Test Driven Infrastructure)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;여기까지 서버스펙을 통해서 이미 생성되어져 있는 도커 이미지를 검증하는 방법에 대해서 살펴보았다. 그렇다면 소프트웨어 개발과 마찬가지로 &lt;code&gt;Dockerfile&lt;/code&gt;을 만드는 과정 전체를 테스트해보는 것은 어떨까?&lt;/p&gt;
+
+&lt;p&gt;물론 이것도 가능하다. 여기서는 redis 이미지를 직접 만들어가면서 테스트를 수행해보자.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='디렉터리-구조'&gt;디렉터리 구조&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;serverspec&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;docker&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;Dockerfile&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;Gemfile&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;Guardfile&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="n"&gt;spec&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;    &lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;nacyot_redis_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="n"&gt;spec_helper&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='spec_helper.rb'&gt;&lt;code&gt;spec_helper.rb&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;먼저 spec_helper.rb은 앞선 예제를 그대로 사용하되, 이미지 부분을 주석처리 한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c"&gt;# set :docker_image, &amp;#39;nacyot/redis&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='nacyot_redis_image_spec.rb'&gt;&lt;code&gt;nacyot_redis_image_spec.rb&lt;/code&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Redis 서버가 정상적으로 작동하는 지 확인하기 위한 테스트를 준비한다. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;spec_helper&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;before&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;image&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Docker&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Image&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;build_from_dir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sc"&gt;&amp;#39;.&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;    &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;docker_image&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;image&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_directory&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;package&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_installed&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_executable&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_running&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;
+&lt;/span&gt;&lt;span id="line-25"&gt;  &lt;span class="n"&gt;describe&lt;/span&gt; &lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;6379&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;    &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be_listening&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-27"&gt;  &lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-28"&gt;&lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;여기서 작성한 테스트들 역시 기본적인 rspec 문법으로 작성되었으며 서버스펙의 리소스들을 사용하고 있다.&lt;/p&gt;
+
+&lt;p&gt;주목할만한 부분이 있다. 이전에는 없었던 &lt;code&gt;before(:all)&lt;/code&gt; 절이 추가되었는데, 이 부분은 테스트를 실행하기에 앞서 한 번 실행된다. 여기서 하는 일은 프로젝트 루트의 &lt;code&gt;Dockerfile&lt;/code&gt;로부터 도커 이미지를 생성하고, 테스트 대상 이미지를 동적으로 지정하는 일이다(이 때 이미지 이름이 아니라, 빌드로부터 반환되는 이미지 ID를 사용한다). 이를 통해서 별도로 빌드 명령을 수행하지 않아도, 테스트를 수행할 때마다 자동적으로 빌드를 하고 테스트를 수행한다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='guard를-통한-자동테스트'&gt;Guard를 통한 자동테스트&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;이번 프로젝트에서는 Guard를 통해서 Dockerfile과 spec 파일의 변경을 감지하고 테스트할 수 있도록 한다. 이를 위해 Gemfile을 다음과 같이 수정한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;source&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//rubygems.org&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;serverspec&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;docker&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;api&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;guard&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;guard&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;rspec&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;프로젝트 루트에서 추가한 의존성을 설치해준다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;bundle
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그리고 아래와 같이 Guardfile을 작성한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;guard&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;rspec&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;cmd&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;bundle exec rspec&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="n"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;guard/rspec/dsl&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Guard&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;RSpec&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;Dsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;new&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;self&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="n"&gt;rspec&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;spec_files&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;watch&lt;/span&gt;&lt;span class="o"&gt;(%&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;{^&lt;/span&gt;&lt;span class="n"&gt;Dockerfile$&lt;/span&gt;&lt;span class="o"&gt;})&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;spec/nacyot_redis_image_spec.rb&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 Guard 파일의 내용은 spec 디렉터리 아래의 파일이나 dockerfile이 변경되었을 때 테스트를 자동적으로 실행하도록 한다.&lt;/p&gt;
+
+&lt;p&gt;이제 별도의 터미널을 실행해서 프로젝트 루트에서 다음 명령어를 실행하면 파일이 변경될 때마다 테스트가 자동적으로 실행된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="cp"&gt;# bundle exec guard&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;47&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;59&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;INFO&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Guard&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="n"&gt;RSpec&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;47&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;59&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;INFO&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Guard&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;now&lt;/span&gt; &lt;span class="n"&gt;watching&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Users&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;docker&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;serverspec&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;guard&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='첫번째-이터레이션-:-이미지-생성하기'&gt;첫번째 이터레이션 : 이미지 생성하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;먼저 빈 Dockerfile을 만들고 베이스 이미지를 지정해준다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;ubuntu&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;14.04&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Guard에서 이 변화를 알아채고 자동적으로 테스트를 수행할 것이다. 앞서 이야기했듯이 테스트가 실행되면 자동적으로 이미지가 빌드되므로 빌드는 별도로 수행하지 않아도 된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/etc&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;directory&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;Package&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;installed&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/usr/bin/redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;executable&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="n"&gt;Process&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="n"&gt;Port&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;6379&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;listening&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;Finished&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="mf"&gt;5.23&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="n"&gt;took&lt;/span&gt; &lt;span class="mf"&gt;0.30381&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="n"&gt;examples&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt; &lt;span class="n"&gt;failures&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="n"&gt;Failed&lt;/span&gt; &lt;span class="n"&gt;examples&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;rspec&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nacyot_redis_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt; &lt;span class="n"&gt;Package&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;installed&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="n"&gt;rspec&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nacyot_redis_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt; &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/usr/bin/redis-server&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;executable&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="n"&gt;rspec&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nacyot_redis_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt; &lt;span class="n"&gt;Process&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="n"&gt;rspec&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nacyot_redis_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;26&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt; &lt;span class="n"&gt;Port&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;6379&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;listening&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;첫번째 테스트만 성공하고, 나머지 테스트가 실패했다! &lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='두번째-이터레이션-:-apt-get을-통해서-redis-설치하기'&gt;두번째 이터레이션 : apt-get을 통해서 redis 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Dockerfile 뒤에 다음 내용을 추가한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ubuntu&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ftp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;daum&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sources&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;list&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;RUN&lt;/span&gt; \
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;\
+&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;자동적으로 테스트가 실행된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/etc&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;directory&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;Package&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;installed&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/usr/bin/redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;executable&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="n"&gt;Process&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="n"&gt;Port&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;6379&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;listening&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FAILED&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;Finished&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="mf"&gt;7.42&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="n"&gt;took&lt;/span&gt; &lt;span class="mf"&gt;0.29263&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="n"&gt;examples&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="n"&gt;failures&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="n"&gt;Failed&lt;/span&gt; &lt;span class="n"&gt;examples&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;rspec&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nacyot_redis_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt; &lt;span class="n"&gt;Process&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="n"&gt;rspec&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;spec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nacyot_redis_image_spec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rb&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;26&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt; &lt;span class="n"&gt;Port&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;6379&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;listening&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;redis-server 패키지의 설치를 검증하는 두번째, 세번째 테스트도 통과했다!&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='세번째-이터레이션-:-redis-실행하기'&gt;세번째 이터레이션 : redis 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;Dockerfile 뒤에 다음 내용을 추가해준다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;CMD&lt;/span&gt; &lt;span class="n"&gt;redis&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;server&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번에도 자동적으로 테스트가 실행된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;nacyot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="n"&gt;Image&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/etc&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;directory&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="n"&gt;Package&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;installed&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="n"&gt;File&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/usr/bin/redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;executable&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="n"&gt;Process&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;redis-server&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="n"&gt;Port&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;6379&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;    &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;listening&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;Finished&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="mf"&gt;6.94&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="n"&gt;took&lt;/span&gt; &lt;span class="mf"&gt;0.29334&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="mi"&gt;5&lt;/span&gt; &lt;span class="n"&gt;examples&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;failures&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;테스트가 모두 통과했다! 이를 통해 이 이미지로부터 레디스(redis) 서버가 정상적으로 실행되는 것을 보장할 수 있다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='테스트-코드'&gt;테스트 코드&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;여기서 사용한 프로젝트와 테스트 코드는 &lt;a href="https://github.com/nacyot/serverspec_tutorial"&gt;serverspec_tutorial&lt;/a&gt;에서 확인할 수 있다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;인프라가 정상적인 상태에 있다는 것을 증명하는 것은 매우 중요한 주제이다. 그럼에도 불구하고 이러한 테스트는 대부분 자동화되어있지 않다. Serverspec은 원래 ssh를 통해서 서버의 상태나 CM 툴과 함께 사용을 목적으로 만들어진 도구이다. 이 훌륭한 도구는 단순히 기존 서버 환경 뿐만 아니라 빌드를 통해 완성된 이미지를 구성하는 도커와 같은 컨테이너 시스템을 테스트하는 데도 적격이다. 이를 통해 소프트웨어 테스트 뿐만 아니라 소프트웨어를 탑재한 이미지가  배포되기 전에 정상적으로 작동하는지, 필요한 파일들을 제대로 포함하고 있는지까지 함께 검증하는 것이 가능하다. 또한 서버가 코드처럼 다뤄질 수 있다면, 테스트 자동화는 물론 저장소와 연동해서 CI를 통해 지속적인 통합 역시 가능해진다.&lt;/p&gt;
+
+&lt;p&gt;이제 딱딱해 보이고 하드웨어에 더 가깝게 취급되던 인프라가 이제 정말로 소프트웨어 영역에 좀 더 가까워지고 있다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='보충'&gt;보충&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;테스트 과정에서 도커 공식 이미지에서 주로 이용되는 debian 환경에 대해서는 포트 리스닝 테스트가 정상적으로 작동하지 않았다. 아직 일부 환경에서 몇몇 리소스들이 정상적으로 작동하지 않을 가능성이 있다. 다음 글에서는 서버스펙에서 도커 테스트가 어떻게 실행되는 지 살펴본다.&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;div&gt;
+  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
+  &lt;div&gt;
+    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
+      nacyot의 프로그래밍 이야기 메인으로 이동하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
+      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
+      Twitter에서 nacyot 팔로우하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</content>
+  </entry>
   <entry>
     <title>엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
     <published>2015-06-12T21:05:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -280,7 +597,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-20T23:45:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -846,7 +1163,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -951,7 +1268,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1174,7 +1491,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1388,7 +1705,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1577,7 +1894,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1797,7 +2114,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2449,7 +2766,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
     <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
     <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
+    <updated>2015-07-07T01:25:49+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2510,150 +2827,6 @@ require.config({
 &lt;p&gt;다다음주가 황금연휴(?)고, 격주 진행시 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/pycon' rel='nofollow'&gt;pycon&lt;/a&gt;&lt;/span&gt;과 겹치는 관계로 아마 다음 모임은 23일이 될 것으로 생각하고 있습니다. 아직 스터디 지원 문제나 고정된 장소가 확정되지 않은 상태이긴 한데, 아마 확정되는대로 조만간 세번째 모임도 공지를 할 예정입니다.&lt;/p&gt;
 
 &lt;p&gt;모임에 참여해주신 모든 분들 다시 한 번 감사드립니다. 다들 어디 숨어계셨나 했더니 :) Docker Korea는 도커를 비롯해 클라우드나 서버 운영 전반에 관심있으신 분들 모두에게 열려있습니다. 특히 경험 공유나 주제 발표하시고 싶으신 분은 더더욱 우대합니다! 관심있으신 분들은 &lt;a href="http://forum.docker.co.kr/"&gt;포럼&lt;/a&gt;에 들러주시고 &lt;a href="http://forum.docker.co.kr/t/docker-korea/70"&gt;대화방&lt;/a&gt;에도 참여해주세요.&lt;/p&gt;
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;div&gt;
-  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
-  &lt;div&gt;
-    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
-      nacyot의 프로그래밍 이야기 메인으로 이동하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
-      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
-      Twitter에서 nacyot 팔로우하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</content>
-  </entry>
-  <entry>
-    <title>리눅스에서 터미널과 클립보드 연동하기 - Xclip과 Tmux</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/"/>
-    <id>http://blog.nacyot.com/articles/2014-07-29-linux-terminal-and-copy-integration/</id>
-    <published>2014-07-29T15:25:00+00:00</published>
-    <updated>2015-06-28T10:58:12+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;img src='http://i.imgur.com/UJS03nS.jpg' /&gt;&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/terminal' rel='nofollow'&gt;터미널&lt;/a&gt;&lt;/span&gt; 환경과 GUI 환경은 대개 상당히 동떨어진 환경으로 이 둘을 스무스하게 연동하는 것은 작업환경을 갖추는 데 있어서 중요한 주제 중에 하나이다. 이 연결고리가 잘 연결되어있어야 작업 효율도 올라간다. 이 글에서는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/xclip' rel='nofollow'&gt;Xclip&lt;/a&gt;&lt;/span&gt;를 통해서 터미널 환경의 문자열을 리눅스 GUI 환경의 클립보드로 복사하는 법과 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/tmux'&gt;Tmux&lt;/a&gt;&lt;/span&gt;의 복사 모드와 Xclip을 연동하는 법을 알아본다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2&gt;&lt;a name='xclip'&gt;Xclip&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;h3&gt;&lt;a name='xclip-설치'&gt;Xclip 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ubnutu' rel='nofollow'&gt;Ubnutu&lt;/a&gt;&lt;/span&gt;에서 Xclip는 아래 명령어로 설치할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;apt-get install -y xclip
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;정상적으로 설치가 되었는지 확인해본다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;xclip -version
-&lt;/span&gt;&lt;span id="line-2"&gt;xclip version 0.12
-&lt;/span&gt;&lt;span id="line-3"&gt;Copyright &lt;span class="o"&gt;(&lt;/span&gt;C&lt;span class="o"&gt;)&lt;/span&gt; 2001-2008 Kim Saunders et al.
-&lt;/span&gt;&lt;span id="line-4"&gt;Distributed under the terms of the GNU GPL
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;버전 정보가 정상적으로 출력된다면 정상적으로 설치된 것이다.&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='xclip으로-복사하기'&gt;Xclip으로 복사하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;Xclip의 기본적인 사용법은 간단하다. 리눅스 커맨드의 출력 결과를 파이프라인으로 넘겨주면 Xclip이 그 결과를 GUI 환경의 클립보드에 저장해준다. 예를 들어 &lt;code&gt;date&lt;/code&gt; 명령어를 사용하면 아래와 같이 출력된다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;date
-&lt;/span&gt;&lt;span id="line-2"&gt;Tue Jul 29 23:35:59 KST 2014
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;터미널 어플리케이션마다 약간의 차이는 있지만 보통 이러한 출력을 복사하기 위해서는 마우스로 문자열을 선택하고 복사를 하거나 그것도 잘 안 되면 마우스 오른쪽 버튼을 눌러서 컨텍스트 메뉴에서 복사하기를 클릭해줘야한다.&lt;/p&gt;
-
-&lt;p&gt;같은 상황에서 &lt;code&gt;date&lt;/code&gt;의 출력을 복사할 때 xclip을 사용하면 아래의 명령어를 실행하면 된다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;date &lt;span class="p"&gt;|&lt;/span&gt; xclip -selection clipboard
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;복사가 잘 되었는지 GUI 에디터에서 Ctrl + v 로 복사해보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/FPZg8Fy.png" alt="Copy &amp;amp; Paste"&gt;
-&lt;p class="shape-title"&gt;Copy &amp;amp; Paste&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;정상적으로 출력되는 것을 알 수 있다. 표준 출력의 내용을 파이프로 넘겨주기만 하면 복사가 이뤄지므로 훨씬 더 다양한 활용이 가능하다. 예를 들어 시스템 정보를 출력해서 바로 클립보드로 보낼 수도 있고, &lt;code&gt;cat&lt;/code&gt;과 함께 사용하면 아주 킨 파일을 바로 클립보드로 보낼 수도 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat /var/log/syslog &lt;span class="p"&gt;|&lt;/span&gt; xclip -selection clipboard
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;클립보드가 훨씬 더 강력해질 것이다.&lt;/p&gt;
-
-&lt;p&gt;계속 긴 옵션을 사용하는 것은 귀찮은 일이므로 alias를 사용하면 더 편리하게 사용할 수 있다. 필요한 경우 alias 셸 설정(~/.zshrc 등)에 포함시킨다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;alias &lt;/span&gt;&lt;span class="nv"&gt;copy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;xclip -selection clipboard&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat /var/log/syslog &lt;span class="p"&gt;|&lt;/span&gt; copy
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;&lt;a name='xclip-함정(?)'&gt;Xclip 함정(?)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h4&gt;
-
-&lt;p&gt;몇몇 예제에서는 &lt;code&gt;-selection clipboard&lt;/code&gt; 옵션 없이 xclip을 사용하기도 하는데 이렇게 사용할 때는 조심할 필요가 있다. X11의 클립보드는 하나가 아니다. 분명 위의 옵션을 명시적으로 주지 않아도 복사는 일어난다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;date &lt;span class="p"&gt;|&lt;/span&gt; xclip
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;분명히 정상적으로 복사되었지만 아마 일반적으로 Ctrl + v 키로 복사한 내용을 가져오지 못 할 것이다. 이렇게 복사한 경우 마우스 가운데 버튼을 통해서 복사한 내용을 가져올 수 있다.&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='xclip으로-붙여넣기'&gt;Xclip으로 붙여넣기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;GUI 클립보드의 내용을 표준 출력에 출력하는 것은 아래 명령어로 가능하다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;xclip -o
-&lt;/span&gt;&lt;span id="line-2"&gt;Tue Jul 29 23:35:59 KST 2014
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;&lt;a name='tmux와-연동하기'&gt;Tmux와 연동하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;Tmux는 다수의 셸을 동시에 띄워놓고 사용할 수 있는 도구이다. Tmux를 사용하면 세션을 통한 프로젝트 관리 등 더 많은 일을 할 수 있지만, 여기서는 간단히만 이해하고 넘어가자. Tmux에서는 터미널 어플리케이션의 스크롤 기능이 자체적인 출력 관리를 수행하며, Copy Mode를 통해서 이렇나 출력들에 대해서 이동하고 복사까지 할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;먼저 복사 모드를 설명하기에 앞서 Tmux에서는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/vi' rel='nofollow'&gt;vi&lt;/a&gt;&lt;/span&gt;나 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/emacs'&gt;emacs&lt;/a&gt;&lt;/span&gt; 모드를 통해서 키 설정을 사용할 수 있다. 이 설정은 &lt;code&gt;~/.tmux.conf&lt;/code&gt; 파일에 아래 옵션을 통해서 설정할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;vi 모드를 사용하고자 하면 아래와 같이 설정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;option&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt; &lt;span class="n"&gt;vi&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;emacs 모드를 사용하고자 하면 아래와 같이 설정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;window&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;option&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;keys&lt;/span&gt; &lt;span class="n"&gt;emacs&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이제 복사모드를 사용해보자. Tmux 내에서 복사 모드는 &lt;code&gt;^b [&lt;/code&gt; 키로 시작하고, &lt;code&gt;^b ]&lt;/code&gt;로 종료한다. 복사 모드 내에서도 vi나 emacs 모드에 따라서 아래의 단축키들을 사용할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;Function&lt;/span&gt;                &lt;span class="n"&gt;vi&lt;/span&gt;             &lt;span class="n"&gt;emacs&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;Back&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;indentation&lt;/span&gt;     &lt;span class="o"&gt;^&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;Clear&lt;/span&gt; &lt;span class="n"&gt;selection&lt;/span&gt;         &lt;span class="n"&gt;Escape&lt;/span&gt;         &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="n"&gt;Copy&lt;/span&gt; &lt;span class="n"&gt;selection&lt;/span&gt;          &lt;span class="n"&gt;Enter&lt;/span&gt;          &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;             &lt;span class="n"&gt;j&lt;/span&gt;              &lt;span class="n"&gt;Down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;left&lt;/span&gt;             &lt;span class="n"&gt;h&lt;/span&gt;              &lt;span class="n"&gt;Left&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;            &lt;span class="n"&gt;l&lt;/span&gt;              &lt;span class="n"&gt;Right&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;bottom&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;   &lt;span class="n"&gt;L&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;middle&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;   &lt;span class="n"&gt;M&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;      &lt;span class="n"&gt;H&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="n"&gt;Cursor&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;               &lt;span class="n"&gt;k&lt;/span&gt;              &lt;span class="n"&gt;Up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="n"&gt;Delete&lt;/span&gt; &lt;span class="n"&gt;entire&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;      &lt;span class="n"&gt;d&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="n"&gt;Delete&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;   &lt;span class="n"&gt;D&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="n"&gt;End&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;             &lt;span class="err"&gt;$&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="n"&gt;Goto&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;               &lt;span class="o"&gt;:&lt;/span&gt;              &lt;span class="n"&gt;g&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="n"&gt;Half&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;          &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;            &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="n"&gt;Half&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;            &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;            &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="n"&gt;Next&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;               &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;            &lt;span class="n"&gt;Page&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="n"&gt;Next&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt;               &lt;span class="n"&gt;w&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-20"&gt;&lt;span class="n"&gt;Paste&lt;/span&gt; &lt;span class="n"&gt;buffer&lt;/span&gt;            &lt;span class="n"&gt;p&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="n"&gt;Previous&lt;/span&gt; &lt;span class="n"&gt;page&lt;/span&gt;           &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;            &lt;span class="n"&gt;Page&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="n"&gt;Previous&lt;/span&gt; &lt;span class="n"&gt;word&lt;/span&gt;           &lt;span class="n"&gt;b&lt;/span&gt;              &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="n"&gt;Quit&lt;/span&gt; &lt;span class="n"&gt;mode&lt;/span&gt;               &lt;span class="n"&gt;q&lt;/span&gt;              &lt;span class="n"&gt;Escape&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-24"&gt;&lt;span class="n"&gt;Scroll&lt;/span&gt; &lt;span class="n"&gt;down&lt;/span&gt;             &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Down&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;J&lt;/span&gt;    &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Down&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-25"&gt;&lt;span class="n"&gt;Scroll&lt;/span&gt; &lt;span class="n"&gt;up&lt;/span&gt;               &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Up&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;K&lt;/span&gt;      &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Up&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-26"&gt;&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;again&lt;/span&gt;            &lt;span class="n"&gt;n&lt;/span&gt;              &lt;span class="n"&gt;n&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-27"&gt;&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;backward&lt;/span&gt;         &lt;span class="o"&gt;?&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-28"&gt;&lt;span class="n"&gt;Search&lt;/span&gt; &lt;span class="n"&gt;forward&lt;/span&gt;          &lt;span class="o"&gt;/&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-29"&gt;&lt;span class="n"&gt;Start&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;           &lt;span class="mi"&gt;0&lt;/span&gt;              &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-30"&gt;&lt;span class="n"&gt;Start&lt;/span&gt; &lt;span class="n"&gt;selection&lt;/span&gt;         &lt;span class="n"&gt;Space&lt;/span&gt;          &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Space&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-31"&gt;&lt;span class="n"&gt;Transpose&lt;/span&gt; &lt;span class="n"&gt;chars&lt;/span&gt;                        &lt;span class="n"&gt;C&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;여기까지는 좋으나, 여기서의 복사 기능은 GUI 환경의 클립보드를 의미하지 않는다. 이를 다시 옮기는 일은 번거로우므로 간단한 설정을 추가해 tmux의 복사를 자동적으로 클립보드로 옮겨줄 수 있다. 아래의 설정을 &lt;code&gt;~/.tmux.conf&lt;/code&gt;에 추가해준다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;bind&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;key&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;emacs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;copy&lt;/span&gt; &lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="n"&gt;copy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pipe&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;xclip -i -selection clipboard&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;설정을 추가했으면 설정 파일을 아래와 같이 리로드하거나 tmux 서버를 재실행한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;tmux &lt;span class="nb"&gt;source&lt;/span&gt;-file ~/.tmux.conf
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이제 (Emacs 모드에서) Ctrl+Space로 필요한 영역을 선택한 후 M-w를 누르면 해당영역이 복사되고, 자동적으로 클립보드에도 복사된다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='정리'&gt;정리&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;터미널 환경과 GUI 환경의 클립보드를 통합하면 매우 편리하다. 그리고 위에서는 간단히만 이야기했지만, 표준 출력으로 넘길 수 있는 모든 것이 클립보드에 복사될 수 있으므로 단순히 클립보드를 통합한다는 이상의 의미를 지닌다. 이는 셸에서 활용할 수 있는 다양한 스크립트와 출력들을 큰 어려움 없이 GUI 환경에 그대로 복사해 갈 수 있음을 의미한다. 또한 Tmux를 사용해 셸 화면을 직접 선택해 복사하는 방법도 보다 편리하게 사용할 수 있다. &lt;/p&gt;
-
-&lt;p&gt;P.S. xclip과 비슷한 툴로는 xsel이 있으며, OSX에서는 pbcopy, pbpaste라는 명령어를 사용한다.&lt;/p&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;div&gt;

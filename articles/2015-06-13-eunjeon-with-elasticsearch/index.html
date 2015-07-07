@@ -13,6 +13,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <link href='http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2015-05-21-d3js-in-jupyter/' rel='prev' title='주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화'>
+<link href='/articles/2015-06-30-serverspec-with-docker/' rel='next' title='Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화'>
 <meta content='엘라스틱(elastic)에서 개발한 엘라스틱서치(elasticsearch)는 루씬 기반의 검색 서버이다. 설치도 간편하며 기본 설정으로 사용해도 충분히 강력하지만 기본적으로 한국어 분석을 지원하지 않는다. 예를 들어 &amp;quot;아버지가 방에 들어간다&amp;quot;라는 한국어 문장을 인덱스해도 &amp;quot;아버지&amp;quot;로는 검색이 안 되고, 반드시 &amp;quot;아버지가&amp;quot;로 검색해야만 결과에 출력된다. 이는 엘라스틱서치의 기본 토크나이저가 공백이나 특수문자만으로 단어들을 분리하기 때문이다. 이러한 문제를 해결하기 위해서는 n-gram 분석이나, 형태소 분석과 같은 인덱스를 추가로 지원해야한다. 이 글에서는 일본어 형태소 분석기 mecab를 한국어에 맞춰 수정한 은전한잎(mecab-ko)을 통해 엘라스틱서치에서 한국어를 인덱스하는 방법에 대해서 다룬다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
@@ -568,6 +569,71 @@ mecab
 
 </div>
 <div class='nextnav'>
+<a href='/articles/2015-06-30-serverspec-with-docker/' rel='next'>다음 글</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-06-30-serverspec-with-docker/">Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2015년 07월 07일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/MyCDEgF.jpg" />
+</div>
+<p>Immutable Infrastructure와 컨테이너로 대표되는 도커(Docker)와 함께 서버 분야에 많은 변화를 가져온 것은 Configuration Management 도구들이었다. 쉐프(Chef), 퍼펫(Puppet), 앤서블(Ansible)로 대표되는 CM 툴들은 독자적인 DSL을 통해서 서버의 이상적인 상태와 그에 다다르는 과정을 선언적으로 기록한다. 그리고 이 기록을 통해서 원하는 서버의 특정 상태를 재현하게 도와준다. 이러한 흐름을 Infrastructure as Code라고 표현하기도 한다. 서버의 코드화, 여기서 한 단계 더 나아가면 또 다른 흥미로운 아이디어를 만나게된다. 서버가 코드라면 소프트웨어를 검증하는 기법들을 똑같이 적용할 수 있지 않을까?</p>
+
+<p>서버스펙(Serverspec)은 바로 이 질문에 대한 답을 보여주는 도구이다. 이 글에서는 Serverspec을 통해서 도커 이미지를 테스트하는 방법에 대해서 다룬다.</p>
+
+<span class='link'>
+<a href="../2015-06-30-serverspec-with-docker/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/devops'>devops</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dockerfile'>dockerfile</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/guard'>guard</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure_as_code'>infrastructure_as_code</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/rspec'>rspec</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/serverspec'>serverspec</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/specinfra'>specinfra</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/test'>test</a>
+</div>
+<div class='barcode' data-title='Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>

@@ -102,6 +102,67 @@ nacyot의 프로그래밍 이야기
 <div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='summary_card'>
 <div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2015-06-30-serverspec-with-docker/">Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2015년 07월 07일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/MyCDEgF.jpg" />
+</div>
+<p>Immutable Infrastructure와 컨테이너로 대표되는 도커(Docker)와 함께 서버 분야에 많은 변화를 가져온 것은 Configuration Management 도구들이었다. 쉐프(Chef), 퍼펫(Puppet), 앤서블(Ansible)로 대표되는 CM 툴들은 독자적인 DSL을 통해서 서버의 이상적인 상태와 그에 다다르는 과정을 선언적으로 기록한다. 그리고 이 기록을 통해서 원하는 서버의 특정 상태를 재현하게 도와준다. 이러한 흐름을 Infrastructure as Code라고 표현하기도 한다. 서버의 코드화, 여기서 한 단계 더 나아가면 또 다른 흥미로운 아이디어를 만나게된다. 서버가 코드라면 소프트웨어를 검증하는 기법들을 똑같이 적용할 수 있지 않을까?</p>
+
+<p>서버스펙(Serverspec)은 바로 이 질문에 대한 답을 보여주는 도구이다. 이 글에서는 Serverspec을 통해서 도커 이미지를 테스트하는 방법에 대해서 다룬다.</p>
+
+<span class='link'>
+<a href="../../articles/2015-06-30-serverspec-with-docker/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/devops'>devops</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dockerfile'>dockerfile</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/guard'>guard</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure_as_code'>infrastructure_as_code</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/rspec'>rspec</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/serverspec'>serverspec</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/specinfra'>specinfra</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/test'>test</a>
+</div>
+<div class='barcode' data-title='Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
 <div class='category category-programming-top' style='width: 100.0%'></div>
 </div>
 <h1 class='title'>
@@ -1124,46 +1185,6 @@ nacyot의 프로그래밍 이야기
 <a href='/tags/ubuntu'>ubuntu</a>
 </div>
 <div class='barcode' data-title='도커(Docker) 튜토리얼 : 깐 김에 배포까지'></div>
-</div>
-
-<div class='summary_card'>
-<div class='categories'>
-<div class='category category-programming-top' style='width: 100.0%'></div>
-</div>
-<h1 class='title'>
-<a href="../../articles/2014-01-15-static-site-generator/">정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로</a>
-</h1>
-<div>
-<span class='date'>
-<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
-<i class='fa fa-desktop' style='color: #1f77b4'></i>
-프로그래밍
-</a>
-<i class='fa fa-calendar'></i>
-2014년 01월 05일 발행
-</span>
-</div>
-<div class='summary'>
-<div class='title-image-wrapper'>
-<img class="title-image" src="http://i.imgur.com/vAuIolp.jpg" />
-</div>
-<p>개인적으로 요새 화두인 주제가 바로 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/static_site_generator' rel='nofollow'>정적 웹사이트 생성기</a></span>입니다. 21세기에 정적 웹사이트라니 꽤나 뜬금없는 이야기로 들리실지 모르겠지만, 일부 블로그들에서는 이미 정적 컨텐츠로 블로그를 발행(Publish)하는 기능을 지원해왔으며 많은 오픈소스와 프로그래머들이 Github Page의 Jekyll을 통한 정적 페이지 발행 기능을 활용하고 있습니다. 이 글에서는 정적 페이지가 왜 각광을 받는지와 그 배경에 대해서 조금 이야기해보고자 합니다.</p>
-
-<span class='link'>
-<a href="../../articles/2014-01-15-static-site-generator/">계속 읽기</a>
-</span>
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/github'>github</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/programming'>programming</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/static_site_generator'>static_site_generator</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/www'>www</a>
-</div>
-<div class='barcode' data-title='정적 웹사이트 생성기의 역습 - 동적 스크립트를 넘어 다시 정적 컨텐츠로'></div>
 </div>
 
 </div>

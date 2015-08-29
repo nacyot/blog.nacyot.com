@@ -5,16 +5,46 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2015-07-07T01:25:00Z</updated>
+  <updated>2015-08-29T10:56:00Z</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>마크다운(Markdown) 기반 OSX 프레젠테이션 도구 덱셋(Deckset)</title>
+    <link rel="alternate" href="http://blog.remotty.com/blog/2015/08/26/deckset/"/>
+    <id>http://blog.remotty.com/blog/2015/08/26/deckset/</id>
+    <published>2015-08-29T10:56:00+00:00</published>
+    <updated>2015-08-29T11:09:39+00:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;img src='http://i.imgur.com/UUa3Jhb.jpg' /&gt;&lt;p&gt;Deckset은 Markdown 기반 프레젠테이션 도구이다. Deckset은 따로 에디터 기능을 가지고 있지 않으면 자신이 선호하는 에디터로 Plain Text 포맷의 일종인 Markdown으로 문서를 작성하면 이를 슬라이드 형식이나 보여주거나 PDF로 변환할 수 있도록 도와주는 도구이다. 이를 통해 슬라이드 한 장 한 장의 디자인에 신경쓰기보다는 프레젠테이션의 내용에만 집중해서 슬라이드를 작성할 수 있게 도와준다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+&lt;br/&gt;&lt;br/&gt;&lt;div&gt;&lt;a href=http://blog.remotty.com/blog/2015/08/26/deckset/&gt;전문 읽기&lt;/a&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;br/&gt;
+&lt;div&gt;
+  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
+  &lt;div&gt;
+    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
+      nacyot의 프로그래밍 이야기 메인으로 이동하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
+      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
+      Twitter에서 nacyot 팔로우하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</content>
+  </entry>
   <entry>
     <title>Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/</id>
     <published>2015-07-07T01:25:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -331,7 +361,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
     <published>2015-06-12T21:05:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -597,7 +627,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-20T23:45:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1163,7 +1193,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1268,7 +1298,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1491,7 +1521,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1705,7 +1735,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-02-02-d3-selection/"/>
     <id>http://blog.nacyot.com/articles/2015-02-02-d3-selection/</id>
     <published>2015-02-04T06:02:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1894,7 +1924,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"/>
     <id>http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/</id>
     <published>2014-12-16T16:35:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2114,7 +2144,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/"/>
     <id>http://blog.nacyot.com/articles/2014-08-08-rails-on-docker/</id>
     <published>2014-08-07T20:10:00+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
+    <updated>2015-08-29T11:09:39+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -2743,90 +2773,6 @@ require.config({
 &lt;p&gt;이 글에서는 루비 온 레일스 어플리케이션을 도커 이미지로 만드는 과정을 다루었다. 여기서 다룬 어플리케이션은 &lt;code&gt;rails new&lt;/code&gt;로 생성한 아무것도 없는 어플리케이션이긴 하지만 어플리케이션의 복잡도에 따라서 어플리케이션을 배포하는 방식 자체가 달라지지는 않는다. 이 글에서는 도커로 어떻게 하면 어플리케이션을 이미지로 만들어낼 수 있는지, 그리고 도커를 사용함으로써 (좋은 의미에서건 나쁜 의미에서건) 발생하는 새로운 제약에 대해 어떻게 이해하고 대처해야하는 지 The Twelve Factor App의 관점에서 설명했다.&lt;/p&gt;
 
 &lt;p&gt;이를 통해 이미지는 만들었다. 다음 글에서는 이제 이미지가 준비됐으니 이 이미지를 어떻게 실 서버에 배포하고 스케일 아웃이 가능한 지에 대해서 다룬다.&lt;/p&gt;
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;div&gt;
-  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
-  &lt;div&gt;
-    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
-      nacyot의 프로그래밍 이야기 메인으로 이동하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
-      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
-      Twitter에서 nacyot 팔로우하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Docker Korea 스터디 그룹 두번째 모임</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/"/>
-    <id>http://blog.nacyot.com/articles/2014-08-04-docker-korea-secord/</id>
-    <published>2014-08-04T15:15:03+00:00</published>
-    <updated>2015-08-29T10:59:10+00:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;img src='http://i.imgur.com/9A89h4Y.jpg' /&gt;&lt;p&gt;얼마 전 &amp;#39;&lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/docker_korea' rel='nofollow'&gt;도커 코리아&lt;/a&gt;&lt;/span&gt;&amp;#39;라는 이름으로 &lt;a href="http://blog.nacyot.com/articles/2014-07-26-docker-korea/"&gt;스터디를 진행한다는 이야기&lt;/a&gt;를 전한 바 있습니다. 그 후로 시간이 흘러 지난 8월 2일에 &lt;a href="http://onoffmix.com/event/31354"&gt;도커 코리아 두번째 모임&lt;/a&gt;을 가졌습니다. 이번 스터디는 시범적인 차원에서 공개적으로 진행되었습니다. 단 아직 정기적인 스터디 지원이 확정되지 않아, 이번 모임은 소정의 참가비와 부족한 부분은 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/remotty'&gt;리모티&lt;/a&gt;&lt;/span&gt; 재정의 지원으로 이루어졌습니다. 리모티 팀원들을 비롯해 총 16분이 참석해 자리를 빛내주셨습니다 :)&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;이 글에서는 스터디 그룹에서 공유한 내용들을 간략히 정리합니다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='도커를-이용한-파이썬-모듈-배포하기'&gt;도커를 이용한 파이썬 모듈 배포하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;iframe src="//www.slideshare.net/slideshow/embed_code/37580971" width="600" height="440" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/litiblue/ss-37580971" title="도커를 이용한 파이썬 모듈 배포하기" target="_blank"&gt;도커를 이용한 파이썬 모듈 배포하기&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/litiblue" target="_blank"&gt;JunSeok Seo&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
-
-&lt;iframe width="600" height="440" src="//www.youtube.com/embed/RRT58hbDXNs" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;p&gt;먼저 Litiblue 님이 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/docker'&gt;Docker&lt;/a&gt;&lt;/span&gt;를 이용해 파이썬 모듈을 배포한 경험에 대해서 발표해주셨습니다. 이 발표에서는 도커에 대한 전반적인 소개와 일반적인 서버에 직접 어플리케이션을 배포하는 것과 그로 인해 생기는 문제점을 도커를 통해서 어떻게 해결할 수 있는 지에 대해서 이야기해주셨습니다. 예를 들어 Litiblue 님이 배포하고자 했던 파이선 어플리케이션에는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/apscheduler' rel='nofollow'&gt;APScheduler&lt;/a&gt;&lt;/span&gt;와 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/rpyc' rel='nofollow'&gt;RPyC&lt;/a&gt;&lt;/span&gt;라는 라이브러리에 의존성이 있는데, 이러한 라이브러리들이 파이썬의 버전에 따라서 사용법이나 실행경로가 바뀌면서 생길 수 있는 있다고 합니다. 이러한 문제들을 도커를 통해서 어떻게 해결할 수 있는지 보여주셨습니다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='도커로-고스트-블로그-플랫폼-5분만에-설치하기'&gt;도커로 고스트 블로그 플랫폼 5분만에 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;iframe src="//slides.com/meoooh/setup-ghost-via-docker/embed" width="600" height="440" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;iframe width="600" height="445" src="//www.youtube.com/embed/MGXMRJP4LhQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;p&gt;다음으로 Han 님께서 &amp;#39;도커로 고스트 블로그 플랫폼 5분만에 설치하기&amp;#39;를 발표해주셨습니다. 최근에 유행하는 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/ghost' rel='nofollow'&gt;Ghost&lt;/a&gt;&lt;/span&gt;라고 하는 유명한 블로그 플랫폼이 있습니다만, 이 블로그 플랫폼을 도커를 써서 어떻게 배포할 수 있는 지에 대해서 다루고있습니다. 5분만에 배포하기라고 쓰고, 고스프 플랫폼 도커로 배포하면서 겪은 삽질기로 내용이 변모한 감이 없지 않아있었습니다만 :) 도커 파일 최적화, 이미지간 연결, .dokcerignore 파일의 사용법 등 도커를 사용하면서 필연적으로 궁금하게 되고, 활용해야만한 하는 많은 이야기들을 담고 있습니다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='도커(docker)-메트릭스-&amp;amp;-로그-수집'&gt;도커(Docker) 메트릭스 &amp;amp; 로그 수집&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;iframe src="//www.slideshare.net/slideshow/embed_code/37592250" width="600" height="440" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="https://www.slideshare.net/ext/docker-37592250" title="도커(Docker) 메트릭스 &amp;amp; 로그 수집" target="_blank"&gt;도커(Docker) 메트릭스 &amp;amp; 로그 수집&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="http://www.slideshare.net/ext" target="_blank"&gt;Daekwon Kim&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;
-
-&lt;iframe width="600" height="440" src="//www.youtube.com/embed/eFPsz0oCLSs" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;p&gt;마지막 발표는 제가 &amp;#39;Docker와 로그 &amp;amp; 메트릭스 수집&amp;#39;이라는 주제로 발표를 했습니다. 로그 &amp;amp; 메트릭스 수집은 사실 새삼스럽게 나온 문제는 아닙니다만, 이러한 &amp;#39;기존의 문제&amp;#39;가 도커가 나오면서 어떻게 변해야하고, 어떤 방향으로 나아갈 것인지에 대해서 이야기했습니다. &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/elasticsearch'&gt;ElasticSearch&lt;/a&gt;&lt;/span&gt;와 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/kibana'&gt;Kibana&lt;/a&gt;&lt;/span&gt;, &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/graphite'&gt;Graphite&lt;/a&gt;&lt;/span&gt;와 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/grafana' rel='nofollow'&gt;Grafana&lt;/a&gt;&lt;/span&gt;를 설치하고 로그 수집을 시연하는 거창한 데모를 준비했습니다만, 훌륭하게 실패하고 다행히 미리 준비해둔 이미지로 대체했습니다 ㅜ&lt;/p&gt;
-
-&lt;p&gt;로그 수집과 메트릭스에 관한 이야기는 지금 제일 관심있는 주제인 관계로 이 블로그에서도 자주 이야기해나갈 생각입니다. 기회가 되면 더 보충해나가도록 하죠.&lt;/p&gt;
-
-&lt;p&gt;Docker Korea 두번째 모임에서는 이와 같이 3가지 주제에 대해서 공유했습니다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='service-discovery-행아웃'&gt;Service Discovery 행아웃&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;오프라인 모임과 더불어 7월 30일에는 온라인 행아웃으로 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/service_discovery'&gt;service discovery&lt;/a&gt;&lt;/span&gt; 도구들에 대해서 이야기했습니다. Docker가 어플리케이션 배포의 복잡도를 확 낮춰주는 어플리케이션이라면 이렇게 배포가 되는 수많은 노드와 서비스들을 관리하는 게 그 다음으로 다뤄야할 주제입니다. 그런 이유로 Service Discovery는 현재 Docker와 함께 뜨거운 화두가 되고 있는 주제 중 하나입니다. 다들 아직 이러한 도구들에 대한 이해가 부족하다는 공감이 있어서 각자 한가지 씩 Service Discovery 도구들을 리뷰하는 시간을 가졌습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href="https://gist.github.com/nacyot/514b904f7ae569e801e4"&gt;https://gist.github.com/nacyot/514b904f7ae569e801e4&lt;/a&gt;&lt;/p&gt;
-
-&lt;iframe src="//slides.com/subicura/coreos-study/embed" width="600" height="440" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;iframe src="//slides.com/changhoonjeong/docker-ambassador/embed" width="600" height="440" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;iframe width="600" height="440" src="//www.youtube.com/embed/jBK3T1-1QdI" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;p&gt;이 행아웃에서는 Seapy 님이 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/docker_ambassador_pattern' rel='nofollow'&gt;docker ambassador&lt;/a&gt;&lt;/span&gt; 패턴에 대해서 발표해주셨고, 그 다음으로 제가 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/consul'&gt;Consul&lt;/a&gt;&lt;/span&gt;에 대해서 발표했습니다. 마지막으로 Subicura 님이 &lt;span class='live_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/coreos'&gt;CoreOS&lt;/a&gt;&lt;/span&gt;와 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/etcd' rel='nofollow'&gt;etcd&lt;/a&gt;&lt;/span&gt;와 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/fleet' rel='nofollow'&gt;fleet&lt;/a&gt;&lt;/span&gt;를 활용한 간단한 사용 예제를 보여주셨습니다.&lt;/p&gt;
-
-&lt;p&gt;아직 확정된 바는 없습니다만, 아마 여기서 논의한 이야기를 각자 좀 더 발전 시켜 다음 모임에서 발표를 하게 되지 않을까 생각하고 있습니다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='정리'&gt;정리&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;지난 번 모임이후 진행된 사항을 정리해보았습니다.&lt;/p&gt;
-
-&lt;p&gt;다다음주가 황금연휴(?)고, 격주 진행시 &lt;span class='dead_link'&gt;&lt;a href='http://wiki.nacyot.com/documents/pycon' rel='nofollow'&gt;pycon&lt;/a&gt;&lt;/span&gt;과 겹치는 관계로 아마 다음 모임은 23일이 될 것으로 생각하고 있습니다. 아직 스터디 지원 문제나 고정된 장소가 확정되지 않은 상태이긴 한데, 아마 확정되는대로 조만간 세번째 모임도 공지를 할 예정입니다.&lt;/p&gt;
-
-&lt;p&gt;모임에 참여해주신 모든 분들 다시 한 번 감사드립니다. 다들 어디 숨어계셨나 했더니 :) Docker Korea는 도커를 비롯해 클라우드나 서버 운영 전반에 관심있으신 분들 모두에게 열려있습니다. 특히 경험 공유나 주제 발표하시고 싶으신 분은 더더욱 우대합니다! 관심있으신 분들은 &lt;a href="http://forum.docker.co.kr/"&gt;포럼&lt;/a&gt;에 들러주시고 &lt;a href="http://forum.docker.co.kr/t/docker-korea/70"&gt;대화방&lt;/a&gt;에도 참여해주세요.&lt;/p&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;div&gt;

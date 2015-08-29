@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://blog.nacyot.com</loc>
-    <lastmod>2015-07-07T10:25:00+09:00</lastmod>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
     <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/articles/2015-08-29-link-deckset/</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1</priority>
   </url>
   <url>
@@ -211,6 +217,54 @@
     <priority>1</priority>
   </url>
   <url>
+    <loc>http://blog.nacyot.com/tags/osx</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/markdown</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/deckset</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/presentation</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/plain_text</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/mathjax</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/software</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/editor</loc>
+    <lastmod>2015-08-29T19:56:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>http://blog.nacyot.com/tags/devops</loc>
     <lastmod>2015-07-07T10:25:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -361,19 +415,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://blog.nacyot.com/tags/editor</loc>
-    <lastmod>2015-05-21T08:45:00+09:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>http://blog.nacyot.com/tags/service</loc>
-    <lastmod>2015-05-13T10:13:00+09:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://blog.nacyot.com/tags/osx</loc>
     <lastmod>2015-05-13T10:13:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -590,12 +632,6 @@
   </url>
   <url>
     <loc>http://blog.nacyot.com/tags/tmux</loc>
-    <lastmod>2014-07-30T00:25:00+09:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://blog.nacyot.com/tags/software</loc>
     <lastmod>2014-07-30T00:25:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

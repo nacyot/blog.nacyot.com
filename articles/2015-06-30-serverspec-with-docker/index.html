@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -140,11 +140,11 @@ nacyot의 프로그래밍 이야기
 <h2><a name='서버스펙(serverspec)을-통한-도커-이미지-테스트'>서버스펙(Serverspec)을 통한 도커 이미지 테스트</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>이제 테스트 환경을 마련하고 실제로 테스트를 작성해보도록하자. 서버스펙에는 기본적으로 프로젝트를 초기화를 돕는 <code>serverspec-init</code>이라는 명령어가 포함되어있다. 여기서는 이 명령어를 사용하지 않고 진행한다. 먼저 루비의 기본적인 구조와 비슷하게 spec 디렉터리를 만들고 그 아래에 테스트 코드를 넣을 것이다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">.</span><span class="o">/</span><span class="n">serverspec</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">docker</span>
-</span><span id="line-2"><span class="err">├──</span> <span class="n">Gemfile</span>
-</span><span id="line-3"><span class="err">└──</span> <span class="n">spec</span>
-</span><span id="line-4">    <span class="err">├──</span> <span class="n">mongodb_image_spec</span><span class="p">.</span><span class="n">rb</span>
-</span><span id="line-5">    <span class="err">└──</span> <span class="n">spec_helper</span><span class="p">.</span><span class="n">rb</span>
+<div class="highlight"><pre><span id="line-1"><span class="o">./</span><span class="vg">serverspec</span><span class="o">-</span><span class="vg">with</span><span class="o">-</span><span class="vg">docker</span>
+</span><span id="line-2"><span class="err">├──</span><span class="w"> </span><span class="vg">Gemfile</span>
+</span><span id="line-3"><span class="err">└──</span><span class="w"> </span><span class="vg">spec</span>
+</span><span id="line-4"><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="vg">mongodb_image_spec</span><span class="o">.</span><span class="vg">rb</span>
+</span><span id="line-5"><span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="vg">spec_helper</span><span class="o">.</span><span class="vg">rb</span>
 </span></pre></div>
 <p>디렉터리 구조는 아주 간단한다. 프로젝트 메인 디렉터리 아래에 spec 디렉터리를 만들고 테스트 설정 파일은 <code>spec_helper.rb</code>와 테스트 파일은 <code>mongodb_image_spec.rb</code>를 준비한다.</p>
 
@@ -156,10 +156,10 @@ nacyot의 프로그래밍 이야기
 <h3><a name='gemfile을-통한-의존성-관리'>Gemfile을 통한 의존성 관리</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>Serverspec을 통한 인프라 테스트는 루비를 기반으로 돌아간다(즉, 시스템에 루비가 설치되어있어야한다). 루비를 테스트를 위해 사용할 의존성 관리를 위해 프로젝트 루트에 다음과 같이 Gemfile을 작성한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">source</span> <span class="s">&quot;https://rubygems.org&quot;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">source</span><span class="w"> </span><span class="s2">&quot;https://rubygems.org&quot;</span>
 </span><span id="line-2">
-</span><span id="line-3"><span class="err">`</span><span class="n">gem</span> <span class="s">&quot;3e,21ec&quot;</span>
-</span><span id="line-4"><span class="n">gem</span> <span class="s">&quot;docker-api&quot;</span>
+</span><span id="line-3"><span class="err">`</span><span class="vg">gem</span><span class="w"> </span><span class="s2">&quot;3e,21ec&quot;</span>
+</span><span id="line-4"><span class="vg">gem</span><span class="w"> </span><span class="s2">&quot;docker-api&quot;</span>
 </span></pre></div>
 <p>Gemfile은 프로젝트의 의존성을 관리하고, 프로젝트 내에서 사용될 실행 가능한 명령어들을 관리하기 위해 사용된다. 이제 의존성을 설치해보자.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>bundle install
@@ -183,42 +183,42 @@ nacyot의 프로그래밍 이야기
 <h3><a name='spec_helper.rb'><code>spec_helper.rb</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p><code>spec_helper.rb</code>는 프로젝트에 적용되는 RSpec 설정파일이다. <code>:host</code>에는 테스트에 사용할 적절한 도커 서버의 주소를 입력한다. <code>:docker_image</code>는 테스트할 대상을 의미하며, <code>:os</code>는 테스트 대상이 되는 서버의 운영체제를 의미한다. 서버스펙은 이 옵션을 통해서 테스트에서 사용하는 DSL을 추상화한다. <code>&lt;USERNAME&gt;</code>에는 적절한 사용자 이름을 넣어준다. 여기서는 OSX에서 boot2docker를 사용하고 있다고 가정하고 있으며 ssl key가 다른 곳에 있다면 적절한 위치를 지정해준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="k">require</span> <span class="err">&#39;</span><span class="n">serverspec</span><span class="s1">&#39;</span>
-</span><span id="line-2"><span class="s1">require &#39;</span><span class="nx">docker</span><span class="s1">&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">require</span><span class="w"> </span><span class="c1">&#39;serverspec&#39;</span>
+</span><span id="line-2"><span class="vg">require</span><span class="w"> </span><span class="c1">&#39;docker&#39;</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="s1">set :backend, &#39;</span><span class="nx">docker</span><span class="s1">&#39;</span>
-</span><span id="line-5"><span class="s1">set :host, &#39;</span><span class="nx">https</span><span class="p">:</span><span class="c1">//192.168.59.103:2376&#39;</span>
-</span><span id="line-6"><span class="kt">set</span> <span class="p">:</span><span class="nx">docker_image</span><span class="p">,</span> <span class="s1">&#39;tutum/mongodb&#39;</span>
-</span><span id="line-7"><span class="kt">set</span> <span class="p">:</span><span class="nx">os</span><span class="p">,</span> <span class="nx">family</span><span class="p">:</span> <span class="p">:</span><span class="nx">ubuntu</span>
+</span><span id="line-4"><span class="vg">set</span><span class="w"> </span><span class="o">:</span><span class="vg">backend</span><span class="p">,</span><span class="w"> </span><span class="c1">&#39;docker&#39;</span>
+</span><span id="line-5"><span class="vg">set</span><span class="w"> </span><span class="o">:</span><span class="vg">host</span><span class="p">,</span><span class="w"> </span><span class="c1">&#39;https://192.168.59.103:2376&#39;</span>
+</span><span id="line-6"><span class="vg">set</span><span class="w"> </span><span class="o">:</span><span class="vg">docker_image</span><span class="p">,</span><span class="w"> </span><span class="c1">&#39;tutum/mongodb&#39;</span>
+</span><span id="line-7"><span class="vg">set</span><span class="w"> </span><span class="o">:</span><span class="vg">os</span><span class="p">,</span><span class="w"> </span><span class="nl">family:</span><span class="w"> </span><span class="o">:</span><span class="vg">ubuntu</span>
 </span><span id="line-8">
-</span><span id="line-9"><span class="n">Docker.options</span><span class="o"> =</span> <span class="p">{</span>
-</span><span id="line-10">  <span class="nx">client_cert</span><span class="p">:</span> <span class="s1">&#39;/Users/&lt;USERNAME&gt;/.boot2docker/certs/boot2docker-vm/cert.pem&#39;</span><span class="p">,</span>
-</span><span id="line-11">  <span class="nx">client_key</span><span class="p">:</span> <span class="s1">&#39;/Users/&lt;USERNAME&gt;/.boot2docker/certs/boot2docker-vm/key.pem&#39;</span><span class="p">,</span>
-</span><span id="line-12">  <span class="nx">ssl_ca_file</span><span class="p">:</span> <span class="s1">&#39;/Users/&lt;USERNAME&gt;/.boot2docker/certs/boot2docker-vm/ca.pem&#39;</span><span class="p">,</span>
-</span><span id="line-13">  <span class="nx">scheme</span><span class="p">:</span> <span class="s1">&#39;https&#39;</span><span class="p">,</span>
-</span><span id="line-14">  <span class="nx">read_timeout</span><span class="p">:</span> <span class="mi">3600</span>
+</span><span id="line-9"><span class="vg">Docker</span><span class="o">.</span><span class="vg">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-10"><span class="w">  </span><span class="nl">client_cert:</span><span class="w"> </span><span class="c1">&#39;/Users/&lt;USERNAME&gt;/.boot2docker/certs/boot2docker-vm/cert.pem&#39;,</span>
+</span><span id="line-11"><span class="w">  </span><span class="nl">client_key:</span><span class="w"> </span><span class="c1">&#39;/Users/&lt;USERNAME&gt;/.boot2docker/certs/boot2docker-vm/key.pem&#39;,</span>
+</span><span id="line-12"><span class="w">  </span><span class="nl">ssl_ca_file:</span><span class="w"> </span><span class="c1">&#39;/Users/&lt;USERNAME&gt;/.boot2docker/certs/boot2docker-vm/ca.pem&#39;,</span>
+</span><span id="line-13"><span class="w">  </span><span class="nl">scheme:</span><span class="w"> </span><span class="c1">&#39;https&#39;,</span>
+</span><span id="line-14"><span class="w">  </span><span class="nl">read_timeout:</span><span class="w"> </span><span class="il">3600</span>
 </span><span id="line-15"><span class="p">}</span>
 </span><span id="line-16">
-</span><span id="line-17"><span class="nx">Excon.defaults</span><span class="err">[</span><span class="p">:</span><span class="nx">ssl_verify_peer</span><span class="cp">]</span> = false
+</span><span id="line-17"><span class="vg">Excon</span><span class="o">.</span><span class="vg">defaults</span><span class="p">[</span><span class="o">:</span><span class="vg">ssl_verify_peer</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">false</span>
 </span></pre></div>
 <h3><a name='mongodb_image_spec.rb'><code>mongodb_image_spec.rb</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이 파일에는 테스트 코드를 작성한다. 테스트 코드는 RSpec 고유의 DSL로 작성되며, 서버스펙은 서버를 검증하기 위한 도구들을 제공한다. 아마 루비나 RSpec에 친숙하다면, 이 코드를 보고 어떤 내용인지 바로 알 수 있을 것이며, 안 써봤어도 직관적으로 이해할 수 있을 것이다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">require</span> <span class="err">&#39;</span><span class="n">spec_helper</span><span class="err">&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">require</span><span class="w"> </span><span class="c1">&#39;spec_helper&#39;</span>
 </span><span id="line-2">
-</span><span id="line-3"><span class="n">describe</span> <span class="err">&#39;</span><span class="n">tutum</span><span class="o">/</span><span class="n">mongodb</span> <span class="n">Image</span><span class="err">&#39;</span> <span class="k">do</span>
-</span><span id="line-4">  <span class="n">describe</span> <span class="n">file</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">etc</span><span class="err">&#39;</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-5">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_directory</span> <span class="p">}</span>
-</span><span id="line-6">  <span class="n">end</span>
+</span><span id="line-3"><span class="vg">describe</span><span class="w"> </span><span class="c1">&#39;tutum/mongodb Image&#39; do</span>
+</span><span id="line-4"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">file</span><span class="p">(</span><span class="c1">&#39;/etc&#39;) do</span>
+</span><span id="line-5"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_directory</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-6"><span class="w">  </span><span class="vg">end</span>
 </span><span id="line-7">
-</span><span id="line-8">  <span class="n">describe</span> <span class="n">process</span><span class="p">(</span><span class="err">&#39;</span><span class="n">mongod</span><span class="err">&#39;</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-9">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_running</span> <span class="p">}</span>
-</span><span id="line-10">  <span class="n">end</span>
+</span><span id="line-8"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">process</span><span class="p">(</span><span class="c1">&#39;mongod&#39;) do</span>
+</span><span id="line-9"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_running</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-10"><span class="w">  </span><span class="vg">end</span>
 </span><span id="line-11">
-</span><span id="line-12">  <span class="n">describe</span> <span class="n">port</span><span class="p">(</span><span class="mi">27017</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-13">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_listening</span> <span class="p">}</span>
-</span><span id="line-14">  <span class="n">end</span>
-</span><span id="line-15"><span class="n">end</span>
+</span><span id="line-12"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">port</span><span class="p">(</span><span class="il">27017</span><span class="p">)</span><span class="w"> </span><span class="vg">do</span>
+</span><span id="line-13"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_listening</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-14"><span class="w">  </span><span class="vg">end</span>
+</span><span id="line-15"><span class="vg">end</span>
 </span></pre></div>
 <p>여기에는 3개의 테스트가 기술되어있다. 서버스펙에서는 리소스라는 개념을 사용해서 테스트를 수행한다. 먼저 첫번째 테스트에서 쓰인 리소스는 <code>file</code>이다. 이를 통해서 <code>/etc</code>가 디렉터리인지 검증한다. 그 다음으로 두번째 테스트에서는 <code>process</code> 리소스를 통해서 <code>mongod</code> 프로세스가 실행중인지 검증한다. 마지막으로 <code>port</code> 리소스를 통해서 27017 포트가 대기중인지 검증한다. 서버스펙은 서버를 검증하기 위한 다양한 리소스를 제공하고 있으며 더 많은 리소스들에 대해서는 <a href="http://serverspec.org/resource_types.html">서버스펙 공식 사이트</a>에서 찾아볼 수 있다.</p>
 
@@ -235,7 +235,7 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-8">    should be listening
 </span><span id="line-9">
 </span><span id="line-10">Finished in 6.18 seconds <span class="o">(</span>files took 1.14 seconds to load<span class="o">)</span>
-</span><span id="line-11">3 examples, 0 failures
+</span><span id="line-11"><span class="m">3</span> examples, <span class="m">0</span> failures
 </span></pre></div>
 <p>모든 테스트가 성공했다! 테스트를 통해서 <code>/etc</code> 디렉터리가 존재하고, <code>mongod</code> 프로세스가 실행되고 있으며, <code>27017</code> 포트가 대기중임을 알 수 있다.</p>
 
@@ -246,13 +246,13 @@ nacyot의 프로그래밍 이야기
 <p>물론 이것도 가능하다. 여기서는 redis 이미지를 직접 만들어가면서 테스트를 수행해보자.</p>
 
 <h3><a name='디렉터리-구조'>디렉터리 구조</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
-<div class="highlight"><pre><span id="line-1"><span class="p">.</span><span class="o">/</span><span class="n">serverspec</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">docker</span>
-</span><span id="line-2"><span class="err">├──</span> <span class="n">Dockerfile</span>
-</span><span id="line-3"><span class="err">├──</span> <span class="n">Gemfile</span>
-</span><span id="line-4"><span class="err">├──</span> <span class="n">Guardfile</span>
-</span><span id="line-5"><span class="err">└──</span> <span class="n">spec</span>
-</span><span id="line-6">    <span class="err">├──</span> <span class="n">nacyot_redis_image_spec</span><span class="p">.</span><span class="n">rb</span>
-</span><span id="line-7">    <span class="err">└──</span> <span class="n">spec_helper</span><span class="p">.</span><span class="n">rb</span>
+<div class="highlight"><pre><span id="line-1"><span class="o">./</span><span class="vg">serverspec</span><span class="o">-</span><span class="vg">with</span><span class="o">-</span><span class="vg">docker</span>
+</span><span id="line-2"><span class="err">├──</span><span class="w"> </span><span class="vg">Dockerfile</span>
+</span><span id="line-3"><span class="err">├──</span><span class="w"> </span><span class="vg">Gemfile</span>
+</span><span id="line-4"><span class="err">├──</span><span class="w"> </span><span class="vg">Guardfile</span>
+</span><span id="line-5"><span class="err">└──</span><span class="w"> </span><span class="vg">spec</span>
+</span><span id="line-6"><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="vg">nacyot_redis_image_spec</span><span class="o">.</span><span class="vg">rb</span>
+</span><span id="line-7"><span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="vg">spec_helper</span><span class="o">.</span><span class="vg">rb</span>
 </span></pre></div>
 <h3><a name='spec_helper.rb'><code>spec_helper.rb</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
@@ -262,34 +262,34 @@ nacyot의 프로그래밍 이야기
 <h3><a name='nacyot_redis_image_spec.rb'><code>nacyot_redis_image_spec.rb</code></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>Redis 서버가 정상적으로 작동하는 지 확인하기 위한 테스트를 준비한다. </p>
-<div class="highlight"><pre><span id="line-1"><span class="n">require</span> <span class="err">&#39;</span><span class="n">spec_helper</span><span class="err">&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">require</span><span class="w"> </span><span class="c1">&#39;spec_helper&#39;</span>
 </span><span id="line-2">
-</span><span id="line-3"><span class="n">describe</span> <span class="err">&#39;</span><span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span><span class="err">&#39;</span> <span class="k">do</span>
-</span><span id="line-4">  <span class="n">before</span><span class="p">(</span><span class="o">:</span><span class="n">all</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-5">    <span class="n">image</span> <span class="o">=</span> <span class="n">Docker</span><span class="o">::</span><span class="n">Image</span><span class="p">.</span><span class="n">build_from_dir</span><span class="p">(</span><span class="sc">&#39;.&#39;</span><span class="p">);</span>
-</span><span id="line-6">    <span class="n">set</span> <span class="o">:</span><span class="n">docker_image</span><span class="p">,</span> <span class="n">image</span><span class="p">.</span><span class="n">id</span>
-</span><span id="line-7">  <span class="n">end</span>
+</span><span id="line-3"><span class="vg">describe</span><span class="w"> </span><span class="c1">&#39;nacyot/redis Image&#39; do</span>
+</span><span id="line-4"><span class="w">  </span><span class="vg">before</span><span class="p">(</span><span class="o">:</span><span class="vg">all</span><span class="p">)</span><span class="w"> </span><span class="vg">do</span>
+</span><span id="line-5"><span class="w">    </span><span class="vg">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nl">Docker:</span><span class="o">:</span><span class="vg">Image</span><span class="o">.</span><span class="vg">build_from_dir</span><span class="p">(</span><span class="c1">&#39;.&#39;);</span>
+</span><span id="line-6"><span class="w">    </span><span class="vg">set</span><span class="w"> </span><span class="o">:</span><span class="vg">docker_image</span><span class="p">,</span><span class="w"> </span><span class="vg">image</span><span class="o">.</span><span class="vg">id</span>
+</span><span id="line-7"><span class="w">  </span><span class="vg">end</span>
 </span><span id="line-8">
-</span><span id="line-9">  <span class="n">describe</span> <span class="n">file</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">etc</span><span class="err">&#39;</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-10">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_directory</span> <span class="p">}</span>
-</span><span id="line-11">  <span class="n">end</span>
+</span><span id="line-9"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">file</span><span class="p">(</span><span class="c1">&#39;/etc&#39;) do</span>
+</span><span id="line-10"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_directory</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-11"><span class="w">  </span><span class="vg">end</span>
 </span><span id="line-12">
-</span><span id="line-13">  <span class="n">describe</span> <span class="n">package</span><span class="p">(</span><span class="err">&#39;</span><span class="n">redis</span><span class="o">-</span><span class="n">server</span><span class="err">&#39;</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-14">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_installed</span> <span class="p">}</span>
-</span><span id="line-15">  <span class="n">end</span>
+</span><span id="line-13"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">package</span><span class="p">(</span><span class="c1">&#39;redis-server&#39;) do</span>
+</span><span id="line-14"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_installed</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-15"><span class="w">  </span><span class="vg">end</span>
 </span><span id="line-16">
-</span><span id="line-17">  <span class="n">describe</span> <span class="n">file</span><span class="p">(</span><span class="err">&#39;</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">redis</span><span class="o">-</span><span class="n">server</span><span class="err">&#39;</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-18">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_executable</span> <span class="p">}</span>
-</span><span id="line-19">  <span class="n">end</span>
+</span><span id="line-17"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">file</span><span class="p">(</span><span class="c1">&#39;/usr/local/bin/redis-server&#39;) do</span>
+</span><span id="line-18"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_executable</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-19"><span class="w">  </span><span class="vg">end</span>
 </span><span id="line-20">
-</span><span id="line-21">  <span class="n">describe</span> <span class="n">process</span><span class="p">(</span><span class="err">&#39;</span><span class="n">redis</span><span class="o">-</span><span class="n">server</span><span class="err">&#39;</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-22">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_running</span> <span class="p">}</span>
-</span><span id="line-23">  <span class="n">end</span>
+</span><span id="line-21"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">process</span><span class="p">(</span><span class="c1">&#39;redis-server&#39;) do</span>
+</span><span id="line-22"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_running</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-23"><span class="w">  </span><span class="vg">end</span>
 </span><span id="line-24">
-</span><span id="line-25">  <span class="n">describe</span> <span class="n">port</span><span class="p">(</span><span class="mi">6379</span><span class="p">)</span> <span class="k">do</span>
-</span><span id="line-26">    <span class="n">it</span> <span class="p">{</span> <span class="n">should</span> <span class="n">be_listening</span> <span class="p">}</span>
-</span><span id="line-27">  <span class="n">end</span>
-</span><span id="line-28"><span class="n">end</span>
+</span><span id="line-25"><span class="w">  </span><span class="vg">describe</span><span class="w"> </span><span class="vg">port</span><span class="p">(</span><span class="il">6379</span><span class="p">)</span><span class="w"> </span><span class="vg">do</span>
+</span><span id="line-26"><span class="w">    </span><span class="vg">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be_listening</span><span class="w"> </span><span class="p">}</span>
+</span><span id="line-27"><span class="w">  </span><span class="vg">end</span>
+</span><span id="line-28"><span class="vg">end</span>
 </span></pre></div>
 <p>여기서 작성한 테스트들 역시 기본적인 rspec 문법으로 작성되었으며 서버스펙의 리소스들을 사용하고 있다.</p>
 
@@ -298,12 +298,12 @@ nacyot의 프로그래밍 이야기
 <h3><a name='guard를-통한-자동테스트'>Guard를 통한 자동테스트</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>이번 프로젝트에서는 Guard를 통해서 Dockerfile과 spec 파일의 변경을 감지하고 테스트할 수 있도록 한다. 이를 위해 Gemfile을 다음과 같이 수정한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">source</span> <span class="err">&#39;</span><span class="n">https</span><span class="o">:</span><span class="c1">//rubygems.org&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">source</span><span class="w"> </span><span class="c1">&#39;https://rubygems.org&#39;</span>
 </span><span id="line-2">
-</span><span id="line-3"><span class="n">gem</span> <span class="err">&#39;</span><span class="n">serverspec</span><span class="err">&#39;</span>
-</span><span id="line-4"><span class="n">gem</span> <span class="err">&#39;</span><span class="n">docker</span><span class="o">-</span><span class="n">api</span><span class="err">&#39;</span>
-</span><span id="line-5"><span class="n">gem</span> <span class="err">&#39;</span><span class="n">guard</span><span class="err">&#39;</span>
-</span><span id="line-6"><span class="n">gem</span> <span class="err">&#39;</span><span class="n">guard</span><span class="o">-</span><span class="n">rspec</span><span class="err">&#39;</span>
+</span><span id="line-3"><span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;serverspec&#39;</span>
+</span><span id="line-4"><span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;docker-api&#39;</span>
+</span><span id="line-5"><span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;guard&#39;</span>
+</span><span id="line-6"><span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;guard-rspec&#39;</span>
 </span></pre></div>
 <p>프로젝트 루트에서 추가한 의존성을 설치해준다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>bundle
@@ -318,93 +318,93 @@ nacyot의 프로그래밍 이야기
 <p>이 Guard 파일의 내용은 spec 디렉터리 아래의 파일이나 dockerfile이 변경되었을 때 테스트를 자동적으로 실행하도록 한다.</p>
 
 <p>이제 별도의 터미널을 실행해서 프로젝트 루트에서 다음 명령어를 실행하면 파일이 변경될 때마다 테스트가 자동적으로 실행된다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># bundle exec guard</span>
-</span><span id="line-2"><span class="mi">09</span><span class="o">:</span><span class="mi">47</span><span class="o">:</span><span class="mi">59</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="n">Guard</span><span class="o">::</span><span class="n">RSpec</span> <span class="n">is</span> <span class="n">running</span>
-</span><span id="line-3"><span class="mi">09</span><span class="o">:</span><span class="mi">47</span><span class="o">:</span><span class="mi">59</span> <span class="o">-</span> <span class="n">INFO</span> <span class="o">-</span> <span class="n">Guard</span> <span class="n">is</span> <span class="n">now</span> <span class="n">watching</span> <span class="n">at</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="p">...</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">serverspec</span><span class="err">&#39;</span>
-</span><span id="line-4"><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">guard</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">bundle</span><span class="w"> </span><span class="vg">exec</span><span class="w"> </span><span class="vg">guard</span>
+</span><span id="line-2"><span class="nl">09</span><span class="o">:</span><span class="il">47</span><span class="o">:</span><span class="il">59</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">INFO</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nl">Guard:</span><span class="o">:</span><span class="vg">RSpec</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">running</span>
+</span><span id="line-3"><span class="nl">09</span><span class="o">:</span><span class="il">47</span><span class="o">:</span><span class="il">59</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">INFO</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="vg">Guard</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">now</span><span class="w"> </span><span class="vg">watching</span><span class="w"> </span><span class="vg">at</span><span class="w"> </span><span class="c1">&#39;/Users/.../docker-with-serverspec&#39;</span>
+</span><span id="line-4"><span class="p">[</span><span class="il">1</span><span class="p">]</span><span class="w"> </span><span class="vg">guard</span><span class="p">(</span><span class="vg">main</span><span class="p">)</span><span class="o">&gt;</span>
 </span></pre></div>
 <h3><a name='첫번째-이터레이션-:-이미지-생성하기'>첫번째 이터레이션 : 이미지 생성하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저 빈 Dockerfile을 만들고 베이스 이미지를 지정해준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">FROM</span> <span class="n">ubuntu</span><span class="o">:</span><span class="mf">14.04</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">FROM</span><span class="w"> </span><span class="nl">ubuntu:</span><span class="mf">14.04</span>
 </span></pre></div>
 <p>Guard에서 이 변화를 알아채고 자동적으로 테스트를 수행할 것이다. 앞서 이야기했듯이 테스트가 실행되면 자동적으로 이미지가 빌드되므로 빌드는 별도로 수행하지 않아도 된다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span>
-</span><span id="line-2">  <span class="n">File</span> <span class="s">&quot;/etc&quot;</span>
-</span><span id="line-3">    <span class="n">should</span> <span class="n">be</span> <span class="n">directory</span>
-</span><span id="line-4">  <span class="n">Package</span> <span class="s">&quot;redis-server&quot;</span>
-</span><span id="line-5">    <span class="n">should</span> <span class="n">be</span> <span class="n">installed</span> <span class="p">(</span><span class="n">FAILED</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="line-6">  <span class="n">File</span> <span class="s">&quot;/usr/bin/redis-server&quot;</span>
-</span><span id="line-7">    <span class="n">should</span> <span class="n">be</span> <span class="n">executable</span> <span class="p">(</span><span class="n">FAILED</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-</span><span id="line-8">  <span class="n">Process</span> <span class="s">&quot;redis-server&quot;</span>
-</span><span id="line-9">    <span class="n">should</span> <span class="n">be</span> <span class="n">running</span> <span class="p">(</span><span class="n">FAILED</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span>
-</span><span id="line-10">  <span class="n">Port</span> <span class="s">&quot;6379&quot;</span>
-</span><span id="line-11">    <span class="n">should</span> <span class="n">be</span> <span class="n">listening</span> <span class="p">(</span><span class="n">FAILED</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span>
+</span><span id="line-2"><span class="w">  </span><span class="vg">File</span><span class="w"> </span><span class="s2">&quot;/etc&quot;</span>
+</span><span id="line-3"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">directory</span>
+</span><span id="line-4"><span class="w">  </span><span class="vg">Package</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span>
+</span><span id="line-5"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">installed</span><span class="w"> </span><span class="p">(</span><span class="vg">FAILED</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="il">1</span><span class="p">)</span>
+</span><span id="line-6"><span class="w">  </span><span class="vg">File</span><span class="w"> </span><span class="s2">&quot;/usr/bin/redis-server&quot;</span>
+</span><span id="line-7"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">executable</span><span class="w"> </span><span class="p">(</span><span class="vg">FAILED</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="il">2</span><span class="p">)</span>
+</span><span id="line-8"><span class="w">  </span><span class="vg">Process</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span>
+</span><span id="line-9"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">running</span><span class="w"> </span><span class="p">(</span><span class="vg">FAILED</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="il">3</span><span class="p">)</span>
+</span><span id="line-10"><span class="w">  </span><span class="vg">Port</span><span class="w"> </span><span class="s2">&quot;6379&quot;</span>
+</span><span id="line-11"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">listening</span><span class="w"> </span><span class="p">(</span><span class="vg">FAILED</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="il">4</span><span class="p">)</span>
 </span><span id="line-12">
-</span><span id="line-13"><span class="n">Finished</span> <span class="n">in</span> <span class="mf">5.23</span> <span class="n">seconds</span> <span class="p">(</span><span class="n">files</span> <span class="n">took</span> <span class="mf">0.30381</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">load</span><span class="p">)</span>
-</span><span id="line-14"><span class="mi">5</span> <span class="n">examples</span><span class="p">,</span> <span class="mi">4</span> <span class="n">failures</span>
+</span><span id="line-13"><span class="vg">Finished</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="mf">5.23</span><span class="w"> </span><span class="vg">seconds</span><span class="w"> </span><span class="p">(</span><span class="vg">files</span><span class="w"> </span><span class="vg">took</span><span class="w"> </span><span class="mf">0.30381</span><span class="w"> </span><span class="vg">seconds</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">load</span><span class="p">)</span>
+</span><span id="line-14"><span class="nl">5</span><span class="w"> </span><span class="vg">examples</span><span class="p">,</span><span class="w"> </span><span class="il">4</span><span class="w"> </span><span class="vg">failures</span>
 </span><span id="line-15">
-</span><span id="line-16"><span class="n">Failed</span> <span class="n">examples</span><span class="o">:</span>
+</span><span id="line-16"><span class="vg">Failed</span><span class="w"> </span><span class="nl">examples:</span>
 </span><span id="line-17">
-</span><span id="line-18"><span class="n">rspec</span> <span class="p">.</span><span class="o">/</span><span class="n">spec</span><span class="o">/</span><span class="n">nacyot_redis_image_spec</span><span class="p">.</span><span class="n">rb</span><span class="o">:</span><span class="mi">14</span> <span class="err">#</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span> <span class="n">Package</span> <span class="s">&quot;redis-server&quot;</span> <span class="n">should</span> <span class="n">be</span> <span class="n">installed</span>
-</span><span id="line-19"><span class="n">rspec</span> <span class="p">.</span><span class="o">/</span><span class="n">spec</span><span class="o">/</span><span class="n">nacyot_redis_image_spec</span><span class="p">.</span><span class="n">rb</span><span class="o">:</span><span class="mi">18</span> <span class="err">#</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span> <span class="n">File</span> <span class="s">&quot;/usr/bin/redis-server&quot;</span> <span class="n">should</span> <span class="n">be</span> <span class="n">executable</span>
-</span><span id="line-20"><span class="n">rspec</span> <span class="p">.</span><span class="o">/</span><span class="n">spec</span><span class="o">/</span><span class="n">nacyot_redis_image_spec</span><span class="p">.</span><span class="n">rb</span><span class="o">:</span><span class="mi">22</span> <span class="err">#</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span> <span class="n">Process</span> <span class="s">&quot;redis-server&quot;</span> <span class="n">should</span> <span class="n">be</span> <span class="n">running</span>
-</span><span id="line-21"><span class="n">rspec</span> <span class="p">.</span><span class="o">/</span><span class="n">spec</span><span class="o">/</span><span class="n">nacyot_redis_image_spec</span><span class="p">.</span><span class="n">rb</span><span class="o">:</span><span class="mi">26</span> <span class="err">#</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span> <span class="n">Port</span> <span class="s">&quot;6379&quot;</span> <span class="n">should</span> <span class="n">be</span> <span class="n">listening</span>
+</span><span id="line-18"><span class="vg">rspec</span><span class="w"> </span><span class="o">./</span><span class="vg">spec</span><span class="o">/</span><span class="vg">nacyot_redis_image_spec</span><span class="o">.</span><span class="nl">rb:</span><span class="il">14</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span><span class="w"> </span><span class="vg">Package</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">installed</span>
+</span><span id="line-19"><span class="vg">rspec</span><span class="w"> </span><span class="o">./</span><span class="vg">spec</span><span class="o">/</span><span class="vg">nacyot_redis_image_spec</span><span class="o">.</span><span class="nl">rb:</span><span class="il">18</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span><span class="w"> </span><span class="vg">File</span><span class="w"> </span><span class="s2">&quot;/usr/bin/redis-server&quot;</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">executable</span>
+</span><span id="line-20"><span class="vg">rspec</span><span class="w"> </span><span class="o">./</span><span class="vg">spec</span><span class="o">/</span><span class="vg">nacyot_redis_image_spec</span><span class="o">.</span><span class="nl">rb:</span><span class="il">22</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span><span class="w"> </span><span class="vg">Process</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">running</span>
+</span><span id="line-21"><span class="vg">rspec</span><span class="w"> </span><span class="o">./</span><span class="vg">spec</span><span class="o">/</span><span class="vg">nacyot_redis_image_spec</span><span class="o">.</span><span class="nl">rb:</span><span class="il">26</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span><span class="w"> </span><span class="vg">Port</span><span class="w"> </span><span class="s2">&quot;6379&quot;</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">listening</span>
 </span></pre></div>
 <p>첫번째 테스트만 성공하고, 나머지 테스트가 실패했다! </p>
 
 <h3><a name='두번째-이터레이션-:-apt-get을-통해서-redis-설치하기'>두번째 이터레이션 : apt-get을 통해서 redis 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>Dockerfile 뒤에 다음 내용을 추가한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">RUN</span> <span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">/</span><span class="n">archive</span><span class="p">.</span><span class="n">ubuntu</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">ftp</span><span class="p">.</span><span class="n">daum</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">g</span><span class="err">&#39;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="p">.</span><span class="n">list</span>
+<div class="highlight"><pre><span id="line-1"><span class="kr">RUN</span><span class="w"> </span><span class="vg">sed</span><span class="w"> </span><span class="o">-</span><span class="vg">i</span><span class="w"> </span><span class="c1">&#39;s/archive.ubuntu.com/ftp.daum.net/g&#39; /etc/apt/sources.list</span>
 </span><span id="line-2">
-</span><span id="line-3"><span class="n">RUN</span> \
-</span><span id="line-4">  <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span>\
-</span><span id="line-5">  <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">redis</span><span class="o">-</span><span class="n">server</span>
+</span><span id="line-3"><span class="kr">RUN</span><span class="w"> </span><span class="o">\</span>
+</span><span id="line-4"><span class="w">  </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">update</span><span class="w"> </span><span class="o">&amp;&amp;\</span>
+</span><span id="line-5"><span class="w">  </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="o">-</span><span class="vg">y</span><span class="w"> </span><span class="vg">redis</span><span class="o">-</span><span class="vg">server</span>
 </span></pre></div>
 <p>자동적으로 테스트가 실행된다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span>
-</span><span id="line-2">  <span class="n">File</span> <span class="s">&quot;/etc&quot;</span>
-</span><span id="line-3">    <span class="n">should</span> <span class="n">be</span> <span class="n">directory</span>
-</span><span id="line-4">  <span class="n">Package</span> <span class="s">&quot;redis-server&quot;</span>
-</span><span id="line-5">    <span class="n">should</span> <span class="n">be</span> <span class="n">installed</span>
-</span><span id="line-6">  <span class="n">File</span> <span class="s">&quot;/usr/bin/redis-server&quot;</span>
-</span><span id="line-7">    <span class="n">should</span> <span class="n">be</span> <span class="n">executable</span>
-</span><span id="line-8">  <span class="n">Process</span> <span class="s">&quot;redis-server&quot;</span>
-</span><span id="line-9">    <span class="n">should</span> <span class="n">be</span> <span class="n">running</span> <span class="p">(</span><span class="n">FAILED</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="line-10">  <span class="n">Port</span> <span class="s">&quot;6379&quot;</span>
-</span><span id="line-11">    <span class="n">should</span> <span class="n">be</span> <span class="n">listening</span> <span class="p">(</span><span class="n">FAILED</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span>
+</span><span id="line-2"><span class="w">  </span><span class="vg">File</span><span class="w"> </span><span class="s2">&quot;/etc&quot;</span>
+</span><span id="line-3"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">directory</span>
+</span><span id="line-4"><span class="w">  </span><span class="vg">Package</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span>
+</span><span id="line-5"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">installed</span>
+</span><span id="line-6"><span class="w">  </span><span class="vg">File</span><span class="w"> </span><span class="s2">&quot;/usr/bin/redis-server&quot;</span>
+</span><span id="line-7"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">executable</span>
+</span><span id="line-8"><span class="w">  </span><span class="vg">Process</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span>
+</span><span id="line-9"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">running</span><span class="w"> </span><span class="p">(</span><span class="vg">FAILED</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="il">1</span><span class="p">)</span>
+</span><span id="line-10"><span class="w">  </span><span class="vg">Port</span><span class="w"> </span><span class="s2">&quot;6379&quot;</span>
+</span><span id="line-11"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">listening</span><span class="w"> </span><span class="p">(</span><span class="vg">FAILED</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="il">2</span><span class="p">)</span>
 </span><span id="line-12">
-</span><span id="line-13"><span class="n">Finished</span> <span class="n">in</span> <span class="mf">7.42</span> <span class="n">seconds</span> <span class="p">(</span><span class="n">files</span> <span class="n">took</span> <span class="mf">0.29263</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">load</span><span class="p">)</span>
-</span><span id="line-14"><span class="mi">5</span> <span class="n">examples</span><span class="p">,</span> <span class="mi">2</span> <span class="n">failures</span>
+</span><span id="line-13"><span class="vg">Finished</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="mf">7.42</span><span class="w"> </span><span class="vg">seconds</span><span class="w"> </span><span class="p">(</span><span class="vg">files</span><span class="w"> </span><span class="vg">took</span><span class="w"> </span><span class="mf">0.29263</span><span class="w"> </span><span class="vg">seconds</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">load</span><span class="p">)</span>
+</span><span id="line-14"><span class="nl">5</span><span class="w"> </span><span class="vg">examples</span><span class="p">,</span><span class="w"> </span><span class="il">2</span><span class="w"> </span><span class="vg">failures</span>
 </span><span id="line-15">
-</span><span id="line-16"><span class="n">Failed</span> <span class="n">examples</span><span class="o">:</span>
+</span><span id="line-16"><span class="vg">Failed</span><span class="w"> </span><span class="nl">examples:</span>
 </span><span id="line-17">
-</span><span id="line-18"><span class="n">rspec</span> <span class="p">.</span><span class="o">/</span><span class="n">spec</span><span class="o">/</span><span class="n">nacyot_redis_image_spec</span><span class="p">.</span><span class="n">rb</span><span class="o">:</span><span class="mi">22</span> <span class="err">#</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span> <span class="n">Process</span> <span class="s">&quot;redis-server&quot;</span> <span class="n">should</span> <span class="n">be</span> <span class="n">running</span>
-</span><span id="line-19"><span class="n">rspec</span> <span class="p">.</span><span class="o">/</span><span class="n">spec</span><span class="o">/</span><span class="n">nacyot_redis_image_spec</span><span class="p">.</span><span class="n">rb</span><span class="o">:</span><span class="mi">26</span> <span class="err">#</span> <span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span> <span class="n">Port</span> <span class="s">&quot;6379&quot;</span> <span class="n">should</span> <span class="n">be</span> <span class="n">listening</span>
+</span><span id="line-18"><span class="vg">rspec</span><span class="w"> </span><span class="o">./</span><span class="vg">spec</span><span class="o">/</span><span class="vg">nacyot_redis_image_spec</span><span class="o">.</span><span class="nl">rb:</span><span class="il">22</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span><span class="w"> </span><span class="vg">Process</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">running</span>
+</span><span id="line-19"><span class="vg">rspec</span><span class="w"> </span><span class="o">./</span><span class="vg">spec</span><span class="o">/</span><span class="vg">nacyot_redis_image_spec</span><span class="o">.</span><span class="nl">rb:</span><span class="il">26</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span><span class="w"> </span><span class="vg">Port</span><span class="w"> </span><span class="s2">&quot;6379&quot;</span><span class="w"> </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">listening</span>
 </span></pre></div>
 <p>redis-server 패키지의 설치를 검증하는 두번째, 세번째 테스트도 통과했다!</p>
 
 <h3><a name='세번째-이터레이션-:-redis-실행하기'>세번째 이터레이션 : redis 실행하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>Dockerfile 뒤에 다음 내용을 추가해준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">CMD</span> <span class="n">redis</span><span class="o">-</span><span class="n">server</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">CMD</span><span class="w"> </span><span class="vg">redis</span><span class="o">-</span><span class="vg">server</span>
 </span></pre></div>
 <p>이번에도 자동적으로 테스트가 실행된다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">nacyot</span><span class="o">/</span><span class="n">redis</span> <span class="n">Image</span>
-</span><span id="line-2">  <span class="n">File</span> <span class="s">&quot;/etc&quot;</span>
-</span><span id="line-3">    <span class="n">should</span> <span class="n">be</span> <span class="n">directory</span>
-</span><span id="line-4">  <span class="n">Package</span> <span class="s">&quot;redis-server&quot;</span>
-</span><span id="line-5">    <span class="n">should</span> <span class="n">be</span> <span class="n">installed</span>
-</span><span id="line-6">  <span class="n">File</span> <span class="s">&quot;/usr/bin/redis-server&quot;</span>
-</span><span id="line-7">    <span class="n">should</span> <span class="n">be</span> <span class="n">executable</span>
-</span><span id="line-8">  <span class="n">Process</span> <span class="s">&quot;redis-server&quot;</span>
-</span><span id="line-9">    <span class="n">should</span> <span class="n">be</span> <span class="n">running</span>
-</span><span id="line-10">  <span class="n">Port</span> <span class="s">&quot;6379&quot;</span>
-</span><span id="line-11">    <span class="n">should</span> <span class="n">be</span> <span class="n">listening</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">nacyot</span><span class="o">/</span><span class="vg">redis</span><span class="w"> </span><span class="vg">Image</span>
+</span><span id="line-2"><span class="w">  </span><span class="vg">File</span><span class="w"> </span><span class="s2">&quot;/etc&quot;</span>
+</span><span id="line-3"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">directory</span>
+</span><span id="line-4"><span class="w">  </span><span class="vg">Package</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span>
+</span><span id="line-5"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">installed</span>
+</span><span id="line-6"><span class="w">  </span><span class="vg">File</span><span class="w"> </span><span class="s2">&quot;/usr/bin/redis-server&quot;</span>
+</span><span id="line-7"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">executable</span>
+</span><span id="line-8"><span class="w">  </span><span class="vg">Process</span><span class="w"> </span><span class="s2">&quot;redis-server&quot;</span>
+</span><span id="line-9"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">running</span>
+</span><span id="line-10"><span class="w">  </span><span class="vg">Port</span><span class="w"> </span><span class="s2">&quot;6379&quot;</span>
+</span><span id="line-11"><span class="w">    </span><span class="vg">should</span><span class="w"> </span><span class="vg">be</span><span class="w"> </span><span class="vg">listening</span>
 </span><span id="line-12">
-</span><span id="line-13"><span class="n">Finished</span> <span class="n">in</span> <span class="mf">6.94</span> <span class="n">seconds</span> <span class="p">(</span><span class="n">files</span> <span class="n">took</span> <span class="mf">0.29334</span> <span class="n">seconds</span> <span class="n">to</span> <span class="n">load</span><span class="p">)</span>
-</span><span id="line-14"><span class="mi">5</span> <span class="n">examples</span><span class="p">,</span> <span class="mi">0</span> <span class="n">failures</span>
+</span><span id="line-13"><span class="vg">Finished</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="mf">6.94</span><span class="w"> </span><span class="vg">seconds</span><span class="w"> </span><span class="p">(</span><span class="vg">files</span><span class="w"> </span><span class="vg">took</span><span class="w"> </span><span class="mf">0.29334</span><span class="w"> </span><span class="vg">seconds</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">load</span><span class="p">)</span>
+</span><span id="line-14"><span class="nl">5</span><span class="w"> </span><span class="vg">examples</span><span class="p">,</span><span class="w"> </span><span class="il">0</span><span class="w"> </span><span class="vg">failures</span>
 </span></pre></div>
 <p>테스트가 모두 통과했다! 이를 통해 이 이미지로부터 레디스(redis) 서버가 정상적으로 실행되는 것을 보장할 수 있다.</p>
 

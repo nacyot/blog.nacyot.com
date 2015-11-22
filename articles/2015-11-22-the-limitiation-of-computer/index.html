@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+⣀⡀ ⢀⣀ ⢀⣀ ⡀⢀ ⢀⡀ ⣰⡀
+⠇⠸ ⠣⠼ ⠣⠤ ⣑⡺ ⠣⠜ ⠘⠤
+
+Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
+-->
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<meta content='target-densitydpi=device-dpi, width=device-width, maximum-scale=0.9, user-scalable=yes' name='viewport'>
+<link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
+<link href='http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/' rel='canonical'>
+<link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
+<link href='/articles/2015-09-30-packer-introduction/' rel='prev' title='패커(Packer)로 도커(Docker) 이미지 빌드 및 AMI 자동 빌드 시스템 구축'>
+<meta content='&amp;quot;미래는 이미 와있다. 단지 널리 퍼져있지 않을 뿐이다.&amp;quot; - 윌리엄 깁슨지인과 이야기하다가 발전 사관에 대한 이야기가 나왔다. 발전사관은 인류의 본성이 아니냐고 할 만큼 사람들의 마음 안에 강하게 자리잡고 있다. 이것은 사회 문화와 역사에 대해서만 그런 것은 아니다. 기술 역시 발전한다. 적어도 나는 사회 / 문화 / 역사의 발전사관은 처음부터 잘못되었을 가능성이 아주 높다고 생각하는 사람 중 하나이다. 그런 것들은 단지 놓여진 상황이 변할 뿐이지, 명확한 지표도 없는 것을 &amp;#39;발전&amp;#39;으로 묘사하는 것부터가 이미 이데올로기적이다. 그런데 기술은 어떤가. 기술이 CPU의 클럭 속도나 단위시간당 생산량 따위로 치환해서 설명될 수 있다면 기술은 분명 발전해왔다고 말할 수 있을 것이다. 적어도 그 말에는 동의하지 않을 수 없다.' name='description'>
+<link href='https://plus.google.com/+KimDaekwon' rel='author'>
+<link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
+<meta content='summary' name='twitter:card'>
+<meta content='article' property='og:type'>
+<meta content='nacyot의 프로그래밍 이야기 :: 기계의 한계를 결정짓는 요소. CPU 클럭 혹은 인간의 욕망' name='twitter:title'>
+<meta content='nacyot의 프로그래밍 이야기 :: 기계의 한계를 결정짓는 요소. CPU 클럭 혹은 인간의 욕망' property='og:title'>
+<meta content='&amp;quot;미래는 이미 와있다. 단지 널리 퍼져있지 않을 뿐이다.&amp;quot; - 윌리엄 깁슨지인과 이야기하다가 발전 사관에 대한 이야기가 나왔다. 발전사관은 인류의 본성이 아니냐고 할 만큼 사람들의 마음 안에 강하게 자리잡고 있다. 이것은 사회 문화와 역사에 대해서만 그런 것은 아니다. 기술 역시 발전한다. 적어도 나는 사회 / 문화 / 역사의 발전사관은 처음부터 잘못되었을 가능성이 아주 높다고 생각하는 사람 중 하나이다. 그런 것들은 단지 놓여진 상황이 변할 뿐이지, 명확한 지표도 없는 것을 &amp;#39;발전&amp;#39;으로 묘사하는 것부터가 이미 이데올로기적이다. 그런데 기술은 어떤가. 기술이 CPU의 클럭 속도나 단위시간당 생산량 따위로 치환해서 설명될 수 있다면 기술은 분명 발전해왔다고 말할 수 있을 것이다. 적어도 그 말에는 동의하지 않을 수 없다.' name='twitter:description'>
+<meta content='&amp;quot;미래는 이미 와있다. 단지 널리 퍼져있지 않을 뿐이다.&amp;quot; - 윌리엄 깁슨지인과 이야기하다가 발전 사관에 대한 이야기가 나왔다. 발전사관은 인류의 본성이 아니냐고 할 만큼 사람들의 마음 안에 강하게 자리잡고 있다. 이것은 사회 문화와 역사에 대해서만 그런 것은 아니다. 기술 역시 발전한다. 적어도 나는 사회 / 문화 / 역사의 발전사관은 처음부터 잘못되었을 가능성이 아주 높다고 생각하는 사람 중 하나이다. 그런 것들은 단지 놓여진 상황이 변할 뿐이지, 명확한 지표도 없는 것을 &amp;#39;발전&amp;#39;으로 묘사하는 것부터가 이미 이데올로기적이다. 그런데 기술은 어떤가. 기술이 CPU의 클럭 속도나 단위시간당 생산량 따위로 치환해서 설명될 수 있다면 기술은 분명 발전해왔다고 말할 수 있을 것이다. 적어도 그 말에는 동의하지 않을 수 없다.' property='og:description'>
+<meta content='@nacyo_t' name='twitter:site'>
+<meta content='nacyot의 프로그래밍 이야기' property='og:site_name'>
+<meta content='http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/' name='twitter:url'>
+<meta content='http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/' property='og:url'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' name='twitter:image'>
+<meta content='http://blog.nacyot.com/images/nacyot.jpeg' property='og:image'>
+<meta content='tool, technology, computer, cpu, machine, human, william_gibson, john_cage, vannevar_bush, article' name='keywords'>
+<title>nacyot의 프로그래밍 이야기 :: 기계의 한계를 결정짓는 요소. CPU 클럭 혹은 인간의 욕망</title>
+<link href="../../stylesheets/all.css" media="all" rel="stylesheet" type="text/css" />
+<script src="../../javascripts/all.js" type="text/javascript"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-46785477-2', 'auto');
+  ga('send', 'pageview');
+</script>
+</head>
+<body>
+<div class='categories' id='categories-title'>
+<a href='/tags/news' title='새소식(News) 목록'>
+<div class='category-news category-title' style='width: 12.5%'>
+<i class='fa fa-newspaper-o'></i>
+</div>
+</a>
+<a href='/tags/visualization' title='시각화(Visualization) 목록'>
+<div class='category-title category-visualization' style='width: 12.5%'>
+<i class='fa fa-bar-chart'></i>
+</div>
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<div class='category-infrastructure category-title' style='width: 12.5%'>
+<i class='fa fa-cloud'></i>
+</div>
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<div class='category-programming category-title' style='width: 12.5%'>
+<i class='fa fa-desktop'></i>
+</div>
+</a>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<div class='category-software category-title' style='width: 12.5%'>
+<i class='fa fa-square-o'></i>
+</div>
+</a>
+<a href='/tags/service' title='서비스(Services) 목록'>
+<div class='category-service category-title' style='width: 12.5%'>
+<i class='fa fa-cubes'></i>
+</div>
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<div class='category-editor category-title' style='width: 12.5%'>
+<i class='fa fa-edit'></i>
+</div>
+</a>
+<a href='/tags/article' title='이야기(Articles) 목록'>
+<div class='category-book category-title' style='width: 12.5%'>
+<i class='fa fa-book'></i>
+</div>
+</a>
+</div>
+<div class='wall'>
+<h1 class='title'>
+<a href="/"><img alt='nacyot profile image' class='img-rounded profile_image' src='/images/nacyot.jpeg'>
+<span class='hidden-sm hidden-xs'>
+nacyot의 프로그래밍 이야기
+</span>
+</a>
+</h1>
+</div>
+
+<div class='row'>
+<div class='col-lg-2 col-md-2'></div>
+<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
+<div class='main'>
+<div class='articles'>
+<div class='article'>
+<div class='categories'>
+<div class='category category-book-top' style='width: 100.0%'>
+</div>
+</div>
+<h1 class='title'>
+<a href="./">기계의 한계를 결정짓는 요소. CPU 클럭 혹은 인간의 욕망</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
+<i class='fa fa-book' style='color: #d62728'></i>
+이야기
+</a>
+<i class='fa fa-calendar'></i>
+2015년 11월 22일 발행
+</span>
+</div>
+<a name='toc'></a>
+<div class='toc'></div>
+<div class='body'>
+<p>&quot;미래는 이미 와있다. 단지 널리 퍼져있지 않을 뿐이다.&quot; - 윌리엄 깁슨</p>
+
+<hr>
+
+<p>지인과 이야기하다가 발전 사관에 대한 이야기가 나왔다. 발전사관은 인류의 본성이 아니냐고 할 만큼 사람들의 마음 안에 강하게 자리잡고 있다. 이것은 사회 문화와 역사에 대해서만 그런 것은 아니다. <em>기술</em> 역시 발전한다. 적어도 나는 사회 / 문화 / 역사의 발전사관은 처음부터 잘못되었을 가능성이 아주 높다고 생각하는 사람 중 하나이다. 그런 것들은 단지 놓여진 상황이 변할 뿐이지, 명확한 지표도 없는 것을 &#39;발전&#39;으로 묘사하는 것부터가 이미 이데올로기적이다. 그런데 기술은 어떤가. 기술이 CPU의 클럭 속도나 단위시간당 생산량 따위로 치환해서 설명될 수 있다면 기술은 분명 발전해왔다고 말할 수 있을 것이다. 적어도 그 말에는 동의하지 않을 수 없다.</p>
+
+
+
+<hr>
+
+<p>그런데 기술이 충분히 발전하기 시작하면서 기묘한 일이 벌어지기 시작한다. 기술의 발전은 이미 우리가 그 기술의 발전을 인지하는 정도를 넘어서버렸다. 과학과 기술의 발견과 발전은 인류가 해낼 수 있는 능력의 관점에서 사람들이 향유하고 있는 기술을 뛰어넘어버린 것이다. 이것은 단순히 최첨단 기술이 상용화에 몇 년에 걸린다는 이야기만을 지적하는 것은 아니다. 상용화에 걸리는 시간은 기술적 완결성과 일반인들이 기술을 이용할 수 있는 사이의 시간적 거리에 관한 이야기다. 그러한 시간적 거리는 시간에 의해서 작동적으로 매워지고 말 것이다. 마치 세탁기, 냉장고, 컬러 TV, 컴퓨터, 스마트폰이 시간이 지나면서 인류에게 있어서 빼놓을 수 없는 보편적이고 필수적인 물건이 된 것과도 비슷하다. 그렇다면 기술의 발전이 인지를 넘어섰다는 의미는 무엇일까.</p>
+
+<p>나는 그 의미가 바로 &quot;미래는 이미 와있다&quot;라는 윌리엄 깁슨의 이야기와 맞닿아 있다고 생각한다. 이러한 역전이 가장 극적으로 일어난 분야가 바로 개인용 컴퓨터이다. 컴퓨터를 하나의 계산 기계로 바라보자면 컴퓨터가 단위시간 당 계산해낼 수 있는 양은 전적으로 컴퓨터의 하드웨어적인 성능에 달려있는 문제이다. 하지만 이미 개인용 컴퓨터가 수십년 전의 슈퍼 컴퓨터의 계산 능력을 넘어서있다고 얘기할 때, 모든 개인용 컴퓨터의 소유자들이 그러한 컴퓨터의 성능을 최대로 활용하고 있는 것은 아니다. 바로 컴퓨터로 가능한 일들이 우리의 인지를 뛰어넘어버린 것이다. 달리 말하면 우리는 컴퓨터의 역량을 최대한 활용할 만큼 컴퓨터에게 많은 일을 시킬 수 없다. 여기서 이야기하는 바를 좀 더 정식화해보자면, 컴퓨터의 능력이라는 것을 바라보던 기존의 시각은 <code>f(컴퓨터의 하드웨어적 성능)</code>이다. 즉, 컴퓨터의 한계는 하드웨어적 성능에 의해서 결정되는 함수인 것이다. <code>미래가 와 있다</code>는 말은 <code>컴퓨터의 하드웨어적 성능</code>은 이미 우리가 상상할 수 있는 모든 일을 처리하고도 충분할 만큼 컴퓨터 성능이 좋아졌다는 것을 의미힌다. 적어도 대부분의 사람들에게는 컴퓨터의 하드웨어적 성능이 부족해서 내가 하고 싶은 걸 처리할 수 없다는 말은 아무런 의미가 없다. 만약 정말로 그렇다고 할지라도, 하드웨어를 교체하면 대부분의 경우는 해결가능하다.</p>
+
+<p>더 이상 컴퓨터의 한계를 나타내는 <code>f(x)</code>라는 함수가 있을 때 x라는 독립 변수는 컴퓨터의 하드웨어적 성능이 아니다. 그리고 그렇기 때문에 &quot;단지 멀리 퍼져있지 않을 뿐이다&quot;. 이 한계를 결정짓는 것은 일단 하드웨어가 아니다. 나는 이 독립변수가 크게 두 가지라고 생각한다. 첫 번째는 인터페이스다. 이미 컴퓨터로 하는 일은 단순 계산을 벗어났으며 우리가 어떤 일을 처리하고자 할 때는 그에 대한 적절한 인터페이스를 가진 소프트웨어를 필요로 한다. 문제는 처리하고자 하는 일과 이 일을 처리할 적절한 소프트웨어가 없을 때 기본적으로 컴퓨터의 한계는 하드웨어의 한계가 아닌 인터페이스의 한계에서 결정된다. 컴퓨터는 만능 머신이지만, 이 만능 머신이라는 뜻이 반드시 모든 일을 처리하기 위한 적절한 인터페이스를 갖추고 있음을 의미하지는 않는다.</p>
+
+<p>두번째는 인간적인 요소다. 대표적으로 디지털 리터러시라는 표현이 있다. 사람이 컴퓨터가 작동하는 방식을 얼마나 잘 이해하는 지, 그리고 어떤 일을 어떤 소프트웨어로 처리할 지에 대한 적절한 지식을 가지고 있어야만 컴퓨터의 활용 능력을 극대화할 수 있기 때문이다. 이러한 기초적인 문제조차도 컴퓨터의 능력을 극도로 떨어뜨리는 아주 치명적인 요소가 되곤 한다. 단순히 디지털 리터러시 뿐만이 아니라, 욕망 또한 중요한 문제이다. 컴퓨터는 스스로 작동하는 기계가 아니다. 컴퓨터가 무엇을 계산하는 지는, 혹은 무엇을 계산해야하는 지는 전적으로 인간에게 달려있다.  인간은 컴퓨터 위에서 오히려 단순 노동으로는 대체될 수 없는 일들을 더 많이 해나가고 있다.</p>
+
+<p>아직 지저분하지만, 컴퓨터의 한계를 결정짓는 요소를 통해 다시 함수를 정의해보자. 컴퓨터의 능력을 한계짓는 함수는 <code>f(컴퓨터의 하드웨어적 성능)</code>이 아니라 <code>MIN(하드웨어의 성능, 인터페이스, 인간의 능력과 욕망)</code>에서 결정된다. 그런데 하드웨어 성능은 이미 충분한 것이라고 가능한다면, <code>MIN(인터페이스, 인간의 능력과 욕망)</code>으로 표현할 수 있을 것이다. 만약 이 함수가 틀렸고, 기술의 발전이 인간에게 자동적으로 적용되는 거라면 기술 격차라는 것은 결코 생기지 않을 것이다. 그렇다면 기술 격차가 존재하는 게 아니라, 그러한 기술의 혜택을 누리는 정도에 대한 빈부 격차만이 존재할 것이다. 하지만 그 말은 결코 사실이 아니며, 이미 기술 격차라는 것은 아주 선명한 문제이다.</p>
+
+<p>역설적으로 인간의 의해 기술이 발전하는 것이 아니라, 이미 충분히 발전된 기술의 가능성은 그 자체로서는 존재하지 않고, 인터페이스와 인간의 지식에 의해서 처음으로 그 가능성이 현실로 발현된다.  어쩌면 여기에 기술의 발전 위에서조차, 혹은 그러한 혜택을 충분히 누리면서도 발전사관을 거부할 수 있는 단초가 있을 지도 모른다. 많은 사람들이 <code>기술의 발전</code>은 당연한 것이라고 생각하지만 사실 컴퓨터의 하드웨어적 성능이 앞으로 계속해서 무한히 늘어난다고 해도 그것이 곧바로 더 큰 능력을 가진다고 말해야할 지는 미지수이기 때문이다. 앨런 케이가 맥루한의 &#39;미디어는 메시지다&#39;라는 말에 영향을 받은 것처럼, 개인용 컴퓨터는 기계적인 계산 기계가 아니라 오히려 미디어에 더 가까운 것이다. 그렇기 때문에 그것을 사용하는 사람이 그 기계를 충분히 내화시키지 못 한다면, 결국에 컴퓨터의 능력은 바로 그 지점에서 제한되어버리고 만다. 그렇기 때문에 미래는 이미 와있고, 널리 퍼지지 못 한 것은 그것을 충분히 내화하지 못 한 사람들에게는 존재하지 않은 세계이기 때문이다. (그래서 넓은 의미에서 해커들은 자신들이 일정부분 가장 진화된 인류라고 생각하고 있을 지도 모른다. 가장 발달된 기술을 향유하기 때문이 아니라 기계의 가장 큰 가능성을 끌어낼 수 있는 사람들이기 때문이다)</p>
+
+<p>SF 영화를 보면 미래사회에서 충분히 사이보그화된 주인공에게 지식을 주입하는 장면이 나오곤 한다. 사이보그화는 이미 이루어진 것이다. 하지만 단순히 신체를 강화시키는 사이보그를 넘어, 그 안에 숨겨져 있는 기계의 잠재성은 그 사이보그 주체의 지식에 의해서 결정될 수 밖에 없다. 뒤돌아 생각해보면 이러한 지식의 주입이 미디어로서의 미래 세계를 주인공에 내화시키는 일이 아닌가 싶다. 기술을 발전시킴으로서 그 변화가 주인공에게 주어지는 것이 아니라, 기술에 대한 지식을 주입함으로서 기계의 가능성과 인간의 가능성이 동시에 극대화되는 것이다. 기계가 진화한 것이 아니라, 이미 기계는 충분히 진화해있다. 이러한 진화된 기계의 활용을 극대화하기 위해 인간의 지식을 넓힌 것이다. 그러한 미래 사회에서, 그리고 지금 우리가 살아가고 있는 현실에서도 이미 모든 기계는 단말기가 아닌 범용 컴퓨터화되었다.</p>
+
+<p>집을 생각해보자. 스마트 홈 시스템에서 모든 전자기기는 컴퓨터일 것이다. 컴퓨터는 외부의 다른 컴퓨터나 인간과 소통할 수 있는 인터페이스를 가진다. 하지만 단순히 모든 전자기기가 컴퓨터라는 데서 이야기는 끝나지 않는다. 우리가 그것들과 좀 더 고도의 커뮤니케이션을 하기 위해서는(즉, 내 의사를 전달하기 위해서는) 좀 더 일반적이고 서로 연동가능한 API가 필요하다. 하지만 대부분의 전자 기기들은 이러한 인터페이스를 가지고 있지 않을 뿐더러, 있더라도 독자적인 표준을 따른다. 즉, 모든 전자기기는 컴퓨터이지만 서로 소통하지 못 하고, 외부의 중계 또한 받지 않는다. 그렇기 때문에 스마트 홈 시스템은 각각의 기기들 간의 소통이나 사람과의 소통을 증진하는 방향이 아니라, 하나의 업체가 집 전체를 일괄적으로 설계하고자 하는 유혹을 받기 쉽다. 그것들은 기본적을 기기들 간의 소통을 증진 시키기 위한 개선이다. 간헐적으로 기기들간의 소통이 증진된다고 모든 문제가 해결되지는 않는다. 사람의 욕망은 대개 좀 더 복잡하게 기술되어야한다. 만약 그렇지 못하다면 자동화는 무엇을 위한 것인가? 마치 데스크탑 위에서 애플리케이션 간 자동화를 구축하듯이 전자기기들 간의 워크플로우를 만드는 범용적인 인터페이스가 만들어질 수 있을까? 그리고 그런 인터페이스들은 대개 충분히 복잡할 텐데 사람들은 이 인터페이스를 통해서 자신의 의사를 얼마나 잘 전달할 수 있을까? 나는 단순한 보일러 조작 단말기한테도 매번 내 의사를 전달하는 데 실패하는데 말이다. 모든 기기들은 자신의 역할을 충분히 할 수 있다는 것이 증명되어있다. 이것들을 궁극적으로 다음 단계로 고양 시키는 것은 결국에 인터페이스와 그것을 사용하는 사람의 지식이다. 거꾸로 말하면 이제 컴퓨터 시스템의 한계는 컴퓨터의 연산능력이 아니라 바로 개인의 지식에 의해서 한계 지어진다.</p>
+
+<hr>
+
+<p>바네바 부시가 개인용 컴퓨터의 청사진을 그리는 동안에, 그러한 하드웨어적 장비들은 현실적으로 구현되지 않은 것들이었다. 하지만 그러한 기획은 처음부터 공장-기계들의 가치와는 동떨어진 것이었다. 단위시간당 생산량이란 원래 공장-기계이 가치를 판단한기 위한 지표이다. 그런데 이미 바네바 부시의 기획이 하드웨어적으로 충분히 가능해진 시점에서 바라보자면, 그의 기획이 그랬던 것처럼 개인용 컴퓨터에는 단위시간당 생산량이란 지표가 무엇을 의미하는 지 불분명한 일이 벌어지고 만다. 만약 우리가 개인용 컴퓨터를 이야기하면서 여전히 CPU의 클럭수를 가장 중요한 요소로 생각해왔던 거라면 여전히 그것을 공장-기계로 받아들여왔기 때문이라고 생각한다. 더 빠르고 더 많은 것을 해내는 것은 중요하다. 하지만 지금 가장 빠른 컴퓨터가 수십만배 빠른 컴퓨터가 있더라도 이미지 편집용 소프트웨어가 작동될 수 없다면, 그것보다 수십만배 느려도 이미지 편집용 소프트웨어가 있는 컴퓨터가 나을 수도 있다. 클럭은 인간이 인식할 수 있는 단위가 아니며, CPU는 인간이 직접 접근 가능한 인터페이스도 아니다.</p>
+
+<p>그래서 흥미롭게도 어느 지점에서부터는 더 이상 기술의 한계는 기술적이지 않고, 사회적이거나, 개인적이다. 인터페이스, 그리고 욕망. 그 순환 과정은 결국에 인간의 문제다. 인터페이스는 우리가 컴퓨터로 무엇을 할 수 있는가를 정의한다. 기계에 대한 지식은 곧 인터페이스에 대한 이해이자, 인터페이스를 확장시킬 수 있는 컴퓨터와 인간이 맞닿게 만들어주는 능력 자체이다. 그리고 결국에 그 위에서 무엇을 하고 싶은가가 우리의 욕망이다. 욕망이 지식을 습득하는 원동력이 되고, 결국에 기계를 이해하는 것이 우리 자신을 이해하는 것이 되고 말았다. 기계의 능력은 이제 사용자의 능력으로 정의된다. 기계의 클럭은 계산을 몇 번 할 수 있는 지를 나타내는 것이 아니라, 그것을 사용하는 인간의 능력이 충분할 때 기계가 최대한 할 수 있는 일의 한계를 의미하는 것이다.</p>
+
+<hr>
+
+<p>실은 모든 도구가 그렇다. 도구의 능력을 한계지우는 건 사용하는 사람이다. 그렇기 때문에 사람들은 단순한 도구조차도 잘 쓰는 사람을 존경심 어린 눈으로 쳐다본다. 명필은 붓을 가리지 않는 말도 그런 맥락에서 이해될 수 있을 것이다. 하지만 문제를 그런 식으로 치환해서는 안 된다. 컴퓨터는 범용적 도구이고, 비유하자면 완성형 니미츠급 항공모함 같은 존재이기 때문이다. 사람의 능력이 도구의 가치를 초월하게 만드는 것이 아니다. 컴퓨터라는 도구는 이미 사람들이 그 한계를 초월할 수 없을 정도로 발전되어 있고(이것은 마치 비행기 조종석의 복잡함 같은 인터페이스의 복잡함에 대한 이야기가 아니다), 그 가치는 사람들이 그것을 어떻게 운용하는 지에 의해서 결정된다. 또한 그 방향성 역시 사람의 욕망에 의해서 결정된다.</p>
+
+<hr>
+
+<p>우리가 필요로 하는 것은 노동을 절감해주는 컴퓨터가 아니라 우리가 해야 할 일을 증가시켜 주는 컴퓨터이다. 즉, 때로는 말장난을 하기도 하고(이것은 맥루한의 생각이다), 이전에는 생각치도 못했던 것을 알려주는 조이스(Joyce)의 가교역할을 하기도 하며(이것은 브라운의 생각이다), 컴퓨터가 우리를 작가에 주목하게 하는 것이 아니라 우리를 작가로 만드는 것이다(나의 생각이다). - 존 케이지</p>
+
+</div>
+<div class='recommand'>
+<strong>
+이 글이 도움이 되셨나요?
+</strong>
+<div class='links'>
+<div class='feedly'>
+<a href='http://feedly.com/i/subscription/feed/http://blog.nacyot.com/feed.xml'>
+<img id='feedlyFollow' style='display:inline;' src='http://s3.feedly.com/img/follows/feedly-follow-logo-green_2x.png' alt='follow us in feedly' width='20' height='20' />
+Feedly에서 nacyot의 프로그래밍 이야기 구독하기
+</a>
+</div>
+<div class='twitter'>
+<a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target='_blank'>
+<img style='display: inline' width='20' height='20' src='/images/twitter.png' />
+Twitter에서 nacyot 팔로우하기
+</a>
+</div>
+</div>
+</div>
+<div class='footer'>
+<hr>
+<div class='row'>
+<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+<div class='tags'>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/article'>
+이야기(article)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/computer'>
+컴퓨터(computer)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/cpu'>
+중앙 처리 장치(CPU)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/human'>
+사람(human)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/john_cage'>
+존 케이지(John Cage)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/machine'>
+기계(machine)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/technology'>
+기술(technology)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/tool'>
+도구(tool)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/vannevar_bush'>
+vannevar_bush(!)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+<div>
+<i class='fa fa-tag'></i>
+<a href='/tags/william_gibson'>
+윌리엄 깁슨(William Gibson)
+<span class='more'>
+더 보기
+</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<div class='row'>
+<div class='author col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>nacyot</h1>
+프로그래머
+</div>
+<div class='share col-lg-6 col-md-6 col-sm-6 col-xs-6'>
+<h1>Share this post</h1>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_pocket"></a>
+<a class="addthis_button_print"></a>
+<a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52ffce6f41e2b5e2"></script>
+<!-- AddThis Button END -->
+</div>
+</div>
+</div>
+<hr>
+<div id='disqus_thread'>
+<script>
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
+  
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</div>
+<div class='barcode' data-title='기계의 한계를 결정짓는 요소. CPU 클럭 혹은 인간의 욕망'></div>
+<div class='navigation'>
+<div class='prevnav'>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<div class='fa fa-chevron-left'></div>
+<a href='/articles/2015-09-30-packer-introduction/' rel='prev'>이전 글</a>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-software-top' style='width: 50.0%'></div>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/">패커(Packer)로 도커(Docker) 이미지 빌드 및 AMI 자동 빌드 시스템 구축</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<i class='fa fa-calendar'></i>
+2015년 09월 30일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/yFhEkck.png" />
+</div>
+<p><a href="https://www.packer.io/">패커(Packer)</a>는 범용적 머신/컨테이너 이미지 생성기이다. 이미지는 일반적으로 가상머신의 특정한 상태를 그대로 저장해서 만들어진다. Packer에서는 Builder 컴포넌트를 통해 다양한 플랫폼을 지원하고, Provisioner 컴포넌트를 통해 다양한 도구로 이미지를 빌드할 수 있다. 이 글은 2015년 9월 5일 네번째 <a href="http://forum.opencontainer.co.kr/t/open-container-seoul-meetup-4th/420">Docker Seoul Meetup</a>에서 발표한 내용을 기반으로 작성되었으며, Packer에 대한 기본적인 기능들과 간단한 사용법에 대해서 소개한다.</p>
+
+<span class='link'>
+<a href="http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/aws'>aws</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker_seoul_meetup'>docker_seoul_meetup</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/packer'>packer</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+</div>
+<div class='barcode' data-title='패커(Packer)로 도커(Docker) 이미지 빌드 및 AMI 자동 빌드 시스템 구축'></div>
+</div>
+
+</div>
+<div class='nextnav'>
+</div>
+<br style='clear:both'>
+</div>
+</div>
+</div>
+</div>
+<div class='col-lg-2 col-md-2'></div>
+</div>
+<script>
+  $('.toc').toc({
+    'selectors': 'h2,h3,h4,h5',
+    'container': '.article'
+  });
+</script>
+
+<div class='row'>
+<div class='col-lg-12'>
+<hr>
+<div class='site-footer'>
+<div class='search-form'>
+<form role="search" id="cse-search-box" action="http://google.com/cse">
+<input type="hidden" name="cx" value="001442510316556568987:j38kphmalos" />
+<input type="hidden" name="ie" value="UTF-8" />
+<div class="form-group">
+<input class="form-control" type="text" name="q" size="15" />
+</div>
+</form>
+</div>
+<div class='navigaiton'>
+<a class='icon' href='/' title='블로그 메인으로 이동'>
+<i class='fa-home fa fa-2x'></i>
+</a>
+<a class='icon' href='http://nacyot.com' title='nacyot.com'>
+<i class='fa-user fa fa-2x'></i>
+</a>
+<a class='icon' href='https://twitter.com/nacyo_t' title='nacyo_t 트위터'>
+<i class='fa-twitter fa fa-2x'></i>
+</a>
+<a class='icon' href='https://github.com/nacyot' title='nacyot Github'>
+<i class='fa-github fa fa-2x'></i>
+</a>
+<a class='icon' href='/feed.xml' style='color: orange' title='nacyot의 프로그래밍 이야기 RSS feed'>
+<i class='fa-rss fa fa-2x'></i>
+</a>
+</div>
+<div class='copyright'>
+<div>
+All content copyright
+<a href='http://nacyot.com'>nacyot</a>
+© 2013-2015
+</div>
+<div></div>
+All rights reserved.
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
+

@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -144,14 +144,14 @@ nacyot의 프로그래밍 이야기
 <h2><a name='npm-패키지-관리자를-통한-tern-설치하기'>npm 패키지 관리자를 통한 Tern 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>우선 Tern을 사용하기 위해서는 Tern을 설치해야할 필요가 있습니다. 먼저 npm을 사용해서 설치해보겠습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>npm install -g tern
-</span><span id="line-2">npm http GET https://registry.npmjs.org/tern
-</span><span id="line-3">npm http 200 https://registry.npmjs.org/tern
-</span><span id="line-4">...
-</span><span id="line-5">tern@0.5.0 /home/myhome/.nvm/v0.10.24/lib/node_modules/tern
-</span><span id="line-6">├── acorn@0.4.2
-</span><span id="line-7">├── glob@3.2.9 <span class="o">(</span>inherits@2.0.1<span class="o">)</span>
-</span><span id="line-8">└── minimatch@0.2.14 <span class="o">(</span>sigmund@1.0.0, lru-cache@2.5.0<span class="o">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">$</span> <span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="n">g</span> <span class="n">tern</span>
+</span><span id="line-2"><span class="n">npm</span> <span class="n">http</span> <span class="n">GET</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//registry.npmjs.org/tern</span>
+</span><span id="line-3"><span class="n">npm</span> <span class="n">http</span> <span class="mi">200</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//registry.npmjs.org/tern</span>
+</span><span id="line-4"><span class="p">...</span>
+</span><span id="line-5"><span class="n">tern</span><span class="mf">@0.5.0</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">myhome</span><span class="o">/</span><span class="p">.</span><span class="n">nvm</span><span class="o">/</span><span class="n">v0</span><span class="mf">.10.24</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">node_modules</span><span class="o">/</span><span class="n">tern</span>
+</span><span id="line-6"><span class="err">├──</span> <span class="n">acorn</span><span class="mf">@0.4.2</span>
+</span><span id="line-7"><span class="err">├──</span> <span class="n">glob</span><span class="mf">@3.2.9</span> <span class="p">(</span><span class="n">inherits</span><span class="mf">@2.0.1</span><span class="p">)</span>
+</span><span id="line-8"><span class="err">└──</span> <span class="n">minimatch</span><span class="mf">@0.2.14</span> <span class="p">(</span><span class="n">sigmund</span><span class="mf">@1.0.0</span><span class="p">,</span> <span class="n">lru</span><span class="o">-</span><span class="n">cache</span><span class="mf">@2.5.0</span><span class="p">)</span>
 </span></pre></div>
 <p><span class='live_link'><a href='http://wiki.nacyot.com/documents/npm'>npm</a></span>을 사용하는 게 가장 간단합니다만, npm을 사용할 수 없는 경우엔,</p>
 
@@ -167,15 +167,15 @@ nacyot의 프로그래밍 이야기
 <p>Tern 설치가 되었다면 이제 이맥스와 연동을 해야합니다. Tern은 기본적으로 이맥스 24 이상을 지원하고 있습니다. 먼저 설치된 이맥스 버전을 확인해주시고, 필요한 경우 버전을 올려줍니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>emacs --version
 </span><span id="line-2">GNU Emacs 24.3.1
-</span><span id="line-3">Copyright <span class="o">(</span>C<span class="o">)</span> 2013 Free Software Foundation, Inc.
+</span><span id="line-3">Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2013</span> Free Software Foundation, Inc.
 </span><span id="line-4">GNU Emacs comes with ABSOLUTELY NO WARRANTY.
 </span><span id="line-5">You may redistribute copies of Emacs
 </span><span id="line-6">under the terms of the GNU General Public License.
 </span><span id="line-7">For more information about these matters, see the file named COPYING.
 </span></pre></div>
 <p>또한 이맥스 24에는 강력한 패키지 관리자가 기본으로 포함되어있습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nx">M</span><span class="na">-x</span> <span class="nx">package</span><span class="na">-install</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span> <span class="nx">tern</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span>
-</span><span id="line-2"><span class="nx">M</span><span class="na">-x</span> <span class="nx">package</span><span class="na">-install</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span> <span class="nx">tern</span><span class="na">-auto-complate</span> <span class="o">&lt;</span><span class="nx">enter</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">M</span><span class="o">-</span><span class="vg">x</span><span class="w"> </span><span class="vg">package</span><span class="o">-</span><span class="vg">install</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">enter</span><span class="o">&gt;</span><span class="w"> </span><span class="vg">tern</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">enter</span><span class="o">&gt;</span>
+</span><span id="line-2"><span class="vg">M</span><span class="o">-</span><span class="vg">x</span><span class="w"> </span><span class="vg">package</span><span class="o">-</span><span class="vg">install</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">enter</span><span class="o">&gt;</span><span class="w"> </span><span class="vg">tern</span><span class="o">-</span><span class="vg">auto</span><span class="o">-</span><span class="vg">complate</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">enter</span><span class="o">&gt;</span>
 </span></pre></div>
 <p>만약 패키지를 찾을 수 없다면 <code>~/.emacs.d/init.el</code>이나 이에 해당하는 사용하고 있는 이맥스 설정 파일에 다음 내용을 추가합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
@@ -201,14 +201,14 @@ nacyot의 프로그래밍 이야기
 
 <p>프로젝트 설정 파일의 대략적인 구조는 다음과 같습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="p">{</span>
-</span><span id="line-2">  <span class="s">&quot;libs&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-3">    <span class="s">&quot;browser&quot;</span><span class="p">,</span>
-</span><span id="line-4">    <span class="s">&quot;jquery&quot;</span>
-</span><span id="line-5">  <span class="p">],</span>
-</span><span id="line-6">  <span class="s">&quot;loadEagerly&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-7">  <span class="p">],</span>
-</span><span id="line-8">  <span class="s">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span id="line-9">  <span class="p">}</span>
+</span><span id="line-2"><span class="w">  </span><span class="s2">&quot;libs&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-3"><span class="w">    </span><span class="s2">&quot;browser&quot;</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">    </span><span class="s2">&quot;jquery&quot;</span>
+</span><span id="line-5"><span class="w">  </span><span class="p">],</span>
+</span><span id="line-6"><span class="w">  </span><span class="s2">&quot;loadEagerly&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-7"><span class="w">  </span><span class="p">],</span>
+</span><span id="line-8"><span class="w">  </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-9"><span class="w">  </span><span class="p">}</span>
 </span><span id="line-10"><span class="p">}</span>
 </span></pre></div>
 <p><code>libs</code>에는 tern에서 미리 정의해놓고 있는 <a href="http://ternjs.net/doc/manual.html#typedef">JSON type definitions</a> 형식을 따르는 라이브러리 정의 파일을 지정할 수 있습니다. <a href="https://github.com/marijnh/tern/tree/master/defs">tern 저장소에서 확인할 수 있는 바</a>로는 <code>browser</code>, <code>chai</code>, <code>ecma5</code>,  <code>jquery</code>, <code>underscore</code> 다섯가지를 기본적으로 사용할 수 있습니다.</p>
@@ -219,15 +219,15 @@ nacyot의 프로그래밍 이야기
 
 <p><code>loadEagerly</code> 옵션을 통해 프로젝트 아래에서 미리 읽어둘 파일을 지정할 수 있습니다. 예를 들어 d3js를 bower로 설치하고 다음과 같이 프로젝트를 설정합니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="p">{</span>
-</span><span id="line-2">  <span class="s">&quot;libs&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-3">    <span class="s">&quot;browser&quot;</span><span class="p">,</span>
-</span><span id="line-4">    <span class="s">&quot;jquery&quot;</span>
-</span><span id="line-5">  <span class="p">],</span>
-</span><span id="line-6">  <span class="s">&quot;loadEagerly&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-7">    <span class="s">&quot;bower_components/d3js/build/d3.v3.js&quot;</span>
-</span><span id="line-8">  <span class="p">],</span>
-</span><span id="line-9">  <span class="s">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span id="line-10">  <span class="p">}</span>
+</span><span id="line-2"><span class="w">  </span><span class="s2">&quot;libs&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-3"><span class="w">    </span><span class="s2">&quot;browser&quot;</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">    </span><span class="s2">&quot;jquery&quot;</span>
+</span><span id="line-5"><span class="w">  </span><span class="p">],</span>
+</span><span id="line-6"><span class="w">  </span><span class="s2">&quot;loadEagerly&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-7"><span class="w">    </span><span class="s2">&quot;bower_components/d3js/build/d3.v3.js&quot;</span>
+</span><span id="line-8"><span class="w">  </span><span class="p">],</span>
+</span><span id="line-9"><span class="w">  </span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-10"><span class="w">  </span><span class="p">}</span>
 </span><span id="line-11"><span class="p">}</span>
 </span></pre></div>
 <p>이를 통해서 <span class='live_link'><a href='http://wiki.nacyot.com/documents/d3js'>d3js</a></span> 라이브러리에 관련된 자동 완성이나 <code>tern-find-definition</code>과 같은 기능을 사용할 수 있게됩니다. <code>**</code>와 같은 패턴 매치도 사용가능하니 자바스크립트를 모아놓는 디렉토리를 미리 불러오는 것도 가능합니다.</p>

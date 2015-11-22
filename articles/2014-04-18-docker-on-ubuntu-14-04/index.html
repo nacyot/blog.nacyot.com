@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -142,7 +142,7 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-10">Ubuntu 14.04 x64 <span class="o">(</span>id: 3229624, distro: Ubuntu<span class="o">)</span>
 </span></pre></div>
 <p>디지털 오션 인스턴스를 실행합니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>tugboat create UbuntuDocker -s 66 -i 3229624 -r 6-k &lt;ssh_key_id&gt;
+<div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>tugboat create UbuntuDocker -s <span class="m">66</span> -i <span class="m">3229624</span> -r 6-k &lt;ssh_key_id&gt;
 </span></pre></div>
 <p>각각의 인자는 <code>-s</code> 인스턴스 종류(66은 제일 작은 인스턴스), <code>-i</code> 이미지(3229624 = Ubuntu 14.04 x64), <code>-r</code> 지역(6은 싱가폴)을 의미하면 마지막의 <code>-k</code>에는 자신의 ssh_key id를 넣어줍니다.</p>
 
@@ -158,7 +158,7 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-5">
 </span><span id="line-6">System information disabled due to load higher than 1.0
 </span><span id="line-7">
-</span><span id="line-8">Last login: Fri Apr 18 07:12:05 2014 from 123.98.184.24
+</span><span id="line-8">Last login: Fri Apr <span class="m">18</span> 07:12:05 <span class="m">2014</span> from 123.98.184.24
 </span><span id="line-9">root@UbuntuDocker:~#
 </span></pre></div>
 <p>ssh 접속 안내메시지를 통해서 우분투 14.04임을 확인할 수 있습니다. 우분투 14.04(Trusty)부터는 도커를 별다른 설정없이 패키지 관리자 <code>apt-get</code>을 통해서 공식 저장소로부터 바로 설치할 수 있습니다. 먼저 패키지 정보를 확인해봅니다.</p>

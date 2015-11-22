@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -166,60 +166,60 @@ nacyot의 프로그래밍 이야기
 <h3><a name='은전한잎(mecab-ko)-설치'>은전한잎(mecab-ko) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저 은전한잎을 설치한다. 은전한잎은 일본어 형태소 분석기 mecab를 한국어에 맞게 수정한 프로젝트로 mecab-ko라는 프로젝트 이름을 가지고 있다. 최신버전 및 자세한 내용은 <a href="https://bitbucket.org/eunjeon/mecab-ko">저장소</a>를 참고하기 바란다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># 의존성 설치</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">automake</span> <span class="n">perl</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="err">의존성</span><span class="w"> </span><span class="err">설치</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="o">-</span><span class="vg">y</span><span class="w"> </span><span class="vg">automake</span><span class="w"> </span><span class="vg">perl</span><span class="w"> </span><span class="vg">build</span><span class="o">-</span><span class="vg">essential</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># mecab-ko 다운로드</span>
-</span><span id="line-5"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span>
-</span><span id="line-6"><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.2.tar.gz</span>
-</span><span id="line-7"><span class="err">$</span> <span class="n">tar</span> <span class="n">xvf</span> <span class="n">mecab</span><span class="o">-</span><span class="mf">0.996</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="mf">0.9.2</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="w"> </span><span class="err">다운로드</span>
+</span><span id="line-5"><span class="err">$</span><span class="w"> </span><span class="vg">cd</span><span class="w"> </span><span class="o">/</span><span class="vg">opt</span>
+</span><span id="line-6"><span class="err">$</span><span class="w"> </span><span class="vg">wget</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">bitbucket</span><span class="o">.</span><span class="vg">org</span><span class="o">/</span><span class="vg">eunjeon</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="o">/</span><span class="vg">downloads</span><span class="o">/</span><span class="vg">mecab</span><span class="mf">-0.996</span><span class="o">-</span><span class="vg">ko</span><span class="mf">-0.9.2</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span>
+</span><span id="line-7"><span class="err">$</span><span class="w"> </span><span class="vg">tar</span><span class="w"> </span><span class="vg">xvf</span><span class="w"> </span><span class="vg">mecab</span><span class="mf">-0.996</span><span class="o">-</span><span class="vg">ko</span><span class="mf">-0.9.2</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span>
 </span><span id="line-8">
-</span><span id="line-9"><span class="cp"># 빌드 및 설치</span>
-</span><span id="line-10"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">mecab</span><span class="o">-</span><span class="mf">0.996</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="mf">0.9.2</span>
-</span><span id="line-11"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">configure</span>
-</span><span id="line-12"><span class="err">$</span> <span class="n">make</span>
-</span><span id="line-13"><span class="err">$</span> <span class="n">make</span> <span class="n">check</span>
-</span><span id="line-14"><span class="err">$</span> <span class="n">make</span> <span class="n">install</span>
-</span><span id="line-15"><span class="err">$</span> <span class="n">ldconfig</span>
+</span><span id="line-9"><span class="err">#</span><span class="w"> </span><span class="err">빌드</span><span class="w"> </span><span class="err">및</span><span class="w"> </span><span class="err">설치</span>
+</span><span id="line-10"><span class="err">$</span><span class="w"> </span><span class="vg">cd</span><span class="w"> </span><span class="o">/</span><span class="vg">opt</span><span class="o">/</span><span class="vg">mecab</span><span class="mf">-0.996</span><span class="o">-</span><span class="vg">ko</span><span class="mf">-0.9.2</span>
+</span><span id="line-11"><span class="err">$</span><span class="w"> </span><span class="o">./</span><span class="vg">configure</span>
+</span><span id="line-12"><span class="err">$</span><span class="w"> </span><span class="vg">make</span>
+</span><span id="line-13"><span class="err">$</span><span class="w"> </span><span class="vg">make</span><span class="w"> </span><span class="vg">check</span>
+</span><span id="line-14"><span class="err">$</span><span class="w"> </span><span class="vg">make</span><span class="w"> </span><span class="vg">install</span>
+</span><span id="line-15"><span class="err">$</span><span class="w"> </span><span class="vg">ldconfig</span>
 </span></pre></div>
 <h3><a name='mecab-ko-dic-설치'>mecab-ko-dic 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>다음으로 형태소 분석을 위한 사전을 설치한다. 자세한 내용은 <a href="https://bitbucket.org/eunjeon/mecab-ko-dic/">저장소</a>를 참조하기 바란다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># mecab-ko-dic 다운로드</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span>
-</span><span id="line-3"><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//bitbucket.org/eunjeon/mecab-ko-dic/downloads/mecab-ko-dic-2.0.0-20150517.tar.gz</span>
-</span><span id="line-4"><span class="err">$</span> <span class="n">tar</span> <span class="n">xvf</span> <span class="n">mecab</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="n">dic</span><span class="o">-</span><span class="mf">1.6.1</span><span class="o">-</span><span class="mf">20140814.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="o">-</span><span class="vg">dic</span><span class="w"> </span><span class="err">다운로드</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">cd</span><span class="w"> </span><span class="o">/</span><span class="vg">opt</span>
+</span><span id="line-3"><span class="err">$</span><span class="w"> </span><span class="vg">wget</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">bitbucket</span><span class="o">.</span><span class="vg">org</span><span class="o">/</span><span class="vg">eunjeon</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="o">-</span><span class="vg">dic</span><span class="o">/</span><span class="vg">downloads</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="o">-</span><span class="vg">dic</span><span class="mf">-2.0.0</span><span class="il">-20150517</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span>
+</span><span id="line-4"><span class="err">$</span><span class="w"> </span><span class="vg">tar</span><span class="w"> </span><span class="vg">xvf</span><span class="w"> </span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="o">-</span><span class="vg">dic</span><span class="mf">-1.6.1</span><span class="il">-20140814</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span>
 </span><span id="line-5">
-</span><span id="line-6"><span class="cp"># 빌드 및 설치</span>
-</span><span id="line-7"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">mecab</span><span class="o">-</span><span class="n">ko</span><span class="o">-</span><span class="n">dic</span><span class="o">-</span><span class="mf">1.6.1</span><span class="o">-</span><span class="mi">20140814</span>
-</span><span id="line-8"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">autogen</span><span class="p">.</span><span class="n">sh</span>
-</span><span id="line-9"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">configure</span>
-</span><span id="line-10"><span class="err">$</span> <span class="n">make</span>
-</span><span id="line-11"><span class="err">$</span> <span class="n">make</span> <span class="n">install</span>
+</span><span id="line-6"><span class="err">#</span><span class="w"> </span><span class="err">빌드</span><span class="w"> </span><span class="err">및</span><span class="w"> </span><span class="err">설치</span>
+</span><span id="line-7"><span class="err">$</span><span class="w"> </span><span class="vg">cd</span><span class="w"> </span><span class="o">/</span><span class="vg">opt</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="o">-</span><span class="vg">dic</span><span class="mf">-1.6.1</span><span class="il">-20140814</span>
+</span><span id="line-8"><span class="err">$</span><span class="w"> </span><span class="o">./</span><span class="vg">autogen</span><span class="o">.</span><span class="vg">sh</span>
+</span><span id="line-9"><span class="err">$</span><span class="w"> </span><span class="o">./</span><span class="vg">configure</span>
+</span><span id="line-10"><span class="err">$</span><span class="w"> </span><span class="vg">make</span>
+</span><span id="line-11"><span class="err">$</span><span class="w"> </span><span class="vg">make</span><span class="w"> </span><span class="vg">install</span>
 </span></pre></div>
 <h3><a name='mecab-java-설치'>mecab-java 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>다음므로 tagger와 lexicon의 메모리 누수가 해결된 mecab-java 버전을 설치한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># 환경 변수 설정</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">export</span> <span class="n">JAVA_TOOL_OPTIONS</span> <span class="o">-</span><span class="n">Dfile</span><span class="p">.</span><span class="n">encoding</span><span class="o">=</span><span class="n">UTF8</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="err">환경</span><span class="w"> </span><span class="err">변수</span><span class="w"> </span><span class="err">설정</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">export</span><span class="w"> </span><span class="vg">JAVA_TOOL_OPTIONS</span><span class="w"> </span><span class="o">-</span><span class="vg">Dfile</span><span class="o">.</span><span class="vg">encoding</span><span class="o">=</span><span class="vg">UTF8</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># mecab-java 다운로드</span>
-</span><span id="line-5"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span>
-</span><span id="line-6"><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//mecab.googlecode.com/files/mecab-java-0.996.tar.gz</span>
-</span><span id="line-7"><span class="err">$</span> <span class="n">tar</span> <span class="n">xvf</span> <span class="n">mecab</span><span class="o">-</span><span class="n">java</span><span class="o">-</span><span class="mf">0.996</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="vg">mecab</span><span class="o">-</span><span class="vg">java</span><span class="w"> </span><span class="err">다운로드</span>
+</span><span id="line-5"><span class="err">$</span><span class="w"> </span><span class="vg">cd</span><span class="w"> </span><span class="o">/</span><span class="vg">opt</span>
+</span><span id="line-6"><span class="err">$</span><span class="w"> </span><span class="vg">wget</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">mecab</span><span class="o">.</span><span class="vg">googlecode</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">files</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">java</span><span class="mf">-0.996</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span>
+</span><span id="line-7"><span class="err">$</span><span class="w"> </span><span class="vg">tar</span><span class="w"> </span><span class="vg">xvf</span><span class="w"> </span><span class="vg">mecab</span><span class="o">-</span><span class="vg">java</span><span class="mf">-0.996</span><span class="o">.</span><span class="vg">tar</span><span class="o">.</span><span class="vg">gz</span>
 </span><span id="line-8">
-</span><span id="line-9"><span class="cp"># 빌드 및 설치</span>
-</span><span id="line-10"><span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">mecab</span><span class="o">-</span><span class="n">java</span><span class="o">-</span><span class="mf">0.996</span>
-</span><span id="line-11"><span class="err">$</span> <span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">|/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jvm</span><span class="o">/</span><span class="n">java</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="n">openjdk</span><span class="o">/</span><span class="n">include</span><span class="o">|/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jvm</span><span class="o">/</span><span class="n">java</span><span class="o">-</span><span class="mi">8</span><span class="o">-</span><span class="n">oracle</span><span class="o">/</span><span class="n">include</span><span class="o">|</span><span class="err">&#39;</span> <span class="n">Makefile</span>
-</span><span id="line-12"><span class="err">$</span> <span class="n">make</span>
+</span><span id="line-9"><span class="err">#</span><span class="w"> </span><span class="err">빌드</span><span class="w"> </span><span class="err">및</span><span class="w"> </span><span class="err">설치</span>
+</span><span id="line-10"><span class="err">$</span><span class="w"> </span><span class="vg">cd</span><span class="w"> </span><span class="o">/</span><span class="vg">opt</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">java</span><span class="mf">-0.996</span>
+</span><span id="line-11"><span class="err">$</span><span class="w"> </span><span class="vg">sed</span><span class="w"> </span><span class="o">-</span><span class="vg">i</span><span class="w"> </span><span class="c1">&#39;s|/usr/lib/jvm/java-6-openjdk/include|/usr/lib/jvm/java-8-oracle/include|&#39; Makefile</span>
+</span><span id="line-12"><span class="err">$</span><span class="w"> </span><span class="vg">make</span>
 </span><span id="line-13">
-</span><span id="line-14"><span class="cp"># 빌드된 파일 이동(elasticsearch 실행시 참조해주어야 함)</span>
-</span><span id="line-15"><span class="err">$</span> <span class="n">cp</span> <span class="n">libMeCab</span><span class="p">.</span><span class="n">so</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span>
+</span><span id="line-14"><span class="err">#</span><span class="w"> </span><span class="err">빌드된</span><span class="w"> </span><span class="err">파일</span><span class="w"> </span><span class="err">이동</span><span class="p">(</span><span class="vg">elasticsearch</span><span class="w"> </span><span class="err">실행시</span><span class="w"> </span><span class="err">참조해주어야</span><span class="w"> </span><span class="err">함</span><span class="p">)</span>
+</span><span id="line-15"><span class="err">$</span><span class="w"> </span><span class="vg">cp</span><span class="w"> </span><span class="vg">libMeCab</span><span class="o">.</span><span class="vg">so</span><span class="w"> </span><span class="o">/</span><span class="vg">usr</span><span class="o">/</span><span class="vg">local</span><span class="o">/</span><span class="vg">lib</span>
 </span></pre></div>
 <h3><a name='엘라스틱서치-mecab-ko-플러그인-설치'>엘라스틱서치 mecab-ko 플러그인 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>마지막으로 엘라스틱서치에서 사용할 수 있도록 mecab-ko를 설치한다. <code>&lt;ELASTICSEARCH_PATH&gt;</code>에는 엘라스틱서치가 설치된 경로를 넣어준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nt">&lt;ELASTICSEARCH_PATH&gt;</span>/bin/plugin --install analysis-mecab-ko-0.17.0 --url https://bitbucket.org/eunjeon/mecab-ko-lucene-analyzer/downloads/elasticsearch-analysis-mecab-ko-0.17.0.zip
+<div class="highlight"><pre><span id="line-1"><span class="o">&lt;</span><span class="vg">ELASTICSEARCH_PATH</span><span class="o">&gt;/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">plugin</span><span class="w"> </span><span class="o">--</span><span class="vg">install</span><span class="w"> </span><span class="vg">analysis</span><span class="o">-</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="mf">-0.17.0</span><span class="w"> </span><span class="o">--</span><span class="vg">url</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">bitbucket</span><span class="o">.</span><span class="vg">org</span><span class="o">/</span><span class="vg">eunjeon</span><span class="o">/</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="o">-</span><span class="vg">lucene</span><span class="o">-</span><span class="vg">analyzer</span><span class="o">/</span><span class="vg">downloads</span><span class="o">/</span><span class="vg">elasticsearch</span><span class="o">-</span><span class="vg">analysis</span><span class="o">-</span><span class="vg">mecab</span><span class="o">-</span><span class="vg">ko</span><span class="mf">-0.17.0</span><span class="o">.</span><span class="vg">zip</span>
 </span></pre></div>
 <h2><a name='형태소-분석을-통한-한국어-문장-검색'>형태소 분석을 통한 한국어 문장 검색</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
@@ -258,33 +258,33 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-29"><span class="o">}</span>
 </span></pre></div>
 <p>처음에 얘기한대로 문장이 &quot;아버지가&quot; 통째로 분석된다. 이렇게 되면 &quot;아버지&quot;로는 이 문장을 검색할 수 없다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># 데이터 입력</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XPUT</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/default/text/1&#39; -d &#39;{&quot;text&quot;: &quot;아버지가 방에 들어간다&quot;}&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="err">데이터</span><span class="w"> </span><span class="err">입력</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">XPUT</span><span class="w"> </span><span class="c1">&#39;http://0.0.0.0:9200/default/text/1&#39; -d &#39;{&quot;text&quot;: &quot;아버지가 방에 들어간다&quot;}&#39;</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># &#39;아버지&#39;로 검색</span>
-</span><span id="line-5"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/default/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지&quot;}}}}&#39; | jq .hits</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="c1">&#39;아버지&#39;로 검색</span>
+</span><span id="line-5"><span class="err">$</span><span class="w"> </span><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">XGET</span><span class="w"> </span><span class="c1">&#39;http://0.0.0.0:9200/default/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지&quot;}}}}&#39; | jq .hits</span>
 </span><span id="line-6"><span class="p">{</span>
-</span><span id="line-7">  <span class="s">&quot;total&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-</span><span id="line-8">  <span class="s">&quot;max_score&quot;</span><span class="o">:</span> <span class="n">null</span><span class="p">,</span>
-</span><span id="line-9">  <span class="s">&quot;hits&quot;</span><span class="o">:</span> <span class="p">[]</span>
+</span><span id="line-7"><span class="w">  </span><span class="s2">&quot;total&quot;</span><span class="o">:</span><span class="w"> </span><span class="il">0</span><span class="p">,</span>
+</span><span id="line-8"><span class="w">  </span><span class="s2">&quot;max_score&quot;</span><span class="o">:</span><span class="w"> </span><span class="vg">null</span><span class="p">,</span>
+</span><span id="line-9"><span class="w">  </span><span class="s2">&quot;hits&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span>
 </span><span id="line-10"><span class="p">}</span>
 </span><span id="line-11">
-</span><span id="line-12"><span class="cp"># &#39;아버지가&#39;로 검색</span>
-</span><span id="line-13"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/default/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지가&quot;}}}}&#39; | jq .hits</span>
+</span><span id="line-12"><span class="err">#</span><span class="w"> </span><span class="c1">&#39;아버지가&#39;로 검색</span>
+</span><span id="line-13"><span class="err">$</span><span class="w"> </span><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">XGET</span><span class="w"> </span><span class="c1">&#39;http://0.0.0.0:9200/default/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지가&quot;}}}}&#39; | jq .hits</span>
 </span><span id="line-14"><span class="p">{</span>
-</span><span id="line-15">  <span class="s">&quot;total&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span id="line-16">  <span class="s">&quot;max_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
-</span><span id="line-17">  <span class="s">&quot;hits&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-18">    <span class="p">{</span>
-</span><span id="line-19">      <span class="s">&quot;_index&quot;</span><span class="o">:</span> <span class="s">&quot;default&quot;</span><span class="p">,</span>
-</span><span id="line-20">      <span class="s">&quot;_type&quot;</span><span class="o">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
-</span><span id="line-21">      <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;1&quot;</span><span class="p">,</span>
-</span><span id="line-22">      <span class="s">&quot;_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
-</span><span id="line-23">      <span class="s">&quot;_source&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span id="line-24">        <span class="s">&quot;text&quot;</span><span class="o">:</span> <span class="s">&quot;아버지가 방에 들어간다&quot;</span>
-</span><span id="line-25">      <span class="p">}</span>
-</span><span id="line-26">    <span class="p">}</span>
-</span><span id="line-27">  <span class="p">]</span>
+</span><span id="line-15"><span class="w">  </span><span class="s2">&quot;total&quot;</span><span class="o">:</span><span class="w"> </span><span class="il">1</span><span class="p">,</span>
+</span><span id="line-16"><span class="w">  </span><span class="s2">&quot;max_score&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-17"><span class="w">  </span><span class="s2">&quot;hits&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-18"><span class="w">    </span><span class="p">{</span>
+</span><span id="line-19"><span class="w">      </span><span class="s2">&quot;_index&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+</span><span id="line-20"><span class="w">      </span><span class="s2">&quot;_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+</span><span id="line-21"><span class="w">      </span><span class="s2">&quot;_id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+</span><span id="line-22"><span class="w">      </span><span class="s2">&quot;_score&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-23"><span class="w">      </span><span class="s2">&quot;_source&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-24"><span class="w">        </span><span class="s2">&quot;text&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;아버지가 방에 들어간다&quot;</span>
+</span><span id="line-25"><span class="w">      </span><span class="p">}</span>
+</span><span id="line-26"><span class="w">    </span><span class="p">}</span>
+</span><span id="line-27"><span class="w">  </span><span class="p">]</span>
 </span><span id="line-28"><span class="p">}</span>
 </span></pre></div>
 <p>이번에는 <code>korean</code>이라는 이름으로 <code>mecab_ko_standard_tokenizer</code>가 적용된 인덱스를 생성한다.</p>
@@ -338,25 +338,25 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-22"><span class="o">}</span>
 </span></pre></div>
 <p>이번에는 &quot;아버지&quot;나 &quot;방&quot;이 명사로 분석된 것을 알 수 있다. 이렇게 인덱스가 되면 정상적으로 검색이 가능하다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># 데이터 입력</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XPUT</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/korean/text/1&#39; -d &#39;{&quot;text&quot;: &quot;아버지가 방에 들어간다&quot;}&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="err">데이터</span><span class="w"> </span><span class="err">입력</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">XPUT</span><span class="w"> </span><span class="c1">&#39;http://0.0.0.0:9200/korean/text/1&#39; -d &#39;{&quot;text&quot;: &quot;아버지가 방에 들어간다&quot;}&#39;</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># &#39;아버지&#39;로 검색</span>
-</span><span id="line-5"><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">XGET</span> <span class="err">&#39;</span><span class="n">http</span><span class="o">:</span><span class="c1">//0.0.0.0:9200/korean/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지&quot;}}}}&#39; | jq .hits</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="c1">&#39;아버지&#39;로 검색</span>
+</span><span id="line-5"><span class="err">$</span><span class="w"> </span><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">XGET</span><span class="w"> </span><span class="c1">&#39;http://0.0.0.0:9200/korean/_search&#39; -d &#39;{&quot;query&quot;:{&quot;term&quot;: {&quot;text&quot;: &quot;아버지&quot;}}}}&#39; | jq .hits</span>
 </span><span id="line-6"><span class="p">{</span>
-</span><span id="line-7">  <span class="s">&quot;total&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span id="line-8">  <span class="s">&quot;max_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
-</span><span id="line-9">  <span class="s">&quot;hits&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-10">    <span class="p">{</span>
-</span><span id="line-11">      <span class="s">&quot;_index&quot;</span><span class="o">:</span> <span class="s">&quot;korean&quot;</span><span class="p">,</span>
-</span><span id="line-12">      <span class="s">&quot;_type&quot;</span><span class="o">:</span> <span class="s">&quot;text&quot;</span><span class="p">,</span>
-</span><span id="line-13">      <span class="s">&quot;_id&quot;</span><span class="o">:</span> <span class="s">&quot;1&quot;</span><span class="p">,</span>
-</span><span id="line-14">      <span class="s">&quot;_score&quot;</span><span class="o">:</span> <span class="mf">0.15342641</span><span class="p">,</span>
-</span><span id="line-15">      <span class="s">&quot;_source&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span id="line-16">        <span class="s">&quot;text&quot;</span><span class="o">:</span> <span class="s">&quot;아버지가 방에 들어간다&quot;</span>
-</span><span id="line-17">      <span class="p">}</span>
-</span><span id="line-18">    <span class="p">}</span>
-</span><span id="line-19">  <span class="p">]</span>
+</span><span id="line-7"><span class="w">  </span><span class="s2">&quot;total&quot;</span><span class="o">:</span><span class="w"> </span><span class="il">1</span><span class="p">,</span>
+</span><span id="line-8"><span class="w">  </span><span class="s2">&quot;max_score&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-9"><span class="w">  </span><span class="s2">&quot;hits&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-10"><span class="w">    </span><span class="p">{</span>
+</span><span id="line-11"><span class="w">      </span><span class="s2">&quot;_index&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;korean&quot;</span><span class="p">,</span>
+</span><span id="line-12"><span class="w">      </span><span class="s2">&quot;_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+</span><span id="line-13"><span class="w">      </span><span class="s2">&quot;_id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+</span><span id="line-14"><span class="w">      </span><span class="s2">&quot;_score&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.15342641</span><span class="p">,</span>
+</span><span id="line-15"><span class="w">      </span><span class="s2">&quot;_source&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-16"><span class="w">        </span><span class="s2">&quot;text&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;아버지가 방에 들어간다&quot;</span>
+</span><span id="line-17"><span class="w">      </span><span class="p">}</span>
+</span><span id="line-18"><span class="w">    </span><span class="p">}</span>
+</span><span id="line-19"><span class="w">  </span><span class="p">]</span>
 </span><span id="line-20"><span class="p">}</span>
 </span></pre></div>
 <p>앞서 확인한 분석 결과대로 검색이 되는 것을 알 수 있다.</p>

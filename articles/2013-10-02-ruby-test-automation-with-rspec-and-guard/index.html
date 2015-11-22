@@ -79,7 +79,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -142,17 +142,17 @@ nacyot의 프로그래밍 이야기
 사용법은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/spring' rel='nofollow'>spring</a></span>을 앞에 붙여주면 됩니다. 별도로 spring server 실행
 명령어를 사용할 필요가 없으며, 명령어를 처음 실행할 때 자동으로
 실행됩니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># spring 설정 전 테스트</span>
-</span><span id="line-2"><span class="cp"># rvm 사용시 bundle exec 는 생략하셔도 됩니다.</span>
-</span><span id="line-3"><span class="n">bundle</span> <span class="n">exec</span> <span class="n">rake</span> <span class="n">rspec</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">spring</span><span class="w"> </span><span class="err">설정</span><span class="w"> </span><span class="err">전</span><span class="w"> </span><span class="err">테스트</span>
+</span><span id="line-2"><span class="err">#</span><span class="w"> </span><span class="vg">rvm</span><span class="w"> </span><span class="err">사용시</span><span class="w"> </span><span class="vg">bundle</span><span class="w"> </span><span class="vg">exec</span><span class="w"> </span><span class="err">는</span><span class="w"> </span><span class="err">생략하셔도</span><span class="w"> </span><span class="err">됩니다</span><span class="o">.</span>
+</span><span id="line-3"><span class="vg">bundle</span><span class="w"> </span><span class="vg">exec</span><span class="w"> </span><span class="vg">rake</span><span class="w"> </span><span class="vg">rspec</span>
 </span><span id="line-4">
-</span><span id="line-5"><span class="cp"># spring 설정 후 테스트</span>
-</span><span id="line-6"><span class="n">bundle</span> <span class="n">exec</span> <span class="n">spring</span> <span class="n">rake</span> <span class="n">rspec</span>
+</span><span id="line-5"><span class="err">#</span><span class="w"> </span><span class="vg">spring</span><span class="w"> </span><span class="err">설정</span><span class="w"> </span><span class="err">후</span><span class="w"> </span><span class="err">테스트</span>
+</span><span id="line-6"><span class="vg">bundle</span><span class="w"> </span><span class="vg">exec</span><span class="w"> </span><span class="vg">spring</span><span class="w"> </span><span class="vg">rake</span><span class="w"> </span><span class="vg">rspec</span>
 </span></pre></div>
 <p>테스트를 지속적으로 실행하게 되므로 spring을 사용하는 편이 압도적으로
 속도가 빠릅니다. 문제가 있다면 가끔씩 spring 서버에 문제가 생겨서
 제대로 작동을 안 하는 경우가 있는데, 그럴 경우엔</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">bundle</span> <span class="n">exec</span> <span class="n">spring</span> <span class="n">stop</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">bundle</span><span class="w"> </span><span class="vg">exec</span><span class="w"> </span><span class="vg">spring</span><span class="w"> </span><span class="vg">stop</span>
 </span></pre></div>
 <p>을 실항해서 spring을 종료하시고 다시 명령어를 실행시켜주시면됩니다.</p>
 
@@ -165,20 +165,20 @@ nacyot의 프로그래밍 이야기
 변경되면 거기에 해당하는 스크립트를 실행시켜줍니다. 이러한 세팅은
 Guardfile에 들어가 있으며 현재는 rspec(+spring)에 대해 기본설정이
 적용되어 있습니다. 아래의 명령어로 초기화합니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">bundle</span> <span class="n">exec</span> <span class="n">guard</span> <span class="n">init</span> <span class="n">rspec</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">bundle</span><span class="w"> </span><span class="vg">exec</span><span class="w"> </span><span class="vg">guard</span><span class="w"> </span><span class="vg">init</span><span class="w"> </span><span class="vg">rspec</span>
 </span></pre></div>
 <p>guard는 spring과는 별개로 작동하고 guard에서 파일 변화를 캐치해서
 테스트를 실행할 때만 내부적으로 spring을 사용합니다. spring과
 연동시켜주기 위해서 아래의 설정을 Guardfile에 추가해줍니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># default</span>
-</span><span id="line-2"><span class="n">guard</span> <span class="o">:</span><span class="n">rspec</span> <span class="k">do</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">default</span>
+</span><span id="line-2"><span class="vg">guard</span><span class="w"> </span><span class="o">:</span><span class="vg">rspec</span><span class="w"> </span><span class="vg">do</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># after</span>
-</span><span id="line-5"><span class="n">guard</span> <span class="o">:</span><span class="n">rspec</span><span class="p">,</span> <span class="o">:</span><span class="n">spring</span> <span class="o">=&gt;</span> <span class="nb">true</span> <span class="k">do</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="vg">after</span>
+</span><span id="line-5"><span class="vg">guard</span><span class="w"> </span><span class="o">:</span><span class="vg">rspec</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="vg">spring</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="vg">true</span><span class="w"> </span><span class="vg">do</span>
 </span></pre></div>
 <p>따라서 Rails 어플리케이션의 루트에서 아래의 명령어로 실행시키시면
 됩니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">bundle</span> <span class="n">exec</span> <span class="n">guard</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">bundle</span><span class="w"> </span><span class="vg">exec</span><span class="w"> </span><span class="vg">guard</span>
 </span></pre></div>
 <p>보통은 <span class='live_link'><a href='http://wiki.nacyot.com/documents/tmux'>tmux</a></span>나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/screen' rel='nofollow'>screen</a></span>에서 하나의 윈도우를 할당해놓고 사용하는 게
 일반적입니다. 이렇게 해두면 다른 윈도우나 텍스트 에디터에서 Rails
@@ -199,13 +199,13 @@ github 페이지에 좀 더 자세히 나와있으니 참조하시면 될 것 �
 
 <p>rspec을 실행하는 데 기본 옵션 설정은 HOME 디렉토리의 .rspec 파일이나,
 Rails 어플리케이션 루트의 .rspec 파일에 기록합니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># 테스트 결과에 색을 입혀 출력해줍니다.</span>
-</span><span id="line-2"><span class="o">--</span><span class="n">colour</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="err">테스트</span><span class="w"> </span><span class="err">결과에</span><span class="w"> </span><span class="err">색을</span><span class="w"> </span><span class="err">입혀</span><span class="w"> </span><span class="err">출력해줍니다</span><span class="o">.</span>
+</span><span id="line-2"><span class="o">--</span><span class="vg">colour</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># 테스트 실행 결과에 테스트 이름을 같이 보여줍니다. rspec을 사용하면</span>
-</span><span id="line-5">  <span class="err">기본적으로</span> <span class="err">테스트를</span> <span class="p">.</span><span class="err">으로</span> <span class="err">출력하는데</span><span class="p">,</span> <span class="err">이게</span> <span class="err">불편하실</span> <span class="err">때</span> <span class="err">사용하시면</span>
-</span><span id="line-6">  <span class="err">됩니다</span><span class="p">.</span>
-</span><span id="line-7"><span class="o">--</span><span class="n">format</span> <span class="n">d</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="err">테스트</span><span class="w"> </span><span class="err">실행</span><span class="w"> </span><span class="err">결과에</span><span class="w"> </span><span class="err">테스트</span><span class="w"> </span><span class="err">이름을</span><span class="w"> </span><span class="err">같이</span><span class="w"> </span><span class="err">보여줍니다</span><span class="o">.</span><span class="w"> </span><span class="vg">rspec</span><span class="err">을</span><span class="w"> </span><span class="err">사용하면</span>
+</span><span id="line-5"><span class="w">  </span><span class="err">기본적으로</span><span class="w"> </span><span class="err">테스트를</span><span class="w"> </span><span class="o">.</span><span class="err">으로</span><span class="w"> </span><span class="err">출력하는데</span><span class="p">,</span><span class="w"> </span><span class="err">이게</span><span class="w"> </span><span class="err">불편하실</span><span class="w"> </span><span class="err">때</span><span class="w"> </span><span class="err">사용하시면</span>
+</span><span id="line-6"><span class="w">  </span><span class="err">됩니다</span><span class="o">.</span>
+</span><span id="line-7"><span class="o">--</span><span class="vg">format</span><span class="w"> </span><span class="vg">d</span>
 </span></pre></div>
 </div>
 <div class='recommand'>

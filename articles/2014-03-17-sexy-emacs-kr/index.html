@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -192,7 +192,7 @@ nacyot의 프로그래밍 이야기
 <p>이건 비밀입니다만(...) 처음에는 직접 OmegaT의 최신 버전을 프로젝트에 집어넣고 빌드 과정에서 압축을 풀어 사용하려고 했습니다. 하지만 Github 저장소에는 100mb 이상의 파일을 넣을 수 없다는 사실을 처음 알았습니다.</p>
 
 <p>이렇게 100mb 넘는 파일을 추가하고 Github에 올리기 위해선 커밋 히스토리 자체를 삭제할 필요가 생기는데 아래 명령어를 사용할 수 있습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">filter</span><span class="o">-</span><span class="n">branch</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">filter</span> <span class="err">&#39;</span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">file</span><span class="err">&#39;</span> <span class="n">HEAD</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">git</span><span class="w"> </span><span class="vg">filter</span><span class="o">-</span><span class="vg">branch</span><span class="w"> </span><span class="o">--</span><span class="vg">tree</span><span class="o">-</span><span class="vg">filter</span><span class="w"> </span><span class="c1">&#39;rm -rf path/to/your/file&#39; HEAD</span>
 </span></pre></div>
 <h2><a name='루비-태스크-관리-도구---레이크(rake)'>루비 태스크 관리 도구 - 레이크(Rake)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 

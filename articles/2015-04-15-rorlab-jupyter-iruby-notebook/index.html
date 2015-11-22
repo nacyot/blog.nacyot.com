@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -156,20 +156,20 @@ nacyot의 프로그래밍 이야기
 <h3><a name='zeromq-설치하기'>ZeroMQ 설치하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>ZeroMQ를 설치한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># Mac OSX</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">brew</span> <span class="n">install</span> <span class="n">zeromq</span> <span class="o">--</span><span class="n">universal</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">Mac</span><span class="w"> </span><span class="vg">OSX</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">brew</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">zeromq</span><span class="w"> </span><span class="o">--</span><span class="vg">universal</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># Ubuntu</span>
-</span><span id="line-5"><span class="err">$</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libzmq3</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="vg">Ubuntu</span>
+</span><span id="line-5"><span class="err">$</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">libzmq3</span>
 </span></pre></div>
 <h3><a name='python-환경-구축-및-ipython-설치'>python 환경 구축 및 ipython 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>pyenv를 설치한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># Mac OSX</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">brew</span> <span class="n">install</span> <span class="n">pyenv</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">Mac</span><span class="w"> </span><span class="vg">OSX</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">brew</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">pyenv</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="cp"># Ubuntu</span>
-</span><span id="line-5"><span class="err">$</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/yyuu/pyenv.git ~/.pyenv</span>
+</span><span id="line-4"><span class="err">#</span><span class="w"> </span><span class="vg">Ubuntu</span>
+</span><span id="line-5"><span class="err">$</span><span class="w"> </span><span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">yyuu</span><span class="o">/</span><span class="vg">pyenv</span><span class="o">.</span><span class="vg">git</span><span class="w"> </span><span class="o">~/.</span><span class="vg">pyenv</span>
 </span></pre></div>
 <p>pyenv를 셸에 설정해준다. zsh을 사용한다면 <code>.bash_profile</code>을 <code>.zshrc</code>로 바꿔준다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#39;</span> &gt;&gt; ~/.bash_profile
@@ -202,8 +202,8 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-2">0.1.13
 </span></pre></div>
 <p>IPython3부터는 <code>~/.ipython/kernels</code>에 등록된 커널 설정들을 사용한다. iruby가 정상적으로 설치되었다면 루비 커널을 등록한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># iruby 커널 등록</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">iruby</span> <span class="k">register</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">iruby</span><span class="w"> </span><span class="err">커널</span><span class="w"> </span><span class="err">등록</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">iruby</span><span class="w"> </span><span class="vg">register</span>
 </span></pre></div>
 <p>아래 명령어로 루비 커널이 추가되었는지 확인할 수 있다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>ipython kernelspec list

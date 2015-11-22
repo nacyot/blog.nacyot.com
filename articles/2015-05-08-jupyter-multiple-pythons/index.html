@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -219,24 +219,24 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-12"><span class="o">}</span>
 </span></pre></div>
 <p><code>langugae</code>는 커널의 언어, <code>display_name</code>은 화면에 보여줄 이름이라는 것을 쉽게 유추할 수 있다. 그리고 <code>argv</code> 속성이 바로 파이썬 커널 서버를 실행하기 위한 명령어이다. 이 명령어를 그대로 복사해서 실행해보도록하자. <code>connection_file</code>은 임의로 <code>python3.ipython</code>이라고 붙였다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">IPython</span><span class="p">.</span><span class="n">kernel</span> <span class="o">-</span><span class="n">f</span> <span class="n">python3</span><span class="p">.</span><span class="n">ipython</span>
-</span><span id="line-2"><span class="nl">NOTE:</span> <span class="n">When</span> <span class="n">using</span> <span class="n">the</span> <span class="err">`</span><span class="n">ipython</span> <span class="n">kernel</span><span class="err">`</span> <span class="n">entry</span> <span class="n">point</span><span class="p">,</span> <span class="n">Ctrl</span><span class="o">-</span><span class="n">C</span> <span class="n">will</span> <span class="n">not</span> <span class="n">work</span><span class="p">.</span>
+<div class="highlight"><pre><span id="line-1"><span class="o">/</span><span class="vg">usr</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">python3</span><span class="w"> </span><span class="o">-</span><span class="vg">m</span><span class="w"> </span><span class="vg">IPython</span><span class="o">.</span><span class="vg">kernel</span><span class="w"> </span><span class="o">-</span><span class="vg">f</span><span class="w"> </span><span class="vg">python3</span><span class="o">.</span><span class="vg">ipython</span>
+</span><span id="line-2"><span class="nl">NOTE:</span><span class="w"> </span><span class="vg">When</span><span class="w"> </span><span class="vg">using</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="err">`</span><span class="vg">ipython</span><span class="w"> </span><span class="vg">kernel</span><span class="err">`</span><span class="w"> </span><span class="vg">entry</span><span class="w"> </span><span class="vg">point</span><span class="p">,</span><span class="w"> </span><span class="vg">Ctrl</span><span class="o">-</span><span class="vg">C</span><span class="w"> </span><span class="vg">will</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">work</span><span class="o">.</span>
 </span><span id="line-3">
-</span><span id="line-4"><span class="n">To</span> <span class="n">exit</span><span class="p">,</span> <span class="n">you</span> <span class="n">will</span> <span class="n">have</span> <span class="n">to</span> <span class="n">explicitly</span> <span class="n">quit</span> <span class="n">this</span> <span class="n">process</span><span class="p">,</span> <span class="n">by</span> <span class="n">either</span> <span class="n">sending</span>
-</span><span id="line-5"><span class="s">&quot;quit&quot;</span> <span class="n">from</span> <span class="n">a</span> <span class="n">client</span><span class="p">,</span> <span class="n">or</span> <span class="n">using</span> <span class="n">Ctrl</span><span class="o">-</span><span class="err">\</span> <span class="n">in</span> <span class="n">UNIX</span><span class="o">-</span><span class="n">like</span> <span class="n">environments</span><span class="p">.</span>
+</span><span id="line-4"><span class="vg">To</span><span class="w"> </span><span class="vg">exit</span><span class="p">,</span><span class="w"> </span><span class="vg">you</span><span class="w"> </span><span class="vg">will</span><span class="w"> </span><span class="vg">have</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">explicitly</span><span class="w"> </span><span class="vg">quit</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">process</span><span class="p">,</span><span class="w"> </span><span class="vg">by</span><span class="w"> </span><span class="vg">either</span><span class="w"> </span><span class="vg">sending</span>
+</span><span id="line-5"><span class="s2">&quot;quit&quot;</span><span class="w"> </span><span class="vg">from</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">client</span><span class="p">,</span><span class="w"> </span><span class="vg">or</span><span class="w"> </span><span class="vg">using</span><span class="w"> </span><span class="vg">Ctrl</span><span class="o">-\</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">UNIX</span><span class="o">-</span><span class="vg">like</span><span class="w"> </span><span class="vg">environments</span><span class="o">.</span>
 </span><span id="line-6">
-</span><span id="line-7"><span class="n">To</span> <span class="n">read</span> <span class="n">more</span> <span class="n">about</span> <span class="n">this</span><span class="p">,</span> <span class="n">see</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/ipython/ipython/issues/2049</span>
+</span><span id="line-7"><span class="vg">To</span><span class="w"> </span><span class="vg">read</span><span class="w"> </span><span class="vg">more</span><span class="w"> </span><span class="vg">about</span><span class="w"> </span><span class="vg">this</span><span class="p">,</span><span class="w"> </span><span class="vg">see</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">ipython</span><span class="o">/</span><span class="vg">ipython</span><span class="o">/</span><span class="vg">issues</span><span class="o">/</span><span class="il">2049</span>
 </span><span id="line-8">
-</span><span id="line-9"><span class="n">To</span> <span class="n">connect</span> <span class="n">another</span> <span class="n">client</span> <span class="n">to</span> <span class="n">this</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">use</span><span class="o">:</span>
-</span><span id="line-10">    <span class="o">--</span><span class="n">existing</span> <span class="n">python3</span><span class="p">.</span><span class="n">ipython</span>
+</span><span id="line-9"><span class="vg">To</span><span class="w"> </span><span class="vg">connect</span><span class="w"> </span><span class="vg">another</span><span class="w"> </span><span class="vg">client</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">kernel</span><span class="p">,</span><span class="w"> </span><span class="nl">use:</span>
+</span><span id="line-10"><span class="w">    </span><span class="o">--</span><span class="vg">existing</span><span class="w"> </span><span class="vg">python3</span><span class="o">.</span><span class="vg">ipython</span>
 </span></pre></div>
 <p>이제 커널 서버가 실행되고 명령을 기다린다. 맨 아래에서 설명하고 있듯이 <code>--existing python3.ipython</code> 옵션을 통해서 ipython에서 이 커널 서버를 직접 사용하는 것도 가능하다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># 다른 셸에서 실행</span>
-</span><span id="line-2"><span class="err">$</span> <span class="n">ipython</span> <span class="n">console</span> <span class="o">--</span><span class="n">existing</span> <span class="n">python3</span><span class="p">.</span><span class="n">ipython</span>
-</span><span id="line-3"><span class="n">IPython</span> <span class="n">Console</span> <span class="mf">3.1.0</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="err">다른</span><span class="w"> </span><span class="err">셸에서</span><span class="w"> </span><span class="err">실행</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="vg">ipython</span><span class="w"> </span><span class="vg">console</span><span class="w"> </span><span class="o">--</span><span class="vg">existing</span><span class="w"> </span><span class="vg">python3</span><span class="o">.</span><span class="vg">ipython</span>
+</span><span id="line-3"><span class="vg">IPython</span><span class="w"> </span><span class="vg">Console</span><span class="w"> </span><span class="mf">3.1.0</span>
 </span><span id="line-4">
-</span><span id="line-5"><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">:</span> <span class="n">print</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Hello</span><span class="p">,</span> <span class="n">Python</span><span class="err">&#39;</span><span class="p">)</span>
-</span><span id="line-6"><span class="n">Hello</span><span class="p">,</span> <span class="n">Python</span>
+</span><span id="line-5"><span class="vg">In</span><span class="w"> </span><span class="p">[</span><span class="il">1</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="vg">print</span><span class="p">(</span><span class="c1">&#39;Hello, Python&#39;)</span>
+</span><span id="line-6"><span class="vg">Hello</span><span class="p">,</span><span class="w"> </span><span class="vg">Python</span>
 </span></pre></div>
 <h4><a name='다른-언어-커널-예제(ruby)'>다른 언어 커널 예제(ruby)</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 
@@ -300,16 +300,16 @@ nacyot의 프로그래밍 이야기
 </span></pre></div>
 <p><code>kernel.json</code>을 다음과 같이 수정한다. <USER>은 적절히 변경한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="p">{</span>
-</span><span id="line-2"> <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
-</span><span id="line-3"> <span class="s2">&quot;display_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Python 2&quot;</span><span class="p">,</span>
-</span><span id="line-4"> <span class="s2">&quot;argv&quot;</span><span class="p">:</span> <span class="err">[</span>
-</span><span id="line-5">  <span class="s2">&quot;/Users/&lt;USER&gt;/.pyenv/versions/2.7.8/bin/python2.7&quot;</span><span class="p">,</span>
-</span><span id="line-6">  <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
-</span><span id="line-7">  <span class="s2">&quot;IPython.kernel&quot;</span><span class="p">,</span>
-</span><span id="line-8">  <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
-</span><span id="line-9">  <span class="s2">&quot;{connection_file}&quot;</span>
-</span><span id="line-10"> <span class="cp">]</span>
-</span><span id="line-11">}
+</span><span id="line-2"><span class="w"> </span><span class="s2">&quot;language&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+</span><span id="line-3"><span class="w"> </span><span class="s2">&quot;display_name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Python 2&quot;</span><span class="p">,</span>
+</span><span id="line-4"><span class="w"> </span><span class="s2">&quot;argv&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-5"><span class="w">  </span><span class="s2">&quot;/Users/&lt;USER&gt;/.pyenv/versions/2.7.8/bin/python2.7&quot;</span><span class="p">,</span>
+</span><span id="line-6"><span class="w">  </span><span class="s2">&quot;-m&quot;</span><span class="p">,</span>
+</span><span id="line-7"><span class="w">  </span><span class="s2">&quot;IPython.kernel&quot;</span><span class="p">,</span>
+</span><span id="line-8"><span class="w">  </span><span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+</span><span id="line-9"><span class="w">  </span><span class="s2">&quot;{connection_file}&quot;</span>
+</span><span id="line-10"><span class="w"> </span><span class="p">]</span>
+</span><span id="line-11"><span class="p">}</span>
 </span></pre></div>
 <p>이게 전부다. 다시 IPython Notebook을 실행시켜본다(이미 실행이 되어있다면 재실행하지 않아도 바로 적용된다).</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>ipython notebook

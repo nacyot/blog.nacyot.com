@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -179,50 +179,50 @@ nacyot의 프로그래밍 이야기
 <p>Webhook URLs를 클릭하시면 이벤트가 발생했을 때 정보를 받을 URL을 지정할 수 있습니다. 아직 후크 메시지를 받아 처리할 수 있는 서버가 없으므로 여기서는 서버를 등록하면 어떤 식으로 메시지가 오는 지, 어떤 이벤트들을 등록되어있는지 보여드리도록 하겠습니다. Webhook URLs에 <code>notifier.nacyot.com</code>라는 Slack에 깃허브 저장소의 변경사항을 전달해주는 어플리케이션을 등록했다고 가정해보죠. </p>
 
 <p>깃허브에서 저장소에 등록된 후크 정보를 확인하는 API URL은 다음과 같습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nl">https:</span><span class="c1">//api.github.com/repos/&lt;계정이름&gt;/&lt;저장소이름&gt;/hooks</span>
+<div class="highlight"><pre><span id="line-1"><span class="nl">https:</span><span class="o">//</span><span class="vg">api</span><span class="o">.</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">repos</span><span class="o">/&lt;</span><span class="err">계정이름</span><span class="o">&gt;/&lt;</span><span class="err">저장소이름</span><span class="o">&gt;/</span><span class="vg">hooks</span>
 </span></pre></div>
 <p>이제 <code>curl</code>을 통해서 Github에 Hook가 어떻게 등록되어있는지 요청을 보내보도록하겠습니다. <code>-u</code> 플래그 뒤로는 인증을 할 계정이름을 넣어줍니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">Commend</span> <span class="o">&gt;</span> <span class="n">curl</span> <span class="o">-</span><span class="n">u</span> <span class="n">nacyot</span> <span class="n">https</span><span class="o">:</span><span class="c1">//api.github.com/repos/nacyot/slack_notifier/hooks</span>
-</span><span id="line-2"><span class="n">Enter</span> <span class="n">host</span> <span class="n">password</span> <span class="k">for</span> <span class="n">user</span> <span class="err">&#39;</span><span class="n">nacyot</span><span class="err">&#39;</span><span class="o">:</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">Commend</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">nacyot</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">api</span><span class="o">.</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">repos</span><span class="o">/</span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">slack_notifier</span><span class="o">/</span><span class="vg">hooks</span>
+</span><span id="line-2"><span class="vg">Enter</span><span class="w"> </span><span class="vg">host</span><span class="w"> </span><span class="vg">password</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">user</span><span class="w"> </span><span class="c1">&#39;nacyot&#39;:</span>
 </span><span id="line-3"><span class="p">[</span>
-</span><span id="line-4">  <span class="p">{</span>
-</span><span id="line-5">    <span class="s">&quot;url&quot;</span><span class="o">:</span> <span class="s">&quot;https://api.github.com/repos/nacyot/bbapi/hooks/1829382&quot;</span><span class="p">,</span>
-</span><span id="line-6">    <span class="s">&quot;test_url&quot;</span><span class="o">:</span> <span class="s">&quot;https://api.github.com/repos/nacyot/bbapi/hooks/1829382/test&quot;</span><span class="p">,</span>
-</span><span id="line-7">    <span class="s">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1829382</span><span class="p">,</span>
-</span><span id="line-8">    <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;web&quot;</span><span class="p">,</span>
-</span><span id="line-9">    <span class="s">&quot;active&quot;</span><span class="o">:</span> <span class="nb">true</span><span class="p">,</span>
-</span><span id="line-10">    <span class="s">&quot;events&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-11">      <span class="s">&quot;push&quot;</span><span class="p">,</span>
-</span><span id="line-12">    <span class="p">],</span>
-</span><span id="line-13">    <span class="s">&quot;config&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span id="line-14">      <span class="s">&quot;url&quot;</span><span class="o">:</span> <span class="s">&quot;notifier.nacyot.com&quot;</span><span class="p">,</span>
-</span><span id="line-15">      <span class="s">&quot;content_type&quot;</span><span class="o">:</span> <span class="s">&quot;form&quot;</span><span class="p">,</span>
-</span><span id="line-16">      <span class="s">&quot;insecure_ssl&quot;</span><span class="o">:</span> <span class="s">&quot;1&quot;</span>
-</span><span id="line-17">    <span class="p">},</span>
-</span><span id="line-18">    <span class="s">&quot;last_response&quot;</span><span class="o">:</span> <span class="p">{</span>
-</span><span id="line-19">      <span class="s">&quot;code&quot;</span><span class="o">:</span> <span class="mi">504</span><span class="p">,</span>
-</span><span id="line-20">      <span class="s">&quot;status&quot;</span><span class="o">:</span> <span class="s">&quot;timeout&quot;</span><span class="p">,</span>
-</span><span id="line-21">      <span class="s">&quot;message&quot;</span><span class="o">:</span> <span class="s">&quot;Service Timeout&quot;</span>
-</span><span id="line-22">    <span class="p">},</span>
-</span><span id="line-23">    <span class="s">&quot;updated_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-01-28T01:29:02Z&quot;</span><span class="p">,</span>
-</span><span id="line-24">    <span class="s">&quot;created_at&quot;</span><span class="o">:</span> <span class="s">&quot;2014-01-26T02:27:38Z&quot;</span>
-</span><span id="line-25">  <span class="p">}</span>
+</span><span id="line-4"><span class="w">  </span><span class="p">{</span>
+</span><span id="line-5"><span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://api.github.com/repos/nacyot/bbapi/hooks/1829382&quot;</span><span class="p">,</span>
+</span><span id="line-6"><span class="w">    </span><span class="s2">&quot;test_url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://api.github.com/repos/nacyot/bbapi/hooks/1829382/test&quot;</span><span class="p">,</span>
+</span><span id="line-7"><span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="il">1829382</span><span class="p">,</span>
+</span><span id="line-8"><span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
+</span><span id="line-9"><span class="w">    </span><span class="s2">&quot;active&quot;</span><span class="o">:</span><span class="w"> </span><span class="vg">true</span><span class="p">,</span>
+</span><span id="line-10"><span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-11"><span class="w">      </span><span class="s2">&quot;push&quot;</span><span class="p">,</span>
+</span><span id="line-12"><span class="w">    </span><span class="p">],</span>
+</span><span id="line-13"><span class="w">    </span><span class="s2">&quot;config&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-14"><span class="w">      </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;notifier.nacyot.com&quot;</span><span class="p">,</span>
+</span><span id="line-15"><span class="w">      </span><span class="s2">&quot;content_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;form&quot;</span><span class="p">,</span>
+</span><span id="line-16"><span class="w">      </span><span class="s2">&quot;insecure_ssl&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+</span><span id="line-17"><span class="w">    </span><span class="p">},</span>
+</span><span id="line-18"><span class="w">    </span><span class="s2">&quot;last_response&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-19"><span class="w">      </span><span class="s2">&quot;code&quot;</span><span class="o">:</span><span class="w"> </span><span class="il">504</span><span class="p">,</span>
+</span><span id="line-20"><span class="w">      </span><span class="s2">&quot;status&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+</span><span id="line-21"><span class="w">      </span><span class="s2">&quot;message&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Service Timeout&quot;</span>
+</span><span id="line-22"><span class="w">    </span><span class="p">},</span>
+</span><span id="line-23"><span class="w">    </span><span class="s2">&quot;updated_at&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2014-01-28T01:29:02Z&quot;</span><span class="p">,</span>
+</span><span id="line-24"><span class="w">    </span><span class="s2">&quot;created_at&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2014-01-26T02:27:38Z&quot;</span>
+</span><span id="line-25"><span class="w">  </span><span class="p">}</span>
 </span><span id="line-26"><span class="p">]</span>
 </span></pre></div>
 <p>다음과 같은 응답이 되돌아 옵니다. 이는 현재 등록된 후크의 URL과 어떤 이벤트가 등록되어있는지를 비롯한 여러가지 정보를 담고 있습니다. 특히 주목할 부분은 <code>id</code>와 <code>events</code>그리고 <code>url</code> 부분입니다. 웹에서 지정한대로 정상적으로 등록이 된 걸 알 수 있습니다. 단, 웹에서 등록을 하면 기본 이벤트인 <code>push</code> 이벤트밖에 등록이 되지 않습니다. 그렇다면 이슈에 관련된 이벤트나 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/wikiwiki' rel='nofollow'>위키</a></span>가 수정되었을 때 알림을 받고자 한다면 어떻게 해야할까요?</p>
 
 <p>여기서는 마찬가지로 <code>curl</code>을 사용해 새로운 이벤트를 등록해보겠습니다. 여기서 등록할 이벤트는 <code>issue</code>, <code>issue_comment</code>, 그리고 위키 업데이트를 알려주는 <code>gollum</code> 이벤트입니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">curl</span> <span class="o">-</span><span class="n">u</span> <span class="n">nacyot</span> <span class="n">https</span><span class="o">:</span><span class="c1">//api.github.com/repos/nacyot/slack_notifier/hooks/1829382 -X PATCH -d &#39;{&quot;add_events&quot;: [&quot;issue&quot;, &quot;issue_comment&quot;, &quot;gollum&quot;] }&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="vg">nacyot</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">api</span><span class="o">.</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">repos</span><span class="o">/</span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">slack_notifier</span><span class="o">/</span><span class="vg">hooks</span><span class="o">/</span><span class="il">1829382</span><span class="w"> </span><span class="o">-</span><span class="vg">X</span><span class="w"> </span><span class="vg">PATCH</span><span class="w"> </span><span class="o">-</span><span class="vg">d</span><span class="w"> </span><span class="c1">&#39;{&quot;add_events&quot;: [&quot;issue&quot;, &quot;issue_comment&quot;, &quot;gollum&quot;] }&#39;</span>
 </span></pre></div>
 <p>위에서 후크 정보를 조회했던 <code>curl</code> 정보를 참고로 적당한 형태로 바꿔주시기 바랍니다. 특히 여기서는 <code>/hooks/</code> 뒤에 앞서서 조회했던 후크의 <code>id</code> 값을 집어넣어줘야합니다. 다시 처음 url로 후크 정보를 조회해보면 정상적으로 이벤트들이 추가된 것을 알 수 있습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">...</span>
-</span><span id="line-2">    <span class="s">&quot;events&quot;</span><span class="o">:</span> <span class="p">[</span>
-</span><span id="line-3">      <span class="s">&quot;push&quot;</span><span class="p">,</span>
-</span><span id="line-4">      <span class="s">&quot;issue&quot;</span><span class="p">,</span>
-</span><span id="line-5">      <span class="s">&quot;issue_comment&quot;</span><span class="p">,</span>
-</span><span id="line-6">      <span class="s">&quot;gollum&quot;</span>
-</span><span id="line-7">    <span class="p">],</span>
-</span><span id="line-8"><span class="p">...</span>
+<div class="highlight"><pre><span id="line-1"><span class="o">...</span>
+</span><span id="line-2"><span class="w">    </span><span class="s2">&quot;events&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-3"><span class="w">      </span><span class="s2">&quot;push&quot;</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">      </span><span class="s2">&quot;issue&quot;</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">      </span><span class="s2">&quot;issue_comment&quot;</span><span class="p">,</span>
+</span><span id="line-6"><span class="w">      </span><span class="s2">&quot;gollum&quot;</span>
+</span><span id="line-7"><span class="w">    </span><span class="p">],</span>
+</span><span id="line-8"><span class="o">...</span>
 </span></pre></div>
 <p>이제 저장소에서 이슈와 관련 이벤트가 발생하거나 위키에 페이지가 추가되거나 업데이트될 때 알림이 오게 됩니다. 이번엔 실제로 알림이 오는 것을 확인해보겠습니다. 위키 페이지를 하나 생성해보겠습니다.</p>
 
@@ -249,12 +249,12 @@ nacyot의 프로그래밍 이야기
 <p>금방 지원해 줄 것 같기는 했습니다만, 당장 필요했던 관계로 직접 알림을 보내주는 서버를 만들기로 했습니다. 현재 루비의 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/padrino' rel='nofollow'>Padrino</a></span>로<sup id="fnref2"><a href="#fn2" rel="footnote">2</a></sup> 만든 깃허브에서 위키 변경 사항 알림 <a href="https://github.com/nacyot/slack_notifier">서버를 slack_notifier</a>라는 이름으로 올려둔 상태입니다. 이 서버가 하는 일은 정말 딱 위키 알림을 Github에서 받고 Slack으로 전달해주는 일뿐입니다.</p>
 
 <p><a href="https://github.com/nacyot/slack_notifier/blob/master/app/controllers/hook.rb">로직</a>도 정말 단순합니다. <code>hook_controller</code>에 다음과 같은 내용이 들어가있을 뿐입니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">Slack</span><span class="o">::</span><span class="n">Post</span><span class="p">.</span><span class="n">configure</span><span class="p">(</span>
-</span><span id="line-2">                      <span class="nl">subdomain:</span> <span class="n">params</span><span class="p">[</span><span class="o">:</span><span class="n">subdomain</span><span class="p">],</span>
-</span><span id="line-3">                      <span class="nl">token:</span> <span class="n">params</span><span class="p">[</span><span class="o">:</span><span class="n">token</span><span class="p">],</span>
-</span><span id="line-4">                      <span class="nl">username:</span> <span class="s">&quot;Github&quot;</span>
-</span><span id="line-5">                      <span class="p">)</span>
-</span><span id="line-6"><span class="n">Slack</span><span class="o">::</span><span class="n">Post</span><span class="p">.</span><span class="n">post</span> <span class="s">&quot;#{login}#{action} &lt;#{url}|#{title}&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;#&quot;</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="o">:</span><span class="n">room</span><span class="p">]</span>
+<div class="highlight"><pre><span id="line-1"><span class="nl">Slack:</span><span class="o">:</span><span class="vg">Post</span><span class="o">.</span><span class="vg">configure</span><span class="p">(</span>
+</span><span id="line-2"><span class="w">                      </span><span class="nl">subdomain:</span><span class="w"> </span><span class="vg">params</span><span class="p">[</span><span class="o">:</span><span class="vg">subdomain</span><span class="p">],</span>
+</span><span id="line-3"><span class="w">                      </span><span class="nl">token:</span><span class="w"> </span><span class="vg">params</span><span class="p">[</span><span class="o">:</span><span class="vg">token</span><span class="p">],</span>
+</span><span id="line-4"><span class="w">                      </span><span class="nl">username:</span><span class="w"> </span><span class="s2">&quot;Github&quot;</span>
+</span><span id="line-5"><span class="w">                      </span><span class="p">)</span>
+</span><span id="line-6"><span class="nl">Slack:</span><span class="o">:</span><span class="vg">Post</span><span class="o">.</span><span class="vg">post</span><span class="w"> </span><span class="s2">&quot;#{login}#{action} &lt;#{url}|#{title}&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="vg">params</span><span class="p">[</span><span class="o">:</span><span class="vg">room</span><span class="p">]</span>
 </span></pre></div>
 <p>내부적으로 [slack-post][slack-post]라는 젬을 사용해 깃허브에서 서버의 특정 페이지에 접근하면(이벤트를 알려주면), Slack에 메시지를 보내주는 방식입니다. 현재는 서버에 데이터를 저장하는 기능이 없어서 token과 메시지를 전달할 곳을 전부 Url 인자로 받아서 사용하고 있습니다.</p>
 
@@ -282,25 +282,25 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-3">...
 </span><span id="line-4"><span class="nv">$ </span>docker images
 </span><span id="line-5">REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-</span><span id="line-6">nacyot/slack_notifier   latest              d35792687e8c        4 days ago          751.1 MB
-</span><span id="line-7">ubuntu                  12.04               8dbd9e392a96        9 months ago        128 MB
-</span><span id="line-8">ubuntu                  12.10               b750fe79269d        10 months ago       175.3 MB
+</span><span id="line-6">nacyot/slack_notifier   latest              d35792687e8c        <span class="m">4</span> days ago          751.1 MB
+</span><span id="line-7">ubuntu                  12.04               8dbd9e392a96        <span class="m">9</span> months ago        <span class="m">128</span> MB
+</span><span id="line-8">ubuntu                  12.10               b750fe79269d        <span class="m">10</span> months ago       175.3 MB
 </span></pre></div>
 <p><code>docker imaegs</code> 명령어로 정상적으로 빌드된 것을 확인할 수 있습니다. 이제 생성한 이미지로부터 실제 어플리케이션 컨테이너를 실행시킵니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker run -d -p 4000:4000 nacyot/slack_notifier:latest
 </span><span id="line-2">7c42ae39691c
 </span><span id="line-3"><span class="nv">$ </span>docker ps
 </span><span id="line-4">CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS                    NAMES
-</span><span id="line-5">7c42ae39691c        nacyot/slack_notifier:first   /bin/sh -c bundle ex   4 days ago          Up 2 days           0.0.0.0:4000-&gt;4000/tcp   slack_notifier  
+</span><span id="line-5">7c42ae39691c        nacyot/slack_notifier:first   /bin/sh -c bundle ex   <span class="m">4</span> days ago          Up <span class="m">2</span> days           0.0.0.0:4000-&gt;4000/tcp   slack_notifier  
 </span></pre></div>
 <p><code>docker ps</code>를 통해서 컨테이너가 정상적으로 실행되고 있는 것을 확인할 수 있습니다. 이제 깃허브에 WebHook을 등록할 차례입니다. 그 전에 먼저 Slack 쪽에서 서비스 등록을 하고 토큰을 생성할 필요가 있습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nx">http</span><span class="p">:</span><span class="c1">//&lt;SLACK_SUBDOMAI&gt;.slack.com/services/new/incoming-webhook</span>
+<div class="highlight"><pre><span id="line-1"><span class="nl">http:</span><span class="o">//&lt;</span><span class="vg">SLACK_SUBDOMAI</span><span class="o">&gt;.</span><span class="vg">slack</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">services</span><span class="o">/</span><span class="vg">new</span><span class="o">/</span><span class="vg">incoming</span><span class="o">-</span><span class="vg">webhook</span>
 </span></pre></div>
 <p>위 주소로 접속하시면 incoming-webhook을 바로 등록할 수 있습니다. <code>Add integration</code> 버튼을 누르면 오른쪽에 토큰 정보가 출력됩니다. 토큰 정보를 가지고 아래 URL을 완성합니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nx">http</span><span class="p">:</span><span class="c1">//&lt;서버주소&gt;:4000/hook?subdomain=&lt;SLACK_SUBDOMAIN&gt;&amp;token=&lt;SLACK_TOKEN&gt;&amp;room=&lt;SLACK_ROOM&gt;</span>
+<div class="highlight"><pre><span id="line-1"><span class="nl">http:</span><span class="o">//&lt;</span><span class="err">서버주소</span><span class="o">&gt;:</span><span class="il">4000</span><span class="o">/</span><span class="vg">hook</span><span class="o">?</span><span class="vg">subdomain</span><span class="o">=&lt;</span><span class="vg">SLACK_SUBDOMAIN</span><span class="o">&gt;&amp;</span><span class="vg">token</span><span class="o">=&lt;</span><span class="vg">SLACK_TOKEN</span><span class="o">&gt;&amp;</span><span class="vg">room</span><span class="o">=&lt;</span><span class="vg">SLACK_ROOM</span><span class="o">&gt;</span>
 </span></pre></div>
 <p>SLACK<em>ROOM에는 알림을 전달할 채널 이름을 지정합니다. 이제 이 URL을 원하시는 Github 저장소의 WebHook에 등록만 해주면 모든 준비는 완료됩니다. 하지만 여기까지 설정하고 위키를 수정해도 알림은 가지 않습니다. 앞서서 Github API에 대해서 다룬 바 있습니다만, 기본 Hook로는 <code>push</code>밖에 등록이 되지 않기 때문입니다. 이 서버에서 인식할 수 있는 이벤트는 위키를 다루는 &lt;span class=&#39;dead</em>link&#39;&gt;<a href='http://wiki.nacyot.com/documents/gollum' rel='nofollow'>gollum</a></span>밖에 없습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nb">curl</span> <span class="na">-u</span> <span class="o">&lt;</span><span class="nx">USER_NAME</span><span class="o">&gt;</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//api.github.com/repos/&lt;USER_NAME&gt;/&lt;REPO_NAME&gt;/hooks/&lt;HOOK_ID&gt; -X PATCH -d &#39;{&quot;add_events&quot;: [&quot;gollum&quot;] }&#39;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">USER_NAME</span><span class="o">&gt;</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">api</span><span class="o">.</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">repos</span><span class="o">/&lt;</span><span class="vg">USER_NAME</span><span class="o">&gt;/&lt;</span><span class="vg">REPO_NAME</span><span class="o">&gt;/</span><span class="vg">hooks</span><span class="o">/&lt;</span><span class="vg">HOOK_ID</span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="vg">X</span><span class="w"> </span><span class="vg">PATCH</span><span class="w"> </span><span class="o">-</span><span class="vg">d</span><span class="w"> </span><span class="c1">&#39;{&quot;add_events&quot;: [&quot;gollum&quot;] }&#39;</span>
 </span></pre></div>
 <p>앞서 다룬 것과 마찬가지 방법으로 <code>gollum</code> 이벤트를 추가해줍니다. 네 이걸로 모든 설정이 끝났습니다. 이제 해당하는 저장소의 위키를 수정해보면 서버에 알림이 가고 서버가 Slack으로 위키를 수정했다는 알림이 가게 됩니다.</p>
 

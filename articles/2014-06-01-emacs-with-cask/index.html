@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -202,59 +202,59 @@ nacyot의 프로그래밍 이야기
 <p>여기까지 이야기한 내용은 실질적으로 특정 프로젝트에서 의존성을 관리하는 방법에 가깝다. 지금부터는 전역적인 Emacs 사용자 설정을 다룰 것이다.</p>
 
 <p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs23' rel='nofollow'>Emacs23</a></span> 이후 버전의 환경설정은 기본적으로 <code>~/.emacs.d/init.el</code> 파일을 거쳐서 실행된다. 따라서 먼저 Cask 초기화 코드를 이 파일에 추가해준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">require</span> <span class="err">&#39;</span><span class="n">cask</span> <span class="s">&quot;~/.cask/cask.el&quot;</span><span class="p">)</span>
-</span><span id="line-2"><span class="p">(</span><span class="n">cask</span><span class="o">-</span><span class="n">initialize</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">require</span><span class="w"> </span><span class="c1">&#39;cask &quot;~/.cask/cask.el&quot;)</span>
+</span><span id="line-2"><span class="p">(</span><span class="vg">cask</span><span class="o">-</span><span class="vg">initialize</span><span class="p">)</span>
 </span></pre></div>
 <p>먼저 첫번째 줄에서는 앞서 설치한 <code>cask.el</code>을 로드한다. 로드 경로에서도 알 수 있듯이 cask는 기본적으로 홈 디렉터리 바로 아래의 <code>.cask</code>에 설치된다(다른 위치에 설치했다면 물론 해당하는 경로를 지정한다). 다음 줄에서는 <code>cask-initialize</code> 함수를 호출해 cask를 초기화한다. 이 때 cask를 환경설정에 대해서 초기화하기 위한 Cask 파일이 필요하다. 이 파일은 <code>~/.emacs.d/Cask</code>에 위치해야한다.</p>
 
 <h2><a name='caskfile-살펴보기'>Caskfile 살펴보기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>여기서는 Cask 파일을 정의한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">source</span> <span class="n">gnu</span><span class="p">)</span>
-</span><span id="line-2"><span class="p">(</span><span class="n">source</span> <span class="n">melpa</span><span class="p">)</span>
-</span><span id="line-3"><span class="p">(</span><span class="n">source</span> <span class="n">marmalade</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">source</span><span class="w"> </span><span class="vg">gnu</span><span class="p">)</span>
+</span><span id="line-2"><span class="p">(</span><span class="vg">source</span><span class="w"> </span><span class="vg">melpa</span><span class="p">)</span>
+</span><span id="line-3"><span class="p">(</span><span class="vg">source</span><span class="w"> </span><span class="vg">marmalade</span><span class="p">)</span>
 </span><span id="line-4">
-</span><span id="line-5"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;ruby-mode&quot;</span><span class="p">)</span>
-</span><span id="line-6"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;rspec-mode&quot;</span><span class="p">)</span>
-</span><span id="line-7"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;robe&quot;</span><span class="p">)</span>
-</span><span id="line-8"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;rinari&quot;</span><span class="p">)</span>
-</span><span id="line-9"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="s">&quot;0.8.1&quot;</span><span class="p">)</span>
-</span><span id="line-10"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;ox-reveal&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;git@github.com:yjwen/org-reveal.git&quot;</span><span class="p">)</span>
+</span><span id="line-5"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;ruby-mode&quot;</span><span class="p">)</span>
+</span><span id="line-6"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;rspec-mode&quot;</span><span class="p">)</span>
+</span><span id="line-7"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;robe&quot;</span><span class="p">)</span>
+</span><span id="line-8"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;rinari&quot;</span><span class="p">)</span>
+</span><span id="line-9"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;magit&quot;</span><span class="w"> </span><span class="s2">&quot;0.8.1&quot;</span><span class="p">)</span>
+</span><span id="line-10"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;ox-reveal&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">git</span><span class="w"> </span><span class="s2">&quot;git@github.com:yjwen/org-reveal.git&quot;</span><span class="p">)</span>
 </span></pre></div>
 <p>앞서도 이야기했지만 Caskfile에서 사용할 수 있는 기본적인 함수는 <code>source</code>와 <code>depends-on</code>이다. 다른 함수들도 있지만 일반적으로 환경설정을 위한 용도에서는 사용하지 않는다.</p>
 
 <h3><a name='source'>source</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>먼저, source 함수는 패키지를 가져올 저장소를 지정하는 명령어로 아래와 같이 사용할 수 있다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">source</span> <span class="n">ALIAS</span><span class="p">)</span>
-</span><span id="line-2"><span class="p">(</span><span class="n">source</span> <span class="n">NAME</span> <span class="n">URL</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">source</span><span class="w"> </span><span class="k">ALIAS</span><span class="p">)</span>
+</span><span id="line-2"><span class="p">(</span><span class="vg">source</span><span class="w"> </span><span class="kr">NAME</span><span class="w"> </span><span class="vg">URL</span><span class="p">)</span>
 </span></pre></div>
 <p>실제로는 아래와 같이 사용한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">source</span> <span class="n">melpa</span><span class="p">)</span>
-</span><span id="line-2"><span class="p">(</span><span class="n">source</span> <span class="s">&quot;melpa&quot;</span> <span class="s">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">source</span><span class="w"> </span><span class="vg">melpa</span><span class="p">)</span>
+</span><span id="line-2"><span class="p">(</span><span class="vg">source</span><span class="w"> </span><span class="s2">&quot;melpa&quot;</span><span class="w"> </span><span class="s2">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span>
 </span></pre></div>
 <p>패키지가 인식할 수 있는 ALIAS를 사용하면 URL을 지정하지 않아도 된다. 사용할 수 있는 ALIAS는 아래와 같다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">gnu</span> <span class="p">(</span><span class="n">http</span><span class="o">:</span><span class="c1">//elpa.gnu.org/packages/)</span>
-</span><span id="line-2"><span class="n">melpa</span> <span class="p">(</span><span class="n">http</span><span class="o">:</span><span class="c1">//melpa.milkbox.net/packages/)</span>
-</span><span id="line-3"><span class="n">marmalade</span> <span class="p">(</span><span class="n">http</span><span class="o">:</span><span class="c1">//marmalade-repo.org/packages/)</span>
-</span><span id="line-4"><span class="n">SC</span> <span class="p">(</span><span class="n">http</span><span class="o">:</span><span class="c1">//joseito.republika.pl/sunrise-commander/)</span>
-</span><span id="line-5"><span class="n">org</span> <span class="p">(</span><span class="n">http</span><span class="o">:</span><span class="c1">//orgmode.org/elpa/)</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">gnu</span><span class="w"> </span><span class="p">(</span><span class="nl">http:</span><span class="o">//</span><span class="vg">elpa</span><span class="o">.</span><span class="vg">gnu</span><span class="o">.</span><span class="vg">org</span><span class="o">/</span><span class="vg">packages</span><span class="o">/</span><span class="p">)</span>
+</span><span id="line-2"><span class="vg">melpa</span><span class="w"> </span><span class="p">(</span><span class="nl">http:</span><span class="o">//</span><span class="vg">melpa</span><span class="o">.</span><span class="vg">milkbox</span><span class="o">.</span><span class="vg">net</span><span class="o">/</span><span class="vg">packages</span><span class="o">/</span><span class="p">)</span>
+</span><span id="line-3"><span class="vg">marmalade</span><span class="w"> </span><span class="p">(</span><span class="nl">http:</span><span class="o">//</span><span class="vg">marmalade</span><span class="o">-</span><span class="vg">repo</span><span class="o">.</span><span class="vg">org</span><span class="o">/</span><span class="vg">packages</span><span class="o">/</span><span class="p">)</span>
+</span><span id="line-4"><span class="vg">SC</span><span class="w"> </span><span class="p">(</span><span class="nl">http:</span><span class="o">//</span><span class="vg">joseito</span><span class="o">.</span><span class="vg">republika</span><span class="o">.</span><span class="vg">pl</span><span class="o">/</span><span class="vg">sunrise</span><span class="o">-</span><span class="vg">commander</span><span class="o">/</span><span class="p">)</span>
+</span><span id="line-5"><span class="vg">org</span><span class="w"> </span><span class="p">(</span><span class="nl">http:</span><span class="o">//</span><span class="vg">orgmode</span><span class="o">.</span><span class="vg">org</span><span class="o">/</span><span class="vg">elpa</span><span class="o">/</span><span class="p">)</span>
 </span></pre></div>
 <p>gnu, melpa, marmalade는 주로 사용하므로 지정해두는 게 좋다.</p>
 
 <h3><a name='depends-on'>depends-on</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p><code>depends-on</code>은 사용하고자 하는 패키지를 지정하는 함수이다. 예를 들어 <code>ruby-mode</code> 패키지를 사용하고자 하면 아래와 같이 사용한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;ruby-mode&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;ruby-mode&quot;</span><span class="p">)</span>
 </span></pre></div>
 <p>위와 같이 <code>ruby-mode</code>를 지정하면 위에서 source에서 지정한 저장소에서 해당하는 패키지를 찾아 설치한다. 이 때 필요한 경우 아래와 같이 특정 버전을 강제할 수 있다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="s">&quot;0.8.1&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;magit&quot;</span><span class="w"> </span><span class="s2">&quot;0.8.1&quot;</span><span class="p">)</span>
 </span></pre></div>
 <p>기본 패키지 관리자에 비해서 가장 큰 장점 중 하나는 git로 관리되는 패키지를 직접 지정할 수 있다는 점이다. 아래는는 공식 문서에서 제공하는 예시이다. <span class='live_link'><a href='http://wiki.nacyot.com/documents/git'>Git</a></span> 저장소를 지정했을 때 특정한 커밋이나 브랜치, 혹은 특정 파일들만 로드할 수 있도록 하는 법을 알 수 있다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;https://github.com/magit/magit.git&quot;</span><span class="p">)</span>
-</span><span id="line-2"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;https://github.com/magit/magit.git&quot;</span> <span class="o">:</span><span class="n">ref</span> <span class="s">&quot;7j3bj4d&quot;</span><span class="p">)</span>
-</span><span id="line-3"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;https://github.com/magit/magit.git&quot;</span> <span class="o">:</span><span class="n">branch</span> <span class="s">&quot;next&quot;</span><span class="p">)</span>
-</span><span id="line-4"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;magit&quot;</span> <span class="o">:</span><span class="n">git</span> <span class="s">&quot;https://github.com/magit/magit.git&quot;</span> <span class="o">:</span><span class="n">files</span> <span class="p">(</span><span class="s">&quot;*.el&quot;</span> <span class="p">(</span><span class="o">:</span><span class="n">exclude</span> <span class="s">&quot;magit-svn.el&quot;</span><span class="p">)))</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;magit&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">git</span><span class="w"> </span><span class="s2">&quot;https://github.com/magit/magit.git&quot;</span><span class="p">)</span>
+</span><span id="line-2"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;magit&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">git</span><span class="w"> </span><span class="s2">&quot;https://github.com/magit/magit.git&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">ref</span><span class="w"> </span><span class="s2">&quot;7j3bj4d&quot;</span><span class="p">)</span>
+</span><span id="line-3"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;magit&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">git</span><span class="w"> </span><span class="s2">&quot;https://github.com/magit/magit.git&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">branch</span><span class="w"> </span><span class="s2">&quot;next&quot;</span><span class="p">)</span>
+</span><span id="line-4"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;magit&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">git</span><span class="w"> </span><span class="s2">&quot;https://github.com/magit/magit.git&quot;</span><span class="w"> </span><span class="o">:</span><span class="vg">files</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;*.el&quot;</span><span class="w"> </span><span class="p">(</span><span class="o">:</span><span class="vg">exclude</span><span class="w"> </span><span class="s2">&quot;magit-svn.el&quot;</span><span class="p">)))</span>
 </span></pre></div>
 <h2><a name='cask'>cask</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
@@ -277,23 +277,23 @@ nacyot의 프로그래밍 이야기
 <p>앞서 이야기한 바와 같이 Emacs 초기화는 기본적으로 <code>init.el</code>을 거쳐가며 대부분의 설정파일은 여기에서 이루어진다. Cask 사용 시에도 Cask를 초기화하고, Cask를 통해 읽어들인 각 패키지에 대한 설정은 <code>init.el</code>파일에서 하면 된다. 하지만 이 역시 설정할 내용이 많을 때는 <code>init.el</code> 파일이 매우 복잡해지기 때문에 init-loader를 사용해 좀 더 편리하게 관리할 수 있다.</p>
 
 <p><span class='live_link'><a href='http://wiki.nacyot.com/documents/init-loader'>init-loader</a></span> 패키지를 사용하려면 먼저 Cask 파일에 추가해준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">depends</span><span class="o">-</span><span class="n">on</span> <span class="s">&quot;init-loader&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">depends</span><span class="o">-</span><span class="vg">on</span><span class="w"> </span><span class="s2">&quot;init-loader&quot;</span><span class="p">)</span>
 </span></pre></div>
 <p><code>init.el</code>에는 아래 내용을 추가한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="n">init</span><span class="o">-</span><span class="n">loader</span><span class="o">-</span><span class="n">load</span> <span class="s">&quot;~/.emacs.d/init-loader/&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span id="line-1"><span class="p">(</span><span class="vg">init</span><span class="o">-</span><span class="vg">loader</span><span class="o">-</span><span class="vg">load</span><span class="w"> </span><span class="s2">&quot;~/.emacs.d/init-loader/&quot;</span><span class="p">)</span>
 </span></pre></div>
 <p><code>init-loader-load</code>는 초기화 파일들을 위치시킬 디렉터리를 지정한다. 여기서는 <code>~/.emacs.d/init-loader</code>를 지정했으면 원하는 디렉터리를 지정하면 된다. 위와 같이 설정하면 init-loader은 해당하는 폴더 아래의 숫자 2개로 시작하는 모든 파일을 로드한다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="mo">00</span><span class="n">_util</span><span class="p">.</span><span class="n">el</span>
-</span><span id="line-2"><span class="mo">01</span><span class="n">_ik</span><span class="o">-</span><span class="n">cmd</span><span class="p">.</span><span class="n">el</span>
-</span><span id="line-3"><span class="mi">21</span><span class="n">_javascript</span><span class="p">.</span><span class="n">el</span>
-</span><span id="line-4"><span class="mi">99</span><span class="n">_global</span><span class="o">-</span><span class="n">keys</span><span class="p">.</span><span class="n">el</span>
+<div class="highlight"><pre><span id="line-1"><span class="nl">00</span><span class="vg">_util</span><span class="o">.</span><span class="vg">el</span>
+</span><span id="line-2"><span class="nl">01</span><span class="vg">_ik</span><span class="o">-</span><span class="vg">cmd</span><span class="o">.</span><span class="vg">el</span>
+</span><span id="line-3"><span class="nl">21</span><span class="vg">_javascript</span><span class="o">.</span><span class="vg">el</span>
+</span><span id="line-4"><span class="nl">99</span><span class="vg">_global</span><span class="o">-</span><span class="vg">keys</span><span class="o">.</span><span class="vg">el</span>
 </span></pre></div>
 <p>위와 같이 적절히 초기화 설정을 분리하면 된다. 일반적으로는 패키지 단위로 설정을 관리하는 게 좋다.</p>
 
 <h3><a name='설정-파일-컴파일-하기'>설정 파일 컴파일 하기</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>일반적으로 패키지는 설치과정에서 컴파일된다. 하지만 다른 설정 파일이 많아질 수록 Emacs 시작시간도 길어진다. 필요하다면 init-loader 폴더나 설정 파일을 보관하는 다른 폴더는 아래 명령어로 컴파일 해두는 게 좋다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">C</span><span class="o">-</span><span class="n">u</span> <span class="mi">0</span> <span class="n">M</span><span class="o">-</span><span class="n">x</span> <span class="n">byte</span><span class="o">-</span><span class="n">recompile</span><span class="o">-</span><span class="n">directory</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">C</span><span class="o">-</span><span class="vg">u</span><span class="w"> </span><span class="il">0</span><span class="w"> </span><span class="vg">M</span><span class="o">-</span><span class="vg">x</span><span class="w"> </span><span class="vg">byte</span><span class="o">-</span><span class="vg">recompile</span><span class="o">-</span><span class="vg">directory</span>
 </span></pre></div>
 <h2><a name='결론'>결론</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 

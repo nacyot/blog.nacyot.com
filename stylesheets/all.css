@@ -2153,7 +2153,7 @@ nav a {
 }
 .summary_card img {
   display: block;
-  margin: 1.5em auto;
+  margin: 0em auto 1.5em;
   max-width: 100%;
 }
 .summary_card h1.title {
@@ -2163,7 +2163,7 @@ nav a {
   color: orange;
 }
 .summary_card .summary {
-  padding: 0em 0em 1em 0em;
+  padding: 1.5em 0em 1em 0em;
   font-size: 1.2em;
   text-align: left;
 }
@@ -2309,6 +2309,11 @@ p.shape-title {
 }
 .articles .article .body .footnotes p {
   margin-bottom: 10px;
+}
+.articles .article .body hr {
+  height: 1px;
+  background-color: black;
+  margin: 3em 2em;
 }
 .articles .article .recommand {
   margin-top: 3em;

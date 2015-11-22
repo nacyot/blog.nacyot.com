@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -141,9 +141,9 @@ nacyot의 프로그래밍 이야기
 <ol>
 <li>boot2docker 실행</li>
 </ol>
-<div class="highlight"><pre><span id="line-1"><span class="n">export</span> <span class="n">DOCKER_HOST</span><span class="o">=</span><span class="n">tcp</span><span class="o">:</span><span class="c1">//¶</span>
-</span><span id="line-2"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">boot2docker</span> <span class="n">init</span>
-</span><span id="line-3"><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">boot2docker</span> <span class="n">up</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">export</span><span class="w"> </span><span class="vg">DOCKER_HOST</span><span class="o">=</span><span class="nl">tcp:</span><span class="o">//</span><span class="err">¶</span>
+</span><span id="line-2"><span class="err">$</span><span class="w"> </span><span class="o">./</span><span class="vg">boot2docker</span><span class="w"> </span><span class="vg">init</span>
+</span><span id="line-3"><span class="err">$</span><span class="w"> </span><span class="o">./</span><span class="vg">boot2docker</span><span class="w"> </span><span class="vg">up</span>
 </span></pre></div>
 <ol>
 <li>도커 컨테이너 실행</li>
@@ -226,17 +226,17 @@ nacyot의 프로그래밍 이야기
 <p>이미지 pull도 한 번 해보고,</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker images
 </span><span id="line-2">REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-</span><span id="line-3">ubuntu              13.10               9f676bd305a4        6 days ago          178 MB
-</span><span id="line-4">ubuntu              saucy               9f676bd305a4        6 days ago          178 MB
-</span><span id="line-5">ubuntu              13.04               eb601b8965b8        6 days ago          166.5 MB
-</span><span id="line-6">ubuntu              raring              eb601b8965b8        6 days ago          166.5 MB
-</span><span id="line-7">ubuntu              12.10               5ac751e8d623        6 days ago          161 MB
-</span><span id="line-8">ubuntu              quantal             5ac751e8d623        6 days ago          161 MB
-</span><span id="line-9">ubuntu              10.04               9cc9ea5ea540        6 days ago          180.8 MB
-</span><span id="line-10">ubuntu              lucid               9cc9ea5ea540        6 days ago          180.8 MB
-</span><span id="line-11">ubuntu              12.04               9cd978db300e        6 days ago          204.4 MB
-</span><span id="line-12">ubuntu              latest              9cd978db300e        6 days ago          204.4 MB
-</span><span id="line-13">ubuntu              precise             9cd978db300e        6 days ago          204.4 MB
+</span><span id="line-3">ubuntu              13.10               9f676bd305a4        <span class="m">6</span> days ago          <span class="m">178</span> MB
+</span><span id="line-4">ubuntu              saucy               9f676bd305a4        <span class="m">6</span> days ago          <span class="m">178</span> MB
+</span><span id="line-5">ubuntu              13.04               eb601b8965b8        <span class="m">6</span> days ago          166.5 MB
+</span><span id="line-6">ubuntu              raring              eb601b8965b8        <span class="m">6</span> days ago          166.5 MB
+</span><span id="line-7">ubuntu              12.10               5ac751e8d623        <span class="m">6</span> days ago          <span class="m">161</span> MB
+</span><span id="line-8">ubuntu              quantal             5ac751e8d623        <span class="m">6</span> days ago          <span class="m">161</span> MB
+</span><span id="line-9">ubuntu              10.04               9cc9ea5ea540        <span class="m">6</span> days ago          180.8 MB
+</span><span id="line-10">ubuntu              lucid               9cc9ea5ea540        <span class="m">6</span> days ago          180.8 MB
+</span><span id="line-11">ubuntu              12.04               9cd978db300e        <span class="m">6</span> days ago          204.4 MB
+</span><span id="line-12">ubuntu              latest              9cd978db300e        <span class="m">6</span> days ago          204.4 MB
+</span><span id="line-13">ubuntu              precise             9cd978db300e        <span class="m">6</span> days ago          204.4 MB
 </span></pre></div>
 <p>pull 해온 이미지 리스트도 한 번 보고, 컨테이너 리스트도 출력해보죠.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker ps
@@ -249,7 +249,7 @@ nacyot의 프로그래밍 이야기
 <p>컨테이너 안의 쉘이 실행된 화면을 바로 확인하실 수 있습니다.</p>
 
 <h2><a name='트러블-슈팅'>트러블 슈팅</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">export</span> <span class="n">DOCKER_HOST</span><span class="o">=</span><span class="n">tcp</span><span class="o">:</span><span class="c1">//¶</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">export</span><span class="w"> </span><span class="vg">DOCKER_HOST</span><span class="o">=</span><span class="nl">tcp:</span><span class="o">//</span><span class="err">¶</span>
 </span></pre></div>
 <p>명령어를 통해 DOCKER_HOST를 반드시 설정해줘야합니다. 이 설정을 하지 않으면</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker images

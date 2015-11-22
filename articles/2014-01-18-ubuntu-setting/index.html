@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -155,8 +155,8 @@ nacyot의 프로그래밍 이야기
 <ol>
 <li>터미널에서 업데이트 진행(Software &amp; Updates 윈도우에서 진행해도 무관하다).</li>
 </ol>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">update</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">upgrade</span>
 </span></pre></div>
 <h2><a name='그래픽-카드-드라이버-설치'>그래픽 카드 드라이버 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
@@ -173,16 +173,16 @@ nacyot의 프로그래밍 이야기
 <h4><a name='듀얼-모니터-설정'>듀얼 모니터 설정</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h4>
 
 <p>단 <code>fglrx-update</code>를 설치하니 듀얼모니터가 해상도 제한이 걸린다며 지정이 안 되는 문제가 발생했다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">aticonfig</span> <span class="o">--</span><span class="n">initial</span> <span class="err">#</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">X11</span><span class="o">/</span><span class="n">xorg</span><span class="p">.</span><span class="n">conf</span> <span class="err">생성</span><span class="p">.</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">amdcccle</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">aticonfig</span><span class="w"> </span><span class="o">--</span><span class="vg">initial</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="o">/</span><span class="vg">etc</span><span class="o">/</span><span class="vg">X11</span><span class="o">/</span><span class="vg">xorg</span><span class="o">.</span><span class="vg">conf</span><span class="w"> </span><span class="err">생성</span><span class="o">.</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">amdcccle</span>
 </span></pre></div>
 <p>설정을 알고 있다면 직접 xorg.conf 생성 후 직접 편집해도 되지만, 잘 모른다면 AMD 드라이버 설정 관리자(amdcccle)를 열어서 듀얼 모니터를 잡아주면 된다. 여기서 화면 회전이나 추가적인 설정 가능.</p>
 
 <h3><a name='nvidia-gtx-560ti'>NVidia GTX 560Ti</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">add</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">xorg</span><span class="o">-</span><span class="n">edgers</span><span class="o">/</span><span class="n">ppa</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">add</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">x</span><span class="o">-</span><span class="n">swat</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">updates</span>
-</span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-</span><span id="line-4"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nvidia</span><span class="o">-</span><span class="n">current</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">add</span><span class="o">-</span><span class="vg">repository</span><span class="w"> </span><span class="nl">ppa:</span><span class="vg">xorg</span><span class="o">-</span><span class="vg">edgers</span><span class="o">/</span><span class="vg">ppa</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">add</span><span class="o">-</span><span class="vg">repository</span><span class="w"> </span><span class="nl">ppa:</span><span class="vg">ubuntu</span><span class="o">-</span><span class="vg">x</span><span class="o">-</span><span class="vg">swat</span><span class="o">/</span><span class="vg">x</span><span class="o">-</span><span class="vg">updates</span>
+</span><span id="line-3"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">update</span>
+</span><span id="line-4"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">nvidia</span><span class="o">-</span><span class="vg">current</span>
 </span></pre></div>
 <p>NVidia 카드의 경우 우분투 디폴트 그래픽 드라이버로도 사용은 가능하지만 부드럽지 못 하거나 느려서, Nvidia 전용 드라이버를 설치해주는 게 좋다. 위의 명령어들이 기본적인 설치 방법인데 설치할 수 있는 여러 버전들이 있으니 nvidia-current로 설치가 제대로 되지 않으면 버전명을 바꿔가며 설치해보는 게 좋다. 보통은 설치 후 재부팅이 필요하다.</p>
 
@@ -201,9 +201,9 @@ nacyot의 프로그래밍 이야기
 <p>일반적으로 어떤 그래픽 카드건 Software &amp; Updates의 Additianal Drivers에서 사용가능한 드라이버를 확인할 수 있다. 일반적으로 하드웨어 벤더에서 제공하는 독점 드라이버를 선택하는 게 안정성이나 성능 면에서 월등하다. 문제가 있으면 여기에 뜨는 것들을 바꿔가며 테스트 해보고 구글링으로 해당하는 문제를 찾아보는 게 좋다. </p>
 
 <h2><a name='한글-입력기-nabi-설치'>한글 입력기 Nabi 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">createsc</span><span class="o">/</span><span class="n">copy4</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-</span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nabi</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">add</span><span class="o">-</span><span class="vg">apt</span><span class="o">-</span><span class="vg">repository</span><span class="w"> </span><span class="nl">ppa:</span><span class="vg">createsc</span><span class="o">/</span><span class="vg">copy4</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">update</span>
+</span><span id="line-3"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">nabi</span>
 </span></pre></div>
 <ol>
 <li>System Settings</li>
@@ -214,56 +214,56 @@ nacyot의 프로그래밍 이야기
 </ol>
 
 <h3><a name='system-tray-whitelist-등록1'>System Tray Whitelist 등록<sup id="fnref1"><a href="#fn1" rel="footnote">1</a></sup></a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">mc3man</span><span class="o">/</span><span class="n">systray</span><span class="o">-</span><span class="n">white</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-</span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
-</span><span id="line-4"><span class="n">gsettings</span> <span class="n">set</span> <span class="n">com</span><span class="p">.</span><span class="n">canonical</span><span class="p">.</span><span class="n">Unity</span><span class="p">.</span><span class="n">Panel</span> <span class="n">systray</span><span class="o">-</span><span class="n">whitelist</span> <span class="s">&quot;[&#39;all&#39;]&quot;</span>
-</span><span id="line-5"><span class="n">sudo</span> <span class="n">reboot</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">add</span><span class="o">-</span><span class="vg">apt</span><span class="o">-</span><span class="vg">repository</span><span class="w"> </span><span class="nl">ppa:</span><span class="vg">mc3man</span><span class="o">/</span><span class="vg">systray</span><span class="o">-</span><span class="vg">white</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">update</span>
+</span><span id="line-3"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">upgrade</span>
+</span><span id="line-4"><span class="vg">gsettings</span><span class="w"> </span><span class="vg">set</span><span class="w"> </span><span class="vg">com</span><span class="o">.</span><span class="vg">canonical</span><span class="o">.</span><span class="vg">Unity</span><span class="o">.</span><span class="vg">Panel</span><span class="w"> </span><span class="vg">systray</span><span class="o">-</span><span class="vg">whitelist</span><span class="w"> </span><span class="s2">&quot;[&#39;all&#39;]&quot;</span>
+</span><span id="line-5"><span class="vg">sudo</span><span class="w"> </span><span class="vg">reboot</span>
 </span></pre></div>
 <h2><a name='방화병-설정-및-ssh-서버-설치'>방화병 설정 및 ssh 서버 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">enable</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">ufw</span> <span class="n">allow</span> <span class="mi">22</span><span class="o">/</span><span class="n">tcp</span>
-</span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">ssh</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">ufw</span><span class="w"> </span><span class="vg">enable</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">ufw</span><span class="w"> </span><span class="vg">allow</span><span class="w"> </span><span class="il">22</span><span class="o">/</span><span class="vg">tcp</span>
+</span><span id="line-3"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">ssh</span>
 </span></pre></div>
 <p>외부 접속 위해서 ssh-server 설치해줘야 되는 건지 원래 되는 건지(설치 되어있는지) 정확히 기억이 안난다. <code>uft</code>은 방화벽 설정인데 기본적으로 포트가 다 열려있으므로, 사용하지 않는다면 생략해도 무방.</p>
 
 <h2><a name='ssh-key-생성'>ssh key 생성</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="nx">ssh</span><span class="na">-keygen</span> <span class="na">-t</span> <span class="nx">rsa</span> <span class="na">-C</span> <span class="s2">&quot;&lt;EmailAddress&gt;</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">ssh</span><span class="o">-</span><span class="vg">keygen</span><span class="w"> </span><span class="o">-</span><span class="vg">t</span><span class="w"> </span><span class="vg">rsa</span><span class="w"> </span><span class="o">-</span><span class="vg">C</span><span class="w"> </span><span class="err">&quot;</span><span class="o">&lt;</span><span class="vg">EmailAddress</span><span class="o">&gt;</span>
 </span></pre></div>
 <p>ssh key 생성 후, <code>~/.ssh/id_rsa.pub</code> 파일 출력해서 github, bitbucket, gitlab에 등록 해 줌.</p>
 
 <h2><a name='openvpn-세팅'>OpenVPN 세팅</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">openvpn</span>
-</span><span id="line-2"><span class="cp"># /etc/openvpn vpn 환경 설정 파일 설정</span>
-</span><span id="line-3"><span class="n">sudo</span> <span class="n">service</span> <span class="n">openvpn</span> <span class="n">restart</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">openvpn</span>
+</span><span id="line-2"><span class="err">#</span><span class="w"> </span><span class="o">/</span><span class="vg">etc</span><span class="o">/</span><span class="vg">openvpn</span><span class="w"> </span><span class="vg">vpn</span><span class="w"> </span><span class="err">환경</span><span class="w"> </span><span class="err">설정</span><span class="w"> </span><span class="err">파일</span><span class="w"> </span><span class="err">설정</span>
+</span><span id="line-3"><span class="vg">sudo</span><span class="w"> </span><span class="vg">service</span><span class="w"> </span><span class="vg">openvpn</span><span class="w"> </span><span class="vg">restart</span>
 </span></pre></div>
 <p>개인적으로는 로컬 서버에서 돌리는 것들이 있어서 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/openvpn' rel='nofollow'>openvpn</a></span> 열어서 사용중. 필요하면 /etc/openvpn디렉토리에서 설정.</p>
 
 <h2><a name='unix-설정-파일-clone'>Unix 설정 파일 Clone</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="nx">sudo</span> <span class="nx">apt</span><span class="na">-get</span> <span class="nx">install</span> <span class="nx">zsh</span> <span class="nx">tmux</span> <span class="nx">git</span>
-</span><span id="line-2"><span class="nx">chsh</span> <span class="err">#</span> <span class="p">/</span><span class="nx">bin</span><span class="p">/</span><span class="nx">zsh</span>
-</span><span id="line-3"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">git</span><span class="p">@</span><span class="o">&lt;</span><span class="nx">GIT_SERVER</span><span class="o">&gt;</span><span class="p">:</span><span class="nx">configuration</span><span class="p">/</span><span class="nx">unix</span><span class="na">-config.git</span> <span class="nx">conf</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">zsh</span><span class="w"> </span><span class="vg">tmux</span><span class="w"> </span><span class="vg">git</span>
+</span><span id="line-2"><span class="vg">chsh</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">zsh</span>
+</span><span id="line-3"><span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="vg">git@</span><span class="o">&lt;</span><span class="vg">GIT_SERVER</span><span class="o">&gt;:</span><span class="vg">configuration</span><span class="o">/</span><span class="vg">unix</span><span class="o">-</span><span class="vg">config</span><span class="o">.</span><span class="vg">git</span><span class="w"> </span><span class="vg">conf</span>
 </span></pre></div>
 <p>환경설정 파일들은 마찬가지로 기존에 사용하는 것들 그대로 가져와서 사용. 개인적으로 private repository에서 관리중이고 클론해서 <code>~</code>에서 <code>conf</code> 디렉토리의 폴더로 심볼릭 링크 걸어서 사용. 필요한 게 추가로 있으면 scp로 기존 작업 환경에서 복사해서 사용. </p>
 
 <h2><a name='터미널-terminator-설치'>터미널 Terminator 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">terminator</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">terminator</span>
 </span></pre></div>
 <p>터미네이터 설정 파일은 <code>.config/terminator/config</code>. 보통은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/scp' rel='nofollow'>scp</a></span>로 원래 쓰던 거 가져다가 세팅했는데,이번엔 <a href="https://github.com/ghuntley/terminator-solarized">terminator-solarized</a> 테마도 같이사용해봤다.사용해보진 않았는데 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/mac' rel='nofollow'>Mac</a></span> 쓰던 경우엔 <a href="https://gist.github.com/olistik/3894072">이 gist</a>도좋을 듯.</p>
 
 <h2><a name='텍스트-에디터-eamcs-설치'>텍스트 에디터 Eamcs 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="nx">sudo</span> <span class="nx">apt</span><span class="na">-get</span> <span class="nx">install</span> <span class="nx">emacs24</span> <span class="nx">emacs24</span><span class="na">-common</span>
-</span><span id="line-2"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">git</span><span class="p">@</span><span class="o">&lt;</span><span class="nx">GIT_SERVER</span><span class="o">&gt;</span><span class="p">:</span><span class="nx">configuration</span><span class="p">/</span><span class="nx">emacs</span><span class="na">-config.git</span> <span class="bp">.</span><span class="nx-Member">emacs.d</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">emacs24</span><span class="w"> </span><span class="vg">emacs24</span><span class="o">-</span><span class="vg">common</span>
+</span><span id="line-2"><span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="vg">git@</span><span class="o">&lt;</span><span class="vg">GIT_SERVER</span><span class="o">&gt;:</span><span class="vg">configuration</span><span class="o">/</span><span class="vg">emacs</span><span class="o">-</span><span class="vg">config</span><span class="o">.</span><span class="vg">git</span><span class="w"> </span><span class="o">.</span><span class="vg">emacs</span><span class="o">.</span><span class="vg">d</span>
 </span></pre></div>
 <p>ubuntu 13.10에서는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/emacs24' rel='nofollow'>emacs24</a></span>를 바로 설치해서 사용 가능. 환경 설정에 기존에 사용하던 거 그대로 가져와서 사용.</p>
 
 <h3><a name='파일-검색기-the-silver-seacher-설치'>파일 검색기 the silver seacher 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
 <p>ubuntu 13.10에서는 apt-get으로 바로 silver seacher 설치할 수 있다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">silversearcher</span><span class="o">-</span><span class="n">ag</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">silversearcher</span><span class="o">-</span><span class="vg">ag</span>
 </span></pre></div>
 <h2><a name='워크스페이스-활성화'>워크스페이스 활성화</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">compizconfig</span><span class="o">-</span><span class="n">settings</span><span class="o">-</span><span class="n">manager</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">compizconfig</span><span class="o">-</span><span class="vg">settings</span><span class="o">-</span><span class="vg">manager</span>
 </span></pre></div>
 <ol>
 <li>Windows(Super) 키 누르고 <code>컴피즈 설정 관리자</code> 실행.</li>
@@ -283,74 +283,74 @@ nacyot의 프로그래밍 이야기
 </ol>
 
 <h2><a name='루비(ruby)-설치'>루비(Ruby) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/sstephenson/rbenv.git ~/.rbenv</span>
-</span><span id="line-2"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="s">&quot;$HOME/.rbenv/bin:$PATH&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
-</span><span id="line-3"><span class="n">echo</span> <span class="err">&#39;</span><span class="n">eval</span> <span class="s">&quot;$(rbenv init -)&quot;</span><span class="err">&#39;</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">zshrc</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">sstephenson</span><span class="o">/</span><span class="vg">rbenv</span><span class="o">.</span><span class="vg">git</span><span class="w"> </span><span class="o">~/.</span><span class="vg">rbenv</span>
+</span><span id="line-2"><span class="vg">echo</span><span class="w"> </span><span class="c1">&#39;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#39; &gt;&gt; ~/.zshrc</span>
+</span><span id="line-3"><span class="vg">echo</span><span class="w"> </span><span class="c1">&#39;eval &quot;$(rbenv init -)&quot;&#39; &gt;&gt; ~/.zshrc</span>
 </span></pre></div>
 <p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/rbenv' rel='nofollow'>rbenv</a></span> 설치. 기본적으로 README에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/bash' rel='nofollow'>bash</a></span> 기준으로 설정이 되어있는데, 자신이 사용하는 쉘 설정 파일에 집어넣어준다(여기선 <span class='live_link'><a href='http://wiki.nacyot.com/documents/zsh'>zsh</a></span>). 필요하면 설정하고 쉘을 다시 실행시켜준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="o">-</span><span class="n">qy</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">libyaml</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">devlibgdbm</span><span class="o">-</span><span class="n">devlibreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libncurses5</span><span class="o">-</span><span class="n">dev</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span> <span class="n">curl</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxslt</span><span class="o">-</span><span class="n">devlibcurl4</span><span class="o">-</span><span class="n">openssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libicu</span><span class="o">-</span><span class="n">dev</span>
-</span><span id="line-3"><span class="n">rbenv</span> <span class="n">install</span> <span class="mf">2.1.0</span>
-</span><span id="line-4"><span class="n">rbenv</span> <span class="n">install</span> <span class="mf">2.0.0</span><span class="o">-</span><span class="n">p353</span>
-</span><span id="line-5"><span class="n">rbenv</span> <span class="n">install</span> <span class="mf">1.9.3</span><span class="o">-</span><span class="n">p484</span>
-</span><span id="line-6"><span class="n">rbenv</span> <span class="n">global</span> <span class="mf">2.1.0</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">sstephenson</span><span class="o">/</span><span class="vg">ruby</span><span class="o">-</span><span class="vg">build</span><span class="o">.</span><span class="vg">git</span><span class="w"> </span><span class="o">~/.</span><span class="vg">rbenv</span><span class="o">/</span><span class="vg">plugins</span><span class="o">/</span><span class="vg">ruby</span><span class="o">-</span><span class="vg">build</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="o">-</span><span class="vg">qy</span><span class="w"> </span><span class="vg">build</span><span class="o">-</span><span class="vg">essential</span><span class="w"> </span><span class="vg">zlib1g</span><span class="o">-</span><span class="vg">dev</span><span class="w"> </span><span class="vg">libyaml</span><span class="o">-</span><span class="vg">dev</span><span class="w"> </span><span class="vg">libssl</span><span class="o">-</span><span class="vg">devlibgdbm</span><span class="o">-</span><span class="vg">devlibreadline</span><span class="o">-</span><span class="vg">dev</span><span class="w"> </span><span class="vg">libncurses5</span><span class="o">-</span><span class="vg">dev</span><span class="w"> </span><span class="vg">libffi</span><span class="o">-</span><span class="vg">dev</span><span class="w"> </span><span class="vg">curl</span><span class="w"> </span><span class="vg">libxml2</span><span class="o">-</span><span class="vg">dev</span><span class="w"> </span><span class="vg">libxslt</span><span class="o">-</span><span class="vg">devlibcurl4</span><span class="o">-</span><span class="vg">openssl</span><span class="o">-</span><span class="vg">dev</span><span class="w"> </span><span class="vg">libicu</span><span class="o">-</span><span class="vg">dev</span>
+</span><span id="line-3"><span class="vg">rbenv</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="mf">2.1.0</span>
+</span><span id="line-4"><span class="vg">rbenv</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="mf">2.0.0</span><span class="o">-</span><span class="vg">p353</span>
+</span><span id="line-5"><span class="vg">rbenv</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="mf">1.9.3</span><span class="o">-</span><span class="vg">p484</span>
+</span><span id="line-6"><span class="vg">rbenv</span><span class="w"> </span><span class="vg">global</span><span class="w"> </span><span class="mf">2.1.0</span>
 </span></pre></div>
 <p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/ruby-build' rel='nofollow'>ruby-build</a></span>는 rbenv에서 루비 빌드를 하기 위한 플러그인. 위에서 설치하는 패키지들은 루비 빌드에 사용되는 패키지들.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">gem</span> <span class="n">install</span> <span class="n">travis</span> <span class="n">middleman</span> <span class="n">middleman</span><span class="o">-</span><span class="n">blog</span> <span class="n">rails</span> <span class="n">heroku</span> <span class="o">--</span><span class="n">verbose</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">gem</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">travis</span><span class="w"> </span><span class="vg">middleman</span><span class="w"> </span><span class="vg">middleman</span><span class="o">-</span><span class="vg">blog</span><span class="w"> </span><span class="vg">rails</span><span class="w"> </span><span class="vg">heroku</span><span class="w"> </span><span class="o">--</span><span class="vg">verbose</span>
 </span></pre></div>
 <p>중요한 gem들 설치... 별로 중요해보이지 않지만 패스.</p>
 
 <h2><a name='깃허브(github)-명령행-클라이언트-허브(hub)-설치'>깃허브(Github) 명령행 클라이언트 허브(Hub) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="o">:</span><span class="c1">//github.com/github/hub.git</span>
-</span><span id="line-2"><span class="n">cd</span> <span class="n">hub</span><span class="o">/</span>
-</span><span id="line-3"><span class="n">sudo</span> <span class="p">.</span><span class="n">rbenv</span><span class="o">/</span><span class="n">shims</span><span class="o">/</span><span class="n">rake</span> <span class="n">install</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">git</span><span class="w"> </span><span class="vg">clone</span><span class="w"> </span><span class="nl">git:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">github</span><span class="o">/</span><span class="vg">hub</span><span class="o">.</span><span class="vg">git</span>
+</span><span id="line-2"><span class="vg">cd</span><span class="w"> </span><span class="vg">hub</span><span class="o">/</span>
+</span><span id="line-3"><span class="vg">sudo</span><span class="w"> </span><span class="o">.</span><span class="vg">rbenv</span><span class="o">/</span><span class="vg">shims</span><span class="o">/</span><span class="vg">rake</span><span class="w"> </span><span class="vg">install</span>
 </span></pre></div>
 <p>적당한 디렉토리에 클론하고 <code>rake install</code>로 설치.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nx">wget</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//raw.github.com/github/hub/master/etc/hub.zsh_completion</span>
-</span><span id="line-2"><span class="nx">sudo</span> <span class="nx">mv</span> <span class="nx">hub</span><span class="p">.</span><span class="nx">zsh_completion</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">local</span><span class="o">/</span><span class="nx">share</span><span class="o">/</span><span class="nx">zsh</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">functions</span><span class="o">/</span><span class="nx">_hub</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">wget</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">raw</span><span class="o">.</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">github</span><span class="o">/</span><span class="vg">hub</span><span class="o">/</span><span class="vg">master</span><span class="o">/</span><span class="vg">etc</span><span class="o">/</span><span class="vg">hub</span><span class="o">.</span><span class="vg">zsh_completion</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">mv</span><span class="w"> </span><span class="vg">hub</span><span class="o">.</span><span class="vg">zsh_completion</span><span class="w"> </span><span class="o">/</span><span class="vg">usr</span><span class="o">/</span><span class="vg">local</span><span class="o">/</span><span class="vg">share</span><span class="o">/</span><span class="vg">zsh</span><span class="o">/</span><span class="vg">site</span><span class="o">-</span><span class="vg">functions</span><span class="o">/</span><span class="vg">_hub</span>
 </span></pre></div>
 <p>zsh용 자동완성 파일을 받아서 위의 디렉토리로 복사해준다. 아래 설정을 <code>.zshrc</code> 파일에 추가해준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">eval</span> <span class="s">&quot;$(hub alias -s)&quot;</span>
-</span><span id="line-2"><span class="n">compdef</span> <span class="n">git</span><span class="o">=</span><span class="n">hub</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">eval</span><span class="w"> </span><span class="s2">&quot;$(hub alias -s)&quot;</span>
+</span><span id="line-2"><span class="vg">compdef</span><span class="w"> </span><span class="vg">git</span><span class="o">=</span><span class="vg">hub</span>
 </span></pre></div>
 <h2><a name='와인(wine)-카카오톡-설치'>와인(Wine) 카카오톡 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
 <p>현재 팀에서 사용하고 있는 메신저가 카카오톡이라 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/wine' rel='nofollow'>Wine</a></span>로 카카오톡 설치 시도. </p>
-<div class="highlight"><pre><span id="line-1"><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="o">:</span><span class="n">ubuntu</span><span class="o">-</span><span class="n">wine</span><span class="o">/</span><span class="n">ppa</span>
-</span><span id="line-2"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">upgrade</span>
-</span><span id="line-3"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="n">search</span> <span class="s">&quot;wine&quot;</span>
-</span><span id="line-4"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">wine1</span><span class="mf">.7</span>
-</span><span id="line-5"><span class="n">winetricks</span> <span class="n">gdiplus</span>
-</span><span id="line-6"><span class="n">winetricks</span> <span class="n">wmp9</span> 
-</span><span id="line-7"><span class="n">winetricks</span> <span class="n">riched20</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">sudo</span><span class="w"> </span><span class="vg">add</span><span class="o">-</span><span class="vg">apt</span><span class="o">-</span><span class="vg">repository</span><span class="w"> </span><span class="nl">ppa:</span><span class="vg">ubuntu</span><span class="o">-</span><span class="vg">wine</span><span class="o">/</span><span class="vg">ppa</span>
+</span><span id="line-2"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">upgrade</span>
+</span><span id="line-3"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">cache</span><span class="w"> </span><span class="vg">search</span><span class="w"> </span><span class="s2">&quot;wine&quot;</span>
+</span><span id="line-4"><span class="vg">sudo</span><span class="w"> </span><span class="vg">apt</span><span class="o">-</span><span class="vg">get</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">wine1</span><span class="mf">.7</span>
+</span><span id="line-5"><span class="vg">winetricks</span><span class="w"> </span><span class="vg">gdiplus</span>
+</span><span id="line-6"><span class="vg">winetricks</span><span class="w"> </span><span class="vg">wmp9</span><span class="w"> </span>
+</span><span id="line-7"><span class="vg">winetricks</span><span class="w"> </span><span class="vg">riched20</span>
 </span></pre></div>
 <p><code>wmp9</code>은 메시지 알림음, <code>riched20</code>은 한글 입력에 필요한 듯.</p>
 
 <p>한글 설정을 위해 굴림 폰트 구해서 wine 폴더 쪽으로 복사해주고 기본 폰트 쪽에 링크를 걸어준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">mv</span> <span class="n">gulim</span><span class="p">.</span><span class="n">ttc</span> <span class="p">..</span><span class="o">/</span><span class="p">.</span><span class="n">wine</span><span class="o">/</span><span class="n">drive_c</span><span class="o">/</span><span class="n">windows</span><span class="o">/</span><span class="n">Fonts</span><span class="o">/</span>
-</span><span id="line-2"><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="n">gulim</span><span class="p">.</span><span class="n">ttc</span> <span class="n">batang</span><span class="p">.</span><span class="n">ttc</span>
-</span><span id="line-3"><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="n">gulim</span><span class="p">.</span><span class="n">ttc</span> <span class="n">dotum</span><span class="p">.</span><span class="n">ttc</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">mv</span><span class="w"> </span><span class="vg">gulim</span><span class="o">.</span><span class="vg">ttc</span><span class="w"> </span><span class="o">../.</span><span class="vg">wine</span><span class="o">/</span><span class="vg">drive_c</span><span class="o">/</span><span class="vg">windows</span><span class="o">/</span><span class="vg">Fonts</span><span class="o">/</span>
+</span><span id="line-2"><span class="vg">ln</span><span class="w"> </span><span class="o">-</span><span class="vg">s</span><span class="w"> </span><span class="vg">gulim</span><span class="o">.</span><span class="vg">ttc</span><span class="w"> </span><span class="vg">batang</span><span class="o">.</span><span class="vg">ttc</span>
+</span><span id="line-3"><span class="vg">ln</span><span class="w"> </span><span class="o">-</span><span class="vg">s</span><span class="w"> </span><span class="vg">gulim</span><span class="o">.</span><span class="vg">ttc</span><span class="w"> </span><span class="vg">dotum</span><span class="o">.</span><span class="vg">ttc</span>
 </span></pre></div>
 <p><code>~/.wine/system.reg</code> 파일을 열어서 아래 부분을 찾아서,</p>
-<div class="highlight"><pre><span id="line-1"><span class="s">&quot;MS Shell Dlg&quot;</span><span class="o">=</span><span class="s">&quot;Tahoma&quot;</span>
-</span><span id="line-2"><span class="s">&quot;MS Shell Dlg 2&quot;</span><span class="o">=</span><span class="s">&quot;Tahoma&quot;</span>
+<div class="highlight"><pre><span id="line-1"><span class="s2">&quot;MS Shell Dlg&quot;</span><span class="o">=</span><span class="s2">&quot;Tahoma&quot;</span>
+</span><span id="line-2"><span class="s2">&quot;MS Shell Dlg 2&quot;</span><span class="o">=</span><span class="s2">&quot;Tahoma&quot;</span>
 </span></pre></div>
 <p>아래 내용으로 바꿔준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="s">&quot;MS Shell Dlg&quot;</span><span class="o">=</span><span class="s">&quot;Gulim&quot;</span>
-</span><span id="line-2"><span class="s">&quot;MS Shell Dlg 2&quot;</span><span class="o">=</span><span class="s">&quot;Gulim&quot;</span>
+<div class="highlight"><pre><span id="line-1"><span class="s2">&quot;MS Shell Dlg&quot;</span><span class="o">=</span><span class="s2">&quot;Gulim&quot;</span>
+</span><span id="line-2"><span class="s2">&quot;MS Shell Dlg 2&quot;</span><span class="o">=</span><span class="s2">&quot;Gulim&quot;</span>
 </span></pre></div>
 <p><a href="http://app.pc.kakao.com/talk/win32/KakaoTalk_Setup.exe">카카오톡 설치 파일</a> 다운 받아서 실행. 한글이 깨지는 경우 적당이 추측해서 설치해준다.</p>
 
 <p>터미널에서 아래 명령어를 실행해본다. 이 때 카카오톡 아이콘 위치가 정확하지 않으면 직접 확인해준다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">wine</span> <span class="n">C</span><span class="o">:</span><span class="err">\\</span><span class="n">windows</span><span class="err">\\</span><span class="n">command</span><span class="err">\\</span><span class="n">start</span><span class="p">.</span><span class="n">exe</span><span class="o">/</span><span class="n">Unix</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">daekwon</span><span class="o">/</span><span class="p">.</span><span class="n">wine</span><span class="o">/</span><span class="n">dosdevices</span><span class="o">/</span><span class="n">c</span><span class="o">:/</span><span class="n">users</span><span class="o">/</span><span class="n">Public</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="err">카카오톡</span><span class="p">.</span><span class="n">lnk</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">wine</span><span class="w"> </span><span class="nl">C:</span><span class="o">\\</span><span class="vg">windows</span><span class="o">\\</span><span class="vg">command</span><span class="o">\\</span><span class="vg">start</span><span class="o">.</span><span class="vg">exe</span><span class="o">/</span><span class="vg">Unix</span><span class="o">/</span><span class="vg">home</span><span class="o">/</span><span class="vg">daekwon</span><span class="o">/.</span><span class="vg">wine</span><span class="o">/</span><span class="vg">dosdevices</span><span class="o">/</span><span class="nl">c:</span><span class="o">/</span><span class="vg">users</span><span class="o">/</span><span class="vg">Public</span><span class="o">/</span><span class="vg">Desktop</span><span class="o">/</span><span class="err">카카오톡</span><span class="o">.</span><span class="vg">lnk</span>
 </span></pre></div>
 <p>이렇게 실행했는데, 한글이 깨지면 카카오톡을 전부 종료하고 강제로 <code>LC_ALL</code> 환경변수를 지정해 실행해본다. 이게 나 같은 경우에는 이번에 Ubuntu를 영어로 설치해서 그러니 Wine도 기본으로 Language가 영어로 잡혀서 폰트 설정만으로는 제대로 적용이 안 됐다. 이 환경변수를 사용해 한글이 잘 되면 카카오톡 설치시 바탕화면에 생기는 아이콘의 실행 경로에 <code>LC_ALL</code> 환경변수를 지정해 놓는다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">LC_ALL</span><span class="o">=</span><span class="n">ko_KR</span><span class="p">.</span><span class="n">utf8</span> <span class="n">wine</span> <span class="n">C</span><span class="o">:</span><span class="err">\\</span><span class="n">windows</span><span class="err">\\</span><span class="n">command</span><span class="err">\\</span><span class="n">start</span><span class="p">.</span><span class="n">exe</span><span class="o">/</span><span class="n">Unix</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">daekwon</span><span class="o">/</span><span class="p">.</span><span class="n">wine</span><span class="o">/</span><span class="n">dosdevices</span><span class="o">/</span><span class="n">c</span><span class="o">:/</span><span class="n">users</span><span class="o">/</span><span class="n">Public</span><span class="o">/</span><span class="n">Desktop</span><span class="o">/</span><span class="err">카카오톡</span><span class="p">.</span><span class="n">lnk</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">LC_ALL</span><span class="o">=</span><span class="vg">ko_KR</span><span class="o">.</span><span class="vg">utf8</span><span class="w"> </span><span class="vg">wine</span><span class="w"> </span><span class="nl">C:</span><span class="o">\\</span><span class="vg">windows</span><span class="o">\\</span><span class="vg">command</span><span class="o">\\</span><span class="vg">start</span><span class="o">.</span><span class="vg">exe</span><span class="o">/</span><span class="vg">Unix</span><span class="o">/</span><span class="vg">home</span><span class="o">/</span><span class="vg">daekwon</span><span class="o">/.</span><span class="vg">wine</span><span class="o">/</span><span class="vg">dosdevices</span><span class="o">/</span><span class="nl">c:</span><span class="o">/</span><span class="vg">users</span><span class="o">/</span><span class="vg">Public</span><span class="o">/</span><span class="vg">Desktop</span><span class="o">/</span><span class="err">카카오톡</span><span class="o">.</span><span class="vg">lnk</span>
 </span></pre></div>
 <p>한글이 조금 구려보이긴 하지만 잘 되는 것은 확인.</p>
 
 <h2><a name='개발용-도커(docker)-설치'>개발용 도커(<a href="http://docker.io/">Docker</a>) 설치</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
-<div class="highlight"><pre><span id="line-1"><span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="n">https</span><span class="o">:</span><span class="c1">//get.docker.io/ubuntu/ | sudo sh</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">curl</span><span class="w"> </span><span class="o">-</span><span class="vg">s</span><span class="w"> </span><span class="nl">https:</span><span class="o">//</span><span class="vg">get</span><span class="o">.</span><span class="vg">docker</span><span class="o">.</span><span class="vg">io</span><span class="o">/</span><span class="vg">ubuntu</span><span class="o">/</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="vg">sudo</span><span class="w"> </span><span class="vg">sh</span>
 </span></pre></div>
 <p>요새 서버에 도입하려고 궁리중인 Docker. 공식 사이트에서 제공해주는 스크립트 하나면 정말 간단히 설치할 수 있다. 자세항 내용은 <a href="http://docs.docker.io/en/latest/installation/ubuntulinux/">공식 문서</a> 확인.</p>
 

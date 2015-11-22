@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -170,8 +170,8 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-3">hub version 1.11.1
 </span></pre></div>
 <p>hub는 <code>hub</code> 명령어를 통해서 독자적으로 사용할 수도 있지만 <code>git</code> 명령어와 통합해서 사용할 수도 있습니다. <code>hub alias</code> 명령어를 실행하면 <code>git</code> 명령어와 통합하는 방법을 알려줍니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="cp"># Wrap git automatically by adding the following to ~/.zshrc:</span>
-</span><span id="line-2"><span class="n">eval</span> <span class="s">&quot;$(hub alias -s)&quot;</span>
+<div class="highlight"><pre><span id="line-1"><span class="err">#</span><span class="w"> </span><span class="vg">Wrap</span><span class="w"> </span><span class="vg">git</span><span class="w"> </span><span class="vg">automatically</span><span class="w"> </span><span class="vg">by</span><span class="w"> </span><span class="vg">adding</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">following</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="o">~/.</span><span class="nl">zshrc:</span>
+</span><span id="line-2"><span class="vg">eval</span><span class="w"> </span><span class="s2">&quot;$(hub alias -s)&quot;</span>
 </span></pre></div>
 <p>예를 들어 <span class='live_link'><a href='http://wiki.nacyot.com/documents/zsh'>zsh</a></span> 사용하고 있다면 <code>~/.zshrc</code> 파일에, bash를 사용하고 있다면 <code>~/.bash_profile</code> 파일에 <code>eval &quot;$(hub alias -s)&quot;</code>을 추가해주면 쉘 초기화 시에 git와 hub 명령어를 통합시켜줍니다. git와 hub 명령어는 기능적으로는 겹치지 않으며, hub가 git를 보완하는 역할을 하고 있으므로 이렇게 사용하더라도 별다른 문제가 되지 않습니다.</p>
 
@@ -194,7 +194,7 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-3">pull-request  -- open a pull request on GitHub
 </span></pre></div>
 <p><code>git</code> 명령어와 통합해서 사용중인 경우에는 .zshrc에 아래 라인을 추가해 git 명령어에서도 hub 명령어의 자동완성을 사용할 수 있습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">compdef</span> <span class="n">git</span><span class="o">=</span><span class="n">hub</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">compdef</span><span class="w"> </span><span class="vg">git</span><span class="o">=</span><span class="vg">hub</span>
 </span></pre></div>
 <p>아래와 같이 자동 완성이 적용된 것을 확인할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>git pull&lt;TAB&gt;
@@ -229,8 +229,8 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-4"><span class="nv">$ </span>git push origin master
 </span><span id="line-5">
 </span><span id="line-6">Counting objects: 3, <span class="k">done</span>.
-</span><span id="line-7">Writing objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, 221 bytes <span class="p">|</span> 0 bytes/s, <span class="k">done</span>.
-</span><span id="line-8">Total 3 <span class="o">(</span>delta 0<span class="o">)</span>, reused 0 <span class="o">(</span>delta 0<span class="o">)</span>
+</span><span id="line-7">Writing objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, <span class="m">221</span> bytes <span class="p">|</span> <span class="m">0</span> bytes/s, <span class="k">done</span>.
+</span><span id="line-8">Total <span class="m">3</span> <span class="o">(</span>delta 0<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>
 </span><span id="line-9">To git@github.com:nacyot/pull-request.git
 </span><span id="line-10">* <span class="o">[</span>new branch<span class="o">]</span>      master -&gt; master
 </span></pre></div>
@@ -254,15 +254,15 @@ nacyot의 프로그래밍 이야기
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>git pull-request
 </span></pre></div>
 <p><code>git pull-request</code> 명령어를 실행시키면 현재 디렉토리의 github 저장소와 브랜치를 기준으로 풀리퀘스트를 보내기 위한 메시지를 입력할 수 있도록 기본 에디터를 실행해줍니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">First</span> <span class="n">pull</span><span class="o">-</span><span class="n">request</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">First</span><span class="w"> </span><span class="vg">pull</span><span class="o">-</span><span class="vg">request</span>
 </span><span id="line-2">
-</span><span id="line-3"><span class="cp"># Requesting a pull to nacyot:master from nacyot:pull-request</span>
-</span><span id="line-4"><span class="cp">#</span>
-</span><span id="line-5"><span class="cp"># Write a message for this pull request. The first block</span>
-</span><span id="line-6"><span class="cp"># of text is the title and the rest is description.</span>
+</span><span id="line-3"><span class="err">#</span><span class="w"> </span><span class="vg">Requesting</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">pull</span><span class="w"> </span><span class="vg">to</span><span class="w"> </span><span class="nl">nacyot:</span><span class="vg">master</span><span class="w"> </span><span class="vg">from</span><span class="w"> </span><span class="nl">nacyot:</span><span class="vg">pull</span><span class="o">-</span><span class="vg">request</span>
+</span><span id="line-4"><span class="err">#</span>
+</span><span id="line-5"><span class="err">#</span><span class="w"> </span><span class="vg">Write</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">message</span><span class="w"> </span><span class="vg">for</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">pull</span><span class="w"> </span><span class="vg">request</span><span class="o">.</span><span class="w"> </span><span class="vg">The</span><span class="w"> </span><span class="vg">first</span><span class="w"> </span><span class="vg">block</span>
+</span><span id="line-6"><span class="err">#</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">text</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">title</span><span class="w"> </span><span class="vg">and</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">rest</span><span class="w"> </span><span class="vg">is</span><span class="w"> </span><span class="vg">description</span><span class="o">.</span>
 </span></pre></div>
 <p>주석을 통해서 풀리퀘스트가 어디로 보내지는지 확인할 수 있습니다. 풀리퀘스트 메시지를 완성하고 저장한 후 에디터를 종료하면 풀리퀘스트가 보내집니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="nl">https:</span><span class="c1">//github.com/nacyot/pull-request/pull/1</span>
+<div class="highlight"><pre><span id="line-1"><span class="nl">https:</span><span class="o">//</span><span class="vg">github</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">nacyot</span><span class="o">/</span><span class="vg">pull</span><span class="o">-</span><span class="vg">request</span><span class="o">/</span><span class="vg">pull</span><span class="o">/</span><span class="il">1</span>
 </span></pre></div>
 <p>풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.</p>
 

@@ -12,7 +12,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <link href='/images/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 <link href='http://blog.nacyot.com/articles/2013-10-30-angularjs-style-guide/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
-<link href='/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='prev' title='Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화'>
+<link href='/articles/2013-10-02-github-ecosystem/' rel='prev' title='Github 에코시스템 - Git을 둘러싼 유용한 서비스들'>
 <link href='/articles/2013-11-24-ruby-trivias-you-should-know-4/' rel='next' title='알아두면 도움이 되는 55가지 루비(Ruby) 기법'>
 <meta content='이 글은 Minko Gechev 씨의 AngularJS Style Guide 문서를 nacyot이 변역한 글입니다. 번역된 문서는 Github 저장소에서 관리되고 있으며 원본은 여기에서 찾아볼 수 있습니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
@@ -80,7 +80,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <i class='fa fa-edit'></i>
 </div>
 </a>
-<a href='/tags/book' title='서평(Book Review) 목록'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
 <div class='category-book category-title' style='width: 12.5%'>
 <i class='fa fa-book'></i>
 </div>
@@ -190,85 +190,85 @@ nacyot의 프로그래밍 이야기
 </ul>
 
 <p>이러한 접근법을 사용한 디렉토리 구조는 다읍과 같습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">.</span>
-</span><span id="line-2"><span class="err">├──</span> <span class="n">app</span>
-</span><span id="line-3"><span class="err">│  </span> <span class="err">├──</span> <span class="n">app</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-4"><span class="err">│  </span> <span class="err">├──</span> <span class="n">controllers</span>
-</span><span id="line-5"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
-</span><span id="line-6"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">FirstCtrl</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-7"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">SecondCtrl</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-8"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
-</span><span id="line-9"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">└──</span> <span class="n">ThirdCtrl</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-10"><span class="err">│  </span> <span class="err">├──</span> <span class="n">directives</span>
-</span><span id="line-11"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
-</span><span id="line-12"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-13"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
-</span><span id="line-14"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-15"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">└──</span> <span class="n">directive3</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-16"><span class="err">│  </span> <span class="err">├──</span> <span class="n">filters</span>
-</span><span id="line-17"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
-</span><span id="line-18"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
-</span><span id="line-19"><span class="err">│  </span> <span class="err">└──</span> <span class="n">services</span>
-</span><span id="line-20"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">CommonService</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-21"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">cache</span>
-</span><span id="line-22"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">├──</span> <span class="n">Cache1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-23"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">Cache2</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-24"><span class="err">│  </span>     <span class="err">└──</span> <span class="n">models</span>
-</span><span id="line-25"><span class="err">│  </span>         <span class="err">├──</span> <span class="n">Model1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-26"><span class="err">│  </span>         <span class="err">└──</span> <span class="n">Model2</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-27"><span class="err">├──</span> <span class="n">lib</span>
-</span><span id="line-28"><span class="err">└──</span> <span class="n">test</span>
+<div class="highlight"><pre><span id="line-1"><span class="o">.</span>
+</span><span id="line-2"><span class="err">├──</span><span class="w"> </span><span class="vg">app</span>
+</span><span id="line-3"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">app</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-4"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">controllers</span>
+</span><span id="line-5"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">page1</span>
+</span><span id="line-6"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">FirstCtrl</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-7"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">SecondCtrl</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-8"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">page2</span>
+</span><span id="line-9"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w">     </span><span class="err">└──</span><span class="w"> </span><span class="vg">ThirdCtrl</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-10"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">directives</span>
+</span><span id="line-11"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">page1</span>
+</span><span id="line-12"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">directive1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-13"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">page2</span>
+</span><span id="line-14"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w">     </span><span class="err">├──</span><span class="w"> </span><span class="vg">directive2</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-15"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w">     </span><span class="err">└──</span><span class="w"> </span><span class="vg">directive3</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-16"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">filters</span>
+</span><span id="line-17"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">page1</span>
+</span><span id="line-18"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">page2</span>
+</span><span id="line-19"><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">services</span>
+</span><span id="line-20"><span class="err">│  </span><span class="w">     </span><span class="err">├──</span><span class="w"> </span><span class="vg">CommonService</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-21"><span class="err">│  </span><span class="w">     </span><span class="err">├──</span><span class="w"> </span><span class="vg">cache</span>
+</span><span id="line-22"><span class="err">│  </span><span class="w">     </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">Cache1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-23"><span class="err">│  </span><span class="w">     </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">Cache2</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-24"><span class="err">│  </span><span class="w">     </span><span class="err">└──</span><span class="w"> </span><span class="vg">models</span>
+</span><span id="line-25"><span class="err">│  </span><span class="w">         </span><span class="err">├──</span><span class="w"> </span><span class="vg">Model1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-26"><span class="err">│  </span><span class="w">         </span><span class="err">└──</span><span class="w"> </span><span class="vg">Model2</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-27"><span class="err">├──</span><span class="w"> </span><span class="vg">lib</span>
+</span><span id="line-28"><span class="err">└──</span><span class="w"> </span><span class="vg">test</span>
 </span></pre></div>
 <ul>
 <li>기능 별로 상위 디렉토리를 나누고, 컴포넌트 타입 별로 하위 디렉토리를 구성.</li>
 </ul>
 
 <p>다음과 같은 디렉토리 구조가 됩니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="p">.</span>
-</span><span id="line-2"><span class="err">├──</span> <span class="n">app</span>
-</span><span id="line-3"><span class="err">│  </span> <span class="err">├──</span> <span class="n">app</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-4"><span class="err">│  </span> <span class="err">├──</span> <span class="n">common</span>
-</span><span id="line-5"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">controllers</span>
-</span><span id="line-6"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">directives</span>
-</span><span id="line-7"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">filters</span>
-</span><span id="line-8"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">services</span>
-</span><span id="line-9"><span class="err">│  </span> <span class="err">├──</span> <span class="n">page1</span>
-</span><span id="line-10"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">controllers</span>
-</span><span id="line-11"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">FirstCtrl</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-12"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">SecondCtrl</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-13"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">directives</span>
-</span><span id="line-14"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-15"><span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">filters</span>
-</span><span id="line-16"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">├──</span> <span class="n">filter1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-17"><span class="err">│  </span> <span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">filter2</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-18"><span class="err">│  </span> <span class="err">│  </span> <span class="err">└──</span> <span class="n">services</span>
-</span><span id="line-19"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">├──</span> <span class="n">service1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-20"><span class="err">│  </span> <span class="err">│  </span>     <span class="err">└──</span> <span class="n">service2</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-21"><span class="err">│  </span> <span class="err">└──</span> <span class="n">page2</span>
-</span><span id="line-22"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">controllers</span>
-</span><span id="line-23"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">ThirdCtrl</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-24"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">directives</span>
-</span><span id="line-25"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-26"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive3</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-27"><span class="err">│  </span>     <span class="err">├──</span> <span class="n">filters</span>
-</span><span id="line-28"><span class="err">│  </span>     <span class="err">│  </span> <span class="err">└──</span> <span class="n">filter3</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-29"><span class="err">│  </span>     <span class="err">└──</span> <span class="n">services</span>
-</span><span id="line-30"><span class="err">│  </span>         <span class="err">└──</span> <span class="n">service3</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-31"><span class="err">├──</span> <span class="n">lib</span>
-</span><span id="line-32"><span class="err">└──</span> <span class="n">test</span>
+<div class="highlight"><pre><span id="line-1"><span class="o">.</span>
+</span><span id="line-2"><span class="err">├──</span><span class="w"> </span><span class="vg">app</span>
+</span><span id="line-3"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">app</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-4"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">common</span>
+</span><span id="line-5"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">controllers</span>
+</span><span id="line-6"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">directives</span>
+</span><span id="line-7"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">filters</span>
+</span><span id="line-8"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">services</span>
+</span><span id="line-9"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">page1</span>
+</span><span id="line-10"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">controllers</span>
+</span><span id="line-11"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">FirstCtrl</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-12"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">SecondCtrl</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-13"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">directives</span>
+</span><span id="line-14"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">directive1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-15"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">filters</span>
+</span><span id="line-16"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">filter1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-17"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">filter2</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-18"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">services</span>
+</span><span id="line-19"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w">     </span><span class="err">├──</span><span class="w"> </span><span class="vg">service1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-20"><span class="err">│  </span><span class="w"> </span><span class="err">│  </span><span class="w">     </span><span class="err">└──</span><span class="w"> </span><span class="vg">service2</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-21"><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">page2</span>
+</span><span id="line-22"><span class="err">│  </span><span class="w">     </span><span class="err">├──</span><span class="w"> </span><span class="vg">controllers</span>
+</span><span id="line-23"><span class="err">│  </span><span class="w">     </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">ThirdCtrl</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-24"><span class="err">│  </span><span class="w">     </span><span class="err">├──</span><span class="w"> </span><span class="vg">directives</span>
+</span><span id="line-25"><span class="err">│  </span><span class="w">     </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">directive2</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-26"><span class="err">│  </span><span class="w">     </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">directive3</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-27"><span class="err">│  </span><span class="w">     </span><span class="err">├──</span><span class="w"> </span><span class="vg">filters</span>
+</span><span id="line-28"><span class="err">│  </span><span class="w">     </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">filter3</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-29"><span class="err">│  </span><span class="w">     </span><span class="err">└──</span><span class="w"> </span><span class="vg">services</span>
+</span><span id="line-30"><span class="err">│  </span><span class="w">         </span><span class="err">└──</span><span class="w"> </span><span class="vg">service3</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-31"><span class="err">├──</span><span class="w"> </span><span class="vg">lib</span>
+</span><span id="line-32"><span class="err">└──</span><span class="w"> </span><span class="vg">test</span>
 </span></pre></div>
 <ul>
 <li><p>디렉티브 디렉토리를 만들 땐 디렉티브에 관련된 파일들(템플릿, CSS/SASS 파일, 자바스크립트)을 한 폴더에 모읍니다. 이런 방식으로 디렉토리를 구성한다면 프로젝트 어디서나 이 구조를 일관적으로 사용할 수 있습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">app</span>
-</span><span id="line-2"><span class="err">└──</span> <span class="n">directives</span>
-</span><span id="line-3">    <span class="err">├──</span> <span class="n">directive1</span>
-</span><span id="line-4">    <span class="err">│  </span> <span class="err">├──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">html</span>
-</span><span id="line-5">    <span class="err">│  </span> <span class="err">├──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-6">    <span class="err">│  </span> <span class="err">└──</span> <span class="n">directive1</span><span class="p">.</span><span class="n">sass</span>
-</span><span id="line-7">    <span class="err">└──</span> <span class="n">directive2</span>
-</span><span id="line-8">        <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">html</span>
-</span><span id="line-9">        <span class="err">├──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-10">        <span class="err">└──</span> <span class="n">directive2</span><span class="p">.</span><span class="n">sass</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">app</span>
+</span><span id="line-2"><span class="err">└──</span><span class="w"> </span><span class="vg">directives</span>
+</span><span id="line-3"><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="vg">directive1</span>
+</span><span id="line-4"><span class="w">    </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">directive1</span><span class="o">.</span><span class="vg">html</span>
+</span><span id="line-5"><span class="w">    </span><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">directive1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-6"><span class="w">    </span><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">directive1</span><span class="o">.</span><span class="vg">sass</span>
+</span><span id="line-7"><span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="vg">directive2</span>
+</span><span id="line-8"><span class="w">        </span><span class="err">├──</span><span class="w"> </span><span class="vg">directive2</span><span class="o">.</span><span class="vg">html</span>
+</span><span id="line-9"><span class="w">        </span><span class="err">├──</span><span class="w"> </span><span class="vg">directive2</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-10"><span class="w">        </span><span class="err">└──</span><span class="w"> </span><span class="vg">directive2</span><span class="o">.</span><span class="vg">sass</span>
 </span></pre></div></li>
 </ul>
 
@@ -276,13 +276,13 @@ nacyot의 프로그래밍 이야기
 
 <ul>
 <li><p>두 방식을 사용하는 데 있어서 또 하나 작은 선택지는 <a href="http://joshdmiller.github.io/ng-boilerplate/#/home">ng-boilerplate</a>을 사용하는 것입니다. 특정 컴포넌트의 유닛 테스트는 컴포넌트와 같은 폴더에 저장합니다. 이를 통해 컴포넌트의 코드가 변경되었을 때 테스트 코드를 찾기 쉬우며, 테스트를 컴포넌트의 사용법을 다룬 문서처럼 사용할 수 있습니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="n">services</span>
-</span><span id="line-2"><span class="err">├──</span> <span class="n">cache</span>
-</span><span id="line-3"><span class="err">│  </span> <span class="err">├──</span> <span class="n">cache1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-4"><span class="err">│  </span> <span class="err">└──</span> <span class="n">cache1</span><span class="p">.</span><span class="n">spec</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-5"><span class="err">└──</span> <span class="n">models</span>
-</span><span id="line-6">    <span class="err">├──</span> <span class="n">model1</span><span class="p">.</span><span class="n">js</span>
-</span><span id="line-7">    <span class="err">└──</span> <span class="n">model1</span><span class="p">.</span><span class="n">spec</span><span class="p">.</span><span class="n">js</span>
+<div class="highlight"><pre><span id="line-1"><span class="vg">services</span>
+</span><span id="line-2"><span class="err">├──</span><span class="w"> </span><span class="vg">cache</span>
+</span><span id="line-3"><span class="err">│  </span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="vg">cache1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-4"><span class="err">│  </span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="vg">cache1</span><span class="o">.</span><span class="vg">spec</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-5"><span class="err">└──</span><span class="w"> </span><span class="vg">models</span>
+</span><span id="line-6"><span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="vg">model1</span><span class="o">.</span><span class="vg">js</span>
+</span><span id="line-7"><span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="vg">model1</span><span class="o">.</span><span class="vg">spec</span><span class="o">.</span><span class="vg">js</span>
 </span></pre></div></li>
 <li><p><code>app.js</code> 파일에는 라우트 정의와 설정이 포함되어야 하며, 필요한 경우 초기화 작업을 해줍니다.</p></li>
 <li><p>각각의 자바스크립트 파일에는 오직 하나의 컴포넌트만을 포함하세요. 파일 이름은 컴포넌트의 이름과 같아야합니다.</p></li>
@@ -350,22 +350,22 @@ nacyot의 프로그래밍 이야기
 <li>컨터르롤러의 이름은 컨트롤러의 이름을 기준으로 지어야 하며(예를 들어 shopping cart, homepage, admin panel), 이름의 끝에는 <code>Ctrl</code>을 붙여줍니다. 컨트롤러 이름은 UpperCamelCase를 사용해 작성합니다(<code>HomePageCtrl</code>, <code>ShoppingCartCtrl</code>, <code>AdminPanelCtrl</code>, etc.).</li>
 <li>컨트롤러를 전역 공간에 정의하지 마세요(이런 사용법이 AngularJS 자체에서 제약이 되어있지 않더라도, 이러한 방법은 전역 공간을 더럽히는 안 좋은 방법입니다).</li>
 <li><p>컨트롤러를 정의할 때 배열 문법을 사용하세요.</p>
-<div class="highlight"><pre><span id="line-1"><span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;dependency1&#39;</span>, <span class="s">&#39;dependency2&#39;</span>, ..., <span class="s">&#39;dependencyn&#39;</span>, <span class="n">function</span> (<span class="n">dependency1</span>, <span class="n">dependency2</span>, ..., <span class="n">dependencyn</span>) {
-</span><span id="line-2">  //...<span class="nb">body</span>
-</span><span id="line-3">}]);
+<div class="highlight"><pre><span id="line-1"><span class="n">module</span><span class="p">.</span><span class="n">controller</span><span class="p">(</span><span class="c">&#39;MyCtrl&#39;, [&#39;dependency1&#39;, &#39;dependency2&#39;, ..., &#39;dependencyn&#39;, function (dependency1, dependency2, ..., dependencyn) {</span>
+</span><span id="line-2">  <span class="o">//</span><span class="p">...</span><span class="n">body</span>
+</span><span id="line-3"><span class="p">}</span><span class="err">]</span><span class="p">)</span><span class="err">;</span>
 </span></pre></div></li>
 </ul>
 
 <p>이런 식으로 정의하면 minification에서 발생할 수 있는 문제를 피할 수 있습니다. <a href="https://github.com/olov/ng-annotate">ng-annotate</a>나 grunt task <a href="https://github.com/mzgol/grunt-ng-annotate">grunt-ng-annotate</a>와 같은 툴을 사용하면 자동적으로 배열을 사용해 컨트롤러를 정의합니다.
 * 컨트롤러의 의존성은 원래 이름을 사용하세요. 이를 통해 일기 쉬운 코드를 만들 수 있습니다.</p>
-<div class="highlight"><pre><span id="line-1">    <span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;$scope&#39;</span>, <span class="n">function</span> (<span class="o">s</span>) {
-</span><span id="line-2">      //...<span class="nb">body</span>
-</span><span id="line-3">    }]);
+<div class="highlight"><pre><span id="line-1">    <span class="n">module</span><span class="p">.</span><span class="n">controller</span><span class="p">(</span><span class="c">&#39;MyCtrl&#39;, [&#39;$scope&#39;, function (s) {</span>
+</span><span id="line-2">      <span class="o">//</span><span class="p">...</span><span class="n">body</span>
+</span><span id="line-3">    <span class="p">}</span><span class="err">]</span><span class="p">)</span><span class="err">;</span>
 </span></pre></div>
 <p>위의 예제보다는 아래의 예제가 읽기 쉽습니다.</p>
-<div class="highlight"><pre><span id="line-1">    <span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;$scope&#39;</span>, <span class="n">function</span> (<span class="nv">$scope</span>) {
-</span><span id="line-2">      //...<span class="nb">body</span>
-</span><span id="line-3">    }]);
+<div class="highlight"><pre><span id="line-1">    <span class="n">module</span><span class="p">.</span><span class="n">controller</span><span class="p">(</span><span class="c">&#39;MyCtrl&#39;, [&#39;$scope&#39;, function ($scope) {</span>
+</span><span id="line-2">      <span class="o">//</span><span class="p">...</span><span class="n">body</span>
+</span><span id="line-3">    <span class="p">}</span><span class="err">]</span><span class="p">)</span><span class="err">;</span>
 </span></pre></div>
 <p>이렇게 스크롤이 필요할 정도로 코드가 길어졌을 때 특히 유용합니다. 원래의 이름을 사용하지 않으면 코드를 작성하는 프로그래머가 의존성의 이름을 까먹어버릴지도 모릅니다.</p>
 
@@ -374,15 +374,15 @@ nacyot의 프로그래밍 이야기
 <li>다른 컨트롤러와 소통이 필요한 경우엔 메소드 호출이나 <code>$emit</code>, <code>$broadcast</code>, <code>$on</code> 메소드를 사용해주세요. <code>$emit</code>이나 <code>$broadcasted</code>되는 메소드는 최소한으로 유지합니다.</li>
 <li><code>$emit</code>나 <code>$broadcast</code>를 통해서 넘겨지는 모든 메시지는 이름 충돌이나 버그를 방지하기 위해 목록을 작성해서 관리하세요.</li>
 <li><p><a href="#filters">filter</a>에 데이터 포맷 로직이나 캡슐화가 필요한 경우에는 아래와 같이 의존선을 선언하시기 바랍니다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;myFormat&#39;</span>, <span class="n">function</span> () {
-</span><span id="line-2">  <span class="k">return</span> <span class="n">function</span> () {
-</span><span id="line-3">    //<span class="nb">body</span>...
-</span><span id="line-4">  };
-</span><span id="line-5">});
+<div class="highlight"><pre><span id="line-1"><span class="n">module</span><span class="p">.</span><span class="n">controller</span><span class="p">(</span><span class="c">&#39;myFormat&#39;, function () {</span>
+</span><span id="line-2">  <span class="k">return</span> <span class="k">function</span> <span class="err">() {</span>
+</span><span id="line-3">    <span class="o">//</span><span class="n">body</span><span class="p">...</span>
+</span><span id="line-4">  <span class="p">}</span><span class="err">;</span>
+</span><span id="line-5"><span class="p">})</span><span class="err">;</span>
 </span><span id="line-6">
-</span><span id="line-7"><span class="k">module</span>.<span class="n">controller</span>(<span class="s">&#39;MyCtrl&#39;</span>, [<span class="s">&#39;$scope&#39;</span>, <span class="s">&#39;myFormatFilter&#39;</span>, <span class="n">function</span> (<span class="nv">$scope</span>, <span class="n">myFormatFilter</span>) {
-</span><span id="line-8">  //<span class="nb">body</span>...
-</span><span id="line-9">}]);
+</span><span id="line-7"><span class="n">module</span><span class="p">.</span><span class="n">controller</span><span class="p">(</span><span class="c">&#39;MyCtrl&#39;, [&#39;$scope&#39;, &#39;myFormatFilter&#39;, function ($scope, myFormatFilter) {</span>
+</span><span id="line-8">  <span class="o">//</span><span class="n">body</span><span class="p">...</span>
+</span><span id="line-9"><span class="p">}</span><span class="err">]</span><span class="p">)</span><span class="err">;</span>
 </span></pre></div></li>
 </ul>
 
@@ -576,14 +576,14 @@ minko_gechev(!)
 <div class='fa fa-chevron-left'></div>
 <div class='fa fa-chevron-left'></div>
 <div class='fa fa-chevron-left'></div>
-<a href='/articles/2013-10-02-ruby-test-automation-with-rspec-and-guard/' rel='prev'>이전 글</a>
+<a href='/articles/2013-10-02-github-ecosystem/' rel='prev'>이전 글</a>
 <div class='summary_card'>
 <div class='categories'>
 <div class='category category-programming-top' style='width: 50.0%'></div>
-<div class='category category-software-top' style='width: 50.0%'></div>
+<div class='category category-service-top' style='width: 50.0%'></div>
 </div>
 <h1 class='title'>
-<a href="../2013-10-02-ruby-test-automation-with-rspec-and-guard/">Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화</a>
+<a href="../2013-10-02-github-ecosystem/">Github 에코시스템 - Git을 둘러싼 유용한 서비스들</a>
 </h1>
 <div>
 <span class='date'>
@@ -591,9 +591,9 @@ minko_gechev(!)
 <i class='fa fa-desktop' style='color: #1f77b4'></i>
 프로그래밍
 </a>
-<a href='/tags/software' title='소프트웨어(software) 목록'>
-<i class='fa fa-square-o' style='color: #7f7f7f'></i>
-소프트웨어
+<a href='/tags/service' title='서비스(Services) 목록'>
+<i class='fa fa-cubes' style='color: #8c564b'></i>
+서비스
 </a>
 <i class='fa fa-calendar'></i>
 2013년 10월 02일 발행
@@ -601,33 +601,42 @@ minko_gechev(!)
 </div>
 <div class='summary'>
 <div class='title-image-wrapper'>
-<img class="title-image" src="http://i.imgur.com/g055UBi.jpg" />
+<img class="title-image" src="http://i.imgur.com/w1fmP2H.jpg" />
 </div>
-<p>루비 테스트로는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/minitest' rel='nofollow'>minitest</a></span>와 <span class='live_link'><a href='http://wiki.nacyot.com/documents/rspec'>Rspec</a></span>이 많이 사용됩니다. 저는 대부분 Rspec을 사용합니다만, 어느 쪽이건 이러한 테스트를 매번 직접 실행해주기는 매우 귀찮은 일입니다. 이러한 부분을 자동화하기 위해서 과거에는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/autotest' rel='nofollow'>Autotest</a></span> 같은 툴이 사용되었습니다. Autotest는 특정 파일이 수정되면 테스트를 자동으로 실행하는 방식으로 작동합니다. 현재는 Autotest 대신에 Guard를 많이 사용하는데, Guard는 특정한 파일을 감시하다가 이러한 파일에 변화가 있을 때 특정한 명령어를 수행하는 좀 더 범용적인 툴이라고 생각하면 됩니다. 여기서는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/guard' rel='nofollow'>Guard</a></span>를 사용해 rspec 테스트를 자동화하는 법을 소개합니다.</p>
+<p>소스 관리를 위해 사용하는 <span class='live_link'><a href='http://wiki.nacyot.com/documents/github'>Github</a></span>와 바로 연동해서 사용할 수 있는 많은 좋은
+서비스들이 있습니다. 이러한 서비스들의 장점은 github와 바로 연동할 수
+있고 open-source에 대해서는 대개 무료로 사용할 수 있다는 점입니다. 이
+서비스들을 이용하지 않아도 어차피 내부적으로 다 사용해야만 하는
+기능들이기 때문에, 공개적으로 오픈소스 개발하시는 경우엔 적극 도입을
+검토해보셔도 좋을 듯 합니다. 여기서는 코드 퀄리티 관리 서비스 Code Climate,
+의존성 버전 관리 Gemnasium, 루비 문서 서비스 rubydoc.info, CI 서비스 Trivas,
+테스트 커버리지 관리 서비스 Coveralls를 간락히 소개합니다.</p>
 
 <span class='link'>
-<a href="../2013-10-02-ruby-test-automation-with-rspec-and-guard/">계속 읽기</a>
+<a href="../2013-10-02-github-ecosystem/">계속 읽기</a>
 </span>
 </div>
 <div class='tags'>
 <i class='fa fa-tag'></i>
-<a href='/tags/autotest'>autotest</a>
+<a href='/tags/code_climate'>code_climate</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/guard'>guard</a>
+<a href='/tags/coveralls'>coveralls</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/minitest'>minitest</a>
+<a href='/tags/gemnasium'>gemnasium</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/github'>github</a>
 <i class='fa fa-tag'></i>
 <a href='/tags/programming'>programming</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/rspec'>rspec</a>
-<i class='fa fa-tag'></i>
 <a href='/tags/ruby'>ruby</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/software'>software</a>
+<a href='/tags/rubydoc_info'>rubydoc_info</a>
 <i class='fa fa-tag'></i>
-<a href='/tags/test'>test</a>
+<a href='/tags/service'>service</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/travis'>travis</a>
 </div>
-<div class='barcode' data-title='Rspec과 가드(Guard)를 활용한 루비(Ruby) 테스트 자동화'></div>
+<div class='barcode' data-title='Github 에코시스템 - Git을 둘러싼 유용한 서비스들'></div>
 </div>
 
 </div>

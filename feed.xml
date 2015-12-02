@@ -14,11 +14,11 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/"/>
     <id>http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/</id>
     <published>2015-12-02T15:10:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
-    <content type="html">&lt;img src='http://i.imgur.com/xwuGSjK.pngg' /&gt;&lt;p&gt;최근에 현대카드 디자인 라이브러리에서 열린 Designing with Data 전시를 보고 왔는데 그 중에서 Ben Fry의 &lt;a href="http://benfry.com/distellamap/"&gt;Distellamap&lt;/a&gt;이라는 작품이 유독 인상깊었습니다.&lt;/p&gt;
+    <content type="html">&lt;img src='http://i.imgur.com/xwuGSjK.pngg' /&gt;&lt;p&gt;최근에 현대카드 디자인 라이브러리에서 열린 &lt;a href="http://design.hyundaicardcapital.com/771"&gt;Designing with Data&lt;/a&gt; 전시를 보고 왔는데 그 중에서 Ben Fry의 &lt;a href="http://benfry.com/distellamap/"&gt;Distellamap&lt;/a&gt;이라는 작품이 유독 인상깊었습니다.&lt;/p&gt;
 
 &lt;p&gt;이 작품은 Atari 2600 게임 코드(어셈블리) 전체를 한 평면에 놓고 코드가 점프하는 지점들을 연결한 작품입니다. 얼핏 봐도 알 수 있지만 프로그램 내에서도 아주 많은 선들로 연결되어있습니다. 프로그램은 선형적으로 실행되지 않는다는 걸 노골적으로 보여주고 있죠.&lt;/p&gt;
 
@@ -95,6 +95,8 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Considered_harmful"&gt;Considered harmful&lt;/a&gt; &lt;/li&gt;
 &lt;li&gt;&lt;a href="http://www.phpschool.com/gnuboard4/bbs/board.php?bo_table=old_talkbox&amp;amp;wr_id=289198"&gt;마이크로소프트웨어 창간 20주년 기념 :: 고전을 찾아서 ①  - 다익스트라, 왜 goto에 시비(?)를 거는가? &lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;P.S. 리뷰해주신 &lt;a href="https://raccoonyy.github.io/"&gt;raccoony&lt;/a&gt; 님 감사합니다.&lt;/p&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;div&gt;
@@ -118,7 +120,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/"/>
     <id>http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/</id>
     <published>2015-11-22T14:02:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -184,7 +186,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/"/>
     <id>http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/</id>
     <published>2015-09-30T02:30:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -214,7 +216,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/08/26/deckset/"/>
     <id>http://blog.remotty.com/blog/2015/08/26/deckset/</id>
     <published>2015-08-29T10:56:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -244,7 +246,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/</id>
     <published>2015-07-07T01:25:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -561,7 +563,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
     <published>2015-06-12T21:05:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -827,7 +829,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-20T23:45:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1393,7 +1395,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1498,7 +1500,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1721,7 +1723,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
     <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-12-02T15:08:23+00:00</updated>
+    <updated>2015-12-02T15:29:15+00:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

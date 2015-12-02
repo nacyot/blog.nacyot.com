@@ -13,8 +13,8 @@
     <title>프로그래밍은 왜 어려운가 - 벤 프라이(Ben Fry)의 Distellamap으로 생각해보는 다익스트라의 'GOTO문은 해롭다(Go To Statement Considered Harmful)'</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/"/>
     <id>http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/</id>
-    <published>2015-12-02T15:10:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-12-03T00:10:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -119,8 +119,8 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <title>기계의 한계를 결정짓는 요소. CPU 클럭 혹은 인간의 욕망</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/"/>
     <id>http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/</id>
-    <published>2015-11-22T14:02:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-11-22T23:02:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -185,8 +185,8 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <title>패커(Packer)로 도커(Docker) 이미지 빌드 및 AMI 자동 빌드 시스템 구축</title>
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/"/>
     <id>http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/</id>
-    <published>2015-09-30T02:30:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-09-30T11:30:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -215,8 +215,8 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <title>마크다운(Markdown) 기반 OSX 프레젠테이션 도구 덱셋(Deckset)</title>
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/08/26/deckset/"/>
     <id>http://blog.remotty.com/blog/2015/08/26/deckset/</id>
-    <published>2015-08-29T10:56:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-08-29T19:56:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -245,8 +245,8 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <title>Serverspec(서버스펙)을 통한 도커 이미지 테스트 자동화</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/</id>
-    <published>2015-07-07T01:25:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-07-07T10:25:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -562,8 +562,8 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <title>엘라스틱서치(elasticsearch)에 한글 형태소 분석기 은전한잎(eunjeon) 적용하기</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
-    <published>2015-06-12T21:05:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-06-13T06:05:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -828,8 +828,8 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <title>주피터(Jupyter) 노트북과 자바스크립트 환경 이해하기 - 주피터 위에서 d3.js를 활용한 시각화</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
-    <published>2015-05-20T23:45:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-05-21T08:45:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1394,8 +1394,8 @@ require.config({
     <title>launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython &gt;= 3) 노트북 서비스 등록 예제</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
-    <published>2015-05-13T01:13:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-05-13T10:13:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1499,8 +1499,8 @@ require.config({
     <title>주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
-    <published>2015-05-07T18:00:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-05-08T03:00:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1722,8 +1722,8 @@ require.config({
     <title>[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
     <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
-    <published>2015-04-15T01:30:00+00:00</published>
-    <updated>2015-12-02T15:29:15+00:00</updated>
+    <published>2015-04-15T10:30:00+09:00</published>
+    <updated>2015-12-03T00:34:48+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

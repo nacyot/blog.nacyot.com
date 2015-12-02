@@ -13,6 +13,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <link href='http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2015-09-30-packer-introduction/' rel='prev' title='패커(Packer)로 도커(Docker) 이미지 빌드 및 AMI 자동 빌드 시스템 구축'>
+<link href='/articles/2015-12-02-programming-is-difficult/' rel='next' title="프로그래밍은 왜 어려운가 - 벤 프라이(Ben Fry)의 Distellamap으로 생각해보는 다익스트라의 'GOTO문은 해롭다(Go To Statement Considered Harmful)'">
 <meta content='&amp;quot;미래는 이미 와있다. 단지 널리 퍼져있지 않을 뿐이다.&amp;quot; - 윌리엄 깁슨지인과 이야기하다가 발전 사관에 대한 이야기가 나왔다. 발전사관은 인류의 본성이 아니냐고 할 만큼 사람들의 마음 안에 강하게 자리잡고 있다. 이것은 사회 문화와 역사에 대해서만 그런 것은 아니다. 기술 역시 발전한다. 적어도 나는 사회 / 문화 / 역사의 발전사관은 처음부터 잘못되었을 가능성이 아주 높다고 생각하는 사람 중 하나이다. 그런 것들은 단지 놓여진 상황이 변할 뿐이지, 명확한 지표도 없는 것을 &amp;#39;발전&amp;#39;으로 묘사하는 것부터가 이미 이데올로기적이다. 그런데 기술은 어떤가. 기술이 CPU의 클럭 속도나 단위시간당 생산량 따위로 치환해서 설명될 수 있다면 기술은 분명 발전해왔다고 말할 수 있을 것이다. 적어도 그 말에는 동의하지 않을 수 없다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
@@ -261,7 +262,7 @@ Twitter에서 nacyot 팔로우하기
 <div>
 <i class='fa fa-tag'></i>
 <a href='/tags/vannevar_bush'>
-vannevar_bush(!)
+버니바 부시(Vannervar Bush)
 <span class='more'>
 더 보기
 </span>
@@ -303,21 +304,6 @@ vannevar_bush(!)
 </div>
 </div>
 <hr>
-<div id='disqus_thread'>
-<script>
-  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-  var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
-  
-  /* * * DON'T EDIT BELOW THIS LINE * * */
-  (function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</div>
 </div>
 <div class='barcode' data-title='기계의 한계를 결정짓는 요소. CPU 클럭 혹은 인간의 욕망'></div>
 <div class='navigation'>
@@ -377,6 +363,68 @@ vannevar_bush(!)
 
 </div>
 <div class='nextnav'>
+<a href='/articles/2015-12-02-programming-is-difficult/' rel='next'>다음 글</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-book-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-12-02-programming-is-difficult/">프로그래밍은 왜 어려운가 - 벤 프라이(Ben Fry)의 Distellamap으로 생각해보는 다익스트라의 'GOTO문은 해롭다(Go To Statement Considered Harmful)'</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/article' title='이야기(Articles) 목록'>
+<i class='fa fa-book' style='color: #d62728'></i>
+이야기
+</a>
+<i class='fa fa-calendar'></i>
+2015년 12월 03일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/xwuGSjK.pngg" />
+</div>
+<p>최근에 현대카드 디자인 라이브러리에서 열린 Designing with Data 전시를 보고 왔는데 그 중에서 Ben Fry의 <a href="http://benfry.com/distellamap/">Distellamap</a>이라는 작품이 유독 인상깊었습니다.</p>
+
+<p>이 작품은 Atari 2600 게임 코드(어셈블리) 전체를 한 평면에 놓고 코드가 점프하는 지점들을 연결한 작품입니다. 얼핏 봐도 알 수 있지만 프로그램 내에서도 아주 많은 선들로 연결되어있습니다. 프로그램은 선형적으로 실행되지 않는다는 걸 노골적으로 보여주고 있죠.</p>
+
+<span class='link'>
+<a href="../2015-12-02-programming-is-difficult/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/abstraction'>abstraction</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/article'>article</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/atari_2600'>atari_2600</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ben_fry'>ben_fry</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/computer'>computer</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/edsger_dijkstra'>edsger_dijkstra</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/goto'>goto</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/human'>human</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/process'>process</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/program'>program</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/visualization'>visualization</a>
+</div>
+<div class='barcode' data-title="프로그래밍은 왜 어려운가 - 벤 프라이(Ben Fry)의 Distellamap으로 생각해보는 다익스트라의 'GOTO문은 해롭다(Go To Statement Considered Harmful)'"></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>

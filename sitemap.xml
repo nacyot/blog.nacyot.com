@@ -271,7 +271,13 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>http://blog.nacyot.com/tags/anonymous function</loc>
+    <loc>http://blog.nacyot.com/tags/anonymous_function</loc>
+    <lastmod>2015-12-08T01:36:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://blog.nacyot.com/tags/javascript</loc>
     <lastmod>2015-12-08T01:36:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -554,12 +560,6 @@
   </url>
   <url>
     <loc>http://blog.nacyot.com/tags/d3js</loc>
-    <lastmod>2015-05-21T08:45:00+09:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>http://blog.nacyot.com/tags/javascript</loc>
     <lastmod>2015-05-21T08:45:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

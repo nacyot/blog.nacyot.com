@@ -5,16 +5,284 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2015-12-03T00:10:00+09:00</updated>
+  <updated>2015-12-08T01:36:00+09:00</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>루비와 익명 함수 -  블록(block), Proc(절차, procedure) 객체와 람다(lambda) 함수의 차이 이해하기</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-07-ruby-proc-and-lambda/"/>
+    <id>http://blog.nacyot.com/articles/2015-12-07-ruby-proc-and-lambda/</id>
+    <published>2015-12-08T01:36:00+09:00</published>
+    <updated>2015-12-08T01:33:39+09:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;img src='http://i.imgur.com/TVYlS05.png' /&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="https://ruby-korea.github.io/advent-calendar/"&gt;루비 Advent Calendar 2015&lt;/a&gt; 7일차로 참석합니다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;루비에서 가장 특징적이고 많이 사용되는 문법이 바로 블록입니다. 루비에서는 블록 문법을 통해서 하나의 익명 함수를 손쉽게 함수에 넘겨줄 수 있습니다. 대부분의 반복문을 비롯해 인터페이스로도 자주 사용되기 때문에 익명 함수 개념을 이해하는 것은 매우 중요합니다. 블록을 사용하지 않더라도 루비에서는 명시적으로 익명 함수 객체를 생성할 수 있습니다. 익명 함수를 만드는 두 가지 대표적인 방법이 바로 Proc 객체와 &lt;code&gt;lambda&lt;/code&gt;문을 사용하는 것입니다. 이 글에서는 루비에서의 익명 함수와 Proc 객체와 &lt;code&gt;lambda&lt;/code&gt;문으로 생성된 익명 함수의 차이점을 살펴보겠습니다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2&gt;&lt;a name='proc(절차,-procedure)-객체-이해하기'&gt;Proc(절차, Procedure) 객체 이해하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;루비에서는 Proc 클래스를 통해서 익명 함수를 생성할 수 있습니다. 여기서 Proc은 Procedure의 줄임말로 어떤 처리 과정(절차)을 담고있다는 의미입니다. Proc 또한 일반적인 루비 클래스와 다르지 않으므로 Prow.new 메서드를 통해서 객체를 생성할 수 있습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# ArgumentError: tried to create Proc object without a block&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;설명이 조금 까다로워집니다만, &lt;code&gt;Proc.new&lt;/code&gt; 메서드는 블록을 통해서 절차(루비 표현식들)를 넘겨받습니다. 설명이 귀찮아진다는 의미는 블록 자체도 익명 함수기 때문입니다. 루비에서는 메서드 뒤에  &lt;code&gt;do...end&lt;/code&gt; 형태로 블록이라는 특별한 문법을 사용할 수 있습니다. &lt;code&gt;do&lt;/code&gt;와 &lt;code&gt;end&lt;/code&gt; 사이에는 루비 표현식이 들어갑니다. 이 &lt;code&gt;do...end&lt;/code&gt; 사이의 표현식들은 실행되지 않은 채로 익명 함수로서 그대로 실행하는 메서드에 전달됩니다. 여기서는 이 부분에 대해서는 다루지 않을 것입니다. 어쨌건 루비 표현식들이 고스란히 함수로 전달된다는 것이 중요합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Proc.new&lt;/code&gt;도 블록을 통해서 익명 함수를 전달받습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello, world!&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# =&amp;gt; #&amp;lt;Proc:0x007f99f12c6bf8@(pry):2&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;Proc.new&lt;/code&gt;는 Proc 객체를 반환합니다. 이 생성자 메서드는 넘겨받은 익명 함수에 대해서 어떠한 일도 하지않고, 익명 함수를 그대로 저장을 합니다. 앞서 말했듯이 블록에 쓰여진 루비 표현식은 곧바로 실행되지 않습니다. 따라서 &lt;code&gt;puts &amp;#39;Hello, world!&amp;#39;&lt;/code&gt;는 출력되지 않습니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='proc-객체-실행하기'&gt;Proc 객체 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;이 Proc 객체는 이제 원하는 시점에 언제라도 실행할 수 있습니다. 다음 예제에서는 이 Proc 객체를 변수에 대입하고 실행하는 방법을 살펴보겠습니다. Proc 객체를 실행하는 방법은 크게 3가지가 있습니다. 첫번째는 &lt;code&gt;.call()&lt;/code&gt; 메서드 호출입니다. 제일 명확한 표현법입니다. 이외에도 &lt;code&gt;.()&lt;/code&gt;과 &lt;code&gt;[]&lt;/code&gt;와 같은 조금은 낯설게 보이는 방법도 있습니다. 기본적으로 &lt;code&gt;.call()&lt;/code&gt;과 다르지 않습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;# 여기서는 편의상 do...end 대신 { }을 사용했습니다&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nb"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello, world!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="c1"&gt;# Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="c1"&gt;# Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;형태는 다르지만 모두 같은 방식으로 동작하는 걸 알 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;파이썬이나 자바스크립트 같은 언어를 사용해왔다면 이런 표현이 거슬릴 지도 모릅니다. 자바스크립트에서는 익명 함수와 기명함수의 실질적인 차이가 없습니다. 따라서 자바스크립트에서는 아래의 두 방법으로 함수를 선언한 결과가 실질적으로 같습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="c1"&gt;// 일반적인 함수 선언&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;hello1&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt; &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Hello, world!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;// 익명 함수를 사용한 함수 선언&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;hello2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt; &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;Hello&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;world&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;함수를 호출하는 방법도 같습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nx"&gt;hello1&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;// Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nx"&gt;hello2&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;// Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이는 루비와는 명백히 다릅니다. 위의 루비 예제에서는 익명 함수(Proc 객체)를 proc에 대입했습니다만, 함수처럼 직접 호출하는 것은 불가능합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# NoMethodError: undefined method `a&amp;#39; for main:Object&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;파이썬이나 자바스크립트에서는 함수 이름으로 접근하면 함수 자체에 접근할 수 있고 이를 직접 호출할 수 있지만 루비에서는 그렇지 않습니다. NoMethodError 예외가 발생하는 이유는 간단합니다. 말그대로 p라는 이름으로 정의된 함수가 존재하지 않기 때문입니다. 이 이유를 이해하기 위해서는 루비의 메서드 호출 방식을 이해할 필요가 있습니다만, 여기서는 익명 함수와 기명 함수가 존재하는 공간이 다르다는 정도에서 넘어가겠습니다.&lt;/p&gt;
+
+&lt;p&gt;이 주제에 대해서는 &lt;a href="http://blog.nacyot.com/articles/2014-12-17-diffrence-of-ruby-and-python/"&gt;루비와 파이썬에서 함수 호출과 함수 참조에 대한 차이&lt;/a&gt;에서 좀 더 자세히 다루고 있으니 참고해주시기 바랍니다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='블록'&gt;블록&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;블록은 엄밀히 말하면 Proc 객체는 아닙니다(이에 대해서는 뒤에서 설명합니다). 단, 메서드 선언시에 &lt;code&gt;&amp;amp;&lt;/code&gt; 연산자를 통해서 블록을 명시적으로 Proc 객체로 받아올 수 있습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="s1"&gt;end&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="c1"&gt;# Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='proc'&gt;proc&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;Kernel#proc 메서드도 있습니다. 이 메서드는 &lt;code&gt;Proc.new&lt;/code&gt;와 같습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nb"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;proc&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello, world!&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='proc-객체와-람다(lambda)'&gt;Proc 객체와 람다(lambda)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;흥미롭게도(그리고 혼란스럽게도) 루비에는 &lt;code&gt;lambda&lt;/code&gt;라고 하는 Proc 객체를 생성하는 또 다른 방법이 존재합니다. 먼저 &lt;code&gt;lambda&lt;/code&gt;를 통해서 Proc 객체를 만들어보겠습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello, world!&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;class&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# Proc&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="c1"&gt;# Hello, world!&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;루비 1.9부터는 신택스 슈가인 &lt;code&gt;-&amp;gt;&lt;/code&gt;를 사용할 수도 있습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello, world!&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;왜 &lt;code&gt;lambda&lt;/code&gt;가 존재하는 걸까요? 람다라는 표현을 거슬러 올라가면 람다 대수가 나옵니다. 람다 대수는 알론조 처치에 의해 만들어진 수학 체계입니다. 이 체계가 흥미로운 것은 하나의 인자를 받는 함수들만을 사용하면서, 튜링 컴플리트하다는 점입니다. 즉, 완전히 수학적이면서 튜링 머신에서 가능한 모든 계산이 가능하다는 의미입니다. 단, 여기서 &lt;code&gt;lambda&lt;/code&gt;라는 표현은 엄밀한 의미에서 수학적인 표현이라기보다는 루비 이전의 언어들에서 익명 함수를 의미할 때 사용해오던 관용구라고 이해하는 게 좋습니다. 루비에서는 이렇게 생성된 객체가 일반적인 Proc 객체보다 좀 더 함수답게 작동한다는 차이점을 가지고 있습니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='proc#lambda?-를-사용한-lambda-여부-확인'&gt;Proc#lambda? 를 사용한 lambda 여부 확인&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;먼저 본격적으로 차이점을 알아버기 전에 일반적인 Proc 객체와 &lt;code&gt;lambda&lt;/code&gt;로 만들어진 객체를 구분하는 방법을 살펴보겠습니다. &lt;code&gt;Proc 객체의&lt;/code&gt;lambda?&lt;code&gt;메서드로&lt;/code&gt;lambda`로 생성된 함수인지를 확인할 수 있습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; false&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nb"&gt;proc&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt;     &lt;span class="c1"&gt;# =&amp;gt; false&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nb"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt;   &lt;span class="c1"&gt;# =&amp;gt; true&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt;       &lt;span class="c1"&gt;# =&amp;gt; true&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;참고로 일반적인 메서드를 객체화해서 Proc 객체로 변환하면 lambda Proc 객체가 됩니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;hello_method&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;method&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:hello&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="n"&gt;hello_method&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; true&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;더 자세한 내용은 &lt;a href="http://ruby-doc.org/core-1.9.3/Proc.html#method-i-lambda-3F"&gt;루비 문서&lt;/a&gt;에서 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='인자-검사-방식의-차이'&gt;인자 검사 방식의 차이&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;그 첫 번째 차이점으로 &lt;code&gt;lambda&lt;/code&gt;로 만들어진 Proc 객체는 인자 개수를 엄격하게 검사합니다. 일반적으로 블록에서는 블록 인자라는 독특한 방법으로 인자를 받습니다. 여기서는 하나의 인자를 받는 Proc 객체를 만들고, 인자 개수를 바꿔가며 실행해보겠습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Hello, #{name}!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# Hello, !&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Jack&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# Hello, Jack!&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="c1"&gt;# Hello, 1!&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;정의에서는 하나의 인자를 사용하지만, 인자 개수가 달라지더라도 에러가 발생하지 않습니다. 이런 점에서 Proc 객체는 이름 그대로 &lt;strong&gt;절차&lt;/strong&gt;만 저장된 객체라고 할 수 있습니다. 반면  &lt;code&gt;lambda&lt;/code&gt;로 만든 Proc 객체는 다르게 작동합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello, &lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;!&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# 신택스 슈가를 사용할 때는 다음과 같이 정의합니다&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hello, &lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="c1"&gt;# ArgumentError: wrong number of arguments (0 for 1)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Jack&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="c1"&gt;# hello, Jack!&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="c1"&gt;# ArgumentError: wrong number of arguments (5 for 1)&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;인자를 넘기지 않거나 더 많은 인자를 넘긴 경우 &lt;code&gt;ArgumentError&lt;/code&gt; 예외가 발생한 것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='return-작동-방식의-차이'&gt;return 작동 방식의 차이&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;proc&lt;/code&gt;과 &lt;code&gt;lambda&lt;/code&gt;의 또 다른 차이 점은 &lt;code&gt;return&lt;/code&gt;의 작동방식입니다. 먼저 일반적은 Proc 객체가 동작하는 방식을 살펴보겠습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;return_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;return_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="c1"&gt;# LocalJumpError: unexpected return&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;밖에서 Proc 객체를 넘겨받으면 &lt;code&gt;LocalJumpError&lt;/code&gt; 예외를 발생시킵니다. 이는 &lt;code&gt;return&lt;/code&gt;이 어떤 맥락에서 해석되어야하는 지가 불분명하기 때문입니다.(Proc 객체? 아니면 Proc 객체를 실행하는 문맥?)&lt;/p&gt;
+
+&lt;p&gt;다음은 밖에서 넘겨받는 대신 안에서 Proc 객체를 생성하는 예제입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;return_two&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="n"&gt;return_two&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="c1"&gt;# =&amp;gt; 1&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번에는 1을 반환합니다. 놀랍게도 Proc 객체의 &lt;code&gt;return&lt;/code&gt; 문이 &lt;code&gt;return_two&lt;/code&gt;의 &lt;code&gt;retrun&lt;/code&gt;으로 실행된 것을 알 수 있습니다. 이런 의도로 Proc 객체를 쓰는 일은 아마 거의 없을 듯 합니다.&lt;/p&gt;
+
+&lt;p&gt;그럼 이번에는 &lt;code&gt;lambda&lt;/code&gt;로 만든 Proc 객체를 실행해보죠&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;return_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;return_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="c1"&gt;# =&amp;gt; 2&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번에는 2를 반환했습니다. 좀 더 자세히 살펴보기 위해서 &lt;code&gt;p.call&lt;/code&gt;의 반환값을 출력해보겠습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;return_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;  &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="nb"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;call&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="n"&gt;return_two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="c1"&gt;# 1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="c1"&gt;# =&amp;gt; 2&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;p.call&lt;/code&gt;의 반환값이 1이 되는 것을 알 수 있습니다. 이를 통해서 &lt;code&gt;lambda&lt;/code&gt; 함수에서 &lt;code&gt;return&lt;/code&gt; 문을 사용하면 Proc 객체, 즉 익명 함수 자체의 반환이 되는 것을 알 수 있습니다. 따라서 &lt;code&gt;lambda&lt;/code&gt; 함수에서는 1을 반환하고, &lt;code&gt;return_two&lt;/code&gt; 함수에서는 의도한 대로 넘겨준 lambda Proc 객체와는 무관하게 2를 반환합니다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='break-작동-방식의-차이'&gt;break 작동 방식의 차이&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;break&lt;/code&gt;도 &lt;code&gt;return&lt;/code&gt;과 비슷한 차이가 있습니다. Proc 객체에서 break를 사용하면 LocalJumpError 예외를 발생시킵니다. &lt;code&gt;return&lt;/code&gt; 문의 경우와 마찬가지입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;break&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# 0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# 1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# 2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# 3&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# LocalJumpError: break from proc-closure&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;반면에 lambda를 사용하면 break는 lambda Proc 객체 안으로 한정됩니다. 따라서 반복문 안에서 아무런 영향도 끼치지 않고 &lt;code&gt;i==2&lt;/code&gt; 조건을 만족할 때 lambda 안에서 break가 실행될 뿐입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nb"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;break&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# 0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# 1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# 2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# 3&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# =&amp;gt; nil&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='블록과-proc-객체의-차이'&gt;블록과 Proc 객체의 차이&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;블록은 Proc과 비슷하지만 엄밀히 말하면 Proc 객체와는 조금 다릅니다. 블록은 메서드와 결합된 문맥에서만 존재하기 때문에 이를 Proc 객체로 만들기는 어렵습니다. 다음 예제에서는 반복자를 통해서 break가 어떻게 다르게 작동하는 지를 살펴봅니다. 블록에서는 break가 정상적으로 작동합니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;break&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# 0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# 1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# 2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# 3&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# =&amp;gt; nil&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이번에는 정확히 같은 일을 하는 Proc 객체를 넘겨줍니다. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;upto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;puts&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;break&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# 0&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="c1"&gt;# 1&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c1"&gt;# 2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="c1"&gt;# 3&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="c1"&gt;# LocalJumpError: break from proc-closure&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;LocalJumpError가 발생합니다. 이는 넘겨진 함수가 클로저로 실행되는데, 그 안에서 break를 사용하고 있기 때문에 발생하는 예외입니다. 순수한(?) 블록에서는 이 문제를 적절히 해결해주는 걸 알 수 있습니다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;여기까지 배운 지식을 활용하면 다음과 같은 이상해보이는 구문이 정상적인 루비 구문이라는 걸 이해할 수 있습니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# nil&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이게 요지는 아닙니다만, 루비에서 블록과 익명 함수 개념에 대한 이해는 아무리 강조해도 지나치지 않습니다. 많이들 어려움을 느끼는 부분도 Proc과 lambda처럼 비슷해보이면서도 다른 것들입니다. 특히 proc이나 lambda는 Kernel 클래스에 있어서 문법처럼 보이기도 하고 함수처럼 보이기도 하고 분명 헷갈리기 쉬운 요소입니다. 나아가 lambd에는 &lt;code&gt;-&amp;gt;&lt;/code&gt;라는 신택스 슈가도 있고, 이러한 익명 함수를 실행시키는 방법으로는 &lt;code&gt;.call()&lt;/code&gt;, &lt;code&gt;.()&lt;/code&gt;, &lt;code&gt;[]&lt;/code&gt;와 같이 세 가지나 준비되어 있습니다. 처음 보면 당황스러울 수도 있지만 루비에서는 다들 많이 사용되는 표현이므로 확실히 익혀두는 게 좋습니다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='참고자료'&gt;참고자료&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://docs.ruby-lang.org/ja/2.2.0/method/Kernel/m/proc.html"&gt;Ruby 2.2.0 リファレンスマニュアル(레퍼런스 매뉴얼) - module function Kernel.#lambda&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://ruby-doc.org/core-2.2.0/Proc.html"&gt;ruby-doc.org - Proc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;div&gt;
+  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
+  &lt;div&gt;
+    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
+      nacyot의 프로그래밍 이야기 메인으로 이동하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
+      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
+      Twitter에서 nacyot 팔로우하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</content>
+  </entry>
   <entry>
     <title>프로그래밍은 왜 어려운가 - 벤 프라이(Ben Fry)의 Distellamap으로 생각해보는 다익스트라의 'GOTO문은 해롭다(Go To Statement Considered Harmful)'</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/"/>
     <id>http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/</id>
     <published>2015-12-03T00:10:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -122,7 +390,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/"/>
     <id>http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/</id>
     <published>2015-11-22T23:02:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -188,7 +456,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/"/>
     <id>http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/</id>
     <published>2015-09-30T11:30:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -218,7 +486,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/08/26/deckset/"/>
     <id>http://blog.remotty.com/blog/2015/08/26/deckset/</id>
     <published>2015-08-29T19:56:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -248,7 +516,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/</id>
     <published>2015-07-07T10:25:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -565,7 +833,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
     <published>2015-06-13T06:05:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -831,7 +1099,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-21T08:45:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1397,7 +1665,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T10:13:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1502,7 +1770,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
     <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
     <published>2015-05-08T03:00:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
+    <updated>2015-12-08T01:33:39+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1702,220 +1970,6 @@ require.config({
 &lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
 &lt;p&gt;주피터의 다중 커널 개념 지원은 매우 간단하고, 강력하다. IPython이 실행되는 파이썬 실행기에 종속되지 않기 때문에, 다른 언어들의 커널을 지원할 뿐만 아니라, 환경만 갖춰져 있다면 같은 언어의 다양한 버전에 대해서도 별도의 커널을 만들어 사용할 수 있다. 나아가 파이썬의 virtualenv와 결합하면 환경별로도 커널을 분리해 사용할 수 있다. 이와 같이 다중 커널 개념은 Jupyter의 핵심 개념이며, 이를 통해서 좀 더 자유롭게 Notebook 생활이 가능해질 것이다 &amp;gt;_&amp;lt;&lt;/p&gt;
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;div&gt;
-  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
-  &lt;div&gt;
-    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
-      nacyot의 프로그래밍 이야기 메인으로 이동하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
-      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
-      Twitter에서 nacyot 팔로우하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</content>
-  </entry>
-  <entry>
-    <title>[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"/>
-    <id>http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/</id>
-    <published>2015-04-15T10:30:00+09:00</published>
-    <updated>2015-12-03T00:40:39+09:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;img src='http://i.imgur.com/KsQGjGT.jpg' /&gt;&lt;p&gt;IPython은 Python REPL의 확장 구현이다. 0.12 버전부터 Notebook이라는 이름으로 웹 인터페이스를 지원하고 있다. 또한 파이썬 뿐만 아니라 다른 언어를 실행할 수 있는 다양한 커스텀 커널을 지원하고 있다. IRuby는 IPython의 루비(Ruby) 커널 구현체로 이를 사용해 IPython Notebook에서 Ruby 코드를 실행하고 문서를 작성하는 게 가능하다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/x794HK9.png" alt=""&gt;&lt;/p&gt;
-
-&lt;p&gt;이 글은 2015년 4월 14일 RORLab에서 발표한 내용을 보충하기 위한 글로 IRuby 설치, 실행 및 발표 레퍼런스를 소개한다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2&gt;&lt;a name='발표자료'&gt;발표자료&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href="http://blog.nacyot.com/presentations/rorlab_jupyter"&gt;IRuby Notebook 원본 발표자료(reveal.js)&lt;/a&gt;&lt;/p&gt;
-
-&lt;div style='max-width:550px'&gt;
-&lt;script async class="speakerdeck-embed" data-id="ee397ca6231f4a7a9c2c73eda6e81525" data-ratio="1.29456384323641" src="//speakerdeck.com/assets/embed.js"&gt;&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;a href="https://speakerdeck.com/nacyot/jupyter-iruby-notebook"&gt;https://speakerdeck.com/nacyot/jupyter-iruby-notebook&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='iruby-설치하기'&gt;IRuby 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;(어제 올렸던 처음으로 소개했던 설치법에는 몇 가지 문제가 있습니다. 유상민 님 지적으로 jsonschema 설치 및 SciRuby/iruby 설치 부분을 보충합니다. 유상민 님께 감사드립니다)&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='zeromq-설치하기'&gt;ZeroMQ 설치하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;ZeroMQ를 설치한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Mac&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;OSX&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;brew&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;zeromq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="vg"&gt;universal&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Ubuntu&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;get&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;libzmq3&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;&lt;a name='python-환경-구축-및-ipython-설치'&gt;python 환경 구축 및 ipython 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;pyenv를 설치한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Mac&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;OSX&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;brew&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;pyenv&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Ubuntu&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;git&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;clone&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;https:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="vg"&gt;github&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;yyuu&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;pyenv&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;git&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;~/.&lt;/span&gt;&lt;span class="vg"&gt;pyenv&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;pyenv를 셸에 설정해준다. zsh을 사용한다면 &lt;code&gt;.bash_profile&lt;/code&gt;을 &lt;code&gt;.zshrc&lt;/code&gt;로 바꿔준다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;export PATH=&amp;quot;$PYENV_ROOT/bin:$PATH&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;eval &amp;quot;$(pyenv init -)&amp;quot;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bash_profile
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;파이썬 3.4.3을 설치하고, 사용하도록 설정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv install 3.4.3
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv global 3.4.3
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;관련 라이브러리와 IPython을 설치한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install jinja2 tornado pyzmq jsonschema
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install ipython
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Jupyter(IPython3)부터는 jsonschema 라이브러리도 추가로 필요하다.&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='iruby-설치'&gt;IRuby 설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;IRuby 최신 버전은 gem으로 설치할 수 있다. 여기서는 루비 환경은 구축되어있다고 가정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;gem install specific_install
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;gem specific_install -l https://github.com/SciRuby/iruby -b master
-&lt;/span&gt;&lt;span id="line-3"&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="c"&gt;# rbenv 사용자만&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;rbenv rehash
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;여기서 &lt;code&gt;specific_install&lt;/code&gt;을 사용할 필요가 있는데, 이는 현재 최신 &lt;code&gt;iruby&lt;/code&gt;가 &lt;code&gt;SciRuby&lt;/code&gt; 쪽으로 포크되어서 관리되고 있기 때문이다. 그냥 &lt;code&gt;gem install iruby&lt;/code&gt;하게 되면 minad/iruby가 설치되는데 이는 jupyter와 호환성이 없다. (좀 더 자세한 내용은 &lt;a href="https://www.facebook.com/groups/rubyonrailskorea/permalink/830114680390964/"&gt;RORLab&lt;/a&gt;에서 유상민 님이 좀 더 자세히 이야기해주셨습니다. &lt;code&gt;specific_install&lt;/code&gt;로 설치 시 몇 가지 경고가 출력되는데 설치하는 법도 다룹니다.)&lt;/p&gt;
-
-&lt;p&gt;마지막으로 &lt;code&gt;iruby&lt;/code&gt; 명령어가 설치되었는지 확인해본다. &lt;code&gt;iruby&lt;/code&gt; 명령어는 IPython3 이전에는 루비 커널로 IPython을 실행하는 래퍼였으며, 현재는 고유한 명령어들을 가지고 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;iruby --version
-&lt;/span&gt;&lt;span id="line-2"&gt;0.1.13
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;IPython3부터는 &lt;code&gt;~/.ipython/kernels&lt;/code&gt;에 등록된 커널 설정들을 사용한다. iruby가 정상적으로 설치되었다면 루비 커널을 등록한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;iruby&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;커널&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;등록&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;iruby&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;register&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;아래 명령어로 루비 커널이 추가되었는지 확인할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec list
-&lt;/span&gt;&lt;span id="line-2"&gt;  python2
-&lt;/span&gt;&lt;span id="line-3"&gt;  bash
-&lt;/span&gt;&lt;span id="line-4"&gt;  julia 0.3
-&lt;/span&gt;&lt;span id="line-5"&gt;  ruby
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;ruby가 있다면 정상적으로 커널이 등록된 것이다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='iruby-실행하기'&gt;IRuby 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;최신 버전(&amp;gt;=3)에서는 &lt;code&gt;iruby&lt;/code&gt;를 사용하지 않고 &lt;code&gt;ipython&lt;/code&gt;으로 실행해도 정상적으로 ruby 커널을 사용할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook --ip&lt;span class="o"&gt;=&lt;/span&gt;0.0.0.0 --notebook-dir &amp;lt;NOTEBOOKS_DIR&amp;gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;정상적으로 서버가 실행되면 &lt;code&gt;http://0.0.0.0:8888&lt;/code&gt;에 접속해본다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/uhedvNL.png" alt=""&gt;&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='레퍼런스'&gt;레퍼런스&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;h3&gt;&lt;a name='iruby'&gt;IRuby&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/SciRuby/iruby"&gt;SciRuby/iruby&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/Handybook/irails/"&gt;Handybook/irails&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;&lt;a name='ipython/jupyter'&gt;IPython/Jupyter&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://jupyter.org/"&gt;Project Jupyter&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://gist.github.com/fperez/1579699"&gt;IPython 0.0.1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://blog.fperez.org/2012/01/ipython-notebook-historical.html"&gt;Fernando Perez - The IPython notebook: a historical retrospective&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://ipython.org/ipython-doc/rel-0.11/whatsnew/version0.11.html"&gt;IPython 0.11 Release Note&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://ipython.org/ipython-doc/rel-0.12/whatsnew/version0.12.html"&gt;IPython 0.12 Release Note&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://ipython.org/ipython-doc/dev/development/messaging.html"&gt;Ipython documentation - Messaging in IPython&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages"&gt;IPython wiki - IPython kernels for other languages&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www4.ncsu.edu/%7Ekimler/hi322/galmoons.html"&gt;Galileo&amp;#39;s Sidereus nuncius - Starry Messenger&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.reddit.com/r/Python/comments/1q9tq7/what_is_the_big_deal_about_ipython_notebooks/"&gt;Reddit - What is the big deal about IPython Notebooks?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/github/payne92/notebooks/blob/master/00%20Javascript%20In%20Notebooks.ipynb"&gt;Javascript Magic&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://andrew.gibiansky.com/blog/ipython/ipython-kernels/"&gt;Andrew Gibiansky - Creating Language Kernels for IPython&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;&lt;a name='ipython-kernel-for-other-languages'&gt;IPython Kernel for other languages&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/gibiansky/IHaskell"&gt;gibiansky/IHaskell&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/takluyver/bash_kernel"&gt;takluyver/bash_kernel&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/JuliaLang/IJulia.jl"&gt;JuliaLang/IJulia.jl&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://jeroenjanssens.com/2015/02/19/ibash-notebook.html"&gt;Jeroen Janssens - IBash Notebook‽&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;&lt;a name='ipython-client'&gt;IPython Client&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/ivanov/bipython"&gt;ivanov/bipython&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/millejoh/emacs-ipython-notebook"&gt;millejoh/emacs-ipython-notebook&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/ivanov/vim-ipython"&gt;ivanov/vim-ipython&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.jetbrains.com/pycharm/help/ipython-notebook-support.html"&gt;PyCharm - IPython Notebook Support&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;&lt;a name='examples'&gt;Examples&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/gist/nacyot/c0190709f56024eb516e"&gt;D3 Notebook 예제(시각화 스터디)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/github/melund/ipython/blob/3.x/examples/Interactive%20Widgets/Index.ipynb"&gt;Interactive Widget&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/nacyot/jupyter-inline-attachment-sample"&gt;InlineAttachment 예제&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/nacyot/euler-project"&gt;naycot/euler_project&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://blog.nacyot.com/articles/2014-04-07-rspec-matchers/"&gt;루비(Ruby) 테스트 프레임워크 RSpec 2.14 매쳐&lt;/a&gt; &lt;a href="https://github.com/nacyot/blog.nacyot.com-source/blob/master/source/iruby/ruby_enumerable.ipynb"&gt;ipynb&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://blog.nacyot.com/articles/2014-04-19-ruby-enumerable"&gt;루비의 꽃, 열거자 Enumerable 모듈&lt;/a&gt; &lt;a href="https://github.com/nacyot/blog.nacyot.com-source/blob/master/source/iruby/rspec_matchers.ipynb"&gt;ipynb&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div style='border:1px solid gray;max-width:500px;padding:1.8em'&gt;
-&lt;img src='http://i.imgur.com/ir6nP73.png' /&gt;
-&lt;/div&gt;
-
-&lt;h3&gt;&lt;a name='active-essays-/-literate-programming'&gt;Active Essays / Literate Programming&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://web.archive.org/web/20060710213801/http://www.squeakland.org/whatis/a_essays.html"&gt;Active Essays - Alan Kay&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.vpri.org/pdf/tr2009002_active_essays.pdf"&gt;Active Essays on the Web&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://acko.net/files/fullfrontal/fullfrontal/webglmath/online.html"&gt;Steven Wittens - Making WebGL Dance&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://setosa.io/blog/2014/07/26/markov-chains/"&gt;Setosa blog - markov Chains&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://jlongster.com/Removing-User-Interface-Complexity,-or-Why-React-is-Awesome"&gt;Jiongster - Removing User Interface Complexity, or Why React is Awesome&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://greensock.com/position-parameter"&gt;Greensock - Timeline Tip: Understanding the Position Parameter&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.literateprogramming.com/knuthweb.pdf"&gt;Donald E. Knuth - Literate Programming&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www-cs-faculty.stanford.edu/%7Euno/programs.html"&gt;Knuth - Programs to Read&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://faq.ktug.org/faq/CWEB"&gt;구조적 문서화를 위한 CWEB 시스템(한국어 번역)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://faq.ktug.org/faq/LiterateProgramming"&gt;KTUGFaq - Literate Programming&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/CWEB"&gt;Wikipedia - CWEB&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://en.wikipedia.org/wiki/Literate_programming"&gt;Wikipedia - Literate Programming&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://freesearch.pe.kr/archives/3265"&gt;from &lt;strong&gt;future&lt;/strong&gt; import dream - knitr를 이용한 워드프래스 포스팅하기&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://www.youtube.com/watch?v=CuhsPl7JDvc"&gt;전희원 - R Markdown을 이용한 문학적 프로그래밍&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://nbviewer.ipython.org/github/fperez/blog/blob/master/130418-Data-driven%20journalism.ipynb"&gt;Fernando Perez - &amp;quot;Literate computing&amp;quot; and computational reproducibility: IPython in the age of data-driven journalism&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://docs.ansible.com/docker_module.html"&gt;Ansible Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;&lt;a name='blogging-by-ipython'&gt;Blogging by Ipython&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://blog.fperez.org/2012/09/blogging-with-ipython-notebook.html"&gt;Fernando Perez - Blogging with the IPython notebook&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://jakevdp.github.io/"&gt;Pythonic Perambulations&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://www.boxnwhis.kr/2015/02/10/blogging_with_python.html"&gt;Box and Whisker - IPython Notebook으로 블로깅하기&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;&lt;a name='etc'&gt;ETC&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://vimeo.com/69448223"&gt;Eyeo 2013 - For example by Mike Bostock&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="http://chimera.labs.oreilly.com/books/1230000000345/"&gt;O&amp;#39;Reilly Atlas + jsbin&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://codemirror.net/"&gt;Codemirror - a versatile text editor implemented in JavaScript for the browser&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/bokeh/bokeh"&gt;Bokeh - Python interactive visualization library&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;div&gt;

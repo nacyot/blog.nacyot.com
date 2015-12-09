@@ -5,16 +5,249 @@
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
   <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
-  <updated>2015-12-08T01:36:00+09:00</updated>
+  <updated>2015-12-09T10:05:00+09:00</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
   </author>
+  <entry>
+    <title>증분검색을 통한 텍스트 필터링 도구 페코(Peco) - 명령어 히스토리를 비롯한 셸(shell) 어디서나 증분검색하기</title>
+    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-09-incremental-search-tool-peco/"/>
+    <id>http://blog.nacyot.com/articles/2015-12-09-incremental-search-tool-peco/</id>
+    <published>2015-12-09T10:05:00+09:00</published>
+    <updated>2015-12-09T10:35:59+09:00</updated>
+    <author>
+      <name>nacyot(Daekwon Kim)</name>
+    </author>
+    <content type="html">&lt;img src='http://i.imgur.com/XKk4660.png' /&gt;&lt;p&gt;셸(shell)은 매력적인 도구이지만, 많은 사람들에게 원시적인 도구로 오해받곤 한다. CLI의 대표적인 원시성으로는 각각의 프로그램들이 개별적으로 사용자와 대화하는 대신, 셸을 통해서만 명령이 가능하다는 점을 들 수 있다. 하지만 이러한 점은 커다란 장점이 되기도 한다. 예를 들어 프로그램들이 &lt;code&gt;STDIN&lt;/code&gt;과 &lt;code&gt;STDOUT&lt;/code&gt;만으로 데이터를 주고받을 수 있다. 또한 셸 인터페이스의 개선이 모든 프로그램의 사용성 개선과 직결되기도 한다. 애플리케이션의 단절을 전제로 하는 GUI에서는 이러한 장점을 누리기 어렵다.&lt;/p&gt;
+
+&lt;p&gt;페코(Peco)는 특히 인터페이스를 개선해주는 후자에 해당하는 도구이다. 페코는 개별적으로 사용가능한 인터렉티브 데이터 필터링 도구인 동시에, 셸과 함께 사용하면 셸의 사용성을 개선할 수 있다. 이 글에서는 페코의 기본적인 사용법과 셸의 히스토리 검색과 결합해서 사용하는 방법에 대해서 알아본다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2&gt;&lt;a name='페코(peco)---cli-증분검색도구'&gt;페코(Peco) - CLI 증분검색도구&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/peco/peco"&gt;페코(Peco)&lt;/a&gt;는 강력한 데이터 필터링 도구이다. 달리 말해서 텍스트 증분검색을 통한 필터링 도구라고 할 수도 있다. 원래 같은 목적으로 만들어진 파이썬 기반의 &lt;a href="https://github.com/mooz/percol"&gt;Percol&lt;/a&gt;이라는 도구가 있었으나, 성능이나 멀티 플랫폼 지원을 위해 lestrrat 씨에 의해 고 프로그래밍 언어(Go)로 재구현되었다. 이를 통해 파이썬 없이도 바이너리를 통해 윈도우/리눅스/OSX에서 바로 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이미 익숙할 사람도 있겠지만 있지만 증분검색(Incremental Search)라는 단어가 낯설게 느껴질 수도 있다. 먼저 증분검색이 무엇인지부터 살펴보고 가자. 증분검색도 검색 방법의 하나이다. 좀 더 구체적인 사례를 들자면 증분검색은 키워드를 통해서 검색 결과를 얻는 것보다는 키워드를 입력하는 과정에서 검색엔진이 입력에 따라 보여주는 자동완성 결과가 있다. 즉, 검색어를 입력하는 과정에서 점진적으로 검색을 수행하는 방법을 이야기한다. 예를 들어 최종적으로 &lt;code&gt;apple&lt;/code&gt;라는 검색을 하기 위해서 a를 먼저 입력한다. 그러면 a에 매칭이 되는 모든 단어가 검색이 된다. 다음으로 ap를 입력하면 ap에 매칭이 되는 모든 단어가 검색이 된다.&lt;/p&gt;
+
+&lt;p&gt;증분검색은 이미 널리 사용되고 있으며, 좋은 인터페이스의 대표적인 사례로 꼽힌다. 검색어 자동완성과 애플리케이션 런처는 물론 대부분의 웹브라우저와 텍스트 에디터들이 이러한 기능을 지원하고 있다. 웹브라우저에서는 파이어폭스가 선구적으로 이러한 기능을 지원했다. 웹 페이지 상에서 찾기 도구를 사용하면 사용자의 입력에 따라 웹 페이지에서 매치하는 모든 부분이 하이라이트된다. 이 기능이 얼마나 강력하냐면, 필자를 비롯해 단지 이러한 기능 때문에 파이어폭스를 사용하는 사람들이 있었을 정도다. 이해를 돕기 위해 간단한 예제를 보고 넘어가자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/MrqjF6Y.png" alt="파이어폭스 - 에 증분검색"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/EyPs1BM.png" alt="파이어폭스 - 에서 증분검색"&gt;&lt;/p&gt;
+
+&lt;p&gt;이러한 검색 방법은 디지털 매체에서 글을 읽는 방법 자체를 바꿔놓을 정도로 강력하다. Peco는 바로 이러한 증분검색을 통한 텍스트 검색과 필터링을 셸에서 사용하도록 지원해준다.&lt;/p&gt;
+
+&lt;p&gt;그럼 이제 직접 설치하고, 사용해보자.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='설치'&gt;설치&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/peco/peco/releases"&gt;Peco 릴리즈 페이지&lt;/a&gt;에서는 플랫폼 별로 실행가능한 바이너리 파일을 압축 파일 형태로 제공한다. 이를 다운받아 적절한 위치에 압축을 풀어서 사용하면 된다. 예를 들어 Mac OS X를 사용하고 있다면 다음과 같이 설치한다(어디서든 경로 지정없이 실행하고 싶다면 &lt;code&gt;$PATH&lt;/code&gt; 상의 디렉터리로 적절히 복사하거나 링크를 걸어야한다).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; /tmp/
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;wget https://github.com/peco/peco/releases/download/v0.3.5/peco_darwin_amd64.zip
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;unzip peco_darwin_amd64.zip
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이 외에도 OS X의 brew나 윈도우즈의 choco와 같은 패키지 관리자를 사용한 설치도 지원하고 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Mac&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;OS&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;X&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;brew&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;tap&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;brew&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Windows&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="nl"&gt;c:&lt;/span&gt;&lt;span class="o"&gt;\&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;choco&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;설치가 정상적으로 끝났다면, 명령어가 있는지 확인해보자.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;peco --version
+&lt;/span&gt;&lt;span id="line-2"&gt;peco: v0.3.5
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='기본적인-사용법'&gt;기본적인 사용법&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;페코는 표준 출력을 넘겨받아서 증분검색을 해준다. 예를 들어 OSX의 시스템 로그를 출력해서 페코에 넘겨줄 수 있다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat /var/log/systom.log &lt;span class="p"&gt;|&lt;/span&gt; peco
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;실행하면 다음과 같은 화면을 볼 수 있다. 이 상태에서 글자를 입력하면 증분검색을 해나간다. 다음과 같이 글자를 완성해나감에 따라 조금씩 검색이 되는 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/M99a3Av.png" alt="Peco 실행"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/egjdr3n.png" alt="Peco - fi 검색"&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/PVjNj8Q.png" alt="Peco - firefox 검색"&gt;&lt;/p&gt;
+
+&lt;p&gt;여러 키워드를 동시에 검색하는 것도 가능하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/bAcyPpH.png" alt="Peco - 다중 키워드 검색"&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 ctrl + r 키로 검색 모드를 바꿀 수 있다. 검색 모드로는 IgnoreCase, CaseSensitive, SmartCase 등을 지원하며, Regexp 모드에서는 정규표현식을 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/uvvaPUh.png" alt="Peco - 정규표현식 검색"&gt;&lt;/p&gt;
+
+&lt;p&gt;이런 식으로 로그를 빠르고 쉽게 필터링할 수 있으며, 최종적으로 원하는 결과를 선택하면 표준출력으로 출력해준다.&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name='ps로-프로세스-찾아서-종료하기'&gt;ps로 프로세스 찾아서 종료하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;p&gt;peco로 필터링된 결과를 다른 프로세스의 표준입력으로 넘겨줄 수 있다. 이를 통해서 다양한 작업이 가능하다. 다음 예제는 peco로 원하는 프로세스를 찾아서 프로세스 ID를 출력하는 예제이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ps -ef &lt;span class="p"&gt;|&lt;/span&gt; peco &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;{ print $2 }&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src="http://i.imgur.com/8JzE1AO.png" alt="Peco - 프로세스 탐색"&gt;&lt;/p&gt;
+
+&lt;p&gt;chorme 프로세스들을 검색해본다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/4n5caT3.png" alt="Peco - chrome 검색"&gt;&lt;/p&gt;
+
+&lt;p&gt;ctrl + space로 다중 선택을 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/dVh3BFd.png" alt="Peco - 다중 선택"&gt;&lt;/p&gt;
+
+&lt;p&gt;다중 선택이 된 상태에서 엔터를 누른다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/Sbz1kgS.png" alt="Peco - 실행 결과"&gt;&lt;/p&gt;
+
+&lt;p&gt;다음과 같이 선택한 프로세스 ID 값들이 출력된 것을 알 수 있다. 그럼 프로세스 종료까지 하려면 어떻게 해야할까? 이렇게 선택한 값들을 &lt;code&gt;kill&lt;/code&gt; 명령어의 인자로 넘겨주면 된다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ps -ef &lt;span class="p"&gt;|&lt;/span&gt; peco &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;{ print $2 }&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; xargs &lt;span class="nb"&gt;kill&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='페코를-통한-명령어-히스토리-검색'&gt;페코를 통한 명령어 히스토리 검색&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;bash에서 Ctrl-R을 누르면 이전에 입력했던 명령어 중에 prefix 검색을 할 수 있다. 이거 알고 나서 삶이 많이 편해졌음&lt;/p&gt;&amp;mdash; Taeho Kim (@needkoolquality) &lt;a href="https://twitter.com/needkoolquality/status/662967984093200385"&gt;2015년 11월 7일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;In bash, &amp;#39;ctrl-r&amp;#39; searches your command history as you type (여태 이걸 몰랐다.)&lt;/p&gt;&amp;mdash; Park Jinwoo (@park_jinwoo) &lt;a href="https://twitter.com/park_jinwoo/status/486780447951572992"&gt;2014년 7월 9일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;bash &amp;lt;CTRL-R&amp;gt; 이 좋은 걸 이제 알다니..&lt;/p&gt;&amp;mdash; Namhoon Kim (@yanhkim) &lt;a href="https://twitter.com/yanhkim/status/480955791931752449"&gt;2014년 6월 23일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;유닉스 사용자를 위한 팁 : bash 에서 ctrl + R 을 누르면 command를 history에서 인터랙티브하게 찾을 수 있다. reverse-i-search 라고 함. 진작에 알았으면 좋았을 걸 -_-&lt;/p&gt;&amp;mdash; Park, SeongHoon (@replicax) &lt;a href="https://twitter.com/replicax/status/22244837325"&gt;2010년 8월 27일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;유닉스 터미널에서 ctrl+r하니까 신세계가!&lt;/p&gt;&amp;mdash; 의심의 눈 (@Daliot) &lt;a href="https://twitter.com/Daliot/status/508955885838675969"&gt;2014년 9월 8일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;code&gt;reverse-i-search&lt;/code&gt;가 좋다는 간증은 여기저기서 볼 수 있습니다만... 페코는 더더더더 개에에엥장합니다.&lt;/p&gt;
+
+&lt;p&gt;ctrl + r 기본 기능 대신에 페코로 명령어 히스토리를 검색에 사용하고, 선택한 명령어를 바로 실행할 수 있다.&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='osx-zsh에서-페코로-명령어-히스토리-검색하고-실행하기'&gt;OSX zsh에서 페코로 명령어 히스토리 검색하고 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;여기서는 &lt;a href="http://qiita.com/uchiko/items/f6b1528d7362c9310da0"&gt;uchiko 님의 스크립트&lt;/a&gt;를 사용한다. 이 스크립트는 zsh과 oh-my-zsh을 지원한다. 다음 스크립트를 &lt;code&gt;source&lt;/code&gt;에 넘겨주면 작동한다. (셸에 익숙하지 않은 사람들을 위해 좀 더 친절하게 설명하자면, 아래 스크립트를 &lt;code&gt;~/.zsh/peco-history.zsh&lt;/code&gt;로 저장한다음 &lt;code&gt;~/.zshrc&lt;/code&gt; 파일 마지막에 &lt;code&gt;source ~/.zsh/peco-history.zsh&lt;/code&gt;을 추가하고 셸을 재실행하면 적용될 것이다)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="vg"&gt;qiita&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;uchiko&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;items&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;f6b1528d7362c9310da0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;by&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;uchiko&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="vg"&gt;function&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;select&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;local&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;tac&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;which&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;tac&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;null&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="vg"&gt;tac&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;tac&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="vg"&gt;tac&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;tail -r&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;BUFFER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;n&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="il"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="vg"&gt;eval&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="vg"&gt;tac&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;\&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="vg"&gt;query&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;$LBUFFER&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;CURSOR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$#&lt;/span&gt;&lt;span class="vg"&gt;BUFFER&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;zle&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;clear&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;screen&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;&lt;span class="vg"&gt;zle&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;N&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;select&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="vg"&gt;bindkey&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;&amp;#39;^r&amp;#39; peco-select-history&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;이제 ctrl + r을 누르면 단순 prefix 검색 대신 이전에 사용했던 명령어를 필터링할 수 있는 peco가 실행된다. 이 글을 작성하면서 입력했던 명령어들이 보인다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/lk83q8j.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;나는 머리가 나빠서 docker 같이 긴 명령어는 못 외운다. 적당히 기억을 더듬어 이전에 실행했던 redis 이미지 사용법을 증분검색해본다(이 화면은 뜨지 않을 것입니다. 이 명령어는 제가 이전에 실행을 했던 명령어입니다)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/sPl6nA5.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;빙고! 이걸 선택하면 이 명령어를 바로 실행할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://i.imgur.com/7ck36vT.png" alt=""&gt;&lt;/p&gt;
+
+&lt;p&gt;멋져라!&lt;/p&gt;
+
+&lt;h3&gt;&lt;a name='osx-bash에서-명령어-히스토리-검색하고-실행하기'&gt;OSX bash에서 명령어 히스토리 검색하고 실행하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;bash에서는 &lt;a href="http://qiita.com/yungsang/items/09890a06d204bf398eea"&gt;yungsang 님의 스크립트&lt;/a&gt;를 사용하면 편리하다. zsh과 마찬가지로 정상 작동되는 것으로 확인 완료.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="vg"&gt;qiita&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;yungsang&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;items&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="il"&gt;09890&lt;/span&gt;&lt;span class="vg"&gt;a06d204bf398eea&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;by&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;yungsang&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;
+&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="vg"&gt;export&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;HISTCONTROL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ignoredups&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="vg"&gt;peco&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;local&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;NUM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;wc&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;l&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;local&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;FIRST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="il"&gt;-1&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vg"&gt;NUM&lt;/span&gt;&lt;span class="il"&gt;-1&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-7"&gt;
+&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="vg"&gt;FIRST&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;eq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="il"&gt;0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;last&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;peco-history&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;d&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="vg"&gt;HISTCMD&lt;/span&gt;&lt;span class="il"&gt;-1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;No history&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt;&lt;span class="il"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-13"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-14"&gt;
+&lt;/span&gt;&lt;span id="line-15"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;local&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;CMD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vg"&gt;fc&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;l&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="vg"&gt;FIRST&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;sort&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;k&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="il"&gt;2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;k&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="il"&gt;1&lt;/span&gt;&lt;span class="vg"&gt;nr&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;uniq&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;f&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="il"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;sort&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;nr&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;sed&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;E&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;&amp;#39;s/^[0-9]+[[:blank:]]+//&amp;#39; | peco | head -n 1)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-16"&gt;
+&lt;/span&gt;&lt;span id="line-17"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;n&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;$CMD&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-18"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Replace&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;last&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;peco-history&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;with&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="vg"&gt;CMD&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-19"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;s&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="vg"&gt;CMD&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-20"&gt;
+&lt;/span&gt;&lt;span id="line-21"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;type&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;osascript&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;null&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="il"&gt;2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt;&lt;span class="il"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-22"&gt;&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Send&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;UP&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;keystroke&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;console&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-23"&gt;&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vg"&gt;osascript&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;e&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;&amp;#39;tell application &amp;quot;System Events&amp;quot; to keystroke (ASCII character 30)&amp;#39; &amp;amp;)&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-24"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-25"&gt;
+&lt;/span&gt;&lt;span id="line-26"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Uncomment&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;below&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;execute&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;it&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;here&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;directly&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-27"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;echo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="vg"&gt;CMD&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&amp;amp;&lt;/span&gt;&lt;span class="il"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-28"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;eval&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="vg"&gt;CMD&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-29"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-30"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Remove&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;last&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;peco-history&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-31"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="vg"&gt;history&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;d&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="vg"&gt;HISTCMD&lt;/span&gt;&lt;span class="il"&gt;-1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-32"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="vg"&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-33"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-34"&gt;&lt;span class="vg"&gt;bind&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;&amp;#39;&amp;quot;\C-r&amp;quot;:&amp;quot;peco-history\n&amp;quot;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;&lt;a name='셸-히스토리-설정에-대한-작은-팁'&gt;셸 히스토리 설정에 대한 작은 팁&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
+
+&lt;p&gt;페코와 명령어 히스토리의 조합은 명령어 암기보다 느슨한 연상을 통한 점진적 학습을 도와준다. 여러 명령어를 활용하고, 시도하고, 공부하는 동안에 명령어나 옵션을 완전히 외우지 않더라도 증분검색을 통해서 내가 입력했던 명령어들을 찾아갈 수 있는 것이다. 이러한 접근을 지원하기 위헤서 미리 셸 히스토리 저장 개수를 늘려놓으면 좋다. zsh에서는 &lt;code&gt;~/.zshrc&lt;/code&gt;에 다음 두 행을 추가한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="vg"&gt;HISTSIZE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="il"&gt;100000000&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="vg"&gt;SAVEHIST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="il"&gt;100000000&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;bash에서는 &lt;code&gt;~/.bashrc&lt;/code&gt;에 다음 두 행을 추가한다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="vg"&gt;export&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;HISTFILESIZE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="vg"&gt;export&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;HISTSIZE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
+
+&lt;blockquote class="twitter-tweet" lang="ko"&gt;&lt;p lang="ko" dir="ltr"&gt;한국어로 된 percol 소개 문서가 하나도 없다니!&lt;/p&gt;&amp;mdash; nacyot (@nacyo_t) &lt;a href="https://twitter.com/nacyo_t/status/476909836181835777"&gt;2014년 6월 12일&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;(percol/peco 글을 쓰려고 한지 1년 넘게 걸린 것 같은... 기분 탓)&lt;/p&gt;
+
+&lt;p&gt;개인적으로 증분검색 인터페이스를 정말 좋아한다. 파이어폭스의 검색 기능도 정말 충격적이었고, OSX의 스팟라이트를 비롯한 다양한 런처들, 그리고 Emacs의 명령어 인터페이스 확장(anything, helm)들은 한 번 써보면 절대로 버릴 수 없다. 그 이유는 이러한 인터페이스가 정확한 기억에 의존하기보다 지속적인 학습을 통한 느슨한 연상을 활용하기 때문이다. 사람마다 다르겠지만 Emacs 사용자라고 단축키 수백개씩 외우거나 하진 않는다. 오히려 이런 인터페이스가 없는 GUI 도구들이 훨씬 더 정확한 기억에 의존한다. Peco는 이러한 이 매력적인 증분검색 인터페이스를 셸 위에서 사용할 수 있도록 구현한 도구이다. &lt;/p&gt;
+
+&lt;p&gt;이 글에서는 Peco의 정말 간단한 사용법만을 소개했다. 그럼에도 그 강력함이 충분히 전달되었을 것이다(희망사항). &lt;a href="https://github.com/peco/peco"&gt;peco/peco&lt;/a&gt;에 가면 더욱 다양한 예제와 기능들에 대한 설명을 찾아볼 수 있다. Peco는 기본적으로 표준 입출력을 활용한 도구이기 때문에 파이프라는 셸의 철학에도 잘 부합하고 입출력을 주고받는 곳에서라면 어디에서라도 활용 방법은 무궁무진하다.&lt;/p&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+&lt;div&gt;
+  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
+  &lt;div&gt;
+    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
+      nacyot의 프로그래밍 이야기 메인으로 이동하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
+      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
+      Twitter에서 nacyot 팔로우하기
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</content>
+  </entry>
   <entry>
     <title>루비와 익명 함수 -  블록(block), Proc(절차, procedure) 객체와 람다(lambda) 함수의 차이 이해하기</title>
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-07-ruby-proc-and-lambda/"/>
     <id>http://blog.nacyot.com/articles/2015-12-07-ruby-proc-and-lambda/</id>
     <published>2015-12-08T01:36:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -118,7 +351,7 @@
 
 &lt;h3&gt;&lt;a name='proc#lambda?-를-사용한-lambda-여부-확인'&gt;Proc#lambda? 를 사용한 lambda 여부 확인&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
 
-&lt;p&gt;먼저 본격적으로 차이점을 알아버기 전에 일반적인 Proc 객체와 &lt;code&gt;lambda&lt;/code&gt;로 만들어진 객체를 구분하는 방법을 살펴보겠습니다. &lt;code&gt;Proc 객체의&lt;/code&gt;lambda?&lt;code&gt;메서드로&lt;/code&gt;lambda`로 생성된 함수인지를 확인할 수 있습니다.&lt;/p&gt;
+&lt;p&gt;먼저 본격적으로 차이점을 알아버기 전에 일반적인 Proc 객체와 &lt;code&gt;lambda&lt;/code&gt;로 만들어진 객체를 구분하는 방법을 살펴보겠습니다. Proc 객체의 &lt;code&gt;lambda?&lt;/code&gt; 메서드로 &lt;code&gt;lambda&lt;/code&gt;로 생성된 함수인지를 확인할 수 있습니다.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="no"&gt;Proc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; false&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nb"&gt;proc&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt;     &lt;span class="c1"&gt;# =&amp;gt; false&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nb"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;{}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lambda?&lt;/span&gt;   &lt;span class="c1"&gt;# =&amp;gt; true&lt;/span&gt;
@@ -251,7 +484,7 @@
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(){}&lt;/span&gt;&lt;span class="o"&gt;[]&lt;/span&gt;
 &lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="c1"&gt;# nil&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이게 요지는 아닙니다만, 루비에서 블록과 익명 함수 개념에 대한 이해는 아무리 강조해도 지나치지 않습니다. 많이들 어려움을 느끼는 부분도 Proc과 lambda처럼 비슷해보이면서도 다른 것들입니다. 특히 proc이나 lambda는 Kernel 클래스에 있어서 문법처럼 보이기도 하고 함수처럼 보이기도 하고 분명 헷갈리기 쉬운 요소입니다. 나아가 lambd에는 &lt;code&gt;-&amp;gt;&lt;/code&gt;라는 신택스 슈가도 있고, 이러한 익명 함수를 실행시키는 방법으로는 &lt;code&gt;.call()&lt;/code&gt;, &lt;code&gt;.()&lt;/code&gt;, &lt;code&gt;[]&lt;/code&gt;와 같이 세 가지나 준비되어 있습니다. 처음 보면 당황스러울 수도 있지만 루비에서는 다들 많이 사용되는 표현이므로 확실히 익혀두는 게 좋습니다.&lt;/p&gt;
+&lt;p&gt;이게 요지는 아닙니다만, 루비에서 블록과 익명 함수 개념에 대한 이해는 아무리 강조해도 지나치지 않습니다. 많이들 어려움을 느끼는 부분도 Proc과 lambda처럼 비슷해보이면서도 다른 것들입니다. 특히 proc이나 lambda는 Kernel 클래스에 있어서 문법처럼 보이기도 하고 함수처럼 보이기도 하고 분명 헷갈리기 쉬운 요소입니다. 나아가 lambda에는 &lt;code&gt;-&amp;gt;&lt;/code&gt;라는 신택스 슈가도 있고, 이러한 익명 함수를 실행시키는 방법으로는 &lt;code&gt;.call()&lt;/code&gt;, &lt;code&gt;.()&lt;/code&gt;, &lt;code&gt;[]&lt;/code&gt;와 같이 세 가지나 준비되어 있습니다. 처음 보면 당황스러울 수도 있지만 루비에서는 다들 많이 사용되는 표현이므로 확실히 익혀두는 게 좋습니다.&lt;/p&gt;
 
 &lt;h2&gt;&lt;a name='참고자료'&gt;참고자료&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
 
@@ -282,7 +515,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/"/>
     <id>http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/</id>
     <published>2015-12-03T00:10:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -390,7 +623,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/"/>
     <id>http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/</id>
     <published>2015-11-22T23:02:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -456,7 +689,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/"/>
     <id>http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/</id>
     <published>2015-09-30T11:30:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -486,7 +719,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.remotty.com/blog/2015/08/26/deckset/"/>
     <id>http://blog.remotty.com/blog/2015/08/26/deckset/</id>
     <published>2015-08-29T19:56:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -516,7 +749,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/</id>
     <published>2015-07-07T10:25:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -833,7 +1066,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
     <published>2015-06-13T06:05:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1099,7 +1332,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-21T08:45:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1665,7 +1898,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T10:13:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
+    <updated>2015-12-09T10:35:59+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1747,229 +1980,6 @@ require.config({
 &lt;p&gt;이 글에서는 Jupyter Notebook을 서비스로 등록해서 사용하는 법에 대해서 살펴보았다. 하지만 서비스 파일의 기본적인 구조만 익혀둔다면, 이외에도 다양한 서비스들을 직접 정의해서 편리하게 사용할 수 있을 것이다. 더불어 OSX의 서비스는 실행 상태 유지(&lt;code&gt;&amp;lt;key&amp;gt;KeepAlive&amp;lt;/key&amp;gt;&lt;/code&gt;), 로드 시 실행하기(&lt;code&gt;&amp;lt;key&amp;gt;RunAtLoad&amp;lt;/key&amp;gt;&lt;/code&gt;), 반복 실행(&lt;code&gt;&amp;lt;key&amp;gt;StartInterval&amp;lt;/key&amp;gt;&lt;/code&gt;), 표준 출력(&lt;code&gt;&amp;lt;key&amp;gt;StandardOutPath&amp;lt;/key&amp;gt;&lt;/code&gt;), 표준 에러(&lt;code&gt;&amp;lt;key&amp;gt;StandardErrorPath&amp;lt;/key&amp;gt;&lt;/code&gt;) 리다이렉트 등 더 다양한 설정들도 지원한다. 자세한 내용은 다음 페이지를 참조하기 바란다.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html"&gt;Apple Developer - Daemons and Services Programming Guide&lt;/a&gt;&lt;/p&gt;
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;div&gt;
-  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
-  &lt;div&gt;
-    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
-      nacyot의 프로그래밍 이야기 메인으로 이동하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
-      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
-      Twitter에서 nacyot 팔로우하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</content>
-  </entry>
-  <entry>
-    <title>주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</title>
-    <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/"/>
-    <id>http://blog.nacyot.com/articles/2015-05-08-jupyter-multiple-pythons/</id>
-    <published>2015-05-08T03:00:00+09:00</published>
-    <updated>2015-12-09T09:58:52+09:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;img src='http://i.imgur.com/ww5UMh7.jpg' /&gt;&lt;p&gt;아이파이썬 노트북(IPython Notebook)은 원래 파이썬 REPL의 확장으로 개발되었다. 원래 메시지 처리 부분을 분리한 현재의 아키텍처는 파이썬이라는 언어에 대해서 콘솔과 qt를 통한 GUI, 그리고 웹을 기반으로하는 노트북 등 클라이언트를 분리하기 위해서 도입되었다. 하지만 이는 동시에 언어 실행기의 확장 (즉, 파이썬 이외의 것들을 실행할 수 있는) 가능성도 열어주었다. 원래 IPython에서는 이런 부분에 대한 고려가 없었기 때문에 언어를 해석하는 커널은 기본적으로 한 가지만을 지원한다. 따라서 커널을 바꿀 수는 있지만, 커널을 바꾸려면 IPython Notebook 서버를 새로 실행해야만 했다. 반면에 주피터(IPython &amp;gt;= 3의 다른 이름)에서는 하나의 서버에서 다수의 커널을 바꿔가며 실행할 수 있다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2&gt;&lt;a name='ipython2의-커널-설정-이해하기'&gt;IPython2의 커널 설정 이해하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;먼저 IPython2 버전의 노트북 서버는 다음과 같이 실행한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이 명령어로 파이썬을 실행하면, 현재 버전의 인터프리터 커널로 IPython Notebook 서버가 실행된다. 즉, 파이썬 버전이 2.7.9라면, IPython Kenrel도 2.7.9가 되고, 3.4.2면 3.4.2가 된다. 실행이 가능하다면 다른 인터프리터에 대해서도 마찬가지이다.&lt;/p&gt;
-
-&lt;p&gt;먼저 명령행에서 파이썬 버전을 확인해보고, 파이썬 노트북을 실행해보자.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python --version
-&lt;/span&gt;&lt;span id="line-2"&gt;Python 2.7.9
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install &lt;span class="s2"&gt;&amp;quot;ipython[notebook]&amp;lt;3&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;...
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;서버를 실행하면 &lt;code&gt;http://localhost:8888&lt;/code&gt;이나 출력되는 주소로 IPython Notebook에 접근할 수 있다. 새로운 노트북을 만들고, 노트북 위에서 파이썬 버전을 확인해보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/vmEJyXA.png" alt="파이썬 버전 확인"&gt;&lt;/p&gt;
-
-&lt;p&gt;명령행에서와 마찬가지로 2.7.9임을 확인할 수 있다. 만일 다른 언어나 다른 버전의 파이썬 커널을 실행하고자 한다면, 별도의 IPython Profile(설정들을 모아놓은 디렉터리)를 만들고 아래의 명령어로 해당하는 프로필을 적용할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook --profile &amp;lt;PROFILE&amp;gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;아니면 커널 옵션을 직접 지정하는 방법도 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook --KernelManager.kernel_cmd&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;COMMAND&amp;gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;즉, 하나의 서버에서는 다수의 커널을 지원하지 않기 때문에 매번 새로 실행하거나 별도의 서버를 실행해야하는 번거로움이 있었다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='왜-주피터(jupyter)가-되었을까?'&gt;왜 주피터(Jupyter)가 되었을까?&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;전술하였듯이, 원래 IPython에서 클라이언트와 파이썬 해석기 사이에 메시지를 중개하기 위한 ZeroMQ가 사용된 것은 사실 다양한 클라이언트를 지원하기 위해서였다. 그런데 이는 동시에 다양한 커널을 도입하게 되는 계기가 되기도 했다(&lt;a href="https://github.com/ipython/ipython/wiki/IPEP-25%3A-Registry-of-installed-kernels"&gt;IPEP 25&lt;/a&gt;). 이러한 요구사항은 IPython이라는 이름 대신 새로운 이름이 필요했던 가장 큰 이유라고 생각된다.&lt;/p&gt;
-
-&lt;p&gt;Jupyter(IPython &amp;gt;= 3)에서는 하나의 노트북 서버에서 다수의 커널을 지원한다. 즉, 하나의 서버를 실행한 상태에서 커널을 선택해서 노트북을 작성할 수 있도록 구조가 변경되었다.&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='주피터(jupyter)의-기본-커널'&gt;주피터(Jupyter)의 기본 커널&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;먼저 여기에서는 OSX나 Linux 계열 운영체제에서 파이썬3를 사용하고 있다고 가정한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python --version
-&lt;/span&gt;&lt;span id="line-2"&gt;Python 3.4.2
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;최신 버전의 주피터를 설치한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pip install ipython&lt;span class="o"&gt;[&lt;/span&gt;notebook&lt;span class="o"&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython --version
-&lt;/span&gt;&lt;span id="line-3"&gt;3.1.0
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;주피터에는 현재 사용가능한 kernel들을 확인할 수 있는 명령어가 추가되었다. 먼저 현재 사용할 수 있는 커널을 살펴보자.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec list
-&lt;/span&gt;&lt;span id="line-2"&gt;python kernelspec list
-&lt;/span&gt;&lt;span id="line-3"&gt;Available kernels:
-&lt;/span&gt;&lt;span id="line-4"&gt;  python3
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이를 통해서 현재 파이썬 버전이 사용가능하다는 것을 알 수 있다. 실제로 서버를 실행해서 확인해보면 새로운 노트북을 만들 때 Python 3만을 선택할 수 있을 것이다.&lt;/p&gt;
-
-&lt;h3&gt;&lt;a name='다중-커널-개념-이해하기'&gt;다중 커널 개념 이해하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;
-
-&lt;p&gt;앞서 이야기한 것처럼 주피터에서는 다중 커널을 하나의 노트북 서버에서 지원한다. 이러한 기능을 활성화하려면 적절히 커널 설정 파일을 추가해주어야한다. 과거에는 이러한 작업을 위해서 프로필 개념을 주로 사용했으나, 현재는 &lt;code&gt;~/.ipython&lt;/code&gt; 디렉터리 아래에 &lt;code&gt;kernels&lt;/code&gt;라는 디렉터리를 사용하는 것이 더 편리하다.&lt;/p&gt;
-
-&lt;p&gt;여기에 가보면 처음에는 아무런 커널도 없음을 알 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ls
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;여기에 커널 설정이 없더라도, 주피터는 기본 커널(파이썬3)을 적절히 실행해준다. 명시적으로 커널 설정을 확인하고 수정하기 위해서는 다음 명령어를 사용한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec install-self
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이 명령어를 실행하면, &lt;code&gt;/usr/local/share/jupyter/kernels&lt;/code&gt;에 Python3 커널 설정을 추가할 것이다. 편의상 이를 ipython 설정 디렉터리 아래로 복사한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mv /usr/local/share/jupyter/kernels/python3 &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;커널 디렉터리로 이동해보면 다음과 같은 파일들을 볼 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; ~/.ipython/kernels/python3
-&lt;/span&gt;&lt;span id="line-2"&gt;kernel.json    logo-32x32.png logo-64x64.png
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;logo-*.png&lt;/code&gt; 이미지 파일은 해당하는 커널을 사용할 때 화면에 보여줄 이미지이다. 여기서 주목할 파일은 kernel.json이다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat kernel.json
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt; &lt;span class="s2"&gt;&amp;quot;language&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;python&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-4"&gt; &lt;span class="s2"&gt;&amp;quot;display_name&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Python 3&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-5"&gt; &lt;span class="s2"&gt;&amp;quot;argv&amp;quot;&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s2"&gt;&amp;quot;/usr/bin/python3&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-7"&gt;  &lt;span class="s2"&gt;&amp;quot;-m&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-8"&gt;  &lt;span class="s2"&gt;&amp;quot;IPython.kernel&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-9"&gt;  &lt;span class="s2"&gt;&amp;quot;-f&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-10"&gt;  &lt;span class="s2"&gt;&amp;quot;{connection_file}&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt; &lt;span class="o"&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-12"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;langugae&lt;/code&gt;는 커널의 언어, &lt;code&gt;display_name&lt;/code&gt;은 화면에 보여줄 이름이라는 것을 쉽게 유추할 수 있다. 그리고 &lt;code&gt;argv&lt;/code&gt; 속성이 바로 파이썬 커널 서버를 실행하기 위한 명령어이다. 이 명령어를 그대로 복사해서 실행해보도록하자. &lt;code&gt;connection_file&lt;/code&gt;은 임의로 &lt;code&gt;python3.ipython&lt;/code&gt;이라고 붙였다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;python3&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;IPython&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;kernel&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;f&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;python3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;ipython&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nl"&gt;NOTE:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;When&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;using&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="vg"&gt;ipython&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;kernel&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;entry&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;point&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Ctrl&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;C&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;will&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;not&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;work&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="vg"&gt;To&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;exit&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;you&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;will&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;have&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;explicitly&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;quit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;this&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;process&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;by&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;either&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;sending&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="s2"&gt;&amp;quot;quit&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;client&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;or&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;using&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Ctrl&lt;/span&gt;&lt;span class="o"&gt;-\&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;UNIX&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="vg"&gt;like&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;environments&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="vg"&gt;To&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;read&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;more&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;about&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;this&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;see&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;https:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="vg"&gt;github&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;ipython&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="vg"&gt;issues&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="il"&gt;2049&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="vg"&gt;To&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;connect&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;another&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;client&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;this&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;kernel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;use:&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="vg"&gt;existing&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;python3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;ipython&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이제 커널 서버가 실행되고 명령을 기다린다. 맨 아래에서 설명하고 있듯이 &lt;code&gt;--existing python3.ipython&lt;/code&gt; 옵션을 통해서 ipython에서 이 커널 서버를 직접 사용하는 것도 가능하다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;다른&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;셸에서&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;실행&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;ipython&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;console&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="vg"&gt;existing&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;python3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="vg"&gt;ipython&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="vg"&gt;IPython&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Console&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;3.1.0&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="vg"&gt;In&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="il"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="c1"&gt;&amp;#39;Hello, Python&amp;#39;)&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="vg"&gt;Hello&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="vg"&gt;Python&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;&lt;a name='다른-언어-커널-예제(ruby)'&gt;다른 언어 커널 예제(ruby)&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h4&gt;
-
-&lt;p&gt;위의 예제는 사용하는 커널이 파이썬3이기 때문에 &lt;code&gt;ipython console&lt;/code&gt;을 그냥 사용하는 것과 어떻게 다른지 알 수 없다. 실제로 커널 서버가 작동하는 것을 보여주기 위해, 다음 예제에서는 IRuby가 설치되어있다고 가정한다.(IRuby에 대해서는 이전 글 &lt;a href="http://blog.nacyot.com/articles/2015-04-15-rorlab-jupyter-iruby-notebook/"&gt;IRuby Notebook&lt;/a&gt; 참조)&lt;/p&gt;
-
-&lt;p&gt;IRuby를 위한 &lt;code&gt;kernel.json&lt;/code&gt;을 살펴본다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels/ruby
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;cat kernel.json
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="o"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;  &lt;span class="s2"&gt;&amp;quot;argv&amp;quot;&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;iruby&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;kernel&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;{connection_file}&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-5"&gt;  &lt;span class="s2"&gt;&amp;quot;display_name&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Ruby&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span id="line-6"&gt;  &lt;span class="s2"&gt;&amp;quot;language&amp;quot;&lt;/span&gt;:     &lt;span class="s2"&gt;&amp;quot;ruby&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="o"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;기본적인 구조는 파이썬의 &lt;code&gt;kernel.json&lt;/code&gt;과 완전히 같다. 간단히 설명하자면 IRuby는 Jupyter와 소통하기 위한 커널 서버의 Ruby 구현체라고 할 수 있다. 앞서와 마찬가치로 커널 서버를 실행한다. 단, iruby 커널은 자동적으로 connection 파일을 생성하지 않으므로, 임시 파일을 미리 생성해준다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;{&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="s1"&gt;  &amp;quot;stdin_port&amp;quot;: 57533, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="s1"&gt;  &amp;quot;ip&amp;quot;: &amp;quot;127.0.0.1&amp;quot;, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="s1"&gt;  &amp;quot;control_port&amp;quot;: 40023, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="s1"&gt;  &amp;quot;hb_port&amp;quot;: 35724, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="s1"&gt;  &amp;quot;signature_scheme&amp;quot;: &amp;quot;hmac-sha256&amp;quot;, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="s1"&gt;  &amp;quot;key&amp;quot;: &amp;quot;29e39299-76c7-495f-be03-eb1722c25efe&amp;quot;, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="s1"&gt;  &amp;quot;shell_port&amp;quot;: 52952, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="s1"&gt;  &amp;quot;transport&amp;quot;: &amp;quot;tcp&amp;quot;, &lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="s1"&gt;  &amp;quot;iopub_port&amp;quot;: 41730&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="s1"&gt;}&amp;#39;&lt;/span&gt; &amp;gt; ruby.ipython
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이제 IPython을 이 connection 파일로 실행하면, 루비 코드가 실행된다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython console --existing ruby.ipython
-&lt;/span&gt;&lt;span id="line-2"&gt;IPython Console 3.1.0
-&lt;/span&gt;&lt;span id="line-3"&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;In &lt;span class="o"&gt;[&lt;/span&gt;1&lt;span class="o"&gt;]&lt;/span&gt;: puts &lt;span class="s2"&gt;&amp;quot;puts is not python method!&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;puts is not python method!
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이와 같이 어떤 원리로 커널(실행기)가 클라이언트가 실행되는 지를 이해하면, 다중 커널이 무엇을 의미하고 어떻게 설정할 수 있는 지도 어렵지 않게 이해할 수 있다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='주피터(jupyter)에서-파이썬2와-파이썬3-동시에-사용하기'&gt;주피터(Jupyter)에서 파이썬2와 파이썬3 동시에 사용하기&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;앞서서 살펴보았듯이 IPython에서는 IPython을 실행한 파이썬 버전을 우선적으로 사용한다. 이는 주피터에서도 마찬가지이다. 파이썬3를 사용하고 있다면 기본 커널은 파이썬3가 된다. 그렇다면 파이썬2를 사용하고자 한다면 어떻게 해야할까? 물론 파이썬2를 설치하고 pip로 ipython을 설치하고 notebook 서버를 실행하는 것도 방법이긴 하다. 하지만 앞서 다중 커널에 대해서 배웠으니, 여기서는 이를 활용해보도록 하자.&lt;/p&gt;
-
-&lt;p&gt;다시 한 번 되새겨보자. 커널은 노트북 서버나 클라이언트와는 분리되어있다. 따라서 커널이 파이썬2건 파이썬3건 노트북 서버나 클라이언트는 전혀 신경쓰지 않는다. 단지 기본적으로 실행되는 파이썬은 IPython이 실행되는 파이썬을 사용하도록 설정되어있을 뿐이다.&lt;/p&gt;
-
-&lt;p&gt;여기서는 pyenv와 파이썬3를 사용한다고 가정하고 앞서 보았던 파이썬3의 &lt;code&gt;kernel.json&lt;/code&gt; 파일을 사용해 파이썬2 커널을 지원하도록 만들 것이다.&lt;/p&gt;
-
-&lt;p&gt;먼저 Notebook Server를 실행해 파이썬 3만이 지원된다는 것을 확인해보자.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv install 3.4.2
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv global 3.4.2
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pythen --version
-&lt;/span&gt;&lt;span id="line-4"&gt;Python 3.4.2
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;다음 이미지와 같이 IPython Notebook 서버에서는 기본적으로 &lt;code&gt;Python 3&lt;/code&gt; 하나의 커널만을 지원하다. 기본 커널을 생성하고 이를 IPython 설정 디렉터리로 이동시킨다. 그리고 디렉터리 이름을 python2로 변경한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython kernelspec install-self
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mv /usr/local/share/jupyter/kernels/python3 &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;ipython locate&lt;span class="k"&gt;)&lt;/span&gt;/kernels
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mv python3 python2
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;python2
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;먼저 &lt;code&gt;pyenv&lt;/code&gt;를 통해서 파이썬 2를 설치한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;pyenv install 2.7.8
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;kernel.json&lt;/code&gt;을 다음과 같이 수정한다. &lt;USER&gt;은 적절히 변경한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-2"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;language&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;python&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-3"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;display_name&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Python 2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-4"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;argv&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-5"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/Users/&amp;lt;USER&amp;gt;/.pyenv/versions/2.7.8/bin/python2.7&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-6"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;-m&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-7"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;IPython.kernel&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-8"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;-f&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-9"&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;{connection_file}&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-10"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;/span&gt;&lt;span id="line-11"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이게 전부다. 다시 IPython Notebook을 실행시켜본다(이미 실행이 되어있다면 재실행하지 않아도 바로 적용된다).&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span id="line-1"&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ipython notebook
-&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이제 Notebook에 접속해서 새로운 문서를 만들려고 하면 다음과 같이 &amp;quot;Python 2&amp;quot;와 &amp;quot;Python 3&amp;quot; 두 선택지가 있는 것을 알 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/XhKnpqa.png" alt="노트북 생성시 커널 선택 - 파이썬2, 파이썬3"&gt;&lt;/p&gt;
-
-&lt;p&gt;각각의 커널을 선택해서 실제로 작동하는 버전을 확인해보자. 먼저 파이썬2로 노트북을 만들고, 중간에 파이썬3로 커널을 교체한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src="http://i.imgur.com/N6Ftpak.png" alt="하나의 서버에서 다른 파이썬 버전 커널 사용하기"&gt;&lt;/p&gt;
-
-&lt;p&gt;위와 같이 파이썬2와 파이썬3 커널을 하나의 노트북 서버에서 사용 가능하다는 것을 확인할 수 있다.&lt;/p&gt;
-
-&lt;h2&gt;&lt;a name='결론'&gt;결론&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;
-
-&lt;p&gt;주피터의 다중 커널 개념 지원은 매우 간단하고, 강력하다. IPython이 실행되는 파이썬 실행기에 종속되지 않기 때문에, 다른 언어들의 커널을 지원할 뿐만 아니라, 환경만 갖춰져 있다면 같은 언어의 다양한 버전에 대해서도 별도의 커널을 만들어 사용할 수 있다. 나아가 파이썬의 virtualenv와 결합하면 환경별로도 커널을 분리해 사용할 수 있다. 이와 같이 다중 커널 개념은 Jupyter의 핵심 개념이며, 이를 통해서 좀 더 자유롭게 Notebook 생활이 가능해질 것이다 &amp;gt;_&amp;lt;&lt;/p&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;div&gt;

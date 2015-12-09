@@ -159,6 +159,60 @@ nacyot의 프로그래밍 이야기
 
 <div class='summary_card'>
 <div class='categories'>
+<div class='category category-software-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="articles/2015-12-09-incremental-search-tool-peco/">증분검색을 통한 텍스트 필터링 도구 페코(Peco) - 명령어 히스토리를 비롯한 셸(shell) 어디서나 증분검색하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2015년 12월 09일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/XKk4660.png" />
+</div>
+<p>셸(shell)은 매력적인 도구이지만, 많은 사람들에게 원시적인 도구로 오해받곤 한다. CLI의 대표적인 원시성으로는 각각의 프로그램들이 개별적으로 사용자와 대화하는 대신, 셸을 통해서만 명령이 가능하다는 점을 들 수 있다. 하지만 이러한 점은 커다란 장점이 되기도 한다. 예를 들어 프로그램들이 <code>STDIN</code>과 <code>STDOUT</code>만으로 데이터를 주고받을 수 있다. 또한 셸 인터페이스의 개선이 모든 프로그램의 사용성 개선과 직결되기도 한다. 애플리케이션의 단절을 전제로 하는 GUI에서는 이러한 장점을 누리기 어렵다.</p>
+
+<p>페코(Peco)는 특히 인터페이스를 개선해주는 후자에 해당하는 도구이다. 페코는 개별적으로 사용가능한 인터렉티브 데이터 필터링 도구인 동시에, 셸과 함께 사용하면 셸의 사용성을 개선할 수 있다. 이 글에서는 페코의 기본적인 사용법과 셸의 히스토리 검색과 결합해서 사용하는 방법에 대해서 알아본다.</p>
+
+<span class='link'>
+<a href="articles/2015-12-09-incremental-search-tool-peco/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/bash'>bash</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/command_history'>command_history</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/firefox'>firefox</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/go'>go</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/incremental_search'>incremental_search</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/peco'>peco</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/percol'>percol</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/shell'>shell</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/zsh'>zsh</a>
+</div>
+<div class='barcode' data-title='증분검색을 통한 텍스트 필터링 도구 페코(Peco) - 명령어 히스토리를 비롯한 셸(shell) 어디서나 증분검색하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
 <div class='category category-programming-top' style='width: 100.0%'></div>
 </div>
 <h1 class='title'>
@@ -638,65 +692,6 @@ nacyot의 프로그래밍 이야기
 <a href='/tags/service'>service</a>
 </div>
 <div class='barcode' data-title='launchctl을 사용한 맥 OSX에서 서비스 등록하기 - 주피터(Jupyter, IPython &gt;= 3) 노트북 서비스 등록 예제'></div>
-</div>
-
-<div class='summary_card'>
-<div class='categories'>
-<div class='category category-programming-top' style='width: 50.0%'></div>
-<div class='category category-editor-top' style='width: 50.0%'></div>
-</div>
-<h1 class='title'>
-<a href="articles/2015-05-08-jupyter-multiple-pythons/">주피터(Jupyter, IPython >= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</a>
-</h1>
-<div>
-<span class='date'>
-<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
-<i class='fa fa-desktop' style='color: #1f77b4'></i>
-프로그래밍
-</a>
-<a href='/tags/editor' title='에디터(Editor) 목록'>
-<i class='fa fa-edit' style='color: #9467bd'></i>
-에디터
-</a>
-<i class='fa fa-calendar'></i>
-2015년 05월 08일 발행
-</span>
-</div>
-<div class='summary'>
-<div class='title-image-wrapper'>
-<img class="title-image" src="http://i.imgur.com/ww5UMh7.jpg" />
-</div>
-<p>아이파이썬 노트북(IPython Notebook)은 원래 파이썬 REPL의 확장으로 개발되었다. 원래 메시지 처리 부분을 분리한 현재의 아키텍처는 파이썬이라는 언어에 대해서 콘솔과 qt를 통한 GUI, 그리고 웹을 기반으로하는 노트북 등 클라이언트를 분리하기 위해서 도입되었다. 하지만 이는 동시에 언어 실행기의 확장 (즉, 파이썬 이외의 것들을 실행할 수 있는) 가능성도 열어주었다. 원래 IPython에서는 이런 부분에 대한 고려가 없었기 때문에 언어를 해석하는 커널은 기본적으로 한 가지만을 지원한다. 따라서 커널을 바꿀 수는 있지만, 커널을 바꾸려면 IPython Notebook 서버를 새로 실행해야만 했다. 반면에 주피터(IPython &gt;= 3의 다른 이름)에서는 하나의 서버에서 다수의 커널을 바꿔가며 실행할 수 있다.</p>
-
-<span class='link'>
-<a href="articles/2015-05-08-jupyter-multiple-pythons/">계속 읽기</a>
-</span>
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/editor'>editor</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ipython'>ipython</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/ipython_notebook'>ipython_notebook</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/iruby'>iruby</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/jupyter'>jupyter</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/jupyter_kernel'>jupyter_kernel</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/programming'>programming</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/pyenv'>pyenv</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/python'>python</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/python2'>python2</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/python3'>python3</a>
-</div>
-<div class='barcode' data-title='주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기'></div>
 </div>
 
 </div>

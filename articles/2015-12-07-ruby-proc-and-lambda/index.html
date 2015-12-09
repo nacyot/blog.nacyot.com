@@ -13,6 +13,7 @@ Copyright © 2013- nacyot<Daekwon Kim> All Rights Reserved.
 <link href='http://blog.nacyot.com/articles/2015-12-07-ruby-proc-and-lambda/' rel='canonical'>
 <link href='http://blog.nacyot.com/feed.xml' rel='alternate' title='nacyot의 프로그래밍 이야기 RSS Feed' type='application/rss+xml'>
 <link href='/articles/2015-12-02-programming-is-difficult/' rel='prev' title="프로그래밍은 왜 어려운가 - 벤 프라이(Ben Fry)의 Distellamap으로 생각해보는 다익스트라의 'GOTO문은 해롭다(Go To Statement Considered Harmful)'">
+<link href='/articles/2015-12-09-incremental-search-tool-peco/' rel='next' title='증분검색을 통한 텍스트 필터링 도구 페코(Peco) - 명령어 히스토리를 비롯한 셸(shell) 어디서나 증분검색하기'>
 <meta content='루비 Advent Calendar 2015 7일차로 참석합니다.루비에서 가장 특징적이고 많이 사용되는 문법이 바로 블록입니다. 루비에서는 블록 문법을 통해서 하나의 익명 함수를 손쉽게 함수에 넘겨줄 수 있습니다. 대부분의 반복문을 비롯해 인터페이스로도 자주 사용되기 때문에 익명 함수 개념을 이해하는 것은 매우 중요합니다. 블록을 사용하지 않더라도 루비에서는 명시적으로 익명 함수 객체를 생성할 수 있습니다. 익명 함수를 만드는 두 가지 대표적인 방법이 바로 Proc 객체와 lambda문을 사용하는 것입니다. 이 글에서는 루비에서의 익명 함수와 Proc 객체와 lambda문으로 생성된 익명 함수의 차이점을 살펴보겠습니다.' name='description'>
 <link href='https://plus.google.com/+KimDaekwon' rel='author'>
 <link href='https://plus.google.com/+KimDaekwon' rel='publisher'>
@@ -224,7 +225,7 @@ nacyot의 프로그래밍 이야기
 
 <h3><a name='proc#lambda?-를-사용한-lambda-여부-확인'>Proc#lambda? 를 사용한 lambda 여부 확인</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h3>
 
-<p>먼저 본격적으로 차이점을 알아버기 전에 일반적인 Proc 객체와 <code>lambda</code>로 만들어진 객체를 구분하는 방법을 살펴보겠습니다. <code>Proc 객체의</code>lambda?<code>메서드로</code>lambda`로 생성된 함수인지를 확인할 수 있습니다.</p>
+<p>먼저 본격적으로 차이점을 알아버기 전에 일반적인 Proc 객체와 <code>lambda</code>로 만들어진 객체를 구분하는 방법을 살펴보겠습니다. Proc 객체의 <code>lambda?</code> 메서드로 <code>lambda</code>로 생성된 함수인지를 확인할 수 있습니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="no">Proc</span><span class="o">.</span><span class="n">new</span><span class="p">{}</span><span class="o">.</span><span class="n">lambda?</span> <span class="c1"># =&gt; false</span>
 </span><span id="line-2"><span class="nb">proc</span><span class="p">{}</span><span class="o">.</span><span class="n">lambda?</span>     <span class="c1"># =&gt; false</span>
 </span><span id="line-3"><span class="nb">lambda</span><span class="p">{}</span><span class="o">.</span><span class="n">lambda?</span>   <span class="c1"># =&gt; true</span>
@@ -357,7 +358,7 @@ nacyot의 프로그래밍 이야기
 <div class="highlight"><pre><span id="line-1"><span class="o">-&gt;</span><span class="p">(){}</span><span class="o">[]</span>
 </span><span id="line-2"><span class="c1"># nil</span>
 </span></pre></div>
-<p>이게 요지는 아닙니다만, 루비에서 블록과 익명 함수 개념에 대한 이해는 아무리 강조해도 지나치지 않습니다. 많이들 어려움을 느끼는 부분도 Proc과 lambda처럼 비슷해보이면서도 다른 것들입니다. 특히 proc이나 lambda는 Kernel 클래스에 있어서 문법처럼 보이기도 하고 함수처럼 보이기도 하고 분명 헷갈리기 쉬운 요소입니다. 나아가 lambd에는 <code>-&gt;</code>라는 신택스 슈가도 있고, 이러한 익명 함수를 실행시키는 방법으로는 <code>.call()</code>, <code>.()</code>, <code>[]</code>와 같이 세 가지나 준비되어 있습니다. 처음 보면 당황스러울 수도 있지만 루비에서는 다들 많이 사용되는 표현이므로 확실히 익혀두는 게 좋습니다.</p>
+<p>이게 요지는 아닙니다만, 루비에서 블록과 익명 함수 개념에 대한 이해는 아무리 강조해도 지나치지 않습니다. 많이들 어려움을 느끼는 부분도 Proc과 lambda처럼 비슷해보이면서도 다른 것들입니다. 특히 proc이나 lambda는 Kernel 클래스에 있어서 문법처럼 보이기도 하고 함수처럼 보이기도 하고 분명 헷갈리기 쉬운 요소입니다. 나아가 lambda에는 <code>-&gt;</code>라는 신택스 슈가도 있고, 이러한 익명 함수를 실행시키는 방법으로는 <code>.call()</code>, <code>.()</code>, <code>[]</code>와 같이 세 가지나 준비되어 있습니다. 처음 보면 당황스러울 수도 있지만 루비에서는 다들 많이 사용되는 표현이므로 확실히 익혀두는 게 좋습니다.</p>
 
 <h2><a name='참고자료'>참고자료</a> <span class='to_toc'><a href='#toc'><i class='fa fa-angle-double-up'></i></a></span></h2>
 
@@ -564,6 +565,64 @@ proc
 
 </div>
 <div class='nextnav'>
+<a href='/articles/2015-12-09-incremental-search-tool-peco/' rel='next'>다음 글</a>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='fa fa-chevron-right'></div>
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-software-top' style='width: 100.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../2015-12-09-incremental-search-tool-peco/">증분검색을 통한 텍스트 필터링 도구 페코(Peco) - 명령어 히스토리를 비롯한 셸(shell) 어디서나 증분검색하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/software' title='소프트웨어(software) 목록'>
+<i class='fa fa-square-o' style='color: #7f7f7f'></i>
+소프트웨어
+</a>
+<i class='fa fa-calendar'></i>
+2015년 12월 09일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/XKk4660.png" />
+</div>
+<p>셸(shell)은 매력적인 도구이지만, 많은 사람들에게 원시적인 도구로 오해받곤 한다. CLI의 대표적인 원시성으로는 각각의 프로그램들이 개별적으로 사용자와 대화하는 대신, 셸을 통해서만 명령이 가능하다는 점을 들 수 있다. 하지만 이러한 점은 커다란 장점이 되기도 한다. 예를 들어 프로그램들이 <code>STDIN</code>과 <code>STDOUT</code>만으로 데이터를 주고받을 수 있다. 또한 셸 인터페이스의 개선이 모든 프로그램의 사용성 개선과 직결되기도 한다. 애플리케이션의 단절을 전제로 하는 GUI에서는 이러한 장점을 누리기 어렵다.</p>
+
+<p>페코(Peco)는 특히 인터페이스를 개선해주는 후자에 해당하는 도구이다. 페코는 개별적으로 사용가능한 인터렉티브 데이터 필터링 도구인 동시에, 셸과 함께 사용하면 셸의 사용성을 개선할 수 있다. 이 글에서는 페코의 기본적인 사용법과 셸의 히스토리 검색과 결합해서 사용하는 방법에 대해서 알아본다.</p>
+
+<span class='link'>
+<a href="../2015-12-09-incremental-search-tool-peco/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/bash'>bash</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/command_history'>command_history</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/firefox'>firefox</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/go'>go</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/incremental_search'>incremental_search</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/peco'>peco</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/percol'>percol</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/shell'>shell</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/software'>software</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/zsh'>zsh</a>
+</div>
+<div class='barcode' data-title='증분검색을 통한 텍스트 필터링 도구 페코(Peco) - 명령어 히스토리를 비롯한 셸(shell) 어디서나 증분검색하기'></div>
+</div>
+
 </div>
 <br style='clear:both'>
 </div>

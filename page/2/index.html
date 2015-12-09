@@ -163,6 +163,65 @@ nacyot의 프로그래밍 이야기
 <div class='category category-editor-top' style='width: 50.0%'></div>
 </div>
 <h1 class='title'>
+<a href="../../articles/2015-05-08-jupyter-multiple-pythons/">주피터(Jupyter, IPython >= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<a href='/tags/editor' title='에디터(Editor) 목록'>
+<i class='fa fa-edit' style='color: #9467bd'></i>
+에디터
+</a>
+<i class='fa fa-calendar'></i>
+2015년 05월 08일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/ww5UMh7.jpg" />
+</div>
+<p>아이파이썬 노트북(IPython Notebook)은 원래 파이썬 REPL의 확장으로 개발되었다. 원래 메시지 처리 부분을 분리한 현재의 아키텍처는 파이썬이라는 언어에 대해서 콘솔과 qt를 통한 GUI, 그리고 웹을 기반으로하는 노트북 등 클라이언트를 분리하기 위해서 도입되었다. 하지만 이는 동시에 언어 실행기의 확장 (즉, 파이썬 이외의 것들을 실행할 수 있는) 가능성도 열어주었다. 원래 IPython에서는 이런 부분에 대한 고려가 없었기 때문에 언어를 해석하는 커널은 기본적으로 한 가지만을 지원한다. 따라서 커널을 바꿀 수는 있지만, 커널을 바꾸려면 IPython Notebook 서버를 새로 실행해야만 했다. 반면에 주피터(IPython &gt;= 3의 다른 이름)에서는 하나의 서버에서 다수의 커널을 바꿔가며 실행할 수 있다.</p>
+
+<span class='link'>
+<a href="../../articles/2015-05-08-jupyter-multiple-pythons/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/editor'>editor</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython'>ipython</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/ipython_notebook'>ipython_notebook</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/iruby'>iruby</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter'>jupyter</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/jupyter_kernel'>jupyter_kernel</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/pyenv'>pyenv</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python'>python</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python2'>python2</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/python3'>python3</a>
+</div>
+<div class='barcode' data-title='주피터(Jupyter, IPython &gt;= 3)의 다중 커널 개념 이해하기 - 파이썬2와 파이썬3 동시에 사용하기'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+<div class='category category-editor-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
 <a href="../../articles/2015-04-15-rorlab-jupyter-iruby-notebook/">[RORLab 발표] 주피터(Jupyter) - IRuby Notebook 보충</a>
 </h1>
 <div>
@@ -662,48 +721,6 @@ nacyot의 프로그래밍 이야기
 <a href='/tags/programming'>programming</a>
 </div>
 <div class='barcode' data-title='캐스크(Cask)로 이맥스(Emacs) 환경설정 관리하기'></div>
-</div>
-
-<div class='summary_card'>
-<div class='categories'>
-<div class='category category-infrastructure-top' style='width: 100.0%'></div>
-</div>
-<h1 class='title'>
-<a href="../../articles/2014-05-08-docker-registry-introduction/">도커 레지스트리(Docker Registry) 설치하기 + S3 연동</a>
-</h1>
-<div>
-<span class='date'>
-<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
-<i class='fa fa-cloud' style='color: #2ca02c'></i>
-시스템
-</a>
-<i class='fa fa-calendar'></i>
-2014년 05월 08일 발행
-</span>
-</div>
-<div class='summary'>
-<div class='title-image-wrapper'>
-<img class="title-image" src="http://i.imgur.com/ilkin2F.jpg" />
-</div>
-<p><span class='live_link'><a href='http://wiki.nacyot.com/documents/docker'>도커</a></span>의 장점 중 하나는 도커에서 빌드한 이미지를 쉽게 공유할 수 있다는 점입니다. 이러한 장점은 오픈소스 커뮤니티 위에서 공적인 공유로 그 장점이 극대화됩니다. 실제로 도커에서는 도커에서 생성한 이미지를 공유할 수 있는 <a href="http://index.docker.io">공식 저장소</a>를 제공하고 있습니다. 공식 저장소에는 프론트엔드 어플리케이션과 데이터베이스와 같은 백엔드 어플리케이션 등 이미 많은 도커 이미지들이 공유되고 있습니다. 물론 도커의 가장 큰 장점은 경량화된 가상화(격리)를 통한 어플리케이션 배포에 있습니다만, 이러한 열린 공간을 통해서 오픈소스 어플리케이션을 공유하는 새로운 장을 열어놓고 있습니다. 나아가 몇몇 프로젝트에서는 좀 더 적극적으로 직접 <span class='live_link'><a href='http://wiki.nacyot.com/documents/dockerfile'>Dockerfile</a></span>을 제공해 어플리케이션을 도커 이미지로 빌드하는 걸 지원하고 있습니다.</p>
-
-<span class='link'>
-<a href="../../articles/2014-05-08-docker-registry-introduction/">계속 읽기</a>
-</span>
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/aws'>aws</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker'>docker</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/docker_registry'>docker_registry</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/infrastructure'>infrastructure</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/s3'>s3</a>
-</div>
-<div class='barcode' data-title='도커 레지스트리(Docker Registry) 설치하기 + S3 연동'></div>
 </div>
 
 </div>

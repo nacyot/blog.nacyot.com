@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-09-incremental-search-tool-peco/"/>
     <id>http://blog.nacyot.com/articles/2015-12-09-incremental-search-tool-peco/</id>
     <published>2015-12-09T10:40:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -247,7 +247,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-07-ruby-proc-and-lambda/"/>
     <id>http://blog.nacyot.com/articles/2015-12-07-ruby-proc-and-lambda/</id>
     <published>2015-12-08T01:36:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -515,7 +515,7 @@
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/"/>
     <id>http://blog.nacyot.com/articles/2015-12-02-programming-is-difficult/</id>
     <published>2015-12-03T00:10:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -623,7 +623,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/"/>
     <id>http://blog.nacyot.com/articles/2015-11-22-the-limitiation-of-computer/</id>
     <published>2015-11-22T23:02:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -689,7 +689,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/"/>
     <id>http://blog.nacyot.com/articles/2015-06-30-serverspec-with-docker/</id>
     <published>2015-07-07T10:25:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1006,7 +1006,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/"/>
     <id>http://blog.nacyot.com/articles/2015-06-13-eunjeon-with-elasticsearch/</id>
     <published>2015-06-13T06:05:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1272,7 +1272,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/"/>
     <id>http://blog.nacyot.com/articles/2015-05-21-d3js-in-jupyter/</id>
     <published>2015-05-21T08:45:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>
@@ -1298,7 +1298,7 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
 &lt;div class="prompt input_prompt"&gt;68번째 입력:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;html&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;html&lt;/span&gt;
 
 &amp;lt;style&amp;gt;
 .hello-world{
@@ -1364,7 +1364,7 @@ Hello ,html magic!
 &lt;div class="prompt input_prompt"&gt;69번째 입력:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
 
 &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get_element&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
@@ -1408,7 +1408,7 @@ element = undefined;
 &lt;div class="prompt input_prompt"&gt;70번째 입력:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
 
 &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;target&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;get_element&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;target&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;div class=&amp;quot;hello-world&amp;quot;&amp;gt;Hello, js magic!&amp;lt;/div&amp;gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1456,7 +1456,7 @@ $(target).append('&lt;div class="hello-world"&gt;Hello, js magic!&lt;/div&gt;')
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h2&gt;&lt;a name='&amp;#54764;&amp;#54140;-&amp;#54632;&amp;#49688;-&amp;#51060;&amp;#54644;&amp;#54616;&amp;#44592;'&gt;&amp;#54764;&amp;#54140; &amp;#54632;&amp;#49688; &amp;#51060;&amp;#54644;&amp;#54616;&amp;#44592;&lt;a class="anchor-link" href="#&amp;#54764;&amp;#54140;-&amp;#54632;&amp;#49688;-&amp;#51060;&amp;#54644;&amp;#54616;&amp;#44592;"&gt;&lt;/a&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;앞선 예제에서는 &lt;code&gt;get_element&lt;/code&gt;라는 헬퍼 함수를 작성했다. 이 함수를 이해하기에 앞서 한가지 짚고 넘어갈 부분이 있다. 주피터 노트북의 &lt;code&gt;%%javascript&lt;/code&gt; 매직 안에서는 element라는 특별한 요소가 정의되어있다. 이 element에는 현재 주피터 노트북 셀의 결과 요소가 지정되어 있고, 이를 조작해서 현재 셀의 출력 결과에 대한 조작을 할 수 있다.&lt;/p&gt;
 &lt;p&gt;예를 들어서 jupyter notebook 위에서는 헬퍼 함수 없이도 다음과 같이 코드가 정상적으로 작동한다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;div class=&amp;quot;hello-world&amp;quot;&amp;gt;I don&amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt; &lt;span class="nx"&gt;need&lt;/span&gt; &lt;span class="nx"&gt;helper&lt;/span&gt;&lt;span class="o"&gt;!&amp;lt;&lt;/span&gt;&lt;span class="err"&gt;/div&amp;gt;&amp;#39;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;div class=&amp;quot;hello-world&amp;quot;&amp;gt;I don&amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt; &lt;span class="nx"&gt;need&lt;/span&gt; &lt;span class="nx"&gt;helper&lt;/span&gt;&lt;span class="o"&gt;!&amp;lt;&lt;/span&gt;&lt;span class="err"&gt;/div&amp;gt;&amp;#39;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img src="http://i.imgur.com/dNogkPrl.png" alt="element를 활용한 자바스크립트 평가"&gt;&lt;/p&gt;
 &lt;p&gt;일반적이지 않은 매직 셀을 평범한 셀처럼 사용할 수 있게 해주는 흥미로운 부분이다. 하지만 주피터 노트북의 저장 포맷인 ipynb 파일에는 자바스크립트 매직 셀의 실행 결과가 저장되지는 않는다. 이는 단지 브라우저 위에서 실행될 뿐이다. ipynb에는 실행 결과가 저장되는 대신에 output 속성 아래에 다음과 같이 &lt;code&gt;application/javascript&lt;/code&gt; 형식으로 소스코드 자체가 저장된다.&lt;/p&gt;
@@ -1485,14 +1485,14 @@ $(target).append('&lt;div class="hello-world"&gt;Hello, js magic!&lt;/div&gt;')
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h3&gt;&lt;a name='jupyter-notebook&amp;#44284;-nbviewer-&amp;#47784;&amp;#46160;-&amp;#51648;&amp;#50896;&amp;#54616;&amp;#44592;'&gt;jupyter notebook&amp;#44284; nbviewer &amp;#47784;&amp;#46160; &amp;#51648;&amp;#50896;&amp;#54616;&amp;#44592;&lt;a class="anchor-link" href="#jupyter-notebook&amp;#44284;-nbviewer-&amp;#47784;&amp;#46160;-&amp;#51648;&amp;#50896;&amp;#54616;&amp;#44592;"&gt;&lt;/a&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;&lt;p&gt;그런데 문제는 element에 있다. jupyter notebook에서는 코드를 직접 실행하거나, 저장된 파일을 읽어들여도 element 요소가 적절하게 해석된다. 하지만 nbviewer에서는 element 요소를 적절하게 해석하지 못 한다. 실제로 nbviewer에서 실행되는 코드를 살펴보자.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;output_subarea output_javascript &amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;script &lt;/span&gt;&lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt; &lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;output_subarea output_javascript &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;div class=&amp;quot;hello-world&amp;quot;&amp;gt;I don&amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt; &lt;span class="nx"&gt;need&lt;/span&gt; &lt;span class="nx"&gt;helper&lt;/span&gt;&lt;span class="o"&gt;!&amp;lt;&lt;/span&gt;&lt;span class="err"&gt;/div&amp;gt;&amp;#39;)&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;div&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;nbviewer에서 ipynb 파일을 로드해서 코드를 열어보면 해당하는 output 위치에 이런 스크립트 태그가 들어가게 된다. 여기서는 element 요소가 없을 뿐더러, 더더욱 심각한 것은 이 스크립트 실행되고 있는 위치를 특정할 수 있는 어떠한 방법도 제공하지 않는다. 당연하지만 웹 브라우저는 &lt;code&gt;element&lt;/code&gt; 요소를 찾을 수 없다는 에러를 내며 아무것도 보여주지 않는다. 주피터 노트북을 직접 사용할 수 있는 환경이라면 무방하지만, 이렇게 되면 nbviewer를 통해서 정적으로 노트북을 공유하는 것이 불가능해진다. 위에서 정의한 헬퍼함수는 바로 이러한 문제를 해결하기 위해서 만든 임시방편이다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get_element&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get_element&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;el&lt;/span&gt; &lt;span class="o"&gt;!==&lt;/span&gt; &lt;span class="kc"&gt;undefined&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="nx"&gt;el&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;script&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;last&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;parent&lt;/span&gt;&lt;span class="p"&gt;()[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
@@ -1523,7 +1523,7 @@ $(target).append('&lt;div class="hello-world"&gt;Hello, js magic!&lt;/div&gt;')
 &lt;div class="prompt input_prompt"&gt;71번째 입력:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
 
 &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;config&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;paths&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -1566,7 +1566,7 @@ require.config({
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;config에 정의한 d3 스크립트를 사용하려면 다음과 같이 require 함수에 사용하고자 하는 외부스크립트와 실행하려는 함수를 넘겨주면 된다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;d3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;d3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
   &lt;span class="c1"&gt;// 이제 이 안에서는,&lt;/span&gt;
   &lt;span class="c1"&gt;// d3.js 라이브러리를 사용해 코드를 작성할 수 있다&lt;/span&gt;
 &lt;span class="p"&gt;});&lt;/span&gt;
@@ -1584,7 +1584,7 @@ require.config({
 &lt;h3&gt;&lt;a name='&amp;#53364;&amp;#47196;&amp;#51200;&amp;#50752;-&amp;#51593;&amp;#49884;&amp;#49892;&amp;#54665;&amp;#54632;&amp;#49688;-&amp;#54056;&amp;#53556;&amp;#51012;-&amp;#54876;&amp;#50857;&amp;#54644;-&amp;#52636;&amp;#47141;-&amp;#50948;&amp;#52824;-&amp;#48372;&amp;#51221;&amp;#54616;&amp;#44592;'&gt;&amp;#53364;&amp;#47196;&amp;#51200;&amp;#50752; &amp;#51593;&amp;#49884;&amp;#49892;&amp;#54665;&amp;#54632;&amp;#49688; &amp;#54056;&amp;#53556;&amp;#51012; &amp;#54876;&amp;#50857;&amp;#54644; &amp;#52636;&amp;#47141; &amp;#50948;&amp;#52824; &amp;#48372;&amp;#51221;&amp;#54616;&amp;#44592;&lt;a class="anchor-link" href="#&amp;#53364;&amp;#47196;&amp;#51200;&amp;#50752;-&amp;#51593;&amp;#49884;&amp;#49892;&amp;#54665;&amp;#54632;&amp;#49688;-&amp;#54056;&amp;#53556;&amp;#51012;-&amp;#54876;&amp;#50857;&amp;#54644;-&amp;#52636;&amp;#47141;-&amp;#50948;&amp;#52824;-&amp;#48372;&amp;#51221;&amp;#54616;&amp;#44592;"&gt;&lt;/a&gt;&lt;/a&gt; &lt;span class='to_toc'&gt;&lt;a href='#toc'&gt;&lt;i class='fa fa-angle-double-up'&gt;&lt;/i&gt;&lt;/a&gt;&lt;/span&gt;&lt;/h3&gt;&lt;p&gt;안타깝게도, 여기서도 위에서 이야기했던 것과 비슷한 문제가 하나 있다. require는 비동기적으로 실행되며 d3가 로드된 다음에서야 넘겨진 함수를 호출하도록 되어있다. 즉, d3가 로드되는 것을 기다리지 않고 다음 스크립트들을 실행해버린다. 주피터 노트북 위에서는 자바스크립트 실행에 대해서 독립된 영역이 사용되기 때문에 무방하지만, nbviewer에서는 위에서 보았듯이 모든 코드가 script 태그로 그냥 삽입된다. 따라서 그냥 실행하면 모든 변수가 전역에 노출되어 버린다. 따라서 target 변수는 실행하자마자 갱신되고, 이미 모든 코드가 실행되어버렸기 때문에 nbviewer에서 마지막에 호출된 &lt;code&gt;get_element(element)&lt;/code&gt;가 모든 셀의 출력 위치가 된다. 아래는 여러 셀에서 출력한 모든 그래프가 마지막 셀에 그려져 버린 경우이다.&lt;/p&gt;
 &lt;p&gt;&lt;img src="http://i.imgur.com/5OU34Exl.png" alt="클로저를 사용하지 않은 경우"&gt;&lt;/p&gt;
 &lt;p&gt;이 문제를 해결하려면 즉시실행함수 패턴과 클로저를 사용해서 미리 결과를 출력한 대상을 정의해두어야 한다. 즉 위에서 정의했던 코드는 다음과 같이 작성되어야 한다. 이를 통해서 함수로 각 셀의 실행 환경을 분리하고, &lt;code&gt;targetElement&lt;/code&gt;를 정확히 지정할 수 있다.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;targetElement&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;get_element&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
     &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;d3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
@@ -1615,7 +1615,7 @@ require.config({
 &lt;div class="prompt input_prompt"&gt;72번째 입력:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
 
 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;targetElement&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;get_element&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -1669,7 +1669,7 @@ require.config({
 &lt;div class="prompt input_prompt"&gt;73번째 입력:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
 
 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;targetElement&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;get_element&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -1724,7 +1724,7 @@ require.config({
 &lt;div class="prompt input_prompt"&gt;74번째 입력:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="nx"&gt;javascript&lt;/span&gt;
 
 &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;targetElement&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;get_element&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;element&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -1838,7 +1838,7 @@ require.config({
     <link rel="alternate" href="http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/"/>
     <id>http://blog.nacyot.com/articles/2015-05-13-jupyter-as-a-service/</id>
     <published>2015-05-13T10:13:00+09:00</published>
-    <updated>2016-05-19T17:21:49+09:00</updated>
+    <updated>2016-05-19T17:53:04+09:00</updated>
     <author>
       <name>nacyot(Daekwon Kim)</name>
     </author>

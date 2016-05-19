@@ -145,7 +145,7 @@ nacyot의 프로그래밍 이야기
 <div class="prompt input_prompt">83번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="n">do</span>
   <span class="n">puts</span> <span class="n">i</span>
   <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -190,7 +190,7 @@ nacyot의 프로그래밍 이야기
 <div class="prompt input_prompt">84번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">puts</span> <span class="n">i</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">puts</span> <span class="n">i</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -232,7 +232,7 @@ nacyot의 프로그래밍 이야기
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>이러한 반복문에서는 <code>for</code>문이나 <code>while</code>문 같은 반복 자체를 제어하기 위한 별도의 접근을 사용할 수 없다는 단점이 있습니다만, <code>each</code>를 사용하면 컬렉션에 대해서 각각의 요소를 처리하는 로직을 정의하는데 집중할 수 있으며 기존 반복문 조건에서 사용하는 임시 변수의 부작용을 최소화해서 의도치않은 작동을 사전이 미리 차단할 수 있게 됩니다.</p>
 <p>단, 루비는 함수형 언어가 아니므로 블럭 내에서 블럭 밖의 변수를 조작하는 부작용에 대해서는 의도치 않은 결과를 초래할 수도 있습니다</p>
-<div class="highlight"><pre><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+<div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
 <span class="n">arr</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">arr</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nb">puts</span> <span class="n">i</span><span class="p">}</span>
 </pre></div>
 <p>이러한 반복문을 사용하지 마세요. 무한히 5가 출력됩니다. Fiber를 사용해 이를 확인해보도록 하겠습니다</p>
@@ -245,7 +245,7 @@ nacyot의 프로그래밍 이야기
 <div class="prompt input_prompt">85번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">fiber</span> <span class="o">=</span> <span class="n">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="n">do</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fiber</span> <span class="o">=</span> <span class="n">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="n">do</span>
   <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
   <span class="n">arr</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">arr</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">Fiber</span><span class="o">.</span><span class="k">yield</span> <span class="n">i</span><span class="p">}</span>
 <span class="n">end</span>
@@ -277,7 +277,7 @@ nacyot의 프로그래밍 이야기
 <div class="prompt input_prompt">86번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># 여기까지는 정상적인 처리와 같습니다만...</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 여기까지는 정상적인 처리와 같습니다만...</span>
 <span class="mf">4.</span><span class="n">times</span> <span class="n">do</span>
   <span class="n">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span>
 <span class="n">end</span>
@@ -319,7 +319,7 @@ nacyot의 프로그래밍 이야기
 <div class="prompt input_prompt">87번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># 여기부터는 5가 출력됩니다.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 여기부터는 5가 출력됩니다.</span>
 <span class="n">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span>
 </pre></div>
 
@@ -347,7 +347,7 @@ nacyot의 프로그래밍 이야기
 <div class="prompt input_prompt">88번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span>
 </pre></div>
 
 </div>
@@ -401,7 +401,7 @@ map {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">89번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">str</span> <span class="o">=</span> <span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -430,7 +430,7 @@ map {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">90번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">str</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="n">puts</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">str</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="n">puts</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -481,7 +481,7 @@ O
 <div class="prompt input_prompt">91번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">str</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">str</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -520,7 +520,7 @@ O
 <div class="prompt input_prompt">92번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">str</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">str</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -559,7 +559,7 @@ O
 <div class="prompt input_prompt">93번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">str</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">str</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span><span class="o">|</span><span class="nb">chr</span><span class="o">|</span> <span class="nb">chr</span><span class="o">.</span><span class="n">upcase</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -608,7 +608,7 @@ O
 <div class="prompt input_prompt">94번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -647,7 +647,7 @@ O
 <div class="prompt input_prompt">95번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)}</span>
 </pre></div>
 
 </div>
@@ -677,7 +677,7 @@ O
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>예상한 결과가 나왔나요? 좀 더 자세히 살펴본다면,</p>
-<div class="highlight"><pre><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="o">.</span><span class="mi">99</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="o">.</span><span class="mi">1</span><span class="o">].</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="mi">1</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="o">.</span><span class="mi">99</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="o">.</span><span class="mi">1</span><span class="o">].</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span>
 </pre></div>
 <p>의 평가 결과가 <code>[1.3, 2.8, 3.2, 4.99, 5.1]</code>가 되어 아래와 같이 <code>map</code> 메서드가 사용되었습니다.</p>
 
@@ -689,7 +689,7 @@ O
 <div class="prompt input_prompt">96번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">round</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">round</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -728,11 +728,11 @@ O
 <div class="prompt input_prompt">97번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.1</span><span class="p">]</span><span class="o">.</span>
-  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span><span class="o">.</span>      <span class="c"># [1.3, 2.8, 3.2, 4.99, 5.1]</span>
-  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">round</span><span class="p">}</span><span class="o">.</span> <span class="c"># [1, 3, 3, 5, 5]</span>
-  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">}</span><span class="o">.</span>    <span class="c"># [0.5, 1.5, 1.5, 2.5, 2.5]</span>
-  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">to_s</span><span class="p">}</span>      <span class="c"># [&quot;0.5&quot;, &quot;1.5&quot;, &quot;1.5&quot;, &quot;2.5&quot;, &quot;2.5&quot;]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.99</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.1</span><span class="p">]</span><span class="o">.</span>
+  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">abs</span><span class="p">}</span><span class="o">.</span>      <span class="c1"># [1.3, 2.8, 3.2, 4.99, 5.1]</span>
+  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">round</span><span class="p">}</span><span class="o">.</span> <span class="c1"># [1, 3, 3, 5, 5]</span>
+  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">}</span><span class="o">.</span>    <span class="c1"># [0.5, 1.5, 1.5, 2.5, 2.5]</span>
+  <span class="nb">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">to_s</span><span class="p">}</span>      <span class="c1"># [&quot;0.5&quot;, &quot;1.5&quot;, &quot;1.5&quot;, &quot;2.5&quot;, &quot;2.5&quot;]</span>
 </pre></div>
 
 </div>
@@ -772,7 +772,7 @@ O
 <div class="prompt input_prompt">98번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">odd</span><span class="err">?</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">odd</span><span class="err">?</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -801,7 +801,7 @@ O
 <div class="prompt input_prompt">99번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">detect</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">odd</span><span class="err">?</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">detect</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">odd</span><span class="err">?</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -840,7 +840,7 @@ O
 <div class="prompt input_prompt">100번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -869,8 +869,8 @@ O
 <div class="prompt input_prompt">101번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">detect</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span>
-<span class="c"># =&gt; nil</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">detect</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span>
+<span class="c1"># =&gt; nil</span>
 </pre></div>
 
 </div>
@@ -903,7 +903,7 @@ O
 <div class="prompt input_prompt">102번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">round</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">number</span><span class="o">|</span> <span class="n">number</span><span class="o">.</span><span class="n">round</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -932,7 +932,7 @@ O
 <div class="prompt input_prompt">103번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="p">:</span><span class="nb">round</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">4.99</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">]</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="p">:</span><span class="nb">round</span>
 </pre></div>
 
 </div>
@@ -983,8 +983,8 @@ each_with_index {|item, index| ... } -&gt; self</code></pre>
 <div class="prompt input_prompt">104번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">each_with_index</span> <span class="n">do</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
-  <span class="n">puts</span> <span class="n">index</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s">&quot;번째 위치의 글자: &quot;</span> <span class="o">+</span> <span class="n">item</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">each_with_index</span> <span class="n">do</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+  <span class="n">puts</span> <span class="n">index</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot;번째 위치의 글자: &quot;</span> <span class="o">+</span> <span class="n">item</span>
 <span class="n">end</span>
 </pre></div>
 
@@ -1035,7 +1035,7 @@ each_with_index {|item, index| ... } -&gt; self</code></pre>
 <div class="prompt input_prompt">105번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">with_index</span> <span class="n">do</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">with_index</span> <span class="n">do</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
   <span class="p">{</span><span class="n">index</span><span class="p">:</span> <span class="n">index</span><span class="p">,</span> <span class="n">char</span><span class="p">:</span> <span class="n">item</span><span class="p">}</span>
 <span class="n">end</span>
 </pre></div>
@@ -1079,7 +1079,7 @@ each_with_object(obj) {|(*args), memo_obj| ... } -&gt; object</code></pre>
 <div class="prompt input_prompt">106번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">each_with_object</span><span class="p">(</span><span class="mf">2.0</span><span class="p">){</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">num</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span> <span class="o">/</span> <span class="n">num</span> <span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">each_with_object</span><span class="p">(</span><span class="mf">2.0</span><span class="p">){</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">num</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span> <span class="o">/</span> <span class="n">num</span> <span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1119,7 +1119,7 @@ each_with_object(obj) {|(*args), memo_obj| ... } -&gt; object</code></pre>
 <div class="prompt input_prompt">107번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">each_with_object</span><span class="p">([]){</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">array</span><span class="o">|</span> <span class="n">array</span> <span class="o">&lt;&lt;</span> <span class="n">item</span> <span class="o">**</span> <span class="mi">2</span> <span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">each_with_object</span><span class="p">([]){</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">array</span><span class="o">|</span> <span class="n">array</span> <span class="o">&lt;&lt;</span> <span class="n">item</span> <span class="o">**</span> <span class="mi">2</span> <span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1161,7 +1161,7 @@ each_slice(n) {|list| ... } -&gt; nil</code></pre>
 <div class="prompt input_prompt">108번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">){</span><span class="o">|</span><span class="nb">list</span><span class="o">|</span> <span class="n">p</span> <span class="nb">list</span><span class="p">}</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">){</span><span class="o">|</span><span class="nb">list</span><span class="o">|</span> <span class="n">p</span> <span class="nb">list</span><span class="p">}</span> 
 </pre></div>
 
 </div>
@@ -1201,9 +1201,9 @@ each_slice(n) {|list| ... } -&gt; nil</code></pre>
 <div class="prompt input_prompt">109번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">people</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{철수 영희 민수 민지 길동 갑순 갑돌 둘리 모모 세리 영자 또또 현아 연지 곤지}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">people</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{철수 영희 민수 민지 길동 갑순 갑돌 둘리 모모 세리 영자 또또 현아 연지 곤지}
 <span class="n">people</span><span class="o">.</span><span class="n">sort_by</span><span class="p">{</span><span class="n">rand</span><span class="p">}</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">with_index</span> <span class="n">do</span> <span class="o">|</span><span class="nb">list</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span> 
-  <span class="n">puts</span> <span class="s">&quot;팀&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">list</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">)</span>
+  <span class="n">puts</span> <span class="s2">&quot;팀&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">list</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
 <span class="n">end</span>
 </pre></div>
 
@@ -1245,7 +1245,7 @@ each_slice(n) {|list| ... } -&gt; nil</code></pre>
 <div class="prompt input_prompt">110번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">people</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">people</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
 </pre></div>
 
 </div>
@@ -1274,7 +1274,7 @@ each_slice(n) {|list| ... } -&gt; nil</code></pre>
 <div class="prompt input_prompt">111번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># 첫번째 멤버를 뽑아냅니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 첫번째 멤버를 뽑아냅니다</span>
 <span class="n">people</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">team</span><span class="o">|</span> <span class="n">team</span><span class="o">.</span><span class="n">first</span><span class="p">}</span>
 </pre></div>
 
@@ -1317,7 +1317,7 @@ each_cons(n) {|list| ... } -&gt; nil</code></pre>
 <div class="prompt input_prompt">112번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
 </pre></div>
 
 </div>
@@ -1346,7 +1346,7 @@ each_cons(n) {|list| ... } -&gt; nil</code></pre>
 <div class="prompt input_prompt">113번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_cons</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_cons</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
 </pre></div>
 
 </div>
@@ -1388,7 +1388,7 @@ reverse_each {|element| ... } -&gt; self</code></pre>
 <div class="prompt input_prompt">114번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1428,7 +1428,7 @@ o
 <div class="prompt input_prompt">115번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="s">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reverse_each</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;Hello&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reverse_each</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1480,7 +1480,7 @@ cycle(n=nil) {|obj| ... } -&gt; object | nil</p>
 <div class="prompt input_prompt">116번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">){</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">]</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="mi">3</span><span class="p">){</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="n">item</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1527,7 +1527,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">117번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1556,7 +1556,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">118번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span><span class="o">.</span><span class="n">flat_map</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span><span class="o">.</span><span class="n">flat_map</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1605,7 +1605,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">119번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span><span class="o">|</span><span class="nb">sum</span><span class="p">,</span> <span class="n">item</span><span class="o">|</span> <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="n">item</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span><span class="o">|</span><span class="nb">sum</span><span class="p">,</span> <span class="n">item</span><span class="o">|</span> <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="n">item</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1645,7 +1645,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">120번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">+</span> <span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
 
 </div>
@@ -1684,7 +1684,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">121번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="mi">2</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="mi">2</span>
 </pre></div>
 
 </div>
@@ -1713,7 +1713,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">122번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="mi">3</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="mi">3</span>
 </pre></div>
 
 </div>
@@ -1752,7 +1752,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">123번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="nb">sum</span><span class="o">|</span> <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="n">item</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="nb">sum</span><span class="o">|</span> <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="n">item</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1791,7 +1791,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">124번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">:</span><span class="o">+</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">:</span><span class="o">+</span><span class="p">)</span> 
 </pre></div>
 
 </div>
@@ -1830,7 +1830,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">125번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="o">+</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="o">+</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1869,7 +1869,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">126번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">map</span> <span class="o">&amp;</span><span class="p">:</span><span class="n">length</span>
 </pre></div>
 
@@ -1899,7 +1899,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">127번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">map</span> <span class="p">:</span><span class="n">length</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">map</span> <span class="p">:</span><span class="n">length</span>
 </pre></div>
 
 </div>
@@ -1936,7 +1936,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">128번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span> <span class="p">:</span><span class="o">+</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span> <span class="p">:</span><span class="o">+</span>
 </pre></div>
 
 </div>
@@ -1989,7 +1989,7 @@ count {|obj| ... } -&gt; Integer</code></pre>
 <div class="prompt input_prompt">129번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">count</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">count</span>
 </pre></div>
 
 </div>
@@ -2028,7 +2028,7 @@ count {|obj| ... } -&gt; Integer</code></pre>
 <div class="prompt input_prompt">190번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 
 <span class="n">idol</span><span class="o">.</span><span class="n">length</span>
 </pre></div>
@@ -2059,7 +2059,7 @@ count {|obj| ... } -&gt; Integer</code></pre>
 <div class="prompt input_prompt">191번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># 한글 문자열로만 된 문자열의 개수를 셉니다</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 한글 문자열로만 된 문자열의 개수를 셉니다</span>
 <span class="n">idol</span><span class="o">.</span><span class="n">count</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/</span>\<span class="n">p</span><span class="p">{</span><span class="n">hangul</span><span class="p">}</span><span class="o">+/</span> <span class="p">}</span>
 </pre></div>
 
@@ -2102,7 +2102,7 @@ grep(pattern) {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">131번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">people</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{철수 영희 민수 민지 길동 갑순 갑돌 둘리 모모 세리 영자 또또 현아 연지 곤지}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">people</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{철수 영희 민수 민지 길동 갑순 갑돌 둘리 모모 세리 영자 또또 현아 연지 곤지}
 <span class="n">people</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="o">/</span><span class="n">지</span><span class="o">/</span><span class="p">)</span>
 </pre></div>
 
@@ -2142,7 +2142,7 @@ grep(pattern) {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">132번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">people</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="o">/</span><span class="n">지</span><span class="o">/</span><span class="p">){</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">people</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="o">/</span><span class="n">지</span><span class="o">/</span><span class="p">){</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="p">}</span>
 </pre></div>
 
 </div>
@@ -2186,7 +2186,7 @@ detect(ifnone = nil) {|item| ... } -&gt; object</code></pre>
 <div class="prompt input_prompt">133번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">find</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span>
 </pre></div>
 
@@ -2216,7 +2216,7 @@ detect(ifnone = nil) {|item| ... } -&gt; object</code></pre>
 <div class="prompt input_prompt">134번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">ifnone</span> <span class="o">=</span> <span class="n">proc</span> <span class="p">{</span> <span class="n">puts</span> <span class="s">&quot;item not found&quot;</span> <span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ifnone</span> <span class="o">=</span> <span class="n">proc</span> <span class="p">{</span> <span class="n">puts</span> <span class="s2">&quot;item not found&quot;</span> <span class="p">}</span>
 <span class="n">idol</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">ifnone</span><span class="p">){</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="mi">3</span><span class="o">/</span> <span class="p">}</span>
 </pre></div>
 
@@ -2269,7 +2269,7 @@ select {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">135번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">find</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span>
 </pre></div>
 
@@ -2299,7 +2299,7 @@ select {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">136번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span>
 </pre></div>
 
 </div>
@@ -2338,7 +2338,7 @@ select {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">137번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2380,7 +2380,7 @@ reject {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">138번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">reject</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span>
 </pre></div>
 
@@ -2424,7 +2424,7 @@ find_index -&gt; Enumerator</code></pre>
 <div class="prompt input_prompt">139번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">find_index</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="n">zA</span><span class="o">-</span><span class="n">Z</span><span class="p">]</span><span class="o">/</span> <span class="p">}</span>
 </pre></div>
 
@@ -2454,7 +2454,7 @@ find_index -&gt; Enumerator</code></pre>
 <div class="prompt input_prompt">140번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">find_index</span><span class="p">(</span><span class="s">&quot;소녀시대&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">find_index</span><span class="p">(</span><span class="s2">&quot;소녀시대&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2506,7 +2506,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">141번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">first</span>
 </pre></div>
 
@@ -2536,7 +2536,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">142번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2565,7 +2565,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">143번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[]</span><span class="o">.</span><span class="n">first</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[]</span><span class="o">.</span><span class="n">first</span>
 </pre></div>
 
 </div>
@@ -2578,7 +2578,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">144번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[]</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[]</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2629,7 +2629,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">145번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
@@ -2659,7 +2659,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">146번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -2699,7 +2699,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">147번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[]</span><span class="o">.</span><span class="n">first</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[]</span><span class="o">.</span><span class="n">first</span>
 </pre></div>
 
 </div>
@@ -2712,7 +2712,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">148번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[]</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[]</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -2753,7 +2753,7 @@ first(n) -&gt; Array</code></pre>
 <div class="prompt input_prompt">149번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -2796,7 +2796,7 @@ take_while {|element| ... } -&gt; Array</code></pre>
 <div class="prompt input_prompt">150번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">take_while</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">}</span>
 </pre></div>
 
@@ -2839,7 +2839,7 @@ drop_while {|element| ... } -&gt; Array</code></pre>
 <div class="prompt input_prompt">151번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">drop_while</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">}</span>
 </pre></div>
 
@@ -2891,7 +2891,7 @@ sort {|a, b| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">153번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span>
 </pre></div>
 
 </div>
@@ -2930,7 +2930,7 @@ sort {|a, b| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">154번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
@@ -2970,7 +2970,7 @@ sort {|a, b| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">155번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
@@ -3023,7 +3023,7 @@ sort_by {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">156번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">sort</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -3052,7 +3052,7 @@ sort_by {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">157번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">sort_by</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">sort_by</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -3103,7 +3103,7 @@ sort_by {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">158번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">max</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">max</span>
 </pre></div>
 
 </div>
@@ -3144,7 +3144,7 @@ sort_by {|item| ... } -&gt; [object]</code></pre>
 <div class="prompt input_prompt">159번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">max</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
@@ -3187,7 +3187,7 @@ max_by {|item| ... } -&gt; object | nil</code></pre>
 <div class="prompt input_prompt">160번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">max_by</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">max_by</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -3246,7 +3246,7 @@ minmax_by {|obj| ... } -&gt; [object, object]</code></pre>
 <div class="prompt input_prompt">161번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">minmax</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">minmax</span>
 </pre></div>
 
 </div>
@@ -3275,7 +3275,7 @@ minmax_by {|obj| ... } -&gt; [object, object]</code></pre>
 <div class="prompt input_prompt">162번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">minmax</span><span class="p">{</span><span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">|</span> <span class="n">a</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
@@ -3305,7 +3305,7 @@ minmax_by {|obj| ... } -&gt; [object, object]</code></pre>
 <div class="prompt input_prompt">163번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">minmax_by</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span><span class="p">}</span>
 </pre></div>
 
@@ -3368,7 +3368,7 @@ slice_before(initial_state) {|elt, state| bool } -&gt; Enumerator</code></pre>
 <div class="prompt input_prompt">164번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">slice_before</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span><span class="o">.</span><span class="n">to_a</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">slice_before</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span><span class="o">.</span><span class="n">to_a</span>
 </pre></div>
 
 </div>
@@ -3407,7 +3407,7 @@ slice_before(initial_state) {|elt, state| bool } -&gt; Enumerator</code></pre>
 <div class="prompt input_prompt">165번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">slice_before</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span><span class="o">.</span><span class="n">to_a</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span><span class="o">.</span><span class="n">slice_before</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">even</span><span class="err">?</span><span class="p">}</span><span class="o">.</span><span class="n">to_a</span>
 </pre></div>
 
 </div>
@@ -3446,7 +3446,7 @@ slice_before(initial_state) {|elt, state| bool } -&gt; Enumerator</code></pre>
 <div class="prompt input_prompt">166번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">slice_before</span><span class="p">(</span><span class="o">/^</span>\<span class="n">p</span><span class="p">{</span><span class="n">hangul</span><span class="p">}</span><span class="o">/</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
 </pre></div>
 
@@ -3489,7 +3489,7 @@ partition {|item| ... } -&gt; [[object], [object]]</code></pre>
 <div class="prompt input_prompt">167번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">require</span> <span class="s">&#39;prime&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">require</span> <span class="s1">&#39;prime&#39;</span>
 <span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">partition</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">Prime</span><span class="o">.</span><span class="n">prime</span><span class="err">?</span> <span class="n">item</span> <span class="p">}</span>
 </pre></div>
 
@@ -3532,7 +3532,7 @@ chunk(initial_state) {|elt, state| ... } -&gt; Enumerator</code></pre>
 <div class="prompt input_prompt">168번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="o">%</span><span class="k">w</span>{루비 GO elixir  줄리아 php 파이썬 펄 C D C++}.chunk{|item| item.length}.to_a
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">w</span>{루비 GO elixir  줄리아 php 파이썬 펄 C D C++}.chunk{|item| item.length}.to_a
 </pre></div>
 
 </div>
@@ -3574,7 +3574,7 @@ group_by {|obj| ... } -&gt; Hash</code></pre>
 <div class="prompt input_prompt">169번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span> <span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span> <span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span>
 </pre></div>
 
 </div>
@@ -3613,7 +3613,7 @@ group_by {|obj| ... } -&gt; Hash</code></pre>
 <div class="prompt input_prompt">170번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="s">&quot;나머지 &quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s">&quot; : &quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">)}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">puts</span> <span class="s2">&quot;나머지 &quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)}</span>
 </pre></div>
 
 </div>
@@ -3661,7 +3661,7 @@ group_by {|obj| ... } -&gt; Hash</code></pre>
 <div class="prompt input_prompt">171번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="n">puts</span> <span class="s">&quot;나머지 &quot;</span> <span class="o">+</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s">&quot; : &quot;</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">)}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="n">puts</span> <span class="s2">&quot;나머지 &quot;</span> <span class="o">+</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; : &quot;</span> <span class="o">+</span> <span class="n">v</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)}</span>
 </pre></div>
 
 </div>
@@ -3709,7 +3709,7 @@ group_by {|obj| ... } -&gt; Hash</code></pre>
 <div class="prompt input_prompt">172번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">_</span><span class="o">|</span> <span class="n">puts</span> <span class="s">&quot;그룹 &quot;</span> <span class="o">+</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">_</span><span class="o">|</span> <span class="n">puts</span> <span class="s2">&quot;그룹 &quot;</span> <span class="o">+</span> <span class="n">k</span><span class="o">.</span><span class="n">to_s</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -3757,7 +3757,7 @@ group_by {|obj| ... } -&gt; Hash</code></pre>
 <div class="prompt input_prompt">173번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -3786,7 +3786,7 @@ group_by {|obj| ... } -&gt; Hash</code></pre>
 <div class="prompt input_prompt">174번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">]}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">group_by</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">}</span><span class="o">.</span><span class="n">map</span><span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="o">|</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">]}</span>
 </pre></div>
 
 </div>
@@ -3828,7 +3828,7 @@ zip(*lists) {|v1, v2, ...| ...} -&gt; nil</code></pre>
 <div class="prompt input_prompt">175번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -3867,7 +3867,7 @@ zip(*lists) {|v1, v2, ...| ...} -&gt; nil</code></pre>
 <div class="prompt input_prompt">176번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -3906,7 +3906,7 @@ zip(*lists) {|v1, v2, ...| ...} -&gt; nil</code></pre>
 <div class="prompt input_prompt">177번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -3945,7 +3945,7 @@ zip(*lists) {|v1, v2, ...| ...} -&gt; nil</code></pre>
 <div class="prompt input_prompt">178번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -3996,7 +3996,7 @@ all? {|item| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">179번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">all</span><span class="err">?</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="k">class</span> <span class="err">== </span><span class="nc">String</span><span class="p">}</span>
 </pre></div>
 
@@ -4026,7 +4026,7 @@ all? {|item| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">180번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">all</span><span class="err">?</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">all</span><span class="err">?</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -4068,7 +4068,7 @@ any? {|item| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">181번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">any</span><span class="err">?</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">}</span>
 </pre></div>
 
@@ -4098,7 +4098,7 @@ any? {|item| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">182번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span><span class="o">.</span><span class="n">any</span><span class="err">?</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span>\<span class="n">p</span><span class="p">{</span><span class="n">hangul</span><span class="p">}</span><span class="o">/</span><span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span><span class="o">.</span><span class="n">any</span><span class="err">?</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span> <span class="o">=~</span> <span class="o">/^</span>\<span class="n">p</span><span class="p">{</span><span class="n">hangul</span><span class="p">}</span><span class="o">/</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -4140,7 +4140,7 @@ include?(val) -&gt; bool</code></pre>
 <div class="prompt input_prompt">183번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">include</span><span class="err">?</span> <span class="mi">50</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">include</span><span class="err">?</span> <span class="mi">50</span>
 </pre></div>
 
 </div>
@@ -4169,7 +4169,7 @@ include?(val) -&gt; bool</code></pre>
 <div class="prompt input_prompt">184번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">include</span><span class="err">?</span> <span class="mi">101</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">include</span><span class="err">?</span> <span class="mi">101</span>
 </pre></div>
 
 </div>
@@ -4211,7 +4211,7 @@ none? {|obj| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">185번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">idol</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{EXO 소녀시대 2ne1 HOT 슈퍼주니어 SES}
 <span class="n">idol</span><span class="o">.</span><span class="n">none</span><span class="err">?</span><span class="p">{</span><span class="o">|</span><span class="n">item</span><span class="o">|</span> <span class="n">item</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">}</span>
 </pre></div>
 
@@ -4251,7 +4251,7 @@ none? {|obj| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">186번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[]</span><span class="o">.</span><span class="n">none</span><span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[]</span><span class="o">.</span><span class="n">none</span><span class="o">?</span>
 </pre></div>
 
 </div>
@@ -4280,7 +4280,7 @@ none? {|obj| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">187번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="n">nil</span><span class="p">,</span> <span class="n">false</span><span class="p">]</span><span class="o">.</span><span class="n">none</span><span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">nil</span><span class="p">,</span> <span class="n">false</span><span class="p">]</span><span class="o">.</span><span class="n">none</span><span class="o">?</span>
 </pre></div>
 
 </div>
@@ -4322,7 +4322,7 @@ one? {|obj| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">188번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="n">nil</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="s">&quot;Hello&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">one</span><span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">nil</span><span class="p">,</span> <span class="n">false</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">one</span><span class="o">?</span>
 </pre></div>
 
 </div>
@@ -4351,7 +4351,7 @@ one? {|obj| ... } -&gt; bool</code></pre>
 <div class="prompt input_prompt">189번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="s">&quot;World&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">one</span><span class="o">?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;World&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">one</span><span class="o">?</span>
 </pre></div>
 
 </div>

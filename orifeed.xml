@@ -4,7 +4,7 @@
   <subtitle>Nacyot의 프로그래밍 이야기</subtitle>
   <id>http://blog.nacyot.com/</id>
   <link href="http://blog.nacyot.com/"/>
-  <link href="http://blog.nacyot.com/feed.xml" rel="self"/>
+  <link href="http://blog.nacyot.com/orifeed.xml" rel="self"/>
   <updated>2015-12-09T10:40:00+09:00</updated>
   <author>
     <name>nacyot(Daekwon Kim)</name>
@@ -667,66 +667,6 @@ A Retrospective by David R. Tribble (2005)&lt;/a&gt;&lt;/li&gt;
 
 &lt;p&gt;우리가 필요로 하는 것은 노동을 절감해주는 컴퓨터가 아니라 우리가 해야 할 일을 증가시켜 주는 컴퓨터이다. 즉, 때로는 말장난을 하기도 하고(이것은 맥루한의 생각이다), 이전에는 생각치도 못했던 것을 알려주는 조이스(Joyce)의 가교역할을 하기도 하며(이것은 브라운의 생각이다), 컴퓨터가 우리를 작가에 주목하게 하는 것이 아니라 우리를 작가로 만드는 것이다(나의 생각이다). - 존 케이지&lt;/p&gt;
 &lt;br/&gt;
-&lt;br/&gt;
-&lt;div&gt;
-  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
-  &lt;div&gt;
-    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
-      nacyot의 프로그래밍 이야기 메인으로 이동하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
-      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
-      Twitter에서 nacyot 팔로우하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</content>
-  </entry>
-  <entry>
-    <title>패커(Packer)로 도커(Docker) 이미지 빌드 및 AMI 자동 빌드 시스템 구축</title>
-    <link rel="alternate" href="http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/"/>
-    <id>http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/</id>
-    <published>2015-09-30T11:30:00+09:00</published>
-    <updated>2016-05-19T17:06:46+09:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;img src='http://i.imgur.com/yFhEkck.png' /&gt;&lt;p&gt;&lt;a href="https://www.packer.io/"&gt;패커(Packer)&lt;/a&gt;는 범용적 머신/컨테이너 이미지 생성기이다. 이미지는 일반적으로 가상머신의 특정한 상태를 그대로 저장해서 만들어진다. Packer에서는 Builder 컴포넌트를 통해 다양한 플랫폼을 지원하고, Provisioner 컴포넌트를 통해 다양한 도구로 이미지를 빌드할 수 있다. 이 글은 2015년 9월 5일 네번째 &lt;a href="http://forum.opencontainer.co.kr/t/open-container-seoul-meetup-4th/420"&gt;Docker Seoul Meetup&lt;/a&gt;에서 발표한 내용을 기반으로 작성되었으며, Packer에 대한 기본적인 기능들과 간단한 사용법에 대해서 소개한다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-&lt;br/&gt;&lt;br/&gt;&lt;div&gt;&lt;a href='http://blog.remotty.com/blog/2015/09/30/paekeopackerro-dokeodocker-imiji-bildeu-mic-ami-jadong-bildeu-siseutem-gucug/'&gt;전문 읽기&lt;/a&gt;&lt;/div&gt;&lt;br/&gt;
-&lt;br/&gt;
-&lt;div&gt;
-  &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;
-  &lt;div&gt;
-    &lt;a href='http://blog.nacyot.com' target="_blank"&gt;
-      nacyot의 프로그래밍 이야기 메인으로 이동하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;a href='https://twitter.com/intent/follow?screen_name=nacyo_t' target="_blank"&gt;
-      &lt;img style='display: inline' width='20' height='20' src='http://blog.nacyot.com/images/twitter.png' /&gt;
-      Twitter에서 nacyot 팔로우하기
-    &lt;/a&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</content>
-  </entry>
-  <entry>
-    <title>마크다운(Markdown) 기반 OSX 프레젠테이션 도구 덱셋(Deckset)</title>
-    <link rel="alternate" href="http://blog.remotty.com/blog/2015/08/26/deckset/"/>
-    <id>http://blog.remotty.com/blog/2015/08/26/deckset/</id>
-    <published>2015-08-29T19:56:00+09:00</published>
-    <updated>2016-05-19T17:06:46+09:00</updated>
-    <author>
-      <name>nacyot(Daekwon Kim)</name>
-    </author>
-    <content type="html">&lt;img src='http://i.imgur.com/UUa3Jhb.jpg' /&gt;&lt;p&gt;Deckset은 Markdown 기반 프레젠테이션 도구이다. Deckset은 따로 에디터 기능을 가지고 있지 않으면 자신이 선호하는 에디터로 Plain Text 포맷의 일종인 Markdown으로 문서를 작성하면 이를 슬라이드 형식이나 보여주거나 PDF로 변환할 수 있도록 도와주는 도구이다. 이를 통해 슬라이드 한 장 한 장의 디자인에 신경쓰기보다는 프레젠테이션의 내용에만 집중해서 슬라이드를 작성할 수 있게 도와준다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-&lt;br/&gt;&lt;br/&gt;&lt;div&gt;&lt;a href='http://blog.remotty.com/blog/2015/08/26/deckset/'&gt;전문 읽기&lt;/a&gt;&lt;/div&gt;&lt;br/&gt;
 &lt;br/&gt;
 &lt;div&gt;
   &lt;strong&gt;이 글이 도움이 되셨나요?&lt;/strong&gt;

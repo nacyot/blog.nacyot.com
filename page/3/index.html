@@ -159,6 +159,72 @@ nacyot의 프로그래밍 이야기
 
 <div class='summary_card'>
 <div class='categories'>
+<div class='category category-infrastructure-top' style='width: 50.0%'></div>
+<div class='category category-programming-top' style='width: 50.0%'></div>
+</div>
+<h1 class='title'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker</a>
+</h1>
+<div>
+<span class='date'>
+<a href='/tags/infrastructure' title='시스템(Infrastructure) 목록'>
+<i class='fa fa-cloud' style='color: #2ca02c'></i>
+시스템
+</a>
+<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
+<i class='fa fa-desktop' style='color: #1f77b4'></i>
+프로그래밍
+</a>
+<i class='fa fa-calendar'></i>
+2014년 07월 25일 발행
+</span>
+</div>
+<div class='summary'>
+<div class='title-image-wrapper'>
+<img class="title-image" src="http://i.imgur.com/2Omobwt.jpg" />
+</div>
+<p>시스템 <span class='live_link'><a href='http://wiki.nacyot.com/documents/monitoring'>모니터링</a></span>에 대해서 리뷰하거나, 직접 시스템 모니터링을 해봤다면 아래 그림과 같은 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/rrdtool' rel='nofollow'>rrdtool</a></span>로 만들어진 그래프를 자주 만나게 될 것입니다. rrdtool은 여전히 시스템 모니터링에 있어서 강자입니다만, 이 세계에 단지 rrdtool만 있는 것은 아닙니다. 특히 시계열 데이터 수집에 최적화된 타임시리즈 데이터베이스의 일종인 Graphite는 시스템 정보(<span class='dead_link'><a href='http://wiki.nacyot.com/documents/metrics' rel='nofollow'>metrics</a></span>) 수집에 있어 꽤나 매력적인 도구 중 하나입니다.</p>
+
+<p><img src="http://i.imgur.com/egJIriw.png" alt="rrdtool">
+<div class="shape-title">rrdtool</div></p>
+
+<span class='link'>
+<a href="../../articles/2014-07-17-graphite-with-dokcer/">계속 읽기</a>
+</span>
+</div>
+<div class='tags'>
+<i class='fa fa-tag'></i>
+<a href='/tags/carbon'>carbon</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/dashboard'>dashboard</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/docker'>docker</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/elasticsearch'>elasticsearch</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/grafana'>grafana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/graphite'>graphite</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/infrastructure'>infrastructure</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/kibana'>kibana</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/monitoring'>monitoring</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/programming'>programming</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/timeserise_database'>timeserise_database</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/volume_container'>volume_container</a>
+<i class='fa fa-tag'></i>
+<a href='/tags/whisper'>whisper</a>
+</div>
+<div class='barcode' data-title='그라파이트(Grahpite) + 그라파나(Grafana) 모니터링 시스템 구축 with Docker'></div>
+</div>
+
+<div class='summary_card'>
+<div class='categories'>
 <div class='category category-programming-top' style='width: 50.0%'></div>
 <div class='category category-editor-top' style='width: 50.0%'></div>
 </div>
@@ -604,57 +670,6 @@ nacyot의 프로그래밍 이야기
 <a href='/tags/travis'>travis</a>
 </div>
 <div class='barcode' data-title='emacs.sexy 한국어 번역 및 OmegaT + Travis + Rake + Github Pages를 활용한 번역'></div>
-</div>
-
-<div class='summary_card'>
-<div class='categories'>
-<div class='category category-programming-top' style='width: 50.0%'></div>
-<div class='category category-editor-top' style='width: 50.0%'></div>
-</div>
-<h1 class='title'>
-<a href="../../articles/2014-03-12-emacs-with-tern/">이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern</a>
-</h1>
-<div>
-<span class='date'>
-<a href='/tags/programming' title='프로그래밍(Programming) 목록'>
-<i class='fa fa-desktop' style='color: #1f77b4'></i>
-프로그래밍
-</a>
-<a href='/tags/editor' title='에디터(Editor) 목록'>
-<i class='fa fa-edit' style='color: #9467bd'></i>
-에디터
-</a>
-<i class='fa fa-calendar'></i>
-2014년 03월 12일 발행
-</span>
-</div>
-<div class='summary'>
-<div class='title-image-wrapper'>
-<img class="title-image" src="http://i.imgur.com/PYkUJs4.jpg" />
-</div>
-<p><span class='dead_link'><a href='http://wiki.nacyot.com/documents/text_editor' rel='nofollow'>텍스트 에디터</a></span>는 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ide' rel='nofollow'>IDE</a></span>에 비해서 매우 가볍고 편리한 기능들을 가진 도구입니다만 기능적인 면에서의 열세에 대해서 많이 이야기되곤 합니다. 특히 정적 분석을 통한 질 높은 자동 완성이 어렵다거나 하는 부분은 IDE 팬들에게서 오랫동안 질타받아온 부분이고, 사실 텍스트 에디터를 쓰는 사람 입장에서도 아쉬운 부분이기도 합니다. 이런 상황에서 텍스트 에디터를 사용하는 자바스크립트 개발자들에게 단비와 같은 프로그램이 바로 <span class='live_link'><a href='http://wiki.nacyot.com/documents/javascript'>자바스크립트</a></span> 코드 분석기 <a href="http://ternjs.net/">Tern</a>입니다.</p>
-
-<span class='link'>
-<a href="../../articles/2014-03-12-emacs-with-tern/">계속 읽기</a>
-</span>
-</div>
-<div class='tags'>
-<i class='fa fa-tag'></i>
-<a href='/tags/auto_complete'>auto_complete</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/editor'>editor</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/emacs'>emacs</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/javascript'>javascript</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/node_js'>node_js</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/programming'>programming</a>
-<i class='fa fa-tag'></i>
-<a href='/tags/tern'>tern</a>
-</div>
-<div class='barcode' data-title='이맥스(emacs)와 자바스크립트 코드 정적 분석 도구 Tern'></div>
 </div>
 
 </div>

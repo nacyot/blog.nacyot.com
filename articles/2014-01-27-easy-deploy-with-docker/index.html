@@ -147,7 +147,7 @@ nacyot의 프로그래밍 이야기
 </span></pre></div>
 <p>실제로 도커는 LXC를 사용하기 때문에 특정 리눅스 배포판에서 사용할 수 있고, 윈도우나 맥에서는 사용이 불가능합니다. Docker가 설치되어 있다는 가정 하에 Ubuntu에서 CentOS 가상 머신을 띄우는 데는 아래 두 명령어만 실행시키면 됩니다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker pull centos
-</span><span id="line-2"><span class="nv">$ </span>docker run -rm -i -t centos:6.4 /bin/bash
+</span><span id="line-2"><span class="nv">$ </span>docker run --rm -i -t centos:6.4 /bin/bash
 </span><span id="line-3">bash-4.1#
 </span></pre></div>
 <p>먼저 위의 pull 명령어를 통해서 centos 이미지를 다운로드 받습니다. 그리고 이 이미지에 쉘 명령어를 실행시킵니다. 이걸로 끝입니다. 먼저 첫번째 명령어를 실행시키는데 제 컴퓨터에서 12초 정도가 걸렸습니다. 아래 명령어를 실행시키는데 0.3초가 걸리지 않았습니다. 쉘이 실행되면 bash 쉘로 바뀐 것을 알 수 있습니다. 실제로 CentOS인지 확인해보도록 하겠습니다.</p>
@@ -273,7 +273,7 @@ nacyot의 프로그래밍 이야기
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker attach e2af613
 </span><span id="line-2">root@e2af61348652:/#
 </span></pre></div>
-<p>다시 docker 컨테이너 안으로 들어왔습니다! WoW! 부활의 기적을 여기서 만나는군요. 여기까지 도커 컨테이너의 생명 주기를 보았습니다. 도커 컨테이너를 실행시키는 <code>run</code>부터 실행이 종료되었을 때 다시 실행하는 <code>restart</code>를 배웠습니다. 이 외에도 실행을 강제로 종료시키는 <code>stop</code> 명령어도 있으며, 종료된 컨테이너를 영면으로 이끌어주는 <code>rm</code> 명령어도 있습니다. 잠시 기억을 더듬어 올라가 이 글의 아주 처음에 <code>run</code> 명령어와 함께 사용한 <code>-rm</code> 플래그는 컨테이너가 종료 상태로 들어가면 자동으로 삭제를 해주는 옵션입니다.</p>
+<p>다시 docker 컨테이너 안으로 들어왔습니다! WoW! 부활의 기적을 여기서 만나는군요. 여기까지 도커 컨테이너의 생명 주기를 보았습니다. 도커 컨테이너를 실행시키는 <code>run</code>부터 실행이 종료되었을 때 다시 실행하는 <code>restart</code>를 배웠습니다. 이 외에도 실행을 강제로 종료시키는 <code>stop</code> 명령어도 있으며, 종료된 컨테이너를 영면으로 이끌어주는 <code>rm</code> 명령어도 있습니다. 잠시 기억을 더듬어 올라가 이 글의 아주 처음에 <code>run</code> 명령어와 함께 사용한 <code>--rm</code> 플래그는 컨테이너가 종료 상태로 들어가면 자동으로 삭제를 해주는 옵션입니다.</p>
 
 <p>네, 다시 한 번 이야기합니다. 이미지에는 접속한다는 개념이 없습니다. 실제로 실행되는 <strong>가상 머신</strong>은 항상 컨테이너입니다. 분명 저는 &#39;명령어&#39;를 실행시킨다고 했습니다만, 컨테이너란 격리된 환경에서 특정한 명령을 실행시켜주는 가상 머신과 같은 무언가입니다. 그렇다면 쉘을 실행시키지 않았을 때 이 가상 머신을 조작할 수 있는 방법이 있을까요? 원론적으로 불가능한 것은 아닙니다. 이 부분에 대해서 여기선 다루지 않습니다만, 직접 파일 시스템을 조작할 수도 있고, 리눅스 컨테이너를 조작해 특정 컨테이너에 대해 쉘을 실행시킬 수도 있습니다. 하지만 좀 더 정상적인 방법은 조작이 필요한 컨테이너에 <span class='dead_link'><a href='http://wiki.nacyot.com/documents/ssh' rel='nofollow'>ssh</a></span> 서비스를 올려서 ssh 프로토콜로 접근하는 방법입니다. 실제 도커로 서비스를 운영하면 이런 부분이 절실할 날이 오겠지만, 일단은 그렇구나 하고 넘어가셔도 무방합니다.</p>
 

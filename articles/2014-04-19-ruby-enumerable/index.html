@@ -100,6 +100,20 @@ nacyot의 프로그래밍 이야기
 <div class='col-lg-2 col-md-2'></div>
 <div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
+
+<div class='summary_card' style='background-color: #ffc9c9; padding: 0.5rem 2rem; border-top: #e03131 solid 2px'>
+<div class='summary'>
+<div class='title-image-wrapper'>
+</div>
+<p>
+<a href="http://blog.nacyot.com/">이 블로그</a>에 글이 올라온지 긴 시간이 지났습니다. 2018년 7월을 마지막으로 더 이상 업데이트하지 않을 예정입니다. 앞으로는 <a href="https://www.44bits.io/ko" style="border-bottom: #e03131 solid 1px;">44Bits.io</a>에 기고할 예정입니다.
+<span class='link'>
+<a href="/articles/2018-07-06-goodbye/">계속 읽기</a>
+</span>
+</p>
+</div>
+</div>
+
 <div class='articles'>
 <div class='article'>
 <div class='categories'>
@@ -1161,7 +1175,7 @@ each_slice(n) {|list| ... } -&gt; nil</code></pre>
 <div class="prompt input_prompt">108번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">){</span><span class="o">|</span><span class="nb">list</span><span class="o">|</span> <span class="n">p</span> <span class="nb">list</span><span class="p">}</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">){</span><span class="o">|</span><span class="nb">list</span><span class="o">|</span> <span class="n">p</span> <span class="nb">list</span><span class="p">}</span>
 </pre></div>
 
 </div>
@@ -1202,7 +1216,7 @@ each_slice(n) {|list| ... } -&gt; nil</code></pre>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">people</span> <span class="o">=</span> <span class="o">%</span><span class="k">w</span>{철수 영희 민수 민지 길동 갑순 갑돌 둘리 모모 세리 영자 또또 현아 연지 곤지}
-<span class="n">people</span><span class="o">.</span><span class="n">sort_by</span><span class="p">{</span><span class="n">rand</span><span class="p">}</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">with_index</span> <span class="n">do</span> <span class="o">|</span><span class="nb">list</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span> 
+<span class="n">people</span><span class="o">.</span><span class="n">sort_by</span><span class="p">{</span><span class="n">rand</span><span class="p">}</span><span class="o">.</span><span class="n">each_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">with_index</span> <span class="n">do</span> <span class="o">|</span><span class="nb">list</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
   <span class="n">puts</span> <span class="s2">&quot;팀&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">list</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
 <span class="n">end</span>
 </pre></div>
@@ -1791,7 +1805,7 @@ collect_concat {| obj | block } -&gt; Array</code></pre>
 <div class="prompt input_prompt">124번째 입력:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">:</span><span class="o">+</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">:</span><span class="o">+</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -4472,7 +4486,7 @@ Twitter에서 nacyot 팔로우하기
 <script>
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
-  
+
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -4671,4 +4685,3 @@ All rights reserved.
 
 </body>
 </html>
-

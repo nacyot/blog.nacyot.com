@@ -100,6 +100,21 @@ nacyot의 프로그래밍 이야기
 <div class='col-lg-2 col-md-2'></div>
 <div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
+
+
+<div class='summary_card' style='background-color: #ffc9c9; padding: 0.5rem 2rem; border-top: #e03131 solid 2px'>
+<div class='summary'>
+<div class='title-image-wrapper'>
+</div>
+<p>
+<a href="http://blog.nacyot.com/">이 블로그</a>에 글이 올라온지 긴 시간이 지났습니다. 2018년 7월을 마지막으로 더 이상 업데이트하지 않을 예정입니다. 앞으로는 <a href="https://www.44bits.io/ko" style="border-bottom: #e03131 solid 1px;">44Bits.io</a>에 기고할 예정입니다.
+<span class='link'>
+<a href="/articles/2018-07-06-goodbye/">계속 읽기</a>
+</span>
+</p>
+</div>
+</div>
+
 <div class='articles'>
 <div class='article'>
 <div class='categories'>
@@ -359,7 +374,7 @@ nacyot의 프로그래밍 이야기
 <p>여기까지 따라왔으면 거진 다 온 거나 마찬가지다. 이제 이미지를 빌드해보자.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker build -t nacyot/rails-new:0.1 .
 </span><span id="line-2">Sending build context to Docker daemon 3.584 kB
-</span><span id="line-3">Sending build context to Docker daemon 
+</span><span id="line-3">Sending build context to Docker daemon
 </span><span id="line-4">Step <span class="m">0</span> : FROM dockerfile/ubuntu
 </span><span id="line-5"> ---&gt; 96af2d36fb39
 </span><span id="line-6">Step <span class="m">1</span> : MAINTAINER nacyot<span class="o">(</span>propellerheaven@gmail.com<span class="o">)</span>
@@ -461,7 +476,7 @@ nacyot의 프로그래밍 이야기
 <p>빌드도 똑같다. 단지 이번에는 태그에 <code>0.2</code>를 주고 빌드한다.</p>
 <div class="highlight"><pre><span id="line-1"><span class="nv">$ </span>docker build -t nacyot/rails-new:0.2 .
 </span><span id="line-2">Sending build context to Docker daemon 3.072 kB
-</span><span id="line-3">Sending build context to Docker daemon 
+</span><span id="line-3">Sending build context to Docker daemon
 </span><span id="line-4">Step <span class="m">0</span> : FROM dockerfile/ubuntu
 </span><span id="line-5"> ---&gt; 96af2d36fb39
 </span><span id="line-6">Step <span class="m">1</span> : MAINTAINER nacyot<span class="o">(</span>propellerheaven@gmail.com<span class="o">)</span>
@@ -504,7 +519,7 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-9">16:00:33 web.1  <span class="p">|</span> <span class="o">=</span>&gt; Notice: server is listening on all interfaces <span class="o">(</span>0.0.0.0<span class="o">)</span>. Consider using 127.0.0.1 <span class="o">(</span>--binding option<span class="o">)</span>
 </span><span id="line-10">16:00:33 web.1  <span class="p">|</span> <span class="o">=</span>&gt; Ctrl-C to shutdown server
 </span><span id="line-11">16:00:33 web.1  <span class="p">|</span> Started GET <span class="s2">&quot;/&quot;</span> <span class="k">for</span> 172.17.42.1 at 2014-06-14 16:00:33 +0000
-</span><span id="line-12">16:00:33 web.1  <span class="p">|</span> 
+</span><span id="line-12">16:00:33 web.1  <span class="p">|</span>
 </span><span id="line-13">16:00:33 web.1  <span class="p">|</span> ActionController::RoutingError <span class="o">(</span>No route matches <span class="o">[</span>GET<span class="o">]</span> <span class="s2">&quot;/&quot;</span><span class="o">)</span>:
 </span><span id="line-14">16:00:33 web.1  <span class="p">|</span>   actionpack <span class="o">(</span>4.1.1<span class="o">)</span> lib/action_dispatch/middleware/debug_exceptions.rb:21:in <span class="sb">`</span>call<span class="s1">&#39;</span>
 </span><span id="line-15"><span class="s1">16:00:33 web.1  |   actionpack (4.1.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call&#39;</span>
@@ -593,7 +608,7 @@ nacyot의 프로그래밍 이야기
 </span><span id="line-10">---
 </span><span id="line-11">&gt; RUN git checkout v0.2
 </span><span id="line-12">34d32
-</span><span id="line-13">&lt; 
+</span><span id="line-13">&lt;
 </span></pre></div>
 <p><span class='live_link'><a href='http://wiki.nacyot.com/documents/mysql'>mysql</a></span>에 필요한 시스템 패키지를 설치하고 v0.3으로 체크아웃 하는 정도이다.. 시스템 라이브러리를 설치하는 부분은 레일스를 처음 사용할 때 겪는 함정으로 해당하는 패키지가 없으면 <code>bundle install</code>에 실패한다.</p>
 
@@ -894,7 +909,7 @@ The Twelve Factor App
 <script>
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
-  
+
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -1104,4 +1119,3 @@ All rights reserved.
 
 </body>
 </html>
-

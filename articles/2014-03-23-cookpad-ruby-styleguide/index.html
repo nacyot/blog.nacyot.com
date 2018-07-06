@@ -100,6 +100,20 @@ nacyot의 프로그래밍 이야기
 <div class='col-lg-2 col-md-2'></div>
 <div class='col-lg-8 col-md-8 col-sm-12 col-xs-12'>
 <div class='main'>
+
+<div class='summary_card' style='background-color: #ffc9c9; padding: 0.5rem 2rem; border-top: #e03131 solid 2px'>
+<div class='summary'>
+<div class='title-image-wrapper'>
+</div>
+<p>
+<a href="http://blog.nacyot.com/">이 블로그</a>에 글이 올라온지 긴 시간이 지났습니다. 2018년 7월을 마지막으로 더 이상 업데이트하지 않을 예정입니다. 앞으로는 <a href="https://www.44bits.io/ko" style="border-bottom: #e03131 solid 1px;">44Bits.io</a>에 기고할 예정입니다.
+<span class='link'>
+<a href="/articles/2018-07-06-goodbye/">계속 읽기</a>
+</span>
+</p>
+</div>
+</div>
+
 <div class='articles'>
 <div class='article'>
 <div class='categories'>
@@ -283,7 +297,7 @@ nacyot의 프로그래밍 이야기
 <li><strong>[SHOULD]</strong> 특별한 이유가 없다면 <code>String.new</code> 메소드로 문자열을 생성하지 않는다.</li>
 <li><strong>[MUST]</strong> 문자열 안에서 이스케이프 시켄스가 최소화될 수 있도록 적절한 구분문자열을 선택한다.</li>
 <li><p><strong>[SHOULD]</strong> <code>%</code> 문법으로 문자열 리터럴을 사용할 때는 괄호를 구분 문자열로 사용한다.이 때 괄호의 종류는 어떤 걸 사용해도 무방하며, 아래와 같은 특별한 경우에는 다른 기호를 구분자로 사용해도 무방하다.</p>
-<div class="highlight"><pre><span id="line-1"><span class="no">OPEN_PARENTHESES</span> <span class="o">=</span> <span class="sx">%!({[!</span>    
+<div class="highlight"><pre><span id="line-1"><span class="no">OPEN_PARENTHESES</span> <span class="o">=</span> <span class="sx">%!({[!</span>
 </span></pre></div></li>
 <li><p><strong>[MUST]</strong> <code>Object#to_s</code>만 호출하는 용도로 위해 문자열 보간(interpolation)을 사용하지 않는다.예) <code>&quot;#{obj.to_s}&quot;</code> -&gt; <code>obj.to_s</code></p></li>
 <li><p><strong>[MUST]</strong> 문자열 보간을 사용할 때 중괄호를 생략할 수 있는 경우가 있지만, 생략하지 않고 반드시 중괄호를 사용한다.</p></li>
@@ -928,7 +942,7 @@ Twitter에서 nacyot 팔로우하기
 <script>
   /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
   var disqus_shortname = 'nacyot'; // required: replace example with your forum shortname
-  
+
   /* * * DON'T EDIT BELOW THIS LINE * * */
   (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -1125,4 +1139,3 @@ cc-by
 
 </body>
 </html>
-

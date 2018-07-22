@@ -1,0 +1,36 @@
+jobs:
+  updating-feed:
+    docker:
+      - image: circleci/ruby:2.5-node-browsers
+    environment:
+      - GIT_EMAIL: propellerheaven@gmail.com
+      - GIT_USERNAME: nacyot
+      - FEED_URL: https://www.44bits.io/ko/feed/nacyot
+      - REPO: github.com/nacyot/blog.nacyot.com
+    steps:
+      - checkout
+      - run: |
+          git config user.email "${GIT_EMAIL}"
+          git config user.name "${GIT_USERNAME}"
+      - run: |
+          rm feed.xml
+          wget "${FEED_URL}" -O feed.xml
+      - run: |
+          git add .
+          git commit --allow-empty -m "update feed.xml"
+          git push -q "https://${GITHUB_TOKEN}@${REPO}" gh-pages
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - updating-feed
+  schedule-updating-feed:
+    triggers:
+      - schedule:
+          cron: "0 3 * * *"
+          filters:
+            branches:
+              only:
+                - gh-pages
+    jobs:
+      - updating-feed

@@ -21,9 +21,6 @@ jobs:
           git push -q "https://${GITHUB_TOKEN}@${REPO}" gh-pages
 workflows:
   version: 2
-  commit:
-    jobs:
-      - updating-feed
   schedule-updating-feed:
     triggers:
       - schedule:

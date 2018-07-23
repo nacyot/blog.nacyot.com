@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 22 Jul 2018 12:18:12 +0000</pubDate>
+    <pubDate>Mon, 23 Jul 2018 03:00:12 +0000</pubDate>
+    <item>
+      <title>웹폰트 경량화: 폰트툴즈(fontTools)의 pyftsubset을 사용한 폰트 서브셋 만들기</title>
+      <link>https://www.44bits.io/ko/post/optimization_webfont_with_pyftsubnet</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;폰트는 글자의 수에 비례해 용량이 커지며, 한글과 같 언어는 웹폰트의 용량을 줄이는 것이 중요합니다. 이 글에서는 폰트툴즈를 사용해 폰트의 서브셋을 만들고 웹폰트 형식으로 변환하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/optimization_webfont_with_pyftsubnet&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 23 Jul 2018 01:30:00 +0000</pubDate>
+      <dc:date>2018-07-23T01:30:00+00:00</dc:date>
+    </item>
     <item>
       <title>아마존 웹 서비스 계정 생성 후 해야하는 IAM 보안 조치: 루트 사용자와 IAM 사용자의 차이</title>
       <link>https://www.44bits.io/ko/post/first_actions_for_setting_secure_account</link>
@@ -144,6 +159,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-07-22T12:18:12.556683+00:00</dc:date>
+    <dc:date>2018-07-23T03:00:12.56923+00:00</dc:date>
   </channel>
 </rss>

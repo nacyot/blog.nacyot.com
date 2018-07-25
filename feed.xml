@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 24 Jul 2018 03:00:24 +0000</pubDate>
+    <pubDate>Wed, 25 Jul 2018 03:00:11 +0000</pubDate>
     <item>
       <title>웹폰트 경량화: 폰트툴즈(fontTools)의 pyftsubset을 사용한 폰트 서브셋 만들기</title>
       <link>https://www.44bits.io/ko/post/optimization_webfont_with_pyftsubnet</link>
@@ -159,6 +159,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-07-24T03:00:24.7685+00:00</dc:date>
+    <dc:date>2018-07-25T03:00:11.978493+00:00</dc:date>
   </channel>
 </rss>

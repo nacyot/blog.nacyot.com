@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 29 Jul 2018 03:00:23 +0000</pubDate>
+    <pubDate>Mon, 30 Jul 2018 03:00:14 +0000</pubDate>
+    <item>
+      <title>AWS VPC 피어링: 서로 다른 VPC 간에 통신하기</title>
+      <link>https://www.44bits.io/ko/post/communication_between_vpcs__aws_vpc</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS VPC를 사용해 격리된 네트워크 환경을 구성할 수 있습니다. VPC 간에는 통신하는 것이 불가능하지만 피어링을 사용해 이 문제를 해결할 수 있습니다. 이 글에서는 VPC 피어링을 구성하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/communication_between_vpcs__aws_vpc&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 30 Jul 2018 01:49:06 +0000</pubDate>
+      <dc:date>2018-07-30T01:49:06+00:00</dc:date>
+    </item>
     <item>
       <title>웹폰트 경량화: 폰트툴즈(fontTools)의 pyftsubset을 사용한 폰트 서브셋 만들기</title>
       <link>https://www.44bits.io/ko/post/optimization_webfont_with_pyftsubnet</link>
@@ -159,6 +174,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-07-29T03:00:23.438635+00:00</dc:date>
+    <dc:date>2018-07-30T03:00:14.340478+00:00</dc:date>
   </channel>
 </rss>

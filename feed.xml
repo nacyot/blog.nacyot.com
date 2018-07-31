@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 30 Jul 2018 03:00:14 +0000</pubDate>
+    <pubDate>Tue, 31 Jul 2018 03:00:14 +0000</pubDate>
     <item>
       <title>AWS VPC 피어링: 서로 다른 VPC 간에 통신하기</title>
       <link>https://www.44bits.io/ko/post/communication_between_vpcs__aws_vpc</link>
@@ -174,6 +174,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-07-30T03:00:14.340478+00:00</dc:date>
+    <dc:date>2018-07-31T03:00:14.041534+00:00</dc:date>
   </channel>
 </rss>

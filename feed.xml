@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 06 Aug 2018 03:00:26 +0000</pubDate>
+    <pubDate>Tue, 07 Aug 2018 03:00:13 +0000</pubDate>
+    <item>
+      <title>구글, 사이트 신뢰성 워크북(Site Reliability Workbook) 공개. 8월 23일까지 무료 배포</title>
+      <link>https://www.44bits.io/ko/post/news--site-reliability-workbook-is-published</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;사이트 신뢰성 엔지니어링은 구글이 제안한 새로운 인프라스트럭처 관리 개념입니다. 구글은 이에 대한 개념과 노하우를 담은 동명의 책을 출간한 바 있으며, 이를 실무에 적용하기 위한 예제들을 담은 워크북을 새롭게 공개했습니다. 구글 SRE 웹사이트에서 8월 23일까지 무료로 배포합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--site-reliability-workbook-is-published&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Tue, 07 Aug 2018 02:14:23 +0000</pubDate>
+      <dc:date>2018-08-07T02:14:23+00:00</dc:date>
+    </item>
     <item>
       <title>구글 앱스 스크립트(Google Apps Script) 외부에서 실행하기</title>
       <link>https://www.44bits.io/ko/post/google-app-script-external-execution-by-ruby</link>
@@ -189,6 +204,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-08-06T03:00:26.40592+00:00</dc:date>
+    <dc:date>2018-08-07T03:00:13.300296+00:00</dc:date>
   </channel>
 </rss>

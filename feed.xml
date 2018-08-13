@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 12 Aug 2018 03:00:12 +0000</pubDate>
+    <pubDate>Mon, 13 Aug 2018 03:00:13 +0000</pubDate>
+    <item>
+      <title>direnv를 사용한 디렉토리(프로젝트) 별 개발환경 구축: 루비, 파이썬, 노드 개발 환경 구축</title>
+      <link>https://www.44bits.io/ko/post/direnv_for_managing_directory_environment</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;direnv는 디렉터리 별로 셸 환경을 구축할 수 있게 해주는 도구입니다. 디렉터리 별 환경 변수 설정 법, 루비(Ruby), 파이썬(Python), 노드(Node) 등 프로그래밍 언어 프로젝트를 셋업하는 법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/direnv_for_managing_directory_environment&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 13 Aug 2018 02:39:37 +0000</pubDate>
+      <dc:date>2018-08-13T02:39:37+00:00</dc:date>
+    </item>
     <item>
       <title>AWS 멀티 리전 VPC 피어링 기능 추가, 2018년 7월부터 서울 리전 지원</title>
       <link>https://www.44bits.io/ko/post/news--aws-release-multi-region-vpc-peering-seoul</link>
@@ -219,6 +234,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-08-12T03:00:12.078015+00:00</dc:date>
+    <dc:date>2018-08-13T03:00:13.992184+00:00</dc:date>
   </channel>
 </rss>

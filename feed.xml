@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 13 Aug 2018 03:00:13 +0000</pubDate>
+    <pubDate>Tue, 14 Aug 2018 03:00:12 +0000</pubDate>
+    <item>
+      <title>깃허브(GitHub), L4 로드 밸런서 GLB 디렉터 오픈소스로 공개</title>
+      <link>https://www.44bits.io/ko/post/news--github-release-glb-github-load-balancer-as-open-source</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;깃허브(GitHub)에서는 지난 8월 8일 GLB 디렉터(Github Load Balancer Director)를 오픈소스로 공개하였습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-release-glb-github-load-balancer-as-open-source&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Tue, 14 Aug 2018 02:14:46 +0000</pubDate>
+      <dc:date>2018-08-14T02:14:46+00:00</dc:date>
+    </item>
+    <item>
+      <title>도커(Docker), 쿠버네티스(Kubernetes) 통합 도커 데스크톱을 스테이블 채널에 릴리즈</title>
+      <link>https://www.44bits.io/ko/post/news--release-docker-desktop-with-kubernetes-to-stable-channel</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2018년 7월 25일 도커(Docker)에서는 쿠버네티스(Kubernetes) 통합 도커 데스크탑을 스테이블 채널로 릴리즈하였습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--release-docker-desktop-with-kubernetes-to-stable-channel&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 13 Aug 2018 07:56:04 +0000</pubDate>
+      <dc:date>2018-08-13T07:56:04+00:00</dc:date>
+    </item>
     <item>
       <title>direnv를 사용한 디렉토리(프로젝트) 별 개발환경 구축: 루비, 파이썬, 노드 개발 환경 구축</title>
       <link>https://www.44bits.io/ko/post/direnv_for_managing_directory_environment</link>
@@ -21,8 +51,8 @@
 &lt;/div&gt;
 </description>
       <author>nacyot</author>
-      <pubDate>Mon, 13 Aug 2018 02:39:37 +0000</pubDate>
-      <dc:date>2018-08-13T02:39:37+00:00</dc:date>
+      <pubDate>Mon, 13 Aug 2018 06:00:08 +0000</pubDate>
+      <dc:date>2018-08-13T06:00:08+00:00</dc:date>
     </item>
     <item>
       <title>AWS 멀티 리전 VPC 피어링 기능 추가, 2018년 7월부터 서울 리전 지원</title>
@@ -234,6 +264,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-08-13T03:00:13.992184+00:00</dc:date>
+    <dc:date>2018-08-14T03:00:12.451075+00:00</dc:date>
   </channel>
 </rss>

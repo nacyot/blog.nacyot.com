@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 22 Aug 2018 03:00:20 +0000</pubDate>
+    <pubDate>Thu, 23 Aug 2018 03:00:12 +0000</pubDate>
     <item>
       <title>홈브류(Homebrew)를 사용해 맥OS(macOS)에서 특정 버전의 패키지 설치하기</title>
       <link>https://www.44bits.io/ko/post/install-specific-version-package-homebrew</link>
@@ -279,6 +279,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-08-22T03:00:20.073779+00:00</dc:date>
+    <dc:date>2018-08-23T03:00:12.91405+00:00</dc:date>
   </channel>
 </rss>

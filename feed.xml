@@ -8,21 +8,21 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 26 Aug 2018 03:00:30 +0000</pubDate>
+    <pubDate>Mon, 27 Aug 2018 03:00:13 +0000</pubDate>
     <item>
-      <title>하시코프(HashiCorp) 한국 사용자 모임 첫 번째 밋업 발표영상 공개</title>
-      <link>https://www.44bits.io/ko/post/news--2018-seoul-meetup-of-hashicorp-krug</link>
+      <title>고스트(Ghost) 2.0 출시: 새 에디터, 다국어 블로깅 지원 등</title>
+      <link>https://www.44bits.io/ko/post/news--ghost-2-0-released</link>
       <description>&lt;div&gt;
-&lt;strong&gt;2018년 7월 28일에 열렸던 하시코프 KRUG의 2018 서울 밋업 발표 영상이 모두 올라왔습니다. 발표영상과 발표자료를 간단한 요약과 함께 정리했습니다.&lt;/strong&gt;
+&lt;strong&gt;Ghost 블로그 팀이 2.0 버전을 출시했습니다. 새 에디터를 중심으로 Ghost 2.0에 추가된 기능을 훑어보고, 손쉽게 실행해 볼 방법을 안내합니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--2018-seoul-meetup-of-hashicorp-krug&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--ghost-2-0-released&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
       <author>nacyot</author>
-      <pubDate>Fri, 24 Aug 2018 01:45:06 +0000</pubDate>
-      <dc:date>2018-08-24T01:45:06+00:00</dc:date>
+      <pubDate>Mon, 27 Aug 2018 01:16:34 +0000</pubDate>
+      <dc:date>2018-08-27T01:16:34+00:00</dc:date>
     </item>
     <item>
       <title>홈브류(Homebrew)를 사용해 맥OS(macOS)에서 특정 버전의 패키지 설치하기</title>
@@ -191,13 +191,13 @@
     </item>
     <item>
       <title>AWS CLI로 기본 VPC 관련 리소스들 탐색하기</title>
-      <link>https://www.44bits.io/ko/page/inspect_resources_in_default_vpc_by_aws_cli</link>
+      <link>https://www.44bits.io/ko/post/inspect_resources_in_default_vpc_by_aws_cli</link>
       <description>&lt;div&gt;
 &lt;strong&gt;AWS 계정을 생성하면 VPC를 비롯한 여러 네트워크 자원이 함께 만들어집니다. 이 때 만들어지는 리소스들을 AWS CLI로 탐색하는 방법을 소개합니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/page/inspect_resources_in_default_vpc_by_aws_cli&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/inspect_resources_in_default_vpc_by_aws_cli&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
       <author>nacyot</author>
@@ -206,13 +206,13 @@
     </item>
     <item>
       <title>아마존 ECS 클러스터 인스턴스와 서비스용 IAM 역할</title>
-      <link>https://www.44bits.io/ko/page/amazon-ecs-iam-role-for-cluster-instance-and-service</link>
+      <link>https://www.44bits.io/ko/post/amazon-ecs-iam-role-for-cluster-instance-and-service</link>
       <description>&lt;div&gt;
 &lt;strong&gt;아마존 ECS는 도커 기반의 매니지드 오케스트레이션 서비스입니다. ECS의 클러스터 인스턴스와 서비스는 적절한 권한이 주어져야만 정상적으로 작동합니다. 이 글에서는 이 IAM 역할들에 대해서 알아봅니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/page/amazon-ecs-iam-role-for-cluster-instance-and-service&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-ecs-iam-role-for-cluster-instance-and-service&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
       <author>nacyot</author>
@@ -266,13 +266,13 @@
     </item>
     <item>
       <title>아마존 웹서비스 커맨드라인 인터페이스(AWS CLI) 기초</title>
-      <link>https://www.44bits.io/ko/page/aws_command_line_interface_basic</link>
+      <link>https://www.44bits.io/ko/post/aws_command_line_interface_basic</link>
       <description>&lt;div&gt;
 &lt;strong&gt;아마존 웹 서비스에서는 공식 커맨드라인 인터페이스 클라이언트 AWSCLI를 제공합니다. AWSCLI를 사용하면 명령줄에서 직접 AWS의 기능을 호출하는 것이 가능합니다. AWSCLI를 설치 및 설정하고 기본적인 사용법에 대해서 알아봅니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/page/aws_command_line_interface_basic&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws_command_line_interface_basic&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
       <author>nacyot</author>
@@ -281,19 +281,19 @@
     </item>
     <item>
       <title>아마존 웹 서비스 IAM 사용자의 액세스 키 발급 및 관리</title>
-      <link>https://www.44bits.io/ko/page/publishing_and_managing_aws_user_access_key</link>
+      <link>https://www.44bits.io/ko/post/publishing_and_managing_aws_user_access_key</link>
       <description>&lt;div&gt;
 &lt;strong&gt;아마존 웹 서비스 계정은 하나의 루트 계정과 다수의 IAM 사용자로 구성됩니다. 각 사용자는 자신의 권한으로 외부에서 API를 호출할 수 있는 토큰을 발급받을 수 있습니다. 이 액세스 키를 발급하고 관리하는 법을 소개합니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/page/publishing_and_managing_aws_user_access_key&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/publishing_and_managing_aws_user_access_key&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
       <author>nacyot</author>
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-08-26T03:00:30.386586+00:00</dc:date>
+    <dc:date>2018-08-27T03:00:13.569816+00:00</dc:date>
   </channel>
 </rss>

@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 05 Dec 2018 03:00:13 +0000</pubDate>
+    <pubDate>Thu, 06 Dec 2018 03:00:16 +0000</pubDate>
+    <item>
+      <title>re:Invent 2018 - 람다(AWS Lambda), 프로그래밍 언어 루비(Ruby) 공식 지원을 발표</title>
+      <link>https://www.44bits.io/ko/post/news--announce-ruby-support-for-aws-lambda</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;올 해도 re:Invent 2018에서는 다양한 서비스들을 발표했습니다. AWS 람다에서는 드디어 프로그래밍 언어 루비가 공식 지원됩니다. 또한 커스텀 엔진을 지원함으로서 공식 지원하지 않는 언어들도 사용할 수 있게되었습니다. 여기서는 루비 코드를 람다에서 실행하는 간단한 예제를 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--announce-ruby-support-for-aws-lambda&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Wed, 05 Dec 2018 09:34:17 +0000</pubDate>
+      <dc:date>2018-12-05T09:34:17+00:00</dc:date>
+    </item>
+    <item>
+      <title>AWS 리인벤트(re:Invent) 키노트를 즐기는 방법</title>
+      <link>https://www.44bits.io/ko/post/how-to-enjoy-aws-reinvent-keynotes</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2018년 11월에는 AWS re:Invent 2018이 열렸습니다. 일주일간 진행되는 리인벤트에서는 다양한 서비스와 기능들이 쏟아져나오는데, 그만큼 다양한 키노트가 준비되어있습니다. 키노트 구성을 이해하면 리인벤트를 좀 더 알차게 즐길 수 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/how-to-enjoy-aws-reinvent-keynotes&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Wed, 05 Dec 2018 05:50:14 +0000</pubDate>
+      <dc:date>2018-12-05T05:50:14+00:00</dc:date>
+    </item>
     <item>
       <title>컨테이너 기초 - chroot를 사용한 프로세스의 루트 디렉터리 격리</title>
       <link>https://www.44bits.io/ko/post/change-root-directory-by-using-chroot</link>
@@ -309,6 +339,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-12-05T03:00:13.753818+00:00</dc:date>
+    <dc:date>2018-12-06T03:00:16.33966+00:00</dc:date>
   </channel>
 </rss>

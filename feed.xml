@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 09 Dec 2018 03:00:14 +0000</pubDate>
+    <pubDate>Mon, 10 Dec 2018 03:00:14 +0000</pubDate>
+    <item>
+      <title>컨테이너 기초 - 정적 링크 프로그램을 chroot와 도커(Docker) scratch 이미지로 실행하기</title>
+      <link>https://www.44bits.io/ko/post/static-compile-program-on-chroot-and-docker-scratch-image</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;C 프로그램을 작성하고 이를 동적 링크 컴파일한 경우와 정적 링크 컴파일한 경우로 나눠서 chroot로 실행해봅니다. 그리고 도커(Docker)의 scratch 이미지를 기반으로 같은 방식을 적용하는 법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/static-compile-program-on-chroot-and-docker-scratch-image&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 10 Dec 2018 01:16:34 +0000</pubDate>
+      <dc:date>2018-12-10T01:16:34+00:00</dc:date>
+    </item>
     <item>
       <title>re:Invent 2018 - 람다(AWS Lambda), 프로그래밍 언어 루비(Ruby) 공식 지원을 발표</title>
       <link>https://www.44bits.io/ko/post/news--announce-ruby-support-for-aws-lambda</link>
@@ -339,6 +354,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-12-09T03:00:14.223382+00:00</dc:date>
+    <dc:date>2018-12-10T03:00:14.512827+00:00</dc:date>
   </channel>
 </rss>

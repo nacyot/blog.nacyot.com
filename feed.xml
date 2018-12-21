@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 20 Dec 2018 03:00:13 +0000</pubDate>
+    <pubDate>Fri, 21 Dec 2018 03:00:16 +0000</pubDate>
+    <item>
+      <title>다시 보는 2018 한국의 주요 개발 / 테크 컨퍼런스들</title>
+      <link>https://www.44bits.io/ko/post/replay-2018-korea-tech-development-conferences</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;올해도 국내에서 다양한 컨퍼런스들이 열렸습니다. 그 중에서 영상으로 다시 보기 가능한 컨퍼런스들을 소개합니다. AWS 서울 서밋 2018, 넥슨 개발자 컨퍼런스, 오픈인프라 데이, 파이콘, if (kakao) dev, 업비트 개발자 컨퍼런스, 데뷰, 구글 클라우드 서밋, 프론트엔드 컨퍼런스 코리아, 렛츠 스위프트, AWS 데브데이.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/replay-2018-korea-tech-development-conferences&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Fri, 21 Dec 2018 01:21:39 +0000</pubDate>
+      <dc:date>2018-12-21T01:21:39+00:00</dc:date>
+    </item>
     <item>
       <title>re:Invent 2018 - ALB 타깃그룹의 새로운 타입으로 AWS 람다(AWS Lambda) 추가</title>
       <link>https://www.44bits.io/ko/post/aws-alb-target-group-aws-lambda-target-type-released</link>
@@ -399,6 +414,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-12-20T03:00:13.350783+00:00</dc:date>
+    <dc:date>2018-12-21T03:00:16.108512+00:00</dc:date>
   </channel>
 </rss>

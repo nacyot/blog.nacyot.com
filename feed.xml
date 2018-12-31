@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 30 Dec 2018 03:00:12 +0000</pubDate>
+    <pubDate>Mon, 31 Dec 2018 03:00:16 +0000</pubDate>
     <item>
       <title>re:Invent 2018 - AWS 람다(AWS Lambda), 함수 간 공유 가능한 레이어 기능 지원</title>
       <link>https://www.44bits.io/ko/post/news--reinvent-2018-aws-lambda-layer</link>
@@ -444,6 +444,6 @@
       <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
       <dc:date>2018-06-09T17:55:58+00:00</dc:date>
     </item>
-    <dc:date>2018-12-30T03:00:12.560167+00:00</dc:date>
+    <dc:date>2018-12-31T03:00:16.119343+00:00</dc:date>
   </channel>
 </rss>

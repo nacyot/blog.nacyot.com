@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 03 Jan 2019 03:00:14 +0000</pubDate>
+    <pubDate>Fri, 04 Jan 2019 03:00:18 +0000</pubDate>
+    <item>
+      <title>AWS 람다(AWS Lambda) 커스텀 런타임 만들기(feat. 루비 2.6.0)</title>
+      <link>https://www.44bits.io/ko/post/how-to-create-aws-lambda-custom-runtime-feat-ruby-2-6-0</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS 람다에서 공식 지원하지 않는 언어나 버전을 상요하고 싶은 경우 커스텀 런타임 기능을 활용할 수 있습니다. 이 글에서는 아직 AWS 람다에서 공식 지원하고 있지 않은 루비 2.6 최신 버전을 커스텀 런타임 기능을 사용해 실행하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/how-to-create-aws-lambda-custom-runtime-feat-ruby-2-6-0&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Fri, 04 Jan 2019 02:05:36 +0000</pubDate>
+      <dc:date>2019-01-04T02:05:36+00:00</dc:date>
+    </item>
+    <item>
+      <title>AWS 람다 레이어(AWS Lambda Layers)를 다른 계정이나 조직과 공유하기</title>
+      <link>https://www.44bits.io/ko/post/sharing-aws-lambda-layer</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;리인벤트(re:Invent) 2018에서는 AWS 람다의 새로운 기능으로 람다 함수들 간의 공통 부분을 공유할 수 있는 람다 레이어를 발표했습니다. 람다 레이어는 하나의 계정에서 공통 부분을 분리하는 데 사용할 수도 있지만 다른 조직이나 계정과 공유해서 사용하는 것도 가능합니다. 이 글에서는 람다 레이어를 다른 계정과 공유하는 방법에 대해서 알아봅니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/sharing-aws-lambda-layer&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Thu, 03 Jan 2019 04:56:00 +0000</pubDate>
+      <dc:date>2019-01-03T04:56:00+00:00</dc:date>
+    </item>
     <item>
       <title>re:Invent 2018 - AWS 람다(AWS Lambda), 함수 간 공유 가능한 레이어 기능 지원</title>
       <link>https://www.44bits.io/ko/post/news--reinvent-2018-aws-lambda-layer</link>
@@ -429,21 +459,6 @@
       <pubDate>Mon, 25 Jun 2018 01:14:17 +0000</pubDate>
       <dc:date>2018-06-25T01:14:17+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 웹 서비스 IAM 사용자의 액세스 키 발급 및 관리</title>
-      <link>https://www.44bits.io/ko/post/publishing_and_managing_aws_user_access_key</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 웹 서비스 계정은 하나의 루트 계정과 다수의 IAM 사용자로 구성됩니다. 각 사용자는 자신의 권한으로 외부에서 API를 호출할 수 있는 토큰을 발급받을 수 있습니다. 이 액세스 키를 발급하고 관리하는 법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/publishing_and_managing_aws_user_access_key&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Sat, 09 Jun 2018 17:55:58 +0000</pubDate>
-      <dc:date>2018-06-09T17:55:58+00:00</dc:date>
-    </item>
-    <dc:date>2019-01-03T03:00:14.193023+00:00</dc:date>
+    <dc:date>2019-01-04T03:00:18.620329+00:00</dc:date>
   </channel>
 </rss>

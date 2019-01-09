@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 08 Jan 2019 03:00:15 +0000</pubDate>
+    <pubDate>Wed, 09 Jan 2019 03:00:21 +0000</pubDate>
+    <item>
+      <title>깃헙(GitHub) 새로운 가격 정책 및 엔터프라이즈 플랜 발표 - 무료 플랜도 비공개 저장소를 무제한 사용 가능</title>
+      <link>https://www.44bits.io/ko/post/news--github-announcing-unlimited-free-private-repository</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;깃헙(GitHub)에서 새해를 맞이해 달라지는 변경사항을 공지했습니다. 이제 무료 플랜에서도 비공개 저장소를 무제한으로 생성할 수 있습니다. 단, 협업은 3명까지만 가능합니다. 기존의 서비스형과 설치형으로 나누어져있던 엔터프라이즈 서비스가 통합되었습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-announcing-unlimited-free-private-repository&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>seapy</author>
+      <pubDate>Wed, 09 Jan 2019 01:23:55 +0000</pubDate>
+      <dc:date>2019-01-09T01:23:55+00:00</dc:date>
+    </item>
     <item>
       <title>AWS 람다(AWS Lambda) 커스텀 런타임 만들기(feat. 루비 2.6.0)</title>
       <link>https://www.44bits.io/ko/post/how-to-create-aws-lambda-custom-runtime-feat-ruby-2-6-0</link>
@@ -20,7 +35,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/how-to-create-aws-lambda-custom-runtime-feat-ruby-2-6-0&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>seapy</author>
       <pubDate>Fri, 04 Jan 2019 02:05:36 +0000</pubDate>
       <dc:date>2019-01-04T02:05:36+00:00</dc:date>
     </item>
@@ -35,7 +50,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/sharing-aws-lambda-layer&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>seapy</author>
       <pubDate>Thu, 03 Jan 2019 04:56:00 +0000</pubDate>
       <dc:date>2019-01-03T04:56:00+00:00</dc:date>
     </item>
@@ -110,7 +125,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-elasticache-memcached-cluster-scale-out&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>seapy</author>
       <pubDate>Mon, 17 Dec 2018 02:02:45 +0000</pubDate>
       <dc:date>2018-12-17T02:02:45+00:00</dc:date>
     </item>
@@ -200,7 +215,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--ghost-2-0-released&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>raccoony</author>
       <pubDate>Mon, 27 Aug 2018 01:16:34 +0000</pubDate>
       <dc:date>2018-08-27T01:16:34+00:00</dc:date>
     </item>
@@ -230,7 +245,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-release-glb-github-load-balancer-as-open-source&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>44bits</author>
       <pubDate>Tue, 14 Aug 2018 02:14:46 +0000</pubDate>
       <dc:date>2018-08-14T02:14:46+00:00</dc:date>
     </item>
@@ -245,7 +260,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--release-docker-desktop-with-kubernetes-to-stable-channel&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>44bits</author>
       <pubDate>Mon, 13 Aug 2018 07:56:04 +0000</pubDate>
       <dc:date>2018-08-13T07:56:04+00:00</dc:date>
     </item>
@@ -275,7 +290,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-release-multi-region-vpc-peering-seoul&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>44bits</author>
       <pubDate>Wed, 08 Aug 2018 02:36:53 +0000</pubDate>
       <dc:date>2018-08-08T02:36:53+00:00</dc:date>
     </item>
@@ -290,7 +305,7 @@
 이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--site-reliability-workbook-is-published&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>44bits</author>
       <pubDate>Tue, 07 Aug 2018 02:14:23 +0000</pubDate>
       <dc:date>2018-08-07T02:14:23+00:00</dc:date>
     </item>
@@ -444,21 +459,6 @@
       <pubDate>Thu, 05 Jul 2018 00:54:27 +0000</pubDate>
       <dc:date>2018-07-05T00:54:27+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 웹서비스 커맨드라인 인터페이스(AWS CLI) 기초</title>
-      <link>https://www.44bits.io/ko/post/aws_command_line_interface_basic</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 웹 서비스에서는 공식 커맨드라인 인터페이스 클라이언트 AWSCLI를 제공합니다. AWSCLI를 사용하면 명령줄에서 직접 AWS의 기능을 호출하는 것이 가능합니다. AWSCLI를 설치 및 설정하고 기본적인 사용법에 대해서 알아봅니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws_command_line_interface_basic&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Mon, 25 Jun 2018 01:14:17 +0000</pubDate>
-      <dc:date>2018-06-25T01:14:17+00:00</dc:date>
-    </item>
-    <dc:date>2019-01-08T03:00:15.78268+00:00</dc:date>
+    <dc:date>2019-01-09T03:00:21.771566+00:00</dc:date>
   </channel>
 </rss>

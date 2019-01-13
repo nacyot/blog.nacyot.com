@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 12 Jan 2019 03:00:12 +0000</pubDate>
+    <pubDate>Sun, 13 Jan 2019 03:00:26 +0000</pubDate>
     <item>
       <title>AWS 몽고DB(MongoDB) 호환 아마존 도큐먼트DB(Amazon DocumentDB) 발표</title>
       <link>https://www.44bits.io/ko/post/news--aws-announce-mongodb-compatible-documentdb</link>
@@ -459,6 +459,6 @@
       <pubDate>Thu, 12 Jul 2018 02:00:00 +0000</pubDate>
       <dc:date>2018-07-12T02:00:00+00:00</dc:date>
     </item>
-    <dc:date>2019-01-12T03:00:12.427359+00:00</dc:date>
+    <dc:date>2019-01-13T03:00:26.072977+00:00</dc:date>
   </channel>
 </rss>

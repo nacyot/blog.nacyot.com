@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 13 Jan 2019 03:00:26 +0000</pubDate>
+    <pubDate>Mon, 14 Jan 2019 03:00:13 +0000</pubDate>
+    <item>
+      <title>왜 굳이 도커(컨테이너)를 써야 하나요? - 컨테이너를 사용해야 하는 이유</title>
+      <link>https://www.44bits.io/ko/post/why-should-i-use-docker-container</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;컨테이너는 서버 애플리케이션을 배포하고 서버를 운영하는 표준적인 기술이 되어가고 있습니다. 하지만 처음 사용해본다면 그 장점이 잘 와닿지 않을 수도 있습니다. 왜 굳이 도커 컨테이너를 사용해야할까요? 이 글에서는 눈송이 서버를 넘어 컨테이너가 애플리케이션 배포와 운영에 있어 어떤 장점이 있는지 알아봅니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/why-should-i-use-docker-container&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>raccoony</author>
+      <pubDate>Mon, 14 Jan 2019 01:20:40 +0000</pubDate>
+      <dc:date>2019-01-14T01:20:40+00:00</dc:date>
+    </item>
     <item>
       <title>AWS 몽고DB(MongoDB) 호환 아마존 도큐먼트DB(Amazon DocumentDB) 발표</title>
       <link>https://www.44bits.io/ko/post/news--aws-announce-mongodb-compatible-documentdb</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 16 Jul 2018 00:59:31 +0000</pubDate>
       <dc:date>2018-07-16T00:59:31+00:00</dc:date>
     </item>
-    <item>
-      <title>도커(Docker) 컨테이너 로케일 설정: 데비안(Debian), 우분투(Ubuntu) 이미지에서 한글 입력 문제</title>
-      <link>https://www.44bits.io/ko/post/setup_linux_locale_on_ubuntu_and_debian_container</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;도커 우분투, 데비안 이미지에서는 기본적으로 한글 입력을 지원하지 않습니다. 한글을 입력하기 위해서는 로케일 설정을 UTF-8로 지정할 필요가 있습니다. 이 글에서는 로케일 개념과 함께 도커 이미지/컨테이너에서 로케일을 적용하는 방법에 대해서 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/setup_linux_locale_on_ubuntu_and_debian_container&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Thu, 12 Jul 2018 02:00:00 +0000</pubDate>
-      <dc:date>2018-07-12T02:00:00+00:00</dc:date>
-    </item>
-    <dc:date>2019-01-13T03:00:26.072977+00:00</dc:date>
+    <dc:date>2019-01-14T03:00:13.360119+00:00</dc:date>
   </channel>
 </rss>

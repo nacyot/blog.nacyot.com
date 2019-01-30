@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 29 Jan 2019 03:00:17 +0000</pubDate>
+    <pubDate>Wed, 30 Jan 2019 03:00:17 +0000</pubDate>
+    <item>
+      <title>[44bits.tv] VS Code 귀여운 캐릭터 표시하기 with live2d</title>
+      <link>https://www.44bits.io/ko/post/44bits-vscode-cute-character-plugin</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;비주얼 스튜디오 코드(Visual Studio Code)는 마이크로소프트에서 개발한 소스 코드 에디터입니다. 비주얼 스튜디오 코드 위에서 귀여운 캐릭터를 표시하는 live2d 확장을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-vscode-cute-character-plugin&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>seapy</author>
+      <pubDate>Tue, 29 Jan 2019 07:11:26 +0000</pubDate>
+      <dc:date>2019-01-29T07:11:26+00:00</dc:date>
+    </item>
+    <item>
+      <title>Bash, Zsh에서 여러줄의 명령어를 에디터로 편집하고 실행하기</title>
+      <link>https://www.44bits.io/ko/post/editing-multiline-command-on-shell</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;셸에서 긴 명령어를 다루는 일은 어려운 일입니다. 긴 명령어를 입력하다보면 실수를 하는 경우가 많습니다. 복사해서 붙여넣어봐도 이상하게 입력되는 경우가 많습니다. 이럴 때 에디터에서 긴 명령어를 편집하고 셸에서 바로 실행할 수 있다면 좀 더 편리하지 않을까요? Bash와 Zsh에는 이미 이 기능이 준비되어있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/editing-multiline-command-on-shell&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Tue, 29 Jan 2019 05:37:17 +0000</pubDate>
+      <dc:date>2019-01-29T05:37:17+00:00</dc:date>
+    </item>
     <item>
       <title>stdout_013.log: 도커를 굳이 왜 사용해야하나요?</title>
       <link>https://www.44bits.io/ko/post/stdout-fm-read-the-docs-write-the-docs-why-should-use-docker</link>
@@ -429,36 +459,6 @@
       <pubDate>Mon, 30 Jul 2018 01:49:06 +0000</pubDate>
       <dc:date>2018-07-30T01:49:06+00:00</dc:date>
     </item>
-    <item>
-      <title>웹폰트 경량화: 폰트툴즈(fontTools)의 pyftsubset을 사용한 폰트 서브셋 만들기</title>
-      <link>https://www.44bits.io/ko/post/optimization_webfont_with_pyftsubnet</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;폰트는 글자의 수에 비례해 용량이 커지며, 한글과 같 언어는 웹폰트의 용량을 줄이는 것이 중요합니다. 이 글에서는 폰트툴즈를 사용해 폰트의 서브셋을 만들고 웹폰트 형식으로 변환하는 방법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/optimization_webfont_with_pyftsubnet&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Mon, 23 Jul 2018 01:30:00 +0000</pubDate>
-      <dc:date>2018-07-23T01:30:00+00:00</dc:date>
-    </item>
-    <item>
-      <title>아마존 웹 서비스 계정 생성 후 해야하는 IAM 보안 조치: 루트 사용자와 IAM 사용자의 차이</title>
-      <link>https://www.44bits.io/ko/post/first_actions_for_setting_secure_account</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;하나의 AWS 계정은 루트 사용자와 다수의 IAM 사용자로 구성된 다중 사용자 환경입니다. 아마존에서는 루트 계정을 사용하기보다는 IAM 사용자를 만들어 권한을 관리할 것을 권장하고 있습니다. 이를 중심으로 계정 생성 후에 적용해야하는 보안 조치들을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/first_actions_for_setting_secure_account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Thu, 19 Jul 2018 02:47:45 +0000</pubDate>
-      <dc:date>2018-07-19T02:47:45+00:00</dc:date>
-    </item>
-    <dc:date>2019-01-29T03:00:17.050743+00:00</dc:date>
+    <dc:date>2019-01-30T03:00:17.755356+00:00</dc:date>
   </channel>
 </rss>

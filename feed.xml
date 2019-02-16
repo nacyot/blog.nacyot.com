@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Fri, 15 Feb 2019 03:00:19 +0000</pubDate>
+    <pubDate>Sat, 16 Feb 2019 03:00:10 +0000</pubDate>
+    <item>
+      <title>[44bits.tv] AWS 클라우드와치 로그 쉽게보는 방법 - utern</title>
+      <link>https://www.44bits.io/ko/post/44bits-tv-aws-cloudwatch-utern-seapy</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS CloudWatch 로그를 쉽게 볼수 있도록 해주는 utern CLI 프로그램을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 stdoutfm이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-tv-aws-cloudwatch-utern-seapy&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>stdoutfm</author>
+      <pubDate>Fri, 15 Feb 2019 07:35:33 +0000</pubDate>
+      <dc:date>2019-02-15T07:35:33+00:00</dc:date>
+    </item>
+    <item>
+      <title>stdout_015.log: 안전한 패스워드 관리, 람다 기반 썸네일 생성, Seocho.rb 첫 번째 모임</title>
+      <link>https://www.44bits.io/ko/post/stdout-fm-015-secure-password</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;stdout.fm 15번째 로그에서는Seocho.rb 첫 번째 모임, AWS 람다를 사용한 이미지 변환, 안전한 패스워드 관리, 1Password 등에 대해서 이야기를 나눴습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 stdoutfm이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/stdout-fm-015-secure-password&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>stdoutfm</author>
+      <pubDate>Fri, 15 Feb 2019 06:03:06 +0000</pubDate>
+      <dc:date>2019-02-15T06:03:06+00:00</dc:date>
+    </item>
     <item>
       <title>구글, 사이트 신뢰성 엔지니어링 워크북(Site Reliability Workbook) 온라인 무료 공개</title>
       <link>https://www.44bits.io/ko/post/news--google-open-site-reliability-workbook</link>
@@ -429,36 +459,6 @@
       <pubDate>Mon, 13 Aug 2018 06:00:08 +0000</pubDate>
       <dc:date>2018-08-13T06:00:08+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS 멀티 리전 VPC 피어링 기능 추가, 2018년 7월부터 서울 리전 지원</title>
-      <link>https://www.44bits.io/ko/post/news--aws-release-multi-region-vpc-peering-seoul</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS에서는 VPC 간의 통신을 위한 VPC 피어링을 지원합니다. 이전에는 같은 리전의 VPC 간에만 VPC 피어링이 가능했지만, 2017년 11월부터 서로 다른 리전의 VPC 간에도 네트워크를 연결할 수 있는 VPC 피어링 기능이 새롭게 릴리즈 되었습니다. 또한 2018년 7월에는 서울 리전에서도 이 기능을 사용할 수 있게되었습니다&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-release-multi-region-vpc-peering-seoul&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Wed, 08 Aug 2018 02:36:53 +0000</pubDate>
-      <dc:date>2018-08-08T02:36:53+00:00</dc:date>
-    </item>
-    <item>
-      <title>구글, 사이트 신뢰성 워크북(Site Reliability Workbook) 공개. 8월 23일까지 무료 배포</title>
-      <link>https://www.44bits.io/ko/post/news--site-reliability-workbook-is-published</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;사이트 신뢰성 엔지니어링은 구글이 제안한 새로운 인프라스트럭처 관리 개념입니다. 구글은 이에 대한 개념과 노하우를 담은 동명의 책을 출간한 바 있으며, 이를 실무에 적용하기 위한 예제들을 담은 워크북을 새롭게 공개했습니다. 구글 SRE 웹사이트에서 8월 23일까지 무료로 배포합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--site-reliability-workbook-is-published&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Tue, 07 Aug 2018 02:14:23 +0000</pubDate>
-      <dc:date>2018-08-07T02:14:23+00:00</dc:date>
-    </item>
-    <dc:date>2019-02-15T03:00:19.649774+00:00</dc:date>
+    <dc:date>2019-02-16T03:00:10.359948+00:00</dc:date>
   </channel>
 </rss>

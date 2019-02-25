@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 24 Feb 2019 03:00:10 +0000</pubDate>
+    <pubDate>Mon, 25 Feb 2019 03:00:11 +0000</pubDate>
+    <item>
+      <title>개발자라면 탐나는 .dev 최상위 도메인 등록 시작</title>
+      <link>https://www.44bits.io/ko/post/dot-dev-doamin-for-developers</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;구글(Google)에서는 닷데브(.dev) 최상위 도메인을 공개했습니다. .dev 도메인은 개발과 관련된 사이트에서 많이 활용될 것으로 보이며, 2019년 2월 28일까지 사전 등록을 받고 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/dot-dev-doamin-for-developers&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>seapy</author>
+      <pubDate>Mon, 25 Feb 2019 00:49:55 +0000</pubDate>
+      <dc:date>2019-02-25T00:49:55+00:00</dc:date>
+    </item>
     <item>
       <title>stdout_016.log: 정부의 SNI 기반 HTTPS 접속 차단 w/ han</title>
       <link>https://www.44bits.io/ko/post/stdout-fm-016-block-https-by-sni</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 14 Aug 2018 02:14:46 +0000</pubDate>
       <dc:date>2018-08-14T02:14:46+00:00</dc:date>
     </item>
-    <item>
-      <title>도커(Docker), 쿠버네티스(Kubernetes) 통합 도커 데스크톱을 스테이블 채널에 릴리즈</title>
-      <link>https://www.44bits.io/ko/post/news--release-docker-desktop-with-kubernetes-to-stable-channel</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2018년 7월 25일 도커(Docker)에서는 쿠버네티스(Kubernetes) 통합 도커 데스크탑을 스테이블 채널로 릴리즈하였습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--release-docker-desktop-with-kubernetes-to-stable-channel&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Mon, 13 Aug 2018 07:56:04 +0000</pubDate>
-      <dc:date>2018-08-13T07:56:04+00:00</dc:date>
-    </item>
-    <dc:date>2019-02-24T03:00:10.103325+00:00</dc:date>
+    <dc:date>2019-02-25T03:00:11.045179+00:00</dc:date>
   </channel>
 </rss>

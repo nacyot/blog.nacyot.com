@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 06 Mar 2019 03:00:22 +0000</pubDate>
+    <pubDate>Thu, 07 Mar 2019 03:00:25 +0000</pubDate>
+    <item>
+      <title>테라폼(Terraform) 0.12 베타 1 출시 및 개선된 HCL 문법 살펴보기</title>
+      <link>https://www.44bits.io/ko/post/preview-new-feature-of-terraform-012-beta-1</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;테라폼(Terraform)은 코드로서의 인프라스트럭처를 실현하는 도구입니다. 2019년 2월, 테라폼 0.12 베타 1 버전이 출시되었습니다. 테라폼 0.12에는 다양한 문법 개선사항들이 반영됩니다. 이 글에서는 새로운 버전을 설치하는 방법과 문법 변경 사항들에 대해서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/preview-new-feature-of-terraform-012-beta-1&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>raccoony</author>
+      <pubDate>Wed, 06 Mar 2019 21:59:36 +0000</pubDate>
+      <dc:date>2019-03-06T21:59:36+00:00</dc:date>
+    </item>
     <item>
       <title>테라폼(Terraform)을 가장 잘 지원하는 에디터는? - 젯브레인 인텔리J(IntelliJ)를 활용한 테라폼 코드 작성</title>
       <link>https://www.44bits.io/ko/post/what-is-the-best-editor-that-supports-terraform</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 03 Dec 2018 05:04:48 +0000</pubDate>
       <dc:date>2018-12-03T05:04:48+00:00</dc:date>
     </item>
-    <item>
-      <title>고스트(Ghost) 2.0 출시: 새 에디터, 다국어 블로깅 지원 등</title>
-      <link>https://www.44bits.io/ko/post/news--ghost-2-0-released</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;Ghost 블로그 팀이 2.0 버전을 출시했습니다. 새 에디터를 중심으로 Ghost 2.0에 추가된 기능을 훑어보고, 손쉽게 실행해 볼 방법을 안내합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--ghost-2-0-released&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>raccoony</author>
-      <pubDate>Mon, 27 Aug 2018 01:16:34 +0000</pubDate>
-      <dc:date>2018-08-27T01:16:34+00:00</dc:date>
-    </item>
-    <dc:date>2019-03-06T03:00:22.286503+00:00</dc:date>
+    <dc:date>2019-03-07T03:00:25.295424+00:00</dc:date>
   </channel>
 </rss>

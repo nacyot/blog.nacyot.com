@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 24 Apr 2019 03:00:25 +0000</pubDate>
+    <pubDate>Thu, 25 Apr 2019 03:00:30 +0000</pubDate>
+    <item>
+      <title>CNCF, Fluentd 프로젝트 졸업을 발표</title>
+      <link>https://www.44bits.io/ko/post/news--fluentd-has-graduated-cncf</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;CNCF는 지난 4월 11일 Fluentd가 졸업(Graduated) 단계 프로젝트가 되었다고 발표했습니다. 이로써 오픈소스 로깅 프로젝트인 Fluentd는 CNCF 프로젝트 중에 쿠버네티스(Kubernetes), 프로메테우스(Prometheus), 엔보이(Envoy), 코어DNS(CoreDNS), 컨테이너d(containerd)에 이은 여섯 번째 졸업 단계 프로젝트가 되었습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--fluentd-has-graduated-cncf&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Thu, 25 Apr 2019 01:44:42 +0000</pubDate>
+      <dc:date>2019-04-25T01:44:42+00:00</dc:date>
+    </item>
     <item>
       <title>장고(Django) 2.2 LTS 릴리스와 주요 변경 사항</title>
       <link>https://www.44bits.io/ko/post/django-2-2-release-note-summary</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 10 Dec 2018 01:16:34 +0000</pubDate>
       <dc:date>2018-12-10T01:16:34+00:00</dc:date>
     </item>
-    <item>
-      <title>re:Invent 2018 - 람다(AWS Lambda), 프로그래밍 언어 루비(Ruby) 공식 지원을 발표</title>
-      <link>https://www.44bits.io/ko/post/news--announce-ruby-support-for-aws-lambda</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;올 해도 re:Invent 2018에서는 다양한 서비스들을 발표했습니다. AWS 람다에서는 드디어 프로그래밍 언어 루비가 공식 지원됩니다. 또한 커스텀 엔진을 지원함으로서 공식 지원하지 않는 언어들도 사용할 수 있게되었습니다. 여기서는 루비 코드를 람다에서 실행하는 간단한 예제를 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--announce-ruby-support-for-aws-lambda&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Wed, 05 Dec 2018 09:34:17 +0000</pubDate>
-      <dc:date>2018-12-05T09:34:17+00:00</dc:date>
-    </item>
-    <dc:date>2019-04-24T03:00:25.529673+00:00</dc:date>
+    <dc:date>2019-04-25T03:00:30.308849+00:00</dc:date>
   </channel>
 </rss>

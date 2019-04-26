@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 25 Apr 2019 03:00:30 +0000</pubDate>
+    <pubDate>Fri, 26 Apr 2019 03:00:49 +0000</pubDate>
+    <item>
+      <title>아마존 웹 서비스(AWS), 아시아 태평양 지역에 홍콩 리전(ap-east-1)을 새롭게 추가</title>
+      <link>https://www.44bits.io/ko/post/news--aws-announced-new-hongkong-region</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS는 4월 24일 아시아 태평양 지역에 홍콩 리전(Region)을 추가했다고 발표 했습니다. 홍콩 리전의 코드명은 ap-east-1이며 전세계적으로는 스물한 번째, 아시아 태평양 지역에서는 여덟 번째 리전입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-announced-new-hongkong-region&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Fri, 26 Apr 2019 00:32:06 +0000</pubDate>
+      <dc:date>2019-04-26T00:32:06+00:00</dc:date>
+    </item>
     <item>
       <title>CNCF, Fluentd 프로젝트 졸업을 발표</title>
       <link>https://www.44bits.io/ko/post/news--fluentd-has-graduated-cncf</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 11 Dec 2018 00:58:29 +0000</pubDate>
       <dc:date>2018-12-11T00:58:29+00:00</dc:date>
     </item>
-    <item>
-      <title>컨테이너 기초 - 정적 링크 프로그램을 chroot와 도커(Docker) scratch 이미지로 실행하기</title>
-      <link>https://www.44bits.io/ko/post/static-compile-program-on-chroot-and-docker-scratch-image</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;C 프로그램을 작성하고 이를 동적 링크 컴파일한 경우와 정적 링크 컴파일한 경우로 나눠서 chroot로 실행해봅니다. 그리고 도커(Docker)의 scratch 이미지를 기반으로 같은 방식을 적용하는 법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/static-compile-program-on-chroot-and-docker-scratch-image&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Mon, 10 Dec 2018 01:16:34 +0000</pubDate>
-      <dc:date>2018-12-10T01:16:34+00:00</dc:date>
-    </item>
-    <dc:date>2019-04-25T03:00:30.308849+00:00</dc:date>
+    <dc:date>2019-04-26T03:00:49.783882+00:00</dc:date>
   </channel>
 </rss>

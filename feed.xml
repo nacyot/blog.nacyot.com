@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 29 Apr 2019 03:00:12 +0000</pubDate>
+    <pubDate>Tue, 30 Apr 2019 03:00:30 +0000</pubDate>
+    <item>
+      <title>4월 25일, 도커 허브(Docker Hub) 계정 정보 유출: 비밀번호 변경 등 조치 필요</title>
+      <link>https://www.44bits.io/ko/post/news--docker-found-unauthorized-access-to-docker-hub-database</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2019년 4월 25일, 도커사는 도커 허브 데이터베이스에 허가되지 않은 접근을 발견하고 바로 보안 조치를 취했다고 밝혔습니다. 비밀 번호 변경 및 감사 로그 확인 등의 추가 조치가 필요합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--docker-found-unauthorized-access-to-docker-hub-database&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Tue, 30 Apr 2019 01:17:57 +0000</pubDate>
+      <dc:date>2019-04-30T01:17:57+00:00</dc:date>
+    </item>
     <item>
       <title>AWS RDS for PostgreSQL에서 S3 데이터 임포트 기능 지원</title>
       <link>https://www.44bits.io/ko/post/news--aws-rds-postgresql-supports-data-import-from-s3</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 18 Dec 2018 01:09:12 +0000</pubDate>
       <dc:date>2018-12-18T01:09:12+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 엘라스틱캐시(Elasticache)의 멤캐시디(Memcached) 클러스터 스케일 아웃</title>
-      <link>https://www.44bits.io/ko/post/amazon-elasticache-memcached-cluster-scale-out</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존의 엘릭스틱 캐시는 키 멤캐시디와 레디스 매니지드 서비스를 제공합니다. 이 서비스들을 사용해 신뢰도 높은 키-밸류 캐시를 구축하는 것이 손쉽게 가능합니다. 이러한 캐시 서버는 스케일 업과 스케일 아웃 방식으로 확장할 수 있는데 이 글에서는 스케일 아웃을 하는 방법과 스케일 아웃 시 주의해야할 점에 대해서 살펴봅니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-elasticache-memcached-cluster-scale-out&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Mon, 17 Dec 2018 02:02:45 +0000</pubDate>
-      <dc:date>2018-12-17T02:02:45+00:00</dc:date>
-    </item>
-    <dc:date>2019-04-29T03:00:12.056971+00:00</dc:date>
+    <dc:date>2019-04-30T03:00:30.16182+00:00</dc:date>
   </channel>
 </rss>

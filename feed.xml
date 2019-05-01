@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 30 Apr 2019 03:00:30 +0000</pubDate>
+    <pubDate>Wed, 01 May 2019 03:00:20 +0000</pubDate>
+    <item>
+      <title>구글, 도커(Docker) 컨테이너 기반 서버리스 서비스인 클라우드 런(Cloud Run) 발표</title>
+      <link>https://www.44bits.io/ko/post/news--cloud-run-is-launched-on-gcp</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;구글은 지난 4월 11일, 구글 클라우드 넥스트 2019에서 도커 컨테이너를 서버리스 환경에서 운영할 수 있는 클라우드 런 서비스를 발표했습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--cloud-run-is-launched-on-gcp&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Wed, 01 May 2019 01:21:19 +0000</pubDate>
+      <dc:date>2019-05-01T01:21:19+00:00</dc:date>
+    </item>
+    <item>
+      <title>AWS 시스템 매니저 파라미터 스토어 개선 발표: 고급 파라미터 추가 및 API 처리량 증가</title>
+      <link>https://www.44bits.io/ko/post/news--aws-introduces-advanced-parameter-store</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS 시스템 매니저에서는 구성 데이터 관리를 위한 파라미터 스토어 서버스를 제공합니다. 이는 무료로 제공되는 서비스로 여러가지 제약들이 있습니다. AWS에서는 이러한 제약에서 좀 더 자유로운 유료로 사용할 수 있는 고급 파라미터와 추가 API 처리량을 지원 등을 발표했습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-introduces-advanced-parameter-store&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Tue, 30 Apr 2019 06:19:51 +0000</pubDate>
+      <dc:date>2019-04-30T06:19:51+00:00</dc:date>
+    </item>
     <item>
       <title>4월 25일, 도커 허브(Docker Hub) 계정 정보 유출: 비밀번호 변경 등 조치 필요</title>
       <link>https://www.44bits.io/ko/post/news--docker-found-unauthorized-access-to-docker-hub-database</link>
@@ -429,36 +459,6 @@
       <pubDate>Tue, 25 Dec 2018 12:59:16 +0000</pubDate>
       <dc:date>2018-12-25T12:59:16+00:00</dc:date>
     </item>
-    <item>
-      <title>다시 보는 2018 한국의 주요 개발 / 테크 컨퍼런스들</title>
-      <link>https://www.44bits.io/ko/post/replay-2018-korea-tech-development-conferences</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;올해도 국내에서 다양한 컨퍼런스들이 열렸습니다. 그 중에서 영상으로 다시 보기 가능한 컨퍼런스들을 소개합니다. AWS 서울 서밋 2018, 넥슨 개발자 컨퍼런스, 오픈인프라 데이, 파이콘, if (kakao) dev, 업비트 개발자 컨퍼런스, 데뷰, 구글 클라우드 서밋, 프론트엔드 컨퍼런스 코리아, 렛츠 스위프트, AWS 데브데이.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/replay-2018-korea-tech-development-conferences&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Fri, 21 Dec 2018 01:21:39 +0000</pubDate>
-      <dc:date>2018-12-21T01:21:39+00:00</dc:date>
-    </item>
-    <item>
-      <title>re:Invent 2018 - ALB 타깃그룹의 새로운 타입으로 AWS 람다(AWS Lambda) 추가</title>
-      <link>https://www.44bits.io/ko/post/aws-alb-target-group-aws-lambda-target-type-released</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS 람다를 외부에 HTTP(S) 프로토콜로 노출시키기 위해서는 아마존 API 게이트웨이를 사용해야만 했습니다. re:Invent 2018 기간 중에 애플리케이션 로드밸런서 타깃그룹의 새로운 타깃 타입으로 AWS 람다 타입이 발표되었습니다. 이 기능을 사용하면 ALB 리스너로 람다가 연결된 타깃그룹을 사용할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-alb-target-group-aws-lambda-target-type-released&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Tue, 18 Dec 2018 01:09:12 +0000</pubDate>
-      <dc:date>2018-12-18T01:09:12+00:00</dc:date>
-    </item>
-    <dc:date>2019-04-30T03:00:30.16182+00:00</dc:date>
+    <dc:date>2019-05-01T03:00:20.01795+00:00</dc:date>
   </channel>
 </rss>

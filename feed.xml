@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 08 May 2019 03:00:14 +0000</pubDate>
+    <pubDate>Thu, 09 May 2019 03:00:19 +0000</pubDate>
+    <item>
+      <title>마이크로소프트 빌드 2019,  윈도우 터미널 발표 - 파워셸, 커맨드 프롬프트 WSL 지원</title>
+      <link>https://www.44bits.io/ko/post/news--ms-build-2019-introducing-windows-terminal</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;마이크로소프트 빌드 2019 행사에서 윈도우 터미널이 발표되었습니다. 윈도우 터미널은 커맨드 프롬프트, 파워셸, WSL을 지원하는 커맨드라인 도구입니다. 정식 릴리스는 2019년 겨울로 예정되어있으며 오픈소스로 깃허브에 공개되었습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--ms-build-2019-introducing-windows-terminal&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Wed, 08 May 2019 06:22:24 +0000</pubDate>
+      <dc:date>2019-05-08T06:22:24+00:00</dc:date>
+    </item>
     <item>
       <title>아마존 S3(Amazon S3), 2020년 9월 경로(path) 형식의 API 호출 중지 예정</title>
       <link>https://www.44bits.io/ko/post/news--amazon-s3-will-no-longer-support-path-style-API-requests</link>
@@ -444,21 +459,6 @@
       <pubDate>Wed, 26 Dec 2018 01:30:04 +0000</pubDate>
       <dc:date>2018-12-26T01:30:04+00:00</dc:date>
     </item>
-    <item>
-      <title>루비(Ruby) 2.6 릴리즈 및 주요 문법 변경 사항 소개</title>
-      <link>https://www.44bits.io/ko/post/ruby-2-6-0-released-and-changes</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;루비는 마츠모토 유키히로 씨가 만든 프로그래밍 언어입니다. 올 해로 20년을 맞이한 루비 언어는 매년 12월 25일(크리스마스)에는 루비의 새로운 버전을 릴리즈 하는 전통이 있습니다. 그리고 올 해도 예정대로 루비 2.6이 릴리즈되었습니다. 이 글에서는 루비 2.6의 주요한 변경사항들을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/ruby-2-6-0-released-and-changes&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Tue, 25 Dec 2018 12:59:16 +0000</pubDate>
-      <dc:date>2018-12-25T12:59:16+00:00</dc:date>
-    </item>
-    <dc:date>2019-05-08T03:00:14.055173+00:00</dc:date>
+    <dc:date>2019-05-09T03:00:19.378397+00:00</dc:date>
   </channel>
 </rss>

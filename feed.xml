@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 20 May 2019 03:00:15 +0000</pubDate>
+    <pubDate>Tue, 21 May 2019 03:00:22 +0000</pubDate>
+    <item>
+      <title>아마존 오로라(Amazon Aurora), 글로벌 데이터베이스를 서울 리전에 출시</title>
+      <link>https://www.44bits.io/ko/post/aws-aurora-launches-global-database-to-seoul-region</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;고성능과 가용성에 초점을 맞춘 아마존 오로라(Amazon Aurora) 서비스의 글로벌 데이터베이스 기능이 서울 리전에도 출시되었습니다. 가격은 I/O 백만 회당 $0.24입니다. 현재 '글로벌 데이터베이스' 기능을 지원하는 리전은 모두 열네 군데입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-aurora-launches-global-database-to-seoul-region&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Tue, 21 May 2019 00:09:56 +0000</pubDate>
+      <dc:date>2019-05-21T00:09:56+00:00</dc:date>
+    </item>
     <item>
       <title>만들면서 배우는 AWS VPC 입문: 아마존 웹 서비스 네트워크의 기초</title>
       <link>https://www.44bits.io/ko/post/understanding_aws_vpc</link>
@@ -444,21 +459,6 @@
       <pubDate>Wed, 09 Jan 2019 01:23:55 +0000</pubDate>
       <dc:date>2019-01-09T01:23:55+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS 람다(AWS Lambda) 커스텀 런타임 만들기(feat. 루비 2.6.0)</title>
-      <link>https://www.44bits.io/ko/post/how-to-create-aws-lambda-custom-runtime-feat-ruby-2-6-0</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS 람다에서 공식 지원하지 않는 언어나 버전을 사용하고 싶은 경우 커스텀 런타임 기능을 활용할 수 있습니다. 이 글에서는 아직 AWS 람다에서 공식 지원하고 있지 않은 루비 2.6 최신 버전을 커스텀 런타임 기능을 사용해 실행하는 방법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/how-to-create-aws-lambda-custom-runtime-feat-ruby-2-6-0&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Fri, 04 Jan 2019 02:05:36 +0000</pubDate>
-      <dc:date>2019-01-04T02:05:36+00:00</dc:date>
-    </item>
-    <dc:date>2019-05-20T03:00:15.587943+00:00</dc:date>
+    <dc:date>2019-05-21T03:00:22.625728+00:00</dc:date>
   </channel>
 </rss>

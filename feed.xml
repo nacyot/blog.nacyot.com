@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 06 Jun 2019 03:00:19 +0000</pubDate>
+    <pubDate>Fri, 07 Jun 2019 03:00:15 +0000</pubDate>
     <item>
       <title>아마존 오로라(Amazon Aurora), 글로벌 데이터베이스를 서울 리전에 출시</title>
       <link>https://www.44bits.io/ko/post/aws-aurora-launches-global-database-to-seoul-region</link>
@@ -25,10 +25,10 @@
       <dc:date>2019-05-21T00:09:56+00:00</dc:date>
     </item>
     <item>
-      <title>만들면서 배우는 AWS VPC 입문: 아마존 웹 서비스 네트워크의 기초</title>
+      <title>만들면서 배우는 아마존 VPC(Amazon VPC) 입문: AWS 네트워크의 기초</title>
       <link>https://www.44bits.io/ko/post/understanding_aws_vpc</link>
       <description>&lt;div&gt;
-&lt;strong&gt;VPC는 아마존 웹 서비스의 가장 기본이 되는 네트워크 서비스이자 리소스입니다. AWS에서 제공하는 대부분의 리소스들은 VPC를 기반으로 실행됩니다. 따라서 VPC를 이해하고 있어야 AWS 서비스를 십분 활용할 수 있습니다. 이 글에서는 기본 VPC와 같은 구성을 직접 만들어보면서 VPC의 기본 개념과 리소스들을 소개합니다.&lt;/strong&gt;
+&lt;strong&gt;아마존 버추얼 프라이빗 클라우드(Amazon VPC)는 아마존 웹 서비스(Amazon Web Service)의 가장 기본이 되는 네트워크 서비스이자 리소스입니다. AWS에서 제공하는 대부분의 리소스들은 아마존 VPC를 기반으로 실행됩니다. 따라서 VPC를 이해하고 있어야 AWS 서비스를 십분 활용할 수 있습니다. 이 글에서는 기본 VPC와 같은 구성을 직접 만들어보면서 VPC의 기본 개념과 리소스들을 소개합니다. &lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
@@ -459,6 +459,6 @@
       <pubDate>Wed, 09 Jan 2019 01:23:55 +0000</pubDate>
       <dc:date>2019-01-09T01:23:55+00:00</dc:date>
     </item>
-    <dc:date>2019-06-06T03:00:19.677248+00:00</dc:date>
+    <dc:date>2019-06-07T03:00:15.487365+00:00</dc:date>
   </channel>
 </rss>

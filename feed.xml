@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 13 Aug 2019 03:01:06 +0000</pubDate>
+    <pubDate>Wed, 14 Aug 2019 03:00:22 +0000</pubDate>
     <item>
       <title>아마존 오로라(Amazon Aurora), 글로벌 데이터베이스를 서울 리전에 출시</title>
       <link>https://www.44bits.io/ko/post/aws-aurora-launches-global-database-to-seoul-region</link>
@@ -459,6 +459,6 @@
       <pubDate>Wed, 09 Jan 2019 01:23:55 +0000</pubDate>
       <dc:date>2019-01-09T01:23:55+00:00</dc:date>
     </item>
-    <dc:date>2019-08-13T03:01:06.581693+00:00</dc:date>
+    <dc:date>2019-08-14T03:00:22.432358+00:00</dc:date>
   </channel>
 </rss>

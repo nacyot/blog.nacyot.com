@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 08 Sep 2019 03:08:10 +0000</pubDate>
+    <pubDate>Mon, 09 Sep 2019 12:08:22 +0900</pubDate>
+    <item>
+      <title>싱크띵(Syncthing), 여러 기기간 파일 동기화 애플리케이션: 드롭박스 대신 무료로 가능한 오픈소스 프로젝트</title>
+      <link>https://www.44bits.io/ko/post/syncthink-syncing-file-between-multiple-devices</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;싱크띵(Syncthing)은 드롭박스와 같은 여러 기기간에 파일을 동기화하는 애플리케이션입니다. 싱크띵은 오픈소스로 개발되고 있으며 동기화하지 않을 파일 패턴을 지정하지 않을 수 있는 방법을 제공합니다. 이 글에서는 싱크띵의 기본적인 사용법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/syncthink-syncing-file-between-multiple-devices&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>raccoony</author>
+      <pubDate>Sun, 08 Sep 2019 23:34:56 +0000</pubDate>
+      <dc:date>2019-09-08T23:34:56+00:00</dc:date>
+    </item>
     <item>
       <title>아마존 오로라(Amazon Aurora), 글로벌 데이터베이스를 서울 리전에 출시</title>
       <link>https://www.44bits.io/ko/post/aws-aurora-launches-global-database-to-seoul-region</link>
@@ -444,21 +459,6 @@
       <pubDate>Thu, 10 Jan 2019 00:54:53 +0000</pubDate>
       <dc:date>2019-01-10T00:54:53+00:00</dc:date>
     </item>
-    <item>
-      <title>깃헙(GitHub) 새로운 가격 정책 및 엔터프라이즈 플랜 발표 - 무료 플랜도 비공개 저장소를 무제한 사용 가능</title>
-      <link>https://www.44bits.io/ko/post/news--github-announcing-unlimited-free-private-repository</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;깃헙(GitHub)에서 새해를 맞이해 달라지는 변경사항을 공지했습니다. 이제 무료 플랜에서도 비공개 저장소를 무제한으로 생성할 수 있습니다. 단, 협업은 3명까지만 가능합니다. 기존의 서비스형과 설치형으로 나누어져있던 엔터프라이즈 서비스가 통합되었습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-announcing-unlimited-free-private-repository&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Wed, 09 Jan 2019 01:23:55 +0000</pubDate>
-      <dc:date>2019-01-09T01:23:55+00:00</dc:date>
-    </item>
-    <dc:date>2019-09-08T03:08:10.319889+00:00</dc:date>
+    <dc:date>2019-09-09T12:08:22.628871+09:00</dc:date>
   </channel>
 </rss>

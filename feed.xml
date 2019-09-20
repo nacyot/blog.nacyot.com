@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 19 Sep 2019 12:08:26 +0900</pubDate>
+    <pubDate>Fri, 20 Sep 2019 12:08:53 +0900</pubDate>
     <item>
       <title>싱크띵(Syncthing), 여러 기기간 파일 동기화 애플리케이션: 드롭박스 대신 무료로 가능한 오픈소스 프로젝트</title>
       <link>https://www.44bits.io/ko/post/syncthink-syncing-file-between-multiple-devices</link>
@@ -459,6 +459,6 @@
       <pubDate>Thu, 10 Jan 2019 00:54:53 +0000</pubDate>
       <dc:date>2019-01-10T00:54:53+00:00</dc:date>
     </item>
-    <dc:date>2019-09-19T12:08:26.439266+09:00</dc:date>
+    <dc:date>2019-09-20T12:08:53.818112+09:00</dc:date>
   </channel>
 </rss>

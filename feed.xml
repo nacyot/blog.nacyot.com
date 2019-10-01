@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 30 Sep 2019 12:08:41 +0900</pubDate>
+    <pubDate>Tue, 01 Oct 2019 12:08:30 +0900</pubDate>
+    <item>
+      <title>tfenv로 테라폼(Terraform) 버전 관리하기</title>
+      <link>https://www.44bits.io/ko/post/managing-teraform-versions-with-tfenv</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;테라폼을 여러 프로젝트에서 사용하면 다수의 버전이 필요한 경우가 생깁니다. 이럴 때 tfenv를 사용하면 손쉽게 테라폼 버전을 변경해서 사용할 수 있습니다. 이글에서는 tfenv를 사용해 테라폼의 버전을 관리하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/managing-teraform-versions-with-tfenv&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>seapy</author>
+      <pubDate>Mon, 30 Sep 2019 23:38:07 +0000</pubDate>
+      <dc:date>2019-09-30T23:38:07+00:00</dc:date>
+    </item>
     <item>
       <title>싱크띵(Syncthing), 여러 기기간 파일 동기화 애플리케이션: 드롭박스 대신 무료로 가능한 오픈소스 프로젝트</title>
       <link>https://www.44bits.io/ko/post/syncthink-syncing-file-between-multiple-devices</link>
@@ -444,21 +459,6 @@
       <pubDate>Thu, 10 Jan 2019 05:11:36 +0000</pubDate>
       <dc:date>2019-01-10T05:11:36+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS 파게이트(Fargate) 가격 30%-50% 인하 발표</title>
-      <link>https://www.44bits.io/ko/post/news--fargate-significant-price-cuts</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS 파게이트는 AWS ECS 상에서 컨테이너를 인스턴스 없이 실행하는 서비스입니다. 파게이트는 가격이 비싼 편이었는데 대폭적인 가격 인하를 발표했습니다. 서울 리전을 포함해 1월 7일부터 기존 자격 대비 vCPU는 20%, 메모리는 65% 단위 가격을 인하합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--fargate-significant-price-cuts&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Thu, 10 Jan 2019 00:54:53 +0000</pubDate>
-      <dc:date>2019-01-10T00:54:53+00:00</dc:date>
-    </item>
-    <dc:date>2019-09-30T12:08:41.455602+09:00</dc:date>
+    <dc:date>2019-10-01T12:08:30.767722+09:00</dc:date>
   </channel>
 </rss>

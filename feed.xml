@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Fri, 18 Oct 2019 12:08:30 +0900</pubDate>
+    <pubDate>Sat, 19 Oct 2019 12:08:30 +0900</pubDate>
     <item>
       <title>파이썬(Python) 3.8 릴리스와 주요 변경 사항 - 할당표현식, 위치 한정 파라미터, f-문자열 평가식 지원</title>
       <link>https://www.44bits.io/ko/post/python-3-8-release-note-summary</link>
@@ -459,6 +459,6 @@
       <pubDate>Tue, 15 Jan 2019 06:18:24 +0000</pubDate>
       <dc:date>2019-01-15T06:18:24+00:00</dc:date>
     </item>
-    <dc:date>2019-10-18T12:08:30.708442+09:00</dc:date>
+    <dc:date>2019-10-19T12:08:30.54305+09:00</dc:date>
   </channel>
 </rss>

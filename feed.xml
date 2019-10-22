@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 21 Oct 2019 12:08:32 +0900</pubDate>
+    <pubDate>Tue, 22 Oct 2019 12:08:13 +0900</pubDate>
+    <item>
+      <title>AWS 솔루션 아키텍트 어소시에이트 자격증 취득 후기 - AWS 공인 자격증 준비와 합격자 혜택</title>
+      <link>https://www.44bits.io/ko/post/aws-certification-solutions-architect-associate</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2019년 10월 AWS 솔루션 아키텍트 어소시에이트 자격증 취득했습니다. AWS 공인 자격증의 종류와 시험 준비에 대해서 소개하고, 합격자 혜택에 대해서도 알아봅니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-certification-solutions-architect-associate&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 21 Oct 2019 08:11:14 +0000</pubDate>
+      <dc:date>2019-10-21T08:11:14+00:00</dc:date>
+    </item>
     <item>
       <title>파이썬(Python) 3.8 릴리스와 주요 변경 사항 - 할당표현식, 위치 한정 파라미터, f-문자열 평가식 지원</title>
       <link>https://www.44bits.io/ko/post/python-3-8-release-note-summary</link>
@@ -444,21 +459,6 @@
       <pubDate>Thu, 17 Jan 2019 01:53:44 +0000</pubDate>
       <dc:date>2019-01-17T01:53:44+00:00</dc:date>
     </item>
-    <item>
-      <title>44bits.io의 2018년, 그리고 2019년 새해인사</title>
-      <link>https://www.44bits.io/ko/post/44bits-2018-and-happy-new-year</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;세상에는 많은 정보가 있지만 한국어로 작성된 온라인에서 곧바로 접근 가능한 잘 정리된 글은 생각만큼 많지 않습니다. 이러한 빈 틈을 조금이나마 메워보려는 목표와 함께 44bits는 지난 6월 첫 글을 올리며 시작되었습니다. 2018년 한 해를 되돌아보고, 2019년 새해 인사를 드립니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-2018-and-happy-new-year&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Tue, 15 Jan 2019 06:18:24 +0000</pubDate>
-      <dc:date>2019-01-15T06:18:24+00:00</dc:date>
-    </item>
-    <dc:date>2019-10-21T12:08:32.380849+09:00</dc:date>
+    <dc:date>2019-10-22T12:08:13.274529+09:00</dc:date>
   </channel>
 </rss>

@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 11 Nov 2019 12:08:27 +0900</pubDate>
+    <pubDate>Tue, 12 Nov 2019 12:08:19 +0900</pubDate>
+    <item>
+      <title>EC2, Fargate 약정 할인 AWS Savings Plans 발표: 예약 인스턴스(RI)를 대체할 약정 할인 방식</title>
+      <link>https://www.44bits.io/ko/post/aws-introducing-savings-plans</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS에서는 새로운 약정 할인 방식인 Savings Plans를 도입했습니다. Savings Plans로 일정 금액을 약정하면 기존 예약 인스턴스와 달리 리전, 인스턴스 세대, 사이즈와 무관하게 할인이 적용됩니다. 또한 EC2 인스턴스 뿐만 아니라, 파게이트(Fargate)에도 할인이 적용됩니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-introducing-savings-plans&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 11 Nov 2019 23:35:45 +0000</pubDate>
+      <dc:date>2019-11-11T23:35:45+00:00</dc:date>
+    </item>
     <item>
       <title>AWS 솔루션 아키텍트 어소시에이트 자격증 취득 후기 - AWS 공인 자격증 준비와 합격자 혜택</title>
       <link>https://www.44bits.io/ko/post/aws-certification-solutions-architect-associate</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 29 Jan 2019 05:37:17 +0000</pubDate>
       <dc:date>2019-01-29T05:37:17+00:00</dc:date>
     </item>
-    <item>
-      <title>좋은 기술 블로그를 만들어 나가기 위한 8가지 제언</title>
-      <link>https://www.44bits.io/ko/post/8-suggestions-for-tech-programming-blog</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;좋은 블로그를 정의하는 것은 간단하지 않습니다. 그럼에도 불구하고 분명히 좋은 블로그가 존재하고 다른 블로그와는 다른 무언가가 있습니다. 이 글에서는 기술 블로그를 중심으로, 좋은 블로그를 만들어나가기 위한 8가지 방법을 제언합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/8-suggestions-for-tech-programming-blog&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Thu, 17 Jan 2019 01:53:44 +0000</pubDate>
-      <dc:date>2019-01-17T01:53:44+00:00</dc:date>
-    </item>
-    <dc:date>2019-11-11T12:08:27.403138+09:00</dc:date>
+    <dc:date>2019-11-12T12:08:19.447897+09:00</dc:date>
   </channel>
 </rss>

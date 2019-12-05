@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 04 Dec 2019 12:08:23 +0900</pubDate>
+    <pubDate>Thu, 05 Dec 2019 12:08:09 +0900</pubDate>
+    <item>
+      <title>AWS 람다(Lambda), 프로그래밍 언어 최신 버전 추가 지원: 파이썬 3.8, 노드 12.0, 자바 11</title>
+      <link>https://www.44bits.io/ko/post/news--aws-lambda-now-supports-python-3-8-nodejs-12-0-java-11</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS 람다에서 파이썬 3.8, 노드 12.0, 자바 11 등 프로그래밍 언어 최신 버전을 추가 지원합니다. 새로운 버전의 런타임들은 모두 아마존 리눅스 2를 기반으로 동작합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-lambda-now-supports-python-3-8-nodejs-12-0-java-11&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Wed, 04 Dec 2019 23:16:25 +0000</pubDate>
+      <dc:date>2019-12-04T23:16:25+00:00</dc:date>
+    </item>
     <item>
       <title>Django 3.0 릴리스와 주요 변경 사항: MariaDB 지원, ASGI 지원, 필터 표현식 등</title>
       <link>https://www.44bits.io/ko/post/django-3-0-release-note-summary</link>
@@ -444,21 +459,6 @@
       <pubDate>Fri, 15 Feb 2019 07:35:33 +0000</pubDate>
       <dc:date>2019-02-15T07:35:33+00:00</dc:date>
     </item>
-    <item>
-      <title>구글, 사이트 신뢰성 엔지니어링 워크북(Site Reliability Workbook) 온라인 무료 공개</title>
-      <link>https://www.44bits.io/ko/post/news--google-open-site-reliability-workbook</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;구글에서는 작년 말 사이트 신뢰성 워크북을 출간했습니다. 2019년 1월부터 이 책을 온라인 상에 무료로 읽을 수 있습니다. 이와 함께 구글 클라우드 블로그에서 소개한 SRE 팀 체크리스트를 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--google-open-site-reliability-workbook&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>raccoony</author>
-      <pubDate>Tue, 12 Feb 2019 01:04:32 +0000</pubDate>
-      <dc:date>2019-02-12T01:04:32+00:00</dc:date>
-    </item>
-    <dc:date>2019-12-04T12:08:23.390628+09:00</dc:date>
+    <dc:date>2019-12-05T12:08:09.651932+09:00</dc:date>
   </channel>
 </rss>

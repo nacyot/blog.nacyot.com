@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Fri, 06 Dec 2019 12:10:26 +0900</pubDate>
+    <pubDate>Sat, 07 Dec 2019 12:08:13 +0900</pubDate>
     <item>
       <title>AWS 람다(Lambda), 프로그래밍 언어 최신 버전 추가 지원: 파이썬 3.8, 노드 12.0, 자바 11</title>
       <link>https://www.44bits.io/ko/post/news--aws-lambda-now-supports-python-3-8-nodejs-12-0-java-11</link>
@@ -459,6 +459,6 @@
       <pubDate>Fri, 15 Feb 2019 07:35:33 +0000</pubDate>
       <dc:date>2019-02-15T07:35:33+00:00</dc:date>
     </item>
-    <dc:date>2019-12-06T12:10:26.592326+09:00</dc:date>
+    <dc:date>2019-12-07T12:08:13.587471+09:00</dc:date>
   </channel>
 </rss>

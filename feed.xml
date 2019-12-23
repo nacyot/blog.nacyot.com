@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 22 Dec 2019 12:08:20 +0900</pubDate>
+    <pubDate>Mon, 23 Dec 2019 12:08:24 +0900</pubDate>
+    <item>
+      <title>다시 보는 2019 한국의 주요 IT 개발 컨퍼런스 모음</title>
+      <link>https://www.44bits.io/ko/post/replay-2019-korea-tech-development-conferences</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2019년 한 해 동 다양한 IT/개발 컨퍼런스들이 열렸습니다. 그 중에서 영상으로 다시 보기 가능한 컨퍼런스들을 모았습니다. 44bits 개발 세미나, 파이콘 2019, AWS 서밋 서울, 넥슨 개발자 컨퍼런스, DevOps 밋업,  if (kakao) dev, 데뷰 2019 등.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/replay-2019-korea-tech-development-conferences&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 23 Dec 2019 01:10:43 +0000</pubDate>
+      <dc:date>2019-12-23T01:10:43+00:00</dc:date>
+    </item>
     <item>
       <title>AWS 람다(Lambda), 프로그래밍 언어 최신 버전 추가 지원: 파이썬 3.8, 노드 12.0, 자바 11</title>
       <link>https://www.44bits.io/ko/post/news--aws-lambda-now-supports-python-3-8-nodejs-12-0-java-11</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 25 Feb 2019 00:49:55 +0000</pubDate>
       <dc:date>2019-02-25T00:49:55+00:00</dc:date>
     </item>
-    <item>
-      <title>[44bits.tv] AWS 클라우드와치 로그 쉽게보는 방법 - utern</title>
-      <link>https://www.44bits.io/ko/post/44bits-tv-aws-cloudwatch-utern-seapy</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS CloudWatch 로그를 쉽게 볼수 있도록 해주는 utern CLI 프로그램을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 stdoutfm이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-tv-aws-cloudwatch-utern-seapy&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>stdoutfm</author>
-      <pubDate>Fri, 15 Feb 2019 07:35:33 +0000</pubDate>
-      <dc:date>2019-02-15T07:35:33+00:00</dc:date>
-    </item>
-    <dc:date>2019-12-22T12:08:20.333294+09:00</dc:date>
+    <dc:date>2019-12-23T12:08:24.780634+09:00</dc:date>
   </channel>
 </rss>

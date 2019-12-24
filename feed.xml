@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 23 Dec 2019 12:08:24 +0900</pubDate>
+    <pubDate>Tue, 24 Dec 2019 12:08:37 +0900</pubDate>
+    <item>
+      <title>만들면서 이해하는 도커(Docker) 이미지: 도커 이미지 빌드 원리와 OverlayFS</title>
+      <link>https://www.44bits.io/ko/post/how-docker-image-work</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;도커 이미지는 유니온 마운트 기술을 활용해 계층화된 레이어들로 구성되며, 도커 레지스트리를 사용해 쉽고 효율적인 공유를 가능하게 해줍니다. 이 글에서는 도커 이미지가 저장되는 방식과 도커 이미지 빌드의 원리, 그리고 그 바탕이 되는 유니온 마운트 구현체의 하나인 OverlayFS에 대해서 알아봅니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/how-docker-image-work&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Tue, 24 Dec 2019 01:16:11 +0000</pubDate>
+      <dc:date>2019-12-24T01:16:11+00:00</dc:date>
+    </item>
     <item>
       <title>다시 보는 2019 한국의 주요 IT 개발 컨퍼런스 모음</title>
       <link>https://www.44bits.io/ko/post/replay-2019-korea-tech-development-conferences</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 26 Feb 2019 01:32:54 +0000</pubDate>
       <dc:date>2019-02-26T01:32:54+00:00</dc:date>
     </item>
-    <item>
-      <title>개발자라면 탐나는 .dev 최상위 도메인 등록 시작</title>
-      <link>https://www.44bits.io/ko/post/dot-dev-doamin-for-developers</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;구글(Google)에서는 닷데브(.dev) 최상위 도메인을 공개했습니다. .dev 도메인은 개발과 관련된 사이트에서 많이 활용될 것으로 보이며, 2019년 2월 28일까지 사전 등록을 받고 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/dot-dev-doamin-for-developers&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Mon, 25 Feb 2019 00:49:55 +0000</pubDate>
-      <dc:date>2019-02-25T00:49:55+00:00</dc:date>
-    </item>
-    <dc:date>2019-12-23T12:08:24.780634+09:00</dc:date>
+    <dc:date>2019-12-24T12:08:37.916629+09:00</dc:date>
   </channel>
 </rss>

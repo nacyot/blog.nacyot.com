@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 26 Dec 2019 12:08:33 +0900</pubDate>
+    <pubDate>Fri, 27 Dec 2019 12:08:24 +0900</pubDate>
+    <item>
+      <title>44bits 프로젝트 2019년 결산: 블로그, 팟캐스트, 유튜브 인기 컨텐츠 등</title>
+      <link>https://www.44bits.io/ko/post/44bits-stdoutfm-2019-settlement</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;44bits의 2019년 활동 보고서입니다. 44bits에서는 2018년 7월 블로그를 시작으로, 팟캐스트, 유튜브 등에서 컨텐츠를 제작하고 있습니다. 각 채널의 올해 인기 있었던 컨텐츠들과 앞으로의 계획을 공유합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-stdoutfm-2019-settlement&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Thu, 26 Dec 2019 06:09:35 +0000</pubDate>
+      <dc:date>2019-12-26T06:09:35+00:00</dc:date>
+    </item>
     <item>
       <title>만들면서 이해하는 도커(Docker) 이미지: 도커 이미지 빌드 원리와 OverlayFS</title>
       <link>https://www.44bits.io/ko/post/how-docker-image-work</link>
@@ -444,21 +459,6 @@
       <pubDate>Wed, 06 Mar 2019 21:59:36 +0000</pubDate>
       <dc:date>2019-03-06T21:59:36+00:00</dc:date>
     </item>
-    <item>
-      <title>테라폼(Terraform)을 가장 잘 지원하는 에디터는? - 젯브레인 인텔리J(IntelliJ)를 활용한 테라폼 코드 작성</title>
-      <link>https://www.44bits.io/ko/post/what-is-the-best-editor-that-supports-terraform</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;테라폼(Terraform)은 클라우드 시대에 각광받고 있는 인프라스트럭처 관리 도구입니다. 대다수 에디터들이 코드 하이라이팅이나 자동 완성 등을 지원하지만, 아직까지 인텔리J(IntelliJ) 만큼 강력한 지원 기능을 본 적은 없습니다. 어떤 기능인지 둘러보실까요?&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/what-is-the-best-editor-that-supports-terraform&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>raccoony</author>
-      <pubDate>Tue, 26 Feb 2019 01:32:54 +0000</pubDate>
-      <dc:date>2019-02-26T01:32:54+00:00</dc:date>
-    </item>
-    <dc:date>2019-12-26T12:08:33.801976+09:00</dc:date>
+    <dc:date>2019-12-27T12:08:24.660387+09:00</dc:date>
   </channel>
 </rss>

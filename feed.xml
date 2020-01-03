@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 02 Jan 2020 12:08:11 +0900</pubDate>
+    <pubDate>Fri, 03 Jan 2020 12:08:27 +0900</pubDate>
+    <item>
+      <title>파이썬(Python) 2.7 공식 지원 종료</title>
+      <link>https://www.44bits.io/ko/post/news--python-2-7-retired</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2020년 1월 1일, 파이썬(Python) 2.7 지원이 종료되었습니다. 이로써 파이썬 2.x 버전이 은퇴합니다. 수고한 연장자에게 작별 인사를, 그리고 이제 3.x 버전으로 넘어갈 시점입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--python-2-7-retired&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>raccoony</author>
+      <pubDate>Fri, 03 Jan 2020 01:41:16 +0000</pubDate>
+      <dc:date>2020-01-03T01:41:16+00:00</dc:date>
+    </item>
     <item>
       <title>유니버설 클립보드: 맥북(MacBook)과 아이패드(IPad) 간에 클립보드 공유해서 복사 붙여넣기</title>
       <link>https://www.44bits.io/ko/post/clipboard-sharning-between-macbook-and-ipad-using-universal-clipboard</link>
@@ -444,21 +459,6 @@
       <pubDate>Fri, 26 Apr 2019 00:32:06 +0000</pubDate>
       <dc:date>2019-04-26T00:32:06+00:00</dc:date>
     </item>
-    <item>
-      <title>CNCF, Fluentd 프로젝트 졸업을 발표</title>
-      <link>https://www.44bits.io/ko/post/news--fluentd-has-graduated-cncf</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;CNCF는 지난 4월 11일 Fluentd가 졸업(Graduated) 단계 프로젝트가 되었다고 발표했습니다. 이로써 오픈소스 로깅 프로젝트인 Fluentd는 CNCF 프로젝트 중에 쿠버네티스(Kubernetes), 프로메테우스(Prometheus), 엔보이(Envoy), 코어DNS(CoreDNS), 컨테이너d(containerd)에 이은 여섯 번째 졸업 단계 프로젝트가 되었습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--fluentd-has-graduated-cncf&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Thu, 25 Apr 2019 01:44:42 +0000</pubDate>
-      <dc:date>2019-04-25T01:44:42+00:00</dc:date>
-    </item>
-    <dc:date>2020-01-02T12:08:11.548721+09:00</dc:date>
+    <dc:date>2020-01-03T12:08:27.418414+09:00</dc:date>
   </channel>
 </rss>

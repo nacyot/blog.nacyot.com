@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 05 Jan 2020 12:08:27 +0900</pubDate>
+    <pubDate>Mon, 06 Jan 2020 12:08:32 +0900</pubDate>
+    <item>
+      <title>아마존 웹 서비스(Amazon Web Service) 계정 생성하기</title>
+      <link>https://www.44bits.io/ko/post/creating-aws-web-service-account</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;아마존 웹 서비스는 컴퓨팅 자원과 다양한 매니지드 서비스를 제공하는 클라우드 서비스입니다. 이 서비스들을 사용하기 위해서는 우선 아마존 웹 서비스 계정을 만들어야합니다. 이 글에서는 아마존 웹 서비스 계정을 만들고, AWS의 프리티어와 계정 생성 이후 추가로 해야할 일들에 대해서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/creating-aws-web-service-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 06 Jan 2020 02:19:31 +0000</pubDate>
+      <dc:date>2020-01-06T02:19:31+00:00</dc:date>
+    </item>
     <item>
       <title>파이썬(Python) 2.7 공식 지원 종료</title>
       <link>https://www.44bits.io/ko/post/news--python-2-7-retired</link>
@@ -444,21 +459,6 @@
       <pubDate>Fri, 26 Apr 2019 05:17:57 +0000</pubDate>
       <dc:date>2019-04-26T05:17:57+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 웹 서비스(AWS), 아시아 태평양 지역에 홍콩 리전(ap-east-1)을 새롭게 추가</title>
-      <link>https://www.44bits.io/ko/post/news--aws-announced-new-hongkong-region</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS는 4월 24일 아시아 태평양 지역에 홍콩 리전(Region)을 추가했다고 발표 했습니다. 홍콩 리전의 코드명은 ap-east-1이며 전세계적으로는 스물한 번째, 아시아 태평양 지역에서는 여덟 번째 리전입니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-announced-new-hongkong-region&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Fri, 26 Apr 2019 00:32:06 +0000</pubDate>
-      <dc:date>2019-04-26T00:32:06+00:00</dc:date>
-    </item>
-    <dc:date>2020-01-05T12:08:27.39634+09:00</dc:date>
+    <dc:date>2020-01-06T12:08:32.372505+09:00</dc:date>
   </channel>
 </rss>

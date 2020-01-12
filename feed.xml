@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 11 Jan 2020 12:08:28 +0900</pubDate>
+    <pubDate>Sun, 12 Jan 2020 12:08:08 +0900</pubDate>
     <item>
       <title>아마존 EC2(Amazon EC2) 인스턴스 타입 검색 기능 추가</title>
       <link>https://www.44bits.io/ko/post/news-filtering-amazon-ec2-instance-types</link>
@@ -70,7 +70,7 @@
       <dc:date>2020-01-07T02:34:14+00:00</dc:date>
     </item>
     <item>
-      <title>아마존 웹 서비스(Amazon Web Service) 계정 생성하기</title>
+      <title>아마존 웹 서비스(AWS, Amazon Web Service) 계정 생성하기</title>
       <link>https://www.44bits.io/ko/post/creating-aws-web-service-account</link>
       <description>&lt;div&gt;
 &lt;strong&gt;아마존 웹 서비스는 컴퓨팅 자원과 다양한 매니지드 서비스를 제공하는 클라우드 서비스입니다. 이 서비스들을 사용하기 위해서는 우선 아마존 웹 서비스 계정을 만들어야합니다. 이 글에서는 아마존 웹 서비스 계정을 만들고, AWS의 프리티어와 계정 생성 이후 추가로 해야할 일들에 대해서 소개합니다.&lt;/strong&gt;
@@ -459,6 +459,6 @@
       <pubDate>Thu, 02 May 2019 01:02:34 +0000</pubDate>
       <dc:date>2019-05-02T01:02:34+00:00</dc:date>
     </item>
-    <dc:date>2020-01-11T12:08:28.449565+09:00</dc:date>
+    <dc:date>2020-01-12T12:08:08.326818+09:00</dc:date>
   </channel>
 </rss>

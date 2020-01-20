@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 19 Jan 2020 12:08:23 +0900</pubDate>
+    <pubDate>Mon, 20 Jan 2020 12:08:35 +0900</pubDate>
     <item>
       <title>도커(Docker) 컨테이너는 가상 머신인가요? 프로세스인가요?</title>
       <link>https://www.44bits.io/ko/post/is-docker-container-a-virtual-machine-or-a-process</link>
@@ -459,6 +459,6 @@
       <pubDate>Fri, 03 May 2019 00:51:20 +0000</pubDate>
       <dc:date>2019-05-03T00:51:20+00:00</dc:date>
     </item>
-    <dc:date>2020-01-19T12:08:23.650561+09:00</dc:date>
+    <dc:date>2020-01-20T12:08:35.345784+09:00</dc:date>
   </channel>
 </rss>

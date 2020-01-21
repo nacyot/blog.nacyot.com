@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 20 Jan 2020 12:08:35 +0900</pubDate>
+    <pubDate>Tue, 21 Jan 2020 12:08:12 +0900</pubDate>
+    <item>
+      <title>아마존 웹 서비스(AWS, Amazon Web Serivce)는?</title>
+      <link>https://www.44bits.io/ko/keyword/amazon-web-service</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;아마존 웹 서비스는 아마존의 자회사로 같은 이름으로 퍼블릭 클라우드 컴퓨팅 서비스를 제공하고 있습니다. 대표적인 서비스로는 컴퓨팅 자원을 제공하는 EC2, 오브젝트 스토리지 S3, 프라이빗 클라우드 VPC, 권한 제어 IAM, 컨테이너 오케스트레이션 ECS, EKS 등이 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/amazon-web-service&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Mon, 20 Jan 2020 03:24:20 +0000</pubDate>
+      <dc:date>2020-01-20T03:24:20+00:00</dc:date>
+    </item>
     <item>
       <title>도커(Docker) 컨테이너는 가상 머신인가요? 프로세스인가요?</title>
       <link>https://www.44bits.io/ko/post/is-docker-container-a-virtual-machine-or-a-process</link>
@@ -444,21 +459,6 @@
       <pubDate>Sun, 05 May 2019 07:39:41 +0000</pubDate>
       <dc:date>2019-05-05T07:39:41+00:00</dc:date>
     </item>
-    <item>
-      <title>디자이너와 포토샵 없이 Write the Docs 행사 굿즈 제작하기</title>
-      <link>https://www.44bits.io/ko/post/preparing-wtd-meetup-without-a-designer-nor-photoshop</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2019년 3월에 열린 Write The Docs 서울의 밋업을 준비하면서, 디자이너 없이 꾸역꾸역 대표 이미지와 스티커, 현수막, 배너를 직접 제작한 경험을 정리해보았습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/preparing-wtd-meetup-without-a-designer-nor-photoshop&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>raccoony</author>
-      <pubDate>Fri, 03 May 2019 00:51:20 +0000</pubDate>
-      <dc:date>2019-05-03T00:51:20+00:00</dc:date>
-    </item>
-    <dc:date>2020-01-20T12:08:35.345784+09:00</dc:date>
+    <dc:date>2020-01-21T12:08:12.064503+09:00</dc:date>
   </channel>
 </rss>

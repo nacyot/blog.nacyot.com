@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 23 Jan 2020 12:08:16 +0900</pubDate>
+    <pubDate>Fri, 24 Jan 2020 12:08:21 +0900</pubDate>
+    <item>
+      <title>리눅스 컨테이너란?</title>
+      <link>https://www.44bits.io/ko/keyword/linux-container</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;리눅스 컨테이너는 운영체제 수준의 가상화 기술로 리눅스 커널을 공유하면서 프로세스를 격리된 환경에서 실행하는 기술을 의미합니다. 하드웨어를 가상화하는 가상 머신과 달리 커널을 공유하는 방식이기 때문에 실행 속도가 빠르고, 성능 상의 손실이 거의 없다는 장점이 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/linux-container&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Thu, 23 Jan 2020 16:10:20 +0000</pubDate>
+      <dc:date>2020-01-23T16:10:20+00:00</dc:date>
+    </item>
     <item>
       <title>아마존 웹 서비스(AWS, Amazon Web Serivce)는?</title>
       <link>https://www.44bits.io/ko/keyword/amazon-web-service</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 07 May 2019 04:58:57 +0000</pubDate>
       <dc:date>2019-05-07T04:58:57+00:00</dc:date>
     </item>
-    <item>
-      <title>스티븐 레비의 '해커, 광기의 랩소디' 재발간 텀블벅 펀딩 진행 중</title>
-      <link>https://www.44bits.io/ko/post/news--hackers-heroes-of-the-computer-revolution-is-funding-on-tumblbug</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;스티븐 레비의 ⟪해커, 광기의 랩소디⟫가 재출간을 앞두고 텀블벅에서 펀딩을 진행하고 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44bits.io&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--hackers-heroes-of-the-computer-revolution-is-funding-on-tumblbug&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Sun, 05 May 2019 07:39:41 +0000</pubDate>
-      <dc:date>2019-05-05T07:39:41+00:00</dc:date>
-    </item>
-    <dc:date>2020-01-23T12:08:16.577778+09:00</dc:date>
+    <dc:date>2020-01-24T12:08:21.68424+09:00</dc:date>
   </channel>
 </rss>

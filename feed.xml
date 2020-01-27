@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 26 Jan 2020 12:08:19 +0900</pubDate>
+    <pubDate>Mon, 27 Jan 2020 12:08:15 +0900</pubDate>
+    <item>
+      <title>기술 블로그(Engineering Blog)란?</title>
+      <link>https://www.44bits.io/ko/keyword/engineering-blog</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;기술 블로그는 주로 IT 기업이 운영하는 프로그래밍, 인프라스트럭처, 프로덕션 운영 등을 다루는 블로그를 지칭합니다. 기술 블로그의 의미와 운영에 대해 살펴보고, 기술 블로그를 운영하기에 적합한 블로그 도구와 서비스들을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/engineering-blog&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Mon, 27 Jan 2020 02:07:48 +0000</pubDate>
+      <dc:date>2020-01-27T02:07:48+00:00</dc:date>
+    </item>
     <item>
       <title>비주얼 스튜디오 코드(Visual Studio Code)란?</title>
       <link>https://www.44bits.io/ko/keyword/visual-studio-code</link>
@@ -444,21 +459,6 @@
       <pubDate>Wed, 08 May 2019 06:22:24 +0000</pubDate>
       <dc:date>2019-05-08T06:22:24+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 S3(Amazon S3), 2020년 9월 경로(path) 형식의 API 호출 중지 예정</title>
-      <link>https://www.44bits.io/ko/post/news--amazon-s3-will-no-longer-support-path-style-API-requests</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 S3에서는 현재 경로 형식과 가상 호스트 형식 두 가지 방식의 객체 지정이 가능합니다. 2020년 9월 30일부터 AWS의 S3에 대한 경로 형식의 API 요청이 동작하지 않도록 변경됩니다. 이에 따라 AWS에서는 최신 SDK를 사용하고 경로 형식을 사용하는 코드를 변경하도록 권장하였습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--amazon-s3-will-no-longer-support-path-style-API-requests&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Wed, 08 May 2019 00:35:07 +0000</pubDate>
-      <dc:date>2019-05-08T00:35:07+00:00</dc:date>
-    </item>
-    <dc:date>2020-01-26T12:08:19.468225+09:00</dc:date>
+    <dc:date>2020-01-27T12:08:15.789788+09:00</dc:date>
   </channel>
 </rss>

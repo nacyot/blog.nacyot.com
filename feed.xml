@@ -8,19 +8,34 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 02 Feb 2020 12:08:22 +0900</pubDate>
+    <pubDate>Mon, 03 Feb 2020 12:08:14 +0900</pubDate>
+    <item>
+      <title>홈브류(Homebrew)란?</title>
+      <link>https://www.44bits.io/ko/keyword/homebrew</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;홈브류(Homebrew)는 맥스 호웰(Max Howell)이 주도해서 개발한 맥OS, 리눅스 용 패키지 관리 애플리케이션입니다. 홈브류는 루비(Ruby)로 개발되었으며, 2009년에 개발을 시작해 2019년에는 2.0 버전이 릴리스되었습니다. 현재는 맥OS에서 프로그래밍을 하는 개발자들에게 필수 도구로 자리 잡았습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/homebrew&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 02 Feb 2020 16:20:18 +0000</pubDate>
+      <dc:date>2020-02-02T16:20:18+00:00</dc:date>
+    </item>
     <item>
       <title>깃허브(GitHub)란?</title>
       <link>https://www.44bits.io/ko/keyword/github</link>
       <description>&lt;div&gt;
-&lt;strong&gt;Helloworld&lt;/strong&gt;
+&lt;strong&gt;깃허브(GitHub)는 분산 버전 컨트롤 소프트웨어 깃(Git)을 기반으로 소스 코드를 호스팅 하고, 협업 지원 기능들을 지원하는 소셜 코딩을 지향하는 마이크로소프트(Microsoft)의 웹서비스입니다. 2020년 현재 가장 인기 있는 소스 코드 호스팅 서비스이자 소셜 코딩 플랫폼입니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/github&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/github&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>44bits</author>
       <pubDate>Sat, 01 Feb 2020 14:23:44 +0000</pubDate>
       <dc:date>2020-02-01T14:23:44+00:00</dc:date>
     </item>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 21 May 2019 00:09:56 +0000</pubDate>
       <dc:date>2019-05-21T00:09:56+00:00</dc:date>
     </item>
-    <item>
-      <title>만들면서 배우는 아마존 VPC(Amazon VPC) 입문: AWS 네트워크의 기초</title>
-      <link>https://www.44bits.io/ko/post/understanding_aws_vpc</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 버추얼 프라이빗 클라우드(Amazon VPC)는 아마존 웹 서비스(Amazon Web Service)의 가장 기본이 되는 네트워크 서비스이자 리소스입니다. AWS에서 제공하는 대부분의 리소스들은 아마존 VPC를 기반으로 실행됩니다. 따라서 VPC를 이해하고 있어야 AWS 서비스를 십분 활용할 수 있습니다. 이 글에서는 기본 VPC와 같은 구성을 직접 만들어보면서 VPC의 기본 개념과 리소스들을 소개합니다. &lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/understanding_aws_vpc&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Tue, 14 May 2019 00:43:42 +0000</pubDate>
-      <dc:date>2019-05-14T00:43:42+00:00</dc:date>
-    </item>
-    <dc:date>2020-02-02T12:08:22.453166+09:00</dc:date>
+    <dc:date>2020-02-03T12:08:14.402816+09:00</dc:date>
   </channel>
 </rss>

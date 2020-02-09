@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 08 Feb 2020 12:01:03 +0900</pubDate>
+    <pubDate>Sun, 09 Feb 2020 12:00:29 +0900</pubDate>
+    <item>
+      <title>AWS 람다(AWS Lambda)란?</title>
+      <link>https://www.44bits.io/ko/keyword/aws-lambda</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS 람다(AWS Lambda)는 아마존 웹서비스에서 제공하는 서버리스 컴퓨팅 서비스입니다. 2014년 AWS 리인벤트(AWS re:Invent)에서 처음 발표되었습니다. 서버리스 컴퓨팅은 애플리케이션을 실행하기 위핸 별도의 서버 준비 없이, 곧바로 코드를 실행해주는 서비스입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/aws-lambda&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Sat, 08 Feb 2020 03:50:44 +0000</pubDate>
+      <dc:date>2020-02-08T03:50:44+00:00</dc:date>
+    </item>
     <item>
       <title>홈브류(Homebrew)란?</title>
       <link>https://www.44bits.io/ko/keyword/homebrew</link>
@@ -444,21 +459,6 @@
       <pubDate>Sun, 08 Sep 2019 23:34:56 +0000</pubDate>
       <dc:date>2019-09-08T23:34:56+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 오로라(Amazon Aurora), 글로벌 데이터베이스를 서울 리전에 출시</title>
-      <link>https://www.44bits.io/ko/post/aws-aurora-launches-global-database-to-seoul-region</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;고성능과 가용성에 초점을 맞춘 아마존 오로라(Amazon Aurora) 서비스의 글로벌 데이터베이스 기능이 서울 리전에도 출시되었습니다. 가격은 I/O 백만 회당 $0.24입니다. 현재 '글로벌 데이터베이스' 기능을 지원하는 리전은 모두 열네 군데입니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-aurora-launches-global-database-to-seoul-region&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Tue, 21 May 2019 00:09:56 +0000</pubDate>
-      <dc:date>2019-05-21T00:09:56+00:00</dc:date>
-    </item>
-    <dc:date>2020-02-08T12:01:03.562242+09:00</dc:date>
+    <dc:date>2020-02-09T12:00:29.665655+09:00</dc:date>
   </channel>
 </rss>

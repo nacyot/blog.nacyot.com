@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 01 Mar 2020 12:00:28 +0900</pubDate>
+    <pubDate>Mon, 02 Mar 2020 12:00:43 +0900</pubDate>
     <item>
       <title>파이썬(Python) datetime 클래스 치트시트</title>
       <link>https://www.44bits.io/ko/post/python-datatime-cheetsheet</link>
@@ -459,6 +459,6 @@
       <pubDate>Mon, 30 Sep 2019 23:38:07 +0000</pubDate>
       <dc:date>2019-09-30T23:38:07+00:00</dc:date>
     </item>
-    <dc:date>2020-03-01T12:00:28.605188+09:00</dc:date>
+    <dc:date>2020-03-02T12:00:43.594593+09:00</dc:date>
   </channel>
 </rss>

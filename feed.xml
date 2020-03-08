@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 07 Mar 2020 12:00:36 +0900</pubDate>
+    <pubDate>Sun, 08 Mar 2020 12:00:11 +0900</pubDate>
+    <item>
+      <title>데이터독(Datadog)이란?</title>
+      <link>https://www.44bits.io/ko/keyword/datadog</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;데이터독(Datadog)은 모니터링 서비스입니다. 서버와 클라우드 서비스 모니터링을 시작으로 APM, 로그 수집, 신테틱스, 네트워크, 대시보드, 알람 당 다양한 모니터링 기능들을 제공하고 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/datadog&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Sat, 07 Mar 2020 17:01:38 +0000</pubDate>
+      <dc:date>2020-03-07T17:01:38+00:00</dc:date>
+    </item>
     <item>
       <title>파이썬(Python) datetime 클래스 치트시트</title>
       <link>https://www.44bits.io/ko/post/python-datatime-cheetsheet</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 01 Oct 2019 23:40:16 +0000</pubDate>
       <dc:date>2019-10-01T23:40:16+00:00</dc:date>
     </item>
-    <item>
-      <title>tfenv로 테라폼(Terraform) 버전 관리하기</title>
-      <link>https://www.44bits.io/ko/post/managing-teraform-versions-with-tfenv</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;테라폼을 여러 프로젝트에서 사용하면 다수의 버전이 필요한 경우가 생깁니다. 이럴 때 tfenv를 사용하면 손쉽게 테라폼 버전을 변경해서 사용할 수 있습니다. 이글에서는 tfenv를 사용해 테라폼의 버전을 관리하는 방법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/managing-teraform-versions-with-tfenv&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Mon, 30 Sep 2019 23:38:07 +0000</pubDate>
-      <dc:date>2019-09-30T23:38:07+00:00</dc:date>
-    </item>
-    <dc:date>2020-03-07T12:00:36.691424+09:00</dc:date>
+    <dc:date>2020-03-08T12:00:11.942799+09:00</dc:date>
   </channel>
 </rss>

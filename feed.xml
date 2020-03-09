@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 08 Mar 2020 12:00:11 +0900</pubDate>
+    <pubDate>Mon, 09 Mar 2020 12:00:30 +0900</pubDate>
+    <item>
+      <title>코로나 19 바이러스 여파로 전세계 IT 컨퍼런스 줄지어 취소나 연기</title>
+      <link>https://www.44bits.io/ko/post/news--it-conferences-cancled-because-of-covid-19</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;코로나 19 바이러스(COVID-19) 확산 여파로 전세계적으로 IT 컨퍼런스 행사들이 줄지어 취소되고 있습니다.  구글 I/O, 페이스북 F8, 모바일 월드 콩그레스, SXSW 등 국제 컨퍼런스를 비롯해 한국에서도 NDC, AWS 서울 서밋, 커뮤니티 데이 등이 취소되었습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--it-conferences-cancled-because-of-covid-19&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 08 Mar 2020 04:56:15 +0000</pubDate>
+      <dc:date>2020-03-08T04:56:15+00:00</dc:date>
+    </item>
     <item>
       <title>데이터독(Datadog)이란?</title>
       <link>https://www.44bits.io/ko/keyword/datadog</link>
@@ -444,21 +459,6 @@
       <pubDate>Tue, 15 Oct 2019 02:59:30 +0000</pubDate>
       <dc:date>2019-10-15T02:59:30+00:00</dc:date>
     </item>
-    <item>
-      <title>깔끔한 파이썬 테스트 코드를 위한 페이커(Faker)와 팩토리 보이(Factory Boy)</title>
-      <link>https://www.44bits.io/ko/post/faker-and-factory-boy-for-clean-code-on-python-test</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;파이썬 테스트용 임시 데이터를 만들 때 유용한 페이커(Faker) 라이브러리를 소개합니다. Django 테스트용 임시 데이터를 생성할 때 사용할 수 있는 팩토리 보이(Factory Boy)도 함께 다룹니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/faker-and-factory-boy-for-clean-code-on-python-test&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>raccoony</author>
-      <pubDate>Tue, 01 Oct 2019 23:40:16 +0000</pubDate>
-      <dc:date>2019-10-01T23:40:16+00:00</dc:date>
-    </item>
-    <dc:date>2020-03-08T12:00:11.942799+09:00</dc:date>
+    <dc:date>2020-03-09T12:00:30.573832+09:00</dc:date>
   </channel>
 </rss>

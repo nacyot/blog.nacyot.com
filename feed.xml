@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 21 Mar 2020 12:01:14 +0900</pubDate>
+    <pubDate>Sun, 22 Mar 2020 12:01:42 +0900</pubDate>
+    <item>
+      <title>도커(Docker) 입문편: 컨테이너 기초부터 서버 배포까지</title>
+      <link>https://www.44bits.io/ko/post/easy-deploy-with-docker</link>
+      <description>&lt;div&gt;
+&lt;strong&gt; 도커(Docker)는 2013년 등장한 컨테이너 기반 가상화 도구입니다. 도커를 사용하면 컨테이너를 쉽게 관리할 수 있으며, 이미지를 만들어 외부 서버에 배포하는 것도 가능합니다. 이 글은 도커를 시작하는 하는 사람들을 대상으로 도커의 기본 기능에 대해서 소개하고, 도커 허브와 디지털 오션을 사용해 직접 만든 이미지로 서버 애플리케이션을 배포하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/easy-deploy-with-docker&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 22 Mar 2020 02:55:05 +0000</pubDate>
+      <dc:date>2020-03-22T02:55:05+00:00</dc:date>
+    </item>
     <item>
       <title>44BITS 뉴스레터  2020년 11주</title>
       <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-11</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 18 Nov 2019 23:55:16 +0000</pubDate>
       <dc:date>2019-11-18T23:55:16+00:00</dc:date>
     </item>
-    <item>
-      <title>EC2, Fargate 약정 할인 AWS Savings Plans 발표: 예약 인스턴스(RI)를 대체할 약정 할인 방식</title>
-      <link>https://www.44bits.io/ko/post/aws-introducing-savings-plans</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS에서는 새로운 약정 할인 방식인 Savings Plans를 도입했습니다. Savings Plans로 일정 금액을 약정하면 기존 예약 인스턴스와 달리 리전, 인스턴스 세대, 사이즈와 무관하게 할인이 적용됩니다. 또한 EC2 인스턴스 뿐만 아니라, 파게이트(Fargate)에도 할인이 적용됩니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-introducing-savings-plans&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Mon, 11 Nov 2019 23:35:45 +0000</pubDate>
-      <dc:date>2019-11-11T23:35:45+00:00</dc:date>
-    </item>
-    <dc:date>2020-03-21T12:01:14.478848+09:00</dc:date>
+    <dc:date>2020-03-22T12:01:42.278947+09:00</dc:date>
   </channel>
 </rss>

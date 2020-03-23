@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 22 Mar 2020 12:01:42 +0900</pubDate>
+    <pubDate>Mon, 23 Mar 2020 12:01:40 +0900</pubDate>
+    <item>
+      <title>44BITS 뉴스레터  2020년 12주</title>
+      <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-12</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2020년 12주 44BITS 뉴스레터입니다. 44BITS의 업데이트와 IT / 개발 관련 새소식을 전합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-12&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Mon, 23 Mar 2020 01:36:28 +0000</pubDate>
+      <dc:date>2020-03-23T01:36:28+00:00</dc:date>
+    </item>
+    <item>
+      <title>트리 스타일 탭(Tree Style Tab): 파이어폭스의 수직 탭 확장</title>
+      <link>https://www.44bits.io/ko/post/tree-style-tab-vertical-tab-addon-for-firefox</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;트리 스타일 탭(Tree Style Tab)은 파이어폭스의 탭 목록을 사이드바에 수직으로 보여주는 확장 기능입니다. 많은 탭을 열어놓으면 웹 브라우저를 관리하기가 힘들어지는데, 트리 스타일 탭을 사용하면 좀 더 편리하게 관리할 수 있습니다. 이 글에서는 트리 스타일 탭을 소개하고, 파이어폭스의 기본 탭 바를 가리는 방법도 함께 다룹니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/tree-style-tab-vertical-tab-addon-for-firefox&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 22 Mar 2020 04:50:24 +0000</pubDate>
+      <dc:date>2020-03-22T04:50:24+00:00</dc:date>
+    </item>
     <item>
       <title>도커(Docker) 입문편: 컨테이너 기초부터 서버 배포까지</title>
       <link>https://www.44bits.io/ko/post/easy-deploy-with-docker</link>
@@ -429,36 +459,6 @@
       <pubDate>Wed, 04 Dec 2019 23:16:25 +0000</pubDate>
       <dc:date>2019-12-04T23:16:25+00:00</dc:date>
     </item>
-    <item>
-      <title>Django 3.0 릴리스와 주요 변경 사항: MariaDB 지원, ASGI 지원, 필터 표현식 등</title>
-      <link>https://www.44bits.io/ko/post/django-3-0-release-note-summary</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2019년 12월 2일에 Django 3.0이 출시되었습니다. 이 글에서는 Django 3.0에 추가된 기능과 바뀐 점을 알아보려 합니다. 릴리스 노트만으로 이해하기가 어려운 기능엔 설명을 조금 보태었습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/django-3-0-release-note-summary&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>raccoony</author>
-      <pubDate>Mon, 02 Dec 2019 23:05:37 +0000</pubDate>
-      <dc:date>2019-12-02T23:05:37+00:00</dc:date>
-    </item>
-    <item>
-      <title>Ubiquiti 유니파이(UniFi) 제품으로 홈네트워크 구축: UniFi 시큐리티 게이트웨이, UniFi 스위치 8, UniFi AP AC LITE, UniFi 클라우드키 젠 2</title>
-      <link>https://www.44bits.io/ko/post/home-network-with-ubiquiti-unifi-products-0</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;이번에 홈 네트워크를 ipTime에서 Ubiquiti 유니파이(UniFi) 제품들로 변경했습니다. Unifi 시큐리티 게이트웨이, UniFi 스위치, Unifi AP AC Lite, UniFi 클라우드키 젠2로 홈 네트워크를 구성하고, 장비들을 셋업하는 방법에 대해서 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/home-network-with-ubiquiti-unifi-products-0&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Mon, 18 Nov 2019 23:55:16 +0000</pubDate>
-      <dc:date>2019-11-18T23:55:16+00:00</dc:date>
-    </item>
-    <dc:date>2020-03-22T12:01:42.278947+09:00</dc:date>
+    <dc:date>2020-03-23T12:01:40.829109+09:00</dc:date>
   </channel>
 </rss>

@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 04 Apr 2020 12:01:16 +0900</pubDate>
+    <pubDate>Sun, 05 Apr 2020 12:00:12 +0900</pubDate>
+    <item>
+      <title>Algo로 개인 VPN 서버 구축하기(요약판)</title>
+      <link>https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail-summary</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;Algo는 클라우드에 쉽게 설치해서 사용할 수 있는 개인용 VPN 서버입니다. 이 글에서는 아마존 라이트세일에 VPN 서버를 셋업하는 방법을 요약해서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail-summary&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 05 Apr 2020 02:18:00 +0000</pubDate>
+      <dc:date>2020-04-05T02:18:00+00:00</dc:date>
+    </item>
     <item>
       <title>44BITS 뉴스레터  2020년 13주</title>
       <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-13</link>
@@ -145,7 +160,7 @@
       <dc:date>2020-03-07T17:01:38+00:00</dc:date>
     </item>
     <item>
-      <title>파이썬(Python) datetime 클래스 치트시트</title>
+      <title>파이썬 날짜시간 모듈(datetime) 치트시트</title>
       <link>https://www.44bits.io/ko/post/python-datatime-cheetsheet</link>
       <description>&lt;div&gt;
 &lt;strong&gt;파이썬(Python)의 datatime 클래스를 사용하는 유용한 방법들을 소개합니다. 시간 계산에 필요한 용어와 동작원리도 함께 살펴봅니다.&lt;/strong&gt;
@@ -340,7 +355,7 @@
       <dc:date>2020-01-08T01:53:20+00:00</dc:date>
     </item>
     <item>
-      <title>설치형 개인 VPN 서버 알고(Algo): 아마존 라이트세일(Amazon Lightsail)에 설치하고 운영하기</title>
+      <title>클라우드에 설치하는 개인용 VPN 서버 알고(Algo)</title>
       <link>https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail</link>
       <description>&lt;div&gt;
 &lt;strong&gt;Algo는 클라우드에 쉽게 설치해서 사용가능한 VPN 서버입니다. 이 글에서는 설치형 개인 VPN Algo의 설치 원리를 소개하고 아마존 라이트세일(Amazon Lightsail)에 배포하는 방법을 소개합니다. 그리고 iOS와 맥OS에서 와이어가드(WireGuard) 클라이언트로 VPN 서버를 사용하는 방법을 알려드립니다.&lt;/strong&gt;
@@ -444,21 +459,6 @@
       <pubDate>Thu, 26 Dec 2019 06:09:35 +0000</pubDate>
       <dc:date>2019-12-26T06:09:35+00:00</dc:date>
     </item>
-    <item>
-      <title>만들면서 이해하는 도커(Docker) 이미지: 도커 이미지 빌드 원리와 OverlayFS</title>
-      <link>https://www.44bits.io/ko/post/how-docker-image-work</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;도커 이미지는 유니온 마운트 기술을 활용해 계층화된 레이어들로 구성되며, 도커 레지스트리를 사용해 쉽고 효율적인 공유를 가능하게 해줍니다. 이 글에서는 도커 이미지가 저장되는 방식과 도커 이미지 빌드의 원리, 그리고 그 바탕이 되는 유니온 마운트 구현체의 하나인 OverlayFS에 대해서 알아봅니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/how-docker-image-work&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Tue, 24 Dec 2019 01:16:11 +0000</pubDate>
-      <dc:date>2019-12-24T01:16:11+00:00</dc:date>
-    </item>
-    <dc:date>2020-04-04T12:01:16.336087+09:00</dc:date>
+    <dc:date>2020-04-05T12:00:12.402592+09:00</dc:date>
   </channel>
 </rss>

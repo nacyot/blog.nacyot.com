@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 05 Apr 2020 12:00:12 +0900</pubDate>
+    <pubDate>Mon, 06 Apr 2020 12:00:32 +0900</pubDate>
+    <item>
+      <title>도커(Docker) 트러블슈팅 - 컨테이너 실행환경 디버깅</title>
+      <link>https://www.44bits.io/ko/post/docker-container-trouble-shooting-by-exec-and-commit</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;도커를 사용하다 보면 컨테이너의 실행환경을 디버깅해야하는 일이 자주 생깁니다. 이미지, 살아있는 컨테이너, 심지어는 죽어있는 컨테이너까지 docker run, docker exec, docker commit 명령어를 사용해 컨테이너의 실행환경을 탐색하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/docker-container-trouble-shooting-by-exec-and-commit&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 05 Apr 2020 23:40:43 +0000</pubDate>
+      <dc:date>2020-04-05T23:40:43+00:00</dc:date>
+    </item>
+    <item>
+      <title>AWS CLI v2에서 아마존 ECR 로그인 방법 변경</title>
+      <link>https://www.44bits.io/ko/post/amazon-ecr-login-by-awscliv2</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;지난 2월 AWS CLI v2가 릴리스 되고, 아마존 ECR 로그인 방법에도 변화가 생겼습니다. 기존에는 get-login 명령어를 사용해 ECR에 로그인을 했습니다만, v2에서는 이 명령어가 사라지고 그 자리를 get-login-password가 대체합니다. 이 글에서는 AWS CLI의 ECR 로그인 원리와 get-login-password 사용법에 대해서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-ecr-login-by-awscliv2&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 05 Apr 2020 04:30:38 +0000</pubDate>
+      <dc:date>2020-04-05T04:30:38+00:00</dc:date>
+    </item>
     <item>
       <title>Algo로 개인 VPN 서버 구축하기(요약판)</title>
       <link>https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail-summary</link>
@@ -429,36 +459,6 @@
       <pubDate>Tue, 31 Dec 2019 00:55:46 +0000</pubDate>
       <dc:date>2019-12-31T00:55:46+00:00</dc:date>
     </item>
-    <item>
-      <title>44bits 첫 번째 밋업 소식: AWS re:Invent 2019 회고</title>
-      <link>https://www.44bits.io/ko/post/44bits-first-meetup-reinvent-2019-retrospection</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;지난 12월 18일 44bits의 첫 번째 밋업을 열었습니다. 첫 번째 모임의 주제는 re:Invent 2019 회고였습니다. 리인벤트 참가 후기(raccoony), 11월 이후 AWS 주요 업데이트 정리(nacyot), re:Invent 2019 머신러닝 발표 정리(유경윤) 발표가 진행되었습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-first-meetup-reinvent-2019-retrospection&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Fri, 27 Dec 2019 03:51:28 +0000</pubDate>
-      <dc:date>2019-12-27T03:51:28+00:00</dc:date>
-    </item>
-    <item>
-      <title>44bits 프로젝트 2019년 결산: 블로그, 팟캐스트, 유튜브 인기 컨텐츠 등</title>
-      <link>https://www.44bits.io/ko/post/44bits-stdoutfm-2019-settlement</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;44bits의 2019년 활동 보고서입니다. 44bits에서는 2018년 7월 블로그를 시작으로, 팟캐스트, 유튜브 등에서 컨텐츠를 제작하고 있습니다. 각 채널의 올해 인기 있었던 컨텐츠들과 앞으로의 계획을 공유합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-stdoutfm-2019-settlement&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Thu, 26 Dec 2019 06:09:35 +0000</pubDate>
-      <dc:date>2019-12-26T06:09:35+00:00</dc:date>
-    </item>
-    <dc:date>2020-04-05T12:00:12.402592+09:00</dc:date>
+    <dc:date>2020-04-06T12:00:32.403121+09:00</dc:date>
   </channel>
 </rss>

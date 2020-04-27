@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 26 Apr 2020 12:00:26 +0900</pubDate>
+    <pubDate>Mon, 27 Apr 2020 12:00:24 +0900</pubDate>
+    <item>
+      <title>44BITS 뉴스레터  2020년 16-17주</title>
+      <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-16-17</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2020년 16-17주 44BITS 뉴스레터입니다. 44BITS의 업데이트와 IT / 개발 관련 새소식을 전합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-16-17&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Mon, 27 Apr 2020 01:20:03 +0000</pubDate>
+      <dc:date>2020-04-27T01:20:03+00:00</dc:date>
+    </item>
+    <item>
+      <title>Node.js 라이브러리 Readability로 전문 RSS 만들기</title>
+      <link>https://www.44bits.io/ko/post/generate-full-feed-by-using-mozilla-readability</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;Node.js 라이브러리 Readability는 파이어폭스의 읽기 모드를 독립적으로 구현한 라이브러리입니다. 이 라이브러리를 사용해 특정 URL의 기사를 본문만 추출해낼 수 있습니다. 이 글에서는 readability를 활용해 요약 RSS를 전문 RSS를 만들어봅니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/generate-full-feed-by-using-mozilla-readability&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 26 Apr 2020 05:43:10 +0000</pubDate>
+      <dc:date>2020-04-26T05:43:10+00:00</dc:date>
+    </item>
     <item>
       <title>구글에서 세 번째 SRE 도서 Building Secure and Reliable Systems 무료 공개</title>
       <link>https://www.44bits.io/ko/post/third-free-sre-book-build-seruce-and-reliable-system</link>
@@ -429,36 +459,6 @@
       <pubDate>Tue, 07 Jan 2020 02:34:14 +0000</pubDate>
       <dc:date>2020-01-07T02:34:14+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 웹 서비스(AWS, Amazon Web Service) 계정 생성하기</title>
-      <link>https://www.44bits.io/ko/post/creating-aws-web-service-account</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 웹 서비스는 컴퓨팅 자원과 다양한 매니지드 서비스를 제공하는 클라우드 서비스입니다. 이 서비스들을 사용하기 위해서는 우선 아마존 웹 서비스 계정을 만들어야합니다. 이 글에서는 아마존 웹 서비스 계정을 만들고, AWS의 프리티어와 계정 생성 이후 추가로 해야할 일들에 대해서 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/creating-aws-web-service-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Mon, 06 Jan 2020 02:19:31 +0000</pubDate>
-      <dc:date>2020-01-06T02:19:31+00:00</dc:date>
-    </item>
-    <item>
-      <title>파이썬(Python) 2.7 공식 지원 종료</title>
-      <link>https://www.44bits.io/ko/post/news--python-2-7-retired</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2020년 1월 1일, 파이썬(Python) 2.7 지원이 종료되었습니다. 이로써 파이썬 2.x 버전이 은퇴합니다. 수고한 연장자에게 작별 인사를, 그리고 이제 3.x 버전으로 넘어갈 시점입니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--python-2-7-retired&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>raccoony</author>
-      <pubDate>Fri, 03 Jan 2020 01:41:16 +0000</pubDate>
-      <dc:date>2020-01-03T01:41:16+00:00</dc:date>
-    </item>
-    <dc:date>2020-04-26T12:00:26.118773+09:00</dc:date>
+    <dc:date>2020-04-27T12:00:24.690972+09:00</dc:date>
   </channel>
 </rss>

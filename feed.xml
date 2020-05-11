@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 10 May 2020 12:01:44 +0900</pubDate>
+    <pubDate>Mon, 11 May 2020 12:01:37 +0900</pubDate>
+    <item>
+      <title>깃허브(GitHub), 새로운 가격 정책 발표. 팀에서도 이제 무료로 비공개 저장소 사용 가능해져</title>
+      <link>https://www.44bits.io/ko/post/news--github-announce-new-price-plan</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;지난 4월 14일 깃허브(GitHub)에서는 새로운 플랜과 가격을 발표했습니다. 기존 개인용 Pro 플랜은 월 $7에서 $4로 가격이 인하되며, 팀 플랜 가격도 월 $4로 단순화 됩니다. 또한 팀 플랜을 구독하지 않더라도 이제 오거니제이션(Organization)에서 비공개 저장소를 운영할 수 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-announce-new-price-plan&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Sun, 10 May 2020 03:23:48 +0000</pubDate>
+      <dc:date>2020-05-10T03:23:48+00:00</dc:date>
+    </item>
     <item>
       <title>44BITS 뉴스레터  2020년 16-17주</title>
       <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-16-17</link>
@@ -444,21 +459,6 @@
       <pubDate>Wed, 08 Jan 2020 01:53:20 +0000</pubDate>
       <dc:date>2020-01-08T01:53:20+00:00</dc:date>
     </item>
-    <item>
-      <title>클라우드에 설치하는 개인용 VPN 서버 알고(Algo)</title>
-      <link>https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;Algo는 클라우드에 쉽게 설치해서 사용가능한 VPN 서버입니다. 이 글에서는 설치형 개인 VPN Algo의 설치 원리를 소개하고 아마존 라이트세일(Amazon Lightsail)에 배포하는 방법을 소개합니다. 그리고 iOS와 맥OS에서 와이어가드(WireGuard) 클라이언트로 VPN 서버를 사용하는 방법을 알려드립니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Tue, 07 Jan 2020 02:34:14 +0000</pubDate>
-      <dc:date>2020-01-07T02:34:14+00:00</dc:date>
-    </item>
-    <dc:date>2020-05-10T12:01:44.636983+09:00</dc:date>
+    <dc:date>2020-05-11T12:01:37.550577+09:00</dc:date>
   </channel>
 </rss>

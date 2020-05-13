@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 12 May 2020 12:00:13 +0900</pubDate>
+    <pubDate>Wed, 13 May 2020 12:00:39 +0900</pubDate>
+    <item>
+      <title>AWS, EC2 예약 인스턴스와 세이빙스 플랜에 적용되는 가격 인하 발표</title>
+      <link>https://www.44bits.io/ko/post/news--aws-ec2-price-reduction-for-ri-and-savings-plans</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS에서는 EC2 예약 인스턴스와 세이빙스 플랜에 적용되는 가격 인하를 발표했습니다. 인하폭은 리전 별로 다르며, 서울 리전의 경우 1년 약정시 C5 인스턴스가 7% 할인 되며, 3년 약정의 경우 M5 6%, C5 12%, R5 5% 요금 인하가 적용됩니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-ec2-price-reduction-for-ri-and-savings-plans&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>nacyot</author>
+      <pubDate>Tue, 12 May 2020 07:18:51 +0000</pubDate>
+      <dc:date>2020-05-12T07:18:51+00:00</dc:date>
+    </item>
     <item>
       <title>44BITS 뉴스레터  2020년 18-19주</title>
       <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-18-19</link>
@@ -444,21 +459,6 @@
       <pubDate>Fri, 10 Jan 2020 01:18:46 +0000</pubDate>
       <dc:date>2020-01-10T01:18:46+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 ECR(Amazon ECR), 도커 이미지 취약점 스캔 기능 추가</title>
-      <link>https://www.44bits.io/ko/post/news--amazon-ecr-docker-image-vulnerabilities-scanning</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;작년 10월 28일에 아마존 웹 서비스(Amazon Web Service)의 매니지드 도커 레지스트리 서비스 아마존 ECR(Amazon ECR)에 이미지 취약점 검사 기능이 추가되었습니다. 이 기능을 사용해 현재 등록된 이미지의 취약점을 스캔하거나, 새로 푸시되는 이미지를 자동적으로 스캔하는 것이 가능합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--amazon-ecr-docker-image-vulnerabilities-scanning&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Thu, 09 Jan 2020 12:12:18 +0000</pubDate>
-      <dc:date>2020-01-09T12:12:18+00:00</dc:date>
-    </item>
-    <dc:date>2020-05-12T12:00:13.827874+09:00</dc:date>
+    <dc:date>2020-05-13T12:00:39.595916+09:00</dc:date>
   </channel>
 </rss>

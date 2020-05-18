@@ -8,7 +8,52 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 17 May 2020 12:00:22 +0900</pubDate>
+    <pubDate>Mon, 18 May 2020 12:00:27 +0900</pubDate>
+    <item>
+      <title>버추얼 컨퍼런스의 전성 시대: 온라인으로 열리는 개발 컨퍼런스 모음</title>
+      <link>https://www.44bits.io/ko/post/news--virtual-developer-conferences</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;코로나 19의 여파로 개발 컨퍼런스들이 오프라인 행사를 취소하고 버추얼 컨퍼런스 개최를 발표하고 있습니다. 현재까지 열린 주요 버추얼 컨퍼런스와 앞으로 열릴 행사들을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--virtual-developer-conferences&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Mon, 18 May 2020 01:36:34 +0000</pubDate>
+      <dc:date>2020-05-18T01:36:34+00:00</dc:date>
+    </item>
+    <item>
+      <title>44BITS 뉴스레터  2020년 20주</title>
+      <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-20</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2020년 20주 44BITS 뉴스레터입니다. 44BITS의 업데이트와 IT / 개발 관련 새소식을 전합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-20&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Mon, 18 May 2020 01:32:08 +0000</pubDate>
+      <dc:date>2020-05-18T01:32:08+00:00</dc:date>
+    </item>
+    <item>
+      <title>사이드킥(Sidekiq) 큐에서 태스크나 예약작업 삭제하기</title>
+      <link>https://www.44bits.io/ko/post/deleting-sidekiq-scheduled-job</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;사이드킥(Sidekiq)은 레디스(Redis)를 기반으로 루비 온 레일스(Ruby on Rails)의 비동기 처리를 지원합니다. 의도치 않게 큐에 작업이나 예약 작업이 등록되었을 때 삭제하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/deleting-sidekiq-scheduled-job&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sun, 17 May 2020 03:29:40 +0000</pubDate>
+      <dc:date>2020-05-17T03:29:40+00:00</dc:date>
+    </item>
     <item>
       <title>AWS, EC2 예약 인스턴스와 세이빙스 플랜에 적용되는 가격 인하 발표</title>
       <link>https://www.44bits.io/ko/post/news--aws-ec2-price-reduction-for-ri-and-savings-plans</link>
@@ -17,10 +62,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-ec2-price-reduction-for-ri-and-savings-plans&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-ec2-price-reduction-for-ri-and-savings-plans&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Tue, 12 May 2020 07:18:51 +0000</pubDate>
       <dc:date>2020-05-12T07:18:51+00:00</dc:date>
     </item>
@@ -47,10 +92,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-announce-new-price-plan&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-announce-new-price-plan&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 10 May 2020 03:23:48 +0000</pubDate>
       <dc:date>2020-05-10T03:23:48+00:00</dc:date>
     </item>
@@ -77,10 +122,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/generate-full-feed-by-using-mozilla-readability&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/generate-full-feed-by-using-mozilla-readability&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 26 Apr 2020 05:43:10 +0000</pubDate>
       <dc:date>2020-04-26T05:43:10+00:00</dc:date>
     </item>
@@ -92,10 +137,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/third-free-sre-book-build-seruce-and-reliable-system&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/third-free-sre-book-build-seruce-and-reliable-system&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sat, 25 Apr 2020 02:44:48 +0000</pubDate>
       <dc:date>2020-04-25T02:44:48+00:00</dc:date>
     </item>
@@ -122,10 +167,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/docker-container-trouble-shooting-by-exec-and-commit&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/docker-container-trouble-shooting-by-exec-and-commit&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 05 Apr 2020 23:40:43 +0000</pubDate>
       <dc:date>2020-04-05T23:40:43+00:00</dc:date>
     </item>
@@ -137,10 +182,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-ecr-login-by-awscliv2&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-ecr-login-by-awscliv2&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 05 Apr 2020 04:30:38 +0000</pubDate>
       <dc:date>2020-04-05T04:30:38+00:00</dc:date>
     </item>
@@ -152,10 +197,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail-summary&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail-summary&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 05 Apr 2020 02:18:00 +0000</pubDate>
       <dc:date>2020-04-05T02:18:00+00:00</dc:date>
     </item>
@@ -182,10 +227,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--pycon-kr-2020-online-conversion&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--pycon-kr-2020-online-conversion&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Tue, 31 Mar 2020 04:00:23 +0000</pubDate>
       <dc:date>2020-03-31T04:00:23+00:00</dc:date>
     </item>
@@ -197,10 +242,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-12&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-12&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Mon, 23 Mar 2020 01:36:28 +0000</pubDate>
       <dc:date>2020-03-23T01:36:28+00:00</dc:date>
     </item>
@@ -212,10 +257,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/tree-style-tab-vertical-tab-addon-for-firefox&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/tree-style-tab-vertical-tab-addon-for-firefox&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 22 Mar 2020 04:50:24 +0000</pubDate>
       <dc:date>2020-03-22T04:50:24+00:00</dc:date>
     </item>
@@ -227,10 +272,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/easy-deploy-with-docker&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/easy-deploy-with-docker&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 22 Mar 2020 02:55:05 +0000</pubDate>
       <dc:date>2020-03-22T02:55:05+00:00</dc:date>
     </item>
@@ -257,10 +302,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_code&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/terraform_introduction_infrastrucute_as_code&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sat, 14 Mar 2020 04:16:17 +0000</pubDate>
       <dc:date>2020-03-14T04:16:17+00:00</dc:date>
     </item>
@@ -272,10 +317,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--it-conferences-cancled-because-of-covid-19&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--it-conferences-cancled-because-of-covid-19&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 08 Mar 2020 04:56:15 +0000</pubDate>
       <dc:date>2020-03-08T04:56:15+00:00</dc:date>
     </item>
@@ -332,10 +377,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/homebrew&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/homebrew&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Sun, 02 Feb 2020 16:20:18 +0000</pubDate>
       <dc:date>2020-02-02T16:20:18+00:00</dc:date>
     </item>
@@ -362,10 +407,10 @@
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--amazon-eks-price-reduction&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--amazon-eks-price-reduction&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
 &lt;/div&gt;
 </description>
-      <author>nacyot</author>
+      <author>Daegwon Nacyot Kim</author>
       <pubDate>Tue, 28 Jan 2020 01:07:00 +0000</pubDate>
       <dc:date>2020-01-28T01:07:00+00:00</dc:date>
     </item>
@@ -414,51 +459,6 @@
       <pubDate>Thu, 23 Jan 2020 16:10:20 +0000</pubDate>
       <dc:date>2020-01-23T16:10:20+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 웹 서비스(AWS, Amazon Web Serivce)란?</title>
-      <link>https://www.44bits.io/ko/keyword/amazon-web-service</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 웹 서비스는 아마존의 자회사로 같은 이름으로 퍼블릭 클라우드 컴퓨팅 서비스를 제공하고 있습니다. 대표적인 서비스로는 컴퓨팅 자원을 제공하는 EC2, 오브젝트 스토리지 S3, 프라이빗 클라우드 VPC, 권한 제어 IAM, 컨테이너 오케스트레이션 ECS, EKS 등이 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/amazon-web-service&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Mon, 20 Jan 2020 03:24:20 +0000</pubDate>
-      <dc:date>2020-01-20T03:24:20+00:00</dc:date>
-    </item>
-    <item>
-      <title>도커(Docker) 컨테이너는 가상 머신인가요? 프로세스인가요?</title>
-      <link>https://www.44bits.io/ko/post/is-docker-container-a-virtual-machine-or-a-process</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;도커 컨테이너는 가상 머신과 비슷한 특징을 가지고 있습니다. 독립적인 파일 시스템 환경을 가지고 있고, 프로세스 아이디도 호스트와 다르고, 네트워크도 격리되어 있습니다. 하지만 분명 가상 머신은 아닙니다. 이 글에서는 도커 컨테이너가 가상머신과 어떻게 다르고, 호스트 입장에서는 단순히 프로세스라는 것을 직접 확인해봅니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/is-docker-container-a-virtual-machine-or-a-process&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Mon, 13 Jan 2020 01:53:32 +0000</pubDate>
-      <dc:date>2020-01-13T01:53:32+00:00</dc:date>
-    </item>
-    <item>
-      <title>아마존 EC2(Amazon EC2) 인스턴스 타입 검색 기능 추가</title>
-      <link>https://www.44bits.io/ko/post/news-filtering-amazon-ec2-instance-types</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;지난 10월 22일 아마존 EC2에는 인스턴스 타입을 검색하고 비교할 수 있는 검색 메뉴가 추가되었습니다. 아마존 EC2는 다양한 인스턴스 타입을 제공해서 선택하는 것도 쉽지 않았습니다. 인스턴스 검색 기능을 사용해 현재 상황에서 적절한 인스턴스 타입을 선택하는데 도움이 될 것으로 보입니다. 이 기능은 웹 콘솔과 API로 제공됩니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 nacyot이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news-filtering-amazon-ec2-instance-types&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>nacyot</author>
-      <pubDate>Fri, 10 Jan 2020 01:18:46 +0000</pubDate>
-      <dc:date>2020-01-10T01:18:46+00:00</dc:date>
-    </item>
-    <dc:date>2020-05-17T12:00:22.631081+09:00</dc:date>
+    <dc:date>2020-05-18T12:00:27.880496+09:00</dc:date>
   </channel>
 </rss>

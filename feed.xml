@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 31 May 2020 12:00:26 +0900</pubDate>
+    <pubDate>Mon, 01 Jun 2020 12:01:03 +0900</pubDate>
+    <item>
+      <title>코모도 CA(Comodo)의 AddTrust External 루트 인증서 만료</title>
+      <link>https://www.44bits.io/ko/post/comodo-ca-addtrust-external-root-certificates-expiration</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;한국 시간 5월 30일 오후 7시 48분을 기해 코모도(Comodo) 사의 루트 인증서 AddTrust External CA Root가 만료되었습니다. 이는 2017년 프랜시스코 파트너스가 코모도 CA를 인수하면서 브랜드명을 섹티고(Sectigo)로 변경하는 과정에서 결정된 사항으로, 다수의 서비스와 시스템에 영향을 준 것으로 보입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/comodo-ca-addtrust-external-root-certificates-expiration&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Mon, 01 Jun 2020 01:50:30 +0000</pubDate>
+      <dc:date>2020-06-01T01:50:30+00:00</dc:date>
+    </item>
     <item>
       <title>노션(Notion) 새로운 가격 정책 발표: 블럭 제한 없는 퍼스널 플랜을 무료로 제공</title>
       <link>https://www.44bits.io/ko/post/news--notion-announced-personal-plan-for-free</link>
@@ -444,21 +459,6 @@
       <pubDate>Sat, 01 Feb 2020 14:23:44 +0000</pubDate>
       <dc:date>2020-02-01T14:23:44+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 EKS(Amazon EKS) 50% 요금 인하 발표 - 시간당 0.10 USD</title>
-      <link>https://www.44bits.io/ko/post/news--amazon-eks-price-reduction</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 EKS는 아마존 웹 서비스에서 제공하는 매니지드 쿠버네티스 서비스입니다. AWS에서는 2020년 1월 21일 50% 요금 인하를 발표했습니다. 기존에는 시간당 0.2USD였습니다만 이제 0.1USD로 사용할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--amazon-eks-price-reduction&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Tue, 28 Jan 2020 01:07:00 +0000</pubDate>
-      <dc:date>2020-01-28T01:07:00+00:00</dc:date>
-    </item>
-    <dc:date>2020-05-31T12:00:26.566329+09:00</dc:date>
+    <dc:date>2020-06-01T12:01:03.627657+09:00</dc:date>
   </channel>
 </rss>

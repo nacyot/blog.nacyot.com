@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 06 Jun 2020 12:00:13 +0900</pubDate>
+    <pubDate>Sun, 07 Jun 2020 12:01:03 +0900</pubDate>
+    <item>
+      <title>Docker for Mac Edge 채널에 Mutagen 기반 캐싱 기능 추가</title>
+      <link>https://www.44bits.io/ko/post/news--docker-desktop-for-mac-edge-channel-with-mutagen-based-caching</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;도커 데스크탑 포 맥(Docker Desktop for Mac)의 엣지 채널에 뮤타젠(Mutagen) 기반의 캐싱 기능이 추가되었습니다. 이를 사용하면 호스트와 컨테이너 간에 파일을 공유할 때 퍼포먼스 향상을 기대할 수 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--docker-desktop-for-mac-edge-channel-with-mutagen-based-caching&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sun, 07 Jun 2020 01:41:39 +0000</pubDate>
+      <dc:date>2020-06-07T01:41:39+00:00</dc:date>
+    </item>
     <item>
       <title>44BITS 뉴스레터  2020년 21-22주</title>
       <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-21-22</link>
@@ -444,21 +459,6 @@
       <pubDate>Sat, 08 Feb 2020 03:50:44 +0000</pubDate>
       <dc:date>2020-02-08T03:50:44+00:00</dc:date>
     </item>
-    <item>
-      <title>홈브류(Homebrew)란?</title>
-      <link>https://www.44bits.io/ko/keyword/homebrew</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;홈브류(Homebrew)는 맥스 호웰(Max Howell)이 주도해서 개발한 맥OS, 리눅스 용 패키지 관리 애플리케이션입니다. 홈브류는 루비(Ruby)로 개발되었으며, 2009년에 개발을 시작해 2019년에는 2.0 버전이 릴리스되었습니다. 현재는 맥OS에서 프로그래밍을 하는 개발자들에게 필수 도구로 자리 잡았습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/homebrew&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 02 Feb 2020 16:20:18 +0000</pubDate>
-      <dc:date>2020-02-02T16:20:18+00:00</dc:date>
-    </item>
-    <dc:date>2020-06-06T12:00:13.032811+09:00</dc:date>
+    <dc:date>2020-06-07T12:01:03.003235+09:00</dc:date>
   </channel>
 </rss>

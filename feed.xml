@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 14 Jun 2020 12:00:54 +0900</pubDate>
+    <pubDate>Mon, 15 Jun 2020 12:00:19 +0900</pubDate>
+    <item>
+      <title>WSL2(Windows Subsystem for Linux 2) 설치 및 사용 방법</title>
+      <link>https://www.44bits.io/ko/post/wsl2-install-and-basic-usage</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;지난 5월 윈도우10의 대규모 업데이트가 있었습니다. 이번 업데이트에는 WSL2 정식 릴리스가 포함되어있습니다. WSL은 경략 가상화 기술을 통해 윈도우에서 리눅스 배포판을 사용할 수 있게 도와주는 기능으로, WSL2는 WSL에 비해서 획기적인 성능 개선이 있었습니다. 이 글에서는 WSL2를 설치하고 기본적인 사용 방법에 대해서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/wsl2-install-and-basic-usage&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Mon, 15 Jun 2020 02:49:49 +0000</pubDate>
+      <dc:date>2020-06-15T02:49:49+00:00</dc:date>
+    </item>
+    <item>
+      <title>윈도우 10(Windows 10) 2020년 5월 업데이트 릴리스 및 적용하기</title>
+      <link>https://www.44bits.io/ko/post/news--windows-2020-may-update-release</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;지난 5월 윈도우 10 2020 5월 업데이트가 릴리스되었습니다. 이번 업데이는 2019년 11월 이후 새로운 대규모 업데이트로 블루투스 기기 지원 강화, 에모지 키보드 지원, 다이렉트X 12(DirectX 12) 울티메이트 지원, 코타나 채팅 인터페이스 추가, WSL2 정식 릴리스 등이 포함되어있습니다. 이 글에서는 윈도우 10 2020년 5월 업데이트를 적용하는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--windows-2020-may-update-release&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Mon, 15 Jun 2020 02:33:11 +0000</pubDate>
+      <dc:date>2020-06-15T02:33:11+00:00</dc:date>
+    </item>
     <item>
       <title>마크다운 노트앱 베어(Bear), 에디터 2.0 알파 공개 테스트 중</title>
       <link>https://www.44bits.io/ko/post/news--markdown-note-app-bear-announced-new-alpha-editor</link>
@@ -429,36 +459,6 @@
       <pubDate>Sat, 14 Mar 2020 04:16:17 +0000</pubDate>
       <dc:date>2020-03-14T04:16:17+00:00</dc:date>
     </item>
-    <item>
-      <title>코로나 19 바이러스 여파로 전세계 IT 컨퍼런스 줄지어 취소나 연기</title>
-      <link>https://www.44bits.io/ko/post/news--it-conferences-cancled-because-of-covid-19</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;코로나 19 바이러스(COVID-19) 확산 여파로 전세계적으로 IT 컨퍼런스 행사들이 줄지어 취소되고 있습니다.  구글 I/O, 페이스북 F8, 모바일 월드 콩그레스, SXSW 등 국제 컨퍼런스를 비롯해 한국에서도 NDC, AWS 서울 서밋, 커뮤니티 데이 등이 취소되었습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--it-conferences-cancled-because-of-covid-19&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 08 Mar 2020 04:56:15 +0000</pubDate>
-      <dc:date>2020-03-08T04:56:15+00:00</dc:date>
-    </item>
-    <item>
-      <title>데이터독(Datadog)이란?</title>
-      <link>https://www.44bits.io/ko/keyword/datadog</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;데이터독(Datadog)은 모니터링 서비스입니다. 서버와 클라우드 서비스 모니터링을 시작으로 APM, 로그 수집, 신테틱스, 네트워크, 대시보드, 알람 당 다양한 모니터링 기능들을 제공하고 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/datadog&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Sat, 07 Mar 2020 17:01:38 +0000</pubDate>
-      <dc:date>2020-03-07T17:01:38+00:00</dc:date>
-    </item>
-    <dc:date>2020-06-14T12:00:54.829225+09:00</dc:date>
+    <dc:date>2020-06-15T12:00:19.422398+09:00</dc:date>
   </channel>
 </rss>

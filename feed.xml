@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 01 Jul 2020 12:01:29 +0900</pubDate>
+    <pubDate>Thu, 02 Jul 2020 12:00:25 +0900</pubDate>
+    <item>
+      <title>AWS 라우트53(Route53), 다른 계정으로 호스팅 영역 DNS 레코드 이전하기</title>
+      <link>https://www.44bits.io/ko/post/aws-route-53-migration-hosted-zone-to-another-account</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS 라우트53(Route53)에서는 도메인에 연결된 호스팅 영역(Hosted Zone)에서 DNS 레코드를 관리합니다. 다른 계정으로 도메인을 이전하더라도 호스팅 영역은 자동적으로 이전되지 않기 때문에 별도의 마이그레이션 작업을 진행해야합니다. 이 글에에서는 AWS53의 호스팅 영역을 이전하는 간단한 예제를 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-route-53-migration-hosted-zone-to-another-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Wed, 01 Jul 2020 06:16:08 +0000</pubDate>
+      <dc:date>2020-07-01T06:16:08+00:00</dc:date>
+    </item>
+    <item>
+      <title>AWS 라우트53(Route 53) 다른 계정으로 도메인 이전하기</title>
+      <link>https://www.44bits.io/ko/post/aws-route-53-migration-domain-to-another-account</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS 라우트53에 등록된 도메인을 AWS의 다른 계정으로 옮기는 방법을 소개합니다. AWS에서는 transfer-domain-to-another-aws-account와 accept-domain-transfer-from-another-aws-account API 2개로 라우트53에 등록된 도메인을 손쉽게 이전할 수 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-route-53-migration-domain-to-another-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Wed, 01 Jul 2020 06:12:14 +0000</pubDate>
+      <dc:date>2020-07-01T06:12:14+00:00</dc:date>
+    </item>
     <item>
       <title>Mackup으로 시스템 설정 파일(dotfiles) 백업하고 복원하기</title>
       <link>https://www.44bits.io/ko/post/managing-dotfiles-by-using-mackup</link>
@@ -429,36 +459,6 @@
       <pubDate>Tue, 31 Mar 2020 04:00:23 +0000</pubDate>
       <dc:date>2020-03-31T04:00:23+00:00</dc:date>
     </item>
-    <item>
-      <title>44BITS 뉴스레터  2020년 12주</title>
-      <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-12</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2020년 12주 44BITS 뉴스레터입니다. 44BITS의 업데이트와 IT / 개발 관련 새소식을 전합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-12&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Mon, 23 Mar 2020 01:36:28 +0000</pubDate>
-      <dc:date>2020-03-23T01:36:28+00:00</dc:date>
-    </item>
-    <item>
-      <title>트리 스타일 탭(Tree Style Tab): 파이어폭스의 수직 탭 확장</title>
-      <link>https://www.44bits.io/ko/post/tree-style-tab-vertical-tab-addon-for-firefox</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;트리 스타일 탭(Tree Style Tab)은 파이어폭스의 탭 목록을 사이드바에 수직으로 보여주는 확장 기능입니다. 많은 탭을 열어놓으면 웹 브라우저를 관리하기가 힘들어지는데, 트리 스타일 탭을 사용하면 좀 더 편리하게 관리할 수 있습니다. 이 글에서는 트리 스타일 탭을 소개하고, 파이어폭스의 기본 탭 바를 가리는 방법도 함께 다룹니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/tree-style-tab-vertical-tab-addon-for-firefox&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 22 Mar 2020 04:50:24 +0000</pubDate>
-      <dc:date>2020-03-22T04:50:24+00:00</dc:date>
-    </item>
-    <dc:date>2020-07-01T12:01:29.798547+09:00</dc:date>
+    <dc:date>2020-07-02T12:00:25.732083+09:00</dc:date>
   </channel>
 </rss>

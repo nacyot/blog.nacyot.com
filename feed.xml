@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 18 Aug 2020 12:00:43 +0900</pubDate>
+    <pubDate>Wed, 19 Aug 2020 12:00:38 +0900</pubDate>
+    <item>
+      <title>맥OS에서 MagickCore나 MagickWand.h 문제로 rmagick이 설치되지 않을 때</title>
+      <link>https://www.44bits.io/ko/post/installing-old-rmagick-on-macos</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;RMagick은 ImageMagick에 의존적인 루비 젬입니다. 오래된 버전의 RMagick을 설치하는 경우 MagickCore나 MagickWand.h가 없다는 등의 에러 메시지가 발생하며 설치가 실패하는 경우가 있습니다. 이 경우 ImageMagick 구 버전을 사용해 환경을 구축하면 문제를 우회할 수 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/installing-old-rmagick-on-macos&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Wed, 19 Aug 2020 00:15:29 +0000</pubDate>
+      <dc:date>2020-08-19T00:15:29+00:00</dc:date>
+    </item>
     <item>
       <title>Django 3.1 릴리스와 주요 변경 사항</title>
       <link>https://www.44bits.io/ko/post/django-3-1-release-note-summary</link>
@@ -444,21 +459,6 @@
       <pubDate>Sun, 05 Apr 2020 04:30:38 +0000</pubDate>
       <dc:date>2020-04-05T04:30:38+00:00</dc:date>
     </item>
-    <item>
-      <title>Algo로 개인 VPN 서버 구축하기(요약판)</title>
-      <link>https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail-summary</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;Algo는 클라우드에 쉽게 설치해서 사용할 수 있는 개인용 VPN 서버입니다. 이 글에서는 아마존 라이트세일에 VPN 서버를 셋업하는 방법을 요약해서 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/algo-vpn-server-on-aws-lightsail-summary&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 05 Apr 2020 02:18:00 +0000</pubDate>
-      <dc:date>2020-04-05T02:18:00+00:00</dc:date>
-    </item>
-    <dc:date>2020-08-18T12:00:43.849202+09:00</dc:date>
+    <dc:date>2020-08-19T12:00:38.649632+09:00</dc:date>
   </channel>
 </rss>

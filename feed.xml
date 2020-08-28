@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 27 Aug 2020 12:00:55 +0900</pubDate>
+    <pubDate>Fri, 28 Aug 2020 12:00:49 +0900</pubDate>
+    <item>
+      <title>아마존 라이트세일(Amazon Lightsail)이란?</title>
+      <link>https://www.44bits.io/ko/keyword/amazon-lightsail</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;아마존 라이트세일(Amazon Lightsail)은 간편하게 버추얼 서버, 스토리지, 데이터베이스, 로드 밸런서 등의 기능을 사용할 수 있는 클라우드 서비스입니다. 클라우드 서비스들은 많은 기능을 제공함에 따라 점점 더 복잡해지고 있는데, 아마존 라이트세일을 사용하면 가상 서버에 집중해서 쉽게 서버를 사용할 수 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/amazon-lightsail&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Thu, 27 Aug 2020 16:03:06 +0000</pubDate>
+      <dc:date>2020-08-27T16:03:06+00:00</dc:date>
+    </item>
     <item>
       <title>그라파나(Grafana)란?</title>
       <link>https://www.44bits.io/ko/keyword/grafana</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 13 Apr 2020 00:50:59 +0000</pubDate>
       <dc:date>2020-04-13T00:50:59+00:00</dc:date>
     </item>
-    <item>
-      <title>도커(Docker) 트러블슈팅 - 컨테이너 실행환경 디버깅</title>
-      <link>https://www.44bits.io/ko/post/docker-container-trouble-shooting-by-exec-and-commit</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;도커를 사용하다 보면 컨테이너의 실행환경을 디버깅해야하는 일이 자주 생깁니다. 이미지, 살아있는 컨테이너, 심지어는 죽어있는 컨테이너까지 docker run, docker exec, docker commit 명령어를 사용해 컨테이너의 실행환경을 탐색하는 방법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/docker-container-trouble-shooting-by-exec-and-commit&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 05 Apr 2020 23:40:43 +0000</pubDate>
-      <dc:date>2020-04-05T23:40:43+00:00</dc:date>
-    </item>
-    <dc:date>2020-08-27T12:00:55.312213+09:00</dc:date>
+    <dc:date>2020-08-28T12:00:49.399642+09:00</dc:date>
   </channel>
 </rss>

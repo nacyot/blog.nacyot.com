@@ -8,7 +8,52 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 03 Sep 2020 12:00:51 +0900</pubDate>
+    <pubDate>Fri, 04 Sep 2020 12:00:33 +0900</pubDate>
+    <item>
+      <title>도커 허브(Docker Hub), 미사용 이미지 보존 기간 6개월로 제한</title>
+      <link>https://www.44bits.io/ko/post/news--docker-hub-image-retention-limit</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;도커 허브에서는 미사용 이미지 보존 기간 정책이 추가된 이용약관 개정을 발표하고, 11월 1일부터 이미지 삭제가 될 수 있다고 발표했습니다. 새로운 이미지 보존 기간 정책에 따르며 무료 계정에서 관리중인 6개월 간 한 번도 Push나 Pull이 없었던 이미지를 삭제될 예정입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--docker-hub-image-retention-limit&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Fri, 04 Sep 2020 01:08:38 +0000</pubDate>
+      <dc:date>2020-09-04T01:08:38+00:00</dc:date>
+    </item>
+    <item>
+      <title>AWS, 컨테이너 전용 리눅스 OS 보틀로켓(BottleRocket) 1.0 릴리스</title>
+      <link>https://www.44bits.io/ko/post/news--aws-release-bottlerocket-os-for-container</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS에서는 오픈소스로 개발중인 컨테이너 전용 리눅스 배포판 보틀로켓(BottleRocket) 1.0을 정식 릴리스하였습니다. 보틀로켓은 컨테이너에 최적화된 OS로 컨테이너 실행을 위한 최소한의 소프트웨어만을 포함하며 보안과 확장성에 집중하고 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-release-bottlerocket-os-for-container&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Thu, 03 Sep 2020 05:01:52 +0000</pubDate>
+      <dc:date>2020-09-03T05:01:52+00:00</dc:date>
+    </item>
+    <item>
+      <title>베어(Bear): 최고의 마크다운 노트 애플리케이션</title>
+      <link>https://www.44bits.io/ko/post/bear-best-note-app</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;베어(Bear)는 샤이니 프로그(Shiny Frog)에서 개발한 맥OS와 iOS용 노트/글쓰기 애플리케이션입니다. 베어는 미려한 디자인을 자랑하는 마크다운 에디터입니다. 에디터에서 마크다운 문법을 해석해 텍스트를 서식처럼 다룰 수 있으며, 해시태그와 내부링크 기능을 통해 문서들을 조직할 수 있게 도와줍니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/bear-best-note-app&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Thu, 03 Sep 2020 04:52:42 +0000</pubDate>
+      <dc:date>2020-09-03T04:52:42+00:00</dc:date>
+    </item>
     <item>
       <title>루비 온 레일스(Ruby on Rails)에서 데이터베이스 Advisory Locks 비활성화하기</title>
       <link>https://www.44bits.io/ko/post/ruby-on-rails-disable-postgresql-advisory-locks</link>
@@ -414,51 +459,6 @@
       <pubDate>Tue, 12 May 2020 02:05:59 +0000</pubDate>
       <dc:date>2020-05-12T02:05:59+00:00</dc:date>
     </item>
-    <item>
-      <title>깃허브(GitHub), 새로운 가격 정책 발표. 팀에서도 이제 무료로 비공개 저장소 사용 가능해져</title>
-      <link>https://www.44bits.io/ko/post/news--github-announce-new-price-plan</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;지난 4월 14일 깃허브(GitHub)에서는 새로운 플랜과 가격을 발표했습니다. 기존 개인용 Pro 플랜은 월 $7에서 $4로 가격이 인하되며, 팀 플랜 가격도 월 $4로 단순화 됩니다. 또한 팀 플랜을 구독하지 않더라도 이제 오거니제이션(Organization)에서 비공개 저장소를 운영할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-announce-new-price-plan&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 10 May 2020 03:23:48 +0000</pubDate>
-      <dc:date>2020-05-10T03:23:48+00:00</dc:date>
-    </item>
-    <item>
-      <title>44BITS 뉴스레터  2020년 16-17주</title>
-      <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-16-17</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2020년 16-17주 44BITS 뉴스레터입니다. 44BITS의 업데이트와 IT / 개발 관련 새소식을 전합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-16-17&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Mon, 27 Apr 2020 01:20:03 +0000</pubDate>
-      <dc:date>2020-04-27T01:20:03+00:00</dc:date>
-    </item>
-    <item>
-      <title>Node.js 라이브러리 Readability로 전문 RSS 만들기</title>
-      <link>https://www.44bits.io/ko/post/generate-full-feed-by-using-mozilla-readability</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;Node.js 라이브러리 Readability는 파이어폭스의 읽기 모드를 독립적으로 구현한 라이브러리입니다. 이 라이브러리를 사용해 특정 URL의 기사를 본문만 추출해낼 수 있습니다. 이 글에서는 readability를 활용해 요약 RSS를 전문 RSS를 만들어봅니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/generate-full-feed-by-using-mozilla-readability&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 26 Apr 2020 05:43:10 +0000</pubDate>
-      <dc:date>2020-04-26T05:43:10+00:00</dc:date>
-    </item>
-    <dc:date>2020-09-03T12:00:51.93766+09:00</dc:date>
+    <dc:date>2020-09-04T12:00:33.65561+09:00</dc:date>
   </channel>
 </rss>

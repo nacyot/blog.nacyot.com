@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Fri, 04 Sep 2020 12:00:33 +0900</pubDate>
+    <pubDate>Sat, 05 Sep 2020 12:00:51 +0900</pubDate>
+    <item>
+      <title>nslookup이란? DNS 레코드 조회 도구</title>
+      <link>https://www.44bits.io/ko/keyword/cli--nslookup</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;nslookup은 리눅스, 맥OS, 윈도우 등에서 사용할 수 있는 커맨드라인 명령어 중 하나로 DNS 레코드를 조회할 때 사용합니다. nslookup은 Internet Systems Consortium이 개발하고 있는 BIND에 포함되어있습니다. dig와 host 명령어로 대체할 수 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/cli--nslookup&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Fri, 04 Sep 2020 16:10:08 +0000</pubDate>
+      <dc:date>2020-09-04T16:10:08+00:00</dc:date>
+    </item>
+    <item>
+      <title>깃허브 컨테이너 레지스트리(GitHub Container Registry) 베타 오픈 및 사용법</title>
+      <link>https://www.44bits.io/ko/post/news--github-container-registry-beta-release</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;깃허브(GitHub)에서는 9월 1일 새로운 컨테이너 이미지 저장소 깃허브 컨테이너 레지스트리(GitHub Container Registry)를 발표하였습니다. 깃허브에서는 이미 깃허브 패키지 레지스트리 서비스를 통해 도커 이미지 저장소를 제공해왔습니디만 이는 깃허브 저장소에 종속된 서비스였습니다. 이와 달리 컨테이너 레지스트리의 경우 계정이나 조직 단위로 이미지를 푸시하고 관리할 수 있습니다. 이 글에서는 컨테이너 레지스트리의 공개 베타 소식과 함께 기본적인 사용법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-container-registry-beta-release&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Fri, 04 Sep 2020 12:29:11 +0000</pubDate>
+      <dc:date>2020-09-04T12:29:11+00:00</dc:date>
+    </item>
     <item>
       <title>도커 허브(Docker Hub), 미사용 이미지 보존 기간 6개월로 제한</title>
       <link>https://www.44bits.io/ko/post/news--docker-hub-image-retention-limit</link>
@@ -103,7 +133,7 @@
       <title>그라파나(Grafana)란?</title>
       <link>https://www.44bits.io/ko/keyword/grafana</link>
       <description>&lt;div&gt;
-&lt;strong&gt;그나파나(Grafana)는 그라파나 랩(Grafana Labs)에서 오픈소스로 개발하고 있는 메트릭/로그 시각화 대시보드 애플리케이션입니다. 처음에는 그라파이트(Graphite)와 인플럭스DB(InfluxDB)와 같은 메트릭 데이터베이스를 지원하는 애플리케이션으로 시작해 현재는 클라우드 데이터 소스를 비롯해 플로그인으로 확장을 통해 로그 데이터 등도 지원하고 있습니다.&lt;/strong&gt;
+&lt;strong&gt;그라파나(Grafana)는 그라파나 랩(Grafana Labs)에서 오픈소스로 개발하고 있는 메트릭/로그 시각화 대시보드 애플리케이션입니다. 처음에는 그라파이트(Graphite)와 인플럭스DB(InfluxDB)와 같은 메트릭 데이터베이스를 지원하는 애플리케이션으로 시작해 현재는 클라우드 데이터 소스를 비롯해 플러그인으로 확장을 통해 로그 데이터 등도 지원하고 있습니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
@@ -429,36 +459,6 @@
       <pubDate>Sun, 17 May 2020 03:29:40 +0000</pubDate>
       <dc:date>2020-05-17T03:29:40+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS, EC2 예약 인스턴스와 세이빙스 플랜에 적용되는 가격 인하 발표</title>
-      <link>https://www.44bits.io/ko/post/news--aws-ec2-price-reduction-for-ri-and-savings-plans</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS에서는 EC2 예약 인스턴스와 세이빙스 플랜에 적용되는 가격 인하를 발표했습니다. 인하폭은 리전 별로 다르며, 서울 리전의 경우 1년 약정시 C5 인스턴스가 7% 할인 되며, 3년 약정의 경우 M5 6%, C5 12%, R5 5% 요금 인하가 적용됩니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-ec2-price-reduction-for-ri-and-savings-plans&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Tue, 12 May 2020 07:18:51 +0000</pubDate>
-      <dc:date>2020-05-12T07:18:51+00:00</dc:date>
-    </item>
-    <item>
-      <title>44BITS 뉴스레터  2020년 18-19주</title>
-      <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-18-19</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2020년 18-19주 44BITS 뉴스레터입니다. 44BITS의 업데이트와 IT / 개발 관련 새소식을 전합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-18-19&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Tue, 12 May 2020 02:05:59 +0000</pubDate>
-      <dc:date>2020-05-12T02:05:59+00:00</dc:date>
-    </item>
-    <dc:date>2020-09-04T12:00:33.65561+09:00</dc:date>
+    <dc:date>2020-09-05T12:00:51.892909+09:00</dc:date>
   </channel>
 </rss>

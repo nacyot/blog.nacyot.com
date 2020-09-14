@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 13 Sep 2020 12:00:25 +0900</pubDate>
+    <pubDate>Mon, 14 Sep 2020 12:00:55 +0900</pubDate>
+    <item>
+      <title>[서비큐라 개발로그] EKS 로그 Cloudwatch에 저장하기</title>
+      <link>https://www.youtube.com/watch?v=pSwpTxLHgv0</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;EKS에 생성된 Pod의 로그를 Cloudwatch에 저장해봅시다. 테라폼으로 IRSA 셋업 방법, CloudWatch 접근 권한 설정, fluentd 설정을 다룹니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.youtube.com/watch?v=pSwpTxLHgv0&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Sun, 13 Sep 2020 10:20:38 +0000</pubDate>
+      <dc:date>2020-09-13T10:20:38+00:00</dc:date>
+    </item>
     <item>
       <title>nslookup이란? DNS 레코드 조회 도구</title>
       <link>https://www.44bits.io/ko/keyword/cli--nslookup</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 18 May 2020 01:32:08 +0000</pubDate>
       <dc:date>2020-05-18T01:32:08+00:00</dc:date>
     </item>
-    <item>
-      <title>사이드킥(Sidekiq) 큐에서 태스크나 예약작업 삭제하기</title>
-      <link>https://www.44bits.io/ko/post/deleting-sidekiq-scheduled-job</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;사이드킥(Sidekiq)은 레디스(Redis)를 기반으로 루비 온 레일스(Ruby on Rails)의 비동기 처리를 지원합니다. 의도치 않게 큐에 작업이나 예약 작업이 등록되었을 때 삭제하는 방법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/deleting-sidekiq-scheduled-job&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 17 May 2020 03:29:40 +0000</pubDate>
-      <dc:date>2020-05-17T03:29:40+00:00</dc:date>
-    </item>
-    <dc:date>2020-09-13T12:00:25.883476+09:00</dc:date>
+    <dc:date>2020-09-14T12:00:55.8159+09:00</dc:date>
   </channel>
 </rss>

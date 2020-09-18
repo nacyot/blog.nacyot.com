@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 17 Sep 2020 12:01:05 +0900</pubDate>
+    <pubDate>Fri, 18 Sep 2020 12:00:57 +0900</pubDate>
+    <item>
+      <title>[서비큐라 개발로그] k8s 필수 애플리케이션, 테라폼으로 한번에 설치하기</title>
+      <link>https://www.youtube.com/watch?v=mzdFK8re_ig</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;Terraform의 kubernetes, helm 프로바이더에 대해 알아봅니다. Terraform으로 EKS클러스터를 만들고 필수 애플리케이션을 별도 kubectl, helm 명령어 없이 설치합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.youtube.com/watch?v=mzdFK8re_ig&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Thu, 17 Sep 2020 13:10:24 +0000</pubDate>
+      <dc:date>2020-09-17T13:10:24+00:00</dc:date>
+    </item>
     <item>
       <title>[서비큐라 개발로그] EKS 로그 Cloudwatch에 저장하기</title>
       <link>https://www.youtube.com/watch?v=pSwpTxLHgv0</link>
@@ -173,6 +188,21 @@
       <author>Daegwon Nacyot Kim</author>
       <pubDate>Wed, 19 Aug 2020 00:15:29 +0000</pubDate>
       <dc:date>2020-08-19T00:15:29+00:00</dc:date>
+    </item>
+    <item>
+      <title>[4분코딩] 클라우드 모니터링 데이터독(Datadog)이란?</title>
+      <link>https://www.youtube.com/watch?v=dHOxh1JxV3I</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;딱 4분만에, 모니터링 서비스 데이터독(Datadog)을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.youtube.com/watch?v=dHOxh1JxV3I&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>44bits</author>
+      <pubDate>Sat, 15 Aug 2020 22:00:00 +0000</pubDate>
+      <dc:date>2020-08-15T22:00:00+00:00</dc:date>
     </item>
     <item>
       <title>Django 3.1 릴리스와 주요 변경 사항</title>
@@ -429,36 +459,6 @@
       <pubDate>Wed, 20 May 2020 00:45:13 +0000</pubDate>
       <dc:date>2020-05-20T00:45:13+00:00</dc:date>
     </item>
-    <item>
-      <title>버추얼 컨퍼런스의 전성 시대: 온라인으로 열리는 개발 컨퍼런스 모음</title>
-      <link>https://www.44bits.io/ko/post/news--virtual-developer-conferences</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;코로나 19의 여파로 개발 컨퍼런스들이 오프라인 행사를 취소하고 버추얼 컨퍼런스 개최를 발표하고 있습니다. 현재까지 열린 주요 버추얼 컨퍼런스와 앞으로 열릴 행사들을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--virtual-developer-conferences&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Mon, 18 May 2020 01:36:34 +0000</pubDate>
-      <dc:date>2020-05-18T01:36:34+00:00</dc:date>
-    </item>
-    <item>
-      <title>44BITS 뉴스레터  2020년 20주</title>
-      <link>https://www.44bits.io/ko/post/44bits-news-letter-2020-week-20</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2020년 20주 44BITS 뉴스레터입니다. 44BITS의 업데이트와 IT / 개발 관련 새소식을 전합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/44bits-news-letter-2020-week-20&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Mon, 18 May 2020 01:32:08 +0000</pubDate>
-      <dc:date>2020-05-18T01:32:08+00:00</dc:date>
-    </item>
-    <dc:date>2020-09-17T12:01:05.149724+09:00</dc:date>
+    <dc:date>2020-09-18T12:00:57.347762+09:00</dc:date>
   </channel>
 </rss>

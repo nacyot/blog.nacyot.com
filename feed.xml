@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 01 Oct 2020 12:00:18 +0900</pubDate>
+    <pubDate>Fri, 02 Oct 2020 12:00:49 +0900</pubDate>
+    <item>
+      <title>AWS CLI v2에서 실행 결과를 less 없이 그냥 출력하기</title>
+      <link>https://www.44bits.io/ko/post/aws-cli-result-without-pager</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;지난 2월 AWS CLI v2가 정식 공개되었습니다. 기존 AWS CLI 사용법과 크게 달라진 부분은 없습니다만, 미묘하게 달라진 것 중에 하나가 출력 결과를 볼 때 기본적으로 less를 사용한다는 점입니다. 이런 프로그램을 페이저(pager)라고 하는데, 이 글에서는 출력 결과를 볼 때 페이저를 사용하지 않는 방법에 대해서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-cli-result-without-pager&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Thu, 01 Oct 2020 22:26:14 +0000</pubDate>
+      <dc:date>2020-10-01T22:26:14+00:00</dc:date>
+    </item>
+    <item>
+      <title>쿠버네티스에서 아마존 EFS 사용하기: efs-provisioner</title>
+      <link>https://www.44bits.io/ko/post/amazon-efs-on-kubernetes-by-using-efs-provisioner</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;아마존 EFS(Amazon EFS)는 AWS에서 제공하는 매니지드 NFS 서버로 여러 서버에서 동시에 같은 파일을 공유할 때 편리하게 사용할 수 있습니다. 이 글에서는 쿠버네티스(Kubernetes)에서 EFS를 사용할 수 있도록 해주는 efs-provisioner의 사용법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-efs-on-kubernetes-by-using-efs-provisioner&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Thu, 01 Oct 2020 15:00:11 +0000</pubDate>
+      <dc:date>2020-10-01T15:00:11+00:00</dc:date>
+    </item>
     <item>
       <title>[서비큐라 개발로그] k8s 필수 애플리케이션, 테라폼으로 한번에 설치하기</title>
       <link>https://www.youtube.com/watch?v=mzdFK8re_ig</link>
@@ -429,36 +459,6 @@
       <pubDate>Mon, 25 May 2020 04:11:47 +0000</pubDate>
       <dc:date>2020-05-25T04:11:47+00:00</dc:date>
     </item>
-    <item>
-      <title>슬랙(Slack)으로 특정 조건의 이메일을 받아보자!</title>
-      <link>https://www.44bits.io/ko/post/slack-email-app-integration</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;회사나 단체에서는 이메일 그룹을 사용해 여러 사람이 이메일을 받아보곤 합니다. 하지만 메일을 모두가 받아보고 이에 답변할 사람을 정해야하는 등 추가적인 번거로움이 발생하기도합니다. 그룹 이메일로 전달된 내용을 슬래과 연동해서 받아본다면 보다 수월하게 커뮤니케이션하는 것이 가능합니다. 이 글에서는 슬랙 이메일 앱 연동 방법을 소개하고 Gmail의 필터 기능을 사용해 특정 조건의 이메일을 슬랙에 전달하는 방법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/slack-email-app-integration&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Mon, 25 May 2020 02:03:15 +0000</pubDate>
-      <dc:date>2020-05-25T02:03:15+00:00</dc:date>
-    </item>
-    <item>
-      <title>구글(Google) 계정의 2단계 인증 활성화하기: 1Password와 구글 OTP 활용</title>
-      <link>https://www.44bits.io/ko/post/activate-2-factor-authentication-on-google-account</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;2단계 인증은 비밀번호 인증 이외에 추가인증을 통해 보안을 강화하는 방법입니다. 이 글에서는 2단계 인증에 대해서 소개하고, 구글 계정에서 2단계 인증을 활성화하는 방법을 소개합니다. 2단계 인증을 지원하는 다양한 앱들이 있는데, 1패스워드(1Password)와 구글 OTP(Google OTP)를 사용하는 방법을 알아봅니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/activate-2-factor-authentication-on-google-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Wed, 20 May 2020 00:45:13 +0000</pubDate>
-      <dc:date>2020-05-20T00:45:13+00:00</dc:date>
-    </item>
-    <dc:date>2020-10-01T12:00:18.396236+09:00</dc:date>
+    <dc:date>2020-10-02T12:00:49.200299+09:00</dc:date>
   </channel>
 </rss>

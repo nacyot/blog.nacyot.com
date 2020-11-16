@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 15 Nov 2020 12:01:09 +0900</pubDate>
+    <pubDate>Mon, 16 Nov 2020 12:01:00 +0900</pubDate>
+    <item>
+      <title>if(kakao) 2020 컨퍼런스, 11월 18일부터 20일까지 온라인 개최</title>
+      <link>https://www.44bits.io/ko/post/news--if-kaka-2020-virtual-conference</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2018년 처음 시작된 if(kakao)dev 컨퍼런스가 올 해는 11월 18일부터 20일까지 온라인으로 진행됩니다. 키노트는 여민수, 조수용 카카오 공동대표가 발표하고, 3일간 개발, 서비스, 비지니스에 대한 100여개 세션이 진행될 예정입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--if-kaka-2020-virtual-conference&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sun, 15 Nov 2020 14:21:46 +0000</pubDate>
+      <dc:date>2020-11-15T14:21:46+00:00</dc:date>
+    </item>
     <item>
       <title>파이썬(Python) 3.9 릴리스와 주요 변경 사항</title>
       <link>https://www.44bits.io/ko/post/python-3-9-release-note-summary</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 01 Jun 2020 03:42:14 +0000</pubDate>
       <dc:date>2020-06-01T03:42:14+00:00</dc:date>
     </item>
-    <item>
-      <title>코모도 CA(Comodo)의 AddTrust External 루트 인증서 만료</title>
-      <link>https://www.44bits.io/ko/post/comodo-ca-addtrust-external-root-certificates-expiration</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;한국 시간 5월 30일 오후 7시 48분을 기해 코모도(Comodo) 사의 루트 인증서 AddTrust External CA Root가 만료되었습니다. 이는 2017년 프랜시스코 파트너스가 코모도 CA를 인수하면서 브랜드명을 섹티고(Sectigo)로 변경하는 과정에서 결정된 사항으로, 다수의 서비스와 시스템에 영향을 준 것으로 보입니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/comodo-ca-addtrust-external-root-certificates-expiration&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Mon, 01 Jun 2020 01:50:30 +0000</pubDate>
-      <dc:date>2020-06-01T01:50:30+00:00</dc:date>
-    </item>
-    <dc:date>2020-11-15T12:01:09.311662+09:00</dc:date>
+    <dc:date>2020-11-16T12:01:00.76372+09:00</dc:date>
   </channel>
 </rss>

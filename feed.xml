@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 29 Nov 2020 12:08:29 +0900</pubDate>
+    <pubDate>Mon, 30 Nov 2020 12:08:24 +0900</pubDate>
+    <item>
+      <title>CNCF, 키밸류 스토어 etcd 프로젝트의 졸업을 발표</title>
+      <link>https://www.44bits.io/ko/post/news--cncf-announces-etcd-graduation</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;지난 11월 24일 CNCF에서는 분산 키밸류 스토어 etcd 프로젝트의 졸업을 발표했습니다. etcd 프로젝트는 2013년 코어DNS(CoreDNS)에서 오픈소스 프로젝트로 시작하였고, 2018년 12월 CNCF에 인큐베이팅 단계의 프로젝트로 합류하였습니다. 현재는 쿠버네티스(Kubernetes)와 오픈스택(OpenStack)을 비롯한 다양한 곳에서 활용되고 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--cncf-announces-etcd-graduation&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sun, 29 Nov 2020 03:33:46 +0000</pubDate>
+      <dc:date>2020-11-29T03:33:46+00:00</dc:date>
+    </item>
     <item>
       <title>네이버 Deview 2020, 11월 25일부터 27일까지 온라인 개최</title>
       <link>https://www.44bits.io/ko/post/news--naver-deview-2020-virtual-conference</link>
@@ -444,21 +459,6 @@
       <pubDate>Sat, 13 Jun 2020 05:50:42 +0000</pubDate>
       <dc:date>2020-06-13T05:50:42+00:00</dc:date>
     </item>
-    <item>
-      <title>Docker for Mac Edge 채널에 Mutagen 기반 캐싱 기능 추가</title>
-      <link>https://www.44bits.io/ko/post/news--docker-desktop-for-mac-edge-channel-with-mutagen-based-caching</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;도커 데스크탑 포 맥(Docker Desktop for Mac)의 엣지 채널에 뮤타젠(Mutagen) 기반의 캐싱 기능이 추가되었습니다. 이를 사용하면 호스트와 컨테이너 간에 파일을 공유할 때 퍼포먼스 향상을 기대할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--docker-desktop-for-mac-edge-channel-with-mutagen-based-caching&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 07 Jun 2020 01:41:39 +0000</pubDate>
-      <dc:date>2020-06-07T01:41:39+00:00</dc:date>
-    </item>
-    <dc:date>2020-11-29T12:08:29.317163+09:00</dc:date>
+    <dc:date>2020-11-30T12:08:24.07766+09:00</dc:date>
   </channel>
 </rss>

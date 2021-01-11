@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 10 Jan 2021 12:08:52 +0900</pubDate>
+    <pubDate>Mon, 11 Jan 2021 12:09:01 +0900</pubDate>
+    <item>
+      <title>44BITS 2020년 결산 및 2021년 새해 인사</title>
+      <link>https://www.44bits.io/ko/post/2020-44bits-blog-podcast-and-youtube</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;44BITS에서는 블로그, 팟캐스트,유튜브를 통해서 IT, 프로그래밍, 클라우드를 주제로 컨텐츠를 제작하고 있습니다. 2021년 새해를 맞아 2020년 44BITS 활동을 정리하고 인기 있었던 컨텐츠들을 소개합니다. 새해 복 많이 받으세요!&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/2020-44bits-blog-podcast-and-youtube&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Mon, 11 Jan 2021 01:45:03 +0000</pubDate>
+      <dc:date>2021-01-11T01:45:03+00:00</dc:date>
+    </item>
     <item>
       <title>CNCF, 키밸류 스토어 etcd 프로젝트의 졸업을 발표</title>
       <link>https://www.44bits.io/ko/post/news--cncf-announces-etcd-graduation</link>
@@ -444,21 +459,6 @@
       <pubDate>Sun, 14 Jun 2020 01:20:52 +0000</pubDate>
       <dc:date>2020-06-14T01:20:52+00:00</dc:date>
     </item>
-    <item>
-      <title>aws-vault로 AWS의 인증 정보 안전하게 사용하기</title>
-      <link>https://www.44bits.io/ko/post/securing-aws-credentials-with-aws-vault</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;aws-vault는 99디자인스(99designs)에서 개발한 AWS 인증 정보를 로컬 환경에 안전하게 보관할 수 있도록 도와주는 도구입니다. 운영체제 별로 제공되는 안전한 공간에 인증정보를 저장해 플레인 텍스트로 노출되는 것을 방지하고, 임시 세션을 사용해 인증 정보 유출의 위험성을 최소화해줍니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/securing-aws-credentials-with-aws-vault&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sat, 13 Jun 2020 05:50:42 +0000</pubDate>
-      <dc:date>2020-06-13T05:50:42+00:00</dc:date>
-    </item>
-    <dc:date>2021-01-10T12:08:52.071576+09:00</dc:date>
+    <dc:date>2021-01-11T12:09:01.977971+09:00</dc:date>
   </channel>
 </rss>

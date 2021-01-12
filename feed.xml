@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 11 Jan 2021 12:09:01 +0900</pubDate>
+    <pubDate>Tue, 12 Jan 2021 12:08:39 +0900</pubDate>
+    <item>
+      <title>2020 한국의 주요 IT 컨퍼런스 다시 보기</title>
+      <link>https://www.44bits.io/ko/post/replay-2020-korea-it-conferences</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2020년 한 해 동 IT 컨퍼런스들이 열렸습니다. 올해는 코로나 바이러스의 영향으로 특히 온라인으로 전환된 행사가 많았습니다. 그 중에서 영상으로 다시 보기 가능한 2020년의 컨퍼런스들을 모아서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/replay-2020-korea-it-conferences&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Mon, 11 Jan 2021 05:51:12 +0000</pubDate>
+      <dc:date>2021-01-11T05:51:12+00:00</dc:date>
+    </item>
     <item>
       <title>44BITS 2020년 결산 및 2021년 새해 인사</title>
       <link>https://www.44bits.io/ko/post/2020-44bits-blog-podcast-and-youtube</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 15 Jun 2020 02:33:11 +0000</pubDate>
       <dc:date>2020-06-15T02:33:11+00:00</dc:date>
     </item>
-    <item>
-      <title>마크다운 노트앱 베어(Bear), 에디터 2.0 알파 공개 테스트 중</title>
-      <link>https://www.44bits.io/ko/post/news--markdown-note-app-bear-announced-new-alpha-editor</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;지난 4월 마크다운 노트앱 베어에서는 새로운 에디터 2.0 알파를 공개하고, 공개 테스트를 진행하고 있습니다. 에디터 2.0 알파는 판다라는 이름으로 에디터 모듈만 독립적으로 공개되었습니다. 애니메이션 GIF 지원, 테이블 지원, 중첩된 스타일, 주식, Right-to-left 언어 표현 지원, 코드 블럭 등이 개선 되었습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--markdown-note-app-bear-announced-new-alpha-editor&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 14 Jun 2020 01:20:52 +0000</pubDate>
-      <dc:date>2020-06-14T01:20:52+00:00</dc:date>
-    </item>
-    <dc:date>2021-01-11T12:09:01.977971+09:00</dc:date>
+    <dc:date>2021-01-12T12:08:39.830642+09:00</dc:date>
   </channel>
 </rss>

@@ -8,9 +8,9 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 18 Jan 2021 12:09:29 +0900</pubDate>
+    <pubDate>Tue, 19 Jan 2021 12:08:40 +0900</pubDate>
     <item>
-      <title>도커 이미지 빌드 원리 기초: commit, diff 그리고 Dockerfile</title>
+      <title>도커 이미지 빌드와 Dockerfile 기초</title>
       <link>https://www.44bits.io/ko/post/building-docker-image-basic-commit-diff-and-dockerfile</link>
       <description>&lt;div&gt;
 &lt;strong&gt;도커(Docker)에서 이미지 빌드는 컨테이너와 함께 가장 중요한 개념입니다. 이미지는 컨테이너의 기반이 되는 파일들의 집합입니다. 사용자는 리눅스 배포판 이미지를 기반으로 자유롭게 프로비저닝을 하고 커스텀 이미지를 만들 수 있습니다. 이 글에서는 도커 이미지의 기본적이 빌드 원리와 Dockerfile의 사용 방법에 대해서 소개합니다.&lt;/strong&gt;
@@ -459,6 +459,6 @@
       <pubDate>Mon, 15 Jun 2020 03:20:42 +0000</pubDate>
       <dc:date>2020-06-15T03:20:42+00:00</dc:date>
     </item>
-    <dc:date>2021-01-18T12:09:29.859623+09:00</dc:date>
+    <dc:date>2021-01-19T12:08:40.177563+09:00</dc:date>
   </channel>
 </rss>

@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 21 Jan 2021 12:09:21 +0900</pubDate>
+    <pubDate>Fri, 22 Jan 2021 12:08:52 +0900</pubDate>
+    <item>
+      <title>네이버 컨퍼런스 Deview란?</title>
+      <link>https://www.44bits.io/ko/keyword/naver-deview</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;Naver Deview(네이버 데뷰)는 2006년 NHN 내부 행사로 시작된 기술 컨퍼런스 행사로, 2008년부터는 오픈소스 프로젝트와 IT 기술들을 주제로 하는 IT 컨퍼런스입니다. Deview는 Developer’s View의 줄임말입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/naver-deview&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Fri, 22 Jan 2021 01:28:24 +0000</pubDate>
+      <dc:date>2021-01-22T01:28:24+00:00</dc:date>
+    </item>
     <item>
       <title>도커 이미지 빌드와 Dockerfile 기초</title>
       <link>https://www.44bits.io/ko/post/building-docker-image-basic-commit-diff-and-dockerfile</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 22 Jun 2020 00:44:49 +0000</pubDate>
       <dc:date>2020-06-22T00:44:49+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 웹 서비스, 패키지 저장소 서비스 코드 아티팩트(CodeArtifact) 출시</title>
-      <link>https://www.44bits.io/ko/post/news--aws-announced-package-repository-service-code-artifact</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 웹 서비스에서 소프트웨 패키지 저장소 서비스 AWS 코드아티팩트(AWS CodeArtifact) 서비스가 출시되었습니다. 코드아티팩트에서는 현재 자바의 메이븐과 그래들, 자바스크리브의 NPM과 Yarn, 파이썬의 pip를 지원합니다. &lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-announced-package-repository-service-code-artifact&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Mon, 15 Jun 2020 03:20:42 +0000</pubDate>
-      <dc:date>2020-06-15T03:20:42+00:00</dc:date>
-    </item>
-    <dc:date>2021-01-21T12:09:21.931281+09:00</dc:date>
+    <dc:date>2021-01-22T12:08:52.668047+09:00</dc:date>
   </channel>
 </rss>

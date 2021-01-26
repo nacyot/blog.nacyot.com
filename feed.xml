@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 25 Jan 2021 12:08:44 +0900</pubDate>
+    <pubDate>Tue, 26 Jan 2021 12:08:54 +0900</pubDate>
+    <item>
+      <title>UTS 네임스페이스를 사용한 호스트네임 격리 - 컨테이너 네트워크 기초 1편</title>
+      <link>https://www.44bits.io/ko/post/container-network-1-uts-namespace</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;컨테이너는 하드웨어 가상화 없이 프로세스를 격리하는 기술로 루트 디렉터리 격리와 유니온 마운트를 비롯해 리눅스 네임스페이스와 같은 리눅스의 기능들을 활용합니다. 이 시리즈에서는 컨테이너의 네트워크 격리와 관련된 기술을 소개합니다. 첫 번째 글에서는 호스트네임을 격리하는 UTS 네임스페이스에 대해서 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/container-network-1-uts-namespace&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Tue, 26 Jan 2021 00:35:21 +0000</pubDate>
+      <dc:date>2021-01-26T00:35:21+00:00</dc:date>
+    </item>
     <item>
       <title>베이그런트(Vagrant) 튜토리얼: 개발 환경 공유와 가상 머신 관리 도구</title>
       <link>https://www.44bits.io/ko/post/vagrant-tutorial</link>
@@ -444,21 +459,6 @@
       <pubDate>Wed, 01 Jul 2020 06:16:08 +0000</pubDate>
       <dc:date>2020-07-01T06:16:08+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS 라우트53(Route 53) 다른 계정으로 도메인 이전하기</title>
-      <link>https://www.44bits.io/ko/post/aws-route-53-migration-domain-to-another-account</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS 라우트53에 등록된 도메인을 AWS의 다른 계정으로 옮기는 방법을 소개합니다. AWS에서는 transfer-domain-to-another-aws-account와 accept-domain-transfer-from-another-aws-account API 2개로 라우트53에 등록된 도메인을 손쉽게 이전할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-route-53-migration-domain-to-another-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Wed, 01 Jul 2020 06:12:14 +0000</pubDate>
-      <dc:date>2020-07-01T06:12:14+00:00</dc:date>
-    </item>
-    <dc:date>2021-01-25T12:08:44.042176+09:00</dc:date>
+    <dc:date>2021-01-26T12:08:54.988447+09:00</dc:date>
   </channel>
 </rss>

@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Wed, 27 Jan 2021 12:08:36 +0900</pubDate>
+    <pubDate>Thu, 28 Jan 2021 12:08:53 +0900</pubDate>
+    <item>
+      <title>ip로 직접 만들어보는 네트워크 네임스페이스와 브리지 네트워크 - 컨테이너 네트워크 기초 2편</title>
+      <link>https://www.44bits.io/ko/post/container-network-2-ip-command-and-network-namespace</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;네트워크 네임스페이스는 프로세스 간의 네트워크를 격리해주는 매우 강력한 도구입니다. 리눅스에서는 ip를 사용해 네트워크를 조회하는 것 뿐만 아니라 네트워크 네임스페이스를 제어하는 용도로도 사용됩니다. 이 글에서는 네트워크 네임스페이스 사용법과 함께 veth(가상 인터페이스)와 가상 브리지로 직접 컨테이너 네트워크 환경을 구축해봅니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/container-network-2-ip-command-and-network-namespace&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Thu, 28 Jan 2021 01:27:34 +0000</pubDate>
+      <dc:date>2021-01-28T01:27:34+00:00</dc:date>
+    </item>
     <item>
       <title>UTS 네임스페이스를 사용한 호스트네임 격리 - 컨테이너 네트워크 기초 1편</title>
       <link>https://www.44bits.io/ko/post/container-network-1-uts-namespace</link>
@@ -444,21 +459,6 @@
       <pubDate>Sun, 05 Jul 2020 06:21:00 +0000</pubDate>
       <dc:date>2020-07-05T06:21:00+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS 라우트53(Route53), 다른 계정으로 호스팅 영역 DNS 레코드 이전하기</title>
-      <link>https://www.44bits.io/ko/post/aws-route-53-migration-hosted-zone-to-another-account</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS 라우트53(Route53)에서는 도메인에 연결된 호스팅 영역(Hosted Zone)에서 DNS 레코드를 관리합니다. 다른 계정으로 도메인을 이전하더라도 호스팅 영역은 자동적으로 이전되지 않기 때문에 별도의 마이그레이션 작업을 진행해야합니다. 이 글에에서는 AWS53의 호스팅 영역을 이전하는 간단한 예제를 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-route-53-migration-hosted-zone-to-another-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Wed, 01 Jul 2020 06:16:08 +0000</pubDate>
-      <dc:date>2020-07-01T06:16:08+00:00</dc:date>
-    </item>
-    <dc:date>2021-01-27T12:08:36.097737+09:00</dc:date>
+    <dc:date>2021-01-28T12:08:53.906846+09:00</dc:date>
   </channel>
 </rss>

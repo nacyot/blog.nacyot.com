@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 28 Jan 2021 12:08:53 +0900</pubDate>
+    <pubDate>Fri, 29 Jan 2021 12:08:49 +0900</pubDate>
+    <item>
+      <title>리눅스/맥 커맨드라인 셸 입문자를 위한 생존 가이드</title>
+      <link>https://www.44bits.io/ko/post/linux-and-mac-command-line-survival-guide-for-beginner</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;프로그래밍이나 서버에 대해서 공부하다 보면 필연적으로 커맨드라인 인터페이스도 함께 입문하게 됩니다. 커맨드라인 인터페이스는 아주 강력하지만, 다양한 관습들과 전제들이 존재하고 있어서 입문자들에게는 쉽지 않은 것이 현실입니다. 이 글에서는 바로 이러한 커맨드라인 인터페이스와 셸의 기초와 관습들에 대해서 소개하고자 합니다. 부디 커맨드라인 입문길이 즐거운 여정이 되기를 기원합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/linux-and-mac-command-line-survival-guide-for-beginner&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Fri, 29 Jan 2021 01:49:57 +0000</pubDate>
+      <dc:date>2021-01-29T01:49:57+00:00</dc:date>
+    </item>
     <item>
       <title>ip로 직접 만들어보는 네트워크 네임스페이스와 브리지 네트워크 - 컨테이너 네트워크 기초 2편</title>
       <link>https://www.44bits.io/ko/post/container-network-2-ip-command-and-network-namespace</link>
@@ -444,21 +459,6 @@
       <pubDate>Thu, 06 Aug 2020 23:48:36 +0000</pubDate>
       <dc:date>2020-08-06T23:48:36+00:00</dc:date>
     </item>
-    <item>
-      <title>회사에서 1패스워드(1Password) 비지니스 플랜 구독 시 패밀리 플랜이 무료</title>
-      <link>https://www.44bits.io/ko/post/1password-business-plan-and-free-family-account</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;패스워드 매니저 앱 1패스워드(1Password)에서는 개인용 플랜 뿐만 아니라 비지니스를 위한 플랜을 제공합니다. 이 중에서 비지니스 플랜을 구독하는 경우 이에 속한 계정에서 별도의 패밀리 계정을 무료로 사용할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/1password-business-plan-and-free-family-account&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 05 Jul 2020 06:21:00 +0000</pubDate>
-      <dc:date>2020-07-05T06:21:00+00:00</dc:date>
-    </item>
-    <dc:date>2021-01-28T12:08:53.906846+09:00</dc:date>
+    <dc:date>2021-01-29T12:08:49.930212+09:00</dc:date>
   </channel>
 </rss>

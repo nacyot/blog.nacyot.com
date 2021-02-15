@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 14 Feb 2021 12:08:51 +0900</pubDate>
+    <pubDate>Mon, 15 Feb 2021 12:08:48 +0900</pubDate>
+    <item>
+      <title>GPG(GNU PG)를 이용해 git 커밋에 서명하는 방법</title>
+      <link>https://www.44bits.io/ko/post/add-signing-key-to-git-commit-by-gpg</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;GPG 키로 깃 커밋에 서명을 추가하고, 깃허브에 Verified 표시를 나타내는 방법을 소개합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 jeyraof이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/add-signing-key-to-git-commit-by-gpg&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>jeyraof</author>
+      <pubDate>Mon, 15 Feb 2021 01:25:27 +0000</pubDate>
+      <dc:date>2021-02-15T01:25:27+00:00</dc:date>
+    </item>
     <item>
       <title>리눅스 네임스페이스(Linux Namespace)란?</title>
       <link>https://www.44bits.io/ko/keyword/linux-namespace</link>
@@ -444,21 +459,6 @@
       <pubDate>Sat, 29 Aug 2020 03:46:52 +0000</pubDate>
       <dc:date>2020-08-29T03:46:52+00:00</dc:date>
     </item>
-    <item>
-      <title>아마존 라이트세일(Amazon Lightsail)이란?</title>
-      <link>https://www.44bits.io/ko/keyword/amazon-lightsail</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 라이트세일(Amazon Lightsail)은 간편하게 버추얼 서버, 스토리지, 데이터베이스, 로드 밸런서 등의 기능을 사용할 수 있는 클라우드 서비스입니다. 클라우드 서비스들은 많은 기능을 제공함에 따라 점점 더 복잡해지고 있는데, 아마존 라이트세일을 사용하면 가상 서버에 집중해서 쉽게 서버를 사용할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/amazon-lightsail&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Thu, 27 Aug 2020 16:03:06 +0000</pubDate>
-      <dc:date>2020-08-27T16:03:06+00:00</dc:date>
-    </item>
-    <dc:date>2021-02-14T12:08:51.574408+09:00</dc:date>
+    <dc:date>2021-02-15T12:08:48.535783+09:00</dc:date>
   </channel>
 </rss>

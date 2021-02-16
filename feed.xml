@@ -8,12 +8,12 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 15 Feb 2021 12:08:48 +0900</pubDate>
+    <pubDate>Tue, 16 Feb 2021 12:08:48 +0900</pubDate>
     <item>
       <title>GPG(GNU PG)를 이용해 git 커밋에 서명하는 방법</title>
       <link>https://www.44bits.io/ko/post/add-signing-key-to-git-commit-by-gpg</link>
       <description>&lt;div&gt;
-&lt;strong&gt;GPG 키로 깃 커밋에 서명을 추가하고, 깃허브에 Verified 표시를 나타내는 방법을 소개합니다.&lt;/strong&gt;
+&lt;strong&gt;깃허브(GitHub)에서 커밋을 읽다보면 Verified 된 커밋을 발견하곤 합니다. Verified된 커밋을 만들려면 GPG 키로 커밋에 서명을 해야합니다. 이 글에서는 gpg를 사용해 GPG 키를 생성하고 깃 커밋에 서명하는 방법을 소개합니다.&lt;/strong&gt;
 &lt;/div&gt;
 &lt;br /&gt;&lt;br /&gt;
 
@@ -295,7 +295,7 @@
       <dc:date>2020-10-11T22:39:03+00:00</dc:date>
     </item>
     <item>
-      <title>AWS CLI v2에서 실행 결과를 less 없이 그냥 출력하기</title>
+      <title>AWS CLI 팁: 페이저 없이 실행 결과 출력하기</title>
       <link>https://www.44bits.io/ko/post/aws-cli-result-without-pager</link>
       <description>&lt;div&gt;
 &lt;strong&gt;지난 2월 AWS CLI v2가 정식 공개되었습니다. 기존 AWS CLI 사용법과 크게 달라진 부분은 없습니다만, 미묘하게 달라진 것 중에 하나가 출력 결과를 볼 때 기본적으로 less를 사용한다는 점입니다. 이런 프로그램을 페이저(pager)라고 하는데, 이 글에서는 출력 결과를 볼 때 페이저를 사용하지 않는 방법에 대해서 소개합니다.&lt;/strong&gt;
@@ -459,6 +459,6 @@
       <pubDate>Sat, 29 Aug 2020 03:46:52 +0000</pubDate>
       <dc:date>2020-08-29T03:46:52+00:00</dc:date>
     </item>
-    <dc:date>2021-02-15T12:08:48.535783+09:00</dc:date>
+    <dc:date>2021-02-16T12:08:48.584859+09:00</dc:date>
   </channel>
 </rss>

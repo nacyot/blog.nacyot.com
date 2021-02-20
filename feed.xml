@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Fri, 19 Feb 2021 12:08:54 +0900</pubDate>
+    <pubDate>Sat, 20 Feb 2021 12:08:58 +0900</pubDate>
+    <item>
+      <title>iTerm2란? 맥OS의 터미널 대체 애플리케이션</title>
+      <link>https://www.44bits.io/ko/keyword/iterm2</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;iTerm2는 맥OS에서 공식 터미널 애플리케이션 대신 사용할 수 있는 가상 터미널 애플리케이션입니다. 화면 분할, 핫키 윈도우, 검색 및 하이라이트, 카피 모드, 붙여넣기 히스토리, 인스턴스 리플레이 등의 기능을 제공하고 있으며, 터미널보다 기능이 많아서 맥OS 사용자들의 사랑을 받고 있습니다. 최신 버전은 2020년 11월에 릴리스된 3.4 버전입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/iterm2&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Fri, 19 Feb 2021 17:57:35 +0000</pubDate>
+      <dc:date>2021-02-19T17:57:35+00:00</dc:date>
+    </item>
     <item>
       <title>GPG(GNU PG)를 이용해 git 커밋에 서명하는 방법</title>
       <link>https://www.44bits.io/ko/post/add-signing-key-to-git-commit-by-gpg</link>
@@ -444,21 +459,6 @@
       <pubDate>Sat, 29 Aug 2020 14:26:17 +0000</pubDate>
       <dc:date>2020-08-29T14:26:17+00:00</dc:date>
     </item>
-    <item>
-      <title>테라폼(Terraform)이란?</title>
-      <link>https://www.44bits.io/ko/keyword/terraform</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;테라폼(Terraform)은 하시코프(Hashicorp)에서 오픈소스로 개발중인 클라우드 인프라스트럭쳐 자동화 중의 하나로 Infrastructure as code를 구현한 애플리케이션입니다. 아마존 웹 서비스, 구글 클라우드 플랫폼, 마이크로소프트 애저와 같은 메이저 클라우드를 비롯해 VPS 서비스나 모니터링 서비스 등 다양한 서비스들을 코드로 관리할 수 있도록 도와줍니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/terraform&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sat, 29 Aug 2020 03:46:52 +0000</pubDate>
-      <dc:date>2020-08-29T03:46:52+00:00</dc:date>
-    </item>
-    <dc:date>2021-02-19T12:08:54.233651+09:00</dc:date>
+    <dc:date>2021-02-20T12:08:58.619407+09:00</dc:date>
   </channel>
 </rss>

@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 20 Feb 2021 12:08:58 +0900</pubDate>
+    <pubDate>Sun, 21 Feb 2021 12:08:52 +0900</pubDate>
+    <item>
+      <title>Apple M1 지원 도커 데스크탑(Docker Desktop) 업데이트 - 이제 쿠버네티스(Kubernetes) 실행 가능</title>
+      <link>https://www.44bits.io/ko/post/news--docker-desktop-preview-for-apple-m1-can-run-kubernetes</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;도커 데스크탑(Docker Desktop)은 윈도우나 맥에서 도커를 사용할 수 있게 도와주는 올인원 도구입니다. 2020년 말 애플에서 Arm 기반 M1 칩을 발표하면서 현재 도커 사에서는 M1 칩을 지원하는 도커 데스크탑을 개발중에 있습니다. 2월 17일 릴리스된 프리뷰 버전에서는 이제 쿠버네티스를 실행할 수 있게되었습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--docker-desktop-preview-for-apple-m1-can-run-kubernetes&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sat, 20 Feb 2021 10:46:29 +0000</pubDate>
+      <dc:date>2021-02-20T10:46:29+00:00</dc:date>
+    </item>
+    <item>
+      <title>AWS 도쿄 리전(ap-northeast-1) 장애 발생, 특정 AZ 일부 구역의 온도 상승이 원인</title>
+      <link>https://www.44bits.io/ko/post/news--2021-02-20-aws-ap-northeast-1-outage</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2021년 2월 19일 오후 11시부터 20일 새벽까지 AWS 도쿄 리전에서 대규모 장애가 발생했습니다. AWS Status에 따르면 한국 시간 기준 20일 0시 9분부터 apne1-az1의 일부 EC2 인스턴스와 EBS 볼륨이 정상 동작하지 않은 것으로 보입니다. 5시 30분 경에는 대부분의 장애가 복구된 것으로 보이며, 12시 현재는 정상 상태로 표시되고 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--2021-02-20-aws-ap-northeast-1-outage&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sat, 20 Feb 2021 05:36:44 +0000</pubDate>
+      <dc:date>2021-02-20T05:36:44+00:00</dc:date>
+    </item>
     <item>
       <title>iTerm2란? 맥OS의 터미널 대체 애플리케이션</title>
       <link>https://www.44bits.io/ko/keyword/iterm2</link>
@@ -429,36 +459,6 @@
       <pubDate>Thu, 03 Sep 2020 05:01:52 +0000</pubDate>
       <dc:date>2020-09-03T05:01:52+00:00</dc:date>
     </item>
-    <item>
-      <title>베어(Bear): 최고의 마크다운 노트 애플리케이션</title>
-      <link>https://www.44bits.io/ko/post/bear-best-note-app</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;베어(Bear)는 샤이니 프로그(Shiny Frog)에서 개발한 맥OS와 iOS용 노트/글쓰기 애플리케이션입니다. 베어는 미려한 디자인을 자랑하는 마크다운 에디터입니다. 에디터에서 마크다운 문법을 해석해 텍스트를 서식처럼 다룰 수 있으며, 해시태그와 내부링크 기능을 통해 문서들을 조직할 수 있게 도와줍니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/bear-best-note-app&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Thu, 03 Sep 2020 04:52:42 +0000</pubDate>
-      <dc:date>2020-09-03T04:52:42+00:00</dc:date>
-    </item>
-    <item>
-      <title>루비 온 레일스(Ruby on Rails)에서 데이터베이스 Advisory Locks 비활성화하기</title>
-      <link>https://www.44bits.io/ko/post/ruby-on-rails-disable-postgresql-advisory-locks</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;루비 온 레일스(Ruby on Rails)에서는 마이그레이션 작업을 실행할 때, 중복 실행을 방지하기 위해 데이터베이스의 Advisory Locks를 사용합니다. 커넥션 풀링을 위해 PgBouncer를 트랜젝션 모드로 사용하는 경우 Advisory Locks가 발생해 마이그레이션이 불가능한 문제가 발생할 수 있습니다. 이 글에서는 이 문제를 해결할 수 있도록 레일스 설정에서 Advisory Locks 기능을 비활성화하는 방법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/ruby-on-rails-disable-postgresql-advisory-locks&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sat, 29 Aug 2020 14:26:17 +0000</pubDate>
-      <dc:date>2020-08-29T14:26:17+00:00</dc:date>
-    </item>
-    <dc:date>2021-02-20T12:08:58.619407+09:00</dc:date>
+    <dc:date>2021-02-21T12:08:52.240344+09:00</dc:date>
   </channel>
 </rss>

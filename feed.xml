@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 21 Feb 2021 12:08:52 +0900</pubDate>
+    <pubDate>Mon, 22 Feb 2021 12:08:52 +0900</pubDate>
+    <item>
+      <title>하시코프(HashiCorp)란? 모던 인프라스트럭처 툴 개발</title>
+      <link>https://www.44bits.io/ko/keyword/hashicorp</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;하시코프(HashiCorp)는 2012년 미셸 하시모토(Mitchell Hashimoto)와 아몬 데드거(Armon Dadgar)가 창업한 기업으로, 오픈소스로 인프라스트럭처와 관련돈 도구를 개발하고 이를 서비스로 제공하고 있습니다. 하시코프의 대표적인 제품으로는 테라폼(Terraform), 패커(Packer), 베이그런트(Vagrant), 볼트(Vault), 바운더리(Boundary), 컨설(Consul), 노마드(Nomad), 웨이포인트(Waypoint) 등이 있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/hashicorp&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sun, 21 Feb 2021 13:49:58 +0000</pubDate>
+      <dc:date>2021-02-21T13:49:58+00:00</dc:date>
+    </item>
     <item>
       <title>Apple M1 지원 도커 데스크탑(Docker Desktop) 업데이트 - 이제 쿠버네티스(Kubernetes) 실행 가능</title>
       <link>https://www.44bits.io/ko/post/news--docker-desktop-preview-for-apple-m1-can-run-kubernetes</link>
@@ -444,21 +459,6 @@
       <pubDate>Fri, 04 Sep 2020 01:08:38 +0000</pubDate>
       <dc:date>2020-09-04T01:08:38+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS, 컨테이너 전용 리눅스 OS 보틀로켓(BottleRocket) 1.0 릴리스</title>
-      <link>https://www.44bits.io/ko/post/news--aws-release-bottlerocket-os-for-container</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;AWS에서는 오픈소스로 개발중인 컨테이너 전용 리눅스 배포판 보틀로켓(BottleRocket) 1.0을 정식 릴리스하였습니다. 보틀로켓은 컨테이너에 최적화된 OS로 컨테이너 실행을 위한 최소한의 소프트웨어만을 포함하며 보안과 확장성에 집중하고 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-release-bottlerocket-os-for-container&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Thu, 03 Sep 2020 05:01:52 +0000</pubDate>
-      <dc:date>2020-09-03T05:01:52+00:00</dc:date>
-    </item>
-    <dc:date>2021-02-21T12:08:52.240344+09:00</dc:date>
+    <dc:date>2021-02-22T12:08:52.964787+09:00</dc:date>
   </channel>
 </rss>

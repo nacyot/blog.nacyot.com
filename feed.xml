@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 02 Mar 2021 12:08:55 +0900</pubDate>
+    <pubDate>Wed, 03 Mar 2021 12:08:51 +0900</pubDate>
+    <item>
+      <title>AWS, 오사카 리전(ap-northeast-3) 정식 공개</title>
+      <link>https://www.44bits.io/ko/post/news--aws-osaka-region-public-open</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;AWS에서는 2021년 3월 2일 오사카 리전(ap-northeast-3)을 정식 오픈하였습니다. 오사카 리전은 2018년부터 제한적으로 일부 고객에게만 서비스되던 로컬 리전으로 AZ를 3개로 확장하면서 일반 리전으로 공개하였습니다. 도쿄, 홍콩, 뭄바이, 서울, 싱가폴, 시드니, 베이징, 닝샤에 이어 아시아 9번째 리전이며, 리전 코드는 ap-northeast-3입니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--aws-osaka-region-public-open&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Tue, 02 Mar 2021 14:40:08 +0000</pubDate>
+      <dc:date>2021-03-02T14:40:08+00:00</dc:date>
+    </item>
+    <item>
+      <title>노션(Notion)이란? 올인원 업무용 협업 도구</title>
+      <link>https://www.44bits.io/ko/keyword/notion</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;노션(Notion)은 노션(Notion Labs)에서 개발하고 서비스하는 노트, 업무, 할 일 관리, 데이터베이스 등의 기능을 지원하는 온라인 올인원 협업 도구입니다. 노션 랩은 2016년 이반 자오와 시몬 라스트 등이 함께 설립하였으며, 2020년 4월 현재 2조 이상의 기업 가치를 평가 받으며 약 550억원의 투자를 유치하였습니다. 투자 시점에 사용자는 400만명 이상으로 알려져있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/notion&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Tue, 02 Mar 2021 13:58:04 +0000</pubDate>
+      <dc:date>2021-03-02T13:58:04+00:00</dc:date>
+    </item>
     <item>
       <title>하시코프(HashiCorp)란? 모던 인프라스트럭처 툴 개발</title>
       <link>https://www.44bits.io/ko/keyword/hashicorp</link>
@@ -145,7 +175,7 @@
       <dc:date>2021-02-12T11:45:36+00:00</dc:date>
     </item>
     <item>
-      <title>입문자를 위한 리눅스/맥 커맨드라인 셸 사용법</title>
+      <title>커맨드라인 사용법: 따라하며 배우는 리눅스 명령어와 관습들</title>
       <link>https://www.44bits.io/ko/post/linux-and-mac-command-line-survival-guide-for-beginner</link>
       <description>&lt;div&gt;
 &lt;strong&gt;프로그래밍이나 서버에 대해서 공부하다 보면 필연적으로 커맨드라인 인터페이스도 함께 입문하게 됩니다. 커맨드라인 인터페이스는 아주 강력하지만, 다양한 관습들과 전제들이 존재하고 있어서 입문자들에게는 쉽지 않은 것이 현실입니다. 이 글에서는 바로 이러한 커맨드라인 인터페이스와 셸의 기초와 관습들에 대해서 소개하고자 합니다. 부디 커맨드라인 입문길이 즐거운 여정이 되기를 기원합니다.&lt;/strong&gt;
@@ -429,36 +459,6 @@
       <pubDate>Fri, 04 Sep 2020 16:10:08 +0000</pubDate>
       <dc:date>2020-09-04T16:10:08+00:00</dc:date>
     </item>
-    <item>
-      <title>깃허브 컨테이너 레지스트리(GitHub Container Registry) 베타 오픈 및 사용법</title>
-      <link>https://www.44bits.io/ko/post/news--github-container-registry-beta-release</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;깃허브(GitHub)에서는 9월 1일 새로운 컨테이너 이미지 저장소 깃허브 컨테이너 레지스트리(GitHub Container Registry)를 발표하였습니다. 깃허브에서는 이미 깃허브 패키지 레지스트리 서비스를 통해 도커 이미지 저장소를 제공해왔습니디만 이는 깃허브 저장소에 종속된 서비스였습니다. 이와 달리 컨테이너 레지스트리의 경우 계정이나 조직 단위로 이미지를 푸시하고 관리할 수 있습니다. 이 글에서는 컨테이너 레지스트리의 공개 베타 소식과 함께 기본적인 사용법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--github-container-registry-beta-release&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Fri, 04 Sep 2020 12:29:11 +0000</pubDate>
-      <dc:date>2020-09-04T12:29:11+00:00</dc:date>
-    </item>
-    <item>
-      <title>도커 허브(Docker Hub), 미사용 이미지 보존 기간 6개월로 제한</title>
-      <link>https://www.44bits.io/ko/post/news--docker-hub-image-retention-limit</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;도커 허브에서는 미사용 이미지 보존 기간 정책이 추가된 이용약관 개정을 발표하고, 11월 1일부터 이미지 삭제가 될 수 있다고 발표했습니다. 새로운 이미지 보존 기간 정책에 따르며 무료 계정에서 관리중인 6개월 간 한 번도 Push나 Pull이 없었던 이미지를 삭제될 예정입니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--docker-hub-image-retention-limit&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Fri, 04 Sep 2020 01:08:38 +0000</pubDate>
-      <dc:date>2020-09-04T01:08:38+00:00</dc:date>
-    </item>
-    <dc:date>2021-03-02T12:08:55.907088+09:00</dc:date>
+    <dc:date>2021-03-03T12:08:51.534169+09:00</dc:date>
   </channel>
 </rss>

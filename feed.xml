@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 04 Mar 2021 12:08:54 +0900</pubDate>
+    <pubDate>Fri, 05 Mar 2021 12:08:53 +0900</pubDate>
+    <item>
+      <title>ruby-install이란? 루비 설치 유틸리티</title>
+      <link>https://www.44bits.io/ko/keyword/ruby-install</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;ruby-install은 맥OS(macOS)와 리눅스(Linux)에서 프로그래밍 언어 Ruby의 다양한 배포판을 손쉽게 설치할 수 있도록 도와주는 도구입니다. Ruby, JRuby, Rubinius, TruffleRuby, mruby 등의 배포판을 지원하고 있으며, 원하는 버전을 원하는 위치에 설치할 수 있습니다. direnv, rbenv, RVM와 같은 도구와 함게 사용하느 것도 가능합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/ruby-install&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Thu, 04 Mar 2021 22:45:24 +0000</pubDate>
+      <dc:date>2021-03-04T22:45:24+00:00</dc:date>
+    </item>
     <item>
       <title>AWS, 오사카 리전(ap-northeast-3) 정식 공개</title>
       <link>https://www.44bits.io/ko/post/news--aws-osaka-region-public-open</link>
@@ -444,21 +459,6 @@
       <pubDate>Sun, 13 Sep 2020 10:20:38 +0000</pubDate>
       <dc:date>2020-09-13T10:20:38+00:00</dc:date>
     </item>
-    <item>
-      <title>nslookup이란? DNS 레코드 조회 도구</title>
-      <link>https://www.44bits.io/ko/keyword/cli--nslookup</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;nslookup은 리눅스, 맥OS, 윈도우 등에서 사용할 수 있는 커맨드라인 명령어 중 하나로 DNS 레코드를 조회할 때 사용합니다. nslookup은 Internet Systems Consortium이 개발하고 있는 BIND에 포함되어있습니다. dig와 host 명령어로 대체할 수 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/cli--nslookup&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Fri, 04 Sep 2020 16:10:08 +0000</pubDate>
-      <dc:date>2020-09-04T16:10:08+00:00</dc:date>
-    </item>
-    <dc:date>2021-03-04T12:08:54.706414+09:00</dc:date>
+    <dc:date>2021-03-05T12:08:53.522633+09:00</dc:date>
   </channel>
 </rss>

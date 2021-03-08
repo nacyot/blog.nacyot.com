@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 07 Mar 2021 12:08:34 +0900</pubDate>
+    <pubDate>Mon, 08 Mar 2021 12:08:52 +0900</pubDate>
+    <item>
+      <title>로케일(Locale)이란? 국가 및 언어 설정</title>
+      <link>https://www.44bits.io/ko/keyword/locale</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;로케일(Locale)은 사용자 인터페이스에서 사용되는 언어, 지역 설정, 출력 형식 등을 정의하는 문자열입니다. 유닉스, 리눅스, 맥OS 등 POSIX (호환) 시스템에서는 언어, 국가, 인코딩 방법의 조합으로된 문자열을 사용합니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/keyword/locale&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sun, 07 Mar 2021 10:48:25 +0000</pubDate>
+      <dc:date>2021-03-07T10:48:25+00:00</dc:date>
+    </item>
     <item>
       <title>ruby-install이란? 루비 설치 유틸리티</title>
       <link>https://www.44bits.io/ko/keyword/ruby-install</link>
@@ -444,21 +459,6 @@
       <pubDate>Thu, 17 Sep 2020 13:10:24 +0000</pubDate>
       <dc:date>2020-09-17T13:10:24+00:00</dc:date>
     </item>
-    <item>
-      <title>[서비큐라 개발로그] EKS 로그 Cloudwatch에 저장하기</title>
-      <link>https://www.youtube.com/watch?v=pSwpTxLHgv0</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;EKS에 생성된 Pod의 로그를 Cloudwatch에 저장해봅시다. 테라폼으로 IRSA 셋업 방법, CloudWatch 접근 권한 설정, fluentd 설정을 다룹니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.youtube.com/watch?v=pSwpTxLHgv0&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Sun, 13 Sep 2020 10:20:38 +0000</pubDate>
-      <dc:date>2020-09-13T10:20:38+00:00</dc:date>
-    </item>
-    <dc:date>2021-03-07T12:08:34.85761+09:00</dc:date>
+    <dc:date>2021-03-08T12:08:52.144894+09:00</dc:date>
   </channel>
 </rss>

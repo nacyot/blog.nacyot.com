@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Tue, 30 Mar 2021 12:08:47 +0900</pubDate>
+    <pubDate>Wed, 31 Mar 2021 12:08:40 +0900</pubDate>
     <item>
       <title>로케일(Locale)이란? 국가 및 언어 설정</title>
       <link>https://www.44bits.io/ko/keyword/locale</link>
@@ -459,6 +459,6 @@
       <pubDate>Thu, 17 Sep 2020 13:10:24 +0000</pubDate>
       <dc:date>2020-09-17T13:10:24+00:00</dc:date>
     </item>
-    <dc:date>2021-03-30T12:08:47.651463+09:00</dc:date>
+    <dc:date>2021-03-31T12:08:40.470292+09:00</dc:date>
   </channel>
 </rss>

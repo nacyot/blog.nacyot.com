@@ -8,7 +8,37 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sat, 17 Apr 2021 12:09:06 +0900</pubDate>
+    <pubDate>Sun, 18 Apr 2021 12:08:56 +0900</pubDate>
+    <item>
+      <title>비바리퍼블리카, 개발자 컨퍼런스 Slash 21 사전 예약중</title>
+      <link>https://www.44bits.io/ko/post/news-viva-republica-announce-developer-conference-slash-21</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;토스 서비스의 개발사 비바리퍼블리카에서는 개발자 컨퍼런스 Slash 21 컨퍼런스 사이트를 오픈하고, 사전 예약 신청을 받고 있습니다. 이번 컨퍼런스는 4월 28일부터 30일까지 3일 동안 열리며, SRE, 모니터링, 테스트, 프론트엔드, 자바스크립트(JavaScript), 데이터베이스, 슬랙봇 등을 주제로 3일간 총 19개 세션이 예정되어있습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news-viva-republica-announce-developer-conference-slash-21&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sat, 17 Apr 2021 09:17:35 +0000</pubDate>
+      <dc:date>2021-04-17T09:17:35+00:00</dc:date>
+    </item>
+    <item>
+      <title>테라폼(Terraform) 0.15 릴리스</title>
+      <link>https://www.44bits.io/ko/post/news--terraform-0-15-ga-release</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;지난 4월 14일 하시코프(Hashicorp)에서는 Infrastructure as Code를 구현하는 오픈소스 도구 테라폼(Terraform)의 0.15 버전을 정식 릴리스하였습니다. 테라폼 0.15는 1.0를 준비하는 버전으로 안정성 및 호환성을 중심에 두고 개선이 이루어졌습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--terraform-0-15-ga-release&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Sat, 17 Apr 2021 05:59:00 +0000</pubDate>
+      <dc:date>2021-04-17T05:59:00+00:00</dc:date>
+    </item>
     <item>
       <title>로케일(Locale)이란? 국가 및 언어 설정</title>
       <link>https://www.44bits.io/ko/keyword/locale</link>
@@ -429,36 +459,6 @@
       <pubDate>Thu, 01 Oct 2020 22:26:14 +0000</pubDate>
       <dc:date>2020-10-01T22:26:14+00:00</dc:date>
     </item>
-    <item>
-      <title>쿠버네티스에서 아마존 EFS 사용하기: efs-provisioner</title>
-      <link>https://www.44bits.io/ko/post/amazon-efs-on-kubernetes-by-using-efs-provisioner</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;아마존 EFS(Amazon EFS)는 AWS에서 제공하는 매니지드 NFS 서버로 여러 서버에서 동시에 같은 파일을 공유할 때 편리하게 사용할 수 있습니다. 이 글에서는 쿠버네티스(Kubernetes)에서 EFS를 사용할 수 있도록 해주는 efs-provisioner의 사용법을 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/amazon-efs-on-kubernetes-by-using-efs-provisioner&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Thu, 01 Oct 2020 15:00:11 +0000</pubDate>
-      <dc:date>2020-10-01T15:00:11+00:00</dc:date>
-    </item>
-    <item>
-      <title>[서비큐라 개발로그] k8s 필수 애플리케이션, 테라폼으로 한번에 설치하기</title>
-      <link>https://www.youtube.com/watch?v=mzdFK8re_ig</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;Terraform의 kubernetes, helm 프로바이더에 대해 알아봅니다. Terraform으로 EKS클러스터를 만들고 필수 애플리케이션을 별도 kubectl, helm 명령어 없이 설치합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 44bits이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.youtube.com/watch?v=mzdFK8re_ig&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>44bits</author>
-      <pubDate>Thu, 17 Sep 2020 13:10:24 +0000</pubDate>
-      <dc:date>2020-09-17T13:10:24+00:00</dc:date>
-    </item>
-    <dc:date>2021-04-17T12:09:06.654252+09:00</dc:date>
+    <dc:date>2021-04-18T12:08:56.486676+09:00</dc:date>
   </channel>
 </rss>

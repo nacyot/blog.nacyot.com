@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 18 Apr 2021 12:08:56 +0900</pubDate>
+    <pubDate>Mon, 19 Apr 2021 12:08:34 +0900</pubDate>
+    <item>
+      <title>IDaaS 서비스 옥타(Okta), Okta Starter Developer Edition 공개</title>
+      <link>https://www.44bits.io/ko/post/news--okta-announced-new-okta-starter-developer-edition</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;IDaaS 서비스 옥타(Okta)에서는 Oktane 21 Virtual 컨퍼런스에서 MAU 15,000명까지 무료로로 인증 기능을 임베딩해서 사용할 수 있는 Okta Starter Developer Edition을 공개했습니다. Okta Developer 서비스를 사용하면 인증 기능을 앱에 임베딩할 수 있으며, Okta 서비스의 적응형 MFA, API 액세스 관리, 라이프 사이클 관리, B2B 통합 등의 기능을 사용할 수 잇습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--okta-announced-new-okta-starter-developer-edition&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>Daegwon Nacyot Kim</author>
+      <pubDate>Mon, 19 Apr 2021 01:48:04 +0000</pubDate>
+      <dc:date>2021-04-19T01:48:04+00:00</dc:date>
+    </item>
     <item>
       <title>비바리퍼블리카, 개발자 컨퍼런스 Slash 21 사전 예약중</title>
       <link>https://www.44bits.io/ko/post/news-viva-republica-announce-developer-conference-slash-21</link>
@@ -444,21 +459,6 @@
       <pubDate>Sun, 11 Oct 2020 22:39:03 +0000</pubDate>
       <dc:date>2020-10-11T22:39:03+00:00</dc:date>
     </item>
-    <item>
-      <title>AWS CLI 팁: 페이저 없이 실행 결과 출력하기</title>
-      <link>https://www.44bits.io/ko/post/aws-cli-result-without-pager</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;지난 2월 AWS CLI v2가 정식 공개되었습니다. 기존 AWS CLI 사용법과 크게 달라진 부분은 없습니다만, 미묘하게 달라진 것 중에 하나가 출력 결과를 볼 때 기본적으로 less를 사용한다는 점입니다. 이런 프로그램을 페이저(pager)라고 하는데, 이 글에서는 출력 결과를 볼 때 페이저를 사용하지 않는 방법에 대해서 소개합니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/aws-cli-result-without-pager&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Thu, 01 Oct 2020 22:26:14 +0000</pubDate>
-      <dc:date>2020-10-01T22:26:14+00:00</dc:date>
-    </item>
-    <dc:date>2021-04-18T12:08:56.486676+09:00</dc:date>
+    <dc:date>2021-04-19T12:08:34.59733+09:00</dc:date>
   </channel>
 </rss>

@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 30 Dec 2021 12:08:56 +0900</pubDate>
+    <pubDate>Fri, 31 Dec 2021 12:09:00 +0900</pubDate>
+    <item>
+      <title>Django 4.0 릴리스와 주요 변경 사항</title>
+      <link>https://www.44bits.io/ko/post/django-4-0-release-note-summary</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2021년 12월 7일에 Django 4.0가 출시되었습니다. 이 글에서는 Django 4.0에 추가된 기능과 바뀐 점을 알아보려 합니다. 릴리스 노트만으로 이해하기가 어려운 기능엔 설명을 조금 보태었습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/django-4-0-release-note-summary&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>raccoony</author>
+      <pubDate>Fri, 31 Dec 2021 02:55:09 +0000</pubDate>
+      <dc:date>2021-12-31T02:55:09+00:00</dc:date>
+    </item>
     <item>
       <title>Django 3.2 릴리스와 주요 변경 사항</title>
       <link>https://www.44bits.io/ko/post/django-3-2-release-note-summary</link>
@@ -444,21 +459,6 @@
       <pubDate>Mon, 11 Jan 2021 01:45:03 +0000</pubDate>
       <dc:date>2021-01-11T01:45:03+00:00</dc:date>
     </item>
-    <item>
-      <title>CNCF, 키밸류 스토어 etcd 프로젝트의 졸업을 발표</title>
-      <link>https://www.44bits.io/ko/post/news--cncf-announces-etcd-graduation</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;지난 11월 24일 CNCF에서는 분산 키밸류 스토어 etcd 프로젝트의 졸업을 발표했습니다. etcd 프로젝트는 2013년 코어DNS(CoreDNS)에서 오픈소스 프로젝트로 시작하였고, 2018년 12월 CNCF에 인큐베이팅 단계의 프로젝트로 합류하였습니다. 현재는 쿠버네티스(Kubernetes)와 오픈스택(OpenStack)을 비롯한 다양한 곳에서 활용되고 있습니다.&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 Daegwon Nacyot Kim이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/news--cncf-announces-etcd-graduation&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>Daegwon Nacyot Kim</author>
-      <pubDate>Sun, 29 Nov 2020 03:33:46 +0000</pubDate>
-      <dc:date>2020-11-29T03:33:46+00:00</dc:date>
-    </item>
-    <dc:date>2021-12-30T12:08:56.261433+09:00</dc:date>
+    <dc:date>2021-12-31T12:09:00.928477+09:00</dc:date>
   </channel>
 </rss>

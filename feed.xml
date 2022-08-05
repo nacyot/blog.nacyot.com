@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Thu, 04 Aug 2022 12:08:53 +0900</pubDate>
+    <pubDate>Fri, 05 Aug 2022 12:08:53 +0900</pubDate>
     <item>
       <title>도커 컨테이너 5분 만에 무료로 배포하기(feat. fly.io)</title>
       <link>https://www.44bits.io/ko/post/docker-container-deploy-in-5-minitues-with-fly-io</link>
@@ -459,6 +459,6 @@
       <pubDate>Thu, 14 Jan 2021 01:25:49 +0000</pubDate>
       <dc:date>2021-01-14T01:25:49+00:00</dc:date>
     </item>
-    <dc:date>2022-08-04T12:08:53.337904+09:00</dc:date>
+    <dc:date>2022-08-05T12:08:53.763688+09:00</dc:date>
   </channel>
 </rss>

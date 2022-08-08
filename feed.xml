@@ -8,7 +8,22 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Sun, 07 Aug 2022 12:08:50 +0900</pubDate>
+    <pubDate>Mon, 08 Aug 2022 12:08:55 +0900</pubDate>
+    <item>
+      <title>Django 4.1 릴리스와 주요 변경 사항</title>
+      <link>https://www.44bits.io/ko/post/django-4-1-release-note-summary</link>
+      <description>&lt;div&gt;
+&lt;strong&gt;2022년 8월 3일에 Django 4.1이 출시되었습니다. 이 글에서는 Django 4.1에 추가된 기능과 바뀐 점을 알아보려 합니다. 릴리스 노트만으로 이해하기가 어려운 기능엔 설명을 조금 보태었습니다.&lt;/strong&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+
+이 글은 raccoony이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/django-4-1-release-note-summary&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
+&lt;/div&gt;
+</description>
+      <author>raccoony</author>
+      <pubDate>Mon, 08 Aug 2022 00:59:42 +0000</pubDate>
+      <dc:date>2022-08-08T00:59:42+00:00</dc:date>
+    </item>
     <item>
       <title>도커 컨테이너 5분 만에 무료로 배포하기(feat. fly.io)</title>
       <link>https://www.44bits.io/ko/post/docker-container-deploy-in-5-minitues-with-fly-io</link>
@@ -444,21 +459,6 @@
       <pubDate>Fri, 15 Jan 2021 00:41:08 +0000</pubDate>
       <dc:date>2021-01-15T00:41:08+00:00</dc:date>
     </item>
-    <item>
-      <title>개발자를 위한 애플 실리콘 M1 맥 세팅</title>
-      <link>https://www.44bits.io/ko/post/setup-apple-silicon-m1-for-developers</link>
-      <description>&lt;div&gt;
-&lt;strong&gt;Apple에서는 얼마 전 ARM 기반의 애플 실리콘 M1 맥 라인업을 공개하였습니다. M1 맥북에 개발환경을 구성해본 경험을 공유합니다. iTerm2, oh-my-zsh- Homebrew, Docker 등&lt;/strong&gt;
-&lt;/div&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-이 글은 seapy이 &lt;a href=&quot;https://44bits.io/ko&quot;&gt;44BITS 기술 블로그&lt;/a&gt;에 기고한 글입니다. 전문은 &lt;a href=&quot;https://www.44bits.io/ko/post/setup-apple-silicon-m1-for-developers&quot;&gt;여기&lt;/a&gt;에서 읽을 수 있습니다. 전문을 구독하려면 &lt;a href=&quot;https://www.44bits.io/ko/feed/all&quot;&gt;44bits.io의 RSS&lt;/a&gt;를 구독해주세요.
-&lt;/div&gt;
-</description>
-      <author>seapy</author>
-      <pubDate>Thu, 14 Jan 2021 01:25:49 +0000</pubDate>
-      <dc:date>2021-01-14T01:25:49+00:00</dc:date>
-    </item>
-    <dc:date>2022-08-07T12:08:50.70134+09:00</dc:date>
+    <dc:date>2022-08-08T12:08:55.20233+09:00</dc:date>
   </channel>
 </rss>

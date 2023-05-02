@@ -8,7 +8,7 @@
     <title>Nacyot의 프로그래밍 이야기</title>
     <link>http://blog.nacyot.com/</link>
     <description>Nacyot의 프로그래밍 이야기</description>
-    <pubDate>Mon, 01 May 2023 12:09:02 +0900</pubDate>
+    <pubDate>Tue, 02 May 2023 12:08:54 +0900</pubDate>
     <item>
       <title>Django 4.1 릴리스와 주요 변경 사항</title>
       <link>https://www.44bits.io/ko/post/django-4-1-release-note-summary</link>
@@ -459,6 +459,6 @@
       <pubDate>Fri, 15 Jan 2021 00:41:08 +0000</pubDate>
       <dc:date>2021-01-15T00:41:08+00:00</dc:date>
     </item>
-    <dc:date>2023-05-01T12:09:02.47996+09:00</dc:date>
+    <dc:date>2023-05-02T12:08:54.508952+09:00</dc:date>
   </channel>
 </rss>
